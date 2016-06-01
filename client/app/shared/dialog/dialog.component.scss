@@ -1,0 +1,32 @@
+@import "../../../styles/variables";
+@import "../../../styles/panel";
+
+[role="dialogContainer"] {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(black, 0.4);
+  display: none;
+  &.open {
+    display: block;
+  }
+}
+aside {
+  @include panel;
+  position: relative;
+  top: 5rem;
+  width: 30rem;
+  margin: 0 auto;
+  background: white;
+  z-index: 2;
+  box-shadow: 0 0 100px $primaryDark inset, 4px 4px 14px rgba(black, 0.6);
+  @media (max-width: 30rem) {
+    width: 100%;
+  }
+  div {
+    @include innerPanel;
+  }
+}

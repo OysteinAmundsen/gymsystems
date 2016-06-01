@@ -1,0 +1,25 @@
+@import "../../../styles/variables";
+
+section {
+  display: table-cell;
+  width: 50%;
+  position: relative;
+  vertical-align: top;
+  textarea {
+    width: 100%;
+    min-height: 10rem;
+  }
+  macro-dialog {
+    position: absolute;
+    right: $padding;
+  }
+  button {
+    margin-left: auto;
+    margin-right: 0;
+    display: block;
+  }
+  @media (max-width: $stop1) {
+    display: block;
+    width: 100%;
+  }
+}

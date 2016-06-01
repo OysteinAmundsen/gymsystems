@@ -1,0 +1,33 @@
+@import "../../styles/variables";
+
+:host {
+  margin-top: 1rem;
+  display: block;
+}
+section {
+  display: table-cell;
+  width: 50%;
+  background: lighten(black, 5%);
+  padding: 0.2rem 0.2rem 35% 0.2rem;
+  position: relative;
+  border-radius: 0.5rem;
+  color: white;
+  box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.3) inset, 20px 20px 96px 20px rgba(255,255,255,0.15) inset;
+  overflow: hidden;
+  font-size: 2.3rem;
+  @media (max-width: $stop0) {
+    font-size: 3.6vw;
+  }
+  div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: ($padding * 2);
+    header {
+      text-align: center;
+      font-size: 120%;
+    }
+  }
+}

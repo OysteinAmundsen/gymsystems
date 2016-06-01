@@ -1,0 +1,24 @@
+@import "variables";
+
+button {
+  $timer: 0.1s;
+  padding: $rounded * 2;
+  background: $primary;
+  border: 1px solid $primaryDark;
+  color: white;
+  border-radius: $rounded;
+  box-shadow: 0 1px 3px rgba(white, 0.9) inset, 0 0 5px rgba(black, 0.3);
+  text-shadow: 1px 1px 3px rgba(black, 0.5);
+  transition: padding $timer, box-shadow $timer, text-shadow $timer;
+  cursor: pointer;
+  &:active {
+    box-shadow: 0 2px 10px -2px rgba(black, 0.5) inset;
+    text-shadow: 1px 1px 1px rgba(black, 0.5);
+    padding: ($rounded*2 + 1px) $rounded*2 ($rounded*2 - 1) $rounded*2;
+  }
+
+  &[type="submit"] {
+    background: $accent;
+    border: 1px solid $accentDark;
+  }
+}

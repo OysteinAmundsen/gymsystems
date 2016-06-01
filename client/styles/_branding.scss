@@ -1,0 +1,30 @@
+@import "variables";
+
+.appLogo {
+  font-weight: bold;
+  font-family: 'Economica', sans-serif;
+  display: inline-block;
+  span {
+    display: inline-block;
+    &:first-of-type {
+      color: rgba(black, 0.7);
+      font-size: 1.4rem;
+      transform: translate(0, -11px);
+    }
+    &:last-of-type {
+      color: $accent;
+      transform: translate(-1rem, 0.1rem);
+      font-size: 1rem;
+    }
+  }
+}
+
+nav .appLogo {
+  text-shadow: 1px 1px 3px rgba(black,0.6);
+  transform: translate(0.7rem, 0) rotateZ(-10deg) scale(1.4);
+  span {
+    &:first-of-type {
+      color: white;
+    }
+  }
+}
