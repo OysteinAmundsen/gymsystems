@@ -5,7 +5,7 @@
   "angular-cli": {},
   "private": true,
   "scripts": {
-    "postinstall": "node ./node_modules/bower/bin/bower install && typings install",
+    "postinstall": "bower install && typings install",
     "start": "ng server",
     "server": "node ./server",
     "lint": "tslint \"client/**/*.ts\"",
