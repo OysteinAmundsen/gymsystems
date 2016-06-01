@@ -1,0 +1,27 @@
+@import "variables";
+
+@mixin panel {
+  padding: ($padding / 2) 0 $padding 0;
+  border: 1px solid $primaryDark;
+  box-shadow: 0 0 100px $primaryDark inset;
+  border-radius: $rounded;
+  overflow: hidden;
+  background: $primaryLight;
+  width: 100%;
+  > footer {
+    clear: both;
+    text-align: right;
+    padding: $margin $margin $margin $margin;
+    margin: $negPad 0 $negPad $negPad;
+    @media (max-width: $stop1) {
+      padding-top: 2px;
+    }
+  }
+}
+@mixin innerPanel {
+  background: white;
+  margin: $margin;
+  padding: $padding * 2;
+  border-radius: $rounded;
+  border: 1px solid rgba(black, 0.4);
+}

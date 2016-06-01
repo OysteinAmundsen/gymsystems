@@ -1,0 +1,13 @@
+@import "../../../../styles/variables";
+
+ul {
+  li {
+    width: 100%;
+    display: block;
+    padding: $padding;
+    cursor: pointer;
+    &:hover {
+      background: $primaryLight;
+    }
+  }
+}
