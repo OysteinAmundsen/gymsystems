@@ -11,7 +11,7 @@ module.exports = function(defaults) {
     destDir: '/fonts'
   });
 
-  var imagesTree = pickFiles('./src/images', {
+  var imagesTree = pickFiles('./client/images', {
     srcDir: '/',
     files: ['*'],
     destDir: '/images'

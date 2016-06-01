@@ -1,10 +1,10 @@
 {
   "project": {
     "version": "1.0.0-beta.1",
-    "name": "gymsystems2"
+    "name": "gymsystems"
   },
   "apps": [
-    {"main": "src/main.ts", "tsconfig": "src/tsconfig.json"}
+    {"main": "client/main.ts", "tsconfig": "client/tsconfig.json"}
   ],
   "addons": [],
   "packages": [],
@@ -20,6 +20,6 @@
   },
   "defaults": {
     "prefix": "app",
-    "sourceDir": "src"
+    "sourceDir": "client"
   }
 }
