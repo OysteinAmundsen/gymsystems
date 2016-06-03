@@ -2,5 +2,5 @@
 
 HOME=$HOME/app-root/runtime
 cd ~/repo
-npm install bower
+npm install -g bower angular-cli typings
 ./node_modules/.bin/bower install

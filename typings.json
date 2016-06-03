@@ -1,10 +1,18 @@
 {
-  "ambientDevDependencies": {
+  "globalDevDependencies": {
     "angular-protractor": "registry:dt/angular-protractor#1.5.0+20160425143459",
+    "express": "registry:dt/express#4.0.0+20160317120654",
+    "express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160602151406",
     "jasmine": "registry:dt/jasmine#2.2.0+20160412134438",
+    "node": "registry:dt/node#6.0.0+20160524002506",
     "selenium-webdriver": "registry:dt/selenium-webdriver#2.44.0+20160317120654"
   },
-  "ambientDependencies": {
-    "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654"
+  "globalDependencies": {
+    "body-parser": "registry:dt/body-parser#0.0.0+20160317120654",
+    "cookie-parser": "registry:dt/cookie-parser#1.3.4+20160316155526",
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654",
+    "method-override": "registry:dt/method-override#0.0.0+20160317120654",
+    "morgan": "registry:dt/morgan#1.7.0+20160524142355",
+    "serve-favicon": "registry:dt/serve-favicon#0.0.0+20160316155526"
   }
 }
