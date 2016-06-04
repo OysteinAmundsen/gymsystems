@@ -1,29 +1,30 @@
 {
-  "compilerOptions": {
-    "target"                    : "es5",
-    "module"                    : "system",
-    "moduleResolution"          : "node",
-    "declaration"               : false,
-    "removeComments"            : true,
-    "noLib"                     : false,
-    "emitDecoratorMetadata"     : true,
-    "experimentalDecorators"    : true,
-    "sourceMap"                 : false,
-    "pretty"                    : false,
-    "allowUnreachableCode"      : false,
-    "allowUnusedLabels"         : false,
-    "noImplicitAny"             : true,
-    "noImplicitReturns"         : true,
-    "noImplicitUseStrict"       : false,
-    "noFallthroughCasesInSwitch": true
-  },
-  "files": [
-    "client/app/main.ts"
-  ],
-  "exclude"        : [
-    "node_modules",
-    "dist",
-    "server"
-  ],
-  "compileOnSave"  : false
+    "compileOnSave": false,
+    "compilerOptions": {
+        "target": "es5",
+        "module": "system",
+        "moduleResolution": "node",
+        "declaration": false,
+        "removeComments": true,
+        "noLib": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": false,
+        "pretty": false,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitUseStrict": false,
+        "noFallthroughCasesInSwitch": true
+    },
+    "filesGlob": [
+        "client/*.ts",
+        "typings/*.d.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "server"
+    ]
 }
