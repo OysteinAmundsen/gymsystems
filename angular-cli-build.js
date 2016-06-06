@@ -16,18 +16,9 @@ module.exports = function(defaults) {
         destDir: '/images'
     });
 
+    var buildConfig = require('./angular-cli.json');
     var app = new Angular2App(defaults, {
-        vendorNpmFiles: [
-            'systemjs/dist/system-polyfills.js',
-            'systemjs/dist/system.src.js',
-            'zone.js/dist/*.js',
-            'es6-shim/es6-shim.js',
-            'reflect-metadata/*.js',
-            'rxjs/**/*.js',
-            '@angular/**/*.js'
-
-            // Third party libs
-        ]
+        vendorNpmFiles: buildConfig.vendorNpmFiles
     });
 
     return mergeTrees([app, fontTree]);
