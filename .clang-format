@@ -1,3 +1,29 @@
 Language:        JavaScript
 BasedOnStyle:    Google
 ColumnLimit:     100
+
+AlignConsecutiveAssignments: true
+AlignEscapedNewlinesLeft: true
+AlignTrailingComments: true
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: false
+
+BreakConstructorInitializersBeforeComma: true
+
+TabWidth: 4
+IndentWidth: 4
+UseTab: Never
+IndentCaseLabels: true
+IndentFunctionDeclarationAfterType: true
+NamespaceIndentation: All
+
+JavaScriptQuotes: Single
+
+MaxEmptyLinesToKeep: 2
+
+SpaceBeforeParens: ControlStatements
+SpacesInContainerLiterals: true
+SpacesInParentheses: true
+Standard: Cpp11

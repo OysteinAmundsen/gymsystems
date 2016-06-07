@@ -31,3 +31,5 @@ npm-debug.log
 /dist/
 /bower_components/
 /tmp/
+/.vscode/
+/bin/
