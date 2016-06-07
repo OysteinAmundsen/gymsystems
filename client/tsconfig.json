@@ -11,7 +11,7 @@
         "mapRoot": "",
         "noEmitOnError": true,
         "noImplicitAny": false,
-        "outDir": "../dist/",
+        "outDir": "../dist/client/",
         "rootDir": ".",
         "inlineSources": true
     },

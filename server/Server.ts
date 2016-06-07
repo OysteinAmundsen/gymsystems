@@ -47,9 +47,6 @@ export class Server {
 
         //configure application
         this.config();
-
-        //configure routes
-        this.routes();
     }
 
     /**
@@ -60,11 +57,14 @@ export class Server {
      * @return void
      */
     private config(): void {
+        // Determine if we are in standalone mode or going through ng dev mode
+        var base = (__dirname.indexOf('dist') > -1 ? '..' : '../dist');
+        var clientDir = '/client';
+
         //configure jade
         //this.app.set('views', path.join(__dirname, 'views'));
         //this.app.set('view engine', 'jade');
-
-        this.app.use(favicon(path.join(__dirname, '../dist', 'favicon.ico')));
+        this.app.use(favicon(path.join(__dirname, base + clientDir, 'favicon.ico')));
 
         //mount logger
         this.app.use(logger('dev'));
@@ -79,25 +79,19 @@ export class Server {
         this.app.use(cookieParser());
 
         //add static paths
-        this.app.use(express.static(path.join(__dirname, '../dist')));
+        this.app.use(express.static(path.join(__dirname, base + clientDir)));
 
-        // catch 404 and forward to error handler
-        this.app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-            var error = new Error('Not Found');
-            err.status = 404;
-            next(err);
-        });
-    }
-
-    /**
-     * Configure routes
-     *
-     * @class Server
-     * @method routes
-     * @return void
-     */
-    private routes() {
         // Load up routes
         apiRoutes.default(this.app, '/api');
+
+        // Setup base route to everything else
+        this.app.get('/*', function (req: express.Request, res: express.Response, next: express.NextFunction) {
+            if (!/^\/api/.test(req.url) && !/.js.map$/.test(req.url)) {
+                console.log(' ... Loading index.html: url - ' + req.url);
+                res.sendFile(path.resolve(path.join(__dirname, base + clientDir), 'index.html'));
+            } else {
+                return next();
+            };
+        });
     }
 }

@@ -13,7 +13,8 @@
         "pretty": false,
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
-        "outDir": "../bin/",
+        "outDir": "../dist/server/",
+        "rootDir": ".",
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitUseStrict": false,
@@ -21,7 +22,7 @@
     },
     "files": [
         "index.ts",
-        "www.ts",
+        "standalone.ts",
         "typings.d.ts"
     ]
 }
