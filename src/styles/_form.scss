@@ -1,0 +1,30 @@
+@import "variables";
+@import "panel";
+
+form {
+  @include panel;
+  fieldset {
+    @include innerPanel;
+  }
+  label {
+    font-size: 0.8rem;
+    display: inline-block;
+    padding: 0.1rem 0 0 $margin;
+    margin-top: $margin * 2;
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+  input, textarea {
+    display: block;
+    box-shadow: 0 0 6px rgba(black, 0.2) inset;
+    border: 1px solid rgba(black, 0.4);
+    padding: ($padding * 2) $padding;
+    border-radius: $rounded;
+    width: 100%;
+    &.ng-invalid {
+      border-color: red;
+    }
+  }
+}
+

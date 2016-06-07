@@ -1,0 +1,22 @@
+<h1>
+  <fa [name]="'cubes'"></fa>
+  Teams
+</h1>
+
+<button (click)="addTeam()">
+  <fa [name]="'plus'"></fa>
+  Add Team
+</button>
+
+<form *ngIf="showForm == true">
+  <fieldset>
+    <label>Tournament</label>
+    <input type="text">
+
+    <label>Division name</label>
+    <input type="text">
+  </fieldset>
+  <footer>
+    <button type="submit"><fa [name]="'save'"></fa> Save division</button>
+  </footer>
+</form>

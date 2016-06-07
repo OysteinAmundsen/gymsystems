@@ -1,0 +1,14 @@
+<menu>
+  <ul>
+    <li><a [routerLink]="['./tournament']"><fa [name]="'heartbeat'"></fa> <span>Tournaments</span> </a></li>
+    <li><a [routerLink]="['./divisions']"> <fa [name]="'list'"></fa>      <span>Divisions</span> </a></li>
+    <li><a [routerLink]="['./teams']">     <fa [name]="'cubes'"></fa>     <span>Teams</span></a></li>
+    <li><a [routerLink]="['./score']">     <fa [name]="'star'"></fa>      <span>Score system</span> </a></li>
+    <li><a [routerLink]="['./display']">   <fa [name]="'tv'"></fa>        <span>Display</span></a></li>
+    <li><a [routerLink]="['./advanced']">  <fa [name]="'cogs'"></fa>      <span>Advanced settings</span></a></li>
+  </ul>
+</menu>
+
+<section>
+  <router-outlet></router-outlet>
+</section>
