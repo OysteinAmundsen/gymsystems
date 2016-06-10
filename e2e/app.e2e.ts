@@ -1,14 +1,14 @@
-import { Gymsystems2Page } from './app.po';
+import { GymsystemsPage } from './app.po';
 
-describe('gymsystems2 App', function() {
-  let page: Gymsystems2Page;
+describe('gymsystems App', function() {
+  let page: GymsystemsPage;
 
   beforeEach(() => {
-    page = new Gymsystems2Page();
-  })
+    page = new GymsystemsPage();
+  });
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('gymsystems2 works!');
+    expect(page.getParagraphText()).toEqual('gymsystems works!');
   });
 });

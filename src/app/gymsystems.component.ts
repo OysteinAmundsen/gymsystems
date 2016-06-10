@@ -11,9 +11,9 @@ import { FaComponent } from './shared';
 
 @Component({
   moduleId: module.id,
-  selector: 'gymsystems2-app',
-  templateUrl: 'gymsystems2.component.html',
-  styleUrls: ['gymsystems2.component.css'],
+  selector: 'gymsystems-app',
+  templateUrl: 'gymsystems.component.html',
+  styleUrls: ['gymsystems.component.css'],
   directives: [ROUTER_DIRECTIVES, FaComponent],
   providers: [ROUTER_PROVIDERS]
 })
@@ -27,7 +27,7 @@ import { FaComponent } from './shared';
   {path: '/configure', component: ConfigureComponent},
   {path: '/configure/...', component: ConfigureComponent}
 ])
-export class Gymsystems2AppComponent implements OnInit {
+export class GymsystemsAppComponent implements OnInit {
   navState:boolean = false;
 
   constructor(private element:ElementRef) {}

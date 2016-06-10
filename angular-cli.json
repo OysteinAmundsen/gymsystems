@@ -1,10 +1,14 @@
 {
   "project": {
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.5",
     "name": "gymsystems"
   },
   "apps": [
-    {"main": "client/main.ts", "tsconfig": "client/tsconfig.json"}
+    {
+      "main": "client/main.ts",
+      "tsconfig": "client/tsconfig.json",
+      "mobile": false
+    }
   ],
   "addons": [],
   "packages": [],
@@ -20,15 +24,18 @@
   },
   "defaults": {
     "prefix": "app",
-    "sourceDir": "client"
+    "sourceDir": "client",
+    "styleExt": "css",
+    "prefixInterfaces": false
   },
   "vendorNpmFiles": [
     "systemjs/dist/system-polyfills.js",
     "systemjs/dist/system.src.js",
-    "zone.js/dist/*.js",
+    "zone.js/dist/**/*.+(js|js.map)",
     "es6-shim/es6-shim.js",
+    "reflect-metadata/**/*.+(js|js.map)",
     "reflect-metadata/*.js",
-    "rxjs/**/*.js",
-    "@angular/**/*.js"
+    "rxjs/**/*.+(js|js.map)",
+    "@angular/**/*.+(js|js.map)"
   ]
 }

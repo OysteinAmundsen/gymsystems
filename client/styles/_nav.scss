@@ -29,7 +29,7 @@
   }
 }
 
-gymsystems2-app {
+gymsystems-app {
   @include site-canvas;
   @supports (display: flex) {
     display: flex;

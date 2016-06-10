@@ -1,9 +1,9 @@
-export class Gymsystems2Page {
+export class GymsystemsPage {
   navigateTo() {
     return browser.get('/');
   }
 
   getParagraphText() {
-    return element(by.css('gymsystems2-app h1')).getText();
+    return element(by.css('gymsystems-app h1')).getText();
   }
 }
