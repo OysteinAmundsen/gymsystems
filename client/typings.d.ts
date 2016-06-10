@@ -1,2 +1,4 @@
 /// <reference path="../typings/browser.d.ts" />
-declare var module: { id: string };
+/// <reference path="../typings/index.d.ts" />
+
+declare var module: NodeModule;
