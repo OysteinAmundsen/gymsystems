@@ -64,6 +64,8 @@ export class Server {
         //configure jade
         //this.app.set('views', path.join(__dirname, 'views'));
         //this.app.set('view engine', 'jade');
+
+        // Serve favicon
         this.app.use(favicon(path.join(__dirname, base + clientDir, 'favicon.ico')));
 
         //mount logger
@@ -86,7 +88,9 @@ export class Server {
 
         // Setup base route to everything else
         this.app.get('/*', function (req: express.Request, res: express.Response, next: express.NextFunction) {
-            if (!/^\/api/.test(req.url) && !/.js.map$/.test(req.url)) {
+            if (!/^\/api/.test(req.url) && !/(\.js|\.map|\.css)$/.test(req.url)) {
+                // Any route not starting with `/api`
+                // or ending in `.js` | `.map` | `.css`, will receive the index.html
                 console.log(' ... Loading index.html: url - ' + req.url);
                 res.sendFile(path.resolve(path.join(__dirname, base + clientDir), 'index.html'));
             } else {
