@@ -8,6 +8,7 @@ import * as favicon from 'serve-favicon';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as methodOverride from 'method-override';
+//import * as logMiddleWare from 'bunyan-middleware';
 import * as logMiddleWare from 'morgan';
 import * as Logger from "bunyan";
 import * as passport from "passport";
@@ -65,7 +66,13 @@ export class Server {
             streams: [
                 { level: 'trace',   stream: process.stdout },
                 { level: 'info',    stream: process.stdout },
-                { level: 'debug',   stream: process.stdout },
+                {
+                    level: 'debug',
+                    type: 'rotating-file',
+                    path: './log/debug.log',
+                    period: '1d',   // daily rotation
+                    count: 3        // keep 3 back copies}
+                },
                 {
                     level: 'error',
                     type: 'rotating-file',
@@ -102,12 +109,17 @@ export class Server {
         me.app.disable("x-powered-by");
         me.app.set('trust proxy', true);                          // Listen for external requests
 
-        me.app.use(logMiddleWare('dev'));                         // mount logger middleware
-
         me.app.use(bodyParser.json());                            // mount json form parser
         me.app.use(bodyParser.urlencoded({ extended: false }));   // mount query string parser
         me.app.use(methodOverride());                             // Enforce HTTP verbs
         me.app.use(cookieParser());                               // populate req.cookies
+
+        // mount logger middleware
+        // me.app.use(logMiddleWare({
+        //     headerName: 'X-Request-Id', propertyName: 'reqId', logName: 'req_id', obscureHeaders: [], logger: this.log
+        // }));
+        //var accessLogStream = fs.createWriteStream('./log/access.log', {flags: 'a'})
+        me.app.use(logMiddleWare('dev'/*, {stream: accessLogStream}*/));
 
         // Set up storage
         me.storage = new SequelizeStorageManager({

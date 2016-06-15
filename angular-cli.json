@@ -1,13 +1,13 @@
 {
   "project": {
-    "version": "1.0.0-beta.5",
+    "version": "1.0.0-beta.6",
     "name": "gymsystems"
   },
   "apps": [
     {
       "main": "client/main.ts",
       "tsconfig": "client/tsconfig.json",
-      "mobile": false
+      "mobile": true
     }
   ],
   "addons": [],
@@ -26,7 +26,8 @@
     "prefix": "app",
     "sourceDir": "client",
     "styleExt": "css",
-    "prefixInterfaces": false
+    "prefixInterfaces": false,
+    "lazyRoutePrefix": "+"
   },
   "vendorNpmFiles": [
     "systemjs/dist/system-polyfills.js",

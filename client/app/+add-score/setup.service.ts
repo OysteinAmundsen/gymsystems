@@ -47,7 +47,7 @@ export class SetupService {
    */
   toControlGroup(scoreGroups:Array<ScoreGroup>) : ControlGroup {
     let group = scoreGroups.reduce(function (previous:any, current:any, index:any) {
-      return Object.assign(previous, current.scores.reduce(function (previous:any, current:any, index:any) {
+      return (<any>Object).assign(previous, current.scores.reduce(function (previous:any, current:any, index:any) {
         previous['field_' + current.shortName] = [0,
           Validators.compose([
             Validators.required,
