@@ -1,28 +1,28 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "declaration": false,
-        "removeComments": true,
-        "noLib": false,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "sourceMap": false,
-        "pretty": false,
-        "allowUnreachableCode": false,
-        "allowUnusedLabels": false,
-        "outDir": "../dist/server/",
-        "rootDir": ".",
-        "noImplicitAny": true,
-        "noImplicitReturns": true,
-        "noImplicitUseStrict": false,
-        "noFallthroughCasesInSwitch": true
-    },
-    "files": [
-        "index.ts",
-        "standalone.ts",
-        "typings.d.ts"
-    ]
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "declaration": false,
+    "removeComments": true,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": false,
+    "pretty": false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "outDir": "../dist/",
+    "rootDir": ".",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitUseStrict": false,
+    "noFallthroughCasesInSwitch": true
+  },
+  "files": [
+    "index.ts",
+    "standalone.ts",
+    "typings.d.ts"
+  ]
 }

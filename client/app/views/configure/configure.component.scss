@@ -1,0 +1,19 @@
+@import "../../../styles/_variables";
+
+
+menu {
+  @supports (display: flex) {
+    margin-top: 1rem;
+  }
+  @media (max-width: $stop1) {
+    margin-top: 10px;
+  }
+}
+section {
+  min-height: 12rem;
+  margin-left: 13rem;
+  margin-top: 1rem;
+  @media (max-width: $stop1) {
+    margin-left: 0;
+  }
+}

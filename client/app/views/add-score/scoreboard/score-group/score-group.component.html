@@ -1,0 +1,5 @@
+<header>
+  {{ model.header }}
+</header>
+<app-score *ngFor="let score of model.scores" [form]="form" [model]="score"></app-score>
+<footer><span>Calculated: </span><code>{{ model.avg || 0 | number:'1.2-2' }}&nbsp;</code></footer>

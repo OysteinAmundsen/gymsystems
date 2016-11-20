@@ -1,0 +1,23 @@
+<h2 *ngIf="tournament">
+  <span>{{ tournament.name }}</span>
+  <small>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
+</h2>
+
+<table *ngIf="tournament && tournament.teams">
+  <thead>
+    <tr>
+      <th>Start #</th>
+      <th>Discipline</th>
+      <th>Team</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let team of tournament.teams; let i = index;">
+      <td>{{ i }}</td>
+      <td>Noe</td>
+      <td>{{ team.name }}</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>

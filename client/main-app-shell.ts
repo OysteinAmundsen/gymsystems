@@ -1,7 +1,7 @@
 import { provide } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { APP_SHELL_BUILD_PROVIDERS } from '@angular/app-shell';
-import { GymsystemsAppComponent } from './app/';
+import { AppComponent } from './app/';
 import {
   REQUEST_URL,
   ORIGIN_URL
@@ -10,7 +10,7 @@ import {
 export const options = {
   directives: [
     // The component that will become the main App Shell
-    GymsystemsAppComponent
+    AppComponent
   ],
   platformProviders: [
     APP_SHELL_BUILD_PROVIDERS,
@@ -20,8 +20,8 @@ export const options = {
   ],
   providers: [
     // What URL should Angular be treating the app as if navigating
-    provide(APP_BASE_HREF, {useValue: '/'}),
-    provide(REQUEST_URL, {useValue: '/'})
+    provide(APP_BASE_HREF, { useValue: '/' }),
+    provide(REQUEST_URL, { useValue: '/' })
   ],
   async: false,
   preboot: false

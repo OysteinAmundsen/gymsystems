@@ -1,0 +1,18 @@
+<h1>
+  <fa [name]="'tv'"></fa>
+  Display
+</h1>
+
+<form>
+  <div role="table">
+    <div role="row">
+      <section *ngFor="let template of templates">
+        <app-macro-dialog></app-macro-dialog>
+        <textarea title="{{ template.title }}">{{ template.content }}</textarea>
+      </section>
+    </div>
+  </div>
+  <footer>
+    <button type="submit"><fa [name]="'save'"></fa> Save setup</button>
+  </footer>
+</form>

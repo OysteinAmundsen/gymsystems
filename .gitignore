@@ -10,8 +10,10 @@
 
 # IDEs and editors
 /.idea
+/.vscode
 .project
 .classpath
+.c9/
 *.launch
 .settings/
 
@@ -23,7 +25,6 @@
 npm-debug.log
 testem.log
 /typings
-/.vscode/
 
 # e2e
 /e2e/*.js
@@ -32,4 +33,3 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
-/log/

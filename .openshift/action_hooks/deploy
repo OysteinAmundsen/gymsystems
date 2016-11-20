@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-HOME=$HOME/app-root/runtime
-cd ~/repo
-npm install -g bower angular-cli typings
-./node_modules/.bin/bower install

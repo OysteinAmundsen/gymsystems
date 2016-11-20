@@ -4,6 +4,7 @@ $negPad    : (0 - $padding);
 $rounded   : $padding;
 $margin    : 0.3rem;
 $navHeight : 3.5rem;
+$rowHeight: 50px;
 
 // Colors
 $primaryLight : #ddf;
@@ -11,8 +12,16 @@ $primary      : #69f;
 $primaryDark  : #47d;
 $accent       : darken(complement($primary), 20%);
 $accentDark   : darken(complement($primaryDark), 20%);
+$navbar-color: lighten($primary, 42%);
+$navbar-height: $rowHeight;
+$panel-color: lighten($primary, 42%);
+$panel-height: $rowHeight;
+$primaryBorderColor: darken($panel-color, 8%);
+$primaryDark: darken($primary, 10%);
+$primaryLight: lighten($primary, 30%);
 
 // Screen stops
 $stop0 : 64rem;
 $stop1 : 43rem;
 $stop2 : 30rem;
+

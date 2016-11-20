@@ -1,26 +1,25 @@
 import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'ui-dialog',
   templateUrl: 'dialog.component.html',
-  styleUrls: ['dialog.component.css']
+  styleUrls: ['dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
-  isOpen:boolean = false;
+  isOpen: boolean = false;
 
-  @Output() onCancel =  new EventEmitter();
-  @Output() onVerify =  new EventEmitter();
+  @Output() onCancel = new EventEmitter();
+  @Output() onVerify = new EventEmitter();
 
-  constructor(private element:ElementRef) {}
+  constructor(private element: ElementRef) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  openDialog():void {
+  openDialog(): void {
     this.isOpen = true;
     this.element.nativeElement.querySelector('[role="dialogContainer"]').className = 'open';
   }
-  closeDialog():void {
+  closeDialog(): void {
     this.isOpen = false;
     this.element.nativeElement.querySelector('[role="dialogContainer"]').className = '';
   }

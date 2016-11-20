@@ -1,30 +1,27 @@
-import { Component, Input, ElementRef, SimpleChange } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChange } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'fa',
-  template: `<i [ngClass]="classList"></i>`,
-  styleUrls: ['fontawesome.css'],
-  directives: [NgClass]
+  template: `<i [className]="classList"></i>`,
+  styleUrls: ['fontawesome.scss']
 })
-export class FaComponent {
+export class FaComponent implements OnInit, OnChanges {
 
-  static sizeValidator:   RegExp = /[1-5]/;
-  static flipValidator:   RegExp = /['horizontal'|'vertical']/;
-  static pullValidator:   RegExp = /['right'|'left']/;
+  static sizeValidator: RegExp = /[1-5]/;
+  static flipValidator: RegExp = /['horizontal'|'vertical']/;
+  static pullValidator: RegExp = /['right'|'left']/;
   static rotateValidator: RegExp = /[90|180|270]/;
 
-  @Input() name:    string; // fa-'name'
-  @Input() alt:     string; // Currently not supported yet
-  @Input() size:    number; // [1-5] fa-[lg|2-5]x
-  @Input() stack:   number; // [1-5] fa-stack-[lg|2-5]x
-  @Input() flip:    string; // [horizontal|vertical] fa-flip-[horizontal|vertical]
-  @Input() pull:    string; // [right|left] fa-pull-[right|left]
-  @Input() rotate:  number; // [90|180|270] fa-rotate-[90|180|270]
-  @Input() border:  boolean; // true fa-border
-  @Input() spin:    boolean; // true fa-spin
-  @Input() fw:      boolean; // true fa-fw
+  @Input() name: string; // fa-'name'
+  @Input() alt: string; // Currently not supported yet
+  @Input() size: number; // [1-5] fa-[lg|2-5]x
+  @Input() stack: number; // [1-5] fa-stack-[lg|2-5]x
+  @Input() flip: string; // [horizontal|vertical] fa-flip-[horizontal|vertical]
+  @Input() pull: string; // [right|left] fa-pull-[right|left]
+  @Input() rotate: number; // [90|180|270] fa-rotate-[90|180|270]
+  @Input() border: boolean; // true fa-border
+  @Input() spin: boolean; // true fa-spin
+  @Input() fw: boolean; // true fa-fw
   @Input() inverse: boolean; // true fa-inverse
 
   private classList: Array<string>;
@@ -36,14 +33,18 @@ export class FaComponent {
     this.classList = ['fa'];
   }
 
-  ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-    for (var key in changes) {
-      var previousValue = changes[key].previousValue;
-      var currentValue  = changes[key].currentValue;
-      switch(key) {
+  ngOnInit() {
+  }
+
+  ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
+    let me = this;
+    Object.keys(changes).forEach(function (key) {
+      let previousValue = changes[key].previousValue;
+      let currentValue = changes[key].currentValue;
+      switch (key) {
         case 'name':
-          this.removeFaClass(`fa-${previousValue}`);
-          this.addFaClass(`fa-${currentValue}`);
+          me.removeFaClass(`fa-${previousValue}`);
+          me.addFaClass(`fa-${currentValue}`);
           break;
 
         case 'alt':
@@ -53,88 +54,88 @@ export class FaComponent {
         case 'size':
           if (FaComponent.sizeValidator.test(currentValue)) {
             if (previousValue === 1) {
-              this.removeFaClass('fa-lg');
+              me.removeFaClass('fa-lg');
             } else {
-              this.removeFaClass(`fa-${previousValue}x`);
+              me.removeFaClass(`fa-${previousValue}x`);
             }
             if (currentValue === 1) {
-              this.classList.push('fa-lg');
+              me.classList.push('fa-lg');
             } else {
-              this.classList.push(`fa-${currentValue}x`);
+              me.classList.push(`fa-${currentValue}x`);
             }
           }
           break;
 
         case 'stack':
           if (FaComponent.sizeValidator.test(currentValue)) {
-            this.removeFaClass(`fa-stack-${previousValue}x`);
-            this.addFaClass(`fa-stack-${currentValue}x`);
+            me.removeFaClass(`fa-stack-${previousValue}x`);
+            me.addFaClass(`fa-stack-${currentValue}x`);
           }
           break;
 
         case 'flip':
           if (FaComponent.flipValidator.test(currentValue)) {
-            this.removeFaClass(`fa-flip-${previousValue}`);
-            this.addFaClass(`fa-flip-${currentValue}`);
+            me.removeFaClass(`fa-flip-${previousValue}`);
+            me.addFaClass(`fa-flip-${currentValue}`);
           }
           break;
 
         case 'pull':
           if (FaComponent.pullValidator.test(currentValue)) {
-            this.removeFaClass(`fa-pull-${previousValue}`);
-            this.addFaClass(`fa-pull-${currentValue}`);
+            me.removeFaClass(`fa-pull-${previousValue}`);
+            me.addFaClass(`fa-pull-${currentValue}`);
           }
           break;
 
         case 'rotate':
           if (FaComponent.rotateValidator.test(currentValue)) {
-            this.removeFaClass(`fa-rotate-${previousValue}`);
-            this.addFaClass(`fa-rotate-${currentValue}`);
+            me.removeFaClass(`fa-rotate-${previousValue}`);
+            me.addFaClass(`fa-rotate-${currentValue}`);
           }
           break;
 
         case 'border':
           if (currentValue) {
-            this.addFaClass('fa-border');
+            me.addFaClass('fa-border');
           } else {
-            this.removeFaClass('fa-border');
+            me.removeFaClass('fa-border');
           }
           break;
 
         case 'spin':
           if (currentValue) {
-            this.addFaClass('fa-spin');
+            me.addFaClass('fa-spin');
           } else {
-            this.removeFaClass('fa-spin');
+            me.removeFaClass('fa-spin');
           }
           break;
 
         case 'fw':
           if (currentValue) {
-            this.addFaClass('fa-fw');
+            me.addFaClass('fa-fw');
           } else {
-            this.removeFaClass('fa-fw');
+            me.removeFaClass('fa-fw');
           }
           break;
 
         case 'inverse':
           if (currentValue) {
-            this.addFaClass('fa-inverse');
+            me.addFaClass('fa-inverse');
           } else {
-            this.removeFaClass('fa-inverse');
+            me.removeFaClass('fa-inverse');
           }
           break;
       }
-    }
+    });
   }
 
-  private addFaClass(className:string):void {
+  private addFaClass(className: string): void {
     // better to check the uniquness
     this.classList.push(className);
   }
 
-  private removeFaClass(className:string):void {
-    var index:number;
+  private removeFaClass(className: string): void {
+    let index: number;
     if ((index = this.classList.indexOf(className)) >= 0) {
       this.classList.splice(index, 1);
     }

@@ -1,0 +1,40 @@
+<app-panel>
+  <div class="head">
+    <span>Upcoming tournaments</span>
+  </div>
+  <table class="table-hover" role="menu">
+    <thead>
+      <tr>
+        <th>Tournament</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tournament of upcoming" role="menuitem" (click)="display(tournament)">
+        <td>{{ tournament.name }}</td>
+        <td>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</app-panel>
+
+
+<app-panel>
+  <div class="head">
+    <span>Previous tournaments</span>
+  </div>
+  <table class="table-hover" role="menu">
+    <thead>
+      <tr>
+        <th>Tournament</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tournament of past" role="menuitem" (click)="display(tournament)">
+        <td>{{ tournament.name }}</td>
+        <td>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</app-panel>
