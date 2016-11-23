@@ -5,7 +5,7 @@ RUN mkdir $HOME
 WORKDIR $HOME
 COPY ./ $HOME
 
-RUN npm install -g angular-cli && npm install
+RUN npm install -g --loglevel error angular-cli && npm install --loglevel error
 
 EXPOSE 4200
 EXPOSE 49153
