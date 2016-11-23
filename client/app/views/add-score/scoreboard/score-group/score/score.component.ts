@@ -1,3 +1,4 @@
+import { ViewChild } from '@angular/core/src/metadata/di';
 import { IScore } from '../../../../../api/model/iScore';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
@@ -10,7 +11,8 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 export class ScoreComponent implements OnInit {
   defaultScore: number = 0.0;
   ct: AbstractControl;
-  input: HTMLInputElement;
+
+  @ViewChild('score') input: ElementRef;
 
   get score(): number { return this.ct.value; }
   set score(value: number) { (<FormControl>this.ct).setValue(value); }
@@ -22,14 +24,13 @@ export class ScoreComponent implements OnInit {
 
   ngOnInit() {
     let me = this;
-    me.input = me.element.nativeElement.querySelector('input');
     me.ct = me.form.controls['field_' + me.model.shortName];
 
     me.ct.valueChanges.subscribe(function (value) {
       // Force value to be within range
       if (value == null || value < me.model.min) {
         me.score = me.model.min;
-        me.input.select();
+        me.input.nativeElement.select();
       }
       else if (value > me.model.max) {
         me.score = me.model.max;

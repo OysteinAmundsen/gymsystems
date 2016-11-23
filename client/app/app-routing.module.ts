@@ -7,7 +7,9 @@ import { HomeModule } from './views/home/home.module';
 import { AddScoreModule } from './views/add-score/add-score.module';
 import { ConfigureModule } from './views/configure/configure.module';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '**', redirectTo: '' }
+];
 
 @NgModule({
   imports: [

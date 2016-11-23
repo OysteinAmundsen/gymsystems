@@ -1,7 +1,7 @@
 @import "../styles/variables";
 
 :host {
-  height: 100%;
+  min-height: 100vh;
   @supports (display: flex) {
     display: flex;
     flex-flow: column nowrap;
@@ -25,6 +25,8 @@ footer {
   text-align: right;
   border-top: 1px solid rgba(black,0.6);
   box-shadow: 0 1.5rem 4.2rem rgba($primaryDark, 1) inset; // inset, 0 -1.5rem 1.2rem rgba($primary, 1) inset;
+  position: relative;
+  z-index: 10;
   > .container {
     padding: 1.2rem 0;
   }

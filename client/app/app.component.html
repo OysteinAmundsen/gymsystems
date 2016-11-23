@@ -1,21 +1,21 @@
 <nav>
   <div class="container">
     <header>
-      <a class="appLogo" [routerLink]="['/']"><span>Gym</span><span>Systems</span></a>
+      <a class="appLogo" routerLink="/"><span>Gym</span><span>Systems</span></a>
     </header>
-    <fa [name]="'bars'" size="2" (click)="toggleNav($event)"></fa>
+    <fa name="bars" fw="true" size="2" (click)="toggleNav($event)"></fa>
     <ul [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
-      <li>
-        <a [routerLink]="['/add-score']">
-          <fa [name]="'star'"></fa> Add Score </a>
+      <li [routerLinkActive]="['active']">
+        <a routerLink="/add-score">
+          <fa name="star" fw="true"></fa> Add Score </a>
       </li>
-      <li>
-        <a [routerLink]="['/display']">
-          <fa [name]="'tv'"></fa> Display </a>
+      <li [routerLinkActive]="['active']">
+        <a routerLink="/display">
+          <fa name="tv" fw="true"></fa> Display </a>
       </li>
-      <li>
-        <a [routerLink]="['/configure']">
-          <fa [name]="'cogs'"></fa> Configure </a>
+      <li [routerLinkActive]="['active']">
+        <a routerLink="/configure">
+          <fa name="cogs" fw="true"></fa> Configure </a>
       </li>
     </ul>
   </div>

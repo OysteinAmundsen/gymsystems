@@ -1,15 +1,17 @@
+import { ScoreComponent } from './score/score.component';
 import { IScoreGroup } from '../../../../api/model/iScoreGroup';
 import { FormGroup } from '@angular/forms';
-import { Component, OnInit, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 
 @Component({
   selector: 'app-score-group',
   templateUrl: './score-group.component.html',
   styleUrls: ['./score-group.component.scss']
 })
-export class ScoreGroupComponent implements OnInit {
+export class ScoreGroupComponent implements OnInit, AfterViewInit {
   @Input() model: IScoreGroup;
   @Input() form: FormGroup;
+  @ViewChildren(ScoreComponent) scores: QueryList<ScoreComponent>;
 
   avg: number = 0;
 
@@ -34,4 +36,20 @@ export class ScoreGroupComponent implements OnInit {
       }
     });
   }
+
+  ngAfterViewInit() {
+    let me = this;
+    me.scores.forEach(score => {
+      score.input.nativeElement.onblur = function () {
+        if (me.model.total > 0 && score.score === score.defaultScore) {
+          // Check previous and copy (0 is not allowed)
+          let index = me.model.scores.findIndex(s => s.shortName === score.model.shortName);
+          if (index > 0) {
+            score.score = me.form.controls['field_' + me.model.scores[index - 1].shortName].value;
+          }
+        }
+      };
+    });
+  }
 }
+

@@ -1,6 +1,6 @@
 @import "variables";
 
-button {
+@mixin btn() {
   $timer: 0.1s;
   padding: $rounded * 2;
   background: $primary;
@@ -16,7 +16,9 @@ button {
     text-shadow: 1px 1px 1px rgba(black, 0.5);
     padding: ($rounded*2 + 1px) $rounded*2 ($rounded*2 - 1) $rounded*2;
   }
-
+}
+button {
+  @include btn();
   &[type="submit"] {
     background: $accent;
     border: 1px solid $accentDark;
