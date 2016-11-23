@@ -1,4 +1,4 @@
-import { IDiscipline, Discipline } from './idiscipline';
+import { IDiscipline, Discipline } from './iDiscipline';
 import { ITrainerUser, Trainer } from '../user.service';
 
 export interface ITeam {

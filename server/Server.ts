@@ -12,6 +12,7 @@ import * as logMiddleWare from 'morgan';
 import * as Logger from 'bunyan';
 import * as passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
+let chalk = require('chalk');
 
 import { SequelizeStorageManager } from './storage/index';
 import * as apiRoutes from './routes/api';
@@ -92,8 +93,9 @@ export class Server {
    */
   private config(): void {
     // Determine if we are in standalone mode or going through ng dev mode
-    let base = (__dirname.indexOf('dist') > -1 ? '..' : '../dist');
+    let base = './';
     let clientPath = path.join(__dirname, base + '/public');
+    console.log('Public dir: ' + chalk.yellow(clientPath));
     let me = this;
 
     // Setup authentication
@@ -103,7 +105,7 @@ export class Server {
       }
     ));
 
-    me.app.set('view options', { pretty: false });
+    //me.app.set('view options', { pretty: false });
     me.app.set('etag', false);
     me.app.disable('x-powered-by');
     me.app.set('trust proxy', true);                          // Listen for external requests
