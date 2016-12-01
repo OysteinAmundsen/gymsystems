@@ -1,6 +1,20 @@
-client:
-    build: .
+version: '2'
+
+services:
+  client:
+    build: ./.docker/app
+    image: gymsystems/client
+    container_name: gymsystems
+    restart: unless-stopped
     ports:
-        - "4200:4200"
-        - "49153:49153"
-    command: npm start
+      - "4200:4200"
+      - "49153:49153"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+    volumes:
+      - /usr/src/app/node_modules
+
+  db:
+    build: ./.docker/db

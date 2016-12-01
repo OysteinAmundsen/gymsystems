@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Remove previously built image
+# docker-compose down --rmi all
+
+# Build new image from compose
+docker-compose build
+
+# Stop service
+docker-compose kill
+
+# Remove container
+docker-compose rm -f
+
+# Start a new container with the built image
+docker-compose up -d

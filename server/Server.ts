@@ -139,13 +139,8 @@ export class Server {
 
     // Setup base route to everything else
     me.app.get('/*', function (req: express.Request, res: express.Response, next: express.NextFunction) {
-      if (!/^\/api/.test(req.url)                              // Any route not starting with `/api`
-        && !/(\.js|\.map|\.css)$/.test(req.url)) {             // nor ending in `.js` | `.map` | `.css`, will receive the index.html
-        me.log.info(' ... Loading index.html: url - ' + req.url);
-        res.sendFile(path.resolve(clientPath, 'index.html'));
-      } else {
-        return next();                                         // Procede to fetch requested resource or give 404 if non-existant
-      };
+      me.log.info(' ... Loading index.html: url - ' + req.url);
+      res.sendFile(path.resolve(clientPath, 'index.html'));
     });
   }
 }
