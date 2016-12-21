@@ -3,7 +3,7 @@ import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChange } from '@
 @Component({
   selector: 'fa',
   template: `<i [className]="classList.join(' ')"></i>`,
-  styleUrls: ['fontawesome.scss']
+  styleUrls: ['./fontawesome.scss']
 })
 export class FaComponent implements OnInit, OnChanges {
 

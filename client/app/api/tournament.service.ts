@@ -15,6 +15,11 @@ export interface ITournament {
   location: string;
   teams: ITeam[];
 }
+export interface HalTournamentWrapper {
+  _links: { self: { href: string } };
+  name: string;
+  data: ITournament[];
+}
 
 export class Tournament implements ITournament {
   static mapTo(json: ITournament | ITournament[]): Tournament | Tournament[] {
@@ -35,17 +40,17 @@ export class TournamentService {
 
   constructor(private http: Http) { }
 
-  all(): Observable<ITournament[]> {
+  all(): Observable<HalTournamentWrapper> {
     // return this.http.get('/api/tournaments').map((res: Response) => res.json()).catch(this.handleError);
-    return this.http.get('/app/api/mock/tournaments.json').map((res: Response) => res.json()).catch(this.handleError);
+    return this.http.get('/api/tournaments').map((res: Response) => res.json()).catch(this.handleError);
   }
-  past(): Observable<ITournament[]> {
+  past(): Observable<HalTournamentWrapper> {
     // return this.http.get('/api/tournaments/past').map((res: Response) => res.json()).catch(this.handleError);
-    return this.http.get('/app/api/mock/tournaments.json').map((res: Response) => res.json()).catch(this.handleError);
+    return this.http.get('/api/tournaments').map((res: Response) => res.json()).catch(this.handleError);
   }
-  upcoming(): Observable<ITournament[]> {
+  upcoming(): Observable<HalTournamentWrapper> {
     // return this.http.get('/api/tournaments/future').map((res: Response) => res.json()).catch(this.handleError);
-    return this.http.get('/app/api/mock/tournaments.json').map((res: Response) => res.json()).catch(this.handleError);
+    return this.http.get('/api/tournaments').map((res: Response) => res.json()).catch(this.handleError);
   }
 
   filterByName(name: string): Observable<ITournament[]> {

@@ -11,13 +11,13 @@ import { AdvancedComponent } from './advanced/advanced.component';
 export const ConfigureRoutes: Routes = [
   {
     path: 'configure', component: ConfigureComponent, children: [
-      { path: 'tournament', component: ConfigureTournamentComponent, pathMatch: 'full' },
-      { path: 'teams', component: ConfigureTeamsComponent, pathMatch: 'full' },
-      { path: 'divisions', component: ConfigureDivisionsComponent, pathMatch: 'full' },
-      { path: 'display', component: ConfigureDisplayComponent, pathMatch: 'full' },
-      { path: 'score', component: ConfigureScoreComponent, pathMatch: 'full' },
-      { path: 'advanced', component: AdvancedComponent, pathMatch: 'full' },
-      { path: '', redirectTo: 'tournament' },
+      { path: 'tournament', component: ConfigureTournamentComponent },
+      { path: 'teams', component: ConfigureTeamsComponent },
+      { path: 'divisions', component: ConfigureDivisionsComponent },
+      { path: 'display', component: ConfigureDisplayComponent },
+      { path: 'score', component: ConfigureScoreComponent },
+      { path: 'advanced', component: AdvancedComponent },
+      { path: '', redirectTo: 'tournament', pathMatch: 'full' },
     ]
   }
 ];

@@ -27,7 +27,7 @@ we suggest you run this as:
   let server: http.Server;
 
   // Get port from environment and store in Express.
-  let port = normalizePort(process.env.PORT || '4200');
+  let port = normalizePort(process.env.PORT || '3000');
 
   // view engine setup
   app.use(errorHandler);

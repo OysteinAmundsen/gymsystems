@@ -1,5 +1,5 @@
-import { IScoreGroup } from '../../api/model/iScoreGroup';
-import { ScoreService } from '../../api/score.service';
+import { IScoreGroup } from 'app/api/model/iScoreGroup';
+import { ScoreService } from 'app/api/score.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

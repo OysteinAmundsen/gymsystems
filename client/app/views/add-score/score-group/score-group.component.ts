@@ -1,5 +1,5 @@
-import { ScoreComponent } from './score/score.component';
-import { IScoreGroup } from '../../../../api/model/iScoreGroup';
+import { ScoreComponent } from '../score/score.component';
+import { IScoreGroup } from 'app/api/model/iScoreGroup';
 import { FormGroup } from '@angular/forms';
 import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 

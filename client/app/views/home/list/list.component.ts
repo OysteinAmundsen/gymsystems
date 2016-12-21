@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { ITournament, TournamentService } from '../../../api/tournament.service';
+import { ITournament, TournamentService } from 'app/api/tournament.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

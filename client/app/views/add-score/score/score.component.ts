@@ -1,7 +1,7 @@
 import { ViewChild } from '@angular/core/src/metadata/di';
-import { IScore } from '../../../../../api/model/iScore';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { IScore } from 'app/api/model/iScore';
 
 @Component({
   selector: 'app-score',

@@ -2,8 +2,8 @@ import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/co
 
 @Component({
   selector: 'ui-dialog',
-  templateUrl: 'dialog.component.html',
-  styleUrls: ['dialog.component.scss']
+  templateUrl: './dialog.component.html',
+  styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
   isOpen: boolean = false;

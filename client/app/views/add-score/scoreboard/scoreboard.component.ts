@@ -1,5 +1,5 @@
-import { ScoreService } from '../../../api/score.service';
-import { IScoreGroup } from '../../../api/model/iScoreGroup';
+import { ScoreService } from 'app/api/score.service';
+import { IScoreGroup } from 'app/api/model/iScoreGroup';
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit, ElementRef, Input } from "@angular/core";
 
@@ -8,8 +8,8 @@ import { Component, OnInit, ElementRef, Input } from "@angular/core";
  */
 @Component({
   selector: 'scoreboard',
-  templateUrl: 'scoreboard.component.html',
-  styleUrls: ['scoreboard.component.scss']
+  templateUrl: './scoreboard.component.html',
+  styleUrls: ['./scoreboard.component.scss']
 })
 export class ScoreboardComponent implements OnInit {
   grandTotal: number = 0;

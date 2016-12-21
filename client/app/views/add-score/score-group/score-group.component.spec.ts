@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ScoreGroupComponent } from './add-score-group.component';
+import { ScoreGroupComponent } from './score-group.component';
 
 describe('ScoreGroupComponent', () => {
   let component: ScoreGroupComponent;
