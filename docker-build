@@ -10,7 +10,7 @@ docker-compose build
 docker-compose kill
 
 # Remove container
-docker-compose rm -f
+docker-compose rm -f --all
 
 # Start a new container with the built image
 docker-compose up -d
