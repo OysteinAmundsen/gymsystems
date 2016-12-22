@@ -1,0 +1,17 @@
+[
+  {
+    "name": "default",
+    "driver": {
+      "type": "mysql",
+      "host": "192.168.99.100",
+      "port": 3306,
+      "username": "system",
+      "password": "admin",
+      "database": "gymsystem"
+    },
+    "entities": [
+      "dist/model/*.js"
+    ],
+    "autoSchemaSync": true
+  }
+]

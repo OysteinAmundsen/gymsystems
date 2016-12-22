@@ -15,12 +15,11 @@ COPY package.json $HOME
 RUN npm install --production
 
 # Bundle pre-built app
-COPY ./dist $HOME/dist
+COPY dist $HOME/dist
 RUN chown -R app:app $HOME/*
 
 # Set
 USER app
 
-EXPOSE 4200
-EXPOSE 49153
-ENTRYPOINT npm start
+EXPOSE 3000
+ENTRYPOINT npm run start:server

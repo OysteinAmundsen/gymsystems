@@ -1,28 +1,22 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
+
+    "pretty": false,
     "declaration": false,
-    "removeComments": true,
-    "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "noLib": false,
+    "rootDir": ".",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "../dist/",
     "sourceMap": false,
-    "pretty": false,
+    "target": "es6",
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "outDir": "../dist/",
-    "rootDir": ".",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitUseStrict": false,
     "noFallthroughCasesInSwitch": true
-  },
-  "files": [
-    "index.ts",
-    "standalone.ts",
-    "typings.d.ts"
-  ]
+  }
 }

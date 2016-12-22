@@ -2,13 +2,12 @@ version: '2'
 
 services:
   client:
-    build: ./.docker/app
+    build: .
     image: gymsystems/client
     container_name: gymsystems
     restart: unless-stopped
     ports:
-      - "4200:4200"
-      - "49153:49153"
+      - "3000:3000"
     depends_on:
       - db
     environment:
@@ -17,4 +16,10 @@ services:
       - /usr/src/app/node_modules
 
   db:
-    build: ./.docker/db
+    build: .docker/db
+    image: gymsystems/db
+    container_name: gymsystems_db
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - "3306:3306"

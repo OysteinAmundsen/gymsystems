@@ -9,7 +9,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 export class MacroDialogComponent extends DialogComponent implements OnInit {
   macros: any = [
     { name: 'Tournament' },
-    { name: 'Division' },
+    { name: 'Discipline' },
     { name: 'Team' },
     { name: 'Discipline' },
   ];
