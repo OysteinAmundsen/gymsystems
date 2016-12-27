@@ -1,6 +1,6 @@
 # Gymsystems #
 
-This is a complete web based system for managing the secretariat for Team Gymnastic sports. There are not many proffesional scoring or managing systems available, and therefore we saw the need for creating one. And since these minority sports are typically not funded, and therefore prone to voluntary work, we wanted this system to be open-source as well. We will therefore never ask for money for this system, but instead ask you to donate your time and efforts to improve the system.
+This is a complete web based system for managing the secretariat for Team Gymnastic sports. There are not many proffesional scoring or managing systems available, and therefore we saw the need for creating one. And since these minority sports are typically not funded, and therefore prone to voluntary work, we wanted this system to be a community open-source project as well. We will therefore never ask for money for this system, but instead wecome improvements through pull-requests.
 
 We've based the system on a NodeJS Express server using MySQL backend over Docker, serving an Angular 2 frontend. 
 
@@ -12,21 +12,20 @@ We've based the system on a NodeJS Express server using MySQL backend over Docke
 
 You need to install the following:
 
-* [NodeJS](https://nodejs.org/)
+* [NodeJS](https://nodejs.org/) 4 or higher (We reccommend the 6 LTS version)
 * [Docker](https://www.docker.com/)
 
 ### Build and run ###
 
 ```bash
 npm install
-npm run build
 ./docker-build
 ```
 
 After running these commands, you will have two docker containers up and running. 
 
-* **gymsystems** - built from [gymsystems/client docker image](./Dockerfile)
-* **gymsystems_db** - build from [gymsystems/db docker image](.docker/db/Dockerfile)
+* **gymsystems** - built from [gymsystems/client](./Dockerfile) docker image
+* **gymsystems_db** - build from [gymsystems/db](.docker/db/Dockerfile) docker image
 
 They're put together using [docker-compose](./docker-compose.yml) and should be available on port 3000 of you docker-machine.
 
@@ -34,11 +33,12 @@ They're put together using [docker-compose](./docker-compose.yml) and should be 
 
 `npm run build:server:watch`
 
-If you allready have built the docker containers, you can run the server in development mode using this command, which will continously build the backend while you develop. 
+This command will continously build the backend while you develop. 
 
-`npm run start:server`
+`npm run start:server:watch`
 
-You will need to start a separate shell in order to run the server though, and there is no hot-reload implemented, so you need to restart the server each time you want to test your changes.
+You will need to start a separate shell in order to run the server though, this command uses `nodemon` to watch for changes and restarts the server automatically upon changes. 
+In order to run the server, you will require a database. This is provided for you in the `gymsystems_db` docker container.
 
 #### While deveoping frontend ####
 
@@ -51,7 +51,7 @@ This will run a continous build and browsersync session for the frontend. Use th
 ## Three-tier architecture ##
 ### Server ###
 
-We chose a NodeJS Express backend for this, as it was the easiest to setup and is super-fast. The database connection is handled by [`TypeORM`](https://typeorm.github.io), and the whole server concists basically of CRUD controllers using [`routing-controllers`](https://github.com/pleerock/routing-controllers) and [`typeorm-routing-controllers-extension`](https://github.com/typeorm/typeorm-routing-controllers-extensions). This was super-easy to setup.
+We chose a NodeJS Express backend for this, as it was the easiest to setup and is super-fast. The database connection is handled by [`TypeORM`](https://typeorm.github.io), and the whole server concists basically of CRUD controllers using [`routing-controllers`](https://github.com/pleerock/routing-controllers) and [`typeorm-routing-controllers-extension`](https://github.com/typeorm/typeorm-routing-controllers-extensions). This was super-easy to setup and is feels very similar to Spring for Java.
 
 ### Client ###
 

@@ -1,17 +1,19 @@
 {
   "compilerOptions": {
-
-    "pretty": false,
+    "baseUrl": "",
     "declaration": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "noLib": false,
-    "rootDir": ".",
+    "rootDir": "./",
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "../dist/",
     "sourceMap": false,
     "target": "es6",
+
+
+
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "noImplicitAny": true,

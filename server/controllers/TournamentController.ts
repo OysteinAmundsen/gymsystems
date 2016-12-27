@@ -2,12 +2,12 @@ import { getConnectionManager, Repository  } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service } from 'typedi';
+import { Tournament } from '../model/Tournament';
 
 import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
 
-import { Tournament } from '../model/Tournament';
 
 /**
  *
@@ -22,8 +22,18 @@ export class TournamentController {
   }
 
   @Get()
-  all() {
+  all(): Promise<Tournament[]> {
     return this.repository.find();
+  }
+
+  @Get('/past')
+  past(): Promise<Tournament[]> {
+    return this.repository.find({where: ''});
+  }
+
+  @Get('/future')
+  future(): Promise<Tournament[]> {
+    return this.repository.find({where: ''});
   }
 
   @Get('/:id')
@@ -33,7 +43,7 @@ export class TournamentController {
   }
 
   @Post()
-  create(@EntityFromBody() tournament: Tournament, @Res() res: Response) {
+  create(@EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
       .then(persisted => res.send(persisted))
       .catch(err => {
@@ -44,7 +54,7 @@ export class TournamentController {
   }
 
   @Put('/:id')
-  update(@Param('id') id: number, @EntityFromBody() tournament: Tournament, @Res() res: Response) {
+  update(@Param('id') id: number, @EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
       .then(persisted => res.send(persisted))
       .catch(err => {

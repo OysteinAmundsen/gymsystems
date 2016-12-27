@@ -54,7 +54,7 @@ export class Server {
 
     // Configure database
     createConnection().then(async connection => {
-      console.log('DB connected');
+      console.log(chalk.green('DB connected'));
 
       // Setup ExpressJS application
       const appConfig = {
@@ -83,7 +83,7 @@ export class Server {
       this.app.use(favicon(path.join(clientPath, 'favicon.ico'))); // Serve favicon
 
       // Error handlers
-      this.app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+      this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
         console.log('Error: ' + err);
         res.status(err.status || 500);
         res.render('error', {
@@ -94,14 +94,14 @@ export class Server {
       });
 
       // Setup base route to everything else
-      this.app.get('/*', function (req: express.Request, res: express.Response, next: express.NextFunction) {
+      this.app.get('/*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
         res.sendFile(path.resolve(clientPath, 'index.html'));
       });
 
       this.app.listen(this.port)  // Listen on provided port, on all network interfaces.
         .on('listening', () => console.log('Serving on ' + chalk.blue.underline('http://localhost:' + this.port + '/')))
         .on('error', (error: any) => {
-          if (error.syscall !== 'listen') throw error;
+          if (error.syscall !== 'listen') { throw error; }
 
           let bind = typeof this.port === 'string' ? 'Pipe ' + this.port : 'Port ' + this.port;
 
@@ -120,7 +120,19 @@ export class Server {
           }
         });
 
-    }).catch((error: any) => console.error(error));
+    }).catch((error: any) => {
+      if (error.code === 'ECONNREFUSED') {
+        console.log(`${chalk.red.bold('ERROR: Connection refused!')}
+
+    Did you forget to start the docker container for database? 
+    Before you try and run the server standalone, ${chalk.white.bold('Please run:')} 
+      ${chalk.yellow('./docker-build')} 
+
+`);
+      } else {
+        console.error(error);
+      }
+    });
   }
 
   /**
@@ -138,9 +150,9 @@ export class Server {
 
 (function standalone() {
   console.log(`
-${chalk.green     ('********************')}
+${chalk.green     ('**********************')}
 ${chalk.green.bold('  Starting GymSystems')}
-${chalk.green     ('********************')}
+${chalk.green     ('**********************')}
 `);
   module.exports = Server.bootstrap().app;
 })();

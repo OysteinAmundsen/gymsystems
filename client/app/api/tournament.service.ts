@@ -9,7 +9,7 @@ import { ITeam, Team } from './model/iTeam';
 
 
 export interface ITournament {
-  id: number,
+  id: number;
   name: string;
   startDate: Date;
   location: string;
