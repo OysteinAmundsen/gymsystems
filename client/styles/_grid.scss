@@ -1,0 +1,44 @@
+@mixin clearfix() {
+  &:after {
+    content: ' ';
+    display: table;
+    clear: both;
+  }
+}
+@mixin create-cols($sum) {
+  @for $index from 0 through $sum {
+    .col-#{$index} {
+      @include col($index, $sum);
+      @media (max-width: 768px) {
+        width: 100%;
+        display: table;
+      }
+    }
+    .col-xs-#{$index} {
+      @include col($index, $sum);
+    }
+  }
+}
+
+.row {
+  width: 100%;
+  display: table;
+  @include clearfix();
+}
+.col {
+  font-size: 16px;
+  display: table-cell;
+  @media (max-width: 450px) {
+    width: 100% !important;
+    display: table;
+  }
+}
+
+@mixin col($col, $sum, $align: top) {
+  @extend .col;
+  width: percentage(($col/$sum));
+  vertical-align: $align;
+}
+
+@include create-cols(12);
+

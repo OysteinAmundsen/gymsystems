@@ -1,3 +1,8 @@
+const mkdir = require('mkdirp');
+mkdir('./log', (err: any) => {
+  if (err) { console.error(err); }
+  else { console.log('./log directory created'); }
+});
 module.exports = require('bunyan').createLogger({
   name: 'gymsys',
   streams: [

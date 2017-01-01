@@ -1,12 +1,28 @@
 @import "variables";
 @import "panel";
 
+$inputHeight: 33px;
+$labelHeight: 16px;
+@mixin input() {
+  display: block;
+  box-shadow: 0 0 6px rgba(black, 0.2) inset;
+  border: 1px solid rgba(black, 0.4);
+  padding: ($padding * 2) $padding;
+  border-radius: $rounded;
+  height: $inputHeight;
+  outline: none;
+  margin: 2px;
+  &:focus, &:active {
+    box-shadow: 0 0 6px rgba(black, 0.2) inset, 0 0 3px 1px rgba(blue, 0.4);
+  }
+}
 form {
   @include panel;
   fieldset {
     @include innerPanel;
   }
   label {
+    height: $labelHeight;
     font-size: 0.8rem;
     display: inline-block;
     padding: 0.1rem 0 0 $margin;
@@ -16,14 +32,35 @@ form {
     }
   }
   input, textarea {
-    display: block;
-    box-shadow: 0 0 6px rgba(black, 0.2) inset;
-    border: 1px solid rgba(black, 0.4);
-    padding: ($padding * 2) $padding;
-    border-radius: $rounded;
+    @include input();
     width: 100%;
     &.ng-invalid {
       border-color: red;
+    }
+  }
+
+  [appFloatingLabelContainer] {
+    position: relative;
+    height: $labelHeight + $inputHeight;
+    label, input {
+      transition: all 0.2s ease-in-out;
+      touch-action: manipulation;
+    }
+    input {
+      margin-top: $labelHeight + 10;
+    }
+    label {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      color: rgba(black, 0.6);
+      transform: translate(5px, $labelHeight + 16) scale(1.2);
+    }
+    &.hasValue, &.hasFocus {
+      label {
+        transform: translate(0, 0) scale(1);
+      }
     }
   }
 }

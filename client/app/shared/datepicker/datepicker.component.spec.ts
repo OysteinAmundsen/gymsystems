@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ConfigureDivisionsComponent } from './configure-divisions.component';
+import { DatepickerComponent } from './datepicker.component';
 
-describe('ConfigureDivisionsComponent', () => {
-  let component: ConfigureDivisionsComponent;
-  let fixture: ComponentFixture<ConfigureDivisionsComponent>;
+describe('DatepickerComponent', () => {
+  let component: DatepickerComponent;
+  let fixture: ComponentFixture<DatepickerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConfigureDivisionsComponent ]
+      declarations: [ DatepickerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConfigureDivisionsComponent);
+    fixture = TestBed.createComponent(DatepickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

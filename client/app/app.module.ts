@@ -27,6 +27,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+
     SharedModule,
     HomeModule,
     AddScoreModule,

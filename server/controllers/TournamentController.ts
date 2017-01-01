@@ -8,6 +8,8 @@ import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
 
+import moment = require('moment');
+
 
 /**
  *
@@ -23,17 +25,42 @@ export class TournamentController {
 
   @Get()
   all(): Promise<Tournament[]> {
-    return this.repository.find();
+    return this.repository
+      .createQueryBuilder('tournament')
+      .orderBy('startDate', 'DESC')
+      .getMany();
   }
 
   @Get('/past')
-  past(): Promise<Tournament[]> {
-    return this.repository.find({where: ''});
+  @EmptyResultCode(200)
+  past(): Promise<Tournament> {
+    return this.repository
+      .createQueryBuilder('tournament')
+      .where('endDate < :date', {date: moment().utc().toDate()})
+      .orderBy('startDate', 'DESC')
+      .getMany();
+  }
+
+  @Get('/current')
+  @EmptyResultCode(200)
+  current(): Promise<Tournament> {
+    let now = moment();
+    return this.repository
+      .createQueryBuilder('tournament')
+      .where('startDate < :date', {date: now.utc().toDate()})
+      .andWhere('endDate > :date', { date: now.utc().toDate()})
+      .orderBy('startDate', 'DESC')
+      .getMany();
   }
 
   @Get('/future')
-  future(): Promise<Tournament[]> {
-    return this.repository.find({where: ''});
+  @EmptyResultCode(200)
+  future(): Promise<Tournament> {
+    return this.repository
+      .createQueryBuilder('tournament')
+      .where('startDate > :date', {date: moment().utc().toDate()})
+      .orderBy('startDate', 'DESC')
+      .getMany();
   }
 
   @Get('/:id')
@@ -44,6 +71,7 @@ export class TournamentController {
 
   @Post()
   create(@EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
+    console.log('Creating new Tournament', tournament);
     return this.repository.persist(tournament)
       .then(persisted => res.send(persisted))
       .catch(err => {

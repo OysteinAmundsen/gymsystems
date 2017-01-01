@@ -1,7 +1,7 @@
 import { ViewChild } from '@angular/core/src/metadata/di';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { IScore } from 'app/api/model/iScore';
+import { ITournamentParticipantScore } from 'app/api/model/ITournamentParticipantScore';
 
 @Component({
   selector: 'app-score',
@@ -17,23 +17,23 @@ export class ScoreComponent implements OnInit {
   get score(): number { return this.ct.value; }
   set score(value: number) { (<FormControl>this.ct).setValue(value); }
 
-  @Input() model: IScore; // JSON
+  @Input() model: ITournamentParticipantScore; // JSON
   @Input() form: FormGroup;
 
   constructor(private element: ElementRef) { }
 
   ngOnInit() {
     let me = this;
-    me.ct = me.form.controls['field_' + me.model.shortName];
+    me.ct = me.form.controls['field_' + me.model.group.scoreGroup.name];
 
     me.ct.valueChanges.subscribe(function (value) {
       // Force value to be within range
-      if (value == null || value < me.model.min) {
-        me.score = me.model.min;
+      if (value == null || value < me.model.group.scoreGroup.min) {
+        me.score = me.model.group.scoreGroup.min;
         me.input.nativeElement.select();
       }
-      else if (value > me.model.max) {
-        me.score = me.model.max;
+      else if (value > me.model.group.scoreGroup.max) {
+        me.score = me.model.group.scoreGroup.max;
       }
     });
   }
@@ -43,11 +43,11 @@ export class ScoreComponent implements OnInit {
    * @param event
    */
   onKey(event: KeyboardEvent) {
-    if (event['code'] === 'PageDown' && this.ct.value > this.model.min) {
+    if (event['code'] === 'PageDown' && this.ct.value > this.model.group.scoreGroup.min) {
       this.score = this.score - 1;
     }
 
-    else if (event['code'] === 'PageUp' && this.ct.value < this.model.max) {
+    else if (event['code'] === 'PageUp' && this.ct.value < this.model.group.scoreGroup.max) {
       this.score = this.score + 1;
     }
   }

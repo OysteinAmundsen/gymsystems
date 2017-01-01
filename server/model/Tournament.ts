@@ -6,16 +6,22 @@ import { TournamentDiscipline } from './TournamentDiscipline';
 @Table()
 export class Tournament {
   @PrimaryGeneratedColumn()
-  id:number;
+  id: number;
 
   @Column({ length: 200 })
-  name:string;
+  name: string;
 
   @Column({type: 'text', nullable: true})
-  description:string;
+  description: string;
 
   @Column()
-  startDate:Date;
+  startDate: Date;
+
+  @Column()
+  endDate: Date;
+
+  @Column()
+  location: string;
 
   @OneToMany(type => TournamentParticipant, schedule => schedule.tournament)
   schedule?: TournamentParticipant[];

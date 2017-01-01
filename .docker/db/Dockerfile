@@ -1,8 +1,4 @@
 FROM mysql:5
 
-ENV MYSQL_ROOT_PASSWORD root
-ENV MYSQL_DATABASE gymsystem
-ENV MYSQL_USER system
-ENV MYSQL_PASSWORD admin
 
 VOLUME /var/lib/mysql

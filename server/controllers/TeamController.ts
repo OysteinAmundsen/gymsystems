@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository  } from 'typeorm';
-import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
+import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Param, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service } from 'typedi';
 

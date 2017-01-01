@@ -11,11 +11,12 @@ export class AddScoreComponent implements OnInit {
   title: string;
   scoreGroups: IScoreGroup[];
 
-  constructor(private setup: ScoreService) {
+  constructor(private scoreService: ScoreService) {
     this.title = 'Floor';
   }
 
   ngOnInit() {
-    this.scoreGroups = this.setup.getScoreGroups();
+    this.scoreService.getScoreGroups()
+      .subscribe((scoreGroups: IScoreGroup[]) => this.scoreGroups = scoreGroups);
   }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ITournament, TournamentService } from 'app/api/tournament.service';
+import { TournamentService } from 'app/api/tournament.service';
+import { ITournament } from 'app/api/model/ITournament';
 
 @Component({
   selector: 'app-home',
@@ -10,17 +11,16 @@ import { ITournament, TournamentService } from 'app/api/tournament.service';
   providers: [TournamentService]
 })
 export class HomeComponent implements OnInit {
-  upcoming: ITournament[];
-  past: ITournament[];
+  upcoming: ITournament[] = [];
+  past: ITournament[] = [];
+  current: ITournament[] = [];
+  isLoading: boolean = true;
 
   constructor(private router: Router, private tournamentService: TournamentService) {
-    tournamentService.upcoming().subscribe(tournaments => this.upcoming = tournaments.data);
-    tournamentService.past().subscribe(tournaments => this.past = tournaments.data);
+    tournamentService.past().subscribe(tournaments => this.past = tournaments);
+    tournamentService.current().subscribe(tournaments => this.current = tournaments);
+    tournamentService.upcoming().subscribe(tournaments => this.upcoming = tournaments);
   }
 
-  ngOnInit() {
-  }
-  display(tournament: ITournament) {
-    this.router.navigate(['/list/' + tournament.id]);
-  }
+  ngOnInit() { }
 }

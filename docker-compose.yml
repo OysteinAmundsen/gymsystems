@@ -10,15 +10,23 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    links:
+      - db:db
     environment:
       - DATABASE_HOST=db
+      - NODE_ENV=production
     volumes:
       - /usr/src/app/node_modules
 
   db:
-    build: .docker/db
-    image: gymsystems/db
+    image: mysql
     container_name: gymsystems_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gymsystem
+      MYSQL_USER: system
+      MYSQL_PASSWORD: admin
     volumes:
       - ./data:/var/lib/mysql
     ports:

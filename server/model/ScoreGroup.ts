@@ -1,4 +1,4 @@
-import {Table, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm';
+import {Table, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 /**
  * Defines a ScoreGroup type
@@ -12,5 +12,14 @@ export class ScoreGroup {
   name: string;
 
   @Column()
+  type: string;
+
+  @Column()
   judges: number;
+
+  @Column()
+  max: number;
+
+  @Column()
+  min: number;
 }

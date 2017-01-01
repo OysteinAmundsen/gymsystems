@@ -1,4 +1,4 @@
-<form [formGroup]="scoreForm" (ngSubmit)="onSubmit(scoreForm.values)">
+<form [formGroup]="scoreForm" (ngSubmit)="onSubmit(scoreForm.values)" *ngIf="scoreGroups && scoreGroups.length">
   <div role="table">
     <div role="row">
       <app-score-group *ngFor="let group of scoreGroups" [model]="group" [form]="scoreForm" class="x{{ group.scores.length }} group_{{ group.type }}"></app-score-group>
@@ -23,3 +23,9 @@
     <button type="submit"><fa name="save" fw="true"></fa> Save score</button>
   </footer>
 </form>
+
+<div *ngIf="!scoreGroups || !scoreGroups.length">
+  <h2>Oooops! <small>No scoregroups configured!</small></h2>
+  <br>
+  <p>Go to <a [routerLink]="['/configure/score']">Score configuration</a> to finish setup.</p>
+</div>

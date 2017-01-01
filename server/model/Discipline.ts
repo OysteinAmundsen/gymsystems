@@ -2,8 +2,8 @@ import { PrimaryGeneratedColumn, Column, Table } from 'typeorm';
 
 /**
  * Describes the available disciplines in this sport.
- * A tournament is not required to implement all these, but rather
- * this describes what can be implemented in a tournament.
+ * A selected is not required to implement all these, but rather
+ * this describes what can be implemented in a selected.
  */
 @Table()
 export class Discipline {

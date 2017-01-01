@@ -23,7 +23,7 @@
     right: -100%;
     background: $primary;
     transition: 300ms ease all;
-    z-index: 2;
+    z-index: 500;
     &.open {
       transform: translateX(-100%);
     }

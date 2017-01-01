@@ -1,15 +1,16 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ConfigureRoutes } from './configure.routes';
+import { SharedModule } from '../../shared/shared.module';
 
 import { ConfigureComponent } from './configure.component';
 import { ConfigureScoreComponent } from './configure-score/configure-score.component';
 import { ConfigureDisplayComponent } from './configure-display/configure-display.component';
 import { MacroDialogComponent } from './configure-display/macro-dialog/macro-dialog.component';
-import { ConfigureDivisionsComponent } from './configure-divisions/configure-divisions.component';
+import { ConfigureDisciplinesComponent } from './configure-disciplines/configure-disciplines.component';
 import { ConfigureTeamsComponent } from './configure-teams/configure-teams.component';
 import { ConfigureTournamentComponent } from './configure-tournament/configure-tournament.component';
 import { AdvancedComponent } from './advanced/advanced.component';
@@ -17,6 +18,9 @@ import { AdvancedComponent } from './advanced/advanced.component';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+
     SharedModule,
     RouterModule.forChild([...ConfigureRoutes])
   ],
@@ -25,7 +29,7 @@ import { AdvancedComponent } from './advanced/advanced.component';
     ConfigureScoreComponent,
     ConfigureDisplayComponent,
     MacroDialogComponent,
-    ConfigureDivisionsComponent,
+    ConfigureDisciplinesComponent,
     ConfigureTeamsComponent,
     ConfigureTournamentComponent,
     AdvancedComponent
