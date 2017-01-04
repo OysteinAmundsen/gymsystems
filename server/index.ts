@@ -9,12 +9,12 @@ import * as bodyParser from 'body-parser';
 import * as methodOverride from 'method-override';
 
 import * as logMiddleWare from 'morgan';
-import * as Logger from 'bunyan';
 
 import 'reflect-metadata';
 import { createConnection, useContainer } from 'typeorm';
 import { useExpressServer, createExpressServer } from 'routing-controllers';
 import { Container } from 'typedi';
+let rc = require('routing-controllers');
 
 /**
  * The server.
@@ -23,7 +23,6 @@ import { Container } from 'typedi';
  */
 export class Server {
   public app: express.Express;
-  private log: Logger.Logger = require('./logger');
   private port: number;
 
   /**
@@ -49,8 +48,9 @@ export class Server {
     const clientPath = path.join(__dirname, base + '/public');
     this.port = this.normalizePort(process.env.PORT || port || '3000');
 
-    // setup routing-controllers to use typedi container. You can use any container here
-    useContainer(Container);
+    // Setup dependency injection container
+    useContainer(Container);    // setup typeorm to use typedi container
+    rc.useContainer(Container); // setup routing-controllers to use typedi container.
 
     // Configure database
     createConnection().then(async connection => {
@@ -71,7 +71,7 @@ export class Server {
       this.app.disable('x-powered-by');
       this.app.set('trust proxy', true);                           // Listen for external requests
 
-      // Setup middlewares
+      // Setup global middlewares
       this.app.use(bodyParser.json());                             // mount json form parser
       this.app.use(bodyParser.urlencoded({ extended: false }));    // mount query string parser
       this.app.use(methodOverride());                              // Enforce HTTP verbs
