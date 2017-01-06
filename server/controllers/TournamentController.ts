@@ -1,7 +1,6 @@
 import { getConnectionManager, Repository  } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
-import { Service } from 'typedi';
 import { Tournament } from '../model/Tournament';
 
 import e = require('express');
@@ -9,13 +8,13 @@ import Request = e.Request;
 import Response = e.Response;
 
 import moment = require('moment');
+import { Logger } from 'utils/Logger';
 
 
 /**
  *
  */
 @JsonController('/tournaments')
-@Service()
 export class TournamentController {
   private repository: Repository<Tournament>;
 

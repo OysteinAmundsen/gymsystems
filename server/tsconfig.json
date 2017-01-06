@@ -7,7 +7,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "../dist/",
-    "sourceMap": false,
+    "sourceMap": true,
     "target": "es6",
 
 
@@ -20,5 +20,8 @@
     "noImplicitReturns": true,
     "noImplicitUseStrict": false,
     "noFallthroughCasesInSwitch": true
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -2,19 +2,32 @@
 import * as path from 'path';
 import * as chalk from 'chalk';
 
-import * as express from 'express';
+// Express
+import * as Express from 'express';
+
+// Express middlewares
 import * as favicon from 'serve-favicon';
-import * as cookieParser from 'cookie-parser';
+import * as morgan from 'morgan';
 import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
 import * as methodOverride from 'method-override';
+import * as session from 'express-session';
+let compress = require('compress');
 
-import * as logMiddleWare from 'morgan';
+// Authentication
+import * as Passport from 'passport';
+let LocalStrategy = require('passport-local').Strategy;
 
+// Persistance
 import 'reflect-metadata';
 import { createConnection, useContainer } from 'typeorm';
-import { useExpressServer, createExpressServer } from 'routing-controllers';
+import { createExpressServer } from 'routing-controllers';
 import { Container } from 'typedi';
 let rc = require('routing-controllers');
+
+// Other
+import { Logger } from './utils/Logger';
+import { ERROR_MESSAGES } from './messages';
 
 /**
  * The server.
@@ -22,137 +35,165 @@ let rc = require('routing-controllers');
  * @class Server
  */
 export class Server {
-  public app: express.Express;
-  private port: number;
+  public app: Express.Express;
+  private port: number = 3000;
+  private clientPath = path.join(__dirname, './public');
 
   /**
    * Bootstrap the application.
    *
-   * @param app - An optional instance of express
-   * @returns {Server} Creates and returns an instance of this server
+   * @returns {Promise<any>}
+   * @constructor
    */
-  public static bootstrap(app?: express.Express): Server {
-    return new Server(app);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param app - You can provide your own express instance here, and this class
-   *              will use this instead of creating a default.
-   * @param port - optional port. Default is 3000.
-   */
-  constructor(app?: express.Express, port?: number) {
-    const env = process.env.NODE_ENV || 'development';
-    const base = './';
-    const clientPath = path.join(__dirname, base + '/public');
-    this.port = this.normalizePort(process.env.PORT || port || '3000');
-
-    // Setup dependency injection container
-    useContainer(Container);    // setup typeorm to use typedi container
-    rc.useContainer(Container); // setup routing-controllers to use typedi container.
-
-    // Configure database
-    createConnection().then(async connection => {
-      console.log(chalk.green('DB connected'));
-
-      // Setup ExpressJS application
-      const appConfig = {
-        routePrefix: '/api',
-        controllers: [__dirname + '/controllers/*.js']             // register controllers routes in our express app
-      };
-      this.app = (app ? useExpressServer(app, appConfig) : createExpressServer(appConfig));
-      this.app.set('port', this.port);
-
-      // TODO: Setup authentication
-
-      // Configure express
-      this.app.set('etag', false);
-      this.app.disable('x-powered-by');
-      this.app.set('trust proxy', true);                           // Listen for external requests
-
-      // Setup global middlewares
-      this.app.use(bodyParser.json());                             // mount json form parser
-      this.app.use(bodyParser.urlencoded({ extended: false }));    // mount query string parser
-      this.app.use(methodOverride());                              // Enforce HTTP verbs
-      this.app.use(cookieParser());                                // populate req.cookies
-      this.app.use(logMiddleWare('dev'));                          // Setup morgan
-
-      // Setup static resources
-      this.app.use(express.static(clientPath));                    // Serve static paths
-      this.app.use(favicon(path.join(clientPath, 'favicon.ico'))); // Serve favicon
-
-      // Error handlers
-      this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-        console.log('Error: ' + err);
-        res.status(err.status || 500);
-        res.render('error', {
-          message: err.message,
-          error: (env === 'development') ? err : {}
-        });
-        next(err);
-      });
-
-      // Setup base route to everything else
-      this.app.get('/*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        res.sendFile(path.resolve(clientPath, 'index.html'));
-      });
-
-      this.app.listen(this.port)  // Listen on provided port, on all network interfaces.
-        .on('listening', () => console.log('Serving on ' + chalk.blue.underline('http://localhost:' + this.port + '/')))
-        .on('error', (error: any) => {
-          if (error.syscall !== 'listen') { throw error; }
-
-          let bind = typeof this.port === 'string' ? 'Pipe ' + this.port : 'Port ' + this.port;
-
-          // handle specific listen errors with friendly messages
-          switch (error.code) {
-            case 'EACCES':
-              console.error(bind + ' requires elevated privileges');
-              process.exit(1);
-              break;
-            case 'EADDRINUSE':
-              console.error(bind + ' is already in use');
-              process.exit(1);
-              break;
-            default:
-              throw error;
-          }
-        });
-
-    }).catch((error: any) => {
-      if (error.code === 'ECONNREFUSED') {
-        console.log(`${chalk.red.bold('ERROR: Connection refused!')}
-
-    Did you forget to start the docker container for database? 
-    Before you try and run the server standalone, ${chalk.white.bold('Please run:')} 
-      ${chalk.yellow('./docker-build')} 
-
-`);
-      } else {
-        console.error(error);
-      }
-    });
-  }
-
-  /**
-   * Normalize a port into a number, string, or false.
-   */
-  normalizePort(val: any) {
-    let port = parseInt(val, 10);
-
-    if (isNaN(port)) return val;  // named pipe
-    if (port >= 0) return port; // port number
-
-    return false;
-  }
-}
-
-(function standalone() {
-  console.log(`
+  static Initialize(): Promise<any> {
+    Logger.log.debug(`
 ${chalk.green     ('**********************')}
 ${chalk.green.bold('  Starting GymSystems')}
 ${chalk.green     ('**********************')}
 `);
-  module.exports = Server.bootstrap().app;
+
+    return new Server()
+      .start()
+      .then(() => Logger.log.debug('Server started...'))
+      .catch((error: any) => {
+        Logger.log.error((ERROR_MESSAGES[error.code]) ? ERROR_MESSAGES[error.code] : error);
+      });
+  }
+
+  /**
+   * Constructor.
+   */
+  constructor() {
+    // Setup dependency injection container
+    useContainer(Container);    // setup typeorm to use typedi container
+    rc.useContainer(Container); // setup routing-controllers to use typedi container.
+  }
+
+  start(): Promise<any> {
+    // Configure database
+    return createConnection().then(async connection => this.setup());
+  }
+
+  /**
+   * Setup expressJS
+   */
+  setup() {
+    Logger.log.info(chalk.green('DB connected'));
+
+    let appPath = path.resolve(__dirname);
+
+    // Setup ExpressJS application
+    this.app = createExpressServer({
+      routePrefix: '/api',
+      controllers: [__dirname + '/controllers/*.js'],
+      middlewares: [__dirname + '/middlewares/*.js'],
+      interceptors: [__dirname + '/interceptors/*.js']
+    });
+
+    this.$onMountingMiddlewares();
+
+    // Configure express
+    this.app.set('etag', false);        // TODO: Support etag
+    this.app.disable('x-powered-by');   // Do not announce our architecture to the world!
+    this.app.set('trust proxy', true);  // Listen for external requests
+
+    // Setup static resources
+    this.app.use(Express.static(this.clientPath));                    // Serve static paths
+    this.app.use(favicon(path.join(this.clientPath, 'favicon.ico'))); // Serve favicon
+
+    // Setup base route to everything else
+    this.app.get('/*', (req: Express.Request, res: Express.Response) => {
+      res.sendFile(path.resolve(this.clientPath, 'index.html'));
+    });
+
+    this.app.listen(this.port)  // Listen on provided port, on all network interfaces.
+      .on('listening', () => this.$onReady())
+      .on('error', this.$onServerInitError);
+  }
+
+  /**
+   * This method let you configure the middleware required by your application to works.
+   *
+   * @returns {Server}
+   */
+  public $onMountingMiddlewares(): void | Promise<any>  {
+    // Setup global middlewares
+    this.app.use(morgan('combined', { stream: Logger.stream })) // Setup morgan access logger using winston
+      .use(bodyParser.json())
+      .use(bodyParser.urlencoded({ extended: true }))
+      .use(cookieParser())
+      .use(compress({}))
+      .use(methodOverride())
+
+      // Configure session used by Passport
+      .use(session({
+        secret: 'mysecretkey',
+        resave: true,
+        saveUninitialized: true,
+        cookie: {
+          path: '/',
+          httpOnly: true,
+          secure: false,
+          maxAge: null
+        }
+      }))
+      // Configure passport JS
+      .use(Passport.initialize())
+      .use(Passport.session());
+  }
+
+  /**
+   * Server ready!
+   */
+  public $onReady() {
+    let url = chalk.blue.underline(`http://localhost:${this.port}/`);
+    Logger.log.info(`Serving on ${url}`);
+  }
+
+  /**
+   *
+   * @param request
+   * @param response
+   * @param next
+   * @param authorization
+   */
+  public $onAuth(request: Express.Request, response: Express.Response, next: Express.NextFunction, authorization?: any): void {
+    next(request.isAuthenticated());
+  }
+
+  /**
+   *
+   * @param error
+   * @param request
+   * @param response
+   * @param next
+   * @returns {any}
+   */
+  public $onError(error: any, request: Express.Request, response: Express.Response, next: Express.NextFunction): void {
+    if (response.headersSent) {
+      return next(error);
+    }
+
+    if (typeof error === 'string') {
+      response.status(404).send(error);
+      return next();
+    }
+
+    response.status(error.status || 500).send('Internal Error');
+    return next();
+
+  }
+
+  /**
+   * Fatal error occurred during startup of server
+   * @param error
+   */
+  public $onServerInitError(error: any){
+    // handle specific listen errors with friendly messages if configured. Default to the stack-trace.
+    Logger.log.error((ERROR_MESSAGES[error.code] ? ERROR_MESSAGES[error.code] : error));
+  }
+}
+
+(function standalone() {
+  Server.Initialize();
 })();

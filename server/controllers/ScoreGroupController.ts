@@ -1,7 +1,6 @@
 import { getConnectionManager, Repository  } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
-import { Service } from 'typedi';
 
 import e = require('express');
 import Request = e.Request;
@@ -13,7 +12,6 @@ import { ScoreGroup } from '../model/ScoreGroup';
  *
  */
 @JsonController('/scoregroups')
-@Service()
 export class ScoreGroupController {
   private repository: Repository<ScoreGroup>;
 

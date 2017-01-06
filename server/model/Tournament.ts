@@ -1,4 +1,4 @@
-import { Table, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, ManyToMany } from 'typeorm';
+import { Table, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { TournamentParticipant } from './TournamentParticipant';
 import { TournamentScoreGroup } from './TournamentScoreGroup';
 import { TournamentDiscipline } from './TournamentDiscipline';
