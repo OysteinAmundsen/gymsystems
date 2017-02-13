@@ -9,6 +9,7 @@ export class FloatingLabelContainerDirective implements OnInit, AfterViewChecked
 
   ngOnInit() {
     this.inputElm = this.host.nativeElement.querySelector('input');
+    if (!this.inputElm) { this.inputElm = this.host.nativeElement.querySelector('textarea'); }
     if (!this.inputElm) {
       throw 'No input element found in this floating label container';
     }

@@ -1,0 +1,30 @@
+<form [formGroup]="tournamentForm" (submit)="save()">
+  <fieldset>
+    <div class="row">
+      <div class="col-12" appFloatingLabelContainer>
+        <label>Name</label>
+        <input type="text" formControlName="name">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4" appFloatingLabelContainer>
+        <label>Start date</label>
+        <app-datepicker formControlName="startDate" options="{maxDate: tournamentForm.controls.startDate.value}"></app-datepicker>
+      </div>
+      <div class="col-xs-4" appFloatingLabelContainer>
+        <label>End date</label>
+        <app-datepicker formControlName="endDate" options="{minDate: tournamentForm.controls.startDate.value, initialDate: tournamentForm.controls.startDate.value}"></app-datepicker>
+      </div>
+      <div class="col-xs-4" appFloatingLabelContainer>
+        <label>Location</label>
+        <input type="text" formControlName="location">
+      </div>
+    </div>
+  </fieldset>
+  <footer>
+    <button type="submit"><fa name="save" fw="true"></fa> Save tournament</button>
+    <button type="button" (click)="close()"><fa name="ban" fw="true"></fa> Cancel</button>
+    <button *ngIf="tournamentForm.value.id" class="pull-right warning" type="button" (click)="delete()"><fa name="trash" fw="true"></fa> Delete tournament</button>
+  </footer>
+</form>

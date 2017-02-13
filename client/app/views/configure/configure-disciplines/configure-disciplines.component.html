@@ -1,22 +1,27 @@
 <h1>
-  <fa name="list" fw="true"></fa>
+  <fa name="heartbeat" fw="true"></fa>
   Disciplines
 </h1>
 
-<button (click)="addDiscipline()">
+<table role="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let discipline of disciplineList">
+    <tr *ngIf="discipline !== selected" (click)="select(discipline)" role="listitem">
+      <td>{{ discipline.name }}</td>
+    </tr>
+    <tr *ngIf="discipline === selected">
+      <td colspan="1">
+        <app-discipline-editor [discipline]="selected" (disciplineChanged)="onChange($event)"></app-discipline-editor>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button *ngIf="selected == null" (click)="addDiscipline()">
   <fa name="plus" fw="true"></fa>
   Add Disciplines
 </button>
-
-<form *ngIf="showForm == true">
-  <fieldset>
-    <label>Tournament</label>
-    <input type="text">
-
-    <label>Division name</label>
-    <input type="text">
-  </fieldset>
-  <footer>
-    <button type="submit"><fa name="save" fw="true"></fa> Save discipline</button>
-  </footer>
-</form>

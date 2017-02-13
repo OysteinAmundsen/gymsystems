@@ -14,10 +14,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { RoleService } from './api/role.service';
 import { UserService } from './api/user.service';
 import { TournamentService } from './api/tournament.service';
+import { DisciplineService } from 'app/api/discipline.service';
 import { ScoreService } from './api/score.service';
 
 // Components
 import { AppComponent } from './app.component';
+import { TeamsService } from 'app/api/teams.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,7 @@ import { AppComponent } from './app.component';
     ConfigureModule,
     AppRoutingModule
   ],
-  providers: [ScoreService, TournamentService, UserService, RoleService],
+  providers: [ScoreService, TournamentService, TeamsService, DisciplineService, ScoreService, UserService, RoleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

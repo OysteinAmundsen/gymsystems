@@ -50,3 +50,10 @@ ul.unstyled {
   padding-left: 0;
 }
 
+.warning {
+  color: darken($warning, 30%);
+}
+button.warning {
+  background-color: $warning;
+  color: white;
+}

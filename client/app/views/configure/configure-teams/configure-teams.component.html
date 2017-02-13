@@ -1,22 +1,30 @@
 <h1>
-  <fa name="cubes" fw="true"></fa>
+  <fa name="users" fw="true"></fa>
   Teams
 </h1>
 
-<button (click)="addTeam()">
+<table role="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let team of teamList">
+    <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
+      <td>{{ team.name }}</td>
+      <td>{{ team.description }}</td>
+    </tr>
+    <tr *ngIf="team === selected">
+      <td colspan="2">
+        <app-team-editor [team]="selected" (teamChanged)="onChange($event)"></app-team-editor>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button *ngIf="selected == null" (click)="addTeam()">
   <fa name="plus" fw="true"></fa>
   Add Team
 </button>
 
-<form *ngIf="showForm == true">
-  <fieldset>
-    <label>Tournament</label>
-    <input type="text">
-
-    <label>Division name</label>
-    <input type="text">
-  </fieldset>
-  <footer>
-    <button type="submit"><fa name="save" fw="true"></fa> Save division</button>
-  </footer>
-</form>

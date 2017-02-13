@@ -10,9 +10,8 @@
   width: 100%;
   > footer {
     clear: both;
-    text-align: right;
-    padding: $margin $margin $margin $margin;
-    margin: $negPad 0 $negPad $negPad;
+    padding: $margin;
+    margin: $negPad 0 $negPad 0;
     @media (max-width: $stop1) {
       padding-top: 2px;
     }

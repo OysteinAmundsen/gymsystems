@@ -7,18 +7,18 @@ $navHeight : 3.5rem;
 $rowHeight: 50px;
 
 // Colors
-$primaryLight : #ddf;
 $primary      : #69f;
-$primaryDark  : #47d;
+$primaryDark  : darken($primary, 10%);
+$primaryLight : lighten($primary, 25%);
 $accent       : darken(complement($primary), 20%);
 $accentDark   : darken(complement($primaryDark), 20%);
-$navbar-color: lighten($primary, 42%);
+$navbar-color : lighten($primary, 42%);
 $navbar-height: $rowHeight;
-$panel-color: lighten($primary, 42%);
-$panel-height: $rowHeight;
+$panel-color  : lighten($primary, 42%);
+$panel-height : $rowHeight;
 $primaryBorderColor: darken($panel-color, 8%);
-$primaryDark: darken($primary, 10%);
-$primaryLight: lighten($primary, 30%);
+
+$warning: #c9302c;
 
 // Screen stops
 $stop0 : 64rem;

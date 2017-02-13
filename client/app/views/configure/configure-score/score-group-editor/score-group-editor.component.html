@@ -1,0 +1,34 @@
+<form [formGroup]="scoreForm" (submit)="save()">
+  <fieldset>
+    <div class="row">
+      <div class="col-10" appFloatingLabelContainer>
+        <label>Name</label>
+        <input type="text" formControlName="name">
+      </div>
+      <div class="col-2" appFloatingLabelContainer>
+        <label>Type</label>
+        <input type="text" formControlName="type">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4" appFloatingLabelContainer>
+        <label>Judges</label>
+        <input type="number" formControlName="judges" >
+      </div>
+      <div class="col-4" appFloatingLabelContainer>
+        <label>Max Score</label>
+        <input type="number" formControlName="max" >
+      </div>
+      <div class="col-4" appFloatingLabelContainer>
+        <label>Min Score</label>
+        <input type="number" formControlName="min" >
+      </div>
+    </div>
+  </fieldset>
+  <footer>
+    <button type="submit"><fa name="save" fw="true"></fa> Save ScoreGroup</button>
+    <button type="button" (click)="close()"><fa name="ban" fw="true"></fa> Cancel</button>
+    <button *ngIf="scoreForm.value.id" class="pull-right warning" type="button" (click)="delete()"><fa name="trash" fw="true"></fa> Delete ScoreGroup</button>
+  </footer>
+</form>

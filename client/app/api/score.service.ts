@@ -12,7 +12,7 @@ export class ScoreService extends ApiService {
     super();
   }
 
-  getScoreGroups(): Observable<IScoreGroup[]> {
+  all(): Observable<IScoreGroup[]> {
     return this.http.get(this.url).map((res: Response) => res.json()).catch(this.handleError);
   }
 
@@ -21,7 +21,11 @@ export class ScoreService extends ApiService {
   }
 
   save(scoreGroup: IScoreGroup) {
-    let call = (scoreGroup.id) ? this.http.put(this.url, scoreGroup) : this.http.post(this.url, scoreGroup);
+    let call = (scoreGroup.id) ? this.http.put(`${this.url}/${scoreGroup.id}`, scoreGroup) : this.http.post(this.url, scoreGroup);
     return call.map((res: Response) => res.json()).catch(this.handleError);
+  }
+
+  delete(scoreGroup: IScoreGroup) {
+    return this.http.delete(`${this.url}/${scoreGroup.id}`);
   }
 }

@@ -1,0 +1,21 @@
+@import "variables";
+
+table[role="list"] {
+  border-collapse: collapse;
+  width: 100%;
+  th {
+    text-align: left;
+    padding: $padding;
+  }
+  tbody, tr {
+    &[ role="listitem" ] {
+      cursor: pointer;
+      &:hover td {
+        background-color: $primaryLight;
+      }
+      td {
+        padding: $padding;
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { ITournamentParticipant } from './ITournamentParticipant';
 import { ITournamentDiscipline } from './ITournamentDiscipline';
 import { ITournamentScoreGroup } from './ITournamentScoreGroup';
+import * as moment from 'moment';
 import Moment = moment.Moment;
 
 export interface ITournament {

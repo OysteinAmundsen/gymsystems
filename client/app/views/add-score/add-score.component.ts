@@ -16,7 +16,7 @@ export class AddScoreComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.scoreService.getScoreGroups()
+    this.scoreService.all()
       .subscribe((scoreGroups: IScoreGroup[]) => this.scoreGroups = scoreGroups);
   }
 }

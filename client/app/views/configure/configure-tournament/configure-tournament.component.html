@@ -1,59 +1,33 @@
 <h1>
-  <fa name="heartbeat" fw="true"></fa>
+  <fa name="trophy" fw="true"></fa>
   Tournaments
 </h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Start date</th>
-    <th>End date</th>
-    <th>Location</th>
-  </tr>
-  <tr *ngFor="let tournament of tournamentList" (click)="setSelected(tournament)">
-    <td>{{ tournament.name }}</td>
-    <td>{{ tournament.startDate | date }}</td>
-    <td>{{ tournament.endDate | date }}</td>
-    <td>{{ tournament.location }}</td>
-  </tr>
+<table role="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let tournament of tournamentList">
+    <tr *ngIf="tournament !== selected" (click)="select(tournament)" role="listitem">
+      <td>{{ tournament.name }}</td>
+      <td>{{ tournament.startDate | date }}</td>
+      <td>{{ tournament.endDate | date }}</td>
+      <td>{{ tournament.location }}</td>
+    </tr>
+    <tr *ngIf="tournament === selected">
+      <td colspan="4">
+        <app-tournament-editor [tournament]="selected" (tournamentChanged)="onChange($event)"></app-tournament-editor>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
-<button (click)="addTournament()" *ngIf="showForm != true">
+<button *ngIf="selected == null" (click)="addTournament()">
   <fa name="plus" fw="true"></fa>
   Add Tournament
 </button>
-
-<form *ngIf="showForm == true" [formGroup]="tournamentForm" (submit)="save(tournamentForm.value)">
-  <fieldset>
-    <div class="row">
-      <div class="col-12" appFloatingLabelContainer>
-        <label>Name</label>
-        <input type="text" formControlName="name">
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-4" appFloatingLabelContainer>
-        <label>Start date</label>
-        <app-datepicker formControlName="startDate" options="{maxDate: tournamentForm.controls.startDate.value}"></app-datepicker>
-      </div>
-      <div class="col-xs-4" appFloatingLabelContainer>
-        <label>End date</label>
-        <app-datepicker formControlName="endDate" options="{minDate: tournamentForm.controls.startDate.value, initialDate: tournamentForm.controls.startDate.value}"></app-datepicker>
-      </div>
-      <div class="col-xs-4" appFloatingLabelContainer>
-        <label>Location</label>
-        <input type="text" formControlName="location">
-      </div>
-    </div>
-
-    <div class="col-12" appFloatingLabelContainer>
-      <label>Image</label>
-      <input type="text" formControlName="image">
-    </div>
-  </fieldset>
-  <footer>
-    <button type="button" (click)="showForm = false"><fa name="ban" fw="true"></fa> Cancel</button>
-    <button type="submit"><fa name="save" fw="true"></fa> Save tournament</button>
-  </footer>
-</form>

@@ -32,7 +32,7 @@ export class TournamentController {
 
   @Get('/past')
   @EmptyResultCode(200)
-  past(): Promise<Tournament> {
+  past(): Promise<Tournament[]> {
     return this.repository
       .createQueryBuilder('tournament')
       .where('endDate < :date', {date: moment().utc().toDate()})
@@ -42,7 +42,7 @@ export class TournamentController {
 
   @Get('/current')
   @EmptyResultCode(200)
-  current(): Promise<Tournament> {
+  current(): Promise<Tournament[]> {
     let now = moment();
     return this.repository
       .createQueryBuilder('tournament')
@@ -54,7 +54,7 @@ export class TournamentController {
 
   @Get('/future')
   @EmptyResultCode(200)
-  future(): Promise<Tournament> {
+  future(): Promise<Tournament[]> {
     return this.repository
       .createQueryBuilder('tournament')
       .where('startDate > :date', {date: moment().utc().toDate()})

@@ -1,6 +1,7 @@
 // Module dependencies
 import * as path from 'path';
 import * as chalk from 'chalk';
+import * as fs from 'fs';
 
 // Express
 import * as Express from 'express';
@@ -12,18 +13,17 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as methodOverride from 'method-override';
 import * as session from 'express-session';
-let compress = require('compress');
 
 // Authentication
 import * as Passport from 'passport';
-let LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 
 // Persistance
 import 'reflect-metadata';
 import { createConnection, useContainer } from 'typeorm';
 import { createExpressServer } from 'routing-controllers';
 import { Container } from 'typedi';
-let rc = require('routing-controllers');
+const rc = require('routing-controllers');
 
 // Other
 import { Logger } from './utils/Logger';
@@ -80,7 +80,7 @@ ${chalk.green     ('**********************')}
   setup() {
     Logger.log.info(chalk.green('DB connected'));
 
-    let appPath = path.resolve(__dirname);
+    const appPath = path.resolve(__dirname);
 
     // Setup ExpressJS application
     this.app = createExpressServer({
@@ -98,8 +98,11 @@ ${chalk.green     ('**********************')}
     this.app.set('trust proxy', true);  // Listen for external requests
 
     // Setup static resources
-    this.app.use(Express.static(this.clientPath));                    // Serve static paths
-    this.app.use(favicon(path.join(this.clientPath, 'favicon.ico'))); // Serve favicon
+    this.app.use(Express.static(this.clientPath));    // Serve static paths
+    const faviconPath = path.join(this.clientPath, 'favicon.ico');
+    if (fs.existsSync(path.resolve(faviconPath))) {
+      this.app.use(favicon(faviconPath));             // Serve favicon
+    }
 
     // Setup base route to everything else
     this.app.get('/*', (req: Express.Request, res: Express.Response) => {
@@ -118,11 +121,11 @@ ${chalk.green     ('**********************')}
    */
   public $onMountingMiddlewares(): void | Promise<any>  {
     // Setup global middlewares
-    this.app.use(morgan('combined', { stream: Logger.stream })) // Setup morgan access logger using winston
+    this.app
+      .use(morgan('combined', { stream: Logger.stream })) // Setup morgan access logger using winston
       .use(bodyParser.json())
       .use(bodyParser.urlencoded({ extended: true }))
       .use(cookieParser())
-      .use(compress({}))
       .use(methodOverride())
 
       // Configure session used by Passport
@@ -146,7 +149,7 @@ ${chalk.green     ('**********************')}
    * Server ready!
    */
   public $onReady() {
-    let url = chalk.blue.underline(`http://localhost:${this.port}/`);
+    const url = chalk.blue.underline(`http://localhost:${this.port}/`);
     Logger.log.info(`Serving on ${url}`);
   }
 

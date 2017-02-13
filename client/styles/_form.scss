@@ -9,7 +9,7 @@ $labelHeight: 16px;
   border: 1px solid rgba(black, 0.4);
   padding: ($padding * 2) $padding;
   border-radius: $rounded;
-  height: $inputHeight;
+  min-height: $inputHeight;
   outline: none;
   margin: 2px;
   &:focus, &:active {
@@ -41,12 +41,12 @@ form {
 
   [appFloatingLabelContainer] {
     position: relative;
-    height: $labelHeight + $inputHeight;
-    label, input {
+    min-height: $labelHeight + $inputHeight;
+    label, input, textarea {
       transition: all 0.2s ease-in-out;
       touch-action: manipulation;
     }
-    input {
+    input, textarea {
       margin-top: $labelHeight + 10;
     }
     label {

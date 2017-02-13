@@ -1,0 +1,22 @@
+<form [formGroup]="teamForm" (submit)="save()">
+  <fieldset>
+    <div class="row">
+      <div class="col-12" appFloatingLabelContainer>
+        <label>Name</label>
+        <input type="text" formControlName="name">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12" appFloatingLabelContainer>
+        <label>Description</label>
+        <textarea formControlName="description" rows="5"></textarea>
+      </div>
+    </div>
+  </fieldset>
+  <footer>
+    <button type="submit"><fa name="save" fw="true"></fa> Save team</button>
+    <button type="button" (click)="close()"><fa name="ban" fw="true"></fa> Cancel</button>
+    <button *ngIf="teamForm.value.id" class="pull-right warning" type="button" (click)="delete()"><fa name="trash" fw="true"></fa> Delete team</button>
+  </footer>
+</form>

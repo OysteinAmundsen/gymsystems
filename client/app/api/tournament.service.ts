@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/throw';
 
 import { ITournament } from './model/ITournament';
@@ -23,19 +24,19 @@ export class TournamentService extends ApiService {
   }
 
   all(): Observable<ITournament[]> {
-    return this.http.get(this.url).map((res: Response) => this.mapDates(res.json())).catch(this.handleError);
+    return this.http.get(this.url).map((res: Response) => this.mapDates(res.json())).share().catch(this.handleError);
   }
   past(): Observable<ITournament[]> {
-    return this.http.get(this.url + '/past').map((res: Response) => this.mapDates(res.json())).catch(this.handleError);
+    return this.http.get(`${this.url}/past`).map((res: Response) => this.mapDates(res.json())).catch(this.handleError);
   }
   current(): Observable<ITournament[]> {
-    return this.http.get(this.url + '/current').map((res: Response) => this.mapDates(res.json())).catch(this.handleError);
+    return this.http.get(`${this.url}/current`).map((res: Response) => this.mapDates(res.json())).catch(this.handleError);
   }
   upcoming(): Observable<ITournament[]> {
-    return this.http.get(this.url + '/future').map((res: Response) => this.mapDates(res.json())).catch(this.handleError);
+    return this.http.get(`${this.url}/future`).map((res: Response) => this.mapDates(res.json())).catch(this.handleError);
   }
   getById(id: number): Observable<ITournament> {
-    return this.http.get(this.url + '/' + id).map((res: Response) => this.mapDates([res.json()])).catch(this.handleError);
+    return this.http.get(`${this.url}/${id}`).map((res: Response) => this.mapDates([res.json()])).catch(this.handleError);
   }
 
   save(tournament: ITournament) {
@@ -45,8 +46,12 @@ export class TournamentService extends ApiService {
     if (tournament.endDate.hasOwnProperty('momentObj')) {
       tournament.endDate = tournament.endDate.momentObj.utc().toISOString();
     }
-    let call = (tournament.id) ? this.http.put(this.url, tournament) : this.http.post(this.url, tournament);
+    let call = (tournament.id) ? this.http.put(`${this.url}/${tournament.id}`, tournament) : this.http.post(this.url, tournament);
     return call.map((res: Response) => res.json()).catch(this.handleError);
+  }
+
+  delete(tournament: ITournament) {
+    return this.http.delete(`${this.url}/${tournament.id}`);
   }
 
   private mapDates(tournaments: ITournament[]) {
