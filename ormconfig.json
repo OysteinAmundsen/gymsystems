@@ -9,9 +9,19 @@
       "password": "admin",
       "database": "gymsystem"
     },
+    "logging": {
+      "logQueries": false,
+      "logFailedQueryError": true
+    },
     "entities": [
       "dist/model/*.js"
     ],
+    "migrations": [
+      "dist/migrations/*.js"
+    ],
+    "cli": {
+      "migrationsDir": "server/migrations"
+    },
     "autoSchemaSync": true
   }
 ]
