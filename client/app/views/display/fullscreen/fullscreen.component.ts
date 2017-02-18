@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-fullscreen',
@@ -7,7 +8,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 })
 export class FullscreenComponent implements OnInit {
 
-  constructor(private elRef: ElementRef) { }
+  constructor(private elRef: ElementRef, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     // Go fullscreen
@@ -20,6 +21,13 @@ export class FullscreenComponent implements OnInit {
       elm.mozRequestFullScreen();
     } else if (elm.webkitRequestFullscreen) {
       elm.webkitRequestFullscreen();
+    }
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onEscape(evt: KeyboardEvent) {
+    if (evt.keyCode === 27) {
+      this.router.navigate(['../'], { relativeTo: this.route });
     }
   }
 }
