@@ -18,6 +18,13 @@ section {
   @media (max-width: $stop0) {
     font-size: 3.6vw;
   }
+  @media (max-width: $stop1) {
+    font-size: 6.6vw;
+    display: block;
+    width: 100%;
+    padding-bottom: 70%;
+    margin-bottom: 0.2rem;
+  }
   div {
     position: absolute;
     top: 0;

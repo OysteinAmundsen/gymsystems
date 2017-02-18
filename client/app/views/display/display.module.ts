@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { DisplayRoutes } from './display.routes';
 import { DisplayComponent } from './display.component';
+import { FullscreenComponent } from './fullscreen/fullscreen.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { DisplayComponent } from './display.component';
     RouterModule.forChild([...DisplayRoutes])
   ],
   declarations: [
-    DisplayComponent
+    DisplayComponent,
+    FullscreenComponent
   ]
 })
 export class DisplayModule { }

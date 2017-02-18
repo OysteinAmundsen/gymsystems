@@ -1,0 +1,16 @@
+:host {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  color: white;
+  font-size: 6.6vw;
+  background: black;
+
+  header {
+    text-align: center;
+    font-size: 120%;
+  }
+}

@@ -1,6 +1,12 @@
 import { Route } from '@angular/router';
 import { DisplayComponent } from './display.component';
+import { FullscreenComponent } from './fullscreen/fullscreen.component';
 
 export const DisplayRoutes: Route[] = [
-  { path: 'display', component: DisplayComponent, pathMatch: 'full' }
+  {
+    path: 'display', children: [
+      { path: '', component: DisplayComponent, pathMatch: 'full' },
+      { path: ':displayId', component: FullscreenComponent }
+    ]
+  },
 ];
