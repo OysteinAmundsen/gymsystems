@@ -19,7 +19,6 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
       "prefix": "app",
-      "mobile": false,
       "styles": [
         "styles.scss",
         "../node_modules/font-awesome/scss/font-awesome.scss"
