@@ -1,3 +1,4 @@
+@import "../../../styles/variables";
 @import '../../../styles/form';
 
 .datepicker-container {
@@ -38,7 +39,7 @@
     .datepicker-calendar-top {
       width: 100%;
       height: 80px;
-      background: #099268;
+      background: $primary;
       display: inline-block;
       position: relative;
       .year-title {
@@ -73,6 +74,9 @@
       display: inline-block;
       width: 100%;
       padding: 10px;
+      max-height: 335px;
+      overflow-x: hidden;
+      overflow-y: auto;
       .datepicker-calendar-month-section {
         width: 100%;
         display: flex;
@@ -121,7 +125,7 @@
           border-radius: 50%;
           cursor: pointer;
           &:hover:not(.disabled), &.selected {
-            background: #099268;
+            background: $primary;
             color: #FFFFFF !important;
           }
           &.disabled {
@@ -140,19 +144,19 @@
           width: 100%;
           outline: none;
           display: inline-block;
-          border: 1px solid #099268;
-          background: #099268;
-          color: #FFFFFF;
-          margin-right: 5px;
-          border-radius: 5px;
-          cursor: pointer;
+          // border: 1px solid $primary;
+          // background: $primary;
+          // color: #FFFFFF;
+          // margin-right: 5px;
+          // border-radius: 5px;
+          // cursor: pointer;
           text-align: center;
-          padding: 5px 10px;
+          // padding: 5px 10px;
           &.u-is-secondary {
             background: #FFFFFF;
-            color: #099268;
+            // color: $primary;
             &:hover {
-              color: #099268;
+              color: $primary;
             }
           }
         }
@@ -174,7 +178,7 @@
         border-radius: 50%;
         cursor: pointer;
         &:hover, &.selected {
-          background: #099268;
+          background: $primary;
           color: #FFFFFF !important;
         }
       }

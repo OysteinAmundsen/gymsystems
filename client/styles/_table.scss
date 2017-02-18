@@ -5,7 +5,7 @@ table[role="list"] {
   width: 100%;
   th {
     text-align: left;
-    padding: $padding;
+    padding: $padding ($padding * 3);
   }
   td {
     border-bottom: 1px solid rgba($primary, 0.1);
