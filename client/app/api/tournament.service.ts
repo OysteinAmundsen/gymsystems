@@ -40,11 +40,11 @@ export class TournamentService extends ApiService {
   }
 
   save(tournament: ITournament) {
-    if (tournament.startDate.hasOwnProperty('momentObj')) {
-      tournament.startDate = tournament.startDate.momentObj.utc().toISOString();
+    if (moment.isMoment(tournament.startDate)) {
+      tournament.startDate = (<Moment>tournament.startDate).utc().toISOString();
     }
-    if (tournament.endDate.hasOwnProperty('momentObj')) {
-      tournament.endDate = tournament.endDate.momentObj.utc().toISOString();
+    if (moment.isMoment(tournament.endDate)) {
+      tournament.endDate = (<Moment>tournament.endDate).utc().toISOString();
     }
     let call = (tournament.id) ? this.http.put(`${this.url}/${tournament.id}`, tournament) : this.http.post(this.url, tournament);
     return call.map((res: Response) => res.json()).catch(this.handleError);
@@ -56,8 +56,8 @@ export class TournamentService extends ApiService {
 
   private mapDates(tournaments: ITournament[]) {
     return tournaments.map(tournament => {
-      tournament.startDate = new Date(tournament.startDate);
-      tournament.endDate = new Date(tournament.endDate);
+      tournament.startDate = new Date(<string>tournament.startDate);
+      tournament.endDate = new Date(<string>tournament.endDate);
       return tournament;
     });
   }

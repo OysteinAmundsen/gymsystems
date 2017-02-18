@@ -1,9 +1,9 @@
-import { Table, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { TournamentParticipant } from './TournamentParticipant';
 import { TournamentScoreGroup } from './TournamentScoreGroup';
 import { TournamentDiscipline } from './TournamentDiscipline';
 
-@Table()
+@Entity()
 export class Tournament {
   @PrimaryGeneratedColumn()
   id: number;

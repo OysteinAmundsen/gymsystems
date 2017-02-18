@@ -1,9 +1,9 @@
-import {Table, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
 
 /**
  * Defines a ScoreGroup type
  */
-@Table()
+@Entity()
 export class ScoreGroup {
   @PrimaryGeneratedColumn()
   id: number;

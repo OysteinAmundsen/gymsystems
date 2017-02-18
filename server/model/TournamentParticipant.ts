@@ -1,10 +1,16 @@
-import { Table, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Tournament } from './Tournament';
 import { Team } from './Team';
 import { TournamentDiscipline } from './TournamentDiscipline';
 import { TournamentParticipantScore } from './TournamentParticipantScore';
 
-@Table()
+/**
+ * Marks one entry in the tournaments schedule
+ *
+ * @export
+ * @class TournamentParticipant
+ */
+@Entity()
 export class TournamentParticipant {
   @PrimaryGeneratedColumn()
   id: number;

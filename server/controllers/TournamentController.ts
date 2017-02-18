@@ -69,7 +69,7 @@ export class TournamentController {
   }
 
   @Post()
-  create(@EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
+  create(@EntityFromBody() tournament: Tournament, @Res() res: Response) {
     console.log('Creating new Tournament', tournament);
     return this.repository.persist(tournament)
       .then(persisted => res.send(persisted))
@@ -81,7 +81,7 @@ export class TournamentController {
   }
 
   @Put('/:id')
-  update(@Param('id') id: number, @EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
+  update(@Param('id') id: number, @EntityFromBody() tournament: Tournament, @Res() res: Response) {
     return this.repository.persist(tournament)
       .then(persisted => res.send(persisted))
       .catch(err => {

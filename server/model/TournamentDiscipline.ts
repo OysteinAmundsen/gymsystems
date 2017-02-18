@@ -1,8 +1,8 @@
-import {Table, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, OneToMany} from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, OneToMany} from 'typeorm';
 import { Discipline } from './Discipline';
 import { Tournament } from './Tournament';
 
-@Table()
+@Entity()
 export class TournamentDiscipline {
   @PrimaryGeneratedColumn()
   id: number;

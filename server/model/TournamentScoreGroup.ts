@@ -1,4 +1,4 @@
-import { Table, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { ScoreGroup } from './ScoreGroup';
 import { Tournament } from './Tournament';
 import { TournamentParticipantScore } from './TournamentParticipantScore';
@@ -6,7 +6,7 @@ import { TournamentParticipantScore } from './TournamentParticipantScore';
 /**
  * Defines a ScoreGroup type
  */
-@Table()
+@Entity()
 export class TournamentScoreGroup {
   @PrimaryGeneratedColumn()
   id: number;
