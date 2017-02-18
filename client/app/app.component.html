@@ -1,10 +1,15 @@
+<svg viewBox="0 0 200 40" preserveAspectRatio="none" class="site-header-background">
+  <path d="M 0,0 H 200 V 13 c -139,0 -149,1 -200,23 z" />
+  <path d="M 0,0 H 200 V 13 c -139,0 -149,1 -200,17 z" />
+  <path d="M 0,0 H 200 V 13 c -139,0 -149,1 -200,11 z" />
+</svg>
 <nav>
   <div class="container">
     <header>
       <a class="appLogo" routerLink="/"><span>Gym</span><span>Systems</span></a>
     </header>
     <fa name="bars" fw="true" size="2" (click)="toggleNav($event)"></fa>
-    <ul [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
+    <ul class="pull-right" [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
       <li [routerLinkActive]="['active']">
         <a routerLink="/add-score">
           <fa name="star" fw="true"></fa> Add Score </a>

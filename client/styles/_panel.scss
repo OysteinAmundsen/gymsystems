@@ -2,25 +2,26 @@
 
 @mixin panel {
   padding: ($padding / 2) 0 $padding 0;
-  border: 1px solid $primaryDark;
-  box-shadow: 0 0 100px $primaryDark inset;
+  border: 1px solid rgba(0,0,0,0.3);
+  box-shadow: 0 3px 5px -2px rgba(0,0,0,0.3);
   border-radius: $rounded;
   //overflow: hidden;
-  background: $primaryLight;
+  //background: $primaryLight;
   width: 100%;
   > footer {
     clear: both;
     padding: $margin;
-    margin: $negPad 0 $negPad 0;
+    margin: $padding 0 $negPad 0;
     @media (max-width: $stop1) {
       padding-top: 2px;
     }
   }
 }
 @mixin innerPanel {
-  background: white;
+  //background: white;
   margin: $margin;
   padding: $padding * 2;
-  border-radius: $rounded;
-  border: 1px solid rgba(black, 0.4);
+  //border-radius: $rounded;
+  border: 0;
+  //border: 1px solid rgba(black, 0.4);
 }

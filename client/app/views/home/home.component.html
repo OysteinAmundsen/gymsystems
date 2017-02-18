@@ -11,7 +11,7 @@
   <div class="head">
     <span>Upcoming tournaments</span>
   </div>
-  <table class="table-hover" role="menu">
+  <table class="table-hover" role="list">
     <thead>
       <tr>
         <th>Tournament</th>
@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tournament of upcoming" role="menuitem" [routerLink]="['/list/', tournament.id]">
+      <tr *ngFor="let tournament of upcoming" role="menuitem" [routerLink]="['/list/', tournament.id]" role="listitem">
         <td>{{ tournament.name }}</td>
         <td>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</td>
       </tr>
@@ -32,7 +32,7 @@
   <div class="head">
     <span>Previous tournaments</span>
   </div>
-  <table class="table-hover" role="menu">
+  <table class="table-hover" role="list">
     <thead>
       <tr>
         <th>Tournament</th>
@@ -40,7 +40,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tournament of past" role="menuitem" [routerLink]="['/list/', tournament.id]">
+      <tr *ngFor="let tournament of past" role="menuitem" [routerLink]="['/list/', tournament.id]" role="listitem">
         <td>{{ tournament.name }}</td>
         <td>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</td>
       </tr>

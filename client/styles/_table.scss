@@ -7,6 +7,9 @@ table[role="list"] {
     text-align: left;
     padding: $padding;
   }
+  td {
+    border-bottom: 1px solid rgba($primary, 0.1);
+  }
   tbody, tr {
     &[ role="listitem" ] {
       cursor: pointer;
@@ -14,7 +17,7 @@ table[role="list"] {
         background-color: $primaryLight;
       }
       td {
-        padding: $padding;
+        padding: $padding * 3;
       }
     }
   }

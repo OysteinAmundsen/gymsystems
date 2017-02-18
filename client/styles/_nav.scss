@@ -43,9 +43,9 @@ gymsystems-app {
 nav {
   display: block;
   height: $navHeight;
-  background: $primary;
-  box-shadow: 0 1px 0.7rem rgba(black, 0.6), 0 1.5rem 1.2rem rgba(white, 0.3) inset;
-  border-bottom: 1px solid rgba(black,0.2);
+  //background: $primary;
+  //box-shadow: 0 1px 0.7rem rgba(black, 0.6), 0 1.5rem 1.2rem rgba(white, 0.3) inset;
+  //border-bottom: 1px solid rgba(black,0.2);
   &:after {
     content: '';
     display: table;
@@ -69,7 +69,7 @@ nav {
     cursor: pointer;
     border-radius: $rounded;
     padding: 0.8rem 0.5rem 1.2rem 0.5rem;
-    text-shadow: -1px 1px 3px rgba(black, 0.5);
+    //text-shadow: -1px 1px 3px rgba(black, 0.5);
     display: none;
     @media (max-width: $stop1) {
       display: inline-block;
@@ -91,12 +91,14 @@ nav {
     float: left;
     display: inline-block;
     &.active {
-      color: white;
+      a {
+        color: white;
+      }
+      background: darken($primary, 4%);
       border-left-color: rgba(black,0.3);
       border-right-color: rgba(white, 0.3);
-      box-shadow: 5px 0 30px rgba(black,0.3) inset, 1px 0 8px rgba(white,0.2);
+      box-shadow: 0px 5px 20px -4px rgba(0, 0, 0, 0.3) inset, 1px 0 8px rgba(255, 255, 255, 0.2);
       text-shadow: 1px 1px 1px rgba(black, 0.4);
-      background-image: radial-gradient(ellipse closest-side at center center, $primaryDark 0%, transparent 100%);
     }
     @media (max-width: $stop1) {
       float: none;
@@ -108,7 +110,7 @@ nav {
       transition: color 0.1s;
       border-left: 1px solid transparent;
       border-right: 1px solid transparent;
-      text-shadow: 1px 1px 3px rgba(black, 0.4);
+      //text-shadow: 1px 1px 3px rgba(black, 0.4);
       &:hover {
         color: white;
         background-image: radial-gradient(ellipse closest-side at center center, $primaryDark 0%, transparent 100%);
@@ -122,13 +124,15 @@ nav {
 
 // Side menus
 menu {
+  position: relative;
+  z-index: 5;
   border: 1px solid $primaryDark;
   border-radius: $rounded;
   padding: 1px;
   width: 12rem;
   float: left;
   background: $primary;
-  box-shadow: 0 0 100px #3377ff inset;
+  box-shadow: 0 0 100px $primaryDark inset;
 
   ul {
     list-style: none;

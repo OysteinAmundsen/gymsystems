@@ -1,12 +1,13 @@
 // Settings
 $padding   : 4px;
 $negPad    : (0 - $padding);
-$rounded   : $padding;
+$rounded   : 2px;
 $margin    : 0.3rem;
 $navHeight : 3.5rem;
 $rowHeight: 50px;
 
 // Colors
+$text-color   : #343434;
 $primary      : #69f;
 $primaryDark  : darken($primary, 10%);
 $primaryLight : lighten($primary, 25%);

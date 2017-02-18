@@ -1,13 +1,15 @@
 @import "variables";
 
 .appLogo {
-  font-weight: bold;
+  font-weight: bolder;
   font-family: 'Economica', sans-serif;
   display: inline-block;
+  text-shadow: 1px 1px 3px rgba(black,0.3);
+  transform: translate(1.6rem, 0.3rem) rotateZ(-10deg) scale(2);
   span {
     display: inline-block;
     &:first-of-type {
-      color: rgba(black, 0.7);
+      color: rgba(white, 0.7);
       font-size: 1.4rem;
       transform: translate(0, -11px);
     }
@@ -15,16 +17,6 @@
       color: $accent;
       transform: translate(-1rem, 0.1rem);
       font-size: 1rem;
-    }
-  }
-}
-
-nav .appLogo {
-  text-shadow: 1px 1px 3px rgba(black,0.6);
-  transform: translate(0.7rem, 0) rotateZ(-10deg) scale(1.4);
-  span {
-    &:first-of-type {
-      color: white;
     }
   }
 }
