@@ -7,7 +7,7 @@ services:
     container_name: gymsystems
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "80:3000"
     depends_on:
       - db
     links:

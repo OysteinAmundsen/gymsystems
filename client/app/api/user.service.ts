@@ -5,8 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-import { IRole, Role } from './model/iRole';
-import { IDiscipline } from './model/iDiscipline';
+import { IRole, Role, IDiscipline } from './model';
 
 // User type interfaces
 export interface IUser {

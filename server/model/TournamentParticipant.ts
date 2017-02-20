@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Tournament } from './Tournament';
 import { Team } from './Team';
-import { TournamentDiscipline } from './TournamentDiscipline';
+import { Discipline } from './Discipline';
 import { TournamentParticipantScore } from './TournamentParticipantScore';
 
 /**
@@ -21,16 +21,16 @@ export class TournamentParticipant {
   @Column()
   startNumber: number;
 
-  @OneToOne(type => TournamentDiscipline)
+  @ManyToOne(type => Tournament, tournament => tournament.schedule)
+  tournament: Tournament;
+
+  @OneToOne(type => Discipline)
   @JoinColumn()
-  discipline: TournamentDiscipline;
+  discipline: Discipline;
 
   @OneToOne(type => Team)
   @JoinColumn()
   team: Team;
-
-  @ManyToOne(type => Tournament, tournament => tournament.schedule)
-  tournament: Tournament;
 
   @OneToMany(type => TournamentParticipantScore, score => score.participant)
   scores: TournamentParticipantScore[];

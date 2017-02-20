@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { IDiscipline } from 'app/api/model/IDiscipline';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
-import { ApiService } from 'app/api/ApiService';
+
+import { ApiService } from 'app/api';
+import { IDiscipline } from 'app/api/model';
 
 @Injectable()
 export class DisciplineService extends ApiService {

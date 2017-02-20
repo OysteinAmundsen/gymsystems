@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { TournamentService } from 'app/api/tournament.service';
-import { ITournament } from 'app/api/model/ITournament';
+import { TournamentService } from 'app/api';
+import { ITournament } from 'app/api/model';
 
 @Component({
   selector: 'app-home',

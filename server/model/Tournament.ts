@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Discipline } from './Discipline';
 import { TournamentParticipant } from './TournamentParticipant';
-import { TournamentScoreGroup } from './TournamentScoreGroup';
-import { TournamentDiscipline } from './TournamentDiscipline';
 
 @Entity()
 export class Tournament {
@@ -11,7 +10,7 @@ export class Tournament {
   @Column({ length: 200 })
   name: string;
 
-  @Column({type: 'text', nullable: true})
+  @Column({ type: 'text', nullable: true })
   description: string;
 
   @Column()
@@ -26,10 +25,6 @@ export class Tournament {
   @OneToMany(type => TournamentParticipant, schedule => schedule.tournament)
   schedule?: TournamentParticipant[];
 
-  @OneToMany(type => TournamentDiscipline, disciplines => disciplines.tournament)
-  disciplines?: TournamentDiscipline[];
-
-  @OneToMany(type => TournamentScoreGroup, scoreGroups => scoreGroups.tournament)
-  scoreGroups?: TournamentScoreGroup[];
-
+  @OneToMany(type => Discipline, disciplines => disciplines.tournament)
+  disciplines?: Discipline[];
 }

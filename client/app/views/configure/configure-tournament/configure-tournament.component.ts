@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ITournament } from 'app/api/model/ITournament';
-import { TournamentService } from 'app/api/tournament.service';
+
+import { TournamentService } from 'app/api';
+import { ITournament } from 'app/api/model';
 
 @Component({
   selector: 'app-configure-tournament',
@@ -20,7 +21,7 @@ export class ConfigureTournamentComponent implements OnInit {
     this.loadTournaments();
   }
 
-  ngOnInit() {  }
+  ngOnInit() { }
 
   loadTournaments() {
     this.tournamentService.all().subscribe(tournaments => this.tournamentList = tournaments);

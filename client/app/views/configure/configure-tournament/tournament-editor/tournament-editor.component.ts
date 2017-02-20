@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ITournament } from 'app/api/model/ITournament';
-import { TournamentService } from 'app/api/tournament.service';
+
+import { TournamentService } from 'app/api';
+import { ITournament } from 'app/api/model';
 
 @Component({
   selector: 'app-tournament-editor',
@@ -17,11 +18,11 @@ export class TournamentEditorComponent implements OnInit {
 
   ngOnInit() {
     this.tournamentForm = this.fb.group({
-      id:        [ this.tournament.id ],
-      name:      [ this.tournament.name, [ Validators.required]],
-      startDate: [ this.tournament.startDate, [ Validators.required]],
-      endDate:   [ this.tournament.endDate, [ Validators.required]],
-      location:  [ this.tournament.location ]
+      id: [this.tournament.id],
+      name: [this.tournament.name, [Validators.required]],
+      startDate: [this.tournament.startDate, [Validators.required]],
+      endDate: [this.tournament.endDate, [Validators.required]],
+      location: [this.tournament.location]
     });
   }
 

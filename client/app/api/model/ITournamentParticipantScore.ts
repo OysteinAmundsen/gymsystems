@@ -1,9 +1,9 @@
 import { ITournamentParticipant } from './ITournamentParticipant';
-import { ITournamentScoreGroup } from './ITournamentScoreGroup';
+import { IScoreGroup } from './IScoreGroup';
 
 export interface ITournamentParticipantScore {
   id: number;
   value: number;
-  group: ITournamentScoreGroup;
+  group: IScoreGroup;
   participant: ITournamentParticipant;
 }

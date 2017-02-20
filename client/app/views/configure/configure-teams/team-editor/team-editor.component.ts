@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { TeamsService } from 'app/api/teams.service';
-import { ITeam } from 'app/api/model/ITeam';
+import { TeamsService } from 'app/api';
+import { ITeam } from 'app/api/model';
 
 @Component({
   selector: 'app-team-editor',
@@ -17,9 +17,8 @@ export class TeamEditorComponent implements OnInit {
 
   ngOnInit() {
     this.teamForm = this.fb.group({
-      id:          [ this.team.id ],
-      name:        [ this.team.name, [ Validators.required]],
-      description: [ this.team.description]
+      id: [this.team.id],
+      name: [this.team.name, [Validators.required]]
     });
   }
 

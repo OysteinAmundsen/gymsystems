@@ -1,6 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne} from 'typeorm';
-import {TournamentParticipant} from './TournamentParticipant';
-import { TournamentScoreGroup } from './TournamentScoreGroup';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import { TournamentParticipant } from './TournamentParticipant';
+import { ScoreGroup } from './ScoreGroup';
 
 /**
  * One score per participant and scoregroup.
@@ -16,8 +16,8 @@ export class TournamentParticipantScore {
   @Column()
   value: number;
 
-  @ManyToOne(type => TournamentScoreGroup)
-  group: TournamentScoreGroup;
+  @ManyToOne(type => ScoreGroup)
+  group: ScoreGroup;
 
   @ManyToOne(type => TournamentParticipant, participant => participant.scores)
   participant: TournamentParticipant;

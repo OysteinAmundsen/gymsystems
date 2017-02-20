@@ -1,4 +1,9 @@
-import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
+import { Discipline } from './Discipline';
+import { PrimaryGeneratedColumn, Column, Entity, ManyToOne } from 'typeorm';
+
+export enum Operation {
+  Addition = 1, Subtraction = 2
+}
 
 /**
  * Defines a ScoreGroup type
@@ -15,6 +20,9 @@ export class ScoreGroup {
   type: string;
 
   @Column()
+  operation: Operation = Operation.Addition;
+
+  @Column()
   judges: number;
 
   @Column()
@@ -22,4 +30,7 @@ export class ScoreGroup {
 
   @Column()
   min: number;
+
+  @ManyToOne(type => Discipline, discipline => discipline.scoreGroups)
+  discipline: Discipline;
 }

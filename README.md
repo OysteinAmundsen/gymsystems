@@ -92,3 +92,5 @@ We use [angular-cli](https://cli.angular.io/) for both scaffolding and building 
 
 ![DB Model](docs/db_model.png)
 
+
+ssh gymsystems@gymsystems.cloudapp.net

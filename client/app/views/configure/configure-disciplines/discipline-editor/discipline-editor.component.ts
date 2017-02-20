@@ -1,7 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { IDiscipline } from 'app/api/model/IDiscipline';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DisciplineService } from 'app/api/discipline.service';
+
+import { DisciplineService } from 'app/api';
+import { IDiscipline } from 'app/api/model';
 
 @Component({
   selector: 'app-discipline-editor',
@@ -17,8 +18,8 @@ export class DisciplineEditorComponent implements OnInit {
 
   ngOnInit() {
     this.disciplineForm = this.fb.group({
-      id:        [ this.discipline.id ],
-      name:      [ this.discipline.name, [ Validators.required]]
+      id: [this.discipline.id],
+      name: [this.discipline.name, [Validators.required]]
     });
   }
 

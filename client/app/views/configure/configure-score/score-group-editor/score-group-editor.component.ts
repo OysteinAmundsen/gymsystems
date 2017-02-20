@@ -1,7 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { ScoreService } from 'app/api/score.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IScoreGroup } from 'app/api/model/IScoreGroup';
+
+import { ScoreService } from 'app/api';
+import { IScoreGroup } from 'app/api/model';
 
 @Component({
   selector: 'app-score-group-editor',
@@ -17,12 +18,12 @@ export class ScoreGroupEditorComponent implements OnInit {
 
   ngOnInit() {
     this.scoreForm = this.fb.group({
-      id:     [ this.scoreGroup.id ],
-      name:   [ this.scoreGroup.name, [ Validators.required]],
-      judges: [ this.scoreGroup.judges],
-      max:    [ this.scoreGroup.max],
-      min:    [ this.scoreGroup.min],
-      type:   [ this.scoreGroup.type]
+      id: [this.scoreGroup.id],
+      name: [this.scoreGroup.name, [Validators.required]],
+      judges: [this.scoreGroup.judges],
+      max: [this.scoreGroup.max],
+      min: [this.scoreGroup.min],
+      type: [this.scoreGroup.type]
     });
   }
 

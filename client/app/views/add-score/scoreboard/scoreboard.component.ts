@@ -1,7 +1,10 @@
-import { ScoreService } from 'app/api/score.service';
-import { ITournamentScoreGroup } from 'app/api/model/ITournamentScoreGroup';
+import { Component, OnInit, ElementRef, Input, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+
+import { ScoreService } from 'app/api';
+import { IScoreGroup, Operation, ITournamentParticipantScore } from 'app/api/model';
+
+import { ScoreGroupComponent } from '../score-group/score-group.component';
 
 /**
  *
@@ -15,29 +18,29 @@ export class ScoreboardComponent implements OnInit {
   grandTotal: number = 0;
   scoreForm: FormGroup;
 
-  @Input() scoreGroups: ITournamentScoreGroup[];
+  @Input() scoreGroups: IScoreGroup[];
+  @ViewChildren(ScoreGroupComponent) groups: ScoreGroupComponent[];
 
   constructor(private scoreService: ScoreService, private element: ElementRef, private fb: FormBuilder) { }
 
   ngOnInit() {
-    let me = this;
-    me.scoreForm = me.toFormGroup(me.scoreGroups);
-    me.scoreForm.valueChanges.subscribe(function (value: any) {
-      setTimeout(function () {
-        me.grandTotal = 0;
-        me.scoreGroups.forEach(function (group: ITournamentScoreGroup) {
-          if (group.scoreGroup.type !== 'HJ') {
-            me.grandTotal += group.avg;
+    this.scoreForm = this.toFormGroup(this.scoreGroups);
+    this.scoreForm.valueChanges.subscribe((value: any) => {
+      setTimeout(() => {
+        this.grandTotal = 0;
+        this.groups.forEach((group: ScoreGroupComponent) => {
+          if (group.model.operation === Operation.Addition) {
+            this.grandTotal += group.avg;
           } else {
-            me.grandTotal -= group.avg;
+            this.grandTotal -= group.avg;
           }
         });
       }, 10);
     });
   }
 
-  selectGroup(group: ITournamentScoreGroup): void {
-    let scoreGroupComponent = this.element.nativeElement.querySelector('.group_' + group.scoreGroup.type);
+  selectGroup(group: IScoreGroup): void {
+    const scoreGroupComponent = this.element.nativeElement.querySelector('.group_' + group.type);
     scoreGroupComponent.querySelector('input').select();
   }
 
@@ -45,21 +48,21 @@ export class ScoreboardComponent implements OnInit {
 
   }
 
-  toFormGroup(scoreGroups: ITournamentScoreGroup[]): FormGroup {
+  toFormGroup(scoreGroups: IScoreGroup[]): FormGroup {
     let group = {};
     if (scoreGroups) {
-      group = scoreGroups.reduce(function (previous: any, current: any, index: any) {
-        return (<any>Object).assign(previous, current.scores.reduce(function (prev: any, curr: any, idx: any) {
-          prev['field_' + curr.shortName] = [0,
-            Validators.compose([
-              Validators.required,
-              Validators.maxLength(3)/*,
-              Validators.pattern('/^[0-9]+(\.?[0-9]{1,2})?$/')*/
-            ])
-          ];
-          return previous;
-        }, {}));
-      }, {});
+      // group = scoreGroups.reduce((previous: any, current: IScoreGroup, index: number) => {
+      //   return Object.assign(previous, current.scores.reduce((prev: any, curr: ITournamentParticipantScore, idx: number) => {
+      //     prev[`field_${curr.group.type}_${curr.id}`] = [0,
+      //       Validators.compose([
+      //         Validators.required,
+      //         Validators.maxLength(3)/*,
+      //         Validators.pattern('/^[0-9]+(\.?[0-9]{1,2})?$/')*/
+      //       ])
+      //     ];
+      //     return previous;
+      //   }, {}));
+      // }, {});
     }
     return this.fb.group(group);
   }

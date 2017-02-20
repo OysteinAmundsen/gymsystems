@@ -1,6 +1,7 @@
-import { IScoreGroup } from 'app/api/model/iScoreGroup';
-import { ScoreService } from 'app/api/score.service';
 import { Component, OnInit } from '@angular/core';
+
+import { ScoreService } from 'app/api';
+import { IScoreGroup } from 'app/api/model';
 
 @Component({
   selector: 'app-add-score',

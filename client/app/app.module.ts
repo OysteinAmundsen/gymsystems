@@ -11,15 +11,10 @@ import { ConfigureModule } from './views/configure/configure.module';
 import { AppRoutingModule } from './app-routing.module';
 
 // Services
-import { RoleService } from './api/role.service';
-import { UserService } from './api/user.service';
-import { TournamentService } from './api/tournament.service';
-import { DisciplineService } from 'app/api/discipline.service';
-import { ScoreService } from './api/score.service';
+import { RoleService, UserService, TournamentService, DisciplineService, ScoreService, TeamsService } from './api';
 
 // Components
 import { AppComponent } from './app.component';
-import { TeamsService } from 'app/api/teams.service';
 
 @NgModule({
   declarations: [

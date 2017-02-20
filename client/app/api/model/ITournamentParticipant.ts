@@ -1,5 +1,5 @@
 import { ITournament } from './ITournament';
-import { ITournamentDiscipline } from './ITournamentDiscipline';
+import { IDiscipline } from './IDiscipline';
 import { ITournamentParticipantScore } from './ITournamentParticipantScore';
 import { ITeam } from './ITeam';
 
@@ -7,7 +7,7 @@ export interface ITournamentParticipant {
   id: number;
   startTime: Date;
   startNumber: number;
-  discipline: ITournamentDiscipline;
+  discipline: IDiscipline;
   team: ITeam;
   tournament: ITournament;
   scores: ITournamentParticipantScore[];

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ITeam } from 'app/api/model/ITeam';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
-import { ApiService } from 'app/api/ApiService';
+
+import { ApiService } from 'app/api';
+import { ITeam } from 'app/api/model';
 
 @Injectable()
 export class TeamsService extends ApiService {

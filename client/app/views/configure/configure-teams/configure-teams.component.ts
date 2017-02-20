@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ITeam } from 'app/api/model/ITeam';
-import { TeamsService } from 'app/api/teams.service';
+
+import { TeamsService } from 'app/api';
+import { ITeam } from 'app/api/model';
 
 @Component({
   selector: 'app-configure-teams',
@@ -29,7 +30,7 @@ export class ConfigureTeamsComponent implements OnInit {
 
   addTeam() {
     const team = <ITeam>{
-      id: null, name: null, description: null
+      id: null, clazz: null, ageClass: null, name: null, description: null
     };
     this.teamList.push(team);
     this.selected = team;
