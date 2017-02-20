@@ -1,2 +1,2 @@
-export { ConfigureDisciplinesComponent } from './configure-disciplines.component';
-export { DisciplineEditorComponent } from './discipline-editor/discipline-editor.component';
+export * from './configure-disciplines.component';
+export * from './discipline-editor/discipline-editor.component';
