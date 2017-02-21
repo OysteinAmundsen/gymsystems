@@ -1,5 +1,14 @@
 import * as winston from 'winston';
 import * as morgan from 'morgan';
+import * as fs from 'fs';
+import * as mkdirp from 'mkdirp';
+
+if (!fs.existsSync('./log')) {
+  mkdirp('./log', (err, made) => {
+    if (err) { throw new Error(err); }
+    console.log('Created log dir!');
+  });
+}
 
 /**
  * A custom logger factory which combines the `morgan` express logger middleware

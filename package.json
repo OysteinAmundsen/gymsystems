@@ -70,6 +70,7 @@
     "@types/express-session": "0.0.32",
     "@types/jasmine": "2.5.38",
     "@types/method-override": "0.0.29",
+    "@types/mkdirp": "~0.3.29",
     "@types/morgan": "~1.7.32",
     "@types/node": "~6.0.60",
     "@types/passport": "~0.3.1",
