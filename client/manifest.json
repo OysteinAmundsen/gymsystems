@@ -2,10 +2,15 @@
   "name": "Gymsystems",
   "short_name": "Gymsystems",
   "icons": [
-    { "src": "icons/android-chrome-72x72.png",   "sizes": "72x72",   "type": "image/png", "density": 1.5 }
+    {
+      "src": "icons/android-chrome-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "density": 1.5
+    }
   ],
   "theme_color": "#69f",
-  "background_color": "#ffffff",
+  "background_color": "#69f",
   "display": "standalone",
   "orientation": "portrait"
 }

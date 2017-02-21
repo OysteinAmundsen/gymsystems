@@ -4,13 +4,13 @@
 # docker-compose down --rmi all
 
 # Build new image from compose
-docker-compose build
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
 
 # Stop service
-docker-compose kill
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml kill
 
 # Remove container
-docker-compose rm -f --all
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml rm -f --all
 
 # Start a new container with the built image
-docker-compose up -d
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d

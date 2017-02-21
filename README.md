@@ -27,55 +27,55 @@ You need to install the following:
 ## Installation
 
 **BEFORE YOU INSTALL:** please read the [prerequisites](#prerequisites)
+
+**NOTE:** If you want to devlop on this project, you should look at the [development](#development) info below, as doing a full `docker-build` is not required for development. Only production.
+
 ```bash
 npm install
 ./docker-build
 ```
 
-After running these commands, you will have two docker containers up and running. 
+The [`docker-build`](./docker-build) script will setup both the application docker container and the database container. 
 
 * **gymsystems** - built from [gymsystems/client](./Dockerfile) docker image
-* **gymsystems_db** - build from [gymsystems/db](.docker/db/Dockerfile) docker image
+* **gymsystems_db** - built from [stock dockerhub mysql](https://hub.docker.com/_/mysql/) image
 
-They're put together using [docker-compose](./docker-compose.yml) and should be available on port 3000 of you docker-machine.
+They're put together using `docker-compose` and should be available on port 80 of you docker-machine.
 
+If all you want to do is startup this project, your pretty much done now. The application should be available on `http://[docker-machine]` <- which usually is [localhost](http://localhost)
 
 ## Development
 
-We've put together a couple of npm scripts which will ease the development cycle immensely. 
+### Database
 
-**NOTE!** You will require the [gymsystems/db](.docker/db/Dockerfile) docker container, or a local mysql equivalent installed locally, in order to run the application. We recommend the docker container, as this is less of a hassle to setup correctly.  
-
-### Backend
+For development, you don't need a docker container for the application. You only need a database. The following will build out a docker container for your database:
 
 ```bash
-npm run build:server:watch
+npm run docker:dev
 ```
 
-This command will continuously build the backend while you develop. 
+### Server
+
+You can start this project up in two ways. Either:
 
 ```bash
-npm run start:server:watch
+npm run build
+npm run server
 ```
+This will build the backend and frontend, and start up the server on [localhost:3000](http://localhost:3000). Or if you want to run the project in `dev` mode:
 
-You will need to start a separate shell in order to run the server though, this command uses `nodemon` to restart the server automatically upon changes. 
-
-### Frontend
-
-```bash
-npm run start:client
-```
-
-This will run a continuous build and browsersync session for the frontend. Use this if you are developing the client.
-
-
-### Fullstack (windows)
-
-We've added a shortcut for the three commands above. Just type:
 ```bash
 npm run dev
 ```
-This will only work on windows. It opens three separate shells hosting each of the npm scripts noted above.
+This command will continuously build the backend while you develop, and restart the Node Express server when build is done. This will not affect changes you make in the `client` though. 
+
+### Client
+
+```bash
+npm run client
+```
+
+This will run a continuous build and browsersync session for the frontend. Use this if you are developing the client. This starts up a small development server on [localhost:4200](http://localhost:4200), with a proxy to the backend so all api calls will work seamlessly. 
 
 ## Architecture
 ### Server
