@@ -1,0 +1,35 @@
+<h1>
+  <app-fa name="star" fw="true"></app-fa>
+  Score System
+</h1>
+
+<table role="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Judges</th>
+      <th>Max</th>
+      <th>Min</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let score of scoreGroupList">
+    <tr *ngIf="score !== selected" (click)="select(score)" role="listitem">
+      <td>{{ score.name }}</td>
+      <td>{{ score.type}}</td>
+      <td>{{ score.judges}}</td>
+      <td>{{ score.max}}</td>
+      <td>{{ score.min}}</td>
+    </tr>
+    <tr *ngIf="score === selected">
+      <td colspan="5">
+        <app-score-group-editor [scoreGroup]="selected" (scoreChanged)="onChange($event)"></app-score-group-editor>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button *ngIf="selected == null" (click)="addScoreGroup()">
+  <app-fa name="plus" fw="true"></app-fa>
+  Add ScoreGroup
+</button>

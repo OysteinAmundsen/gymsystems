@@ -1,4 +1,4 @@
-<form [formGroup]="scoreForm" (ngSubmit)="onSubmit(scoreForm.values)" *ngIf="scoreGroups && scoreGroups.length">
+<form class="panel" [formGroup]="scoreForm" (ngSubmit)="onSubmit(scoreForm.values)" *ngIf="scoreGroups && scoreGroups.length">
   <div role="table">
     <div role="row">
       <app-score-group *ngFor="let group of scoreGroups" [model]="group" [form]="scoreForm" class="x{{ group.scores ? group.scores.length : '0' }} group_{{ group.type }}"></app-score-group>

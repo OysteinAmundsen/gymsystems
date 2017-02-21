@@ -21,14 +21,20 @@ You need to install the following:
 ## Table of contents
 
 * [Installation](#installation)
+* [How to use](#how-to-use)
 * [Development](#development)
+  - [Database](#database)
+  - [Server](#server)
+  - [Client](#client)
 * [Architecture](#architecture)
 
 ## Installation
 
 **BEFORE YOU INSTALL:** please read the [prerequisites](#prerequisites)
 
-**NOTE:** If you want to devlop on this project, you should look at the [development](#development) info below, as doing a full `docker-build` is not required for development. Only production.
+**NOTE:** If you want to devlop on this project, you should look at the [development](#development) info below, as doing a full `docker-build` is not required for development. 
+
+For a production ready deployment, do this:
 
 ```bash
 npm install
@@ -44,6 +50,10 @@ They're put together using `docker-compose` and should be available on port 80 o
 
 If all you want to do is startup this project, your pretty much done now. The application should be available on `http://[docker-machine]` <- which usually is [localhost](http://localhost)
 
+## How to use
+
+This bit will contain a small user manual for the system in time.
+
 ## Development
 
 ### Database
@@ -53,21 +63,28 @@ For development, you don't need a docker container for the application. You only
 ```bash
 npm run docker:dev
 ```
+The docker container shoud be setup with a volume mounted from your local file system, so that data will be persisted even if the docker container goes down, is rebuilt or, for whatever other reason, dissapears.
 
 ### Server
 
-You can start this project up in two ways. Either:
+You can start the server bit of this project up in two ways:
+
+1. Build once and serve
 
 ```bash
 npm run build
 npm run server
 ```
-This will build the backend and frontend, and start up the server on [localhost:3000](http://localhost:3000). Or if you want to run the project in `dev` mode:
+
+This will build the backend and frontend, and start up the server on [localhost:3000](http://localhost:3000). 
+
+2. Build continously and serve
 
 ```bash
 npm run dev
 ```
 This command will continuously build the backend while you develop, and restart the Node Express server when build is done. This will not affect changes you make in the `client` though. 
+
 
 ### Client
 

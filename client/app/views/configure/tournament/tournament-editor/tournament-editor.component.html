@@ -1,0 +1,55 @@
+<h1>
+  <app-fa name="trophy" fw="true"></app-fa>
+  {{ tournamentForm.value.name || 'Tournament' }}
+</h1>
+
+<form class="panel" [formGroup]="tournamentForm" (submit)="save()">
+  <fieldset>
+    <div class="row">
+      <div class="col-12" appFloatingLabelContainer>
+        <label>Name</label>
+        <input type="text" formControlName="name">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4" appFloatingLabelContainer>
+        <label>Start date</label>
+        <app-datepicker formControlName="startDate" options="{maxDate: tournamentForm.value.startDate}"></app-datepicker>
+      </div>
+      <div class="col-xs-4" appFloatingLabelContainer>
+        <label>End date</label>
+        <app-datepicker formControlName="endDate" options="{minDate: tournamentForm.value.startDate, initialDate: tournamentForm.value.startDate}"></app-datepicker>
+      </div>
+      <div class="col-xs-4" appFloatingLabelContainer>
+        <label>Location</label>
+        <input type="text" formControlName="location">
+      </div>
+    </div>
+  </fieldset>
+
+  <menu *ngIf="tournamentForm.value.id" role="tablist">
+    <ul>
+      <li>
+        <a routerLink="./disciplines">
+          <app-fa name="heartbeat" fw="true"></app-fa> <span>Disciplines</span> </a>
+      </li>
+      <li>
+        <a routerLink="./teams">
+          <app-fa name="users" fw="true"></app-fa> <span>Teams</span></a>
+      </li>
+      <li>
+        <a routerLink="./score">
+          <app-fa name="star" fw="true"></app-fa> <span>Score system</span> </a>
+      </li>
+    </ul>
+  </menu>
+
+  <router-outlet></router-outlet>
+
+  <footer>
+    <button type="submit"><app-fa name="save" fw="true"></app-fa> Save tournament</button>
+    <button type="button" [routerLink]="['../']"><app-fa name="arrow-left" fw="true"></app-fa> Go back</button>
+    <button *ngIf="tournamentForm.value.id" class="pull-right warning" type="button" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> Delete tournament</button>
+  </footer>
+</form>

@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany } from 'typeorm';
 import { Discipline } from './Discipline';
 import { AgeClass } from './AgeClass';
-import { Class } from './Class';
+import { Division } from './Division';
 
 /**
  *
@@ -17,8 +17,8 @@ export class Team {
   @Column({ length: 100, unique: true })
   name: string;
 
-  @ManyToOne(type => Class, clazz => clazz.teams)
-  clazz: Class;
+  @ManyToOne(type => Division, clazz => clazz.teams)
+  division: Division;
 
   @ManyToOne(type => AgeClass, ageClass => ageClass.teams)
   ageClass: AgeClass;

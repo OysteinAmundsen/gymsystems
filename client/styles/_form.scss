@@ -19,11 +19,16 @@ $labelHeight: 16px;
     box-shadow: 0 -2px 2px -1px rgba($primary, 0.6) inset;
   }
 }
-form {
+fieldset {
+  border: 0;
+}
+form.panel {
   @include panel;
   fieldset {
     @include innerPanel;
   }
+}
+form {
   label {
     height: $labelHeight;
     font-size: 0.8rem;

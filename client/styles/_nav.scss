@@ -43,7 +43,7 @@ gymsystems-app {
 nav {
   display: block;
   height: $navHeight;
-  //background: $primary;
+  background: $primary;
   //box-shadow: 0 1px 0.7rem rgba(black, 0.6), 0 1.5rem 1.2rem rgba(white, 0.3) inset;
   //border-bottom: 1px solid rgba(black,0.2);
   &:after {
@@ -94,7 +94,7 @@ nav {
       a {
         color: white;
       }
-      background: darken($primary, 4%);
+      background: darken(rgba($primary, 0.4), 4%);
       border-left-color: rgba(black,0.3);
       border-right-color: rgba(white, 0.3);
       box-shadow: 0px 5px 20px -4px rgba(0, 0, 0, 0.3) inset, 1px 0 8px rgba(255, 255, 255, 0.2);
@@ -113,7 +113,7 @@ nav {
       //text-shadow: 1px 1px 3px rgba(black, 0.4);
       &:hover {
         color: white;
-        background-image: radial-gradient(ellipse closest-side at center center, $primaryDark 0%, transparent 100%);
+        background-image: radial-gradient(ellipse closest-side at center center, rgba($primaryDark, 0.4) 0%, transparent 100%);
       }
       @media (max-width: $stop1) {
         width: 100%;
@@ -123,7 +123,7 @@ nav {
 }
 
 // Side menus
-menu {
+menu[role="menu"] {
   position: relative;
   z-index: 5;
   border: 1px solid $primaryDark;
@@ -133,16 +133,7 @@ menu {
   float: left;
   background: $primary;
   box-shadow: 0 0 100px $primaryDark inset;
-
-  ul {
-    list-style: none;
-    padding-left: 0;
-  }
   a {
-    color: rgba(white, 0.8);
-    text-decoration: none;
-    padding: 0.5rem;
-    display: block;
     &:hover {
       background: $primaryDark;
     }
@@ -152,10 +143,8 @@ menu {
       box-shadow: 0 12px 14px -4px rgba(black, 0.3) inset;
     }
   }
-  &:after {
-    content: '';
-    display: table;
-    clear: both;
+  a {
+    color: rgba(white, 0.8);
   }
   @media (max-width: $stop1) {
     width: 100%;
@@ -170,6 +159,7 @@ menu {
     li {
       display: table-cell;
       @include btn();
+      background: $primary;
     }
     a {
       display: inline-table;
@@ -188,5 +178,24 @@ menu {
     span {
       display: none;
     }
+  }
+}
+menu {
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  li {
+    float: left;
+  }
+  a {
+    text-decoration: none;
+    padding: 0.5rem;
+    display: block;
+  }
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
   }
 }

@@ -36,16 +36,10 @@ export class TournamentService extends ApiService {
     return this.http.get(`${this.url}/future`).map((res: Response) => this.mapDates(res.json())).catch(this.handleError);
   }
   getById(id: number): Observable<ITournament> {
-    return this.http.get(`${this.url}/${id}`).map((res: Response) => this.mapDates([res.json()])).catch(this.handleError);
+    return this.http.get(`${this.url}/${id}`).map((res: Response) => this.mapDate(res.json())).catch(this.handleError);
   }
 
   save(tournament: ITournament) {
-    if (moment.isMoment(tournament.startDate)) {
-      tournament.startDate = (<Moment>tournament.startDate).utc().toISOString();
-    }
-    if (moment.isMoment(tournament.endDate)) {
-      tournament.endDate = (<Moment>tournament.endDate).utc().toISOString();
-    }
     let call = (tournament.id) ? this.http.put(`${this.url}/${tournament.id}`, tournament) : this.http.post(this.url, tournament);
     return call.map((res: Response) => res.json()).catch(this.handleError);
   }
@@ -54,11 +48,13 @@ export class TournamentService extends ApiService {
     return this.http.delete(`${this.url}/${tournament.id}`);
   }
 
+  mapDate(tournament: ITournament) {
+    tournament.startDate = new Date(<string>tournament.startDate);
+    tournament.endDate = new Date(<string>tournament.endDate);
+    return tournament;
+  }
+
   private mapDates(tournaments: ITournament[]) {
-    return tournaments.map(tournament => {
-      tournament.startDate = new Date(<string>tournament.startDate);
-      tournament.endDate = new Date(<string>tournament.endDate);
-      return tournament;
-    });
+    return tournaments.map(tournament => this.mapDate(tournament));
   }
 }
