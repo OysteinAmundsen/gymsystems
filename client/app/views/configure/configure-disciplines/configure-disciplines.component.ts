@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IDiscipline } from 'app/api/model';
 import { DisciplineService } from 'app/api';
+import { IDiscipline } from 'app/api/model/IDiscipline';
 
 @Component({
   selector: 'app-configure-disciplines',

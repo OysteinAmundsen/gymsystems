@@ -4,10 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'app/shared/shared.module';
 
+import { HomeRoutes } from './home.routes';
 import { HomeComponent } from './home.component';
 import { LoginComponent } from './login/login.component';
-
-import { HomeRoutes } from './home.routes';
 import { ListComponent } from './list/list.component';
 
 @NgModule({
@@ -15,8 +14,8 @@ import { ListComponent } from './list/list.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule.forChild([...HomeRoutes]),
     SharedModule,
-    RouterModule.forChild([...HomeRoutes])
   ],
   declarations: [
     HomeComponent,

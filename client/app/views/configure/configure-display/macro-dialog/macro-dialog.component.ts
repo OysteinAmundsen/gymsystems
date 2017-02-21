@@ -1,4 +1,4 @@
-import { DialogComponent } from '../../../../shared/dialog';
+import { DialogComponent } from 'app/shared/dialog/dialog.component';
 import { Component, ElementRef, OnInit } from '@angular/core';
 
 @Component({

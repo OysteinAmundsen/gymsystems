@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { TournamentService } from 'app/api';
-import { ITournament } from 'app/api/model';
+import { ITournament } from 'app/api/model/ITournament';
 
 @Component({
   selector: 'app-tournament-editor',

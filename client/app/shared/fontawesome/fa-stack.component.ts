@@ -12,13 +12,13 @@ export class FaStackComponent implements OnChanges {
   constructor() { this.classList = ['fa-stack']; }
 
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
-    let me = this;
+    const me = this;
     let previousValue;
     Object.keys(changes).forEach(function (key) {
       if (key === 'size') {
         previousValue = changes[key].previousValue;
       }
-      let currentValue = changes[key].currentValue;
+      const currentValue = changes[key].currentValue;
       if ([1, 2, 3, 4, 5].indexOf(currentValue) >= 0) {
         if (previousValue === 1) {
           me.removeFaClass('fa-lg');

@@ -1,9 +1,7 @@
-/* tslint:disable:no-unused-variable */
-
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { RoleService } from './role.service';
 
-describe('Service: Role', () => {
+describe('RoleService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [RoleService]

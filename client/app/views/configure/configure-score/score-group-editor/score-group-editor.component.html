@@ -14,21 +14,21 @@
     <div class="row">
       <div class="col-4" appFloatingLabelContainer>
         <label>Judges</label>
-        <input type="number" formControlName="judges" >
+        <input type="number" formControlName="judges">
       </div>
       <div class="col-4" appFloatingLabelContainer>
         <label>Max Score</label>
-        <input type="number" formControlName="max" >
+        <input type="number" formControlName="max">
       </div>
       <div class="col-4" appFloatingLabelContainer>
         <label>Min Score</label>
-        <input type="number" formControlName="min" >
+        <input type="number" formControlName="min">
       </div>
     </div>
   </fieldset>
   <footer>
-    <button type="submit"><fa name="save" fw="true"></fa> Save ScoreGroup</button>
-    <button type="button" (click)="close()"><fa name="ban" fw="true"></fa> Cancel</button>
-    <button *ngIf="scoreForm.value.id" class="pull-right warning" type="button" (click)="delete()"><fa name="trash" fw="true"></fa> Delete ScoreGroup</button>
+    <button type="submit"><app-fa name="save" fw="true"></app-fa> Save ScoreGroup</button>
+    <button type="button" (click)="close()"><app-fa name="ban" fw="true"></app-fa> Cancel</button>
+    <button *ngIf="scoreForm.value.id" class="pull-right warning" type="button" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> Delete ScoreGroup</button>
   </footer>
 </form>

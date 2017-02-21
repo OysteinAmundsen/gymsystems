@@ -171,7 +171,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     this.outputEvents.emit({ type: 'default', data: 'init' });
 
     if (typeof window !== 'undefined') {
-      let body = document.querySelector('body');
+      const body = document.querySelector('body');
       body.addEventListener('click', e => {
         if (!this.opened || !e.target) { return; };
         if (this.el.nativeElement !== e.target && !this.el.nativeElement.contains((<any>e.target))) {
@@ -198,7 +198,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
           if (!(e.data instanceof Date)) {
             throw new Error(`Input data must be an instance of Date!`);
           }
-          let date: moment.Moment = Moment(e.data);
+          const date: moment.Moment = Moment(e.data);
           if (!date) {
             throw new Error(`Invalid date: ${e.data}`);
           }
@@ -215,22 +215,22 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   }
 
   generateCalendar() {
-    let date: moment.Moment = Moment(this.currentDate);
-    let month = date.month();
-    let year = date.year();
+    const date: moment.Moment = Moment(this.currentDate);
+    const month = date.month();
+    const year = date.year();
     let n = 1;
-    let firstWeekDay = (this.options.firstWeekdaySunday) ? date.date(2).day() : date.date(1).day();
+    const firstWeekDay = (this.options.firstWeekdaySunday) ? date.date(2).day() : date.date(1).day();
 
     if (firstWeekDay !== 1) {
       n -= (firstWeekDay + 6) % 7;
     }
 
     this.days = [];
-    let selectedDate: moment.Moment = this.date.momentObj;
+    const selectedDate: moment.Moment = this.date.momentObj;
     for (let i = n; i <= date.endOf('month').date(); i += 1) {
-      let currentDate: moment.Moment = Moment(`${i}.${month + 1}.${year}`, 'DD.MM.YYYY');
-      let today: boolean = (Moment().isSame(currentDate, 'day') && Moment().isSame(currentDate, 'month')) ? true : false;
-      let selected: boolean = (selectedDate && selectedDate.isSame(currentDate, 'day')) ? true : false;
+      const currentDate: moment.Moment = Moment(`${i}.${month + 1}.${year}`, 'DD.MM.YYYY');
+      const today: boolean = (Moment().isSame(currentDate, 'day') && Moment().isSame(currentDate, 'month')) ? true : false;
+      const selected: boolean = (selectedDate && selectedDate.isSame(currentDate, 'day')) ? true : false;
       let betweenMinMax = true;
 
       if (this.minDate !== null) {
@@ -245,7 +245,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
         }
       }
 
-      let day: CalendarDate = {
+      const day: CalendarDate = {
         day: i > 0 ? i : null,
         month: i > 0 ? month : null,
         year: i > 0 ? year : null,
@@ -286,7 +286,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     e.preventDefault();
 
     setTimeout(() => {
-      let date: moment.Moment = this.currentDate.year(year);
+      const date: moment.Moment = this.currentDate.year(year);
       this.value = {
         day: date.format('DD'),
         month: date.format('MM'),
@@ -300,9 +300,9 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   }
 
   generateYears() {
-    let date: moment.Moment = this.options.minDate || Moment().year(Moment().year() - 40);
-    let toDate: moment.Moment = this.options.maxDate || Moment().year(Moment().year() + 40);
-    let years = toDate.year() - date.year();
+    const date: moment.Moment = this.options.minDate || Moment().year(Moment().year() - 40);
+    const toDate: moment.Moment = this.options.maxDate || Moment().year(Moment().year() + 40);
+    const years = toDate.year() - date.year();
 
     for (let i = 0; i < years; i++) {
       this.years.push(date.year());

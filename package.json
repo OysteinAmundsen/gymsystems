@@ -10,6 +10,7 @@
     "build:server": "tsc --project ./server/tsconfig.json",
     "build:server:watch": "npm run build:server -- -w",
     "build:client": "ng build --prod",
+    "build:client:watch": "npm run build:client -- -w",
     "start": "npm run start:server",
     "start:server": "node ./dist/index.js",
     "start:server:watch": "nodemon ./dist/index.js -w dist -d .2",

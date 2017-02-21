@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
-import { ApiService } from 'app/api';
-import { IDiscipline } from 'app/api/model';
+import { ApiService } from './ApiService';
+import { IDiscipline } from './model/IDiscipline';
 
 @Injectable()
 export class DisciplineService extends ApiService {
@@ -26,7 +26,7 @@ export class DisciplineService extends ApiService {
   }
 
   save(discipline: IDiscipline) {
-    let call = (discipline.id) ? this.http.put(`${this.url}/${discipline.id}`, discipline) : this.http.post(this.url, discipline);
+    const call = (discipline.id) ? this.http.put(`${this.url}/${discipline.id}`, discipline) : this.http.post(this.url, discipline);
     return call.map((res: Response) => res.json()).catch(this.handleError);
   }
 

@@ -1,4 +1,3 @@
-export * from './ApiService';
 export * from './discipline.service';
 export * from './role.service';
 export * from './score.service';

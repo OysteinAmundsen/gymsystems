@@ -1,7 +1,7 @@
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Component, ElementRef, ViewChild, Input, OnInit } from '@angular/core';
 
-import { ITournamentParticipantScore } from 'app/api/model';
+import { ITournamentParticipantScore } from 'app/api/model/ITournamentParticipantScore';
 
 @Component({
   selector: 'app-score',

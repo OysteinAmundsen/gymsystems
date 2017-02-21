@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { TeamsService } from 'app/api';
-import { ITeam } from 'app/api/model';
+import { ITeam } from 'app/api/model/ITeam';
 
 @Component({
   selector: 'app-team-editor',

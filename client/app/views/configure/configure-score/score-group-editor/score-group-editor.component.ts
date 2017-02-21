@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ScoreService } from 'app/api';
-import { IScoreGroup } from 'app/api/model';
+import { IScoreGroup } from 'app/api/model/IScoreGroup';
 
 @Component({
   selector: 'app-score-group-editor',

@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { TournamentService } from 'app/api';
-import { ITournament } from 'app/api/model';
+import { TournamentService } from 'app/api/tournament.service';
+import { ITournament } from 'app/api/model/ITournament';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  providers: [TournamentService]
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
   upcoming: ITournament[] = [];

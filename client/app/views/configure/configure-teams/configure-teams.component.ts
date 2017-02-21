@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TeamsService } from 'app/api';
-import { ITeam } from 'app/api/model';
+import { ITeam } from 'app/api/model/ITeam';
 
 @Component({
   selector: 'app-configure-teams',

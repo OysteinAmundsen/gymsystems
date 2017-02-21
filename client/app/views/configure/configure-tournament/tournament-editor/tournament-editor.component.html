@@ -23,8 +23,8 @@
     </div>
   </fieldset>
   <footer>
-    <button type="submit"><fa name="save" fw="true"></fa> Save tournament</button>
-    <button type="button" (click)="close()"><fa name="ban" fw="true"></fa> Cancel</button>
-    <button *ngIf="tournamentForm.value.id" class="pull-right warning" type="button" (click)="delete()"><fa name="trash" fw="true"></fa> Delete tournament</button>
+    <button type="submit"><app-fa name="save" fw="true"></app-fa> Save tournament</button>
+    <button type="button" (click)="close()"><app-fa name="ban" fw="true"></app-fa> Cancel</button>
+    <button *ngIf="tournamentForm.value.id" class="pull-right warning" type="button" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> Delete tournament</button>
   </footer>
 </form>

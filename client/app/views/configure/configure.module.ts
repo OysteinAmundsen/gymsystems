@@ -21,9 +21,9 @@ import { ScoreGroupEditorComponent } from './configure-score/score-group-editor/
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule.forChild([...ConfigureRoutes]),
 
     SharedModule,
-    RouterModule.forChild([...ConfigureRoutes])
   ],
   declarations: [
     ConfigureComponent,

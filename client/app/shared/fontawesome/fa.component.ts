@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChange } from '@angular/core';
 
 @Component({
-  selector: 'fa',
+  selector: 'app-fa',
   template: `<i [className]="classList.join(' ')"></i>`,
   styleUrls: ['./fontawesome.scss']
 })

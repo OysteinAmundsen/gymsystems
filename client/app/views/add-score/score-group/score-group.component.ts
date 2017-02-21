@@ -2,7 +2,8 @@ import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren } from
 import { FormGroup } from '@angular/forms';
 
 import { ScoreComponent } from '../score/score.component';
-import { IScoreGroup, ITournamentParticipantScore } from 'app/api/model';
+import { IScoreGroup } from 'app/api/model/IScoreGroup';
+import { ITournamentParticipantScore } from 'app/api/model/ITournamentParticipantScore';
 
 @Component({
   selector: 'app-score-group',

@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { DisciplineService } from 'app/api';
-import { IDiscipline } from 'app/api/model';
+import { IDiscipline } from 'app/api/model/IDiscipline';
 
 @Component({
   selector: 'app-discipline-editor',

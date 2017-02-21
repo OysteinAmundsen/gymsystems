@@ -5,13 +5,13 @@ import { Directive, ElementRef, Renderer, OnInit, AfterViewChecked } from '@angu
 })
 export class FloatingLabelContainerDirective implements OnInit, AfterViewChecked {
   inputElm: HTMLInputElement;
-  constructor(private host: ElementRef, private renderer: Renderer) {}
+  constructor(private host: ElementRef, private renderer: Renderer) { }
 
   ngOnInit() {
     this.inputElm = this.host.nativeElement.querySelector('input');
     if (!this.inputElm) { this.inputElm = this.host.nativeElement.querySelector('textarea'); }
     if (!this.inputElm) {
-      throw 'No input element found in this floating label container';
+      throw new Error('No input element found in this floating label container');
     }
 
     this.renderer.listen(this.inputElm, 'keyup', event => this.onValueChanged());
@@ -33,5 +33,4 @@ export class FloatingLabelContainerDirective implements OnInit, AfterViewChecked
     this.renderer.setElementClass(this.host.nativeElement, 'hasFocus', document.activeElement === this.inputElm);
     this.onValueChanged();
   }
-
 }

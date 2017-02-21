@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
-import { ApiService } from 'app/api';
-import { ITeam } from 'app/api/model';
+import { ApiService } from './ApiService';
+import { ITeam } from './model/ITeam';
 
 @Injectable()
 export class TeamsService extends ApiService {
@@ -26,7 +26,7 @@ export class TeamsService extends ApiService {
   }
 
   save(team: ITeam) {
-    let call = (team.id) ? this.http.put(`${this.url}/${team.id}`, team) : this.http.post(this.url, team);
+    const call = (team.id) ? this.http.put(`${this.url}/${team.id}`, team) : this.http.post(this.url, team);
     return call.map((res: Response) => res.json()).catch(this.handleError);
   }
 

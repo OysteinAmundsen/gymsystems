@@ -1,9 +1,5 @@
 import { IDiscipline } from './IDiscipline';
 
-export enum Operation {
-  Addition = 1, Subtraction = 2
-};
-
 export interface IScoreGroup {
   id: number;
   name: string;
@@ -13,4 +9,8 @@ export interface IScoreGroup {
   min: number;
   discipline: IDiscipline;
   operation: Operation;
-};
+}
+
+export enum Operation {
+  Addition = 1, Subtraction = 2
+}

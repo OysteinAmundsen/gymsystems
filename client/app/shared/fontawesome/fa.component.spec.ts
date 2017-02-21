@@ -1,46 +1,25 @@
-import {
-  beforeEach,
-  beforeEachProviders,
-  describe,
-  expect,
-  it,
-  inject,
-} from '@angular/core/testing';
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
-import { Component } from '@angular/core';
-import { By } from '@angular/platform-browser';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { FaComponent } from './fa.component';
 
-describe('Component: FaComponent', () => {
-  let builder: TestComponentBuilder;
+describe('FaComponent', () => {
+  let component: FaComponent;
+  let fixture: ComponentFixture<app-faComponent >;
 
-  beforeEachProviders(() => [FaComponent]);
-  beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {
-    builder = tcb;
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [FaComponent]
+    })
+      .compileComponents();
   }));
 
-  it('should inject the component', inject([FaComponent],
-      (component: FaComponent) => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(FaComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
     expect(component).toBeTruthy();
-  }));
-
-  it('should create the component', inject([], () => {
-    return builder.createAsync(FaComponentTestController)
-      .then((fixture: ComponentFixture<any>) => {
-        let query = fixture.debugElement.query(By.directive(FaComponent));
-        expect(query).toBeTruthy();
-        expect(query.componentInstance).toBeTruthy();
-      });
-  }));
+  });
 });
-
-@Component({
-  selector: 'test',
-  template: `
-    <app-fa-component></app-fa-component>
-  `,
-  directives: [FaComponent]
-})
-class FaComponentTestController {
-}
-
