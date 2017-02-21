@@ -59,12 +59,12 @@ nav {
     padding: 1rem 0.5rem 1rem 0.5rem;
     display: inline-block;
   }
-  a, fa {
+  a, app-fa {
     color: rgba(white, 0.8);
     text-decoration: none;
     height: 3.5rem;
   }
-  header + fa {
+  header + app-fa {
     float: right;
     cursor: pointer;
     border-radius: $rounded;
@@ -179,7 +179,7 @@ menu {
         background: transparent;
       }
     }
-    fa, span {
+    app-fa, span {
       display: block;
       text-align: center;
     }
