@@ -1,4 +1,4 @@
-import { getConnectionManager, Repository  } from 'typeorm';
+import { getConnectionManager, Repository } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
@@ -24,14 +24,23 @@ export class DisciplineController {
     return this.repository.find();
   }
 
+  @Get('/tournament/:id')
+  @EmptyResultCode(404)
+  getByTournament( @Param('id') id: number, @Res() res: Response): Promise<Discipline[]> {
+    return this.repository.find({ tournament: id });
+  }
+
   @Get('/:id')
   @EmptyResultCode(404)
-  get(@EntityFromParam('id') discipline: Discipline): Discipline {
-    return discipline;
+  get( @Param('id') id: number): Promise<Discipline> {
+    return this.repository.createQueryBuilder('discipline')
+      .where('discipline.id=:id', { id: id })
+      .innerJoinAndSelect('discipline.tournament', 'tournament')
+      .getOne();
   }
 
   @Post()
-  create(@EntityFromBody() discipline: Discipline, @Res() res: Response) {
+  create( @EntityFromBody() discipline: Discipline, @Res() res: Response) {
     return this.repository.persist(discipline)
       .then(persisted => res.send(persisted))
       .catch(err => {
@@ -42,7 +51,7 @@ export class DisciplineController {
   }
 
   @Put('/:id')
-  update(@Param('id') id: number, @EntityFromBody() discipline: Discipline, @Res() res: Response) {
+  update( @Param('id') id: number, @EntityFromBody() discipline: Discipline, @Res() res: Response) {
     return this.repository.persist(discipline)
       .then(persisted => res.send(persisted))
       .catch(err => {
@@ -53,7 +62,7 @@ export class DisciplineController {
   }
 
   @Delete('/:id')
-  remove(@EntityFromParam('id') discipline: Discipline, @Res() res: Response) {
+  remove( @EntityFromParam('id') discipline: Discipline, @Res() res: Response) {
     return this.repository.remove(discipline)
       .then(result => res.send(result))
       .catch(err => {

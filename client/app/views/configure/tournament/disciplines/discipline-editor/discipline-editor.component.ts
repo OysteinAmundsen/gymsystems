@@ -2,8 +2,11 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { DisciplineService } from 'app/api';
+import { TournamentService, DisciplineService } from 'app/api';
 import { IDiscipline } from 'app/api/model/IDiscipline';
+import { ITournament } from 'app/api/model/ITournament';
+
+import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 
 @Component({
   selector: 'app-discipline-editor',
@@ -11,11 +14,12 @@ import { IDiscipline } from 'app/api/model/IDiscipline';
   styleUrls: ['./discipline-editor.component.scss']
 })
 export class DisciplineEditorComponent implements OnInit {
-  discipline: IDiscipline = <IDiscipline>{};
+  get tournament() { return this.tournamentService.selected; }
+  discipline: IDiscipline = <IDiscipline>{ tournament: this.tournament };
   disciplineForm: FormGroup;
   editingScore: boolean;
 
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private disciplineService: DisciplineService) { }
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private tournamentService: TournamentService, private disciplineService: DisciplineService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: any) => {
@@ -31,7 +35,8 @@ export class DisciplineEditorComponent implements OnInit {
     this.disciplineForm = this.fb.group({
       id: [this.discipline.id],
       name: [this.discipline.name, [Validators.required]],
-      teams: [this.discipline.teams]
+      teams: [this.discipline.teams],
+      tournament: [this.discipline.tournament]
     });
   }
 

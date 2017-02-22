@@ -47,9 +47,9 @@ export class Server {
    */
   static Initialize(): Promise<any> {
     Logger.log.debug(`
-${chalk.green     ('**********************')}
+${chalk.green('**********************')}
 ${chalk.green.bold('  Starting GymSystems')}
-${chalk.green     ('**********************')}
+${chalk.green('**********************')}
 `);
 
     return new Server()
@@ -90,12 +90,11 @@ ${chalk.green     ('**********************')}
       interceptors: [__dirname + '/interceptors/*.js']
     });
 
-    this.$onMountingMiddlewares();
-
     // Configure express
-    this.app.set('etag', false);        // TODO: Support etag
-    this.app.disable('x-powered-by');   // Do not announce our architecture to the world!
-    this.app.set('trust proxy', true);  // Listen for external requests
+    this.useGlobalMiddlewares()
+      .set('trust proxy', true)   // Listen for external requests
+      .set('etag', false)         // TODO: Support etag
+      .disable('x-powered-by');   // Do not announce our architecture to the world!
 
     // Setup static resources
     this.app.use(Express.static(this.clientPath));    // Serve static paths
@@ -119,9 +118,9 @@ ${chalk.green     ('**********************')}
    *
    * @returns {Server}
    */
-  public $onMountingMiddlewares(): void | Promise<any>  {
+  public useGlobalMiddlewares(): Express.Express {
     // Setup global middlewares
-    this.app
+    return this.app
       .use(morgan('combined', { stream: Logger.stream })) // Setup morgan access logger using winston
       .use(bodyParser.json())
       .use(bodyParser.urlencoded({ extended: true }))
@@ -140,6 +139,7 @@ ${chalk.green     ('**********************')}
           maxAge: null
         }
       }))
+
       // Configure passport JS
       .use(Passport.initialize())
       .use(Passport.session());
@@ -165,33 +165,10 @@ ${chalk.green     ('**********************')}
   }
 
   /**
-   *
-   * @param error
-   * @param request
-   * @param response
-   * @param next
-   * @returns {any}
-   */
-  public $onError(error: any, request: Express.Request, response: Express.Response, next: Express.NextFunction): void {
-    if (response.headersSent) {
-      return next(error);
-    }
-
-    if (typeof error === 'string') {
-      response.status(404).send(error);
-      return next();
-    }
-
-    response.status(error.status || 500).send('Internal Error');
-    return next();
-
-  }
-
-  /**
    * Fatal error occurred during startup of server
    * @param error
    */
-  public $onServerInitError(error: any){
+  public $onServerInitError(error: any) {
     // handle specific listen errors with friendly messages if configured. Default to the stack-trace.
     Logger.log.error((ERROR_MESSAGES[error.code] ? ERROR_MESSAGES[error.code] : error));
   }

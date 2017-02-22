@@ -21,6 +21,10 @@ export class TeamsService extends ApiService {
     return this.http.get(this.url).map((res: Response) => res.json()).share().catch(this.handleError);
   }
 
+  getByTournament(id: number): Observable<ITeam[]> {
+    return this.http.get(`${this.url}/tournament/${id}`).map((res: Response) => res.json()).share().catch(this.handleError);
+  }
+
   getById(id: number): Observable<ITeam> {
     return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).catch(this.handleError);
   }

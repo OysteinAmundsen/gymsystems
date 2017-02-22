@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DisciplineService } from 'app/api';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { TournamentService, DisciplineService } from 'app/api';
 import { IDiscipline } from 'app/api/model/IDiscipline';
 
 @Component({
@@ -8,28 +10,25 @@ import { IDiscipline } from 'app/api/model/IDiscipline';
   styleUrls: ['./disciplines.component.scss']
 })
 export class DisciplinesComponent implements OnInit {
+  get tournament() { return this.tournamentService.selected; };
   disciplineList: IDiscipline[] = [];
 
   _selected: IDiscipline;
   get selected() { return this._selected; }
   set selected(discipline: IDiscipline) { this._selected = discipline; }
 
-  constructor(private disciplineService: DisciplineService) {
+  constructor(private router: Router, private route: ActivatedRoute, private tournamentService: TournamentService, private disciplineService: DisciplineService) { }
+
+  ngOnInit() {
     this.loadDisciplines();
   }
 
-  ngOnInit() { }
-
   loadDisciplines() {
-    this.disciplineService.all().subscribe(disciplines => this.disciplineList = disciplines);
-  }
-
-  addDiscipline() {
-    const discipline = <IDiscipline>{
-      id: null, name: null
-    };
-    this.disciplineList.push(discipline);
-    this.selected = discipline;
+    this.route.parent.parent.params.subscribe((params: any) => {
+      if (params.id) {
+        this.disciplineService.getByTournament(params.id).subscribe(disciplines => this.disciplineList = disciplines);
+      }
+    });
   }
 
   onChange() {

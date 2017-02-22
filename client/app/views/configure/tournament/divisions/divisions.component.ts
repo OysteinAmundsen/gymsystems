@@ -1,6 +1,9 @@
+import { ITournament } from '../../../../api/model/ITournament';
+import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { DivisionService } from 'app/api/division.service';
+import { TournamentService, DivisionService } from 'app/api';
 import { IDivision } from 'app/api/model/IDivision';
 
 @Component({
@@ -10,24 +13,29 @@ import { IDivision } from 'app/api/model/IDivision';
 })
 export class DivisionsComponent implements OnInit {
   divisionList: IDivision[] = [];
+  get tournament() { return this.tournamentService.selected; };
 
   _selected: IDivision;
   get selected() { return this._selected; }
   set selected(division: IDivision) { this._selected = division; }
 
-  constructor(private divisionService: DivisionService) {
+  constructor(private router: Router, private route: ActivatedRoute, private tournamentService: TournamentService, private divisionService: DivisionService) { }
+
+  ngOnInit() {
     this.loadDivisions();
   }
 
-  ngOnInit() { }
-
   loadDivisions() {
-    this.divisionService.all().subscribe(divisions => this.divisionList = divisions);
+    this.route.parent.params.subscribe((params: any) => {
+      if (params.id) {
+        this.divisionService.getByTournament(params.id).subscribe(divisions => this.divisionList = divisions);
+      }
+    });
   }
 
   addDivision() {
     const division = <IDivision>{
-      id: null, name: null
+      id: null, name: null, tournament: this.tournament
     };
     this.divisionList.push(division);
     this.selected = division;

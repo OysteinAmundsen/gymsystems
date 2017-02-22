@@ -8,6 +8,8 @@ import { FloatingLabelContainerDirective } from './floating-label/floating-label
 import { PanelComponent } from './panel/panel.component';
 import { FaComponent } from './fontawesome/fa.component';
 import { FaStackComponent } from './fontawesome/fa-stack.component';
+import { AutofocusDirective } from './autofocus/autofocus.directive';
+import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 
 @NgModule({
   imports: [
@@ -15,8 +17,8 @@ import { FaStackComponent } from './fontawesome/fa-stack.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [DatepickerComponent, DialogComponent, FloatingLabelContainerDirective, PanelComponent, FaComponent, FaStackComponent],
-  exports: [DatepickerComponent, DialogComponent, FloatingLabelContainerDirective, PanelComponent, FaComponent, FaStackComponent]
+  declarations: [DatepickerComponent, DialogComponent, FloatingLabelContainerDirective, PanelComponent, FaComponent, FaStackComponent, AutofocusDirective, SlideToggleComponent],
+  exports: [DatepickerComponent, DialogComponent, FloatingLabelContainerDirective, PanelComponent, FaComponent, FaStackComponent, AutofocusDirective, SlideToggleComponent]
 })
 export class SharedModule { }
 

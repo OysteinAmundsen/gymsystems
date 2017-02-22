@@ -1,13 +1,17 @@
 <form class="panel" [formGroup]="scoreForm" (submit)="save()">
   <fieldset>
     <div class="row">
-      <div class="col-10" appFloatingLabelContainer>
+      <div class="col-8" appFloatingLabelContainer>
         <label>Name</label>
-        <input type="text" formControlName="name">
+        <input type="text" formControlName="name" appAutofocus>
       </div>
       <div class="col-2" appFloatingLabelContainer>
         <label>Type</label>
         <input type="text" formControlName="type">
+      </div>
+      <div class="col-2">
+        <label>Operation</label>
+        <app-slide-toggle onLabel="Adds" offLabel="Subtracts" [onState]="operations.Addition" [offState]="operations.Subtraction" [initState]="operations.Addition" formControlName="operation"></app-slide-toggle>
       </div>
     </div>
 

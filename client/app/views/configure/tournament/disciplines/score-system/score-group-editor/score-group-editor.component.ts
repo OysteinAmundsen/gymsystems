@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ScoreService } from 'app/api';
 import { IDiscipline } from 'app/api/model/IDiscipline';
-import { IScoreGroup } from 'app/api/model/IScoreGroup';
+import { IScoreGroup, Operation } from 'app/api/model/IScoreGroup';
 
 @Component({
   selector: 'app-score-group-editor',
@@ -11,10 +11,11 @@ import { IScoreGroup } from 'app/api/model/IScoreGroup';
   styleUrls: ['./score-group-editor.component.scss']
 })
 export class ScoreGroupEditorComponent implements OnInit {
-  @Input() scoreGroup: IScoreGroup = <IScoreGroup>{};
+  @Input() scoreGroup: IScoreGroup = <IScoreGroup>{ operation: Operation.Addition };
   @Input() discipline: IDiscipline;
   @Output() scoreChanged: EventEmitter<any> = new EventEmitter<any>();
   scoreForm: FormGroup;
+  operations = Operation;
 
   constructor(private fb: FormBuilder, private scoreService: ScoreService) { }
 
@@ -27,6 +28,7 @@ export class ScoreGroupEditorComponent implements OnInit {
       max: [this.scoreGroup.max],
       min: [this.scoreGroup.min],
       type: [this.scoreGroup.type],
+      operation: [this.scoreGroup.operation],
       discipline: [this.discipline]
     });
   }

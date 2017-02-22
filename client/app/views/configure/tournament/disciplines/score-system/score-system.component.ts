@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { ScoreService } from 'app/api';
 import { IDiscipline } from 'app/api/model/IDiscipline';
-import { IScoreGroup } from 'app/api/model/IScoreGroup';
+import { IScoreGroup, Operation } from 'app/api/model/IScoreGroup';
 
 @Component({
   selector: 'app-score-system',
@@ -19,6 +19,7 @@ export class ScoreComponent implements OnInit {
   get selected() { return this._selected; }
   set selected(scoreGroup: IScoreGroup) {
     this._selected = scoreGroup;
+    this.editModeChanged.emit(this._selected != null);
   }
 
   constructor(private router: Router, private route: ActivatedRoute, private scoreService: ScoreService) { }
@@ -37,7 +38,7 @@ export class ScoreComponent implements OnInit {
 
   addScoreGroup() {
     const scoreGroup = <IScoreGroup>{
-      id: null, name: null, type: null, judges: 1, max: 5, min: 0, discipline: this.discipline
+      id: null, name: null, type: null, judges: 1, max: 5, min: 0, operation: Operation.Addition, discipline: this.discipline
     };
     this.scoreGroupList.push(scoreGroup);
     this.selected = scoreGroup;
@@ -50,6 +51,5 @@ export class ScoreComponent implements OnInit {
 
   select(scoreGroup: IScoreGroup) {
     this.selected = scoreGroup;
-    this.editModeChanged.emit(this.selected != null);
   }
 }

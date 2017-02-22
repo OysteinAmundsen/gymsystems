@@ -23,6 +23,7 @@ export class TournamentEditorComponent implements OnInit {
         this.tournamentService.getById(params.id).subscribe(tournament => {
           this.tournament = tournament;
           this.tournamentForm.setValue(tournament);
+          this.tournamentService.selected = this.tournament;
         });
       } else {
         this.isEdit = true;

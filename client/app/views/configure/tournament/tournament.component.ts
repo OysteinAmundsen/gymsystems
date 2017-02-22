@@ -11,19 +11,9 @@ import { ITournament } from 'app/api/model/ITournament';
 export class TournamentComponent implements OnInit {
   tournamentList: ITournament[] = [];
 
-  _selected: ITournament;
-  get selected() { return this._selected; }
-  set selected(tournament: ITournament) {
-    this._selected = tournament;
-  }
+  constructor(private tournamentService: TournamentService) { }
 
-  constructor(private tournamentService: TournamentService) {
-    this.loadTournaments();
-  }
-
-  ngOnInit() { }
-
-  loadTournaments() {
+  ngOnInit() {
     this.tournamentService.all().subscribe(tournaments => this.tournamentList = tournaments);
   }
 }

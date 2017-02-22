@@ -24,10 +24,19 @@ export class DivisionController {
     return this.repository.find();
   }
 
+  @Get('/tournament/:id')
+  @EmptyResultCode(404)
+  getByTournament( @Param('id') id: number, @Res() res: Response): Promise<Division[]> {
+    return this.repository.find({ tournament: id });
+  }
+
   @Get('/:id')
   @EmptyResultCode(404)
-  get( @EntityFromParam('id') division: Division): Division {
-    return division;
+  get( @Param('id') id: number): Promise<Division> {
+    return this.repository.createQueryBuilder('division')
+      .where('division.id=:id', { id: id })
+      .innerJoinAndSelect('division.tournament', 'tournament')
+      .getOne();
   }
 
   @Post()

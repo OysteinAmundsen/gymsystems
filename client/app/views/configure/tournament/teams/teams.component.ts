@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { TeamsService } from 'app/api';
+import { TournamentService, TeamsService } from 'app/api';
 import { ITeam } from 'app/api/model/ITeam';
 
 @Component({
@@ -17,7 +18,7 @@ export class TeamsComponent implements OnInit {
     this._selected = team;
   }
 
-  constructor(private teamService: TeamsService) {
+  constructor(private router: Router, private route: ActivatedRoute, private tournamentService: TournamentService, private teamService: TeamsService) {
     this.loadTeams();
   }
 
@@ -25,7 +26,11 @@ export class TeamsComponent implements OnInit {
   }
 
   loadTeams() {
-    this.teamService.all().subscribe(teams => this.teamList = teams);
+    this.route.parent.params.subscribe((params: any) => {
+      if (params.id) {
+        this.teamService.all().subscribe(teams => this.teamList = teams);
+      }
+    });
   }
 
   addTeam() {

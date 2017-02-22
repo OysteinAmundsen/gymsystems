@@ -19,13 +19,15 @@ export class DivisionEditorComponent implements OnInit {
   ngOnInit() {
     this.divisionForm = this.fb.group({
       id: [this.division.id],
-      name: [this.division.name, [Validators.required]]
+      name: [this.division.name, [Validators.required]],
+      tournament: [this.division.tournament]
     });
   }
 
   save() {
     this.divisionService.save(this.divisionForm.value).subscribe(result => {
       this.divisionChanged.emit(result);
+      this.divisionForm.setValue(result);
     });
   }
 

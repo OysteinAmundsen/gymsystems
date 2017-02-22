@@ -1,4 +1,4 @@
-import { getConnectionManager, Repository  } from 'typeorm';
+import { getConnectionManager, Repository } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Param, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
@@ -24,14 +24,20 @@ export class TeamController {
     return this.repository.find();
   }
 
+  @Get('/tournament/:id')
+  @EmptyResultCode(404)
+  getByTournament( @Param('id') id: number, @Res() res: Response): Promise<Team[]> {
+    return this.repository.find({ tournament: id });
+  }
+
   @Get('/:id')
   @EmptyResultCode(404)
-  get(@EntityFromParam('id') team: Team): Team {
+  get( @EntityFromParam('id') team: Team): Team {
     return team;
   }
 
   @Post()
-  create(@EntityFromBody() team: Team, @Res() res: Response) {
+  create( @EntityFromBody() team: Team, @Res() res: Response) {
     return this.repository.persist(team)
       .then(persisted => res.send(persisted))
       .catch(err => {
@@ -42,7 +48,7 @@ export class TeamController {
   }
 
   @Put('/:id')
-  update(@Param('id') id: number, @EntityFromBody() team: Team, @Res() res: Response) {
+  update( @Param('id') id: number, @EntityFromBody() team: Team, @Res() res: Response) {
     return this.repository.persist(team)
       .then(persisted => res.send(persisted))
       .catch(err => {
@@ -53,7 +59,7 @@ export class TeamController {
   }
 
   @Delete('/:id')
-  remove(@EntityFromParam('id') team: Team, @Res() res: Response) {
+  remove( @EntityFromParam('id') team: Team, @Res() res: Response) {
     return this.repository.remove(team)
       .then(result => res.send(result))
       .catch(err => {

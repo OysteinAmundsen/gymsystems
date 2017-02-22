@@ -13,7 +13,7 @@
     </tr>
   </thead>
   <tbody *ngFor="let tournament of tournamentList">
-    <tr *ngIf="tournament !== selected" [routerLink]="['.', tournament.id]" role="listitem">
+    <tr [routerLink]="['.', tournament.id]" role="listitem">
       <td>{{ tournament.name }}</td>
       <td>{{ tournament.startDate | date }}</td>
       <td>{{ tournament.endDate | date }}</td>
@@ -22,7 +22,7 @@
   </tbody>
 </table>
 
-<button *ngIf="selected == null" title="Add" [routerLink]="['./add']">
+<button title="Add" [routerLink]="['./add']">
   <app-fa name="plus" fw="true"></app-fa>
   <span>Add Tournament</span>
 </button>

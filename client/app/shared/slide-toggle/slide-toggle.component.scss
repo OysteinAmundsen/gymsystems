@@ -1,0 +1,116 @@
+@import "~styles/variables";
+
+.label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    cursor: pointer;
+}
+.container {
+    margin-right: 8px;
+    margin-left: 0;
+    cursor: -webkit-grab;
+    cursor: grab;
+    width: 36px;
+    height: 24px;
+    position: relative;
+}
+.bar, .thumb {
+    -webkit-transition: all 80ms linear;
+    transition: all 80ms linear;
+    -webkit-transition-property: background-color;
+    transition-property: background-color;
+    -webkit-transition-delay: 50ms;
+    transition-delay: 50ms;
+}
+.bar {
+    position: absolute;
+    left: 1px;
+    top: 5px;
+    width: 34px;
+    height: 14px;
+    border-radius: 8px;
+    background-color: rgba(0,0,0,.38);
+}
+.thumb-container {
+    touch-action: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 2px;
+    left: 0;
+    z-index: 1;
+    width: 16px;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transition: all 80ms linear;
+    transition: all 80ms linear;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    transition-property: transform;
+    transition-property: transform,-webkit-transform;
+}
+.thumb {
+    position: absolute;
+    margin: 0;
+    left: 0;
+    top: 0;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    background-color: #fafafa;
+}
+:host {
+  .mat-ink-ripple {
+    border-radius: 50%;
+    opacity: 0;
+    height: 48px;
+    left: 50%;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    -webkit-transition: opacity .28s ease,background-color .28s ease;
+    transition: opacity .28s ease,background-color .28s ease;
+    width: 48px;
+  }
+  &.checked {
+    .thumb-container {
+      -webkit-transform: translate3d(100%,0,0);
+      transform: translate3d(100%,0,0);
+    }
+    &:not(.disabled) {
+      .bar {
+        background-color: rgba($primary,.5);
+      }
+      .thumb {
+        background-color: $primary;
+      }
+    }
+  }
+}
+.content {
+    font-size: 14px;
+    font-family: Roboto,Helvetica Neue,sans-serif;
+    font-weight: 500;
+}
+.input {
+    bottom: 0;
+    left: 10px;
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    text-transform: none;
+    width: 1px;
+}

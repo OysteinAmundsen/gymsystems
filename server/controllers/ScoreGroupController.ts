@@ -24,22 +24,16 @@ export class ScoreGroupController {
     return this.repository.find();
   }
 
+  @Get('/discipline/:id')
+  @EmptyResultCode(404)
+  getByDiscipline( @Param('id') id: number, @Res() res: Response): Promise<ScoreGroup[]> {
+    return this.repository.find({ discipline: id });
+  }
+
   @Get('/:id')
   @EmptyResultCode(404)
   get( @EntityFromParam('id') scoreGroup: ScoreGroup): ScoreGroup {
     return scoreGroup;
-  }
-
-  @Get('/discipline/:id')
-  @EmptyResultCode(404)
-  getByDiscipline( @Param('id') id: number, @Res() res: Response): Promise<ScoreGroup[]> {
-    return this.repository.query(`select * from score_group where discipline = ${id}`)
-      .then(result => res.send(result))
-      .catch(err => {
-        console.error(err);
-        res.status(400);
-        res.send(err);
-      });
   }
 
   @Post()
