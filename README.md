@@ -71,19 +71,19 @@ You can start the server bit of this project up in two ways:
 
 1. Build once and serve
 
-```bash
-npm run build
-npm run server
-```
+  ```bash
+  npm run build
+  npm run server
+  ```
 
-This will build the backend and frontend, and start up the server on [localhost:3000](http://localhost:3000). 
+  This will build the backend and frontend, and start up the server on [localhost:3000](http://localhost:3000). 
 
 2. Build continously and serve
 
-```bash
-npm run dev
-```
-This command will continuously build the backend while you develop, and restart the Node Express server when build is done. This will not affect changes you make in the `client` though. 
+  ```bash
+  npm run dev
+  ```
+  This command will continuously build the backend while you develop, and restart the Node Express server when build is done. This will not affect changes you make in the `client` though. 
 
 
 ### Client
