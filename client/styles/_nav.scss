@@ -133,6 +133,9 @@ menu[role="menu"] {
   float: left;
   background: $primary;
   box-shadow: 0 0 100px $primaryDark inset;
+  li {
+    width: 100%;
+  }
   a {
     &:hover {
       background: $primaryDark;
@@ -157,6 +160,7 @@ menu[role="menu"] {
       display: table-row;
     }
     li {
+      width: auto;
       display: table-cell;
       @include btn();
       background: $primary;
@@ -180,7 +184,41 @@ menu[role="menu"] {
     }
   }
 }
+menu[role="tablist"] {
+  ul {
+    position: relative;
+    display: flex;
+  }
+  li {
+    margin: 0 10px;
+    min-width: 0;
+    padding: 0 5px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 35px;
+    height: 48px;
+    border-radius: 2px;
+    transition: background .4s cubic-bezier(.25,.8,.25,1);
+    &:hover {
+      background: lighten($primary, 20%);
+    }
+    &.active {
+      border-bottom: 2px solid $primary;
+    }
+  }
+  a {
+    color: $text-color;
+    @media (max-width: $stop2) {
+      span { display: none; }
+    }
+  }
+}
 menu {
+  padding: 0;
+  display: flex;
+  overflow: hidden;
+  z-index: 1;
+  flex-grow: 1;
   ul {
     list-style: none;
     padding-left: 0;

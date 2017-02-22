@@ -1,0 +1,22 @@
+<table role="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let division of divisionList">
+    <tr *ngIf="division !== selected" (click)="select(division)" role="listitem">
+      <td>{{ division.name }}</td>
+    </tr>
+    <tr *ngIf="division === selected">
+      <td colspan="1">
+        <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button *ngIf="selected == null" (click)="addDivision()">
+  <app-fa name="plus" fw="true"></app-fa>
+  Add Divisions
+</button>

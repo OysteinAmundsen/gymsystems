@@ -1,27 +1,25 @@
 @import "variables";
 
 @mixin btn() {
-  $timer: 0.1s;
+  $timer: .4s;
   padding: $padding * 3;
   margin: 0 2px 2px 2px;
   border: 0;
-  //border: 1px solid $primaryDark;
+  text-align: center;
   color: darken($primary, 50%);
   background-color: transparent;
   border-radius: $rounded;
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.8);
-  //box-shadow: 0 1px 3px rgba(white, 0.9) inset, 0 0 5px rgba(black, 0.3);
-  //text-shadow: 1px 1px 3px rgba(black, 0.5);
-  transition: padding $timer, box-shadow $timer, text-shadow $timer, color $timer, background-color 0.5s;
+  transition: background $timer cubic-bezier(.25,.8,.25,1), box-shadow .28s cubic-bezier(.4,0,.2,1), color $timer, background-color $timer;
   cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
   &.raised, &:hover {
-    box-shadow: 0 2px 7px -1px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
   }
   &:active, &:focus {
     outline: none;
-    //box-shadow: 0 2px 10px -2px rgba(black, 0.5) inset;
-    //text-shadow: 1px 1px 1px rgba(black, 0.5);
-    box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
   }
 }
 button {

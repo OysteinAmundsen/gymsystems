@@ -38,10 +38,10 @@ For a production ready deployment, do this:
 
 ```bash
 npm install
-./docker-build
+npm run deploy
 ```
 
-The [`docker-build`](./docker-build) script will setup both the application docker container and the database container. 
+The [`deploy`](./docker-build) script will setup both the application docker container and the database container. 
 
 * **gymsystems** - built from [gymsystems/client](./Dockerfile) docker image
 * **gymsystems_db** - built from [stock dockerhub mysql](https://hub.docker.com/_/mysql/) image

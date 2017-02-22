@@ -3,7 +3,26 @@
   {{ tournamentForm.value.name || 'Tournament' }}
 </h1>
 
-<form class="panel" [formGroup]="tournamentForm" (submit)="save()">
+<table role="list" *ngIf="!isEdit" title="Click to edit" (click)="isEdit = true">
+  <tr>
+    <th>Name</th>
+    <td>{{ tournament.name }}</td>
+  </tr>
+  <tr>
+    <th>Start date</th>
+    <td>{{ tournament.startDate | date }}</td>
+  </tr>
+  <tr>
+    <th>End date</th>
+    <td>{{ tournament.endDate | date }}</td>
+  </tr>
+  <tr>
+    <th>Location</th>
+    <td>{{ tournament.location }}</td>
+  </tr>
+</table>
+
+<form class="panel" [formGroup]="tournamentForm" (submit)="save()" *ngIf="isEdit">
   <fieldset>
     <div class="row">
       <div class="col-12" appFloatingLabelContainer>
@@ -28,28 +47,32 @@
     </div>
   </fieldset>
 
-  <menu *ngIf="tournamentForm.value.id" role="tablist">
-    <ul>
-      <li>
-        <a routerLink="./disciplines">
-          <app-fa name="heartbeat" fw="true"></app-fa> <span>Disciplines</span> </a>
-      </li>
-      <li>
-        <a routerLink="./teams">
-          <app-fa name="users" fw="true"></app-fa> <span>Teams</span></a>
-      </li>
-      <li>
-        <a routerLink="./score">
-          <app-fa name="star" fw="true"></app-fa> <span>Score system</span> </a>
-      </li>
-    </ul>
-  </menu>
-
-  <router-outlet></router-outlet>
-
   <footer>
     <button type="submit"><app-fa name="save" fw="true"></app-fa> Save tournament</button>
-    <button type="button" [routerLink]="['../']"><app-fa name="arrow-left" fw="true"></app-fa> Go back</button>
+    <button type="button" (click)="cancel()"><app-fa name="ban" fw="true"></app-fa> Cancel</button>
     <button *ngIf="tournamentForm.value.id" class="pull-right warning" type="button" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> Delete tournament</button>
   </footer>
 </form>
+
+<menu *ngIf="tournamentForm.value.id" role="tablist">
+  <ul>
+    <li [routerLinkActive]="['active']">
+      <a routerLink="./divisions">
+        <app-fa name="cubes" fw="true"></app-fa> <span>Divisions</span> </a>
+    </li>
+    <li [routerLinkActive]="['active']">
+      <a routerLink="./disciplines">
+        <app-fa name="heartbeat" fw="true"></app-fa> <span>Disciplines</span> </a>
+    </li>
+    <li [routerLinkActive]="['active']">
+      <a routerLink="./teams">
+        <app-fa name="users" fw="true"></app-fa> <span>Teams</span></a>
+    </li>
+    <li [routerLinkActive]="['active']">
+      <a routerLink="./schedule">
+        <app-fa name="sort-numeric-asc" fw="true"></app-fa> <span>Schedule</span></a>
+    </li>
+  </ul>
+</menu>
+
+<router-outlet></router-outlet>

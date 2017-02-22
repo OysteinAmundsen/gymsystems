@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 import { TournamentRoutes } from './tournament/tournament.routes';
 
 import { ConfigureComponent } from './configure.component';
-import { ConfigureDisplayComponent } from './configure-display/configure-display.component';
+import { ConfigureDisplayComponent } from './display/configure-display.component';
 import { AdvancedComponent } from './advanced/advanced.component';
 
 export const ConfigureRoutes: Routes = [

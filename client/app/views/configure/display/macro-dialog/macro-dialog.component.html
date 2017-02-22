@@ -1,0 +1,7 @@
+<button (click)="openDialog()"><app-fa name="edit" fw="true"></app-fa> Insert value</button>
+
+<app-dialog>
+  <ul class="unstyled">
+    <li *ngFor="let macro of macros" (click)="insert(macro)">{{ macro.name }}</li>
+  </ul>
+</app-dialog>

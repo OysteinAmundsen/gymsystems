@@ -17,7 +17,7 @@ export class Team {
   @Column({ length: 100, unique: true })
   name: string;
 
-  @ManyToOne(type => Division, clazz => clazz.teams)
+  @ManyToOne(type => Division, division => division.teams)
   division: Division;
 
   @ManyToOne(type => AgeClass, ageClass => ageClass.teams)

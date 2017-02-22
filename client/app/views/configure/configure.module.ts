@@ -9,8 +9,8 @@ import { SharedModule } from 'app/shared/shared.module';
 import { TournamentModule } from './tournament/tournament.module';
 
 import { ConfigureComponent } from './configure.component';
-import { ConfigureDisplayComponent } from './configure-display/configure-display.component';
-import { MacroDialogComponent } from './configure-display/macro-dialog/macro-dialog.component';
+import { ConfigureDisplayComponent } from './display/configure-display.component';
+import { MacroDialogComponent } from './display/macro-dialog/macro-dialog.component';
 import { AdvancedComponent } from './advanced/advanced.component';
 
 @NgModule({

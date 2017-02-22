@@ -13,6 +13,7 @@ import { ITournament } from 'app/api/model/ITournament';
 export class TournamentEditorComponent implements OnInit {
   @Input() tournament: ITournament = <ITournament>{};
   tournamentForm: FormGroup;
+  isEdit: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private tournamentService: TournamentService) { }
 
@@ -23,6 +24,8 @@ export class TournamentEditorComponent implements OnInit {
           this.tournament = tournament;
           this.tournamentForm.setValue(tournament);
         });
+      } else {
+        this.isEdit = true;
       }
     });
 
@@ -45,7 +48,7 @@ export class TournamentEditorComponent implements OnInit {
       formVal.endDate = formVal.endDate.momentObj.utc().toISOString();
     }
     this.tournamentService.save(formVal).subscribe(result => {
-      this.router.navigate(['../'], { relativeTo: this.route });
+      this.router.navigate(['../', result.id], { relativeTo: this.route });
     });
   }
 
@@ -53,5 +56,12 @@ export class TournamentEditorComponent implements OnInit {
     this.tournamentService.delete(this.tournamentForm.value).subscribe(result => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
+  }
+
+  cancel() {
+    this.isEdit = false;
+    if (!this.tournamentForm.value.id) {
+      this.router.navigate(['../'], { relativeTo: this.route });
+    }
   }
 }

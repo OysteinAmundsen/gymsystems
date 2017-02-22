@@ -1,6 +1,6 @@
 import { ITeam } from './ITeam';
 
-export interface IClass {
+export interface IDivision {
   id: number;
   name: string;
   teams?: ITeam[];

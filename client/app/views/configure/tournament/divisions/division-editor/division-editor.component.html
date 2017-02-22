@@ -1,0 +1,15 @@
+<form class="panel" [formGroup]="divisionForm" (submit)="save()">
+  <fieldset>
+    <div class="row">
+      <div class="col-12" appFloatingLabelContainer>
+        <label>Name</label>
+        <input type="text" formControlName="name">
+      </div>
+    </div>
+  </fieldset>
+  <footer>
+    <button type="submit"><app-fa name="save" fw="true"></app-fa> Save division</button>
+    <button type="button" (click)="close()"><app-fa name="ban" fw="true"></app-fa> Cancel</button>
+    <button *ngIf="divisionForm.value.id" class="pull-right warning" type="button" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> Delete division</button>
+  </footer>
+</form>

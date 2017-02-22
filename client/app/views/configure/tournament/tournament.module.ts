@@ -4,15 +4,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from 'app/shared/shared.module';
+import { DisciplinesModule } from './disciplines/disciplines.module';
 
 import { TournamentRoutes } from './tournament.routes';
 
 import { TournamentComponent } from './tournament.component';
 import { TournamentEditorComponent } from './tournament-editor/tournament-editor.component';
 
-import { ScoreComponent, ScoreGroupEditorComponent } from './score-system';
-import { DisciplinesComponent, DisciplineEditorComponent } from './disciplines';
 import { TeamsComponent, TeamEditorComponent } from './teams';
+import { DivisionsComponent } from './divisions/divisions.component';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { DivisionEditorComponent } from './divisions/division-editor/division-editor.component';
 
 @NgModule({
   imports: [
@@ -22,12 +24,11 @@ import { TeamsComponent, TeamEditorComponent } from './teams';
     RouterModule,
 
     SharedModule,
+    DisciplinesModule
   ],
   declarations: [
     TournamentComponent, TournamentEditorComponent,
-    ScoreComponent, ScoreGroupEditorComponent,
-    DisciplinesComponent, DisciplineEditorComponent,
-    TeamsComponent, TeamEditorComponent
+    TeamsComponent, TeamEditorComponent, DivisionsComponent, ScheduleComponent, DivisionEditorComponent
   ]
 })
 export class TournamentModule { }

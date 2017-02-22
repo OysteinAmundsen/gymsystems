@@ -12,6 +12,7 @@
     "clean": "rm -rf dist",
     "dev": "concurrently \"npm run server:build:watch\" \"npm run server:watch\"",
     "build": "npm run server:build & npm run client:build",
+    "deploy": "npm run build && npm run docker",
     "docker": "sh docker-build",
     "docker:dev": "docker-compose build && docker-compose up -d",
     "server": "node ./dist/index.js",
@@ -21,7 +22,9 @@
     "client": "ng serve --proxy-config proxy.conf.json",
     "client:build": "ng build --prod",
     "client:build:watch": "npm run client:build -- -w",
-    "migrations:run": "typeorm migrations:run",
+    "db:clean": "typeorm schema:drop",
+    "db:sync": "typeorm schema:sync",
+    "migrations": "typeorm migrations:run",
     "migrations:revert": "typeorm migrations:revert"
   },
   "private": true,
