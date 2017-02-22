@@ -16,9 +16,9 @@ export class TournamentParticipantScore {
   @Column()
   value: number;
 
-  @ManyToOne(type => ScoreGroup)
+  @ManyToOne(type => ScoreGroup, { cascadeRemove: true })
   group: ScoreGroup;
 
-  @ManyToOne(type => TournamentParticipant, participant => participant.scores)
+  @ManyToOne(type => TournamentParticipant, participant => participant.scores, { cascadeRemove: true })
   participant: TournamentParticipant;
 }

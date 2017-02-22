@@ -1,5 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+
 import { Discipline } from './Discipline';
+import { Division } from './Division';
 import { TournamentParticipant } from './TournamentParticipant';
 
 @Entity()
@@ -27,4 +29,7 @@ export class Tournament {
 
   @OneToMany(type => Discipline, disciplines => disciplines.tournament)
   disciplines?: Discipline[];
+
+  @OneToMany(type => Division, divisions => divisions.tournament)
+  divisions?: Division[];
 }

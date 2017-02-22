@@ -21,7 +21,7 @@ export class TournamentParticipant {
   @Column()
   startNumber: number;
 
-  @ManyToOne(type => Tournament, tournament => tournament.schedule)
+  @ManyToOne(type => Tournament, tournament => tournament.schedule, { cascadeRemove: true })
   tournament: Tournament;
 
   @OneToOne(type => Discipline)

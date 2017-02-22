@@ -17,10 +17,10 @@ export class Team {
   @Column({ length: 100, unique: true })
   name: string;
 
-  @ManyToOne(type => Division, division => division.teams)
+  @ManyToOne(type => Division, division => division.teams, { cascadeRemove: true })
   division: Division;
 
-  @ManyToOne(type => AgeClass, ageClass => ageClass.teams)
+  @ManyToOne(type => AgeClass, ageClass => ageClass.teams, { cascadeRemove: true })
   ageClass: AgeClass;
 
   @ManyToMany(type => Discipline, discipline => discipline.teams)

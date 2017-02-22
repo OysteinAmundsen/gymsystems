@@ -31,6 +31,6 @@ export class ScoreGroup {
   @Column()
   min: number;
 
-  @ManyToOne(type => Discipline, discipline => discipline.scoreGroups)
+  @ManyToOne(type => Discipline, discipline => discipline.scoreGroups, { cascadeRemove: true })
   discipline: Discipline;
 }

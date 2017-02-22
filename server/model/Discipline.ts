@@ -18,7 +18,7 @@ export class Discipline {
   @JoinTable()
   teams?: Team[] = [];
 
-  @ManyToOne(type => Tournament, tournament => tournament.disciplines)
+  @ManyToOne(type => Tournament, tournament => tournament.disciplines, { cascadeRemove: true })
   tournament: Tournament;
 
   @OneToMany(type => ScoreGroup, scoreGroup => scoreGroup.discipline)
