@@ -59,7 +59,7 @@ export class DisciplineEditorComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 27) {
+    if (!this.editingScore && evt.keyCode === 27) {
       this.cancel();
     }
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ScoreService } from 'app/api';
@@ -47,5 +47,12 @@ export class ScoreGroupEditorComponent implements OnInit {
 
   close() {
     this.scoreChanged.emit(this.scoreGroup);
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === 27) {
+      this.close();
+    }
   }
 }

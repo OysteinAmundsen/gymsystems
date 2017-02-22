@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ScoreService, ConfigurationService } from 'app/api';
@@ -67,5 +67,12 @@ export class ScoreSystemComponent implements OnInit {
 
   select(scoreGroup: IScoreGroup) {
     this.selected = scoreGroup;
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === 187) {
+      this.addScoreGroup();
+    }
   }
 }

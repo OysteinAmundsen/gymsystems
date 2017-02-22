@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -63,6 +63,13 @@ export class TournamentEditorComponent implements OnInit {
     this.isEdit = false;
     if (!this.tournamentForm.value.id) {
       this.router.navigate(['../'], { relativeTo: this.route });
+    }
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === 27) {
+      this.cancel();
     }
   }
 }
