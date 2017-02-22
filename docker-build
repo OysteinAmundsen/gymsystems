@@ -1,6 +1,6 @@
 #!/bin/bash
 
-chown -R $USER data
+sudo chown -R $USER data
 
 # Remove previously built image
 # docker-compose down --rmi all
