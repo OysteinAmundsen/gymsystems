@@ -1,3 +1,8 @@
+<h2>
+  <app-fa name="star" fw="true"></app-fa>
+  "{{ discipline.name }}" score system
+</h2>
+
 <table role="list">
   <thead>
     <tr>
@@ -18,13 +23,13 @@
     </tr>
     <tr *ngIf="score === selected">
       <td colspan="5">
-        <app-score-group-editor [scoreGroup]="selected" (scoreChanged)="onChange($event)"></app-score-group-editor>
+        <app-score-group-editor [scoreGroup]="selected" [discipline]="discipline" (scoreChanged)="onChange($event)"></app-score-group-editor>
       </td>
     </tr>
   </tbody>
 </table>
 
-<button *ngIf="selected == null" (click)="addScoreGroup()">
+<button *ngIf="selected == null" title="Add" (click)="addScoreGroup()">
   <app-fa name="plus" fw="true"></app-fa>
-  Add ScoreGroup
+  <span>Add ScoreGroup</span>
 </button>

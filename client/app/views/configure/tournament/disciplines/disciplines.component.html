@@ -5,18 +5,13 @@
     </tr>
   </thead>
   <tbody *ngFor="let discipline of disciplineList">
-    <tr *ngIf="discipline !== selected" (click)="select(discipline)" role="listitem">
+    <tr *ngIf="discipline !== selected" [routerLink]="['./', discipline.id]" role="listitem">
       <td>{{ discipline.name }}</td>
-    </tr>
-    <tr *ngIf="discipline === selected">
-      <td colspan="1">
-        <app-discipline-editor [discipline]="selected" (disciplineChanged)="onChange($event)"></app-discipline-editor>
-      </td>
     </tr>
   </tbody>
 </table>
 
-<button *ngIf="selected == null" (click)="addDiscipline()">
+<button *ngIf="selected == null" title="Add" [routerLink]="['./add']">
   <app-fa name="plus" fw="true"></app-fa>
-  Add Disciplines
+  <span>Add Disciplines</span>
 </button>

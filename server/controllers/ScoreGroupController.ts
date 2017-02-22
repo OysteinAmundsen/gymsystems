@@ -1,4 +1,4 @@
-import { getConnectionManager, Repository  } from 'typeorm';
+import { getConnectionManager, Repository } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
@@ -26,12 +26,24 @@ export class ScoreGroupController {
 
   @Get('/:id')
   @EmptyResultCode(404)
-  get(@EntityFromParam('id') scoreGroup: ScoreGroup): ScoreGroup {
+  get( @EntityFromParam('id') scoreGroup: ScoreGroup): ScoreGroup {
     return scoreGroup;
   }
 
+  @Get('/discipline/:id')
+  @EmptyResultCode(404)
+  getByDiscipline( @Param('id') id: number, @Res() res: Response): Promise<ScoreGroup[]> {
+    return this.repository.query(`select * from score_group where discipline = ${id}`)
+      .then(result => res.send(result))
+      .catch(err => {
+        console.error(err);
+        res.status(400);
+        res.send(err);
+      });
+  }
+
   @Post()
-  create(@EntityFromBody() scoreGroup: ScoreGroup, @Res() res: Response) {
+  create( @EntityFromBody() scoreGroup: ScoreGroup, @Res() res: Response) {
     return this.repository.persist(scoreGroup)
       .then(persisted => res.send(persisted))
       .catch(err => {
@@ -42,7 +54,7 @@ export class ScoreGroupController {
   }
 
   @Put('/:id')
-  update(@Param('id') id: number, @EntityFromBody() scoreGroup: ScoreGroup, @Res() res: Response) {
+  update( @Param('id') id: number, @EntityFromBody() scoreGroup: ScoreGroup, @Res() res: Response) {
     return this.repository.persist(scoreGroup)
       .then(persisted => res.send(persisted))
       .catch(err => {
@@ -53,7 +65,7 @@ export class ScoreGroupController {
   }
 
   @Delete('/:id')
-  remove(@EntityFromParam('id') scoreGroup: ScoreGroup, @Res() res: Response) {
+  remove( @EntityFromParam('id') scoreGroup: ScoreGroup, @Res() res: Response) {
     return this.repository.remove(scoreGroup)
       .then(result => res.send(result))
       .catch(err => {

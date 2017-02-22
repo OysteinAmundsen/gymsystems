@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { DisciplineService } from 'app/api';
 import { IDiscipline } from 'app/api/model/IDiscipline';
@@ -10,32 +11,43 @@ import { IDiscipline } from 'app/api/model/IDiscipline';
   styleUrls: ['./discipline-editor.component.scss']
 })
 export class DisciplineEditorComponent implements OnInit {
-  @Input() discipline: IDiscipline = <IDiscipline>{};
-  @Output() disciplineChanged: EventEmitter<any> = new EventEmitter<any>();
+  discipline: IDiscipline = <IDiscipline>{};
   disciplineForm: FormGroup;
+  editingScore: boolean;
 
-  constructor(private fb: FormBuilder, private disciplineService: DisciplineService) { }
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private disciplineService: DisciplineService) { }
 
   ngOnInit() {
+    this.route.params.subscribe((params: any) => {
+      if (params.id) {
+        this.disciplineService.getById(params.id).subscribe(discipline => {
+          this.discipline = discipline;
+          this.disciplineForm.setValue(discipline);
+        });
+      }
+    });
+
+    // Create the form
     this.disciplineForm = this.fb.group({
       id: [this.discipline.id],
-      name: [this.discipline.name, [Validators.required]]
+      name: [this.discipline.name, [Validators.required]],
+      teams: [this.discipline.teams]
     });
   }
 
   save() {
     this.disciplineService.save(this.disciplineForm.value).subscribe(result => {
-      this.disciplineChanged.emit(result);
+      this.router.navigate(['../', result.id], { relativeTo: this.route });
     });
   }
 
   delete() {
     this.disciplineService.delete(this.disciplineForm.value).subscribe(result => {
-      this.disciplineChanged.emit(result);
-    })
+      this.router.navigate(['../'], { relativeTo: this.route });
+    });
   }
 
-  close() {
-    this.disciplineChanged.emit(this.discipline);
+  cancel() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 }

@@ -16,8 +16,12 @@ export class ScoreService extends ApiService {
     return this.http.get(this.url).map((res: Response) => res.json()).catch(this.handleError);
   }
 
+  getByDiscipline(id: number): Observable<IScoreGroup[]> {
+    return this.http.get(`${this.url}/discipline/${id}`).map((res: Response) => res.json()).catch(this.handleError);
+  }
+
   getById(id: number): Observable<IScoreGroup> {
-    return this.http.get(this.url + '/' + id).map((res: Response) => res.json()).catch(this.handleError);
+    return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).catch(this.handleError);
   }
 
   save(scoreGroup: IScoreGroup) {
