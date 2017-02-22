@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ScoreComponent } from './score-system.component';
+import { ScoreSystemComponent } from './score-system.component';
 
 describe('ScoreComponent', () => {
-  let component: ScoreComponent;
-  let fixture: ComponentFixture<ScoreComponent>;
+  let component: ScoreSystemComponent;
+  let fixture: ComponentFixture<ScoreSystemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ScoreComponent]
+      declarations: [ScoreSystemComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ScoreComponent);
+    fixture = TestBed.createComponent(ScoreSystemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

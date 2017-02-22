@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TournamentService, TeamsService } from 'app/api';
@@ -35,7 +35,7 @@ export class TeamsComponent implements OnInit {
 
   addTeam() {
     const team = <ITeam>{
-      id: null, clazz: null, ageClass: null, name: null, description: null
+      id: null, name: null, division: null, ageClass: null, discipline: null
     };
     this.teamList.push(team);
     this.selected = team;
@@ -49,4 +49,12 @@ export class TeamsComponent implements OnInit {
   select(team: ITeam) {
     this.selected = team;
   }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === 187) {
+      this.addTeam();
+    }
+  }
+
 }

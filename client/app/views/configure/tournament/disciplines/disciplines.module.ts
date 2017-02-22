@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { DisciplinesComponent } from './disciplines.component';
 import { DisciplineEditorComponent } from './discipline-editor/discipline-editor.component';
-import { ScoreComponent, ScoreGroupEditorComponent } from './score-system';
+import { ScoreSystemComponent, ScoreGroupEditorComponent } from './score-system';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { ScoreComponent, ScoreGroupEditorComponent } from './score-system';
   ],
   declarations: [
     DisciplinesComponent, DisciplineEditorComponent,
-    ScoreComponent, ScoreGroupEditorComponent,
+    ScoreSystemComponent, ScoreGroupEditorComponent,
   ]
 })
 export class DisciplinesModule { }

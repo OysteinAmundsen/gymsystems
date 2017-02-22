@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TournamentService, DisciplineService } from 'app/api';
@@ -38,5 +38,12 @@ export class DisciplinesComponent implements OnInit {
 
   select(discipline: IDiscipline) {
     this.selected = discipline;
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === 187) {
+      this.router.navigate(['./add'], { relativeTo: this.route });
+    }
   }
 }

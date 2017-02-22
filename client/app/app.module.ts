@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 
 // Services
-import { ScoreService, TournamentService, DisciplineService, DivisionService, TeamsService } from './api';
+import { ScoreService, TournamentService, DisciplineService, DivisionService, TeamsService, ConfigurationService } from './api';
 // import { RoleService, UserService } from './api';
 
 // Components
@@ -26,7 +26,7 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     SharedModule
   ],
-  providers: [ScoreService, TournamentService, DisciplineService, DivisionService, TeamsService],
+  providers: [ScoreService, TournamentService, DisciplineService, DivisionService, TeamsService, ConfigurationService],
   // providers: [UserService, RoleService],
   bootstrap: [AppComponent]
 })

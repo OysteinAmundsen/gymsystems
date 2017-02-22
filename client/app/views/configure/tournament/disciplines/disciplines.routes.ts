@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { DisciplinesComponent } from './disciplines.component';
 import { DisciplineEditorComponent } from './discipline-editor/discipline-editor.component';
-import { ScoreComponent } from './score-system';
+import { ScoreSystemComponent } from './score-system';
 
 export const DisciplineRoutes: Routes = [
   {
@@ -11,7 +11,7 @@ export const DisciplineRoutes: Routes = [
       { path: 'add', component: DisciplineEditorComponent, pathMatch: 'full' },
       {
         path: ':id', component: DisciplineEditorComponent, children: [
-          { path: 'score', component: ScoreComponent }
+          { path: 'score', component: ScoreSystemComponent }
         ]
       },
     ]

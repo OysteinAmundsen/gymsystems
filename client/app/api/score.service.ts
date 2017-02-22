@@ -29,6 +29,10 @@ export class ScoreService extends ApiService {
     return call.map((res: Response) => res.json()).catch(this.handleError);
   }
 
+  saveAll(scoreGroups: IScoreGroup[]) {
+    return this.http.post(this.url, scoreGroups).map((res: Response) => res.json()).catch(this.handleError);
+  }
+
   delete(scoreGroup: IScoreGroup) {
     return this.http.delete(`${this.url}/${scoreGroup.id}`);
   }

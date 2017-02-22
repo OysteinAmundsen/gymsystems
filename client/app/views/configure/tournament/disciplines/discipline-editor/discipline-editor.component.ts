@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -36,7 +36,8 @@ export class DisciplineEditorComponent implements OnInit {
       id: [this.discipline.id],
       name: [this.discipline.name, [Validators.required]],
       teams: [this.discipline.teams],
-      tournament: [this.discipline.tournament]
+      tournament: [this.discipline.tournament]/*,
+      scoreGroups: [this.discipline.scoreGroups]*/
     });
   }
 
@@ -54,5 +55,12 @@ export class DisciplineEditorComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === 27) {
+      this.cancel();
+    }
   }
 }

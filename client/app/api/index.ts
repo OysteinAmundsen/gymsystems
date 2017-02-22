@@ -5,3 +5,4 @@ export * from './score.service';
 export * from './teams.service';
 export * from './tournament.service';
 export * from './user.service';
+export * from './configuration.service';

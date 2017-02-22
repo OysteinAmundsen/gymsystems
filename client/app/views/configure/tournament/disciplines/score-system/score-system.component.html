@@ -33,3 +33,7 @@
   <app-fa name="plus" fw="true"></app-fa>
   <span>Add ScoreGroup</span>
 </button>
+<button *ngIf="selected == null" title="Add default" (click)="addDefaultScoreGroups()">
+  <app-fa name="plus-circle" fw="true"></app-fa>
+  <span>Add Default ScoreGroups</span>
+</button>

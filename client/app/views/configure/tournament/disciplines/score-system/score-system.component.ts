@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { ScoreService } from 'app/api';
+import { ScoreService, ConfigurationService } from 'app/api';
 import { IDiscipline } from 'app/api/model/IDiscipline';
 import { IScoreGroup, Operation } from 'app/api/model/IScoreGroup';
 
@@ -10,10 +10,11 @@ import { IScoreGroup, Operation } from 'app/api/model/IScoreGroup';
   templateUrl: './score-system.component.html',
   styleUrls: ['./score-system.component.scss']
 })
-export class ScoreComponent implements OnInit {
+export class ScoreSystemComponent implements OnInit {
   @Input() discipline: IDiscipline;
+  @Input() scoreGroups: IScoreGroup[];
   @Output() editModeChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
-  scoreGroupList: IScoreGroup[] = [];
+  scoreGroupList: IScoreGroup[];
 
   _selected: IScoreGroup;
   get selected() { return this._selected; }
@@ -22,10 +23,11 @@ export class ScoreComponent implements OnInit {
     this.editModeChanged.emit(this._selected != null);
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private scoreService: ScoreService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private scoreService: ScoreService, private configService: ConfigurationService) { }
 
   ngOnInit() {
-    this.loadScoreGroups();
+    if (!this.scoreGroups) { this.loadScoreGroups(); }
+    else { this.scoreGroupList = this.scoreGroups; }
   }
 
   loadScoreGroups() {
@@ -42,6 +44,20 @@ export class ScoreComponent implements OnInit {
     };
     this.scoreGroupList.push(scoreGroup);
     this.selected = scoreGroup;
+  }
+
+  addDefaultScoreGroups() {
+    this.configService.getByname('defaultValues').subscribe(config => {
+      if (config.value.scoreGroup) {
+        this.scoreGroupList = this.scoreGroupList.concat(config.value.scoreGroup.map(group => {
+          group.discipline = this.discipline;
+          return group;
+        }));
+        this.scoreService.saveAll(this.scoreGroupList).subscribe(result => {
+          this.scoreGroupList = result;
+        })
+      }
+    });
   }
 
   onChange() {

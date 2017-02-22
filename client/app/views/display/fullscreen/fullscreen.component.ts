@@ -25,7 +25,7 @@ export class FullscreenComponent implements OnInit {
   }
 
   @HostListener('window:keydown', ['$event'])
-  onEscape(evt: KeyboardEvent) {
+  onKeydown(evt: KeyboardEvent) {
     if (evt.keyCode === 27) {
       this.router.navigate(['../'], { relativeTo: this.route });
     }

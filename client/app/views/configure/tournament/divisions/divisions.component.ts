@@ -1,10 +1,11 @@
-import { ITournament } from '../../../../api/model/ITournament';
-import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TournamentService, DivisionService } from 'app/api';
+import { ITournament } from 'app/api/model/ITournament';
 import { IDivision } from 'app/api/model/IDivision';
+
+import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
 @Component({
   selector: 'app-divisions',
@@ -48,5 +49,12 @@ export class DivisionsComponent implements OnInit {
 
   select(division: IDivision) {
     this.selected = division;
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === 187) {
+      this.addDivision();
+    }
   }
 }

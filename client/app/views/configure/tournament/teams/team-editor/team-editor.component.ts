@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { TeamsService } from 'app/api';
 import { ITeam } from 'app/api/model/ITeam';
@@ -36,5 +36,12 @@ export class TeamEditorComponent implements OnInit {
 
   close() {
     this.teamChanged.emit(this.team);
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === 27) {
+      this.close();
+    }
   }
 }

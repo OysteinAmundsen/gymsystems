@@ -36,6 +36,7 @@ export class DisciplineController {
     return this.repository.createQueryBuilder('discipline')
       .where('discipline.id=:id', { id: id })
       .innerJoinAndSelect('discipline.tournament', 'tournament')
+      //.leftJoinAndSelect('discipline.scoreGroups', 'score_group')
       .getOne();
   }
 
@@ -43,6 +44,17 @@ export class DisciplineController {
   create( @EntityFromBody() discipline: Discipline, @Res() res: Response) {
     return this.repository.persist(discipline)
       .then(persisted => res.send(persisted))
+      .catch(err => {
+        console.error(err);
+        res.status(400);
+        res.send(err);
+      });
+  }
+
+  @Post()
+  createMany( @Body() disciplines: Discipline[], @Res() res: Response) {
+    return this.repository.persist(disciplines)
+      .then((persisted: Discipline[]) => res.send(persisted))
       .catch(err => {
         console.error(err);
         res.status(400);

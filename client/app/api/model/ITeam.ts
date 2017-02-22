@@ -1,11 +1,11 @@
 import { IAgeClass } from './IAgeClass';
 import { IDiscipline } from './IDiscipline';
-import { IClass } from './IClass';
+import { IDivision } from './IDivision';
 
 export interface ITeam {
   id: number;
   name: string;
-  clazz: IClass;
+  division: IDivision;
   ageClass: IAgeClass;
   disciplines?: IDiscipline[];
 }

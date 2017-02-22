@@ -10,7 +10,7 @@
       "database": "gymsystem"
     },
     "logging": {
-      "logQueries": false,
+      "logQueries": true,
       "logFailedQueryError": true
     },
     "entities": [

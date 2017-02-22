@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { DivisionService } from 'app/api/division.service';
@@ -39,5 +39,12 @@ export class DivisionEditorComponent implements OnInit {
 
   close() {
     this.divisionChanged.emit(this.division);
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === 27) {
+      this.close();
+    }
   }
 }
