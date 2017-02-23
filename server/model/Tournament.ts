@@ -9,7 +9,7 @@ export class Tournament {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 200 })
+  @Column({ unique: true, length: 200 })
   name: string;
 
   @Column({ type: 'text', nullable: true })
@@ -25,11 +25,11 @@ export class Tournament {
   location: string;
 
   @OneToMany(type => TournamentParticipant, schedule => schedule.tournament)
-  schedule?: TournamentParticipant[];
+  schedule: TournamentParticipant[] = [];
 
   @OneToMany(type => Discipline, disciplines => disciplines.tournament)
-  disciplines?: Discipline[];
+  disciplines: Discipline[] = [];
 
   @OneToMany(type => Division, divisions => divisions.tournament)
-  divisions?: Division[];
+  divisions: Division[] = [];
 }

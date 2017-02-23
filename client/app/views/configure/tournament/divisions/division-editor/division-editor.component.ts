@@ -20,7 +20,8 @@ export class DivisionEditorComponent implements OnInit {
     this.divisionForm = this.fb.group({
       id: [this.division.id],
       name: [this.division.name, [Validators.required]],
-      tournament: [this.division.tournament]
+      tournament: [this.division.tournament],
+      teams: [this.division.teams]
     });
   }
 

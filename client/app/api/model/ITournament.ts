@@ -1,3 +1,4 @@
+import { IDivision } from './IDivision';
 import { IDiscipline } from './IDiscipline';
 import { ITournamentParticipant } from './ITournamentParticipant';
 
@@ -11,6 +12,7 @@ export interface ITournament {
   startDate: Date | Moment | string;
   endDate: Date | Moment | string;
   location: string;
-  schedule?: ITournamentParticipant[];
-  disciplines?: IDiscipline[];
+  schedule: ITournamentParticipant[];
+  disciplines: IDiscipline[];
+  divisions: IDivision[];
 }

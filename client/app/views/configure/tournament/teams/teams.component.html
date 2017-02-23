@@ -2,13 +2,11 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
     </tr>
   </thead>
   <tbody *ngFor="let team of teamList">
     <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
       <td>{{ team.name }}</td>
-      <td>{{ team.description }}</td>
     </tr>
     <tr *ngIf="team === selected">
       <td colspan="2">

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { TournamentComponent } from './tournament.component';
 import { TournamentEditorComponent } from './tournament-editor/tournament-editor.component';
-
+import { AgeClassComponent } from './age-class/age-class.component';
 import { DisciplineRoutes } from './disciplines/disciplines.routes';
 import { DivisionsComponent } from './divisions/divisions.component';
 import { TeamsComponent } from './teams/teams.component';
@@ -15,6 +15,7 @@ export const TournamentRoutes: Routes = [
       { path: 'add', component: TournamentEditorComponent },
       {
         path: ':id', component: TournamentEditorComponent, children: [
+          { path: 'age', component: AgeClassComponent },
           { path: 'divisions', component: DivisionsComponent },
           ...DisciplineRoutes,
           { path: 'teams', component: TeamsComponent },

@@ -2,8 +2,6 @@
 
 This is a complete web based system for managing the secretariat for Team Gymnastic sports. There are not many proffesional scoring or managing systems available, and therefore we saw the need for creating one. And since these minority sports are typically not funded, and therefore prone to voluntary work, we wanted this system to be a community open-source project as well. We will therefore never ask for money for this system, but instead wecome improvements through pull-requests.
 
-We've based the system on a NodeJS Express server using MySQL backend over Docker, serving an Angular 2 frontend. 
-
 
 ## Note
 
@@ -14,7 +12,7 @@ This project is still a work in progress.
 
 You need to install the following:
 
-* [NodeJS](https://nodejs.org/) 4 or higher (We reccommend the 6 LTS version)
+* [NodeJS](https://nodejs.org/) 6 or higher
 * [Docker](https://www.docker.com/)
 
 
@@ -95,6 +93,9 @@ npm run client
 This will run a continuous build and browsersync session for the frontend. Use this if you are developing the client. This starts up a small development server on [localhost:4200](http://localhost:4200), with a proxy to the backend so all api calls will work seamlessly. 
 
 ## Architecture
+
+We've based the system on a NodeJS Express server using MySQL backend over Docker, serving an Angular 2 frontend. 
+
 ### Server
 
 We chose a NodeJS Express backend for this, as it was the easiest to setup and is super-fast. The database connection is handled by [`TypeORM`](https://typeorm.github.io), and the whole server concists basically of CRUD controllers using [`routing-controllers`](https://github.com/pleerock/routing-controllers) and [`typeorm-routing-controllers-extension`](https://github.com/typeorm/typeorm-routing-controllers-extensions). This was super-easy to setup and is feels very similar to Spring for Java.

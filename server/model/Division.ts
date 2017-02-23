@@ -11,12 +11,12 @@ export class Division {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   name: string;
 
   @OneToMany(type => Team, teams => teams.division)
-  teams?: Team[];
+  teams: Team[] = [];
 
-  @ManyToOne(type => Tournament, tournament => tournament.divisions, { cascadeRemove: true })
+  @ManyToOne(type => Tournament, tournament => tournament.divisions, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
   tournament: Tournament;
 }

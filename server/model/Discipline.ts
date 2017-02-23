@@ -11,16 +11,16 @@ export class Discipline {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   name: string;
 
   @ManyToMany(type => Team, team => team.disciplines)
   @JoinTable()
-  teams?: Team[] = [];
+  teams: Team[] = [];
 
-  @ManyToOne(type => Tournament, tournament => tournament.disciplines, { cascadeRemove: true })
+  @ManyToOne(type => Tournament, tournament => tournament.disciplines, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
   tournament: Tournament;
 
   @OneToMany(type => ScoreGroup, scoreGroup => scoreGroup.discipline)
-  scoreGroups: ScoreGroup[];
+  scoreGroups: ScoreGroup[] = [];
 }

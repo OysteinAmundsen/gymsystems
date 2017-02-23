@@ -1,5 +1,7 @@
+import { PrimaryGeneratedColumn, Column, Entity, OneToMany, ManyToOne } from 'typeorm';
+
+import { Tournament } from './Tournament';
 import { Team } from './Team';
-import { PrimaryGeneratedColumn, Column, Entity, OneToMany } from 'typeorm';
 
 /**
  *
@@ -9,9 +11,12 @@ export class AgeClass {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   name: string;
 
   @OneToMany(type => Team, teams => teams.ageClass)
-  teams?: Team[];
+  teams: Team[] = [];
+
+  @ManyToOne(type => Tournament, tournament => tournament.divisions, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
+  tournament: Tournament;
 }

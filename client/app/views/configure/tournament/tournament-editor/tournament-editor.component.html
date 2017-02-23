@@ -57,6 +57,10 @@
 <menu *ngIf="tournamentForm.value.id" role="tablist">
   <ul>
     <li [routerLinkActive]="['active']">
+      <a routerLink="./age">
+        <app-fa name="child" fw="true"></app-fa> <span>Age group</span> </a>
+    </li>
+    <li [routerLinkActive]="['active']">
       <a routerLink="./divisions">
         <app-fa name="cubes" fw="true"></app-fa> <span>Divisions</span> </a>
     </li>

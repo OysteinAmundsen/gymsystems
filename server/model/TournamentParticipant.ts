@@ -21,17 +21,17 @@ export class TournamentParticipant {
   @Column()
   startNumber: number;
 
-  @ManyToOne(type => Tournament, tournament => tournament.schedule, { cascadeRemove: true })
+  @ManyToOne(type => Tournament, tournament => tournament.schedule, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
   tournament: Tournament;
 
-  @OneToOne(type => Discipline)
+  @OneToOne(type => Discipline, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
   @JoinColumn()
   discipline: Discipline;
 
-  @OneToOne(type => Team)
+  @OneToOne(type => Team, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
   @JoinColumn()
   team: Team;
 
   @OneToMany(type => TournamentParticipantScore, score => score.participant)
-  scores: TournamentParticipantScore[];
+  scores: TournamentParticipantScore[] = [];
 }

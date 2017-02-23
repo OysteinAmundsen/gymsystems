@@ -15,6 +15,8 @@ import { TeamsComponent, TeamEditorComponent } from './teams';
 import { DivisionsComponent } from './divisions/divisions.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { DivisionEditorComponent } from './divisions/division-editor/division-editor.component';
+import { AgeClassComponent } from './age-class/age-class.component';
+import { AgeClassEditorComponent } from './age-class/age-class-editor/age-class-editor.component';
 
 @NgModule({
   imports: [
@@ -28,7 +30,7 @@ import { DivisionEditorComponent } from './divisions/division-editor/division-ed
   ],
   declarations: [
     TournamentComponent, TournamentEditorComponent,
-    TeamsComponent, TeamEditorComponent, DivisionsComponent, ScheduleComponent, DivisionEditorComponent
+    TeamsComponent, TeamEditorComponent, DivisionsComponent, ScheduleComponent, DivisionEditorComponent, AgeClassComponent, AgeClassEditorComponent
   ]
 })
 export class TournamentModule { }

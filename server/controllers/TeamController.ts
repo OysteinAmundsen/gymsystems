@@ -1,16 +1,19 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Param, Res } from 'routing-controllers';
+import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Param, Res, Body } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
+import { Service } from 'typedi';
 
 import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
 
+import { Logger } from '../utils/Logger';
 import { Team } from '../model/Team';
 
 /**
  *
  */
+@Service()
 @JsonController('/teams')
 export class TeamController {
   private repository: Repository<Team>;
@@ -41,7 +44,18 @@ export class TeamController {
     return this.repository.persist(team)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
+        res.status(400);
+        res.send(err);
+      });
+  }
+
+  @Post()
+  createMany( @Body() teams: Team[], @Res() res: Response) {
+    return this.repository.persist(teams)
+      .then(persisted => res.send(persisted))
+      .catch(err => {
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });
@@ -52,7 +66,7 @@ export class TeamController {
     return this.repository.persist(team)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });
@@ -63,7 +77,7 @@ export class TeamController {
     return this.repository.remove(team)
       .then(result => res.send(result))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });

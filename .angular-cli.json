@@ -10,8 +10,10 @@
       "outDir": "dist/public/",
       "assets": [
         "assets",
+        "icons",
         "favicon.ico",
-        "icons"
+        "manifest.json",
+        "browserconfig.xml"
       ],
       "index": "index.html",
       "main": "main.ts",

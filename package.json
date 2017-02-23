@@ -22,8 +22,8 @@
     "client": "ng serve --proxy-config proxy.conf.json",
     "client:build": "ng build --prod",
     "client:build:watch": "npm run client:build -- -w",
-    "db:clean": "typeorm schema:drop",
-    "db:sync": "typeorm schema:sync",
+    "db:clean": "npm run server:build && typeorm schema:drop",
+    "db:sync": "npm run server:build && typeorm schema:sync && npm run migrations",
     "migrations": "typeorm migrations:run",
     "migrations:revert": "typeorm migrations:revert"
   },

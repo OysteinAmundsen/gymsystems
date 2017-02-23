@@ -1,16 +1,22 @@
+import { ScoreGroup } from '../model/ScoreGroup';
+import { TeamController } from './TeamController';
 import { getConnectionManager, Repository } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
+import { Service, Container } from 'typedi';
 
 import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
 
+import { ScoreGroupController } from './ScoreGroupController';
+import { Logger } from '../utils/Logger';
 import { Discipline } from '../model/Discipline';
 
 /**
  *
  */
+@Service()
 @JsonController('/disciplines')
 export class DisciplineController {
   private repository: Repository<Discipline>;
@@ -26,7 +32,7 @@ export class DisciplineController {
 
   @Get('/tournament/:id')
   @EmptyResultCode(404)
-  getByTournament( @Param('id') id: number, @Res() res: Response): Promise<Discipline[]> {
+  getByTournament( @Param('id') id: number): Promise<Discipline[]> {
     return this.repository.find({ tournament: id });
   }
 
@@ -45,7 +51,7 @@ export class DisciplineController {
     return this.repository.persist(discipline)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });
@@ -56,7 +62,7 @@ export class DisciplineController {
     return this.repository.persist(disciplines)
       .then((persisted: Discipline[]) => res.send(persisted))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });
@@ -67,7 +73,7 @@ export class DisciplineController {
     return this.repository.persist(discipline)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });
@@ -78,9 +84,19 @@ export class DisciplineController {
     return this.repository.remove(discipline)
       .then(result => res.send(result))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });
+  }
+
+  removeMany(disciplines: Discipline[]) {
+    const scoreGroupRepository = Container.get(ScoreGroupController);
+    const teamRepository = Container.get(TeamController);
+    return Promise.all(
+      disciplines.map(d => scoreGroupRepository.getByDiscipline(d.id).then((e: ScoreGroup[]) => scoreGroupRepository.removeMany(e)))
+    ).then(() => {
+      return this.repository.remove(disciplines);
+    });
   }
 }

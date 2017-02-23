@@ -6,6 +6,7 @@ import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
 
+import { Logger } from '../utils/Logger';
 import { Configuration } from '../model/Configuration';
 
 /**
@@ -35,7 +36,7 @@ export class DisciplineController {
     return this.repository.persist(configuration)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });
@@ -46,7 +47,7 @@ export class DisciplineController {
     return this.repository.persist(configuration)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });
@@ -57,7 +58,7 @@ export class DisciplineController {
     return this.repository.remove(configuration)
       .then(result => res.send(result))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });

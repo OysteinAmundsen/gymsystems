@@ -1,16 +1,19 @@
 import { getConnectionManager, Repository } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
+import { Service } from 'typedi';
 
 import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
 
+import { Logger } from '../utils/Logger';
 import { Division } from '../model/Division';
 
 /**
  *
  */
+@Service()
 @JsonController('/divisions')
 export class DivisionController {
   private repository: Repository<Division>;
@@ -26,7 +29,7 @@ export class DivisionController {
 
   @Get('/tournament/:id')
   @EmptyResultCode(404)
-  getByTournament( @Param('id') id: number, @Res() res: Response): Promise<Division[]> {
+  getByTournament( @Param('id') id: number): Promise<Division[]> {
     return this.repository.find({ tournament: id });
   }
 
@@ -44,7 +47,7 @@ export class DivisionController {
     return this.repository.persist(division)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });
@@ -55,7 +58,7 @@ export class DivisionController {
     return this.repository.persist(division)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });
@@ -66,9 +69,13 @@ export class DivisionController {
     return this.repository.remove(division)
       .then(result => res.send(result))
       .catch(err => {
-        console.error(err);
+        Logger.log.error(err);
         res.status(400);
         res.send(err);
       });
+  }
+
+  removeMany(divisions: Division[]) {
+    return this.repository.remove(divisions);
   }
 }
