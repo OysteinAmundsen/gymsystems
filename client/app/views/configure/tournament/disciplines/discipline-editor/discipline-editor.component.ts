@@ -14,22 +14,24 @@ import { TournamentEditorComponent } from '../../tournament-editor/tournament-ed
   styleUrls: ['./discipline-editor.component.scss']
 })
 export class DisciplineEditorComponent implements OnInit {
+  @Input() discipline: IDiscipline = <IDiscipline>{};
+  @Output() disciplineChanged: EventEmitter<any> = new EventEmitter<any>();
   get tournament() { return this.tournamentService.selected; }
-  discipline: IDiscipline = <IDiscipline>{ tournament: this.tournament };
+  // discipline: IDiscipline = <IDiscipline>{ tournament: this.tournament };
   disciplineForm: FormGroup;
   editingScore: boolean;
 
   constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private tournamentService: TournamentService, private disciplineService: DisciplineService) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: any) => {
-      if (params.id) {
-        this.disciplineService.getById(params.id).subscribe(discipline => {
-          this.discipline = discipline;
-          this.disciplineForm.setValue(discipline);
-        });
-      }
-    });
+    // this.route.params.subscribe((params: any) => {
+    //   if (params.id) {
+    //     this.disciplineService.getById(params.id).subscribe(discipline => {
+    //       this.discipline = discipline;
+    //       this.disciplineForm.setValue(discipline);
+    //     });
+    //   }
+    // });
 
     // Create the form
     this.disciplineForm = this.fb.group({
@@ -43,18 +45,21 @@ export class DisciplineEditorComponent implements OnInit {
 
   save() {
     this.disciplineService.save(this.disciplineForm.value).subscribe(result => {
-      this.router.navigate(['../', result.id], { relativeTo: this.route });
+      this.disciplineChanged.emit(result);
+      // this.router.navigate(['../', result.id], { relativeTo: this.route });
     });
   }
 
   delete() {
     this.disciplineService.delete(this.disciplineForm.value).subscribe(result => {
-      this.router.navigate(['../'], { relativeTo: this.route });
+      this.disciplineChanged.emit(result);
+      // this.router.navigate(['../'], { relativeTo: this.route });
     });
   }
 
   cancel() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.disciplineChanged.emit(this.discipline);
+    // this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   @HostListener('window:keyup', ['$event'])

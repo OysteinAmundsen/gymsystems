@@ -18,7 +18,7 @@ export class ConfigurationService extends ApiService {
   }
 
   getByname(name: string): Observable<IConfiguration> {
-    return this.http.get(`${this.url}/${name}`).map((res: Response) => res.json()).catch(this.handleError);
+    return this.http.get(`${this.url}/${name}`).map((res: Response) => res.json()).share().catch(this.handleError);
   }
 
   save(configuration: IConfiguration) {

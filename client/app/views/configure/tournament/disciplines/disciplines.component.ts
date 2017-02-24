@@ -45,6 +45,14 @@ export class DisciplinesComponent implements OnInit {
     });
   }
 
+  addDiscipline() {
+    const discipline = <IDiscipline>{
+      id: null, name: null, teams: [], tournament: this.tournament
+    };
+    this.disciplineList.push(discipline);
+    this.selected = discipline;
+  }
+
   addDefaults() {
     if (this.defaultDisciplines) {
       const disciplineList = this.findMissingDefaults().map(group => {

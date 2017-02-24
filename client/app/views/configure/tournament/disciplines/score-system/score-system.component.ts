@@ -12,7 +12,6 @@ import { IScoreGroup, Operation } from 'app/api/model/IScoreGroup';
 })
 export class ScoreSystemComponent implements OnInit {
   @Input() discipline: IDiscipline;
-  @Input() scoreGroups: IScoreGroup[];
   @Output() editModeChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   scoreGroupList: IScoreGroup[] = [];
   defaultScoreGroups: IScoreGroup[];
@@ -31,16 +30,13 @@ export class ScoreSystemComponent implements OnInit {
     this.configService.getByname('defaultValues').subscribe(config => {
       this.defaultScoreGroups = config.value.scoreGroup;
     });
-    if (!this.scoreGroups) { this.loadScoreGroups(); }
-    else { this.scoreGroupList = this.scoreGroups; }
+
+    // Setup scoregroup list either from given Input, or from given discipline
+    this.loadScoreGroups();
   }
 
   loadScoreGroups() {
-    this.route.params.subscribe((params: any) => {
-      if (params.id) {
-        this.scoreService.getByDiscipline(params.id).subscribe(scoreGroups => this.scoreGroupList = scoreGroups);
-      }
-    });
+    this.scoreService.getByDiscipline(this.discipline.id).subscribe(scoreGroups => this.scoreGroupList = scoreGroups);
   }
 
   addScoreGroup() {
