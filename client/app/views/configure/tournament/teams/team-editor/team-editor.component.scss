@@ -1,0 +1,23 @@
+@import "~styles/variables";
+
+table[role="list"] {
+  tr[role="listitem"] td {
+    padding: 0 $padding * 3;
+    label {
+      line-height: $padding * 10;
+      display: block;
+      height: $padding * 10;
+    }
+    input {
+      margin-right: 0.5rem;
+    }
+  }
+  thead th {
+    padding-top: ($padding * 5.5);
+    padding-bottom: 0;
+    border-bottom: 1px solid $primary;
+  }
+}
+header {
+  margin-left: 1rem;
+}

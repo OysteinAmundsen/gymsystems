@@ -18,11 +18,15 @@ export class TeamsComponent implements OnInit {
     this._selected = team;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private tournamentService: TournamentService, private teamService: TeamsService) {
-    this.loadTeams();
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private tournamentService: TournamentService,
+    private teamService: TeamsService) {
   }
 
   ngOnInit() {
+    this.loadTeams();
   }
 
   loadTeams() {
@@ -35,7 +39,7 @@ export class TeamsComponent implements OnInit {
 
   addTeam() {
     const team = <ITeam>{
-      id: null, name: null, division: null, ageClass: null, discipline: null
+      id: null, name: null, divisions: null, disciplines: null
     };
     this.teamList.push(team);
     this.selected = team;

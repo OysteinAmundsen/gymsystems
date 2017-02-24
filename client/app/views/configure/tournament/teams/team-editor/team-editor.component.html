@@ -7,6 +7,59 @@
       </div>
     </div>
   </fieldset>
+  <div class="row">
+    <div class="col-6">
+      <header>
+        <h2>
+          <app-fa name="cubes" fw="true"></app-fa>
+          <span>Division</span>
+        </h2>
+      </header>
+      <table role="list">
+        <thead>
+          <tr>
+            <th>
+              <app-fa name="child" fw="true"></app-fa>
+              <span>Age group</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let division of ageDivisions">
+          <tr role="listitem">
+            <td><label><input type="checkbox">{{ division.name }}</label></td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th>
+              <app-fa name="venus-mars" fw="true"></app-fa>
+              <span>Gender group</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let division of genderDivisions">
+          <tr role="listitem">
+            <td><label><input type="checkbox">{{ division.name }}</label></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6">
+      <header>
+        <h2>
+          <app-fa name="heartbeat" fw="true"></app-fa>
+          <span>Disciplines</span>
+        </h2>
+      </header>
+      <table role="list">
+        <tbody *ngFor="let discipline of disciplines">
+          <tr role="listitem">
+            <td><label><input type="checkbox">{{ discipline.name }}</label></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <footer>
     <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span>Save team</span></button>
     <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span>Cancel</span></button>

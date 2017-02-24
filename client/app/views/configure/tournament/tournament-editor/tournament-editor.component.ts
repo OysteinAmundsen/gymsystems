@@ -15,7 +15,11 @@ export class TournamentEditorComponent implements OnInit {
   tournamentForm: FormGroup;
   isEdit: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private tournamentService: TournamentService) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private tournamentService: TournamentService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: any) => {

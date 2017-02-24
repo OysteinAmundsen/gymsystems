@@ -12,7 +12,10 @@ import { ITournament } from 'app/api/model/ITournament';
 export class TournamentComponent implements OnInit {
   tournamentList: ITournament[] = [];
 
-  constructor(private router: Router, private route: ActivatedRoute, private tournamentService: TournamentService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private tournamentService: TournamentService) { }
 
   ngOnInit() {
     this.tournamentService.all().subscribe(tournaments => this.tournamentList = tournaments);

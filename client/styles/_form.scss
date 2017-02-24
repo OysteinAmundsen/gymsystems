@@ -39,7 +39,7 @@ form {
       margin-top: 0;
     }
   }
-  input, textarea, select {
+  input:not([type="checkbox"]), textarea, select {
     @include input();
     width: 100%;
     &.ng-invalid {

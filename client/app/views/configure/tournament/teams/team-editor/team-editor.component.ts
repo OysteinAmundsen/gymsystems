@@ -1,6 +1,9 @@
 import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { TeamsService } from 'app/api';
+
+import { TournamentService, TeamsService, DisciplineService, DivisionService } from 'app/api';
+import { IDiscipline } from 'app/api/model/IDiscipline';
+import { IDivision, DivisionType } from 'app/api/model/IDivision';
 import { ITeam } from 'app/api/model/ITeam';
 
 @Component({
@@ -12,13 +15,27 @@ export class TeamEditorComponent implements OnInit {
   @Input() team: ITeam = <ITeam>{};
   @Output() teamChanged: EventEmitter<any> = new EventEmitter<any>();
   teamForm: FormGroup;
+  disciplines: IDiscipline[];
+  divisions: IDivision[] = [];
+  get ageDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Age); }
+  get genderDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Gender); }
 
-  constructor(private fb: FormBuilder, private teamService: TeamsService) { }
+  constructor(
+    private fb: FormBuilder,
+    private tournamentService: TournamentService,
+    private teamService: TeamsService,
+    private divisionService: DivisionService,
+    private disciplineService: DisciplineService) { }
 
   ngOnInit() {
+    const tournamentId = this.tournamentService.selected.id;
+    this.divisionService.getByTournament(tournamentId).subscribe(d => this.divisions = d);
+    this.disciplineService.getByTournament(tournamentId).subscribe(d => this.disciplines = d);
     this.teamForm = this.fb.group({
       id: [this.team.id],
-      name: [this.team.name, [Validators.required]]
+      name: [this.team.name, [Validators.required]],
+      divisions: [this.team.divisions],
+      disciplines: [this.team.disciplines]
     });
   }
 

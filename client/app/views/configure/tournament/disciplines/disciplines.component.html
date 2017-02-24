@@ -1,9 +1,4 @@
 <table role="list">
-  <thead>
-    <tr>
-      <th>Name</th>
-    </tr>
-  </thead>
   <tbody *ngFor="let discipline of disciplineList">
     <tr *ngIf="discipline !== selected" [routerLink]="['./', discipline.id]" role="listitem">
       <td>{{ discipline.name }}</td>

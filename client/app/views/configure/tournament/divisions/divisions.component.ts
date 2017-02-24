@@ -22,8 +22,12 @@ export class DivisionsComponent implements OnInit {
   set selected(division: IDivision) { this._selected = division; }
   get canAddDefaults() { return this.findMissingDefaults().length; }
 
-  constructor(private router: Router, private route: ActivatedRoute,
-    private tournamentService: TournamentService, private divisionService: DivisionService, private configService: ConfigurationService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private tournamentService: TournamentService,
+    private divisionService: DivisionService,
+    private configService: ConfigurationService) { }
 
   ngOnInit() {
     this.configService.getByname('defaultValues').subscribe(config => this.defaultDivisions = config.value.division);
