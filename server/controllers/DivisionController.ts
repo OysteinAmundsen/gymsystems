@@ -44,7 +44,12 @@ export class DivisionController {
 
   @Post()
   create( @EntityFromBody() division: Division, @Res() res: Response) {
-    return this.repository.persist(division)
+    return this.createMany([division], res);
+  }
+
+  @Post()
+  createMany( @EntityFromBody() divisions: Division[], @Res() res: Response) {
+    return this.repository.persist(divisions)
       .then(persisted => res.send(persisted))
       .catch(err => {
         Logger.log.error(err);
@@ -55,13 +60,7 @@ export class DivisionController {
 
   @Put('/:id')
   update( @Param('id') id: number, @EntityFromBody() division: Division, @Res() res: Response) {
-    return this.repository.persist(division)
-      .then(persisted => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-        res.status(400);
-        res.send(err);
-      });
+    return this.createMany([division], res);
   }
 
   @Delete('/:id')

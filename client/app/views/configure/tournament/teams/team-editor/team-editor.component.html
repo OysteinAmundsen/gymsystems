@@ -15,34 +15,26 @@
           <span>Division</span>
         </h2>
       </header>
-      <table role="list">
-        <thead>
-          <tr>
-            <th>
-              <app-fa name="child" fw="true"></app-fa>
-              <span>Age group</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let division of ageDivisions">
-          <tr role="listitem">
-            <td><label><input type="checkbox">{{ division.name }}</label></td>
-          </tr>
-        </tbody>
-        <thead>
-          <tr>
-            <th>
-              <app-fa name="venus-mars" fw="true"></app-fa>
-              <span>Gender group</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let division of genderDivisions">
-          <tr role="listitem">
-            <td><label><input type="checkbox">{{ division.name }}</label></td>
-          </tr>
-        </tbody>
-      </table>
+      <fieldset>
+        <div appFloatingLabel>
+          <label>
+          <app-fa name="child" fw="true"></app-fa>
+          <span>Age group</span>
+        </label>
+          <select formControlName="ageDivision">
+            <option *ngFor="let division of ageDivisions" [ngValue]="division.id">{{division.name}}</option>
+          </select>
+        </div>
+        <div appFloatingLabel>
+          <label>
+          <app-fa name="venus-mars" fw="true"></app-fa>
+          <span>Gender group</span>
+        </label>
+          <select formControlName="genderDivision">
+            <option *ngFor="let division of genderDivisions" [ngValue]="division.id">{{division.name}}</option>
+          </select>
+        </div>
+      </fieldset>
     </div>
     <div class="col-6">
       <header>
@@ -54,7 +46,12 @@
       <table role="list">
         <tbody *ngFor="let discipline of disciplines">
           <tr role="listitem">
-            <td><label><input type="checkbox">{{ discipline.name }}</label></td>
+            <td>
+              <label>
+                <input type="checkbox" #selectedDisciplines [attr.data]="discipline.id">
+                {{ discipline.name }}
+              </label>
+            </td>
           </tr>
         </tbody>
       </table>

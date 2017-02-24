@@ -91,13 +91,7 @@ export class TournamentController {
 
   @Put('/:id')
   update( @Param('id') id: number, @EntityFromBody() tournament: Tournament, @Res() res: Response) {
-    return this.repository.persist(tournament)
-      .then(persisted => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-        res.status(400);
-        res.send(err);
-      });
+    return this.create(tournament, res);
   }
 
   @Delete('/:id')

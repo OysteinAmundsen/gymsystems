@@ -14,8 +14,8 @@ export class Discipline {
   @Column()
   name: string;
 
-  @ManyToMany(type => Team, team => team.disciplines, { cascadeInsert: false, cascadeUpdate: false })
-  teams: Team[];
+  @ManyToMany(type => Team, team => team.disciplines, { cascadeInsert: true, cascadeUpdate: true })
+  teams: Team[] = [];
 
   @ManyToOne(type => Tournament, tournament => tournament.disciplines, {
     nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: true, onDelete: 'CASCADE'

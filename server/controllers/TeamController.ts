@@ -30,7 +30,11 @@ export class TeamController {
   @Get('/tournament/:id')
   @EmptyResultCode(404)
   getByTournament( @Param('id') id: number, @Res() res: Response): Promise<Team[]> {
-    return this.repository.find({ tournament: id });
+    return this.repository.createQueryBuilder('team')
+      .where('team.tournament=:id', { id: id })
+      .leftJoinAndSelect('team.divisions', 'division')
+      .leftJoinAndSelect('team.disciplines', 'discipline')
+      .getMany();
   }
 
   @Get('/:id')
@@ -39,31 +43,24 @@ export class TeamController {
     return team;
   }
 
+  @Put('/:id')
+  update( @Param('id') id: number, @EntityFromBody() team: Team, @Res() res: Response) {
+    return this.createMany([team], res);
+  }
+
   @Post()
   create( @EntityFromBody() team: Team, @Res() res: Response) {
-    return this.repository.persist(team)
-      .then(persisted => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-        res.status(400);
-        res.send(err);
-      });
+    return this.createMany([team], res);
   }
 
   @Post()
   createMany( @Body() teams: Team[], @Res() res: Response) {
+    console.log(`
+-------------------------
+CREATE/UPDATE TEAM
+-------------------------
+    `, teams);
     return this.repository.persist(teams)
-      .then(persisted => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-        res.status(400);
-        res.send(err);
-      });
-  }
-
-  @Put('/:id')
-  update( @Param('id') id: number, @EntityFromBody() team: Team, @Res() res: Response) {
-    return this.repository.persist(team)
       .then(persisted => res.send(persisted))
       .catch(err => {
         Logger.log.error(err);

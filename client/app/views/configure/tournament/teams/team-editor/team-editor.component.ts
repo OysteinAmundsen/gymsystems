@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { TournamentService, TeamsService, DisciplineService, DivisionService } from 'app/api';
@@ -11,9 +11,10 @@ import { ITeam } from 'app/api/model/ITeam';
   templateUrl: './team-editor.component.html',
   styleUrls: ['./team-editor.component.scss']
 })
-export class TeamEditorComponent implements OnInit {
+export class TeamEditorComponent implements OnInit, AfterViewInit {
   @Input() team: ITeam = <ITeam>{};
   @Output() teamChanged: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChildren('selectedDisciplines') selectedDisciplines;
   teamForm: FormGroup;
   disciplines: IDiscipline[];
   divisions: IDivision[] = [];
@@ -22,6 +23,7 @@ export class TeamEditorComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private elm: ElementRef,
     private tournamentService: TournamentService,
     private teamService: TeamsService,
     private divisionService: DivisionService,
@@ -30,17 +32,50 @@ export class TeamEditorComponent implements OnInit {
   ngOnInit() {
     const tournamentId = this.tournamentService.selected.id;
     this.divisionService.getByTournament(tournamentId).subscribe(d => this.divisions = d);
-    this.disciplineService.getByTournament(tournamentId).subscribe(d => this.disciplines = d);
+    this.disciplineService.getByTournament(tournamentId).subscribe(d => {
+      this.disciplines = d;
+      setTimeout(() => {
+        this.selectedDisciplines
+          .forEach((element: ElementRef) => {
+            const el = <HTMLInputElement>element.nativeElement;
+            const disciplineId = el.attributes.getNamedItem('data').nodeValue;
+            el.checked = this.team.disciplines.findIndex(d => d.id === parseInt(disciplineId)) > -1;
+          });
+      });
+    });
+    const ageDivision = this.team.divisions.find(d => d.type === DivisionType.Age);
+    const genderDivision = this.team.divisions.find(d => d.type === DivisionType.Gender);
     this.teamForm = this.fb.group({
       id: [this.team.id],
       name: [this.team.name, [Validators.required]],
-      divisions: [this.team.divisions],
-      disciplines: [this.team.disciplines]
+      ageDivision: [ageDivision ? ageDivision.id : null],
+      genderDivision: [genderDivision ? genderDivision.id : null],
+      disciplines: [this.team.disciplines],
+      tournament: [this.team.tournament]
     });
   }
 
+  ngAfterViewInit() { }
+
   save() {
-    this.teamService.save(this.teamForm.value).subscribe(result => {
+    const team = this.teamForm.value;
+    // Compute division set
+    const ageDivision = this.divisions.find(d => d.id === team.ageDivision);
+    const genderDivision = this.divisions.find(d => d.id === team.genderDivision);
+    team.divisions = [JSON.parse(JSON.stringify(ageDivision)), JSON.parse(JSON.stringify(genderDivision))];
+    delete team.ageDivision;
+    delete team.genderDivision;
+
+    // Compute discipline set
+    team.disciplines = this.selectedDisciplines
+      .filter((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked)
+      .map((elm: ElementRef) => {
+        const disciplineId = (<HTMLInputElement>elm.nativeElement).attributes.getNamedItem('data').nodeValue;
+        return this.disciplines.find(d => d.id === parseInt(disciplineId));
+      });
+
+    // Save team
+    this.teamService.save(team).subscribe(result => {
       this.teamChanged.emit(result);
     });
   }

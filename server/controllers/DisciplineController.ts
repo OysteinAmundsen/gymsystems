@@ -48,13 +48,7 @@ export class DisciplineController {
 
   @Post()
   create( @EntityFromBody() discipline: Discipline, @Res() res: Response) {
-    return this.repository.persist(discipline)
-      .then(persisted => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-        res.status(400);
-        res.send(err);
-      });
+    return this.createMany([discipline], res);
   }
 
   @Post()
@@ -70,13 +64,7 @@ export class DisciplineController {
 
   @Put('/:id')
   update( @Param('id') id: number, @EntityFromBody() discipline: Discipline, @Res() res: Response) {
-    return this.repository.persist(discipline)
-      .then(persisted => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-        res.status(400);
-        res.send(err);
-      });
+    return this.createMany([discipline], res);
   }
 
   @Delete('/:id')

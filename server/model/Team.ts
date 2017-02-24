@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import { Tournament } from './Tournament';
 import { Discipline } from './Discipline';
 import { Division } from './Division';
 
@@ -16,11 +17,14 @@ export class Team {
   @Column({ length: 100, unique: true })
   name: string;
 
-  @ManyToMany(type => Division, division => division.teams, { cascadeInsert: false, cascadeUpdate: false })
+  @ManyToMany(type => Division, division => division.teams, { cascadeInsert: true, cascadeUpdate: true })
   @JoinTable()
-  divisions: Division[];
+  divisions: Division[] = [];
 
-  @ManyToMany(type => Discipline, discipline => discipline.teams, { cascadeInsert: false, cascadeUpdate: false })
+  @ManyToMany(type => Discipline, discipline => discipline.teams, { cascadeInsert: true, cascadeUpdate: true })
   @JoinTable()
-  disciplines: Discipline[];
+  disciplines: Discipline[] = [];
+
+  @ManyToOne(type => Tournament, tournament => tournament.teams, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
+  tournament: Tournament;
 }

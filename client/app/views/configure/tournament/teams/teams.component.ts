@@ -32,14 +32,14 @@ export class TeamsComponent implements OnInit {
   loadTeams() {
     this.route.parent.params.subscribe((params: any) => {
       if (params.id) {
-        this.teamService.all().subscribe(teams => this.teamList = teams);
+        this.teamService.getByTournament(params.id).subscribe(teams => this.teamList = teams);
       }
     });
   }
 
   addTeam() {
     const team = <ITeam>{
-      id: null, name: null, divisions: null, disciplines: null
+      id: null, name: null, divisions: [], disciplines: [], tournament: this.tournamentService.selected
     };
     this.teamList.push(team);
     this.selected = team;
@@ -51,6 +51,9 @@ export class TeamsComponent implements OnInit {
   }
 
   select(team: ITeam) {
+    if (team && !team.tournament) {
+      team.tournament = this.tournamentService.selected;
+    }
     this.selected = team;
   }
 

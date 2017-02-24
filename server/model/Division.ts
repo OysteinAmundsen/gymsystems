@@ -20,8 +20,8 @@ export class Division {
   @Column()
   type: DivisionType;
 
-  @ManyToMany(type => Team, teams => teams.divisions, { cascadeInsert: false, cascadeUpdate: false })
-  teams: Team[];
+  @ManyToMany(type => Team, teams => teams.divisions, { cascadeInsert: true, cascadeUpdate: true })
+  teams: Team[] = [];
 
   @ManyToOne(type => Tournament, tournament => tournament.divisions, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
   tournament: Tournament;
