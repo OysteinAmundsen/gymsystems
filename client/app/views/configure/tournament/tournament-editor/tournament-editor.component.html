@@ -50,16 +50,12 @@
   <footer>
     <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span>Save tournament</span></button>
     <button type="button" title="Cancel" (click)="cancel()"><app-fa name="ban" fw="true"></app-fa> <span>Cancel</span></button>
-    <button *ngIf="tournamentForm.value.id" title="Delete" class="pull-right warning" type="button" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete tournament</span></button>
+    <button type="button" *ngIf="tournamentForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete tournament</span></button>
   </footer>
 </form>
 
 <menu *ngIf="tournamentForm.value.id" role="tablist">
   <ul>
-    <li [routerLinkActive]="['active']">
-      <a routerLink="./age">
-        <app-fa name="child" fw="true"></app-fa> <span>Age group</span> </a>
-    </li>
     <li [routerLinkActive]="['active']">
       <a routerLink="./divisions">
         <app-fa name="cubes" fw="true"></app-fa> <span>Divisions</span> </a>
@@ -79,4 +75,6 @@
   </ul>
 </menu>
 
-<router-outlet></router-outlet>
+<div class="sub-routes">
+  <router-outlet></router-outlet>
+</div>

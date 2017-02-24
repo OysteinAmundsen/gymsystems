@@ -14,7 +14,8 @@ export class ScoreSystemComponent implements OnInit {
   @Input() discipline: IDiscipline;
   @Input() scoreGroups: IScoreGroup[];
   @Output() editModeChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
-  scoreGroupList: IScoreGroup[];
+  scoreGroupList: IScoreGroup[] = [];
+  defaultScoreGroups: IScoreGroup[];
 
   _selected: IScoreGroup;
   get selected() { return this._selected; }
@@ -22,10 +23,14 @@ export class ScoreSystemComponent implements OnInit {
     this._selected = scoreGroup;
     this.editModeChanged.emit(this._selected != null);
   }
+  get canAddDefaults() { return this.findMissingDefaults().length; }
 
   constructor(private router: Router, private route: ActivatedRoute, private scoreService: ScoreService, private configService: ConfigurationService) { }
 
   ngOnInit() {
+    this.configService.getByname('defaultValues').subscribe(config => {
+      this.defaultScoreGroups = config.value.scoreGroup;
+    });
     if (!this.scoreGroups) { this.loadScoreGroups(); }
     else { this.scoreGroupList = this.scoreGroups; }
   }
@@ -46,18 +51,21 @@ export class ScoreSystemComponent implements OnInit {
     this.selected = scoreGroup;
   }
 
-  addDefaultScoreGroups() {
-    this.configService.getByname('defaultValues').subscribe(config => {
-      if (config.value.scoreGroup) {
-        this.scoreGroupList = this.scoreGroupList.concat(config.value.scoreGroup.map(group => {
-          group.discipline = this.discipline;
-          return group;
-        }));
-        this.scoreService.saveAll(this.scoreGroupList).subscribe(result => {
-          this.scoreGroupList = result;
-        })
-      }
-    });
+  addDefaults() {
+    if (this.defaultScoreGroups) {
+      const scoreGroupList = this.findMissingDefaults().map(group => {
+        group.discipline = this.discipline;
+        return group;
+      });
+      this.scoreService.saveAll(scoreGroupList).subscribe(result => this.loadScoreGroups());
+    }
+  }
+
+  findMissingDefaults() {
+    if (this.defaultScoreGroups && this.defaultScoreGroups.length) {
+      return this.defaultScoreGroups.filter(def => this.scoreGroupList.findIndex(d => d.name === def.name) < 0);
+    }
+    return [];
   }
 
   onChange() {

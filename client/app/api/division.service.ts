@@ -9,10 +9,6 @@ import { IDivision } from './model/IDivision';
 export class DivisionService extends ApiService {
   url: string = '/api/divisions';
 
-  _selectedDivision: IDivision;
-  get selected(): IDivision { return this._selectedDivision; }
-  set selected(division: IDivision) { this._selectedDivision = division; }
-
   constructor(private http: Http) {
     super();
   }
@@ -32,6 +28,10 @@ export class DivisionService extends ApiService {
   save(division: IDivision) {
     const call = (division.id) ? this.http.put(`${this.url}/${division.id}`, division) : this.http.post(this.url, division);
     return call.map((res: Response) => res.json()).catch(this.handleError);
+  }
+
+  saveAll(divisions: IDivision[]) {
+    return this.http.post(this.url, divisions).map((res: Response) => res.json()).catch(this.handleError);
   }
 
   delete(division: IDivision) {

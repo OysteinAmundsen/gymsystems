@@ -14,13 +14,14 @@ export class Discipline {
   @Column()
   name: string;
 
-  @ManyToMany(type => Team, team => team.disciplines)
-  @JoinTable()
-  teams: Team[] = [];
+  @ManyToMany(type => Team, team => team.disciplines, { cascadeInsert: false, cascadeUpdate: false })
+  teams: Team[];
 
-  @ManyToOne(type => Tournament, tournament => tournament.disciplines, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
+  @ManyToOne(type => Tournament, tournament => tournament.disciplines, {
+    nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: true, onDelete: 'CASCADE'
+  })
   tournament: Tournament;
 
-  @OneToMany(type => ScoreGroup, scoreGroup => scoreGroup.discipline)
-  scoreGroups: ScoreGroup[] = [];
+  @OneToMany(type => ScoreGroup, scoreGroup => scoreGroup.discipline, { cascadeInsert: false, cascadeUpdate: false })
+  scoreGroups: ScoreGroup[];
 }

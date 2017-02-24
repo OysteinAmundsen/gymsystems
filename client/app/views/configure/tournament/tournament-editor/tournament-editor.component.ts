@@ -37,9 +37,9 @@ export class TournamentEditorComponent implements OnInit {
       startDate: [this.tournament.startDate, [Validators.required]],
       endDate: [this.tournament.endDate, [Validators.required]],
       location: [this.tournament.location],
-      schedule: [this.tournament.schedule],
-      disciplines: [this.tournament.disciplines],
-      divisions: [this.tournament.divisions],
+      // schedule: [this.tournament.schedule],
+      // disciplines: [this.tournament.disciplines],
+      // divisions: [this.tournament.divisions],
     });
   }
 

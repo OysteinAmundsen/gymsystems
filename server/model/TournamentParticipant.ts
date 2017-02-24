@@ -33,5 +33,5 @@ export class TournamentParticipant {
   team: Team;
 
   @OneToMany(type => TournamentParticipantScore, score => score.participant)
-  scores: TournamentParticipantScore[] = [];
+  scores: TournamentParticipantScore[];
 }

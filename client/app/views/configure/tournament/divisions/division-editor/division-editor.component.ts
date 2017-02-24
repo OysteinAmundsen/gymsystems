@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@a
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { DivisionService } from 'app/api/division.service';
-import { IDivision } from 'app/api/model/IDivision';
+import { IDivision, DivisionType } from 'app/api/model/IDivision';
 
 @Component({
   selector: 'app-division-editor',
@@ -13,6 +13,10 @@ export class DivisionEditorComponent implements OnInit {
   @Input() division: IDivision = <IDivision>{};
   @Output() divisionChanged: EventEmitter<any> = new EventEmitter<any>();
   divisionForm: FormGroup;
+  types = [
+    { id: DivisionType.Age, name: 'Age' },
+    { id: DivisionType.Gender, name: 'Gender' }
+  ];
 
   constructor(private fb: FormBuilder, private divisionService: DivisionService) { }
 
@@ -21,7 +25,7 @@ export class DivisionEditorComponent implements OnInit {
       id: [this.division.id],
       name: [this.division.name, [Validators.required]],
       tournament: [this.division.tournament],
-      teams: [this.division.teams]
+      type: [this.division.type]
     });
   }
 
@@ -35,7 +39,7 @@ export class DivisionEditorComponent implements OnInit {
   delete() {
     this.divisionService.delete(this.divisionForm.value).subscribe(result => {
       this.divisionChanged.emit(result);
-    })
+    });
   }
 
   close() {

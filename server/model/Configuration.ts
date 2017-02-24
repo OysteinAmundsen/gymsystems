@@ -1,7 +1,7 @@
 import { ScoreGroup } from './ScoreGroup';
 import { Tournament } from './Tournament';
 import { Team } from './Team';
-import { PrimaryColumn, Column, Entity, OneToMany, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import { PrimaryColumn, Column, Entity } from 'typeorm';
 
 /**
  * Describes the available disciplines in this sport.

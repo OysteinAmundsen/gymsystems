@@ -29,11 +29,11 @@
   </tbody>
 </table>
 
-<button *ngIf="selected == null" title="Add" (click)="addScoreGroup()">
+<button type="button" *ngIf="selected == null" title="Add" (click)="addScoreGroup()">
   <app-fa name="plus" fw="true"></app-fa>
   <span>Add ScoreGroup</span>
 </button>
-<button *ngIf="selected == null" title="Add default" (click)="addDefaultScoreGroups()">
+<button type="button" *ngIf="selected == null && canAddDefaults" title="Add default" (click)="addDefaults()">
   <app-fa name="plus-circle" fw="true"></app-fa>
   <span>Add Default ScoreGroups</span>
 </button>

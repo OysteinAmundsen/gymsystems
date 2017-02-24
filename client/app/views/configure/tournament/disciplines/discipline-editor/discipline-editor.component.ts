@@ -35,9 +35,9 @@ export class DisciplineEditorComponent implements OnInit {
     this.disciplineForm = this.fb.group({
       id: [this.discipline.id],
       name: [this.discipline.name, [Validators.required]],
-      teams: [this.discipline.teams],
+      //teams: [this.discipline.teams],
       tournament: [this.discipline.tournament],
-      scoreGroups: [this.discipline.scoreGroups]
+      //scoreGroups: [this.discipline.scoreGroups]
     });
   }
 

@@ -66,7 +66,7 @@ export class DivisionController {
 
   @Delete('/:id')
   remove( @EntityFromParam('id') division: Division, @Res() res: Response) {
-    return this.repository.remove(division)
+    return this.removeMany([division])
       .then(result => res.send(result))
       .catch(err => {
         Logger.log.error(err);

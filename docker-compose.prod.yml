@@ -17,3 +17,4 @@ services:
       - NODE_ENV=production
     volumes:
       - /usr/src/app/node_modules
+      - ./log:/usr/src/app/log

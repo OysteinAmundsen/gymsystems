@@ -200,7 +200,7 @@ menu[role="tablist"] {
     border-radius: 2px;
     transition: background .4s cubic-bezier(.25,.8,.25,1);
     &:hover {
-      background: lighten($primary, 20%);
+      background: $primaryLight;
     }
     &.active {
       border-bottom: 2px solid $primary;

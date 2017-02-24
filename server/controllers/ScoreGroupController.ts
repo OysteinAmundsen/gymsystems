@@ -63,7 +63,7 @@ export class ScoreGroupController {
 
   @Delete('/:id')
   remove( @EntityFromParam('id') scoreGroup: ScoreGroup, @Res() res: Response) {
-    return this.repository.remove(scoreGroup)
+    return this.removeMany([scoreGroup])
       .then(result => res.send(result))
       .catch(err => {
         Logger.log.error(err);

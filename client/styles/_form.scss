@@ -39,7 +39,7 @@ form {
       margin-top: 0;
     }
   }
-  input, textarea {
+  input, textarea, select {
     @include input();
     width: 100%;
     &.ng-invalid {
@@ -50,12 +50,15 @@ form {
   [appFloatingLabelContainer] {
     position: relative;
     min-height: $labelHeight + $inputHeight;
-    label, input, textarea {
+    label, input, textarea, select {
       transition: all 0.2s ease-in-out;
       touch-action: manipulation;
     }
     input, textarea {
       margin-top: $labelHeight + 10;
+    }
+    select {
+      margin-top: $labelHeight + 9;
     }
     label {
       position: absolute;

@@ -22,8 +22,8 @@
     "client": "ng serve --proxy-config proxy.conf.json",
     "client:build": "ng build --prod",
     "client:build:watch": "npm run client:build -- -w",
-    "db:clean": "npm run server:build && typeorm schema:drop",
-    "db:sync": "npm run server:build && typeorm schema:sync && npm run migrations",
+    "db:clean": "npm run clean && npm run server:build && typeorm schema:drop",
+    "db:sync": "npm run clean && npm run server:build && typeorm schema:sync && npm run migrations",
     "migrations": "typeorm migrations:run",
     "migrations:revert": "typeorm migrations:revert"
   },
@@ -57,7 +57,7 @@
     "rxjs": "^5.1.0",
     "serve-favicon": "~2.3.2",
     "typedi": "~0.4.2",
-    "typeorm": "^0.0.8",
+    "typeorm": "^0.0.9",
     "typeorm-routing-controllers-extensions": "^0.0.6",
     "winston": "~2.3.0",
     "zone.js": "^0.7.6"

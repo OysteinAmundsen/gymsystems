@@ -1,22 +1,54 @@
-<table role="list">
-  <thead>
-    <tr>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let division of divisionList">
-    <tr *ngIf="division !== selected" (click)="select(division)" role="listitem">
-      <td>{{ division.name }}</td>
-    </tr>
-    <tr *ngIf="division === selected">
-      <td colspan="1">
-        <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+  <section class="col-6">
+    <header>
+      <h2>
+        <app-fa name="venus-mars" fw="true"></app-fa>
+        <span>Gender group</span>
+      </h2>
+    </header>
+    <table role="list">
+      <tbody *ngFor="let division of genderList">
+        <tr *ngIf="division !== selected" (click)="select(division)" role="listitem">
+          <td>{{ division.name }}</td>
+        </tr>
+        <tr *ngIf="division === selected">
+          <td colspan="1">
+            <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
-<button *ngIf="selected == null" title="Add" (click)="addDivision()">
+  <section class="col-6">
+    <header>
+      <h2>
+        <app-fa name="child" fw="true"></app-fa>
+        <span>Age group</span>
+      </h2>
+    </header>
+    <table role="list">
+      <tbody *ngFor="let ageClass of ageClassList">
+        <tr *ngIf="ageClass !== selected" (click)="select(ageClass)" role="listitem">
+          <td>{{ ageClass.name }}</td>
+        </tr>
+        <tr *ngIf="ageClass === selected">
+          <td colspan="1">
+            <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+<div *ngIf="selected && !selected.type">
+  <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>
+</div>
+<button type="button" *ngIf="selected == null" title="Add" (click)="addDivision()">
   <app-fa name="plus" fw="true"></app-fa>
   <span>Add Divisions</span>
+</button>
+<button type="button" *ngIf="selected == null && canAddDefaults" title="Add default" (click)="addDefaults()">
+  <app-fa name="plus-circle" fw="true"></app-fa>
+  <span>Add Default Divisions</span>
 </button>

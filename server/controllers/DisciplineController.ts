@@ -81,7 +81,7 @@ export class DisciplineController {
 
   @Delete('/:id')
   remove( @EntityFromParam('id') discipline: Discipline, @Res() res: Response) {
-    return this.repository.remove(discipline)
+    return this.removeMany([discipline])
       .then(result => res.send(result))
       .catch(err => {
         Logger.log.error(err);

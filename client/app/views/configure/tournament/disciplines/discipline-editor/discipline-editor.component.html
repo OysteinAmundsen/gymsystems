@@ -14,6 +14,6 @@
   <footer *ngIf="!editingScore">
     <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span>Save discipline</span></button>
     <button type="button" title="Cancel" (click)="cancel()"><app-fa name="arrow-left" fw="true"></app-fa> <span>Go back</span></button>
-    <button *ngIf="disciplineForm.value.id" title="Delete" class="pull-right warning" type="button" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete discipline</span></button>
+    <button type="button" *ngIf="disciplineForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete discipline</span></button>
   </footer>
 </form>

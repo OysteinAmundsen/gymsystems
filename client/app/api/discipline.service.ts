@@ -9,10 +9,6 @@ import { IDiscipline } from './model/IDiscipline';
 export class DisciplineService extends ApiService {
   url: string = '/api/disciplines';
 
-  _selectedDiscipline: IDiscipline;
-  get selected(): IDiscipline { return this._selectedDiscipline; }
-  set selected(discipline: IDiscipline) { this._selectedDiscipline = discipline; }
-
   constructor(private http: Http) {
     super();
   }
@@ -32,6 +28,10 @@ export class DisciplineService extends ApiService {
   save(discipline: IDiscipline) {
     const call = (discipline.id) ? this.http.put(`${this.url}/${discipline.id}`, discipline) : this.http.post(this.url, discipline);
     return call.map((res: Response) => res.json()).catch(this.handleError);
+  }
+
+  saveAll(disciplines: IDiscipline[]) {
+    return this.http.post(this.url, disciplines).map((res: Response) => res.json()).catch(this.handleError);
   }
 
   delete(discipline: IDiscipline) {
