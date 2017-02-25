@@ -1,4 +1,11 @@
 <table role="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Division</th>
+      <th>Disciplines</th>
+    </tr>
+  </thead>
   <tbody *ngFor="let team of teamList">
     <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
       <td>{{ team.name }}</td>

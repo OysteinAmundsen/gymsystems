@@ -9,10 +9,6 @@ import { ITeam } from './model/ITeam';
 export class TeamsService extends ApiService {
   url: string = '/api/teams';
 
-  _selectedTeam: ITeam;
-  get selected(): ITeam { return this._selectedTeam; }
-  set selected(team: ITeam) { this._selectedTeam = team; }
-
   constructor(private http: Http) {
     super();
   }

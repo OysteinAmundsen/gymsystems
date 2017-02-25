@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { TournamentService, TeamsService, DisciplineService, DivisionService } from 'app/api';
+import { TournamentService, TeamsService, DisciplineService, DivisionService, ScheduleService } from 'app/api';
 import { ITeam } from 'app/api/model/ITeam';
 import { IDiscipline } from 'app/api/model/IDiscipline';
 import { IDivision } from 'app/api/model/IDivision';
+import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
+import { DivisionType } from 'app/api/model/DivisionType';
 
 @Component({
   selector: 'app-schedule',
@@ -11,25 +13,53 @@ import { IDivision } from 'app/api/model/IDivision';
   styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit {
-  divisions: IDivision[] = [];
-  disciplines: IDiscipline[] = [];
-  teams: ITeam[] = [];
+  schedule: ITournamentParticipant[];
 
   constructor(
     private divisionService: DivisionService,
     private disciplineService: DisciplineService,
     private teamService: TeamsService,
+    private scheduleService: ScheduleService,
     private tournamentService: TournamentService) { }
 
   ngOnInit() {
+    this.loadSchedule();
+  }
+
+  loadSchedule() {
     const tournamentId = this.tournamentService.selectedId;
+    this.scheduleService.getByTournament(tournamentId).subscribe(schedule => {
+      this.schedule = schedule;
+      this.calculateSchedule(); // Calculate missing items
+    });
+  }
+
+  calculateSchedule() {
     const me = this;
+    const tournamentId = this.tournamentService.selectedId;
     this.teamService.getByTournament(tournamentId).subscribe(teams => {
-      me.teams = teams;
+      let disciplines = [];
+      const divisions = [];
       teams.forEach(team => {
-        me.disciplines = me.disciplines.concat(team.disciplines.filter(d => me.disciplines.findIndex(ed => ed.id === d.id) < 0));
-        me.divisions = me.divisions.concat(team.divisions.filter(d => me.divisions.findIndex(ed => ed.id === d.id) < 0));
+        disciplines = disciplines.concat(team.disciplines.filter(d => disciplines.findIndex(ed => ed.id === d.id) < 0));
+
+        const ageDiv = team.divisions.find(d => d.type === DivisionType.Age);
+        const genderDiv = team.divisions.find(d => d.type === DivisionType.Gender);
+        const divisionName = genderDiv.name + ' ' + ageDiv.name;
+        if (divisions.indexOf(divisionName) < 0) {
+          divisions.push(divisionName);
+        }
       });
     });
+  }
+
+  saveSchedule() {
+    this.loadSchedule();
+  }
+
+  division(team: ITeam) {
+    const ageDiv = team.divisions.find(d => d.type === DivisionType.Age);
+    const genderDiv = team.divisions.find(d => d.type === DivisionType.Gender);
+    return genderDiv.name + ' ' + ageDiv.name;
   }
 }

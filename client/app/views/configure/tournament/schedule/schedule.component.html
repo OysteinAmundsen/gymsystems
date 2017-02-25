@@ -1,8 +1,19 @@
-<table role="list" *ngFor="let division of divisions">
-  <tbody *ngFor="let discipline of disciplines">
-    <tr role="listitem">
-      <td>{{ division.name }}</td>
-      <td>{{ discipline.name }}</td>
+<table role="list">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Team</th>
+      <th>Division</th>
+      <th>Discipline</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr role="listitem" *ngFor="let item of schedule">
+      <td>{{ item.team.startNumber }}</td>
+      <td>{{ item.team.name }}</td>
+      <td>{{ division(team) }}</td>
+      <td>{{ item.discipline.name }}</td>
     </tr>
   </tbody>
 </table>
