@@ -31,7 +31,7 @@ export class TeamEditorComponent implements OnInit, AfterViewInit {
     private disciplineService: DisciplineService) { }
 
   ngOnInit() {
-    const tournamentId = this.tournamentService.selected.id;
+    const tournamentId = this.tournamentService.selectedId;
     this.divisionService.getByTournament(tournamentId).subscribe(d => this.divisions = d);
     this.disciplineService.getByTournament(tournamentId).subscribe(d => {
       this.disciplines = d;

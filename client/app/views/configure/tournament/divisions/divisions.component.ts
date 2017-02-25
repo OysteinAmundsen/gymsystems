@@ -36,7 +36,7 @@ export class DivisionsComponent implements OnInit {
   }
 
   loadDivisions() {
-    this.divisionService.getByTournament(this.tournamentService.selected.id).subscribe(divisions => this.divisions = divisions);
+    this.divisionService.getByTournament(this.tournamentService.selectedId).subscribe(divisions => this.divisions = divisions);
   }
 
   addDivision() {

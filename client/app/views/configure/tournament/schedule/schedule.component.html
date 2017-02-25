@@ -1,3 +1,8 @@
-<p>
-  schedule works!
-</p>
+<table role="list" *ngFor="let division of divisions">
+  <tbody *ngFor="let discipline of disciplines">
+    <tr role="listitem">
+      <td>{{ division.name }}</td>
+      <td>{{ discipline.name }}</td>
+    </tr>
+  </tbody>
+</table>

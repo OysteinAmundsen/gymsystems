@@ -38,7 +38,7 @@ export class DisciplinesComponent implements OnInit {
   }
 
   loadDisciplines() {
-    this.disciplineService.getByTournament(this.tournamentService.selected.id).subscribe(disciplines => this.disciplineList = disciplines);
+    this.disciplineService.getByTournament(this.tournamentService.selectedId).subscribe(disciplines => this.disciplineList = disciplines);
   }
 
   addDiscipline() {

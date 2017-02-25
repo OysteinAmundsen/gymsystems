@@ -31,7 +31,7 @@ export class TeamsComponent implements OnInit {
   }
 
   loadTeams() {
-    this.teamService.getByTournament(this.tournamentService.selected.id).subscribe(teams => this.teamList = teams);
+    this.teamService.getByTournament(this.tournamentService.selectedId).subscribe(teams => this.teamList = teams);
   }
 
   divisions(team: ITeam) {

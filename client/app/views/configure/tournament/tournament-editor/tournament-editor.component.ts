@@ -24,6 +24,7 @@ export class TournamentEditorComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: any) => {
       if (params.id) {
+        this.tournamentService.selectedId = params.id;
         this.tournamentService.getById(params.id).subscribe(tournament => {
           this.tournament = tournament;
           this.tournamentForm.setValue(tournament);
