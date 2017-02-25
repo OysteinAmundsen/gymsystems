@@ -17,11 +17,11 @@ export class Team {
   @Column({ length: 100, unique: true })
   name: string;
 
-  @ManyToMany(type => Division, division => division.teams, { cascadeInsert: true, cascadeUpdate: true })
+  @ManyToMany(type => Division, division => division.teams)
   @JoinTable()
   divisions: Division[] = [];
 
-  @ManyToMany(type => Discipline, discipline => discipline.teams, { cascadeInsert: true, cascadeUpdate: true })
+  @ManyToMany(type => Discipline, discipline => discipline.teams)
   @JoinTable()
   disciplines: Discipline[] = [];
 

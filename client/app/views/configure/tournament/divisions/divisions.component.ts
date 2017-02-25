@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { TournamentService, DivisionService, ConfigurationService } from 'app/api';
 import { ITournament } from 'app/api/model/ITournament';
-import { IDivision, DivisionType } from 'app/api/model/IDivision';
+import { IDivision } from 'app/api/model/IDivision';
+import { DivisionType } from 'app/api/model/DivisionType';
 
 @Component({
   selector: 'app-divisions',
@@ -35,11 +36,7 @@ export class DivisionsComponent implements OnInit {
   }
 
   loadDivisions() {
-    this.route.parent.params.subscribe((params: any) => {
-      if (params.id) {
-        this.divisionService.getByTournament(params.id).subscribe(divisions => this.divisions = divisions);
-      }
-    });
+    this.divisionService.getByTournament(this.tournamentService.selected.id).subscribe(divisions => this.divisions = divisions);
   }
 
   addDivision() {

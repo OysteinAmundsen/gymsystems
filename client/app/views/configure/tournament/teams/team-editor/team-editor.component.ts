@@ -3,7 +3,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { TournamentService, TeamsService, DisciplineService, DivisionService } from 'app/api';
 import { IDiscipline } from 'app/api/model/IDiscipline';
-import { IDivision, DivisionType } from 'app/api/model/IDivision';
+import { IDivision } from 'app/api/model/IDivision';
+import { DivisionType } from 'app/api/model/DivisionType';
 import { ITeam } from 'app/api/model/ITeam';
 
 @Component({

@@ -38,11 +38,7 @@ export class DisciplinesComponent implements OnInit {
   }
 
   loadDisciplines() {
-    this.route.parent.parent.params.subscribe((params: any) => {
-      if (params.id) {
-        this.disciplineService.getByTournament(params.id).subscribe(disciplines => this.disciplineList = disciplines);
-      }
-    });
+    this.disciplineService.getByTournament(this.tournamentService.selected.id).subscribe(disciplines => this.disciplineList = disciplines);
   }
 
   addDiscipline() {
@@ -93,7 +89,7 @@ export class DisciplinesComponent implements OnInit {
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
     if (evt.keyCode === 187) {
-      this.router.navigate(['./add'], { relativeTo: this.route });
+      this.addDiscipline();
     }
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TournamentService, TeamsService } from 'app/api';
+import { DivisionType } from 'app/api/model/DivisionType';
 import { ITeam } from 'app/api/model/ITeam';
 
 @Component({
@@ -30,11 +31,17 @@ export class TeamsComponent implements OnInit {
   }
 
   loadTeams() {
-    this.route.parent.params.subscribe((params: any) => {
-      if (params.id) {
-        this.teamService.getByTournament(params.id).subscribe(teams => this.teamList = teams);
-      }
-    });
+    this.teamService.getByTournament(this.tournamentService.selected.id).subscribe(teams => this.teamList = teams);
+  }
+
+  divisions(team: ITeam) {
+    const ageDiv = team.divisions.find(d => d.type === DivisionType.Age);
+    const genderDiv = team.divisions.find(d => d.type === DivisionType.Gender);
+    return genderDiv.name + ' ' + ageDiv.name;
+  }
+
+  disciplines(team: ITeam) {
+    return team.disciplines.map(d => d.name).join(', ');
   }
 
   addTeam() {

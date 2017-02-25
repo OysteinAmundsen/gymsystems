@@ -2,7 +2,8 @@ import { Component, OnInit, ElementRef, Input, ViewChildren } from '@angular/cor
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ScoreService } from 'app/api';
-import { IScoreGroup, Operation } from 'app/api/model/IScoreGroup';
+import { IScoreGroup } from 'app/api/model/IScoreGroup';
+import { Operation } from 'app/api/model/Operation';
 import { ITournamentParticipantScore } from 'app/api/model/ITournamentParticipantScore';
 
 import { ScoreGroupComponent } from '../score-group/score-group.component';

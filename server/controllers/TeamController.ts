@@ -1,4 +1,4 @@
-import { getConnectionManager, Repository } from 'typeorm';
+import { getConnectionManager, Connection, Repository } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Param, Res, Body } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service } from 'typedi';
@@ -17,9 +17,11 @@ import { Team } from '../model/Team';
 @JsonController('/teams')
 export class TeamController {
   private repository: Repository<Team>;
+  private conn: Connection;
 
   constructor() {
-    this.repository = getConnectionManager().get().getRepository(Team);
+    this.conn = getConnectionManager().get();
+    this.repository = this.conn.getRepository(Team);
   }
 
   @Get()
