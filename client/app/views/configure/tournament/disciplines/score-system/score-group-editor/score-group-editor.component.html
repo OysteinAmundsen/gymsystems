@@ -31,7 +31,7 @@
     </div>
   </fieldset>
   <footer>
-    <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span>Save</span></button>
+    <button type="submit" title="Save" [disabled]="scoreForm.invalid"><app-fa name="save" fw="true"></app-fa> <span>Save</span></button>
     <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span>Cancel</span></button>
     <button type="button" *ngIf="scoreForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete</span></button>
   </footer>

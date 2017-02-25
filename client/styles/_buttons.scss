@@ -32,11 +32,21 @@ button {
   &[type="submit"] {
     color: white;
     background: $primary;
+    &[disabled] {
+      background: lighten(desaturate($primary, 100%), 20%);
+      color: lighten($text-color, 30%);
+      &.raised, &:hover, &:active, &:focus {
+        box-shadow: none;
+      }
+    }
   }
   &.warning {
     &:hover {
       color: white;
       background-color: $warning;
     }
+  }
+  &[disabled] {
+    color: lighten($text-color, 30%);
   }
 }

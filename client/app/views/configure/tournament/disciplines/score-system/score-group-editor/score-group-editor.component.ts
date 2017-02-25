@@ -25,10 +25,10 @@ export class ScoreGroupEditorComponent implements OnInit {
     this.scoreForm = this.fb.group({
       id: [this.scoreGroup.id],
       name: [this.scoreGroup.name, [Validators.required]],
-      judges: [this.scoreGroup.judges],
+      judges: [this.scoreGroup.judges, [Validators.required]],
       max: [this.scoreGroup.max],
       min: [this.scoreGroup.min],
-      type: [this.scoreGroup.type],
+      type: [this.scoreGroup.type, [Validators.required]],
       operation: [this.scoreGroup.operation],
       discipline: [this.discipline]
     });

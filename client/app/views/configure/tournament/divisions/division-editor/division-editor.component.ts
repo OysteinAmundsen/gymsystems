@@ -25,10 +25,11 @@ export class DivisionEditorComponent implements OnInit {
     this.divisionForm = this.fb.group({
       id: [this.division.id],
       name: [this.division.name, [Validators.required]],
-      tournament: [this.division.tournament],
-      type: [this.division.type]
+      tournament: [this.division.tournament, [Validators.required]],
+      type: [this.division.type, [Validators.required]]
     });
   }
+
 
   save() {
     this.divisionService.save(this.divisionForm.value).subscribe(result => {

@@ -36,21 +36,24 @@ export class TeamEditorComponent implements OnInit, AfterViewInit {
     this.disciplineService.getByTournament(tournamentId).subscribe(d => {
       this.disciplines = d;
       setTimeout(() => {
+        // Set selected disciplines
         this.selectedDisciplines
           .forEach((element: ElementRef) => {
             const el = <HTMLInputElement>element.nativeElement;
             const disciplineId = el.attributes.getNamedItem('data').nodeValue;
-            el.checked = this.team.disciplines.findIndex(d => d.id === parseInt(disciplineId)) > -1;
+            el.checked = this.team.disciplines.findIndex(d => d.id === +disciplineId) > -1;
           });
       });
     });
+
+    // Group divisions by type
     const ageDivision = this.team.divisions.find(d => d.type === DivisionType.Age);
     const genderDivision = this.team.divisions.find(d => d.type === DivisionType.Gender);
     this.teamForm = this.fb.group({
       id: [this.team.id],
       name: [this.team.name, [Validators.required]],
-      ageDivision: [ageDivision ? ageDivision.id : null],
-      genderDivision: [genderDivision ? genderDivision.id : null],
+      ageDivision: [ageDivision ? ageDivision.id : null, [Validators.required]],
+      genderDivision: [genderDivision ? genderDivision.id : null, [Validators.required]],
       disciplines: [this.team.disciplines],
       tournament: [this.team.tournament]
     });
@@ -60,6 +63,7 @@ export class TeamEditorComponent implements OnInit, AfterViewInit {
 
   save() {
     const team = this.teamForm.value;
+
     // Compute division set
     const ageDivision = this.divisions.find(d => d.id === team.ageDivision);
     const genderDivision = this.divisions.find(d => d.id === team.genderDivision);
@@ -72,7 +76,7 @@ export class TeamEditorComponent implements OnInit, AfterViewInit {
       .filter((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked)
       .map((elm: ElementRef) => {
         const disciplineId = (<HTMLInputElement>elm.nativeElement).attributes.getNamedItem('data').nodeValue;
-        return this.disciplines.find(d => d.id === parseInt(disciplineId));
+        return this.disciplines.find(d => d.id === +disciplineId);
       });
 
     // Save team
