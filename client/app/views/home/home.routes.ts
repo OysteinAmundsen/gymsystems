@@ -5,6 +5,6 @@ import { LoginComponent } from './login/login.component';
 
 export const HomeRoutes: Route[] = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'list/:tournamentId?', component: ListComponent },
+  { path: 'list/:id', component: ListComponent },
   { path: 'login', component: LoginComponent }
 ];

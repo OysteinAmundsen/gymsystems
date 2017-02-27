@@ -37,11 +37,14 @@ export class TeamsComponent implements OnInit {
   divisions(team: ITeam) {
     const ageDiv = team.divisions.find(d => d.type === DivisionType.Age);
     const genderDiv = team.divisions.find(d => d.type === DivisionType.Gender);
-    return genderDiv.name + ' ' + ageDiv.name;
+    return (genderDiv ? genderDiv.name : '') + ' ' + (ageDiv ? ageDiv.name : '');
   }
 
   disciplines(team: ITeam) {
-    return team.disciplines.map(d => d.name).join(', ');
+    if (team.disciplines.length) {
+      return team.disciplines.map(d => d.name).join(', ');
+    }
+    return '';
   }
 
   addTeam() {

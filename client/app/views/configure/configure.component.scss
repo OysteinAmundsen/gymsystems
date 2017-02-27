@@ -8,6 +8,9 @@ menu {
   @media (max-width: $stop1) {
     margin-top: 10px;
   }
+  li.active a {
+    color: white;
+  }
 }
 section {
   min-height: 12rem;

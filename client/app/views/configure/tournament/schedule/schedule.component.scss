@@ -1,0 +1,8 @@
+tr.new td {
+  background: rgba(lighten(green, 50%), 0.1);
+}
+
+table[role="list"] tr td.icons {
+  width: 41px;
+  padding: 0;
+}

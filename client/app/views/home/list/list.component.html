@@ -3,21 +3,21 @@
   <small>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
 </h2>
 
-<table *ngIf="tournament && tournament.teams">
+<table *ngIf="tournament && schedule.length" role="list">
   <thead>
     <tr>
       <th>Start #</th>
-      <th>Discipline</th>
       <th>Team</th>
+      <th>Division</th>
       <th>Score</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let team of tournament.teams; let i = index;">
-      <td>{{ i }}</td>
-      <td>Noe</td>
-      <td>{{ team.name }}</td>
-      <td>0</td>
+    <tr role="listitem" *ngFor="let item of schedule">
+      <td>{{ item.startNumber }}</td>
+      <td>{{ item.team.name }} </td>
+      <td>{{ division(item.team) }}</td>
+      <td>{{ item.discipline.name }}</td>
     </tr>
   </tbody>
 </table>

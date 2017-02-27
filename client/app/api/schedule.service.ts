@@ -25,16 +25,20 @@ export class ScheduleService extends ApiService {
     return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).catch(this.handleError);
   }
 
-  save(division: ITournamentParticipant) {
-    const call = (division.id) ? this.http.put(`${this.url}/${division.id}`, division) : this.http.post(this.url, division);
+  save(participants: ITournamentParticipant) {
+    const call = (participants.id) ? this.http.put(`${this.url}/${participants.id}`, participants) : this.http.post(this.url, participants);
     return call.map((res: Response) => res.json()).catch(this.handleError);
   }
 
-  saveAll(divisions: ITournamentParticipant[]) {
-    return this.http.post(this.url, divisions).map((res: Response) => res.json()).catch(this.handleError);
+  saveAll(participants: ITournamentParticipant[]) {
+    return this.http.post(this.url, participants).map((res: Response) => res.json()).catch(this.handleError);
   }
 
-  delete(division: ITournamentParticipant) {
-    return this.http.delete(`${this.url}/${division.id}`);
+  delete(participant: ITournamentParticipant) {
+    return this.http.delete(`${this.url}/${participant.id}`);
+  }
+
+  deleteAll(participants: ITournamentParticipant[]) {
+    return this.http.delete(`${this.url}/many`, { body: participants });
   }
 }

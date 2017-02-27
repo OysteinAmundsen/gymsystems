@@ -1,14 +1,14 @@
 <menu role="menu">
   <ul>
-    <li role="menuitem">
+    <li role="menuitem" [routerLinkActive]="['active']">
       <a routerLink="./tournament">
         <app-fa name="trophy" fw="true"></app-fa> <span>Tournaments</span> </a>
     </li>
-    <li role="menuitem">
+    <li role="menuitem" [routerLinkActive]="['active']">
       <a routerLink="./display">
         <app-fa name="tv" fw="true"></app-fa> <span>Display</span></a>
     </li>
-    <li role="menuitem">
+    <li role="menuitem" [routerLinkActive]="['active']">
       <a routerLink="./advanced">
         <app-fa name="cogs" fw="true"></app-fa> <span>Advanced settings</span></a>
     </li>

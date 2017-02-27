@@ -33,8 +33,11 @@ export class ScheduleController {
     return this.repository.createQueryBuilder('tournament_participant')
       // .where('tournament_participant.tournament=:id', { id: id })
       .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
+      .leftJoinAndSelect('tournament_participant.discipline', 'discipline')
       .innerJoinAndSelect('tournament_participant.team', 'team')
+      .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('tournament_participant.scores', 'scores')
+      .orderBy('tournament_participant.startNumber', 'ASC')
       .getMany();
   }
 
@@ -44,7 +47,9 @@ export class ScheduleController {
     return this.repository.createQueryBuilder('tournament_participant')
       .where('tournament_participant.id=:id', { id: id })
       .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
+      .leftJoinAndSelect('tournament_participant.discipline', 'discipline')
       .innerJoinAndSelect('tournament_participant.team', 'team')
+      .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('tournament_participant.scores', 'scores')
       .getOne();
   }
@@ -60,8 +65,6 @@ export class ScheduleController {
       .then(persisted => res.send(persisted))
       .catch(err => {
         Logger.log.error(err);
-        res.status(400);
-        res.send(err);
       });
   }
 
@@ -72,16 +75,16 @@ export class ScheduleController {
 
   @Delete('/:id')
   remove( @EntityFromParam('id') division: TournamentParticipant, @Res() res: Response) {
-    return this.removeMany([division])
+    return this.removeMany([division], res);
+  }
+
+  @Delete('/many')
+  @EmptyResultCode(200)
+  removeMany( @Body() divisions: TournamentParticipant[], @Res() res: Response) {
+    return this.repository.remove(divisions)
       .then(result => res.send(result))
       .catch(err => {
         Logger.log.error(err);
-        res.status(400);
-        res.send(err);
       });
-  }
-
-  removeMany(divisions: TournamentParticipant[]) {
-    return this.repository.remove(divisions);
   }
 }

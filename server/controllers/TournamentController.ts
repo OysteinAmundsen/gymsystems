@@ -84,8 +84,6 @@ export class TournamentController {
       .then(persisted => res.send(persisted))
       .catch(err => {
         Logger.log.error(err);
-        res.status(400);
-        res.send(err);
       });
   }
 
@@ -110,8 +108,6 @@ export class TournamentController {
         .then(result => res.send(result))
         .catch(err => {
           Logger.log.error(err);
-          res.status(400);
-          res.send(err);
         });
     });
   }

@@ -36,6 +36,8 @@ export class TeamController {
       .where('team.tournament=:id', { id: id })
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('team.disciplines', 'discipline')
+      .orderBy('team.name', 'ASC')
+      .addOrderBy('discipline.name', 'ASC')
       .getMany();
   }
 
@@ -57,17 +59,10 @@ export class TeamController {
 
   @Post()
   createMany( @Body() teams: Team[], @Res() res: Response) {
-    console.log(`
--------------------------
-CREATE/UPDATE TEAM
--------------------------
-    `, teams);
     return this.repository.persist(teams)
       .then(persisted => res.send(persisted))
       .catch(err => {
         Logger.log.error(err);
-        res.status(400);
-        res.send(err);
       });
   }
 
@@ -77,8 +72,6 @@ CREATE/UPDATE TEAM
       .then(result => res.send(result))
       .catch(err => {
         Logger.log.error(err);
-        res.status(400);
-        res.send(err);
       });
   }
 }

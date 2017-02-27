@@ -57,8 +57,6 @@ export class DisciplineController {
       .then((persisted: Discipline[]) => res.send(persisted))
       .catch(err => {
         Logger.log.error(err);
-        res.status(400);
-        res.send(err);
       });
   }
 
@@ -73,8 +71,6 @@ export class DisciplineController {
       .then(result => res.send(result))
       .catch(err => {
         Logger.log.error(err);
-        res.status(400);
-        res.send(err);
       });
   }
 

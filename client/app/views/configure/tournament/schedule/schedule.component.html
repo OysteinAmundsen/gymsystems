@@ -5,15 +5,27 @@
       <th>Team</th>
       <th>Division</th>
       <th>Discipline</th>
+      <th class="icons"></th>
     </tr>
   </thead>
 
   <tbody>
-    <tr role="listitem" *ngFor="let item of schedule">
-      <td>{{ item.team.startNumber }}</td>
+    <tr role="listitem" *ngFor="let item of schedule" [className]="item.id ? '' : 'new'">
+      <td>{{ item.startNumber }}</td>
       <td>{{ item.team.name }}</td>
-      <td>{{ division(team) }}</td>
+      <td>{{ division(item.team) }}</td>
       <td>{{ item.discipline.name }}</td>
+      <td class="icons"><button type="button" class="warning" (click)="deleteParticipant(item)"><app-fa name="trash" fw="true"></app-fa></button>
     </tr>
   </tbody>
 </table>
+
+<button type="submit" (click)="saveSchedule()" [disabled]="!hasChanges()">
+  <app-fa name="save" fw="true"></app-fa>
+  <span>Save</span>
+</button>
+<button type="button" (click)="calculateSchedule()" *ngIf="haveMissing()">
+  <app-fa name="calculator" fw="true"></app-fa>
+  <span>Calculate schedule</span>
+</button>
+<button type="button" *ngIf="schedule.length" title="Delete" class="pull-right warning" (click)="deleteAll()"><app-fa name="trash" fw="true"></app-fa> <span>Delete</span></button>
