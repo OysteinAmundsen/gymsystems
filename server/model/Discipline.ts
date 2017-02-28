@@ -14,8 +14,11 @@ export class Discipline {
   @Column()
   name: string;
 
-  @ManyToMany(type => Team, team => team.disciplines)
-  teams: Team[] = [];
+  @Column()
+  sortOrder: number;
+
+  @ManyToMany(type => Team, team => team.disciplines, { cascadeInsert: false, cascadeUpdate: false })
+  teams: Team[];
 
   @ManyToOne(type => Tournament, tournament => tournament.disciplines, {
     nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: true, onDelete: 'CASCADE'

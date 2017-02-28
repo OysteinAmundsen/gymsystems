@@ -1,4 +1,5 @@
 <div class="row">
+
   <section class="col-6">
     <header>
       <h2>
@@ -6,8 +7,8 @@
         <span>Gender group</span>
       </h2>
     </header>
-    <table role="list">
-      <tbody *ngFor="let division of genderList">
+    <table role="list" [dragula]="'gender-bag'" [dragulaModel]="genderDivisions" class="editable">
+      <tbody *ngFor="let division of genderDivisions" class="draggable">
         <tr *ngIf="division !== selected" (click)="select(division)" role="listitem">
           <td>{{ division.name }}</td>
         </tr>
@@ -27,12 +28,12 @@
         <span>Age group</span>
       </h2>
     </header>
-    <table role="list">
-      <tbody *ngFor="let ageClass of ageClassList">
-        <tr *ngIf="ageClass !== selected" (click)="select(ageClass)" role="listitem">
-          <td>{{ ageClass.name }}</td>
+    <table role="list" [dragula]="'age-bag'" [dragulaModel]="ageDivisions" class="editable">
+      <tbody *ngFor="let division of ageDivisions" class="draggable">
+        <tr *ngIf="division !== selected" (click)="select(division)" role="listitem">
+          <td>{{ division.name }}</td>
         </tr>
-        <tr *ngIf="ageClass === selected">
+        <tr *ngIf="division === selected">
           <td colspan="1">
             <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>
           </td>
@@ -40,6 +41,7 @@
       </tbody>
     </table>
   </section>
+
 </div>
 <div *ngIf="selected && !selected.type">
   <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>

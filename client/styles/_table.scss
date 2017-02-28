@@ -16,9 +16,9 @@ table[role="list"] {
       &:hover td {
         background-color: $primaryLight;
       }
-      td {
-        padding: $padding * 3;
-      }
     }
+  }
+  td {
+    padding: $padding * 3;
   }
 }

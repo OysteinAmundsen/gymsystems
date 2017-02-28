@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from './ApiService';
 import { ITeam } from './model/ITeam';
+import { DivisionType } from './model/DivisionType';
 
 @Injectable()
 export class TeamsService extends ApiService {
@@ -32,5 +33,11 @@ export class TeamsService extends ApiService {
 
   delete(team: ITeam) {
     return this.http.delete(`${this.url}/${team.id}`);
+  }
+
+  division(team: ITeam) {
+    const ageDiv = team.divisions.find(d => d.type === DivisionType.Age);
+    const genderDiv = team.divisions.find(d => d.type === DivisionType.Gender);
+    return (genderDiv ? genderDiv.name : '') + ' ' + (ageDiv ? ageDiv.name : '');
   }
 }

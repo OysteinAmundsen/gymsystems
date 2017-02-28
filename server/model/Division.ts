@@ -18,10 +18,13 @@ export class Division {
   name: string;
 
   @Column()
+  sortOrder: number;
+
+  @Column()
   type: DivisionType;
 
   @ManyToMany(type => Team, teams => teams.divisions)
-  teams: Team[] = [];
+  teams: Team[];
 
   @ManyToOne(type => Tournament, tournament => tournament.divisions, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
   tournament: Tournament;

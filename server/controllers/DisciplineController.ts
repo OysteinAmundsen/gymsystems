@@ -33,7 +33,10 @@ export class DisciplineController {
   @Get('/tournament/:id')
   @EmptyResultCode(404)
   getByTournament( @Param('id') id: number): Promise<Discipline[]> {
-    return this.repository.find({ tournament: id });
+    return this.repository.createQueryBuilder('discipline')
+      .where('discipline.tournament=:id', { id: id })
+      .orderBy('discipline.sortOrder', 'ASC')
+      .getMany();
   }
 
   @Get('/:id')

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TournamentService, ScheduleService } from 'app/api';
+import { TournamentService, ScheduleService, TeamsService } from 'app/api';
 import { ITournament } from 'app/api/model/ITournament';
 import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
 import { ITeam } from 'app/api/model/ITeam';
@@ -20,6 +20,7 @@ export class ListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private scheduleService: ScheduleService,
+    private teamService: TeamsService,
     private tournamentService: TournamentService) { }
 
   ngOnInit() {
@@ -38,10 +39,5 @@ export class ListComponent implements OnInit, OnDestroy {
 
   }
 
-  division(team: ITeam) {
-    const ageDiv = team.divisions.find(d => d.type === DivisionType.Age);
-    const genderDiv = team.divisions.find(d => d.type === DivisionType.Gender);
-    return genderDiv.name + ' ' + ageDiv.name;
-  }
-
+  division(team: ITeam) { return this.teamService.division(team); }
 }

@@ -9,8 +9,8 @@
     </tr>
   </thead>
 
-  <tbody>
-    <tr role="listitem" *ngFor="let item of schedule" [className]="item.id ? '' : 'new'">
+  <tbody [dragula]="'schedule-bag'" [dragulaModel]="schedule">
+    <tr *ngFor="let item of schedule" class="draggable {{item.id ? '' : 'new'}}">
       <td>{{ item.startNumber }}</td>
       <td>{{ item.team.name }}</td>
       <td>{{ division(item.team) }}</td>

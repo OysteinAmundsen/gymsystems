@@ -34,11 +34,7 @@ export class TeamsComponent implements OnInit {
     this.teamService.getByTournament(this.tournamentService.selectedId).subscribe(teams => this.teamList = teams);
   }
 
-  divisions(team: ITeam) {
-    const ageDiv = team.divisions.find(d => d.type === DivisionType.Age);
-    const genderDiv = team.divisions.find(d => d.type === DivisionType.Gender);
-    return (genderDiv ? genderDiv.name : '') + ' ' + (ageDiv ? ageDiv.name : '');
-  }
+  divisions(team: ITeam) { return this.teamService.division(team); }
 
   disciplines(team: ITeam) {
     if (team.disciplines.length) {

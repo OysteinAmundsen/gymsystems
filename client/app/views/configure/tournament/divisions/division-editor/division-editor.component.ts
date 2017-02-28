@@ -26,6 +26,7 @@ export class DivisionEditorComponent implements OnInit {
       id: [this.division.id],
       name: [this.division.name, [Validators.required]],
       tournament: [this.division.tournament, [Validators.required]],
+      sortOrder: [this.division.sortOrder],
       type: [this.division.type, [Validators.required]]
     });
   }

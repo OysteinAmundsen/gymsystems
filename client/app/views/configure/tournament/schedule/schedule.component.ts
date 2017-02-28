@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DragulaService } from 'ng2-dragula';
 
 import { TournamentService, TeamsService, DisciplineService, DivisionService, ScheduleService } from 'app/api';
 import { ITeam } from 'app/api/model/ITeam';
@@ -12,19 +13,30 @@ import { DivisionType } from 'app/api/model/DivisionType';
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.scss']
 })
-export class ScheduleComponent implements OnInit {
+export class ScheduleComponent implements OnInit, OnDestroy {
   schedule: ITournamentParticipant[] = [];
   teams: ITeam[] = [];
+  dragulaSubscription;
 
   constructor(
     private divisionService: DivisionService,
     private disciplineService: DisciplineService,
     private teamService: TeamsService,
     private scheduleService: ScheduleService,
-    private tournamentService: TournamentService) { }
+    private tournamentService: TournamentService,
+    private dragulaService: DragulaService) { }
 
   ngOnInit() {
     this.loadSchedule();
+    this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
+      setTimeout(() => { // Sometimes dragula is not finished syncing model
+        this.schedule.forEach((div, idx) => div.startNumber = idx);
+      });
+    });
+  }
+
+  ngOnDestroy() {
+    this.dragulaSubscription.unsubscribe();
   }
 
   loadSchedule() {
@@ -36,20 +48,11 @@ export class ScheduleComponent implements OnInit {
   }
 
   calculateSchedule() {
-    this.schedule = this.schedule.concat(this.calculateMissing());
+    this.schedule = this.sortSchedule(this.schedule.concat(this.calculateMissing()));
   }
 
   haveMissing() {
     return this.calculateMissing().length;
-  }
-
-  // Get disciplines being competed in
-  private calculateDisciplines() {
-    let disciplines = [];
-    this.teams.forEach(team => {
-      disciplines = disciplines.concat(team.disciplines.filter(d => disciplines.findIndex(ed => ed.id === d.id) < 0));
-    });
-    return disciplines;
   }
 
   // Get divisions being competed in
@@ -63,42 +66,20 @@ export class ScheduleComponent implements OnInit {
   }
 
   calculateMissing() {
-    const disciplines = this.calculateDisciplines();
     const divisions = this.calculateDivisions();
     const schedule: ITournamentParticipant[] = [];
     const tournament = this.tournamentService.selected;
-    let startNo = 1;
-    divisions.forEach(div => {
+    divisions.forEach(div => {            // For each division...
       const teamsInDivision = this.teams.filter(t => this.division(t) === div);
-      let uniqueDisciplines = [];
-      teamsInDivision.forEach(t => uniqueDisciplines = uniqueDisciplines.concat(t.disciplines.filter(d => uniqueDisciplines.findIndex(ed => ed.id === d.id) < 0)));
-      const expectedScheduleLength = uniqueDisciplines.length + teamsInDivision.length;
-      for (let j = 0; j < expectedScheduleLength; j++) {
-        teamsInDivision.forEach(participant => {
-          disciplines.forEach(dis => {
-            // Find team competing in this discipline, which is not allready added and is not
-            // equal to the last team added - unless there's only one team competing in this division
-            const team = teamsInDivision.find(t => {
-              const hasDiscipline = t.disciplines.findIndex(d => d.id === dis.id) > -1;
-              const isAdded = schedule.findIndex(s => s.team.id === t.id && s.discipline.id === dis.id) > -1;
-              const lastTeam = teamsInDivision.length > 1 && schedule[schedule.length - 1] ? schedule[schedule.length - 1].team : null;
-              return hasDiscipline && !isAdded && (lastTeam ? t.id !== lastTeam.id : true);
-            });
-            if (team) { // One more team is found for the given criteria. Add it to the schedule
-              const participant = <ITournamentParticipant>{
-                startNumber: startNo++, // This implies sort order
-                discipline: dis,
-                team: team,
-                tournament: tournament
-              };
-              if (this.schedule.findIndex(s => this.stringHash(s) === this.stringHash(participant)) < 0) {
-                // Only push if participant is not allready registerred
-                schedule.push(participant);
-              }
-            }
-          });
+      teamsInDivision.forEach(team => {   // ...and each team in division
+        team.disciplines.forEach(dis => { // ...and each discipline, create a participant object
+          const participant = <ITournamentParticipant>{ discipline: dis, team: team, tournament: tournament };
+          if (this.schedule.findIndex(s => this.stringHash(s) === this.stringHash(participant)) < 0) {
+            // Only push if participant is not allready registerred
+            schedule.push(participant);
+          }
         });
-      }
+      });
     });
     return schedule;
   }
@@ -127,14 +108,25 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
-  division(team: ITeam) {
-    const ageDiv = team.divisions.find(d => d.type === DivisionType.Age);
-    const genderDiv = team.divisions.find(d => d.type === DivisionType.Gender);
-    return genderDiv.name + ' ' + ageDiv.name;
-  }
+  division(team: ITeam) { return this.teamService.division(team); }
 
-  sortSchedule() {
+  sortSchedule(schedule: ITournamentParticipant[]) {
+    schedule = schedule.sort((a, b) => {
+      // Sort by divisions alphabetically
+      const aDivision = this.division(a.team);
+      const bDivision = this.division(b.team);
+      if (aDivision < bDivision) { return -1; }
+      if (aDivision > bDivision) { return 1; }
 
+      // Sort by discipline
+      // if (a.discipline.sortOrder )
+      return 0;
+    });
+
+    // Set start number
+    let startNo = 0;
+    schedule.forEach(s => s.startNumber = startNo++);
+    return schedule;
   }
 
   stringHash(participant: ITournamentParticipant): string {

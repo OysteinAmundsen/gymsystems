@@ -21,7 +21,7 @@ export class Team {
   @JoinTable()
   divisions: Division[] = [];
 
-  @ManyToMany(type => Discipline, discipline => discipline.teams)
+  @ManyToMany(type => Discipline, discipline => discipline.teams, { cascadeInsert: false, cascadeUpdate: false })
   @JoinTable()
   disciplines: Discipline[] = [];
 

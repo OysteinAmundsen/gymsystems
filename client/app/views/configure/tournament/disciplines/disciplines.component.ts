@@ -1,5 +1,6 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DragulaService } from 'ng2-dragula';
 
 import { TournamentService, DisciplineService, ScoreService, ConfigurationService } from 'app/api';
 import { IScoreGroup } from 'app/api/model/IScoreGroup';
@@ -10,7 +11,7 @@ import { IDiscipline } from 'app/api/model/IDiscipline';
   templateUrl: './disciplines.component.html',
   styleUrls: ['./disciplines.component.scss']
 })
-export class DisciplinesComponent implements OnInit {
+export class DisciplinesComponent implements OnInit, OnDestroy {
   get tournament() { return this.tournamentService.selected; };
   disciplineList: IDiscipline[] = [];
   defaultScoreGroups: IScoreGroup[];
@@ -21,13 +22,16 @@ export class DisciplinesComponent implements OnInit {
   set selected(discipline: IDiscipline) { this._selected = discipline; }
   get canAddDefaults() { return this.findMissingDefaults().length; }
 
+  dragulaSubscription;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private tournamentService: TournamentService,
     private disciplineService: DisciplineService,
     private scoreService: ScoreService,
-    private configService: ConfigurationService) { }
+    private configService: ConfigurationService,
+    private dragulaService: DragulaService) { }
 
   ngOnInit() {
     this.configService.getByname('defaultValues').subscribe(config => {
@@ -35,6 +39,17 @@ export class DisciplinesComponent implements OnInit {
       this.defaultScoreGroups = config.value.scoreGroup;
     });
     this.loadDisciplines();
+
+    this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
+      setTimeout(() => { // Sometimes dragula is not finished syncing model
+        this.disciplineList.forEach((div, idx) => div.sortOrder = idx);
+        this.disciplineService.saveAll(this.disciplineList).subscribe(() => this.loadDisciplines());
+      });
+    });
+  }
+
+  ngOnDestroy() {
+    this.dragulaSubscription.unsubscribe();
   }
 
   loadDisciplines() {

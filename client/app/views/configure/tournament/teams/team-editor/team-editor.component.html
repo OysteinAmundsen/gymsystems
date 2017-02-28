@@ -18,20 +18,20 @@
       <fieldset>
         <div appFloatingLabel>
           <label>
-          <app-fa name="child" fw="true"></app-fa>
-          <span>Age group</span>
-        </label>
-          <select formControlName="ageDivision">
-            <option *ngFor="let division of ageDivisions" [ngValue]="division.id">{{division.name}}</option>
+            <app-fa name="venus-mars" fw="true"></app-fa>
+            <span>Gender group</span>
+          </label>
+          <select formControlName="genderDivision">
+            <option *ngFor="let division of genderDivisions" [ngValue]="division.id">{{division.name}}</option>
           </select>
         </div>
         <div appFloatingLabel>
           <label>
-          <app-fa name="venus-mars" fw="true"></app-fa>
-          <span>Gender group</span>
-        </label>
-          <select formControlName="genderDivision">
-            <option *ngFor="let division of genderDivisions" [ngValue]="division.id">{{division.name}}</option>
+            <app-fa name="child" fw="true"></app-fa>
+            <span>Age group</span>
+          </label>
+          <select formControlName="ageDivision">
+            <option *ngFor="let division of ageDivisions" [ngValue]="division.id">{{division.name}}</option>
           </select>
         </div>
       </fieldset>

@@ -3,7 +3,7 @@
   {{ tournamentForm.value.name || 'Tournament' }}
 </h1>
 
-<table role="list" *ngIf="!isEdit" title="Click to edit" (click)="isEdit = true">
+<table *ngIf="!isEdit" title="Click to edit" (click)="isEdit = true">
   <tr>
     <th>Name</th>
     <td>{{ tournament.name }}</td>
