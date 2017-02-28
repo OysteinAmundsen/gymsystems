@@ -34,6 +34,7 @@ export class ScheduleController {
       // .where('tournament_participant.tournament=:id', { id: id })
       .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
       .leftJoinAndSelect('tournament_participant.discipline', 'discipline')
+      .leftJoinAndSelect('discipline.scoreGroups', 'scoreGroups')
       .innerJoinAndSelect('tournament_participant.team', 'team')
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('tournament_participant.scores', 'scores')

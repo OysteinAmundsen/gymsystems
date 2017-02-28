@@ -46,6 +46,7 @@ export class TournamentController {
     return this.repository
       .createQueryBuilder('tournament')
       .where('endDate < :date', { date: moment().utc().toDate() })
+      .setLimit(10)
       .orderBy('startDate', 'DESC')
       .getMany();
   }
@@ -58,6 +59,7 @@ export class TournamentController {
       .createQueryBuilder('tournament')
       .where('startDate < :date', { date: now.utc().toDate() })
       .andWhere('endDate > :date', { date: now.utc().toDate() })
+      .setLimit(10)
       .orderBy('startDate', 'DESC')
       .getMany();
   }
@@ -68,6 +70,7 @@ export class TournamentController {
     return this.repository
       .createQueryBuilder('tournament')
       .where('startDate > :date', { date: moment().utc().toDate() })
+      .setLimit(10)
       .orderBy('startDate', 'DESC')
       .getMany();
   }

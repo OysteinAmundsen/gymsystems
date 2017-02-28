@@ -15,7 +15,7 @@ import { ApiService } from './ApiService';
 @Injectable()
 export class TournamentService extends ApiService {
   url: string = '/api/tournaments';
-  _selectedTournament: ITournament = <ITournament>{};
+  _selectedTournament: ITournament;
   get selected(): ITournament { return this._selectedTournament; }
   set selected(tournament: ITournament) { this._selectedTournament = tournament; }
   selectedId: number;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { ITournament } from 'app/api/model/ITournament';
   templateUrl: './tournament-editor.component.html',
   styleUrls: ['./tournament-editor.component.scss']
 })
-export class TournamentEditorComponent implements OnInit {
+export class TournamentEditorComponent implements OnInit, OnDestroy {
   @Input() tournament: ITournament = <ITournament>{};
   tournamentForm: FormGroup;
   isEdit: boolean = false;
@@ -46,6 +46,11 @@ export class TournamentEditorComponent implements OnInit {
       // disciplines: [this.tournament.disciplines],
       // divisions: [this.tournament.divisions],
     });
+  }
+
+  ngOnDestroy() {
+    this.tournamentService.selectedId = null;
+    this.tournamentService.selected = null;
   }
 
   save() {

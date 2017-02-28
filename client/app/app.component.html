@@ -10,12 +10,12 @@
     </header>
     <app-fa name="bars" fw="true" size="2" (click)="toggleNav($event)"></app-fa>
     <ul class="pull-right" [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
-      <li [routerLinkActive]="['active']">
-        <a routerLink="/add-score">
+      <li [routerLinkActive]="['active']" *ngIf="hasTournament()">
+        <a [routerLink]="['/add-score', tournament.id]">
           <app-fa name="star" fw="true"></app-fa> Add Score </a>
       </li>
-      <li [routerLinkActive]="['active']">
-        <a routerLink="/display">
+      <li [routerLinkActive]="['active']" *ngIf="hasTournament()">
+        <a [routerLink]="['/display', tournament.id]">
           <app-fa name="tv" fw="true"></app-fa> Display </a>
       </li>
       <li [routerLinkActive]="['active']">

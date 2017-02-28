@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ScoreService } from 'app/api';
 import { IScoreGroup } from 'app/api/model/IScoreGroup';
 import { Operation } from 'app/api/model/Operation';
+import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
 import { ITournamentParticipantScore } from 'app/api/model/ITournamentParticipantScore';
 
 import { ScoreGroupComponent } from '../score-group/score-group.component';
@@ -20,13 +21,13 @@ export class ScoreboardComponent implements OnInit {
   grandTotal: number = 0;
   scoreForm: FormGroup;
 
-  @Input() scoreGroups: IScoreGroup[];
+  @Input() participant: ITournamentParticipant;
   @ViewChildren(ScoreGroupComponent) groups: ScoreGroupComponent[];
 
   constructor(private scoreService: ScoreService, private element: ElementRef, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.scoreForm = this.toFormGroup(this.scoreGroups);
+    this.scoreForm = this.toFormGroup(this.participant.discipline.scoreGroups);
     this.scoreForm.valueChanges.subscribe((value: any) => {
       setTimeout(() => {
         this.grandTotal = 0;

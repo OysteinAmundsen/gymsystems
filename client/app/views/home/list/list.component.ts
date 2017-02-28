@@ -27,7 +27,11 @@ export class ListComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params: any) => {
       const tournamentId = +params.id;
       if (!isNaN(tournamentId)) {
-        this.tournamentService.getById(tournamentId).subscribe((tournament: ITournament) => this.tournament = <ITournament>tournament);
+        this.tournamentService.selectedId = tournamentId;
+        this.tournamentService.getById(tournamentId).subscribe((tournament) => {
+          this.tournamentService.selected = tournament;
+          this.tournament = tournament;
+        });
         this.scheduleService.getByTournament(tournamentId).subscribe((schedule: ITournamentParticipant[]) => this.schedule = schedule);
       } else {
         //this.router.navigate(['']);
@@ -36,7 +40,8 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
+    this.tournamentService.selectedId = null;
+    this.tournamentService.selected = null;
   }
 
   division(team: ITeam) { return this.teamService.division(team); }

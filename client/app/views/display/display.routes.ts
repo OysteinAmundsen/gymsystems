@@ -5,8 +5,8 @@ import { FullscreenComponent } from './fullscreen/fullscreen.component';
 export const DisplayRoutes: Route[] = [
   {
     path: 'display', children: [
-      { path: '', component: DisplayComponent, pathMatch: 'full' },
-      { path: ':displayId', component: FullscreenComponent }
+      { path: ':id', component: DisplayComponent, pathMatch: 'full' },
+      { path: ':id/:displayId', component: FullscreenComponent }
     ]
   },
 ];

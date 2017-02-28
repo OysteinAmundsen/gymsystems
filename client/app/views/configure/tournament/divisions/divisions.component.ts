@@ -17,11 +17,9 @@ export class DivisionsComponent implements OnInit, OnDestroy {
   ageDivisions: IDivision[] = [];
   genderDivisions: IDivision[] = [];
   defaultDivisions: IDivision[];
-  get tournament() { return this.tournamentService.selected; };
+  selected: IDivision;
 
-  _selected: IDivision;
-  get selected() { return this._selected; }
-  set selected(division: IDivision) { this._selected = division; }
+  get tournament() { return this.tournamentService.selected; };
   get canAddDefaults() { return this.findMissingDefaults().length; }
 
   dragulaSubscription;
