@@ -16,6 +16,7 @@
         </h2>
       </header>
       <fieldset>
+
         <div appFloatingLabel>
           <label>
             <app-fa name="venus-mars" fw="true"></app-fa>
@@ -25,6 +26,7 @@
             <option *ngFor="let division of genderDivisions" [ngValue]="division.id">{{division.name}}</option>
           </select>
         </div>
+
         <div appFloatingLabel>
           <label>
             <app-fa name="child" fw="true"></app-fa>
@@ -34,8 +36,10 @@
             <option *ngFor="let division of ageDivisions" [ngValue]="division.id">{{division.name}}</option>
           </select>
         </div>
+
       </fieldset>
     </div>
+
     <div class="col-6">
       <header>
         <h2>
@@ -44,6 +48,9 @@
         </h2>
       </header>
       <table role="list">
+        <tr role="listitem">
+          <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()"> All</label></td>
+        </tr>
         <tbody *ngFor="let discipline of disciplines">
           <tr role="listitem">
             <td>
@@ -56,6 +63,7 @@
         </tbody>
       </table>
     </div>
+
   </div>
   <footer>
     <button type="submit" title="Save" [disabled]="teamForm.invalid"><app-fa name="save" fw="true"></app-fa> <span>Save</span></button>

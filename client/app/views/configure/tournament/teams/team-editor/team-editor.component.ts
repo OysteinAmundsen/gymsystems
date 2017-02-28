@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { TournamentService, TeamsService, DisciplineService, DivisionService } from 'app/api';
@@ -12,7 +12,7 @@ import { ITeam } from 'app/api/model/ITeam';
   templateUrl: './team-editor.component.html',
   styleUrls: ['./team-editor.component.scss']
 })
-export class TeamEditorComponent implements OnInit, AfterViewInit {
+export class TeamEditorComponent implements OnInit {
   @Input() team: ITeam = <ITeam>{};
   @Output() teamChanged: EventEmitter<any> = new EventEmitter<any>();
   @ViewChildren('selectedDisciplines') selectedDisciplines;
@@ -21,6 +21,14 @@ export class TeamEditorComponent implements OnInit, AfterViewInit {
   divisions: IDivision[] = [];
   get ageDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Age); }
   get genderDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Gender); }
+  get allChecked() {
+    if (this.selectedDisciplines && this.selectedDisciplines.length) {
+      const team = this.teamForm.value;
+      const checked = this.selectedDisciplines.filter((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked);
+      return checked.length === this.selectedDisciplines.length;
+    }
+    return false;
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -59,8 +67,6 @@ export class TeamEditorComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() { }
-
   save() {
     const team = this.teamForm.value;
 
@@ -93,6 +99,11 @@ export class TeamEditorComponent implements OnInit, AfterViewInit {
 
   close() {
     this.teamChanged.emit(this.team);
+  }
+
+  toggleChecked() {
+    const state = this.allChecked;
+    this.selectedDisciplines.forEach((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked = !state);
   }
 
   @HostListener('window:keyup', ['$event'])
