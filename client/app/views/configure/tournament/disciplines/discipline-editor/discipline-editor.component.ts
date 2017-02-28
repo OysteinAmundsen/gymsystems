@@ -28,7 +28,7 @@ export class DisciplineEditorComponent implements OnInit {
       id: [this.discipline.id],
       name: [this.discipline.name, [Validators.required]],
       teams: [this.discipline.teams],
-      tournament: [this.discipline.tournament, [Validators.required]],
+      tournament: [this.discipline.tournament],
       //scoreGroups: [this.discipline.scoreGroups]
     });
   }
