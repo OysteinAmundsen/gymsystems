@@ -44,42 +44,48 @@ export class TournamentController {
   @Get('/past')
   @EmptyResultCode(200)
   past(): Promise<Tournament[]> {
+    const date = moment().utc().startOf('week').toDate();
     return this.repository
       .createQueryBuilder('tournament')
-      .where('endDate < :date', { date: moment().utc().toDate() })
+      .where('tournament.endDate < :date', { date: date })
+      .orderBy('tournament.startDate', 'DESC')
       .setLimit(10)
-      .orderBy('startDate', 'DESC')
       .getMany();
   }
 
   @Get('/current')
   @EmptyResultCode(200)
   current(): Promise<Tournament[]> {
-    let now = moment();
+    const start = moment().utc().startOf('week').toDate();
+    const end = moment().utc().endOf('week').toDate();
     return this.repository
       .createQueryBuilder('tournament')
-      .where('startDate < :date', { date: now.utc().toDate() })
-      .andWhere('endDate > :date', { date: now.utc().toDate() })
-      .setLimit(10)
+      .where('tournament.startDate > :startDate', { startDate: start })
+      .andWhere('tournament.endDate < :endDate', { endDate: end })
       .orderBy('startDate', 'DESC')
+      .setLimit(10)
       .getMany();
   }
 
   @Get('/future')
   @EmptyResultCode(200)
   future(): Promise<Tournament[]> {
+    const date = moment().utc().endOf('week').toDate();
     return this.repository
       .createQueryBuilder('tournament')
-      .where('startDate > :date', { date: moment().utc().toDate() })
+      .where('tournament.startDate > :date', { date: date })
+      .orderBy('tournament.startDate', 'DESC')
       .setLimit(10)
-      .orderBy('startDate', 'DESC')
       .getMany();
   }
 
   @Get('/:id')
   @EmptyResultCode(404)
-  get( @EntityFromParam('id') tournament: Tournament): Tournament {
-    return tournament;
+  get( @Param('id') id: number): Promise<Tournament> {
+    if (!isNaN(id)) {
+      return this.repository.findOne({ id: id });
+    }
+    return null;
   }
 
   @Post()
