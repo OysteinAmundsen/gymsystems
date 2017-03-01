@@ -19,23 +19,24 @@ export class ScoreComponent implements OnInit {
 
   @Input() model: ITournamentParticipantScore; // JSON
   @Input() form: FormGroup;
+  @Input() index: number;
 
   constructor(private element: ElementRef) { }
 
   ngOnInit() {
-    let me = this;
-    me.ct = me.form.controls['field_' + me.model.group.name];
-
-    me.ct.valueChanges.subscribe(function (value) {
-      // Force value to be within range
-      if (value == null || value < me.model.group.min) {
-        me.score = me.model.group.min;
-        me.input.nativeElement.select();
-      }
-      else if (value > me.model.group.max) {
-        me.score = me.model.group.max;
-      }
-    });
+    this.ct = this.form.controls[`field_${this.model.group.type}_${this.index}`];
+    if (this.ct) {
+      this.ct.valueChanges.subscribe(value => {
+        // Force value to be within range
+        if (value == null || value < this.model.group.min) {
+          this.score = this.model.group.min;
+          this.input.nativeElement.select();
+        }
+        else if (value > this.model.group.max) {
+          this.score = this.model.group.max;
+        }
+      });
+    }
   }
 
   /**

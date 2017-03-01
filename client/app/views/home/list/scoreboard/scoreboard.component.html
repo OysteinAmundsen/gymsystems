@@ -1,13 +1,13 @@
 <form class="panel" [formGroup]="scoreForm" (ngSubmit)="onSubmit(scoreForm.values)">
   <div role="table">
     <div role="row">
-      <app-score-group *ngFor="let group of participant.discipline.scoreGroups" [model]="group" [form]="scoreForm" class="x{{ group.scores ? group.scores.length : '0' }} group_{{ group.type }}"></app-score-group>
+      <app-score-group *ngFor="let group of groupedScores" [model]="group" [form]="scoreForm" class="x{{ group.scores ? group.scores.length : '0' }} group_{{ group.type }}"></app-score-group>
 
       <section>
         <header>Final score</header>
-        <div *ngFor="let type of scoreGroups" (click)="selectGroup(type)">
-          <label class="large">{{ type.type }} : </label>
-          <label class="small">{{ type.header }} <small>[{{ type.type }}]</small>: </label>
+        <div *ngFor="let type of groupedScores" (click)="selectGroup(type)">
+          <label class="large">{{ type.group.type }} : </label>
+          <label class="small">{{ type.group.name }} <small>[{{ type.group.type }}]</small>: </label>
           <code>{{ type.avg || 0 | number:'1.2-2' }}&nbsp;</code>
         </div>
         <footer>

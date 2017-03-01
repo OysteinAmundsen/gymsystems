@@ -24,7 +24,7 @@
       <td>{{ item.discipline.name }}</td>
     </tr>
     <tr *ngIf="selected === item">
-      <td colspan="4">
+      <td colspan="4" class="editor">
         <scoreboard [participant]="item"></scoreboard>
       </td>
     </tr>

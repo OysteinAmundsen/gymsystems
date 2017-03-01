@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren } from
 import { FormGroup } from '@angular/forms';
 
 import { ScoreComponent } from '../score/score.component';
-import { IScoreGroup } from 'app/api/model/IScoreGroup';
+import { IScoreContainer } from '../IScoreContainer';
 import { ITournamentParticipantScore } from 'app/api/model/ITournamentParticipantScore';
 
 @Component({
@@ -11,7 +11,7 @@ import { ITournamentParticipantScore } from 'app/api/model/ITournamentParticipan
   styleUrls: ['./score-group.component.scss']
 })
 export class ScoreGroupComponent implements OnInit, AfterViewInit {
-  @Input() model: IScoreGroup;
+  @Input() model: IScoreContainer;
   @Input() form: FormGroup;
   @ViewChildren(ScoreComponent) scores: QueryList<ScoreComponent>;
 
@@ -29,7 +29,7 @@ export class ScoreGroupComponent implements OnInit, AfterViewInit {
         this.total = 0;
 
         Object.keys(value).forEach((key: string) => {
-          if (key.substr('field_'.length, 1) === this.model.type.substr(0, 1)) {
+          if (key.substr('field_'.length, 1) === this.model.group.type.substr(0, 1)) {
             this.total += value[key];
             count++;
           }

@@ -10,15 +10,13 @@ import { ITournament } from 'app/api/model/ITournament';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  upcoming: ITournament[] = [];
-  past: ITournament[] = [];
-  current: ITournament[] = [];
+  types = [];
   isLoading: boolean = true;
 
   constructor(private router: Router, private tournamentService: TournamentService) {
-    tournamentService.past().subscribe(tournaments => this.past = tournaments);
-    tournamentService.current().subscribe(tournaments => this.current = tournaments);
-    tournamentService.upcoming().subscribe(tournaments => this.upcoming = tournaments);
+    tournamentService.past().subscribe(tournaments => this.types.push({ name: 'Past', tournaments: tournaments }));
+    tournamentService.current().subscribe(tournaments => this.types.push({ name: 'Current', tournaments: tournaments }));
+    tournamentService.upcoming().subscribe(tournaments => this.types.push({ name: 'Future', tournaments: tournaments }));
   }
 
   ngOnInit() { }

@@ -1,56 +1,27 @@
-<section *ngIf="current.length">
-  <h1>Current tournaments</h1>
-
-  <div *ngFor="let tournament of current">
-    <a [routerLink]="['/list/', tournament.id]">{{ tournament.name }}</a>
-  </div>
+<section *ngFor="let type of types;">
+  <app-panel *ngIf="type.tournaments && type.tournaments.length">
+    <div class="head">
+      <span>{{ type.name }} tournaments</span>
+    </div>
+    <table class="table-hover" role="list" class="editable">
+      <thead>
+        <tr>
+          <th>Tournament</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tournament of type.tournaments" role="menuitem" [routerLink]="['/list/', tournament.id]" role="listitem">
+          <td>{{ tournament.name }}</td>
+          <td>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </app-panel>
 </section>
-
-
-<app-panel *ngIf="upcoming.length">
-  <div class="head">
-    <span>Upcoming tournaments</span>
-  </div>
-  <table class="table-hover" role="list" class="editable">
-    <thead>
-      <tr>
-        <th>Tournament</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let tournament of upcoming" role="menuitem" [routerLink]="['/list/', tournament.id]" role="listitem">
-        <td>{{ tournament.name }}</td>
-        <td>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</td>
-      </tr>
-    </tbody>
-  </table>
-</app-panel>
-
-
-<app-panel *ngIf="past.length">
-  <div class="head">
-    <span>Previous tournaments</span>
-  </div>
-  <table class="table-hover" role="list" class="editable">
-    <thead>
-      <tr>
-        <th>Tournament</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let tournament of past" role="menuitem" [routerLink]="['/list/', tournament.id]" role="listitem">
-        <td>{{ tournament.name }}</td>
-        <td>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</td>
-      </tr>
-    </tbody>
-  </table>
-</app-panel>
-
-
+<!--
 <div *ngIf="!current.length && !past.length && !upcoming.length && !isLoading">
   <h1>We're sorry. :-(</h1>
   <p>There are no tournaments registered in our system yet.</p>
   <p>You could try and come back later to see if we've gotten around to registering some.</p>
-</div>
+</div>-->
