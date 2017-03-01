@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TournamentService } from 'app/api/tournament.service';
@@ -9,7 +9,7 @@ import { ITournament } from 'app/api/model/ITournament';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   upcoming: ITournament[] = [];
   past: ITournament[] = [];
   current: ITournament[] = [];
@@ -22,4 +22,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    this.tournamentService.selectedId = null;
+    this.tournamentService.selected = null;
+  }
 }

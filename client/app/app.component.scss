@@ -7,6 +7,15 @@
     flex-flow: column nowrap;
     justify-content: flex-start;
   }
+  @media (max-width: $stop1) {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateX(0);
+    transition: 300ms ease all;
+    backface-visibility: hidden;
+    display: table;
+  }
 }
 
 svg {

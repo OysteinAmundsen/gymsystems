@@ -7,7 +7,14 @@ import { SharedModule } from 'app/shared/shared.module';
 import { HomeRoutes } from './home.routes';
 import { HomeComponent } from './home.component';
 import { LoginComponent } from './login/login.component';
+
 import { ListComponent } from './list/list.component';
+import { ScoreGroupComponent } from './list/score-group/score-group.component';
+import { ScoreComponent } from './list/score/score.component';
+import { ScoreboardComponent } from './list/scoreboard/scoreboard.component';
+
+import { DisplayComponent } from './display/display.component';
+import { FullscreenComponent } from './display/fullscreen/fullscreen.component';
 
 @NgModule({
   imports: [
@@ -20,7 +27,13 @@ import { ListComponent } from './list/list.component';
   declarations: [
     HomeComponent,
     LoginComponent,
-    ListComponent
+    ListComponent,
+    ScoreGroupComponent,
+    ScoreComponent,
+    ScoreboardComponent,
+
+    DisplayComponent,
+    FullscreenComponent
   ]
 })
 export class HomeModule { }

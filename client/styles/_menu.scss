@@ -1,0 +1,118 @@
+@import "variables";
+@import "buttons";
+
+// Side menus
+menu[role="menu"] {
+  position: relative;
+  z-index: 5;
+  border: 1px solid $primaryDark;
+  border-radius: $rounded;
+  padding: 1px;
+  width: 12rem;
+  float: left;
+  background: $primary;
+  box-shadow: 0 0 100px $primaryDark inset;
+  li {
+    width: 100%;
+  }
+  a {
+    &:hover {
+      background: $primaryDark;
+    }
+    &.router-link-active {
+      color: white;
+      background: $primaryDark;
+      box-shadow: 0 12px 14px -4px rgba(black, 0.3) inset;
+    }
+  }
+  a {
+    color: rgba(white, 0.8);
+  }
+  @media (max-width: $stop1) {
+    width: 100%;
+    float: none;
+    background: none;
+    border: 0;
+    display: table;
+    box-shadow: none;
+    ul {
+      display: table-row;
+    }
+    li {
+      width: auto;
+      display: table-cell;
+      @include btn();
+      background: $primary;
+    }
+    a {
+      display: inline-table;
+      height: 100%;
+      width: 100%;
+      &:hover {
+        background: transparent;
+      }
+    }
+    app-fa, span {
+      display: block;
+      text-align: center;
+    }
+  }
+  @media (max-width: $stop2) {
+    span {
+      display: none;
+    }
+  }
+}
+menu[role="tablist"] {
+  ul {
+    position: relative;
+    display: flex;
+  }
+  li {
+    margin: 0 10px;
+    min-width: 0;
+    padding: 0 5px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 35px;
+    height: 48px;
+    border-radius: 2px;
+    transition: background .4s cubic-bezier(.25,.8,.25,1);
+    &:hover {
+      background: $primaryLight;
+    }
+    &.active {
+      border-bottom: 2px solid $primary;
+    }
+  }
+  a {
+    color: $text-color;
+    @media (max-width: $stop2) {
+      span { display: none; }
+    }
+  }
+}
+menu {
+  padding: 0;
+  display: flex;
+  overflow: hidden;
+  z-index: 1;
+  flex-grow: 1;
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  li {
+    float: left;
+  }
+  a {
+    text-decoration: none;
+    padding: 0.5rem;
+    display: block;
+  }
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}

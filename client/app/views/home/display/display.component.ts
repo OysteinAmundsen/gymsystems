@@ -1,21 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { TournamentService, ScheduleService, TeamsService } from 'app/api';
+
 import { ITournament } from 'app/api/model/ITournament';
 import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
-import { ITeam } from 'app/api/model/ITeam';
-import { DivisionType } from 'app/api/model/DivisionType';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: 'app-display',
+  templateUrl: './display.component.html',
+  styleUrls: ['./display.component.scss']
 })
-export class ListComponent implements OnInit {
+export class DisplayComponent implements OnInit {
   tournament: ITournament;
   schedule: ITournamentParticipant[] = [];
-  selected: ITournamentParticipant;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,9 +23,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     if (this.tournamentService.selected) {
-      const tournamentId = this.tournamentService.selectedId;
       this.tournament = this.tournamentService.selected;
-      this.scheduleService.getByTournament(tournamentId).subscribe((schedule) => this.schedule = schedule);
     } else {
       this.route.params.subscribe((params: any) => {
         const tournamentId = +params.id;
@@ -42,11 +37,5 @@ export class ListComponent implements OnInit {
         }
       });
     }
-  }
-
-  division(team: ITeam) { return this.teamService.division(team); }
-
-  select(participant: ITournamentParticipant) {
-    this.selected = participant;
   }
 }

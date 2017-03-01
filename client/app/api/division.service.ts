@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/share';
 
 import { ApiService } from './ApiService';
 import { IDivision } from './model/IDivision';
@@ -22,7 +25,7 @@ export class DivisionService extends ApiService {
   }
 
   getById(id: number): Observable<IDivision> {
-    return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).catch(this.handleError);
+    return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share().catch(this.handleError);
   }
 
   save(division: IDivision) {

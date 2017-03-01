@@ -36,7 +36,8 @@ export class TeamController {
       .where('team.tournament=:id', { id: id })
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('team.disciplines', 'discipline')
-      .orderBy('team.name', 'ASC')
+      .orderBy('division.sortOrder', 'ASC')
+      .addOrderBy('team.name', 'ASC')
       .addOrderBy('discipline.name', 'ASC')
       .getMany();
   }

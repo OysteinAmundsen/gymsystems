@@ -1,3 +1,12 @@
+<h2 *ngIf="tournament">
+  <span>{{ tournament.name }}</span>
+  <small>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
+</h2>
+<button type="button" class="pull-right primary raised" *ngIf="tournament" [routerLink]="['/list', tournament.id]">
+  <app-fa name="list" fw="true"></app-fa>
+  <span>List</span>
+</button>
+
 <div role="table">
   <div role="row">
     <section [routerLink]="['./1']">

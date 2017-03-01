@@ -2,6 +2,10 @@
   <span>{{ tournament.name }}</span>
   <small>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
 </h2>
+<button type="button" class="pull-right primary raised" *ngIf="tournament" [routerLink]="['/display', tournament.id]">
+  <app-fa name="tv" fw="true"></app-fa>
+  <span>Display </span>
+</button>
 
 <table *ngIf="tournament && schedule.length" role="list">
   <thead>
@@ -12,12 +16,17 @@
       <th>Score</th>
     </tr>
   </thead>
-  <tbody>
-    <tr *ngFor="let item of schedule">
+  <tbody *ngFor="let item of schedule">
+    <tr *ngIf="selected !== item" (click)="select(item)" role="listitem">
       <td>{{ item.startNumber }}</td>
       <td>{{ item.team.name }} </td>
       <td>{{ division(item.team) }}</td>
       <td>{{ item.discipline.name }}</td>
+    </tr>
+    <tr *ngIf="selected === item">
+      <td colspan="4">
+        <scoreboard [participant]="item"></scoreboard>
+      </td>
     </tr>
   </tbody>
 </table>

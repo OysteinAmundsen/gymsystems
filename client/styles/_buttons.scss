@@ -29,7 +29,7 @@
 }
 button {
   @include btn();
-  &[type="submit"] {
+  &[type="submit"], &.primary {
     color: white;
     background: $primary;
     &[disabled] {

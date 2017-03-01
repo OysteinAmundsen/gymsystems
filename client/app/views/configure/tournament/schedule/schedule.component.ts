@@ -17,6 +17,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   schedule: ITournamentParticipant[] = [];
   teams: ITeam[] = [];
   dragulaSubscription;
+  isDirty = false;
 
   constructor(
     private divisionService: DivisionService,
@@ -31,6 +32,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
       setTimeout(() => { // Sometimes dragula is not finished syncing model
         this.schedule.forEach((div, idx) => div.startNumber = idx);
+        this.isDirty = true;
       });
     });
   }
@@ -86,6 +88,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   saveSchedule() {
     this.scheduleService.saveAll(this.schedule).subscribe(result => {
+      this.isDirty = false;
       this.loadSchedule();
     });
   }
@@ -134,6 +137,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   hasChanges() {
-    return this.schedule.some(s => !s.id);
+    return this.schedule.some(s => !s.id) || this.isDirty;
   }
 }

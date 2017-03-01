@@ -4,13 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
-import 'rxjs/add/observable/throw';
 
 import * as moment from 'moment';
 import Moment = moment.Moment;
 
-import { ITournament } from './model/ITournament';
 import { ApiService } from './ApiService';
+import { ITournament } from './model/ITournament';
 
 @Injectable()
 export class TournamentService extends ApiService {
@@ -28,16 +27,16 @@ export class TournamentService extends ApiService {
     return this.http.get(this.url).map((res: Response) => this.mapDates(res.json())).share().catch(this.handleError);
   }
   past(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/past`).map((res: Response) => this.mapDates(res.json())).catch(this.handleError);
+    return this.http.get(`${this.url}/past`).map((res: Response) => this.mapDates(res.json())).share().catch(this.handleError);
   }
   current(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/current`).map((res: Response) => this.mapDates(res.json())).catch(this.handleError);
+    return this.http.get(`${this.url}/current`).map((res: Response) => this.mapDates(res.json())).share().catch(this.handleError);
   }
   upcoming(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/future`).map((res: Response) => this.mapDates(res.json())).catch(this.handleError);
+    return this.http.get(`${this.url}/future`).map((res: Response) => this.mapDates(res.json())).share().catch(this.handleError);
   }
   getById(id: number): Observable<ITournament> {
-    return this.http.get(`${this.url}/${id}`).map((res: Response) => this.mapDate(res.json())).catch(this.handleError);
+    return this.http.get(`${this.url}/${id}`).map((res: Response) => this.mapDate(res.json())).share().catch(this.handleError);
   }
 
   save(tournament: ITournament) {
