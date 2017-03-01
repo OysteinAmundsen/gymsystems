@@ -31,7 +31,7 @@ export class ScheduleController {
   @EmptyResultCode(404)
   getByTournament( @Param('id') id: number): Promise<TournamentParticipant[]> {
     return this.repository.createQueryBuilder('tournament_participant')
-      // .where('tournament_participant.tournament=:id', { id: id })
+      .where('tournament_participant.tournament=:id', { id: id })
       .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
       .leftJoinAndSelect('tournament_participant.discipline', 'discipline')
       .leftJoinAndSelect('discipline.scoreGroups', 'scoreGroups')

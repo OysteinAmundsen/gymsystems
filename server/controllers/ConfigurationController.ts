@@ -13,7 +13,7 @@ import { Configuration } from '../model/Configuration';
  *
  */
 @JsonController('/configuration')
-export class DisciplineController {
+export class ConfigurationController {
   private repository: Repository<Configuration>;
 
   constructor() {
@@ -27,8 +27,8 @@ export class DisciplineController {
 
   @Get('/:id')
   @EmptyResultCode(404)
-  get( @EntityFromParam('id') configuration: Configuration): Configuration {
-    return configuration;
+  get( @Param('id') id: string): Promise<Configuration> {
+    return this.repository.findOne({ name: id });
   }
 
   @Post()

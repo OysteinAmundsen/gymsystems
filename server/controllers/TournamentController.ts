@@ -12,6 +12,7 @@ import moment = require('moment');
 
 import { DisciplineController } from './DisciplineController';
 import { DivisionController } from './DivisionController';
+import { ConfigurationController } from './ConfigurationController';
 
 import { Tournament } from '../model/Tournament';
 import { Division } from '../model/Division';
@@ -83,11 +84,26 @@ export class TournamentController {
 
   @Post()
   create( @EntityFromBody() tournament: Tournament, @Res() res: Response) {
+    const configRepository = Container.get(ConfigurationController);
+
+    // Persist tournament
     return this.repository.persist(tournament)
-      .then(persisted => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-      });
+      .then(persisted => {
+        // Create default values
+        return configRepository.get('defaultValues').then(values => {
+          const defaultValues = values.value;
+          persisted.divisions = defaultValues.division;
+          persisted.disciplines = defaultValues.discipline.map((d: Discipline) => {
+            d.scoreGroups = defaultValues.scoreGroup;
+            return d;
+          });
+
+          // Update with defaults
+          return this.repository.persist(persisted)
+            .catch(err => Logger.log.error(err));
+        });
+      })
+      .catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')

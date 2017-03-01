@@ -28,10 +28,10 @@ export class Tournament {
   @OneToMany(type => TournamentParticipant, schedule => schedule.tournament)
   schedule: TournamentParticipant[];
 
-  @OneToMany(type => Discipline, disciplines => disciplines.tournament)
+  @OneToMany(type => Discipline, disciplines => disciplines.tournament, { cascadeInsert: true })
   disciplines: Discipline[];
 
-  @OneToMany(type => Division, divisions => divisions.tournament)
+  @OneToMany(type => Division, divisions => divisions.tournament, { cascadeInsert: true })
   divisions: Division[];
 
   @OneToMany(type => Team, team => team.tournament)

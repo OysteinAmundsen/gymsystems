@@ -17,8 +17,8 @@ export class Division {
   @Column()
   name: string;
 
-  @Column()
-  sortOrder: number;
+  @Column({ default: 0 })
+  sortOrder?: number;
 
   @Column()
   type: DivisionType;

@@ -14,8 +14,8 @@ export class Discipline {
   @Column()
   name: string;
 
-  @Column()
-  sortOrder: number;
+  @Column({ default: 0 })
+  sortOrder?: number;
 
   @ManyToMany(type => Team, team => team.disciplines, { cascadeInsert: false, cascadeUpdate: false })
   teams: Team[];
