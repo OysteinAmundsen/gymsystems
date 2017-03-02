@@ -12,6 +12,7 @@
     },
     "logging": {
       "logQueries": false,
+      "logOnlyFailedQueries": true,
       "logFailedQueryError": true
     },
     "entities": [

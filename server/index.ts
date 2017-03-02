@@ -70,8 +70,11 @@ ${chalk.green('**********************')}
   }
 
   start(): Promise<any> {
-    // Configure database
-    return createConnection().then(async connection => this.setup());
+    // Read typeorm config
+    const config: any = JSON.parse(fs.readFileSync(path.join('.', 'ormconfig.json'), 'utf8'));
+    Logger.log.debug(config[0]);
+    config[0].logging.logger = this.log;
+    return createConnection(config[0]).then(async connection => this.setup());
   }
 
   /**
@@ -171,6 +174,10 @@ ${chalk.green('**********************')}
   public $onServerInitError(error: any) {
     // handle specific listen errors with friendly messages if configured. Default to the stack-trace.
     Logger.log.error((ERROR_MESSAGES[error.code] ? ERROR_MESSAGES[error.code] : error));
+  }
+
+  log(level: string, message: string) {
+    Logger.log.info(`${level} - ${message}`);
   }
 }
 
