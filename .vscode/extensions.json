@@ -4,7 +4,6 @@
   "recommendations": [
     // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
     "msjsdiag.debugger-for-chrome",
-    "joelday.docthis",
     "PeterJausovec.vscode-docker",
     "EditorConfig.EditorConfig",
     "vector-of-bool.gitflow"

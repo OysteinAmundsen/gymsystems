@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { ScoreService, ConfigurationService } from 'app/api';
+import { ScoreGroupService, ConfigurationService } from 'app/api';
 import { IDiscipline } from 'app/api/model/IDiscipline';
 import { IScoreGroup } from 'app/api/model/IScoreGroup';
 import { Operation } from 'app/api/model/Operation';
@@ -25,7 +25,7 @@ export class ScoreSystemComponent implements OnInit {
   }
   get canAddDefaults() { return this.findMissingDefaults().length; }
 
-  constructor(private router: Router, private route: ActivatedRoute, private scoreService: ScoreService, private configService: ConfigurationService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private scoreService: ScoreGroupService, private configService: ConfigurationService) { }
 
   ngOnInit() {
     this.configService.getByname('defaultValues').subscribe(config => {

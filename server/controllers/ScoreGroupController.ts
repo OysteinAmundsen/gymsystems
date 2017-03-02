@@ -47,10 +47,7 @@ export class ScoreGroupController {
   @Post()
   createMany( @Body() scoreGroups: ScoreGroup[], @Res() res: Response) {
     return this.repository.persist(scoreGroups)
-      .then(persisted => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-      });
+      .catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')
@@ -61,10 +58,7 @@ export class ScoreGroupController {
   @Delete('/:id')
   remove( @EntityFromParam('id') scoreGroup: ScoreGroup, @Res() res: Response) {
     return this.removeMany([scoreGroup])
-      .then(result => res.send(result))
-      .catch(err => {
-        Logger.log.error(err);
-      });
+      .catch(err => Logger.log.error(err));
   }
 
   removeMany(scoreGroups: ScoreGroup[]) {

@@ -1,5 +1,5 @@
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { Component, ElementRef, ViewChild, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 
 import { ITournamentParticipantScore } from 'app/api/model/ITournamentParticipantScore';
 
@@ -43,13 +43,16 @@ export class ScoreComponent implements OnInit {
    *
    * @param event
    */
+  @HostListener('window:keyup', ['$event'])
   onKey(event: KeyboardEvent) {
-    if (event['code'] === 'PageDown' && this.ct.value > this.model.group.min) {
-      this.score = this.score - 1;
-    }
+    if (event.srcElement === this.input.nativeElement) {
+      if (event.code === 'PageDown' && this.ct.value > this.model.group.min) {
+        this.score -= 1;
+      }
 
-    else if (event['code'] === 'PageUp' && this.ct.value < this.model.group.max) {
-      this.score = this.score + 1;
+      else if (event.code === 'PageUp' && this.ct.value < this.model.group.max) {
+        this.score += 1;
+      }
     }
   }
 }

@@ -130,10 +130,7 @@ export class TournamentController {
     ]).then(() => {
       // Remove the tournament.
       return this.repository.remove(tournament)
-        .then(result => res.send(result))
-        .catch(err => {
-          Logger.log.error(err);
-        });
+        .catch(err => Logger.log.error(err));
     });
   }
 }

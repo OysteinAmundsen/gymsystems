@@ -61,18 +61,12 @@ export class TeamController {
   @Post()
   createMany( @Body() teams: Team[], @Res() res: Response) {
     return this.repository.persist(teams)
-      .then(persisted => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-      });
+      .catch(err => Logger.log.error(err));
   }
 
   @Delete('/:id')
   remove( @EntityFromParam('id') team: Team, @Res() res: Response) {
     return this.repository.remove(team)
-      .then(result => res.send(result))
-      .catch(err => {
-        Logger.log.error(err);
-      });
+      .catch(err => Logger.log.error(err));
   }
 }

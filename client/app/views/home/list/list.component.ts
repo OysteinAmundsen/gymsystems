@@ -46,6 +46,13 @@ export class ListComponent implements OnInit {
 
   division(team: ITeam) { return this.teamService.division(team); }
 
+  score(participant: ITournamentParticipant) {
+    return participant.discipline.scoreGroups.reduce((prev, curr) => {
+      const scores = participant.scores.filter(s => s.group.id === curr.id);
+      return prev += scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
+    }, 0);
+  }
+
   select(participant: ITournamentParticipant) {
     this.selected = participant;
   }

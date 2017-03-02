@@ -9,7 +9,7 @@ import { ApiService } from './ApiService';
 import { IScoreGroup } from './model/IScoreGroup';
 
 @Injectable()
-export class ScoreService extends ApiService {
+export class ScoreGroupService extends ApiService {
   url: string = '/api/scoregroups';
 
   constructor(private http: Http) {
@@ -29,7 +29,7 @@ export class ScoreService extends ApiService {
   }
 
   save(scoreGroup: IScoreGroup) {
-    let call = (scoreGroup.id) ? this.http.put(`${this.url}/${scoreGroup.id}`, scoreGroup) : this.http.post(this.url, scoreGroup);
+    const call = (scoreGroup.id) ? this.http.put(`${this.url}/${scoreGroup.id}`, scoreGroup) : this.http.post(this.url, scoreGroup);
     return call.map((res: Response) => res.json()).catch(this.handleError);
   }
 

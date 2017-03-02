@@ -5,4 +5,5 @@ export interface IScoreContainer {
   group: IScoreGroup;
   scores: ITournamentParticipantScore[];
   avg?: number;
+  total?: number;
 }

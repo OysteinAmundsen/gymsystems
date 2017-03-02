@@ -1,12 +1,11 @@
 <span [formGroup]="form">
   <input type="number"
-          id="field_{{ model.group.type }}"
-          name="field_{{ model.group.type }}"
+          id="field_{{ model.group.type }}_{{index}}"
+          name="field_{{ model.group.type }}_{{index}}"
           max="{{ model.group.max }}"
           min="{{ model.group.min }}"
           maxlength="3"
           step="0.1"
           [formControlName]="'field_' + model.group.type + '_' + index"
-          (keydown)="onKey($event)"
           #score/>
 </span>

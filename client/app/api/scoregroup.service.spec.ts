@@ -1,14 +1,14 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { ScoreService } from './score.service';
+import { ScoreGroupService } from './scoregroup.service';
 
 describe('ScoreService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ScoreService]
+      providers: [ScoreGroupService]
     });
   });
 
-  it('should ...', inject([ScoreService], (service: ScoreService) => {
+  it('should ...', inject([ScoreGroupService], (service: ScoreGroupService) => {
     expect(service).toBeTruthy();
   }));
 });

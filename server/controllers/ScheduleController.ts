@@ -38,7 +38,9 @@ export class ScheduleController {
       .innerJoinAndSelect('tournament_participant.team', 'team')
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('tournament_participant.scores', 'scores')
+      .leftJoinAndSelect('scores.group', 'scoresScoreGroup')
       .orderBy('tournament_participant.startNumber', 'ASC')
+      .addOrderBy('scoreGroups.type', 'ASC')
       .getMany();
   }
 
@@ -49,43 +51,39 @@ export class ScheduleController {
       .where('tournament_participant.id=:id', { id: id })
       .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
       .leftJoinAndSelect('tournament_participant.discipline', 'discipline')
+      .leftJoinAndSelect('discipline.scoreGroups', 'scoreGroups')
       .innerJoinAndSelect('tournament_participant.team', 'team')
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('tournament_participant.scores', 'scores')
+      .orderBy('scoreGroups.type', 'ASC')
       .getOne();
   }
 
   @Post()
-  create( @EntityFromBody() division: TournamentParticipant, @Res() res: Response) {
-    return this.createMany([division], res);
+  create( @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
+    return this.createMany([participant], res);
   }
 
   @Post()
-  createMany( @EntityFromBody() divisions: TournamentParticipant[], @Res() res: Response) {
-    return this.repository.persist(divisions)
-      .then(persisted => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-      });
+  createMany( @EntityFromBody() participants: TournamentParticipant[], @Res() res: Response) {
+    return this.repository.persist(participants)
+      .catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')
-  update( @Param('id') id: number, @EntityFromBody() division: TournamentParticipant, @Res() res: Response) {
-    return this.createMany([division], res);
+  update( @Param('id') id: number, @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
+    return this.createMany([participant], res);
   }
 
   @Delete('/:id')
-  remove( @EntityFromParam('id') division: TournamentParticipant, @Res() res: Response) {
-    return this.removeMany([division], res);
+  remove( @EntityFromParam('id') participant: TournamentParticipant, @Res() res: Response) {
+    return this.removeMany([participant], res);
   }
 
   @Delete('/many')
   @EmptyResultCode(200)
-  removeMany( @Body() divisions: TournamentParticipant[], @Res() res: Response) {
-    return this.repository.remove(divisions)
-      .then(result => res.send(result))
-      .catch(err => {
-        Logger.log.error(err);
-      });
+  removeMany( @Body() participant: TournamentParticipant[], @Res() res: Response) {
+    return this.repository.remove(participant)
+      .catch(err => Logger.log.error(err));
   }
 }

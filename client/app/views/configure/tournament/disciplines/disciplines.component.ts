@@ -2,7 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DragulaService } from 'ng2-dragula';
 
-import { TournamentService, DisciplineService, ScoreService, ConfigurationService } from 'app/api';
+import { TournamentService, DisciplineService, ScoreGroupService, ConfigurationService } from 'app/api';
 import { IScoreGroup } from 'app/api/model/IScoreGroup';
 import { IDiscipline } from 'app/api/model/IDiscipline';
 
@@ -29,7 +29,7 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private tournamentService: TournamentService,
     private disciplineService: DisciplineService,
-    private scoreService: ScoreService,
+    private scoreService: ScoreGroupService,
     private configService: ConfigurationService,
     private dragulaService: DragulaService) { }
 

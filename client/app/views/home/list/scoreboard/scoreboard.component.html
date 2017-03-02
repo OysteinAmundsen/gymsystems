@@ -1,4 +1,4 @@
-<form class="panel" [formGroup]="scoreForm" (ngSubmit)="onSubmit(scoreForm.values)">
+<form class="panel" [formGroup]="scoreForm" (ngSubmit)="onSubmit(scoreForm.value, $event)">
   <div role="table">
     <div role="row">
       <app-score-group *ngFor="let group of groupedScores" [model]="group" [form]="scoreForm" class="x{{ group.scores ? group.scores.length : '0' }} group_{{ group.type }}"></app-score-group>
@@ -21,5 +21,6 @@
 
   <footer>
     <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span>Save score</span></button>
+    <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span>Cancel</span></button>
   </footer>
 </form>

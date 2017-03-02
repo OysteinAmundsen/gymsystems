@@ -10,7 +10,7 @@ import { SharedModule } from './shared/shared.module';
 // Services
 import {
   UserService,
-  ScoreService,
+  ScoreGroupService,
   TournamentService,
   DisciplineService,
   DivisionService,
@@ -37,7 +37,7 @@ import { AppComponent } from './app.component';
   ],
   providers: [
     UserService,
-    ScoreService,
+    ScoreGroupService,
     TournamentService,
     DisciplineService,
     DivisionService,

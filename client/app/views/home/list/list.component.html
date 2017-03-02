@@ -13,6 +13,7 @@
       <th>Start #</th>
       <th>Team</th>
       <th>Division</th>
+      <th>Discipline</th>
       <th>Score</th>
     </tr>
   </thead>
@@ -22,10 +23,11 @@
       <td>{{ item.team.name }} </td>
       <td>{{ division(item.team) }}</td>
       <td>{{ item.discipline.name }}</td>
+      <td>{{ score(item) | number:'1.3-3' }}</td>
     </tr>
     <tr *ngIf="selected === item">
-      <td colspan="4" class="editor">
-        <scoreboard [participant]="item"></scoreboard>
+      <td colspan="5" class="editor">
+        <scoreboard [participant]="item" (onClose)="select(null)"></scoreboard>
       </td>
     </tr>
   </tbody>

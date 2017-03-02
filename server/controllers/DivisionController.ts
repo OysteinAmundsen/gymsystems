@@ -53,10 +53,7 @@ export class DivisionController {
   @Post()
   createMany( @EntityFromBody() divisions: Division[], @Res() res: Response) {
     return this.repository.persist(divisions)
-      .then(persisted => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-      });
+      .catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')
@@ -67,10 +64,7 @@ export class DivisionController {
   @Delete('/:id')
   remove( @EntityFromParam('id') division: Division, @Res() res: Response) {
     return this.removeMany([division])
-      .then(result => res.send(result))
-      .catch(err => {
-        Logger.log.error(err);
-      });
+      .catch(err => Logger.log.error(err));
   }
 
   removeMany(divisions: Division[]) {

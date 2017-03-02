@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ScoreService } from 'app/api';
+import { ScoreGroupService } from 'app/api';
 import { IDiscipline } from 'app/api/model/IDiscipline';
 import { IScoreGroup } from 'app/api/model/IScoreGroup';
 import { Operation } from 'app/api/model/Operation';
@@ -18,7 +18,7 @@ export class ScoreGroupEditorComponent implements OnInit {
   scoreForm: FormGroup;
   operations = Operation;
 
-  constructor(private fb: FormBuilder, private scoreService: ScoreService) { }
+  constructor(private fb: FormBuilder, private scoreService: ScoreGroupService) { }
 
   ngOnInit() {
     // Create form

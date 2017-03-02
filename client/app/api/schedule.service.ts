@@ -28,8 +28,8 @@ export class ScheduleService extends ApiService {
     return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share().catch(this.handleError);
   }
 
-  save(participants: ITournamentParticipant) {
-    const call = (participants.id) ? this.http.put(`${this.url}/${participants.id}`, participants) : this.http.post(this.url, participants);
+  save(participant: ITournamentParticipant) {
+    const call = (participant.id) ? this.http.put(`${this.url}/${participant.id}`, participant) : this.http.post(this.url, participant);
     return call.map((res: Response) => res.json()).catch(this.handleError);
   }
 

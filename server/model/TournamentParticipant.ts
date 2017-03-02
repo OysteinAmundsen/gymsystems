@@ -29,6 +29,6 @@ export class TournamentParticipant {
   @JoinColumn()
   team: Team;
 
-  @OneToMany(type => TournamentParticipantScore, score => score.participant)
+  @OneToMany(type => TournamentParticipantScore, score => score.participant, { cascadeInsert: true, cascadeUpdate: true })
   scores: TournamentParticipantScore[];
 }
