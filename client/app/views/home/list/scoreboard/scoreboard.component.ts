@@ -76,6 +76,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.scoreForm.valueChanges.subscribe(() => this.calculateTotals());
     this.calculateTotals();
+    this.selectGroup(this.groupedScores[0]);
   }
 
   calculateTotals() {
@@ -89,8 +90,8 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
     });
   }
 
-  selectGroup(group: IScoreGroup): void {
-    const scoreGroupComponent = this.element.nativeElement.querySelector('.group_' + group.type);
+  selectGroup(container: IScoreContainer): void {
+    const scoreGroupComponent = this.element.nativeElement.querySelector('.group_' + container.group.type);
     scoreGroupComponent.querySelector('input').select();
   }
 

@@ -89,12 +89,6 @@
     }
   }
 
-  // TournamentParticipantScore box
-  app-score {
-    display: inline-block;
-    max-width: 3.5rem;
-  }
-
   // Avg or total score numbers
   code {
     font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
@@ -102,4 +96,8 @@
     font-size: 0.86rem;
     vertical-align: bottom;
   }
+}
+
+header > h3 {
+  margin: 12px 24px;
 }
