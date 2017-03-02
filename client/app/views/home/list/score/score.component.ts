@@ -24,16 +24,16 @@ export class ScoreComponent implements OnInit {
   constructor(private element: ElementRef) { }
 
   ngOnInit() {
-    this.ct = this.form.controls[`field_${this.model.group.type}_${this.index}`];
+    this.ct = this.form.controls[`field_${this.model.scoreGroup.type}_${this.index}`];
     if (this.ct) {
       this.ct.valueChanges.subscribe(value => {
         // Force value to be within range
-        if (value == null || value < this.model.group.min) {
-          this.score = this.model.group.min;
+        if (value == null || value < this.model.scoreGroup.min) {
+          this.score = this.model.scoreGroup.min;
           this.input.nativeElement.select();
         }
-        else if (value > this.model.group.max) {
-          this.score = this.model.group.max;
+        else if (value > this.model.scoreGroup.max) {
+          this.score = this.model.scoreGroup.max;
         }
       });
     }
@@ -46,11 +46,11 @@ export class ScoreComponent implements OnInit {
   @HostListener('window:keyup', ['$event'])
   onKey(event: KeyboardEvent) {
     if (event.srcElement === this.input.nativeElement) {
-      if (event.code === 'PageDown' && this.ct.value > this.model.group.min) {
+      if (event.code === 'PageDown' && this.ct.value > this.model.scoreGroup.min) {
         this.score -= 1;
       }
 
-      else if (event.code === 'PageUp' && this.ct.value < this.model.group.max) {
+      else if (event.code === 'PageUp' && this.ct.value < this.model.scoreGroup.max) {
         this.score += 1;
       }
     }

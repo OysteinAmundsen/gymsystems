@@ -29,7 +29,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
       this._groupedScores = this.participant.discipline.scoreGroups.map(group => {
         const container = <IScoreContainer>{
           group: group,
-          scores: this.participant.scores.filter(s => s.group.id === group.id),
+          scores: this.participant.scores.filter(s => s.scoreGroup.id === group.id),
           total: 0,
           avg: 0
         };
@@ -53,14 +53,14 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
       // Empty score array. Create one score, per judge, per scoregroup
       this.participant.discipline.scoreGroups.forEach(group => {
         for (let j = 0; j < group.judges; j++) {
-          this.participant.scores.push(<ITournamentParticipantScore>{ group: group, value: 0 });
+          this.participant.scores.push(<ITournamentParticipantScore>{ scoreGroup: group, value: 0 });
         }
       });
     }
 
     this.scoreForm = this.fb.group(this.groupedScores.reduce((previous, current) => {
       return Object.assign(previous, current.scores.reduce((prev: any, curr: ITournamentParticipantScore, index: number) => {
-        prev[`field_${curr.group.type}_${index}`] = [
+        prev[`field_${curr.scoreGroup.type}_${index}`] = [
           curr.value,
           Validators.compose([
             Validators.required,

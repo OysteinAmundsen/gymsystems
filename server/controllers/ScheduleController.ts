@@ -38,7 +38,7 @@ export class ScheduleController {
       .leftJoinAndSelect('tournament_participant.scores', 'scores')
       .leftJoinAndSelect('discipline.scoreGroups', 'scoreGroups')
       .leftJoinAndSelect('team.divisions', 'division')
-      .leftJoinAndSelect('scores.group', 'scoresScoreGroup')
+      .leftJoinAndSelect('scores.scoreGroup', 'scoresScoreGroup')
       .orderBy('tournament_participant.startNumber', 'ASC')
       .addOrderBy('scoreGroups.operation', 'ASC')
       .addOrderBy('scoreGroups.type', 'ASC')

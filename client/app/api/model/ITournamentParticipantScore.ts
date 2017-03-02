@@ -4,6 +4,6 @@ import { IScoreGroup } from './IScoreGroup';
 export interface ITournamentParticipantScore {
   id: number;
   value: number;
-  group: IScoreGroup;
+  scoreGroup: IScoreGroup;
   participant: ITournamentParticipant;
 }

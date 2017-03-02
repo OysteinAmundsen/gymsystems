@@ -40,7 +40,7 @@ export class ScoreGroupComponent implements OnInit, AfterViewInit {
       score.input.nativeElement.onblur = function () {
         if (me.model.total > 0 && score.score === score.defaultScore) {
           // Check previous and copy (0 is not allowed)
-          const index = me.model.scores.findIndex(s => s.group.name === score.model.group.name);
+          const index = me.model.scores.findIndex(s => s.scoreGroup.name === score.model.scoreGroup.name);
           if (index > -1) {
             score.score = me.form.controls[`field_${me.model.group.type}_${index}`].value;
           }

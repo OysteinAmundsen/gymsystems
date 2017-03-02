@@ -48,7 +48,7 @@ export class ListComponent implements OnInit {
 
   score(participant: ITournamentParticipant) {
     return participant.discipline.scoreGroups.reduce((prev, curr) => {
-      const scores = participant.scores.filter(s => s.group.id === curr.id);
+      const scores = participant.scores.filter(s => s.scoreGroup.id === curr.id);
       return prev += scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
     }, 0);
   }
