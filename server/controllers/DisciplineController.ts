@@ -1,5 +1,3 @@
-import { ScoreGroup } from '../model/ScoreGroup';
-import { TeamController } from './TeamController';
 import { getConnectionManager, Repository } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
@@ -9,9 +7,15 @@ import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
 
-import { ScoreGroupController } from './ScoreGroupController';
 import { Logger } from '../utils/Logger';
+
+import { ConfigurationController } from './ConfigurationController';
+import { TeamController } from './TeamController';
+import { ScoreGroupController } from './ScoreGroupController';
+
 import { Discipline } from '../model/Discipline';
+import { Tournament } from '../model/Tournament';
+import { ScoreGroup } from '../model/ScoreGroup';
 
 /**
  *
@@ -45,36 +49,50 @@ export class DisciplineController {
     return this.repository.createQueryBuilder('discipline')
       .where('discipline.id=:id', { id: id })
       .innerJoinAndSelect('discipline.tournament', 'tournament')
-      //.leftJoinAndSelect('discipline.scoreGroups', 'score_group')
+      // .leftJoinAndSelect('discipline.scoreGroups', 'score_group')
       .getOne();
   }
 
   @Post()
-  create( @EntityFromBody() discipline: Discipline, @Res() res: Response) {
-    return this.createMany([discipline], res);
+  create( @EntityFromBody() discipline: Discipline): Promise<Discipline> {
+    return this.repository.persist(discipline).catch(err => Logger.log.error(err));
   }
 
   @Post()
-  createMany( @Body() disciplines: Discipline[], @Res() res: Response) {
-    return this.repository.persist(disciplines)
-      .then((persisted: Discipline[]) => res.send(persisted))
-      .catch(err => {
-        Logger.log.error(err);
-      });
+  createMany( @Body() disciplines: Discipline[]): Promise<Discipline[]> {
+    return this.repository.persist(disciplines).catch(err => Logger.log.error(err));
+  }
+
+  createDefaults(tournament: Tournament): Promise<Discipline[]> {
+    const configRepository = Container.get(ConfigurationController);
+    const scoreGroupRepository = Container.get(ScoreGroupController);
+
+    return configRepository.get('defaultValues')
+      .then(values => {
+        const defaultValues = values.value;
+        return this.createMany(defaultValues.discipline.map((d: Discipline) => { d.tournament = tournament; return d; }))
+          .then((disciplines: Discipline[]) => {
+            const scoreGroups: ScoreGroup[] = [];
+            disciplines.forEach((d: Discipline) => {
+              const defaults = JSON.parse(JSON.stringify(defaultValues.scoreGroup));
+              scoreGroups.push(defaults.map((s: ScoreGroup) => { s.discipline = d; return s; }));
+            });
+            scoreGroupRepository.createMany(scoreGroups);
+            return disciplines;
+          })
+          .catch(err => Logger.log.error(err));
+      })
+      .catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')
-  update( @Param('id') id: number, @EntityFromBody() discipline: Discipline, @Res() res: Response) {
-    return this.createMany([discipline], res);
+  update( @Param('id') id: number, @EntityFromBody() discipline: Discipline): Promise<Discipline> {
+    return this.repository.persist(discipline).catch(err => Logger.log.error(err));
   }
 
   @Delete('/:id')
-  remove( @EntityFromParam('id') discipline: Discipline, @Res() res: Response) {
-    return this.removeMany([discipline])
-      .then(result => res.send(result))
-      .catch(err => {
-        Logger.log.error(err);
-      });
+  remove( @EntityFromParam('id') discipline: Discipline) {
+    return this.removeMany([discipline]).catch(err => Logger.log.error(err));
   }
 
   removeMany(disciplines: Discipline[]) {

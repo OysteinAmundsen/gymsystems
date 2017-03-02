@@ -1,3 +1,4 @@
+import { ScoreGroup } from '../model/ScoreGroup';
 import { getConnectionManager, Connection, Repository } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
@@ -10,6 +11,7 @@ import Response = e.Response;
 import { Logger } from '../utils/Logger';
 import moment = require('moment');
 
+import { ScoreGroupController } from './ScoreGroupController';
 import { DisciplineController } from './DisciplineController';
 import { DivisionController } from './DivisionController';
 import { ConfigurationController } from './ConfigurationController';
@@ -89,32 +91,37 @@ export class TournamentController {
   }
 
   @Post()
-  create( @EntityFromBody() tournament: Tournament, @Res() res: Response) {
-    const configRepository = Container.get(ConfigurationController);
-
-    // Persist tournament
+  create( @EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
-      .then(persisted => {
-        // Create default values
-        return configRepository.get('defaultValues').then(values => {
-          const defaultValues = values.value;
-          persisted.divisions = defaultValues.division;
-          persisted.disciplines = defaultValues.discipline.map((d: Discipline) => {
-            d.scoreGroups = defaultValues.scoreGroup;
-            return d;
-          });
+      .then(persisted => this.createDefaults(persisted))
+      .catch(err => Logger.log.error(err));
+  }
 
-          // Update with defaults
-          return this.repository.persist(persisted)
+  createDefaults(tournament: Tournament): Promise<Tournament> {
+    const configRepository = Container.get(ConfigurationController);
+    const disciplineRepository = Container.get(DisciplineController);
+    const divisionRepository = Container.get(DivisionController);
+
+    return configRepository.get('defaultValues')
+      .then(values => {
+        if (values.value) {
+          const defaultValues = values.value;
+          return Promise.all([
+            divisionRepository.createDefaults(tournament).then(divisions => tournament.divisions = divisions),
+            disciplineRepository.createDefaults(tournament).then(disciplines => tournament.disciplines = disciplines)
+          ])
+            .then(() => tournament)
             .catch(err => Logger.log.error(err));
-        });
+        }
+        return tournament;
       })
       .catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')
-  update( @Param('id') id: number, @EntityFromBody() tournament: Tournament, @Res() res: Response) {
-    return this.create(tournament, res);
+  update( @Param('id') id: number, @EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
+    return this.repository.persist(tournament)
+      .catch(err => Logger.log.error(err));
   }
 
   @Delete('/:id')

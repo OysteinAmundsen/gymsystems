@@ -40,23 +40,23 @@ export class ScoreGroupController {
   }
 
   @Post()
-  create( @EntityFromBody() scoreGroup: ScoreGroup, @Res() res: Response) {
-    return this.createMany([scoreGroup], res);
+  create( @EntityFromBody() scoreGroup: ScoreGroup) {
+    return this.createMany([scoreGroup]);
   }
 
   @Post()
-  createMany( @Body() scoreGroups: ScoreGroup[], @Res() res: Response) {
+  createMany( @Body() scoreGroups: ScoreGroup[]) {
     return this.repository.persist(scoreGroups)
       .catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')
-  update( @Param('id') id: number, @EntityFromBody() scoreGroup: ScoreGroup, @Res() res: Response) {
-    return this.createMany([scoreGroup], res);
+  update( @Param('id') id: number, @EntityFromBody() scoreGroup: ScoreGroup) {
+    return this.createMany([scoreGroup]);
   }
 
   @Delete('/:id')
-  remove( @EntityFromParam('id') scoreGroup: ScoreGroup, @Res() res: Response) {
+  remove( @EntityFromParam('id') scoreGroup: ScoreGroup) {
     return this.removeMany([scoreGroup])
       .catch(err => Logger.log.error(err));
   }

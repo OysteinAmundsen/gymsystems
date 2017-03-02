@@ -1,13 +1,16 @@
+import { Tournament } from '../model/Tournament';
 import { getConnectionManager, Repository } from 'typeorm';
 import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
-import { Service } from 'typedi';
+import { Service, Container } from 'typedi';
 
 import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
+
+import { ConfigurationController } from './ConfigurationController';
 import { Division } from '../model/Division';
 
 /**
@@ -46,23 +49,30 @@ export class DivisionController {
   }
 
   @Post()
-  create( @EntityFromBody() division: Division, @Res() res: Response) {
-    return this.createMany([division], res);
+  create( @EntityFromBody() division: Division) {
+    return this.createMany([division]);
   }
 
   @Post()
-  createMany( @EntityFromBody() divisions: Division[], @Res() res: Response) {
+  createMany( @EntityFromBody() divisions: Division[]) {
     return this.repository.persist(divisions)
       .catch(err => Logger.log.error(err));
   }
 
+  createDefaults(tournament: Tournament): Promise<Division[]> {
+    const configRepository = Container.get(ConfigurationController);
+    return configRepository.get('defaultValues')
+      .then(values => this.createMany(values.value.division.map((d: Division) => { d.tournament = tournament; return d; })))
+      .catch(err => Logger.log.error(err));
+  }
+
   @Put('/:id')
-  update( @Param('id') id: number, @EntityFromBody() division: Division, @Res() res: Response) {
-    return this.createMany([division], res);
+  update( @Param('id') id: number, @EntityFromBody() division: Division) {
+    return this.createMany([division]);
   }
 
   @Delete('/:id')
-  remove( @EntityFromParam('id') division: Division, @Res() res: Response) {
+  remove( @EntityFromParam('id') division: Division) {
     return this.removeMany([division])
       .catch(err => Logger.log.error(err));
   }
