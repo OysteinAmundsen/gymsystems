@@ -74,7 +74,10 @@ export class ScheduleController {
 
   @Put('/:id')
   update( @Param('id') id: number, @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
-    return this.createMany([participant], res);
+    console.log(participant.scores);
+    return this.repository.persist(participant)
+      .then(() => this.get(id))
+      .catch(err => Logger.log.error(err));
   }
 
   @Delete('/:id')

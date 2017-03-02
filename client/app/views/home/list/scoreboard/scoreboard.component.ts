@@ -102,6 +102,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
     evt.preventDefault();
     const scores = [];
     delete this._groupedScores;
+
     Object.keys(values).forEach(k => {
       const field = k.split('_');
       const group = this.groupedScores.find(g => g.group.type === field[1]);

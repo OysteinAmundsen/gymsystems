@@ -14,6 +14,7 @@ import { DivisionType } from 'app/api/model/DivisionType';
 })
 export class ListComponent implements OnInit {
   tournament: ITournament;
+  tournamentId: number;
   schedule: ITournamentParticipant[] = [];
   selected: ITournamentParticipant;
 
@@ -26,22 +27,26 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     if (this.tournamentService.selected) {
-      const tournamentId = this.tournamentService.selectedId;
+      this.tournamentId = this.tournamentService.selectedId;
       this.tournament = this.tournamentService.selected;
-      this.scheduleService.getByTournament(tournamentId).subscribe((schedule) => this.schedule = schedule);
+      this.loadSchedule();
     } else {
       this.route.params.subscribe((params: any) => {
-        const tournamentId = +params.id;
-        if (!isNaN(tournamentId)) {
-          this.tournamentService.selectedId = tournamentId;
-          this.tournamentService.getById(tournamentId).subscribe((tournament) => {
+        this.tournamentId = +params.id;
+        if (!isNaN(this.tournamentId)) {
+          this.tournamentService.selectedId = this.tournamentId;
+          this.tournamentService.getById(this.tournamentId).subscribe((tournament) => {
             this.tournamentService.selected = tournament;
             this.tournament = tournament;
           });
-          this.scheduleService.getByTournament(tournamentId).subscribe((schedule) => this.schedule = schedule);
+          this.loadSchedule();
         }
       });
     }
+  }
+
+  loadSchedule() {
+    this.scheduleService.getByTournament(this.tournamentId).subscribe((schedule) => this.schedule = schedule);
   }
 
   division(team: ITeam) { return this.teamService.division(team); }
@@ -55,5 +60,10 @@ export class ListComponent implements OnInit {
 
   select(participant: ITournamentParticipant) {
     this.selected = participant;
+  }
+
+  closeEditor() {
+    this.select(null);
+    this.loadSchedule();
   }
 }

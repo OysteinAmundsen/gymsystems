@@ -27,7 +27,7 @@
     </tr>
     <tr *ngIf="selected === item">
       <td colspan="5" class="editor">
-        <scoreboard [participant]="item" (onClose)="select(null)"></scoreboard>
+        <scoreboard [participant]="item" (onClose)="closeEditor()"></scoreboard>
       </td>
     </tr>
   </tbody>

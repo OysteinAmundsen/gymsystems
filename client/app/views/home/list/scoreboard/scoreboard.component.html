@@ -1,4 +1,7 @@
 <form class="panel" [formGroup]="scoreForm" (ngSubmit)="onSubmit(scoreForm.value, $event)">
+  <header>
+    <h3>#{{ participant.startNumber }} - {{ participant.team.name }} - {{ participant.discipline.name}}</h3>
+  </header>
   <div role="table">
     <div role="row">
       <app-score-group *ngFor="let group of groupedScores" [model]="group" [form]="scoreForm" class="x{{ group.scores ? group.scores.length : '0' }} group_{{ group.type }}"></app-score-group>
