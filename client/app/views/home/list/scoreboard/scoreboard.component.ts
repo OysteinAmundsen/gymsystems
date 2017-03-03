@@ -1,14 +1,14 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChildren, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { ScheduleService } from 'app/api';
+import { ScoreService } from 'app/api';
 import { IScoreGroup } from 'app/api/model/IScoreGroup';
 import { Operation } from 'app/api/model/Operation';
 import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
 import { ITournamentParticipantScore } from 'app/api/model/ITournamentParticipantScore';
+import { IScoreContainer } from '../IScoreContainer';
 
 import { ScoreGroupComponent } from '../score-group/score-group.component';
-import { IScoreContainer } from '../IScoreContainer';
 
 /**
  *
@@ -46,7 +46,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
   @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChildren(ScoreGroupComponent) groups: ScoreGroupComponent[];
 
-  constructor(private scheduleService: ScheduleService, private element: ElementRef, private fb: FormBuilder) { }
+  constructor(private scoreService: ScoreService, private element: ElementRef, private fb: FormBuilder) { }
 
   ngOnInit() {
     if (!this.participant.scores.length) {
@@ -111,10 +111,18 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
       score.value = values[k];
       scores.push(score);
     });
-    this.scheduleService.save(this.participant).subscribe(participant => {
-      delete this._groupedScores;
-      this.participant = participant;
+    this.participant.scores = scores;
+    this.save();
+  }
+
+  save() {
+    this.scoreService.saveFromParticipant(this.participant.id, this.participant.scores).subscribe(participant => {
       this.onClose.emit(true);
     });
+  }
+
+  delete() {
+    this.participant.scores = [];
+    this.scoreService.removeFromParticipant(this.participant.id).subscribe(() => this.onClose.emit(true));
   }
 }

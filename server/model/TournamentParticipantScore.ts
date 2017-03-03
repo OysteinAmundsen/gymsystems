@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, OneToMany, ManyToOne } from 'typeorm';
 import { TournamentParticipant } from './TournamentParticipant';
 import { ScoreGroup } from './ScoreGroup';
 
@@ -15,6 +15,9 @@ export class TournamentParticipantScore {
 
   @Column()
   value: number;
+
+  @UpdateDateColumn()
+  updated: Date;
 
   @ManyToOne(type => ScoreGroup, { nullable: false, cascadeRemove: false, onDelete: 'CASCADE' })
   scoreGroup: ScoreGroup;

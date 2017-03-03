@@ -61,20 +61,23 @@ export class ScheduleController {
       .getOne();
   }
 
+  getParticipantPlain(id: number): Promise<TournamentParticipant> {
+    return this.repository.findOneById(id);
+  }
+
   @Post()
   create( @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
     return this.createMany([participant], res);
   }
 
   @Post()
-  createMany( @EntityFromBody() participants: TournamentParticipant[], @Res() res: Response) {
+  createMany( @Body() participants: TournamentParticipant[], @Res() res: Response) {
     return this.repository.persist(participants)
       .catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')
   update( @Param('id') id: number, @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
-    console.log(participant.scores);
     return this.repository.persist(participant)
       .then(() => this.get(id))
       .catch(err => Logger.log.error(err));
