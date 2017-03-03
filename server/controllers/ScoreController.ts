@@ -9,6 +9,7 @@ import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
 
+import { SSEService } from '../services/SSEService';
 import { ScheduleController } from './ScheduleController';
 
 import { TournamentParticipant } from '../model/TournamentParticipant';
@@ -39,10 +40,15 @@ export class ScoreController {
   @Post('/:id')
   createFromParticipant( @Param('id') participantId: number, @Body() scores: TournamentParticipantScore[]) {
     const scheduleRepository = Container.get(ScheduleController);
+    const sseService = Container.get(SSEService);
     return scheduleRepository.getParticipantPlain(participantId)
       .then(p => {
         scores = scores.map(s => { s.participant = p; return s; });
         return this.repository.persist(scores)
+          .then(s => {
+            sseService.publish('Scores updated');
+            return s;
+          })
           .catch(err => Logger.log.error(err));
       })
       .catch(err => Logger.log.error(err));
@@ -50,10 +56,12 @@ export class ScoreController {
 
   @Delete('/:id')
   removeFromParticipant( @Param('id') participantId: number) {
+    const sseService = Container.get(SSEService);
     return this.repository.find({ participant: participantId })
-      .then(scores => {
-        return this.repository.remove(scores);
-      })
+      .then(scores => this.repository.remove(scores).then(s => {
+        sseService.publish('Scores updated');
+        return s;
+      }))
       .catch(err => Logger.log.error(err));
   }
 }

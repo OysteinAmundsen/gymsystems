@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TournamentService, ScheduleService, TeamsService } from 'app/api';
+import { Subscription } from 'rxjs/Rx';
 
+import { EventService, TournamentService, ScheduleService, TeamsService } from 'app/api';
 import { ITournament } from 'app/api/model/ITournament';
 import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
 
@@ -10,22 +11,30 @@ import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.scss']
 })
-export class DisplayComponent implements OnInit {
+export class DisplayComponent implements OnInit, OnDestroy {
   tournament: ITournament;
   schedule: ITournamentParticipant[] = [];
+
+  eventSubscription: Subscription;
+  paramSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private scheduleService: ScheduleService,
     private teamService: TeamsService,
-    private tournamentService: TournamentService) { }
+    private tournamentService: TournamentService,
+    private eventService: EventService) { }
 
   ngOnInit() {
+    this.eventSubscription = this.eventService.connect().subscribe(message => {
+      console.log(message);
+    });
+
     if (this.tournamentService.selected) {
       this.tournament = this.tournamentService.selected;
     } else {
-      this.route.params.subscribe((params: any) => {
+      this.paramSubscription = this.route.params.subscribe((params: any) => {
         const tournamentId = +params.id;
         if (!isNaN(tournamentId)) {
           this.tournamentService.selectedId = tournamentId;
@@ -37,5 +46,10 @@ export class DisplayComponent implements OnInit {
         }
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.eventSubscription.unsubscribe();
+    if (this.paramSubscription) { this.paramSubscription.unsubscribe(); }
   }
 }

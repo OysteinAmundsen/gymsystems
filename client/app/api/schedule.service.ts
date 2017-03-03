@@ -21,11 +21,11 @@ export class ScheduleService extends ApiService {
   }
 
   getByTournament(id: number): Observable<ITournamentParticipant[]> {
-    return this.http.get(`${this.url}/tournament/${id}`).map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get(`${this.url}/tournament/${id}`).share().map((res: Response) => res.json()).catch(this.handleError);
   }
 
   getById(id: number): Observable<ITournamentParticipant> {
-    return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get(`${this.url}/${id}`).share().map((res: Response) => res.json()).catch(this.handleError);
   }
 
   save(participant: ITournamentParticipant) {

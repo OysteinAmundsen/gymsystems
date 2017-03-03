@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs/Rx';
 
-import { TournamentService, ScheduleService, TeamsService } from 'app/api';
+import { TournamentService, ScheduleService, TeamsService, EventService } from 'app/api';
 import { ITournament } from 'app/api/model/ITournament';
 import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
 import { ITeam } from 'app/api/model/ITeam';
@@ -12,26 +13,33 @@ import { DivisionType } from 'app/api/model/DivisionType';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   tournament: ITournament;
   tournamentId: number;
   schedule: ITournamentParticipant[] = [];
   selected: ITournamentParticipant;
+
+  eventSubscription: Subscription;
+  paramSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private scheduleService: ScheduleService,
     private teamService: TeamsService,
-    private tournamentService: TournamentService) { }
+    private tournamentService: TournamentService,
+    private eventService: EventService) { }
 
   ngOnInit() {
+    this.eventSubscription = this.eventService.connect().subscribe(message => this.loadSchedule());
+
     if (this.tournamentService.selected) {
       this.tournamentId = this.tournamentService.selectedId;
       this.tournament = this.tournamentService.selected;
       this.loadSchedule();
-    } else {
-      this.route.params.subscribe((params: any) => {
+    }
+    else {
+      this.paramSubscription = this.route.params.subscribe((params: any) => {
         this.tournamentId = +params.id;
         if (!isNaN(this.tournamentId)) {
           this.tournamentService.selectedId = this.tournamentId;
@@ -43,6 +51,11 @@ export class ListComponent implements OnInit {
         }
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.eventSubscription.unsubscribe();
+    if (this.paramSubscription) { this.paramSubscription.unsubscribe(); }
   }
 
   loadSchedule() {

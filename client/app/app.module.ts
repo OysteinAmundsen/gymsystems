@@ -17,7 +17,8 @@ import {
   DivisionService,
   TeamsService,
   ConfigurationService,
-  ScheduleService
+  ScheduleService,
+  EventService
 } from './api';
 // import { RoleService } from './api';
 
@@ -45,7 +46,8 @@ import { AppComponent } from './app.component';
     DivisionService,
     TeamsService,
     ConfigurationService,
-    ScheduleService
+    ScheduleService,
+    EventService
   ],
   // providers: [RoleService],
   bootstrap: [AppComponent]

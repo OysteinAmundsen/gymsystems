@@ -43,6 +43,7 @@
     "cookie-parser": "~1.4.3",
     "core-js": "^2.4.1",
     "dragula": "~3.7.2",
+    "eventsource": "~0.2.2",
     "express": "~4.14.0",
     "express-session": "^1.15.1",
     "font-awesome": "~4.7.0",

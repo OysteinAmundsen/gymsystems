@@ -26,6 +26,7 @@ import { Container } from 'typedi';
 const rc = require('routing-controllers');
 
 // Other
+import { SSEService } from './services/SSEService';
 import { Logger } from './utils/Logger';
 import { ERROR_MESSAGES } from './messages';
 
@@ -51,13 +52,10 @@ ${chalk.green('**********************')}
 ${chalk.green.bold('  Starting GymSystems')}
 ${chalk.green('**********************')}
 `);
-
     return new Server()
       .start()
       .then(() => Logger.log.debug('Server started...'))
-      .catch((error: any) => {
-        Logger.log.error((ERROR_MESSAGES[error.code]) ? ERROR_MESSAGES[error.code] : error);
-      });
+      .catch((error: any) => Logger.log.error((ERROR_MESSAGES[error.code]) ? ERROR_MESSAGES[error.code] : error));
   }
 
   /**
@@ -69,51 +67,15 @@ ${chalk.green('**********************')}
     rc.useContainer(Container); // setup routing-controllers to use typedi container.
   }
 
-  start(): Promise<any> {
+  start(): Promise<Express.Express> {
     // Read typeorm config
     const config: any = JSON.parse(fs.readFileSync(path.join('.', 'ormconfig.json'), 'utf8'));
-    Logger.log.debug(config[0]);
     config[0].logging.logger = this.log;
-    return createConnection(config[0]).then(async connection => this.setup());
-  }
-
-  /**
-   * Setup expressJS
-   */
-  setup() {
-    Logger.log.info(chalk.green('DB connected'));
-
-    const appPath = path.resolve(__dirname);
-
-    // Setup ExpressJS application
-    this.app = createExpressServer({
-      routePrefix: '/api',
-      controllers: [__dirname + '/controllers/*.js'],
-      middlewares: [__dirname + '/middlewares/*.js'],
-      interceptors: [__dirname + '/interceptors/*.js']
-    });
-
-    // Configure express
-    this.useGlobalMiddlewares()
-      .set('trust proxy', true)   // Listen for external requests
-      .set('etag', false)         // TODO: Support etag
-      .disable('x-powered-by');   // Do not announce our architecture to the world!
-
-    // Setup static resources
-    this.app.use(Express.static(this.clientPath));    // Serve static paths
-    const faviconPath = path.join(this.clientPath, 'favicon.ico');
-    if (fs.existsSync(path.resolve(faviconPath))) {
-      this.app.use(favicon(faviconPath));             // Serve favicon
-    }
-
-    // Setup base route to everything else
-    this.app.get('/*', (req: Express.Request, res: Express.Response) => {
-      res.sendFile(path.resolve(this.clientPath, 'index.html'));
-    });
-
-    this.app.listen(this.port)  // Listen on provided port, on all network interfaces.
-      .on('listening', () => this.$onReady())
-      .on('error', this.$onServerInitError);
+    return createConnection(config[0])
+      .then(async connection => {
+        Logger.log.info(chalk.green('DB connected'));
+        return this.createServer();
+      });
   }
 
   /**
@@ -121,9 +83,40 @@ ${chalk.green('**********************')}
    *
    * @returns {Server}
    */
-  public useGlobalMiddlewares(): Express.Express {
+  public createServer(): Express.Express {
+    const app = createExpressServer({
+      routePrefix: '/api',
+      controllers: [__dirname + '/controllers/*.js'],
+      middlewares: [__dirname + '/middlewares/*.js'],
+      interceptors: [__dirname + '/interceptors/*.js']
+    });
+
+    // Registerring custom services
+    new SSEService(app);
+
+    app.set('trust proxy', true);  // Listen for external requests
+    app.set('etag', false);        // TODO: Support etag
+    app.disable('x-powered-by');   // Do not announce our architecture to the world!
+
+    // Setup static resources
+    app.use(Express.static(this.clientPath));    // Serve static paths
+
+    const faviconPath = path.join(this.clientPath, 'favicon.ico');
+    if (fs.existsSync(path.resolve(faviconPath))) {
+      app.use(favicon(faviconPath));             // Serve favicon
+    }
+
+    // Setup base route to everything else
+    app.get('/*', (req: Express.Request, res: Express.Response) => {
+      res.sendFile(path.resolve(this.clientPath, 'index.html'));
+    });
+
+    app.listen(this.port)  // Listen on provided port, on all network interfaces.
+      .on('listening', () => this.$onReady())
+      .on('error', this.$onServerInitError);
+
     // Setup global middlewares
-    return this.app
+    return app
       .use(morgan('combined', { stream: Logger.stream })) // Setup morgan access logger using winston
       .use(bodyParser.json())
       .use(bodyParser.urlencoded({ extended: true }))
@@ -153,7 +146,7 @@ ${chalk.green('**********************')}
    */
   public $onReady() {
     const url = chalk.blue.underline(`http://localhost:${this.port}/`);
-    Logger.log.info(`Serving on ${url}`);
+    Logger.log.debug(`Serving on ${url}`);
   }
 
   /**
