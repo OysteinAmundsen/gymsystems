@@ -41,24 +41,31 @@ export class ScoreGroupController {
 
   @Post()
   create( @EntityFromBody() scoreGroup: ScoreGroup) {
-    return this.createMany([scoreGroup]);
+    if (!Array.isArray(scoreGroup)) {
+      Logger.log.debug('Creating one scoreGroup');
+      return this.repository.persist(scoreGroup).catch(err => Logger.log.error(err));
+    }
+    return null;
   }
 
   @Post()
   createMany( @Body() scoreGroups: ScoreGroup[]) {
-    return this.repository.persist(scoreGroups)
-      .catch(err => Logger.log.error(err));
+    if (Array.isArray(scoreGroups)) {
+      Logger.log.debug('Creating many scoreGroup');
+      return this.repository.persist(scoreGroups).catch(err => Logger.log.error(err));
+    }
+    return null;
   }
 
   @Put('/:id')
   update( @Param('id') id: number, @EntityFromBody() scoreGroup: ScoreGroup) {
+    Logger.log.debug('Updating scoreGroup');
     return this.createMany([scoreGroup]);
   }
 
   @Delete('/:id')
   remove( @EntityFromParam('id') scoreGroup: ScoreGroup) {
-    return this.removeMany([scoreGroup])
-      .catch(err => Logger.log.error(err));
+    return this.removeMany([scoreGroup]).catch(err => Logger.log.error(err));
   }
 
   removeMany(scoreGroups: ScoreGroup[]) {

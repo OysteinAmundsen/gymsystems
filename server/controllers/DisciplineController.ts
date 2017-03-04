@@ -55,15 +55,24 @@ export class DisciplineController {
 
   @Post()
   create( @EntityFromBody() discipline: Discipline): Promise<Discipline> {
-    return this.repository.persist(discipline).catch(err => Logger.log.error(err));
+    if (!Array.isArray(discipline)) {
+      Logger.log.debug('Creating one discipline');
+      return this.repository.persist(discipline).catch(err => Logger.log.error(err));
+    }
+    return null;
   }
 
   @Post()
   createMany( @Body() disciplines: Discipline[]): Promise<Discipline[]> {
-    return this.repository.persist(disciplines).catch(err => Logger.log.error(err));
+    if (Array.isArray(disciplines)) {
+      Logger.log.debug('Creating many disciplines');
+      return this.repository.persist(disciplines).catch(err => Logger.log.error(err));
+    }
+    return null;
   }
 
   createDefaults(tournament: Tournament): Promise<Discipline[]> {
+    Logger.log.debug('Creating default discipline values');
     const configRepository = Container.get(ConfigurationController);
     const scoreGroupRepository = Container.get(ScoreGroupController);
 
@@ -87,6 +96,7 @@ export class DisciplineController {
 
   @Put('/:id')
   update( @Param('id') id: number, @EntityFromBody() discipline: Discipline): Promise<Discipline> {
+    Logger.log.debug('Updating discipline');
     return this.repository.persist(discipline).catch(err => Logger.log.error(err));
   }
 

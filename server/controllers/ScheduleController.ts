@@ -67,17 +67,25 @@ export class ScheduleController {
 
   @Post()
   create( @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
-    return this.createMany([participant], res);
+    if (!Array.isArray(participant)) {
+      Logger.log.debug('Creating one participant');
+      return this.repository.persist(participant).catch(err => Logger.log.error(err));
+    }
+    return null;
   }
 
   @Post()
   createMany( @Body() participants: TournamentParticipant[], @Res() res: Response) {
-    return this.repository.persist(participants)
-      .catch(err => Logger.log.error(err));
+    if (Array.isArray(participants)) {
+      Logger.log.debug('Creating many participant');
+      return this.repository.persist(participants).catch(err => Logger.log.error(err));
+    }
+    return null;
   }
 
   @Put('/:id')
   update( @Param('id') id: number, @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
+    Logger.log.debug('Updating participant');
     return this.repository.persist(participant)
       .then(() => this.get(id))
       .catch(err => Logger.log.error(err));
@@ -85,6 +93,7 @@ export class ScheduleController {
 
   @Delete('/:id')
   remove( @EntityFromParam('id') participant: TournamentParticipant, @Res() res: Response) {
+    Logger.log.debug('Deleting participant');
     return this.removeMany([participant], res);
   }
 

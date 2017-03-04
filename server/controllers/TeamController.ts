@@ -50,18 +50,26 @@ export class TeamController {
 
   @Put('/:id')
   update( @Param('id') id: number, @EntityFromBody() team: Team, @Res() res: Response) {
-    return this.createMany([team], res);
+    Logger.log.debug('Updating team');
+    return this.repository.persist(team).catch(err => Logger.log.error(err));
   }
 
   @Post()
   create( @EntityFromBody() team: Team, @Res() res: Response) {
-    return this.createMany([team], res);
+    if (!Array.isArray(team)) {
+      Logger.log.debug('Creating one team');
+      return this.repository.persist(team).catch(err => Logger.log.error(err));
+    }
+    return null;
   }
 
   @Post()
   createMany( @Body() teams: Team[], @Res() res: Response) {
-    return this.repository.persist(teams)
-      .catch(err => Logger.log.error(err));
+    if (Array.isArray(teams)) {
+      Logger.log.debug('Creating many teams');
+      return this.repository.persist(teams).catch(err => Logger.log.error(err));
+    }
+    return null;
   }
 
   @Delete('/:id')

@@ -50,13 +50,20 @@ export class DivisionController {
 
   @Post()
   create( @EntityFromBody() division: Division) {
-    return this.createMany([division]);
+    if (!Array.isArray(division)) {
+      Logger.log.debug('Creating one division');
+      return this.repository.persist(division).catch(err => Logger.log.error(err));
+    }
+    return null;
   }
 
   @Post()
   createMany( @EntityFromBody() divisions: Division[]) {
-    return this.repository.persist(divisions)
-      .catch(err => Logger.log.error(err));
+    if (Array.isArray(divisions)) {
+      Logger.log.debug('Creating many divisions');
+      return this.repository.persist(divisions).catch(err => Logger.log.error(err));
+    }
+    return null;
   }
 
   createDefaults(tournament: Tournament): Promise<Division[]> {
@@ -68,6 +75,7 @@ export class DivisionController {
 
   @Put('/:id')
   update( @Param('id') id: number, @EntityFromBody() division: Division) {
+    Logger.log.debug('Updating division');
     return this.createMany([division]);
   }
 
