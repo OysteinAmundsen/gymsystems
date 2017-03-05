@@ -66,7 +66,7 @@
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
-    "@angular/cli": "~1.0.0-rc.0",
+    "@angular/cli": "~1.0.0-rc.1",
     "@angular/compiler-cli": "^2.4.0",
     "@types/body-parser": "0.0.33",
     "@types/bunyan": "^0.0.35",
