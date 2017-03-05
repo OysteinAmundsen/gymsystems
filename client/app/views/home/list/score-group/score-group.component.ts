@@ -36,13 +36,13 @@ export class ScoreGroupComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     const me = this;
-    me.scores.forEach(score => {
-      score.input.nativeElement.onblur = function () {
+    me.scores.forEach((score, idx) => {
+      score.input.nativeElement.onblur = function (evt) {
         if (me.model.total > 0 && score.score === score.defaultScore) {
           // Check previous and copy (0 is not allowed)
-          const index = me.model.scores.findIndex(s => s.scoreGroup.name === score.model.scoreGroup.name);
+          const index = me.model.scores.findIndex(s => s.scoreGroup.name === score.model.scoreGroup.name) + idx;
           if (index > -1) {
-            score.score = me.form.controls[`field_${me.model.group.type}_${index}`].value;
+            score.score = me.form.controls[`field_${me.model.group.type}_${index - 1}`].value;
           }
         }
       };

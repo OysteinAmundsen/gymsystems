@@ -1,4 +1,5 @@
 <span [formGroup]="form">
+  <label for="field_{{ model.scoreGroup.type }}_{{index}}">{{model.scoreGroup.type}}{{index + 1}}</label>
   <input type="number"
           id="field_{{ model.scoreGroup.type }}_{{index}}"
           name="field_{{ model.scoreGroup.type }}_{{index}}"
