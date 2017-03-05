@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChildren, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChildren, EventEmitter, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ScoreService } from 'app/api';
@@ -124,5 +124,12 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
   delete() {
     this.participant.scores = [];
     this.scoreService.removeFromParticipant(this.participant.id).subscribe(() => this.onClose.emit(true));
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeydown(evt: KeyboardEvent) {
+    if (evt.keyCode === 27) {
+      this.close();
+    }
   }
 }
