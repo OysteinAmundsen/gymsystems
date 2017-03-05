@@ -1,3 +1,5 @@
+@import "~styles/variables";
+
 h2 {
   small {
     float: right;
@@ -7,4 +9,13 @@ h2 {
 }
 td.editor {
   padding: 0;
+}
+tr {
+  color: rgba($text-color, 0.7);
+  &.hasScore {
+    color: $text-color;
+  }
+  &.current {
+    background: rgba(lighten(green, 50%), 0.2);
+  }
 }

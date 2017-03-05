@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody *ngFor="let item of schedule">
-    <tr *ngIf="selected !== item" (click)="select(item)" role="listitem">
+    <tr *ngIf="selected !== item" (click)="select(item)" role="listitem" [ngClass]="{hasScore: score(item) > 0}">
       <td>{{ item.startNumber }}</td>
       <td>{{ item.team.name }} </td>
       <td>{{ division(item.team) }}</td>

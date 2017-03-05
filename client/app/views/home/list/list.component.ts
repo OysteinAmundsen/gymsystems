@@ -77,6 +77,5 @@ export class ListComponent implements OnInit, OnDestroy {
 
   closeEditor() {
     this.select(null);
-    this.loadSchedule();
   }
 }

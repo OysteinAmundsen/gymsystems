@@ -38,11 +38,7 @@ export class SSEService {
 
     // The 'close' event is fired when a user closes their browser window.
     // Remove this client from our openConnections pool
-    req.on('close', () => {
-      Logger.log.debug(`Client #${this.openConnections.length} disconnecting!`);
-      const index = this.openConnections.findIndex(c => c === res);
-      this.openConnections.splice(index, 1);
-    });
+    req.on('close', () => this.closeConnection(res));
 
     res.writeHead(200, {
       'Content-Type': 'text/event-stream',
@@ -50,6 +46,25 @@ export class SSEService {
       'Connection': 'keep-alive'
     });
     res.write('\n');
+    this.keepAlive(res);
+  }
+
+  private closeConnection(res: Response) {
+    Logger.log.debug(`Client #${this.openConnections.length} disconnecting!`);
+    const index = this.openConnections.findIndex(c => c === res);
+    this.openConnections.splice(index, 1);
+  }
+
+  private keepAlive(res: Response) {
+    setTimeout(() => {
+      try {
+        res.write('\n');
+        this.keepAlive(res);
+      } catch (ex) {
+        Logger.log.debug(ex);
+        this.closeConnection(res);
+      }
+    }, 30 * 1000);
   }
 
   /**
@@ -60,9 +75,14 @@ export class SSEService {
   publish(message: string) {
     Logger.log.debug(`Publishing ${message} to ${this.openConnections.length} clients!`);
     this.openConnections.forEach(res => {
-      const d = new Date();
-      res.write(`id: ${d.getMilliseconds()}\n`);
-      res.write(`data:${message}\n\n`); // Note the extra newline
+      try {
+        const d = new Date();
+        res.write(`id: ${d.getMilliseconds()}\n`);
+        res.write(`data:${message}\n\n`); // Note the extra newline
+      } catch (ex) {
+        Logger.log.debug(ex);
+        this.closeConnection(res);
+      }
     });
   }
 }
