@@ -1,42 +1,39 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "version": "1.0.0-beta.32.3",
     "name": "gymsystems"
   },
-  "apps": [
-    {
-      "root": "client",
-      "outDir": "dist/public/",
-      "assets": [
-        "assets",
-        "icons",
-        "favicon.ico",
-        "manifest.json",
-        "browserconfig.xml"
-      ],
-      "index": "index.html",
-      "main": "main.ts",
-      "polyfills": "polyfills.ts",
-      "test": "test.ts",
-      "tsconfig": "tsconfig.json",
-      "prefix": "app",
-      "styles": [
-        "styles.scss",
-        "../node_modules/font-awesome/scss/font-awesome.scss"
-      ],
-      "scripts": [],
-      "environmentSource": "environments/environment.ts",
-      "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
-      }
+  "apps": [ {
+    "root": "client",
+    "outDir": "dist",
+    "assets": [
+      "assets",
+      "icons",
+      "favicon.ico",
+      "manifest.json",
+      "browserconfig.xml"
+    ],
+    "index": "index.html",
+    "main": "main.ts",
+    "polyfills": "polyfills.ts",
+    "test": "test.ts",
+    "tsconfig": "tsconfig.app.json",
+    "testTsconfig": "tsconfig.spec.json",
+    "prefix": "app",
+    "styles": [
+      "styles.scss",
+      "../node_modules/font-awesome/scss/font-awesome.scss"
+    ],
+    "scripts": [],
+    "environmentSource": "environments/environment.ts",
+    "environments": {
+      "dev": "environments/environment.ts",
+      "prod": "environments/environment.prod.ts"
     }
-  ],
+  } ],
   "addons": [
     "../node_modules/font-awesome/fonts/*.+(otf|eot|svg|ttf|woff|woff2)"
   ],
-  "packages": [],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"
@@ -44,12 +41,13 @@
   },
   "lint": [
     {
-      "files": "client/**/*.ts",
-      "project": "client/tsconfig.json"
+      "project": "client/tsconfig.app.json"
     },
     {
-      "files": "e2e/**/*.ts",
-      "project": "e2e/tsconfig.json"
+      "project": "client/tsconfig.spec.json"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json"
     }
   ],
   "test": {
