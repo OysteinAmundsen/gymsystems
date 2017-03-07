@@ -1,6 +1,5 @@
 @import "variables";
 @import "panel";
-
 $inputHeight: 33px;
 $labelHeight: 16px;
 @mixin input() {
@@ -13,21 +12,29 @@ $labelHeight: 16px;
   min-height: $inputHeight;
   outline: none;
   margin: 2px;
-  &:focus, &:active {
+  &:focus,
+  &:active {
     //box-shadow: 0 0 6px rgba(black, 0.2) inset, 0 0 3px 1px rgba(blue, 0.4);
     border-color: rgba($primaryDark, 0.8);
     box-shadow: 0 -2px 2px -1px rgba($primary, 0.6) inset;
   }
 }
+
 fieldset {
   border: 0;
 }
+
 form.panel {
   @include panel;
+  header {
+    margin: $margin $margin 0 $margin;
+    padding: ($padding * 2) ($padding * 2) 0 ($padding * 2);
+  }
   fieldset {
     @include innerPanel;
   }
 }
+
 form {
   label {
     height: $labelHeight;
@@ -39,22 +46,30 @@ form {
       margin-top: 0;
     }
   }
-  input:not([type="checkbox"]), textarea, select {
+  input:not([type="checkbox"]),
+  textarea,
+  select {
     @include input();
     width: 100%;
     &.ng-invalid {
       border-color: red;
     }
   }
-
   [appFloatingLabelContainer] {
     position: relative;
     min-height: $labelHeight + $inputHeight;
-    label, input, textarea, select {
+    label {
+      cursor: text;
+    }
+    label,
+    input,
+    textarea,
+    select {
       transition: all 0.2s ease-in-out;
       touch-action: manipulation;
     }
-    input, textarea {
+    input,
+    textarea {
       margin-top: $labelHeight + 10;
     }
     select {
@@ -68,11 +83,11 @@ form {
       color: rgba(black, 0.6);
       transform: translate(5px, $labelHeight + 16) scale(1.2);
     }
-    &.hasValue, &.hasFocus {
+    &.hasValue,
+    &.hasFocus {
       label {
         transform: translate(0, 0) scale(1);
       }
     }
   }
 }
-
