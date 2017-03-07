@@ -4,18 +4,17 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Lanch server",
+      "name": "Server",
+      "preLaunchTask": "server:build",
       "sourceMaps": true,
-      "outFiles": [
-        "${workspaceRoot}/dist/*"
-      ],
+      "outFiles": [ "${workspaceRoot}/dist/**/*.js" ],
       "program": "${workspaceRoot}/server/index.ts",
       "cwd": "${workspaceRoot}"
     },
     {
-      "name": "Launch Chrome against localhost, with sourcemaps",
       "type": "chrome",
       "request": "launch",
+      "name": "Client",
       "url": "http://localhost:4200/",
       "sourceMaps": true,
       "webRoot": "${workspaceRoot}/client",
@@ -24,6 +23,12 @@
       "sourceMapPathOverrides": {
         "webpack:///./*": "${workspaceRoot}/*"
       }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Server/Client",
+      "configurations": [ "Server", "Client" ]
     }
   ]
 }

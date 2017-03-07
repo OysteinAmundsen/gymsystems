@@ -2,7 +2,7 @@
   <span>{{ tournament.name }}</span>
   <small>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
 </h2>
-<button type="button" class="pull-right primary raised" *ngIf="tournament" [routerLink]="['/list', tournament.id]">
+<button type="button" class="pull-right primary raised" *ngIf="tournament && user && user.role >= roles.Secretariat" [routerLink]="['/list', tournament.id]">
   <app-fa name="list" fw="true"></app-fa>
   <span>List</span>
 </button>

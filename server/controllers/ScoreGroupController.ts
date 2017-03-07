@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
+import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, UseBefore } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service } from 'typedi';
 
@@ -8,6 +8,7 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
+import { RequireRoleAdmin } from '../middlewares/RequireAuth';
 import { ScoreGroup } from '../model/ScoreGroup';
 
 /**
@@ -40,6 +41,7 @@ export class ScoreGroupController {
   }
 
   @Post()
+  @UseBefore(RequireRoleAdmin)
   create( @EntityFromBody() scoreGroup: ScoreGroup) {
     if (!Array.isArray(scoreGroup)) {
       Logger.log.debug('Creating one scoreGroup');
@@ -49,6 +51,7 @@ export class ScoreGroupController {
   }
 
   @Post()
+  @UseBefore(RequireRoleAdmin)
   createMany( @Body() scoreGroups: ScoreGroup[]) {
     if (Array.isArray(scoreGroups)) {
       Logger.log.debug('Creating many scoreGroup');
@@ -58,12 +61,14 @@ export class ScoreGroupController {
   }
 
   @Put('/:id')
+  @UseBefore(RequireRoleAdmin)
   update( @Param('id') id: number, @EntityFromBody() scoreGroup: ScoreGroup) {
     Logger.log.debug('Updating scoreGroup');
     return this.createMany([scoreGroup]);
   }
 
   @Delete('/:id')
+  @UseBefore(RequireRoleAdmin)
   remove( @EntityFromParam('id') scoreGroup: ScoreGroup) {
     return this.removeMany([scoreGroup]).catch(err => Logger.log.error(err));
   }

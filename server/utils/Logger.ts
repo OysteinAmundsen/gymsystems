@@ -1,3 +1,4 @@
+import { LoggerInstance } from 'winston';
 import * as winston from 'winston';
 import * as morgan from 'morgan';
 import * as fs from 'fs';
@@ -23,21 +24,21 @@ if (!fs.existsSync('./log')) {
 export namespace Logger {
   function formatter(logEntry: any) {
     // Remove ansi coloring from log entries
-    let regexp = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
+    const regexp = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
     return JSON.stringify({
       level: logEntry.level,
       message: logEntry.message.replace(regexp, ''),
       timestamp: new Date().toISOString()
     });
   }
-  export let log = new winston.Logger({
+  export let log: LoggerInstance = new winston.Logger({
     transports: [
       new winston.transports.File({
         level: 'info',
         filename: './log/all-logs.log',
         handleExceptions: true,
         json: false,
-        maxsize: 5242880, // 5MB
+        maxsize: (1 * 1024 * 1024), // 1MB
         maxFiles: 5,
         colorize: false,
         formatter: formatter

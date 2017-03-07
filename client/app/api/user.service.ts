@@ -4,15 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
+import 'rxjs/add/observable/of';
 
 import { ApiService } from './ApiService';
-import { IUser, User } from './model/IUser';
-import { IRole, Role } from './model/IRole';
+import { IUser } from './model/IUser';
 import { IDiscipline } from './model/IDiscipline';
+// import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService extends ApiService {
-  _currentUser: IUser = User.Anonymous;
+  _currentUser: IUser;
   get current(): IUser { return this._currentUser; }
   set current(user: IUser) { this._currentUser = user; }
 
@@ -24,15 +25,28 @@ export class UserService extends ApiService {
     return this.http.get('/api/users').map((res: Response) => res.json()).share().catch(this.handleError);
   }
 
-  filterByName(name: string): Observable<IUser[]> {
-    return this.http.get('/api/users?$filter=' + name).map((res: Response) => res.json()).share().catch(this.handleError);
-  }
-
-  filterByRole(role: IRole): Observable<IUser[]> {
-    return this.http.get('/api/users?$role=' + role.name).map((res: Response) => res.json()).share().catch(this.handleError);
-  }
-
   getById(id: number): Observable<IUser> {
     return this.http.get('/api/users/' + id).map((res: Response) => res.json()).share().catch(this.handleError);
+  }
+
+  private userReceived(res: Response) {
+    this.current = res.json();
+    return this.current;
+  }
+
+  getMe(): Observable<IUser> {
+    if (this.current) { return Observable.of(this.current); }
+    return this.http.get('/api/users/me')
+      .map((res: Response) => this.userReceived(res))
+      .share()
+      .catch((err: Response) => Observable.of(null));
+  }
+
+  login(credentials: { username: string, password: string }): Observable<any> {
+    // credentials.password = bcrypt.hashSync(credentials.password, bcrypt.genSaltSync(10));
+
+    return this.http.post('/api/users/login', credentials)
+      .map((res: Response) => this.userReceived(res))
+      .catch(this.handleError);
   }
 }

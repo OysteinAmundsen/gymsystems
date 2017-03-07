@@ -1,10 +1,12 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
+import { Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 
 import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
+
+import { RequireRoleAdmin } from '../middlewares/RequireAuth';
 
 import { Logger } from '../utils/Logger';
 import { Configuration } from '../model/Configuration';
@@ -32,6 +34,7 @@ export class ConfigurationController {
   }
 
   @Post()
+  @UseBefore(RequireRoleAdmin)
   create( @EntityFromBody() configuration: Configuration, @Res() res: Response) {
     return this.repository.persist(configuration)
       .then(persisted => res.send(persisted))
@@ -41,6 +44,7 @@ export class ConfigurationController {
   }
 
   @Put('/:id')
+  @UseBefore(RequireRoleAdmin)
   update( @Param('id') id: number, @EntityFromBody() configuration: Configuration, @Res() res: Response) {
     return this.repository.persist(configuration)
       .then(persisted => res.send(persisted))
@@ -50,6 +54,7 @@ export class ConfigurationController {
   }
 
   @Delete('/:id')
+  @UseBefore(RequireRoleAdmin)
   remove( @EntityFromParam('id') configuration: Configuration, @Res() res: Response) {
     return this.repository.remove(configuration)
       .then(result => res.send(result))

@@ -4,40 +4,39 @@ import * as chalk from 'chalk';
 import * as fs from 'fs';
 
 // Express
-import * as Express from 'express';
-
-// Express middlewares
+import { Server } from 'http';
+import * as e from 'express';
+import * as serveStatic from 'serve-static';
 import * as favicon from 'serve-favicon';
 import * as morgan from 'morgan';
-import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
-import * as methodOverride from 'method-override';
+import * as bodyParser from 'body-parser';
 import * as session from 'express-session';
 
 // Authentication
-import * as Passport from 'passport';
-const LocalStrategy = require('passport-local').Strategy;
+import * as auth from 'passport';
 
 // Persistance
 import 'reflect-metadata';
 import { createConnection, useContainer } from 'typeorm';
-import { createExpressServer } from 'routing-controllers';
+import { useExpressServer } from 'routing-controllers';
 import { Container } from 'typedi';
 const rc = require('routing-controllers');
 
 // Other
+import { setupAuthentication } from './config/AuthenticationConfig';
 import { SSEService } from './services/SSEService';
 import { Logger } from './utils/Logger';
 import { ERROR_MESSAGES } from './messages';
 
 /**
- * The server.
+ * Our application starts here.
  *
  * @class Server
  */
-export class Server {
-  public app: Express.Express;
-  private port: number = 3000;
+export class GymServer {
+  public app: e.Express;
+  private port: number = process.env.PORT || 3000;
   private clientPath = path.join(__dirname, './public');
 
   /**
@@ -48,11 +47,11 @@ export class Server {
    */
   static Initialize(): Promise<any> {
     Logger.log.debug(`
-${chalk.green('**********************')}
-${chalk.green.bold('  Starting GymSystems')}
-${chalk.green('**********************')}
+**********************
+  Starting GymSystems
+**********************
 `);
-    return new Server()
+    return new GymServer()
       .start()
       .then(() => Logger.log.debug('Server started...'))
       .catch((error: any) => Logger.log.error((ERROR_MESSAGES[error.code]) ? ERROR_MESSAGES[error.code] : error));
@@ -62,69 +61,63 @@ ${chalk.green('**********************')}
    * Constructor.
    */
   constructor() {
-    // Setup dependency injection container
     useContainer(Container);    // setup typeorm to use typedi container
     rc.useContainer(Container); // setup routing-controllers to use typedi container.
   }
 
-  start(): Promise<Express.Express> {
-    // Read typeorm config
+  /**
+   * Server startup routine
+   *
+   * @returns {Promise<Server>}
+   */
+  start(): Promise<Server> {
+    // Read typeorm config and add our own Logger
     const config: any = JSON.parse(fs.readFileSync(path.join('.', 'ormconfig.json'), 'utf8'));
-    config[0].logging.logger = this.log;
-    return createConnection(config[0])
-      .then(async connection => {
-        Logger.log.info(chalk.green('DB connected'));
-        return this.createServer();
-      });
+    config[0].logging.logger = (level: string, message: string) => {
+      if (level === 'log') { level = 'info'; }
+      (<any>Logger.log)[level](`${message}`);
+    };
+
+    // Connect to database and startup Express
+    return createConnection(config[0]).then(async connection => {
+      Logger.log.info('DB connected');
+      return this.createServer()
+        .listen(this.port)  // Listen on provided port, on all network interfaces.
+        .on('listening', () => this.onReady())
+        .on('error', this.onServerInitError);
+    });
   }
 
   /**
-   * This method let you configure the middleware required by your application to works.
+   * Creates and configures our Express container
    *
    * @returns {Server}
    */
-  public createServer(): Express.Express {
-    const app = createExpressServer({
-      routePrefix: '/api',
-      controllers: [__dirname + '/controllers/*.js'],
-      middlewares: [__dirname + '/middlewares/*.js'],
-      interceptors: [__dirname + '/interceptors/*.js']
-    });
+  public createServer(): e.Express {
+    // Register services to typeDI
+    Container.set(GymServer, this);
 
-    // Registerring custom services
-    new SSEService(app);
+    this.app = e();
+    this.app.set('trust proxy', true);  // Listen for external requests
+    this.app.set('etag', false);
+    this.app.disable('x-powered-by');   // Do not announce our architecture to the world!
 
-    app.set('trust proxy', true);  // Listen for external requests
-    app.set('etag', false);        // TODO: Support etag
-    app.disable('x-powered-by');   // Do not announce our architecture to the world!
+    // Setup morgan access logger using winston
+    this.app.use(morgan('combined', { stream: Logger.stream }));
 
     // Setup static resources
-    app.use(Express.static(this.clientPath));    // Serve static paths
+    this.app.use(serveStatic(this.clientPath));
 
+    // Favicon service
     const faviconPath = path.join(this.clientPath, 'favicon.ico');
     if (fs.existsSync(path.resolve(faviconPath))) {
-      app.use(favicon(faviconPath));             // Serve favicon
+      this.app.use(favicon(faviconPath));
     }
 
-    // Setup base route to everything else
-    app.get('/*', (req: Express.Request, res: Express.Response) => {
-      res.sendFile(path.resolve(this.clientPath, 'index.html'));
-    });
-
-    app.listen(this.port)  // Listen on provided port, on all network interfaces.
-      .on('listening', () => this.$onReady())
-      .on('error', this.$onServerInitError);
-
-    // Setup global middlewares
-    return app
-      .use(morgan('combined', { stream: Logger.stream })) // Setup morgan access logger using winston
-      .use(bodyParser.json())
-      .use(bodyParser.urlencoded({ extended: true }))
-      .use(cookieParser())
-      .use(methodOverride())
-
-      // Configure session used by Passport
-      .use(session({
+    // Configure authentication services
+    this.app.use(cookieParser());
+    this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(session({
         secret: 'mysecretkey',
         resave: true,
         saveUninitialized: true,
@@ -134,46 +127,45 @@ ${chalk.green('**********************')}
           secure: false,
           maxAge: null
         }
-      }))
+      }
+    ));
+    const passport = setupAuthentication(this.app);
 
-      // Configure passport JS
-      .use(Passport.initialize())
-      .use(Passport.session());
+    // Setup routing-controllers
+    useExpressServer(this.app, {
+      routePrefix: '/api',
+      controllers: [__dirname + '/controllers/*.js'],
+      middlewares: [__dirname + '/middlewares/*.js'],
+      interceptors: [__dirname + '/interceptors/*.js']
+    });
+
+    // Registerring custom services
+    new SSEService();
+
+    // Setup base route to everything else
+    this.app.get('/*', (req: e.Request, res: e.Response) => {
+      res.sendFile(path.resolve(this.clientPath, 'index.html'));
+    });
+
+    return this.app;
   }
 
   /**
-   * Server ready!
+   * Callback on server ready!
    */
-  public $onReady() {
+  private onReady() {
     const url = chalk.blue.underline(`http://localhost:${this.port}/`);
     Logger.log.debug(`Serving on ${url}`);
   }
 
   /**
-   *
-   * @param request
-   * @param response
-   * @param next
-   * @param authorization
-   */
-  public $onAuth(request: Express.Request, response: Express.Response, next: Express.NextFunction, authorization?: any): void {
-    next(request.isAuthenticated());
-  }
-
-  /**
-   * Fatal error occurred during startup of server
+   * Callback on fatal error during startup of server.
+   * This handles specific listen errors with friendly messages if configured. Defaults to the stack-trace.
    * @param error
    */
-  public $onServerInitError(error: any) {
-    // handle specific listen errors with friendly messages if configured. Default to the stack-trace.
+  private onServerInitError(error: any) {
     Logger.log.error((ERROR_MESSAGES[error.code] ? ERROR_MESSAGES[error.code] : error));
-  }
-
-  log(level: string, message: string) {
-    Logger.log.info(`${level} - ${message}`);
   }
 }
 
-(function standalone() {
-  Server.Initialize();
-})();
+(function standalone() { GymServer.Initialize(); })();

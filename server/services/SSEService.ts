@@ -1,9 +1,7 @@
+import { GymServer } from '../';
 import { Container, Service } from 'typedi';
 
-import * as Express from 'express';
-import e = require('express');
-import Request = e.Request;
-import Response = e.Response;
+import { Express, Request, Response } from 'express';
 
 import { Logger } from '../utils/Logger';
 
@@ -12,10 +10,10 @@ import { Logger } from '../utils/Logger';
  */
 export class SSEService {
   openConnections: Response[] = [];
-  app: Express.Express;
+  app: Express;
 
-  constructor(app: Express.Express) {
-    this.app = app;
+  constructor() {
+    this.app = Container.get(GymServer).app;
     this.app.use('/api/event', (req, res) => this.connect(req, res));
 
     // Register instance in DI container
@@ -29,7 +27,7 @@ export class SSEService {
    * @param req
    * @param res
    */
-  connect(req: Request, res: Response): void {
+  public connect(req: Request, res: Response): void {
     req.socket.setTimeout(Number.MAX_VALUE);
 
     // push this res object to our global variable
@@ -72,7 +70,7 @@ export class SSEService {
    *
    * @param message any string. Can be a stringified JSON object
    */
-  publish(message: string) {
+  public publish(message: string) {
     Logger.log.debug(`Publishing ${message} to ${this.openConnections.length} clients!`);
     this.openConnections.forEach(res => {
       try {

@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
-import { TournamentService, ScheduleService, TeamsService, EventService } from 'app/api';
+import { TournamentService, ScheduleService, TeamsService, EventService, UserService } from 'app/api';
 import { ITournament } from 'app/api/model/ITournament';
 import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
 import { ITeam } from 'app/api/model/ITeam';
 import { DivisionType } from 'app/api/model/DivisionType';
+import { Role, IUser } from "app/api/model/IUser";
 
 @Component({
   selector: 'app-list',
@@ -19,18 +20,21 @@ export class ListComponent implements OnInit, OnDestroy {
   schedule: ITournamentParticipant[] = [];
   selected: ITournamentParticipant;
 
+  user: IUser;
+  roles = Role;
   eventSubscription: Subscription;
   paramSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private scheduleService: ScheduleService,
     private teamService: TeamsService,
     private tournamentService: TournamentService,
-    private eventService: EventService) { }
+    private eventService: EventService,
+    private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getMe().subscribe(result => this.user = result);
     this.eventSubscription = this.eventService.connect().subscribe(message => this.loadSchedule());
 
     if (this.tournamentService.selected) {
@@ -72,7 +76,9 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   select(participant: ITournamentParticipant) {
-    this.selected = participant;
+    if (this.user && this.user.role >= this.roles.Secretariat) {
+      this.selected = participant;
+    }
   }
 
   closeEditor() {

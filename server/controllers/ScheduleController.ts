@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
+import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service } from 'typedi';
 
@@ -8,6 +8,7 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
+import { RequireRoleAdmin } from '../middlewares/RequireAuth';
 import { TournamentParticipant } from '../model/TournamentParticipant';
 
 /**
@@ -66,6 +67,7 @@ export class ScheduleController {
   }
 
   @Post()
+  @UseBefore(RequireRoleAdmin)
   create( @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
     if (!Array.isArray(participant)) {
       Logger.log.debug('Creating one participant');
@@ -75,6 +77,7 @@ export class ScheduleController {
   }
 
   @Post()
+  @UseBefore(RequireRoleAdmin)
   createMany( @Body() participants: TournamentParticipant[], @Res() res: Response) {
     if (Array.isArray(participants)) {
       Logger.log.debug('Creating many participant');
@@ -84,6 +87,7 @@ export class ScheduleController {
   }
 
   @Put('/:id')
+  @UseBefore(RequireRoleAdmin)
   update( @Param('id') id: number, @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
     Logger.log.debug('Updating participant');
     return this.repository.persist(participant)
@@ -92,6 +96,7 @@ export class ScheduleController {
   }
 
   @Delete('/:id')
+  @UseBefore(RequireRoleAdmin)
   remove( @EntityFromParam('id') participant: TournamentParticipant, @Res() res: Response) {
     Logger.log.debug('Deleting participant');
     return this.removeMany([participant], res);
@@ -99,6 +104,7 @@ export class ScheduleController {
 
   @Delete('/many')
   @EmptyResultCode(200)
+  @UseBefore(RequireRoleAdmin)
   removeMany( @Body() participant: TournamentParticipant[], @Res() res: Response) {
     return this.repository.remove(participant)
       .catch(err => Logger.log.error(err));

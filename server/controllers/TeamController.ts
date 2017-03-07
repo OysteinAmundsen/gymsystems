@@ -1,5 +1,5 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Param, Res, Body } from 'routing-controllers';
+import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service } from 'typedi';
 
@@ -8,6 +8,7 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
+import { RequireRoleClub } from '../middlewares/RequireAuth';
 import { Team } from '../model/Team';
 
 /**
@@ -49,12 +50,14 @@ export class TeamController {
   }
 
   @Put('/:id')
+  @UseBefore(RequireRoleClub)
   update( @Param('id') id: number, @EntityFromBody() team: Team, @Res() res: Response) {
     Logger.log.debug('Updating team');
     return this.repository.persist(team).catch(err => Logger.log.error(err));
   }
 
   @Post()
+  @UseBefore(RequireRoleClub)
   create( @EntityFromBody() team: Team, @Res() res: Response) {
     if (!Array.isArray(team)) {
       Logger.log.debug('Creating one team');
@@ -64,6 +67,7 @@ export class TeamController {
   }
 
   @Post()
+  @UseBefore(RequireRoleClub)
   createMany( @Body() teams: Team[], @Res() res: Response) {
     if (Array.isArray(teams)) {
       Logger.log.debug('Creating many teams');
@@ -73,6 +77,7 @@ export class TeamController {
   }
 
   @Delete('/:id')
+  @UseBefore(RequireRoleClub)
   remove( @EntityFromParam('id') team: Team, @Res() res: Response) {
     return this.repository.remove(team)
       .catch(err => Logger.log.error(err));

@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
-import { EventService, TournamentService, ScheduleService, TeamsService } from 'app/api';
+import { EventService, TournamentService, ScheduleService, TeamsService, UserService } from 'app/api';
 import { ITournament } from 'app/api/model/ITournament';
 import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
+import { IUser, Role } from 'app/api/model/IUser';
 
 @Component({
   selector: 'app-display',
@@ -15,18 +16,21 @@ export class DisplayComponent implements OnInit, OnDestroy {
   tournament: ITournament;
   schedule: ITournamentParticipant[] = [];
 
+  user: IUser;
+  roles = Role;
   eventSubscription: Subscription;
   paramSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private scheduleService: ScheduleService,
     private teamService: TeamsService,
     private tournamentService: TournamentService,
-    private eventService: EventService) { }
+    private eventService: EventService,
+    private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getMe().subscribe(result => this.user = result);
     this.eventSubscription = this.eventService.connect().subscribe(message => {
       console.log(message);
     });

@@ -1,6 +1,7 @@
+import { Role, IUser } from './api/model/IUser';
 import { Component, ElementRef, OnInit } from '@angular/core';
 
-import { TournamentService } from 'app/api';
+import { TournamentService, UserService } from 'app/api';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,18 @@ import { TournamentService } from 'app/api';
 })
 export class AppComponent implements OnInit {
   navState: boolean = false;
-  get tournament() {
-    return this.tournamentService.selected;
-  }
 
-  constructor(private element: ElementRef, private tournamentService: TournamentService) { }
-  ngOnInit(): void { }
+  get user(): IUser { return this.userService.current; }
+  set user(value: IUser) { this.userService.current = value; }
+  get tournament() { return this.tournamentService.selected; }
+
+  roles = Role;
+
+  constructor(private element: ElementRef, private userService: UserService, private tournamentService: TournamentService) { }
+
+  ngOnInit(): void {
+    this.userService.getMe().subscribe(result => this.user = result);
+  }
 
   closeNav(evt: MouseEvent): void {
     if (this.navState) {

@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
+import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, UseBefore } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service, Container } from 'typedi';
 
@@ -8,6 +8,7 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
+import { RequireRoleAdmin } from '../middlewares/RequireAuth';
 
 import { ConfigurationController } from './ConfigurationController';
 import { TeamController } from './TeamController';
@@ -54,6 +55,7 @@ export class DisciplineController {
   }
 
   @Post()
+  @UseBefore(RequireRoleAdmin)
   create( @EntityFromBody() discipline: Discipline): Promise<Discipline> {
     if (!Array.isArray(discipline)) {
       Logger.log.debug('Creating one discipline');
@@ -63,12 +65,36 @@ export class DisciplineController {
   }
 
   @Post()
+  @UseBefore(RequireRoleAdmin)
   createMany( @Body() disciplines: Discipline[]): Promise<Discipline[]> {
     if (Array.isArray(disciplines)) {
       Logger.log.debug('Creating many disciplines');
       return this.repository.persist(disciplines).catch(err => Logger.log.error(err));
     }
     return null;
+  }
+
+  @Put('/:id')
+  @UseBefore(RequireRoleAdmin)
+  update( @Param('id') id: number, @EntityFromBody() discipline: Discipline): Promise<Discipline> {
+    Logger.log.debug('Updating discipline');
+    return this.repository.persist(discipline).catch(err => Logger.log.error(err));
+  }
+
+  @Delete('/:id')
+  @UseBefore(RequireRoleAdmin)
+  remove( @EntityFromParam('id') discipline: Discipline) {
+    return this.removeMany([discipline]).catch(err => Logger.log.error(err));
+  }
+
+  removeMany(disciplines: Discipline[]) {
+    const scoreGroupRepository = Container.get(ScoreGroupController);
+    const teamRepository = Container.get(TeamController);
+    return Promise.all(
+      disciplines.map(d => scoreGroupRepository.getByDiscipline(d.id).then((e: ScoreGroup[]) => scoreGroupRepository.removeMany(e)))
+    ).then(() => {
+      return this.repository.remove(disciplines);
+    });
   }
 
   createDefaults(tournament: Tournament): Promise<Discipline[]> {
@@ -92,26 +118,5 @@ export class DisciplineController {
           .catch(err => Logger.log.error(err));
       })
       .catch(err => Logger.log.error(err));
-  }
-
-  @Put('/:id')
-  update( @Param('id') id: number, @EntityFromBody() discipline: Discipline): Promise<Discipline> {
-    Logger.log.debug('Updating discipline');
-    return this.repository.persist(discipline).catch(err => Logger.log.error(err));
-  }
-
-  @Delete('/:id')
-  remove( @EntityFromParam('id') discipline: Discipline) {
-    return this.removeMany([discipline]).catch(err => Logger.log.error(err));
-  }
-
-  removeMany(disciplines: Discipline[]) {
-    const scoreGroupRepository = Container.get(ScoreGroupController);
-    const teamRepository = Container.get(TeamController);
-    return Promise.all(
-      disciplines.map(d => scoreGroupRepository.getByDiscipline(d.id).then((e: ScoreGroup[]) => scoreGroupRepository.removeMany(e)))
-    ).then(() => {
-      return this.repository.remove(disciplines);
-    });
   }
 }

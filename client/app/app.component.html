@@ -10,7 +10,15 @@
     </header>
     <app-fa name="bars" fw="true" size="2" (click)="toggleNav($event)"></app-fa>
     <ul class="pull-right" [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
-      <li [routerLinkActive]="['active']">
+      <li>
+        <a routerLink="/">
+          <app-fa name="home" fw="true"></app-fa> Home </a>
+      </li>
+      <li [routerLinkActive]="['active']" *ngIf="!user">
+        <a routerLink="/login">
+          <app-fa name="sign-in" fw="true"></app-fa> Login </a>
+      </li>
+      <li [routerLinkActive]="['active']" *ngIf="user && user.role === roles.Admin">
         <a routerLink="/configure">
           <app-fa name="cogs" fw="true"></app-fa> Configure </a>
       </li>
@@ -26,8 +34,8 @@
   <div class="container">
     Designed and built for Haugesund Turnforening
     <div class="pull-left logo">
-      <a href="http://www.gymogturn.no/"><img src="assets/images/NGTF_logo_farger.png"></a>
-      <a href="http://www.haugesundturn.no/"><img src="assets/images/HTF_Logo.png"></a>
+      <a href="http://www.gymogturn.no/"><img src="assets/images/NGTF_logo_farger.png" alt="Norges gym og Turnforening"></a>
+      <a href="http://www.haugesundturn.no/"><img src="assets/images/HTF_Logo.png" alt="Haugesund Turnforening"></a>
     </div>
   </div>
 </footer>

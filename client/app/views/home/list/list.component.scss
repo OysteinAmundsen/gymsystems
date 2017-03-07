@@ -1,5 +1,4 @@
 @import "~styles/variables";
-
 h2 {
   small {
     float: right;
@@ -7,9 +6,15 @@ h2 {
     font-weight: normal;
   }
 }
+
+td:last-child {
+  padding: 0;
+}
+
 td.editor {
   padding: 0;
 }
+
 tr {
   color: rgba($text-color, 0.7);
   &.hasScore {

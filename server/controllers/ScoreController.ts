@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
+import { Body, Delete, Get, JsonController, Param, Post, Put, UseBefore } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Container, Service } from 'typedi';
 
@@ -10,6 +10,7 @@ import Response = e.Response;
 import { Logger } from '../utils/Logger';
 
 import { SSEService } from '../services/SSEService';
+import { RequireRoleSecretariat } from '../middlewares/RequireAuth';
 import { ScheduleController } from './ScheduleController';
 
 import { TournamentParticipant } from '../model/TournamentParticipant';
@@ -38,6 +39,7 @@ export class ScoreController {
   }
 
   @Post('/:id')
+  @UseBefore(RequireRoleSecretariat)
   createFromParticipant( @Param('id') participantId: number, @Body() scores: TournamentParticipantScore[]) {
     const scheduleRepository = Container.get(ScheduleController);
     const sseService = Container.get(SSEService);
@@ -54,7 +56,14 @@ export class ScoreController {
       .catch(err => Logger.log.error(err));
   }
 
+  @Put('/:id')
+  @UseBefore(RequireRoleSecretariat)
+  publishScore( @Param('id') participantId: number) {
+
+  }
+
   @Delete('/:id')
+  @UseBefore(RequireRoleSecretariat)
   removeFromParticipant( @Param('id') participantId: number) {
     const sseService = Container.get(SSEService);
     return this.repository.find({ participant: participantId })

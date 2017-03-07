@@ -1,5 +1,7 @@
 import { MigrationInterface, QueryRunner, Connection, EntityManager } from 'typeorm';
 import { DivisionType } from '../model/Division';
+import { Role } from '../model/User';
+import * as bcrypt from 'bcrypt';
 
 export class FirstReleaseChanges1487003618914 implements MigrationInterface {
 
@@ -26,10 +28,11 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
         ],
       })
     });
-
+    await queryRunner.insert('user', {name: 'admin', password: '$2a$08$1L59S.CUKs6Sq23eq8B4xup0QJZ31QLtdQyOyQsvlxf0PqfQeltw6', role: Role.Admin})
   }
 
   async down(queryRunner: QueryRunner, connection: Connection, entityManager?: EntityManager): Promise<any> {
     await queryRunner.delete('configuration', { 'name': 'defaultValues' });
+    await queryRunner.delete('user', { 'name': 'admin' });
   }
 }

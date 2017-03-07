@@ -1,6 +1,5 @@
-import { ScoreGroup } from '../model/ScoreGroup';
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { JsonController, Get, Post, Put, Delete, EmptyResultCode, Body, Param, Req, Res } from 'routing-controllers';
+import { Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service, Container } from 'typedi';
 
@@ -11,6 +10,8 @@ import Response = e.Response;
 import { Logger } from '../utils/Logger';
 import moment = require('moment');
 
+import { RequireRoleAdmin } from '../middlewares/RequireAuth';
+
 import { ScoreGroupController } from './ScoreGroupController';
 import { DisciplineController } from './DisciplineController';
 import { DivisionController } from './DivisionController';
@@ -19,6 +20,7 @@ import { ConfigurationController } from './ConfigurationController';
 import { Tournament } from '../model/Tournament';
 import { Division } from '../model/Division';
 import { Discipline } from '../model/Discipline';
+import { ScoreGroup } from '../model/ScoreGroup';
 import { TournamentParticipant } from '../model/TournamentParticipant';
 
 /**
@@ -91,10 +93,36 @@ export class TournamentController {
   }
 
   @Post()
+  @UseBefore(RequireRoleAdmin)
   create( @EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
       .then(persisted => this.createDefaults(persisted))
       .catch(err => Logger.log.error(err));
+  }
+
+  @Put('/:id')
+  @UseBefore(RequireRoleAdmin)
+  update( @Param('id') id: number, @EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
+    return this.repository.persist(tournament)
+      .catch(err => Logger.log.error(err));
+  }
+
+  @Delete('/:id')
+  @UseBefore(RequireRoleAdmin)
+  remove( @EntityFromParam('id') tournament: Tournament, @Res() res: Response) {
+    // This should cascade, but it wont. :-(
+    const divisionRepository = Container.get(DivisionController);
+    const disciplineRepository = Container.get(DisciplineController);
+    const participantRepository = this.conn.getRepository(TournamentParticipant);
+    return Promise.all([
+      divisionRepository.getByTournament(tournament.id).then((e: Division[]) => divisionRepository.removeMany(e)),
+      disciplineRepository.getByTournament(tournament.id).then((e: Discipline[]) => disciplineRepository.removeMany(e)),
+      participantRepository.find({ tournament: tournament.id }).then((e) => participantRepository.remove(e))
+    ]).then(() => {
+      // Remove the tournament.
+      return this.repository.remove(tournament)
+        .catch(err => Logger.log.error(err));
+    });
   }
 
   createDefaults(tournament: Tournament): Promise<Tournament> {
@@ -116,28 +144,5 @@ export class TournamentController {
         return tournament;
       })
       .catch(err => Logger.log.error(err));
-  }
-
-  @Put('/:id')
-  update( @Param('id') id: number, @EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
-    return this.repository.persist(tournament)
-      .catch(err => Logger.log.error(err));
-  }
-
-  @Delete('/:id')
-  remove( @EntityFromParam('id') tournament: Tournament, @Res() res: Response) {
-    // This should cascade, but it wont. :-(
-    const divisionRepository = Container.get(DivisionController);
-    const disciplineRepository = Container.get(DisciplineController);
-    const participantRepository = this.conn.getRepository(TournamentParticipant);
-    return Promise.all([
-      divisionRepository.getByTournament(tournament.id).then((e: Division[]) => divisionRepository.removeMany(e)),
-      disciplineRepository.getByTournament(tournament.id).then((e: Discipline[]) => disciplineRepository.removeMany(e)),
-      participantRepository.find({ tournament: tournament.id }).then((e) => participantRepository.remove(e))
-    ]).then(() => {
-      // Remove the tournament.
-      return this.repository.remove(tournament)
-        .catch(err => Logger.log.error(err));
-    });
   }
 }

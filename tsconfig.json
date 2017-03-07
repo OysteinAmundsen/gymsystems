@@ -1,6 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./client",
+    "mapRoot": "./client",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
