@@ -6,10 +6,17 @@
       "request": "launch",
       "name": "Server",
       "preLaunchTask": "server:build",
+      "runtimeExecutable": "nodemon",
+      "runtimeArgs": [
+        "--debug=5858"
+      ],
       "sourceMaps": true,
       "outFiles": [ "${workspaceRoot}/dist/**/*.js" ],
       "program": "${workspaceRoot}/server/index.ts",
-      "cwd": "${workspaceRoot}"
+      "restart": true,
+      "port": 5858,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     },
     {
       "type": "chrome",

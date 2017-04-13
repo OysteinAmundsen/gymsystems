@@ -1,6 +1,5 @@
 @import "../../../styles/variables";
 @import '../../../styles/form';
-
 .datepicker-container {
   position: relative;
   .datepicker-input-container {
@@ -124,12 +123,14 @@
           text-align: center;
           border-radius: 50%;
           cursor: pointer;
-          &:hover:not(.disabled), &.selected {
+          &:hover:not(.disabled),
+          &.selected {
             background: $primary;
             color: #FFFFFF !important;
           }
           &.disabled {
             pointer-events: none;
+            color: #999;
           }
           &.today {
             color: #fa5252;
@@ -177,7 +178,8 @@
         text-align: center;
         border-radius: 50%;
         cursor: pointer;
-        &:hover, &.selected {
+        &:hover,
+        &.selected {
           background: $primary;
           color: #FFFFFF !important;
         }
