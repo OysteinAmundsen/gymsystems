@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, forwardRef, Input, Output, EventEmitter, Provider, HostListener } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, forwardRef, Input, Output, EventEmitter, Provider, HostListener, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import * as moment from 'moment';
 
@@ -88,6 +88,8 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   @Input() inputEvents: EventEmitter<{ type: string, data: string | DateModel }>;
   @Output() outputEvents: EventEmitter<{ type: string, data: string | DateModel }>;
 
+  @ViewChild('dateInput') dateInput;
+
   date: DateModel;
 
   opened: boolean;
@@ -146,6 +148,22 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     this.date = date;
     this.onChangeCallback(date);
   }
+
+  modelChanged(value) {
+    const date: moment.Moment = Moment(value, this.options.format);
+
+    if (this.value && date.isValid) {
+      this.value.day = date.format('DD');
+      this.value.month = date.format('MM');
+      this.value.year = date.format('YYYY');
+      this.value.momentObj = date;
+      this.currentDate = date;
+    } else {
+      console.log('No value object created!');
+    }
+  }
+
+
 
   ngOnInit() {
     this.setup();
@@ -276,8 +294,8 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
       this.generateCalendar();
 
       this.outputEvents.emit({ type: 'dateChanged', data: this.value });
-      this.el.nativeElement.querySelector('input').focus();
-      this.el.nativeElement.querySelector('input').blur();
+      this.dateInput.nativeElement.focus();
+      this.dateInput.nativeElement.blur();
     });
 
     if (this.options.autoApply === true && this.opened === true) {
@@ -368,7 +386,6 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
 
   @HostListener('keyup', ['$event'])
   onKey(event: KeyboardEvent) {
-    console.log(event.key);
     switch (event.key) {
       case 'ArrowDown': this.open(); break;
       case 'ArrowUp': this.close(); break;

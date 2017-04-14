@@ -1,6 +1,6 @@
 <div class="datepicker-container u-is-unselectable">
   <div class="datepicker-input-container">
-    <input type="text" class="datepicker-input" [(ngModel)]="date.formatted" />
+    <input type="text" class="datepicker-input" [ngModel]="date.formatted" (ngModelChange)="modelChanged($event)" #dateInput/>
     <div class="datepicker-input-icon" (click)="toggle()">
       <app-fa name="calendar"></app-fa>
     </div>
