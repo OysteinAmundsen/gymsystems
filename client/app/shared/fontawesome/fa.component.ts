@@ -23,7 +23,7 @@ export class FaComponent implements OnInit, OnChanges {
   @Input() fw: boolean; // true fa-fw
   @Input() inverse: boolean; // true fa-inverse
 
-  private classList: Array<string>;
+  classList: Array<string>;
 
   constructor(el: ElementRef) {
     // TODO (travelist): Support for fa-li selector

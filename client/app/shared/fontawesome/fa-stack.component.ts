@@ -6,7 +6,7 @@ import { Component, Input, OnChanges, SimpleChange } from '@angular/core';
 })
 export class FaStackComponent implements OnChanges {
   @Input() size: number; // "1-5" <i class="fa-stack fa-3x"></i>
-  private classList: Array<string>;
+  classList: Array<string>;
 
   constructor() { this.classList = ['fa-stack']; }
 
