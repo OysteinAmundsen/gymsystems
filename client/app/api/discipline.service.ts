@@ -5,36 +5,33 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { ApiService } from './ApiService';
 import { IDiscipline } from './model/IDiscipline';
 
 @Injectable()
-export class DisciplineService extends ApiService {
+export class DisciplineService {
   url: string = '/api/disciplines';
 
-  constructor(private http: Http) {
-    super();
-  }
+  constructor(private http: Http) {  }
 
   all(): Observable<IDiscipline[]> {
-    return this.http.get(this.url).map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get(this.url).map((res: Response) => res.json()).share();
   }
 
   getByTournament(id: number): Observable<IDiscipline[]> {
-    return this.http.get(`${this.url}/tournament/${id}`).map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get(`${this.url}/tournament/${id}`).map((res: Response) => res.json()).share();
   }
 
   getById(id: number): Observable<IDiscipline> {
-    return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share();
   }
 
   save(discipline: IDiscipline) {
     const call = (discipline.id) ? this.http.put(`${this.url}/${discipline.id}`, discipline) : this.http.post(this.url, discipline);
-    return call.map((res: Response) => res.json()).catch(this.handleError);
+    return call.map((res: Response) => res.json());
   }
 
   saveAll(disciplines: IDiscipline[]) {
-    return this.http.post(this.url, disciplines).map((res: Response) => res.json()).catch(this.handleError);
+    return this.http.post(this.url, disciplines).map((res: Response) => res.json());
   }
 
   delete(discipline: IDiscipline) {

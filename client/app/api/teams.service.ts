@@ -5,33 +5,30 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { ApiService } from './ApiService';
 import { ITeam } from './model/ITeam';
 import { DivisionType } from './model/DivisionType';
 
 @Injectable()
-export class TeamsService extends ApiService {
+export class TeamsService {
   url: string = '/api/teams';
 
-  constructor(private http: Http) {
-    super();
-  }
+  constructor(private http: Http) {  }
 
   all(): Observable<ITeam[]> {
-    return this.http.get(this.url).map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get(this.url).map((res: Response) => res.json()).share();
   }
 
   getByTournament(id: number): Observable<ITeam[]> {
-    return this.http.get(`${this.url}/tournament/${id}`).map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get(`${this.url}/tournament/${id}`).map((res: Response) => res.json()).share();
   }
 
   getById(id: number): Observable<ITeam> {
-    return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share();
   }
 
   save(team: ITeam) {
     const call = (team.id) ? this.http.put(`${this.url}/${team.id}`, team) : this.http.post(this.url, team);
-    return call.map((res: Response) => res.json()).catch(this.handleError);
+    return call.map((res: Response) => res.json());
   }
 
   delete(team: ITeam) {

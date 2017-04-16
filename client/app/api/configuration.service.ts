@@ -5,28 +5,25 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { ApiService } from './ApiService';
 import { IConfiguration } from './model/IConfiguration';
 
 @Injectable()
-export class ConfigurationService extends ApiService {
+export class ConfigurationService  {
   url: string = '/api/configuration';
 
-  constructor(private http: Http) {
-    super();
-  }
+  constructor(private http: Http) {}
 
   all(): Observable<IConfiguration[]> {
-    return this.http.get(this.url).map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get(this.url).map((res: Response) => res.json()).share();
   }
 
   getByname(name: string): Observable<IConfiguration> {
-    return this.http.get(`${this.url}/${name}`).map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get(`${this.url}/${name}`).map((res: Response) => res.json()).share();
   }
 
   save(configuration: IConfiguration) {
     const call = (configuration.name) ? this.http.put(`${this.url}/${configuration.name}`, configuration) : this.http.post(this.url, configuration);
-    return call.map((res: Response) => res.json()).catch(this.handleError);
+    return call.map((res: Response) => res.json());
   }
 
   delete(configuration: IConfiguration) {

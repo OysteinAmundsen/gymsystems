@@ -6,27 +6,24 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { ApiService } from './ApiService';
 import { IUser } from './model/IUser';
 import { IDiscipline } from './model/IDiscipline';
 // import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class UserService extends ApiService {
+export class UserService {
   _currentUser: IUser;
   get current(): IUser { return this._currentUser; }
   set current(user: IUser) { this._currentUser = user; }
 
-  constructor(private http: Http) {
-    super();
-  }
+  constructor(private http: Http) {  }
 
   all(): Observable<IUser[]> {
-    return this.http.get('/api/users').map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get('/api/users').map((res: Response) => res.json()).share();
   }
 
   getById(id: number): Observable<IUser> {
-    return this.http.get('/api/users/' + id).map((res: Response) => res.json()).share().catch(this.handleError);
+    return this.http.get('/api/users/' + id).map((res: Response) => res.json()).share();
   }
 
   private userReceived(res: Response) {
@@ -47,6 +44,6 @@ export class UserService extends ApiService {
 
     return this.http.post('/api/users/login', credentials)
       .map((res: Response) => this.userReceived(res))
-      .catch(this.handleError);
+      ;
   }
 }

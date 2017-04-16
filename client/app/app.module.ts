@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,7 @@ import {
 
 // Components
 import { AppComponent } from './app.component';
+import { AuthHttp } from 'app/api/config/AuthHttp';
 
 @NgModule({
   declarations: [
@@ -47,9 +48,9 @@ import { AppComponent } from './app.component';
     TeamsService,
     ConfigurationService,
     ScheduleService,
-    EventService
+    EventService,
+    { provide: Http, useClass: AuthHttp }
   ],
-  // providers: [RoleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

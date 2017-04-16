@@ -8,40 +8,37 @@ import 'rxjs/add/operator/share';
 import * as moment from 'moment';
 import Moment = moment.Moment;
 
-import { ApiService } from './ApiService';
 import { ITournament } from './model/ITournament';
 
 @Injectable()
-export class TournamentService extends ApiService {
+export class TournamentService {
   url: string = '/api/tournaments';
   _selectedTournament: ITournament;
   get selected(): ITournament { return this._selectedTournament; }
   set selected(tournament: ITournament) { this._selectedTournament = tournament; }
   selectedId: number;
 
-  constructor(private http: Http) {
-    super();
-  }
+  constructor(private http: Http) {  }
 
   all(): Observable<ITournament[]> {
-    return this.http.get(this.url).map((res: Response) => this.mapDates(res.json())).share().catch(this.handleError);
+    return this.http.get(this.url).map((res: Response) => this.mapDates(res.json())).share();
   }
   past(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/past`).map((res: Response) => this.mapDates(res.json())).share().catch(this.handleError);
+    return this.http.get(`${this.url}/past`).map((res: Response) => this.mapDates(res.json())).share();
   }
   current(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/current`).map((res: Response) => this.mapDates(res.json())).share().catch(this.handleError);
+    return this.http.get(`${this.url}/current`).map((res: Response) => this.mapDates(res.json())).share();
   }
   upcoming(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/future`).map((res: Response) => this.mapDates(res.json())).share().catch(this.handleError);
+    return this.http.get(`${this.url}/future`).map((res: Response) => this.mapDates(res.json())).share();
   }
   getById(id: number): Observable<ITournament> {
-    return this.http.get(`${this.url}/${id}`).map((res: Response) => this.mapDate(res.json())).share().catch(this.handleError);
+    return this.http.get(`${this.url}/${id}`).map((res: Response) => this.mapDate(res.json())).share();
   }
 
   save(tournament: ITournament) {
     let call = (tournament.id) ? this.http.put(`${this.url}/${tournament.id}`, tournament) : this.http.post(this.url, tournament);
-    return call.map((res: Response) => res.json()).catch(this.handleError);
+    return call.map((res: Response) => res.json());
   }
 
   delete(tournament: ITournament) {
