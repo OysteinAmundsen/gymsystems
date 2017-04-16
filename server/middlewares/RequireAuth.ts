@@ -23,9 +23,9 @@ export class AuthMiddlewareBase {
   protected hasRole(req: any, res: any, role: Role, next?: (err?: any) => any): any {
     if (this.isLoggedIn(req, res, next)) { // First check if we are logged in
       if (req.session.passport.user.role >= role) { // Users role must be greater than or equal to requested
-        res.status(403).json({message: 'Not authorized for this function'});
+        return true;
       }
-      else { return true; }
+      else { res.status(403).json({message: 'Not authorized for this function'}); }
     }
     return false; // Not even logged in
   }
