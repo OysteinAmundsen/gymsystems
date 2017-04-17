@@ -51,8 +51,7 @@ export class UserController {
     return this.repository.find();
   }
 
-  @UseBefore(RequireAuth)
-  @EmptyResultCode(401)
+  @EmptyResultCode(404)
   @Get('/me')
   me( @Req() req: Request): Promise<User> {
     if (req.session && req.session.passport && req.session.passport.user) {
