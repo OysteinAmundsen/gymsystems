@@ -6,6 +6,9 @@ MAINTAINER Øystein Amundsen <oystein.amundsen@gmail.com>
 ENV HOME=/usr/src/app
 RUN mkdir -p $HOME
 
+# In order to build bcrypt library
+RUN apt-get install -y make automake gcc g++
+
 # Create app user
 # RUN useradd --user-group --create-home --shell /bin/bash app
 # USER app
