@@ -1,9 +1,9 @@
 <table role="list" [dragula]="'discipline-bag'" [dragulaModel]="disciplineList" class="editable">
-  <tbody *ngFor="let discipline of disciplineList" class="draggable">
-    <tr *ngIf="discipline !== selected" (click)="select(discipline)" role="listitem">
+  <tbody *ngFor="let discipline of disciplineList">
+    <tr *ngIf="discipline !== selected" (click)="select(discipline)" role="listitem" class="draggable">
       <td>{{ discipline.name }}</td>
     </tr>
-    <tr *ngIf="discipline === selected">
+    <tr *ngIf="discipline === selected" class="static">
       <td colspan="1">
         <app-discipline-editor [discipline]="selected" (disciplineChanged)="onChange($event)"></app-discipline-editor>
       </td>

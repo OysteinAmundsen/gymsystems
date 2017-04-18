@@ -8,11 +8,11 @@
       </h2>
     </header>
     <table role="list" [dragula]="'gender-bag'" [dragulaModel]="genderDivisions" class="editable">
-      <tbody *ngFor="let division of genderDivisions" class="draggable">
-        <tr *ngIf="division !== selected" (click)="select(division)" role="listitem">
+      <tbody *ngFor="let division of genderDivisions">
+        <tr *ngIf="division !== selected" (click)="select(division)" role="listitem" class="draggable">
           <td>{{ division.name }}</td>
         </tr>
-        <tr *ngIf="division === selected">
+        <tr *ngIf="division === selected" class="static">
           <td colspan="1">
             <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>
           </td>
@@ -29,11 +29,11 @@
       </h2>
     </header>
     <table role="list" [dragula]="'age-bag'" [dragulaModel]="ageDivisions" class="editable">
-      <tbody *ngFor="let division of ageDivisions" class="draggable">
+      <tbody *ngFor="let division of ageDivisions">
         <tr *ngIf="division !== selected" (click)="select(division)" role="listitem">
           <td>{{ division.name }}</td>
         </tr>
-        <tr *ngIf="division === selected">
+        <tr *ngIf="division === selected" class="static">
           <td colspan="1">
             <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>
           </td>

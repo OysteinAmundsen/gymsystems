@@ -40,6 +40,9 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
     });
     this.loadDisciplines();
 
+    if (!this.dragulaService.find('discipline-bag')) {
+      this.dragulaService.setOptions('discipline-bag', { invalid: (el: HTMLElement, handle) => el.classList.contains('static') });
+    }
     this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
       setTimeout(() => { // Sometimes dragula is not finished syncing model
         this.disciplineList.forEach((div, idx) => div.sortOrder = idx);

@@ -36,6 +36,13 @@ export class DivisionsComponent implements OnInit, OnDestroy {
     this.configService.getByname('defaultValues').subscribe(config => this.defaultDivisions = config.value.division);
     this.loadDivisions();
 
+    if (!this.dragulaService.find('gender-bag')) {
+      this.dragulaService.setOptions('gender-bag', { invalid: (el: HTMLElement, handle) => el.classList.contains('static') });
+    }
+    if (!this.dragulaService.find('age-bag')) {
+      this.dragulaService.setOptions('age-bag', { invalid: (el: HTMLElement, handle) => el.classList.contains('static') });
+    }
+
     this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
       let divisions;
       switch (value[0]) {

@@ -29,6 +29,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadSchedule();
+    if (!this.dragulaService.find('schedule-bag')) {
+      this.dragulaService.setOptions('schedule-bag', { invalid: (el: HTMLElement, handle) => el.classList.contains('static') });
+    }
     this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
       setTimeout(() => { // Sometimes dragula is not finished syncing model
         this.schedule.forEach((div, idx) => div.startNumber = idx);
