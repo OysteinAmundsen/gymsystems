@@ -16,8 +16,8 @@ export class TournamentParticipantScore {
   @Column()
   value: number;
 
-  @UpdateDateColumn()
-  updated: Date;
+  @UpdateDateColumn({ nullable: true})
+  updated?: Date;
 
   @ManyToOne(type => ScoreGroup, { nullable: false, cascadeRemove: false, onDelete: 'CASCADE' })
   scoreGroup: ScoreGroup;
@@ -27,3 +27,4 @@ export class TournamentParticipantScore {
   })
   participant: TournamentParticipant;
 }
+

@@ -22,6 +22,7 @@ export class AuthHttp extends Http {
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
     let errMsg: string;
+
     return super.request(url, options).map(res => {
       //Successful Response;
       return res;

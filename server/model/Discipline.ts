@@ -1,12 +1,13 @@
 import { ScoreGroup } from './ScoreGroup';
 import { Tournament } from './Tournament';
 import { Team } from './Team';
-import { PrimaryGeneratedColumn, Column, Entity, OneToMany, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, Entity, OneToMany, ManyToOne, ManyToMany, JoinTable, Index } from 'typeorm';
 
 /**
  * Describes the available disciplines in this sport.
  */
 @Entity()
+@Index('discipline_tournament_name', (discipline: Discipline) => [discipline.name, discipline.tournament], { unique: true })
 export class Discipline {
   @PrimaryGeneratedColumn()
   id: number;

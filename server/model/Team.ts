@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, Index } from 'typeorm';
 import { Tournament } from './Tournament';
 import { Discipline } from './Discipline';
 import { Division } from './Division';
@@ -10,11 +10,12 @@ import { Division } from './Division';
  * @class Team
  */
 @Entity()
+@Index('team_name_tournament', (team: Team) => [team.name, team.tournament], { unique: true})
 export class Team {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 100, unique: true })
+  @Column({ length: 100 })
   name: string;
 
   @ManyToMany(type => Division, division => division.teams)

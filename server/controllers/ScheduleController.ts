@@ -68,22 +68,9 @@ export class ScheduleController {
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
-    if (!Array.isArray(participant)) {
-      Logger.log.debug('Creating one participant');
-      return this.repository.persist(participant).catch(err => Logger.log.error(err));
-    }
-    return null;
-  }
-
-  @Post()
-  @UseBefore(RequireRoleAdmin)
-  createMany( @Body() participants: TournamentParticipant[], @Res() res: Response) {
-    if (Array.isArray(participants)) {
-      Logger.log.debug('Creating many participant');
-      return this.repository.persist(participants).catch(err => Logger.log.error(err));
-    }
-    return null;
+  create( @Body() participants: TournamentParticipant[], @Res() res: Response): Promise<TournamentParticipant[]> {
+    Logger.log.debug('Creating many participant');
+    return this.repository.persist(participants).catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')

@@ -51,29 +51,16 @@ export class TeamController {
 
   @Put('/:id')
   @UseBefore(RequireRoleClub)
-  update( @Param('id') id: number, @EntityFromBody() team: Team, @Res() res: Response) {
+  update( @Param('id') id: number, @Body() team: Team, @Res() res: Response) {
     Logger.log.debug('Updating team');
     return this.repository.persist(team).catch(err => Logger.log.error(err));
   }
 
   @Post()
   @UseBefore(RequireRoleClub)
-  create( @EntityFromBody() team: Team, @Res() res: Response) {
-    if (!Array.isArray(team)) {
-      Logger.log.debug('Creating one team');
-      return this.repository.persist(team).catch(err => Logger.log.error(err));
-    }
-    return null;
-  }
-
-  @Post()
-  @UseBefore(RequireRoleClub)
-  createMany( @Body() teams: Team[], @Res() res: Response) {
-    if (Array.isArray(teams)) {
-      Logger.log.debug('Creating many teams');
-      return this.repository.persist(teams).catch(err => Logger.log.error(err));
-    }
-    return null;
+  create( @Body() teams: Team[], @Res() res: Response): Promise<Team[]> {
+    Logger.log.debug('Creating teams');
+    return this.repository.persist(teams).catch(err => Logger.log.error(err));
   }
 
   @Delete('/:id')

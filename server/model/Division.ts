@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Column, Entity, ManyToMany, ManyToOne, JoinTable } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, Entity, ManyToMany, ManyToOne, JoinTable, Index } from 'typeorm';
 
 import { Tournament } from './Tournament';
 import { Team } from './Team';
@@ -10,6 +10,7 @@ export enum DivisionType {
  *
  */
 @Entity()
+@Index('division_tournament_name', (division: Division) => [division.name, division.tournament], { unique: true })
 export class Division {
   @PrimaryGeneratedColumn()
   id: number;

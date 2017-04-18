@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, UseBefore } from 'routing-controllers';
+import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service } from 'typedi';
 
@@ -42,29 +42,16 @@ export class ScoreGroupController {
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @EntityFromBody() scoreGroup: ScoreGroup) {
-    if (!Array.isArray(scoreGroup)) {
-      Logger.log.debug('Creating one scoreGroup');
-      return this.repository.persist(scoreGroup).catch(err => Logger.log.error(err));
-    }
-    return null;
-  }
-
-  @Post()
-  @UseBefore(RequireRoleAdmin)
-  createMany( @Body() scoreGroups: ScoreGroup[]) {
-    if (Array.isArray(scoreGroups)) {
-      Logger.log.debug('Creating many scoreGroup');
-      return this.repository.persist(scoreGroups).catch(err => Logger.log.error(err));
-    }
-    return null;
+  create( @Body() scoreGroups: ScoreGroup[], @Res() res: Response): Promise<ScoreGroup[]> {
+    Logger.log.debug('Creating many scoreGroup');
+    return this.repository.persist(scoreGroups).catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')
   @UseBefore(RequireRoleAdmin)
-  update( @Param('id') id: number, @EntityFromBody() scoreGroup: ScoreGroup) {
+  update( @Param('id') id: number, @Body() scoreGroup: ScoreGroup) {
     Logger.log.debug('Updating scoreGroup');
-    return this.createMany([scoreGroup]);
+    return this.repository.persist(scoreGroup).catch(err => Logger.log.error(err));
   }
 
   @Delete('/:id')

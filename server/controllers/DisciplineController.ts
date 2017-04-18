@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, UseBefore } from 'routing-controllers';
+import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service, Container } from 'typedi';
 
@@ -56,22 +56,9 @@ export class DisciplineController {
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @EntityFromBody() discipline: Discipline): Promise<Discipline> {
-    if (!Array.isArray(discipline)) {
-      Logger.log.debug('Creating one discipline');
-      return this.repository.persist(discipline).catch(err => Logger.log.error(err));
-    }
-    return null;
-  }
-
-  @Post()
-  @UseBefore(RequireRoleAdmin)
-  createMany( @Body() disciplines: Discipline[]): Promise<Discipline[]> {
-    if (Array.isArray(disciplines)) {
-      Logger.log.debug('Creating many disciplines');
-      return this.repository.persist(disciplines).catch(err => Logger.log.error(err));
-    }
-    return null;
+  create( @Body() discipline: Discipline[], @Res() res: Response): Promise<Discipline[]> {
+    Logger.log.debug('Creating discipline');
+    return this.repository.persist(discipline).catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')
@@ -97,7 +84,7 @@ export class DisciplineController {
     });
   }
 
-  createDefaults(tournament: Tournament): Promise<Discipline[]> {
+  createDefaults(tournament: Tournament, res: Response): Promise<Discipline[]> {
     Logger.log.debug('Creating default discipline values');
     const configRepository = Container.get(ConfigurationController);
     const scoreGroupRepository = Container.get(ScoreGroupController);
@@ -105,14 +92,14 @@ export class DisciplineController {
     return configRepository.get('defaultValues')
       .then(values => {
         const defaultValues = values.value;
-        return this.createMany(defaultValues.discipline.map((d: Discipline) => { d.tournament = tournament; return d; }))
+        return this.create(defaultValues.discipline.map((d: Discipline) => { d.tournament = tournament; return d; }), res)
           .then((disciplines: Discipline[]) => {
             const scoreGroups: ScoreGroup[] = [];
             disciplines.forEach((d: Discipline) => {
               const defaults = JSON.parse(JSON.stringify(defaultValues.scoreGroup));
               scoreGroups.push(defaults.map((s: ScoreGroup) => { s.discipline = d; return s; }));
             });
-            scoreGroupRepository.createMany(scoreGroups);
+            scoreGroupRepository.create(scoreGroups, res);
             return disciplines;
           })
           .catch(err => Logger.log.error(err));

@@ -1,6 +1,6 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, UseBefore } from 'routing-controllers';
-import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
+import { Delete, EmptyResultCode, Get, JsonController, Body, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
+import { EntityFromParam } from 'typeorm-routing-controllers-extensions';
 import { Service, Container } from 'typedi';
 
 import e = require('express');
@@ -51,29 +51,16 @@ export class DivisionController {
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @EntityFromBody() division: Division) {
-    if (!Array.isArray(division)) {
-      Logger.log.debug('Creating one division');
-      return this.repository.persist(division).catch(err => Logger.log.error(err));
-    }
-    return null;
-  }
-
-  @Post()
-  @UseBefore(RequireRoleAdmin)
-  createMany( @EntityFromBody() divisions: Division[]) {
-    if (Array.isArray(divisions)) {
-      Logger.log.debug('Creating many divisions');
-      return this.repository.persist(divisions).catch(err => Logger.log.error(err));
-    }
-    return null;
+  create( @Body() division: Division[], @Res() res: Response): Promise<Division[]> {
+    Logger.log.debug('Creating division');
+    return this.repository.persist(division).catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')
   @UseBefore(RequireRoleAdmin)
-  update( @Param('id') id: number, @EntityFromBody() division: Division) {
+  update( @Param('id') id: number, @Body() division: Division, @Res() res: Response) {
     Logger.log.debug('Updating division');
-    return this.createMany([division]);
+    return this.repository.persist(division).catch(err => Logger.log.error(err));
   }
 
   @Delete('/:id')
@@ -87,10 +74,10 @@ export class DivisionController {
     return this.repository.remove(divisions);
   }
 
-  createDefaults(tournament: Tournament): Promise<Division[]> {
+  createDefaults(tournament: Tournament, res: Response): Promise<Division[]> {
     const configRepository = Container.get(ConfigurationController);
     return configRepository.get('defaultValues')
-      .then(values => this.createMany(values.value.division.map((d: Division) => { d.tournament = tournament; return d; })))
+      .then(values => this.create(values.value.division.map((d: Division) => { d.tournament = tournament; return d; }), res))
       .catch(err => Logger.log.error(err));
   }
 }

@@ -1,6 +1,6 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
-import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
+import { Delete, EmptyResultCode, Get, JsonController, Body, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
+import { EntityFromParam } from 'typeorm-routing-controllers-extensions';
 import { Service, Container } from 'typedi';
 
 import e = require('express');
@@ -94,15 +94,15 @@ export class TournamentController {
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
+  create( @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
-      .then(persisted => this.createDefaults(persisted))
+      .then(persisted => this.createDefaults(persisted, res))
       .catch(err => Logger.log.error(err));
   }
 
   @Put('/:id')
   @UseBefore(RequireRoleAdmin)
-  update( @Param('id') id: number, @EntityFromBody() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
+  update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
       .catch(err => Logger.log.error(err));
   }
@@ -125,7 +125,7 @@ export class TournamentController {
     });
   }
 
-  createDefaults(tournament: Tournament): Promise<Tournament> {
+  createDefaults(tournament: Tournament, res: Response): Promise<Tournament> {
     const configRepository = Container.get(ConfigurationController);
     const disciplineRepository = Container.get(DisciplineController);
     const divisionRepository = Container.get(DivisionController);
@@ -135,8 +135,8 @@ export class TournamentController {
         if (values.value) {
           const defaultValues = values.value;
           return Promise.all([
-            divisionRepository.createDefaults(tournament).then(divisions => tournament.divisions = divisions),
-            disciplineRepository.createDefaults(tournament).then(disciplines => tournament.disciplines = disciplines)
+            divisionRepository.createDefaults(tournament, res).then(divisions => tournament.divisions = divisions),
+            disciplineRepository.createDefaults(tournament, res).then(disciplines => tournament.disciplines = disciplines)
           ])
             .then(() => tournament)
             .catch(err => Logger.log.error(err));
