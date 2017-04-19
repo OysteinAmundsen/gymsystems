@@ -6,18 +6,29 @@ import { Role } from 'app/api/model/IUser';
 @Injectable()
 export class AuthenticatedGuard implements CanActivate {
 
-  constructor(protected router: Router, protected userService: UserService) {
-  }
+  constructor(protected router: Router, protected userService: UserService) { }
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.userService.current != null;
+    const me = this;
+    return new Promise(resolve => {
+      this.userService.getMe().subscribe(user => {
+        me.redirect(resolve, (user != null));
+      });
+    });
   }
 
-  hasRole(role) {
-    if (this.userService.current.role < role) {
-      this.router.navigate(['/login']);
-      return false;
-    }
-    return true;
+  protected hasRole(role) {
+    const me = this;
+    return new Promise(resolve => {
+      this.userService.getMe().subscribe(
+        user => me.redirect(resolve, (user != null && user.role >= role)),
+        err => me.redirect(resolve, false)
+      );
+    });
+  }
+
+  private redirect(resolve, flag) {
+    if (!flag) { this.router.navigate(['/login']); }
+    resolve(flag);
   }
 }

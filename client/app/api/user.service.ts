@@ -29,7 +29,7 @@ export class UserService {
   }
 
   private userReceived(res: Response) {
-    this.current = res.json();
+    this.current = res instanceof Response ? res.json() : res;
     return this.current;
   }
 
@@ -37,8 +37,11 @@ export class UserService {
     if (this.current) { return Observable.of(this.current); }
     return this.http.get('/api/users/me')
       .map((res: Response) => this.userReceived(res))
-      .share()
-      .catch((err: Response) => Observable.of(null));
+      .catch((err: Response) =>  {
+        this.userReceived(null);
+        return Observable.of(null);
+      })
+      .share();
   }
 
   login(credentials: { username: string, password: string }): Observable<any> {

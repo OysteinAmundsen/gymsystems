@@ -6,32 +6,20 @@ import { Role } from 'app/api/model/IUser';
 
 @Injectable()
 export class RoleAdminGuard extends AuthenticatedGuard implements CanActivate {
-  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!super.canActivate(route, state)) { return false; }
-    return super.hasRole(Role.Admin);
-  }
+  canActivate() { return super.hasRole(Role.Admin); }
 }
 
 @Injectable()
 export class RoleSecretariatGuard extends AuthenticatedGuard implements CanActivate {
-  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!super.canActivate(route, state)) { return false; }
-    return super.hasRole(Role.Secretariat);
-  }
+  canActivate() { return super.hasRole(Role.Secretariat); }
 }
 
 @Injectable()
 export class RoleClubGuard extends AuthenticatedGuard implements CanActivate {
-  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!super.canActivate(route, state)) { return false; }
-    return super.hasRole(Role.Club);
-  }
+  canActivate() { return super.hasRole(Role.Club); }
 }
 
 @Injectable()
 export class RoleUserGuard extends AuthenticatedGuard implements CanActivate {
-  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!super.canActivate(route, state)) { return false; }
-    return super.hasRole(Role.User);
-  }
+  canActivate() { return super.hasRole(Role.User); }
 }

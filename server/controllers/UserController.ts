@@ -58,21 +58,21 @@ export class UserController {
     return this.repository.find();
   }
 
-  @EmptyResultCode(404)
+  @EmptyResultCode(204)
   @Get('/me')
-  me( @Req() req: Request): Promise<User> {
+  me( @Req() req: Request): User {
     if (req.session && req.session.passport && req.session.passport.user) {
-      return Promise.resolve(<User>req.session.passport.user);
+      return <User>req.session.passport.user;
     }
-    return Promise.reject('Not logged in');
+    return null;
   }
 
-  @UseBefore(RequireAuth)
-  @EmptyResultCode(404)
-  @Get('/:id')
-  get( @EntityFromParam('id') user: User, @Req() req: Request): User {
-    return user;
-  }
+  // @UseBefore(RequireAuth)
+  // @EmptyResultCode(404)
+  // @Get('/:id')
+  // get( @EntityFromParam('id') user: User, @Req() req: Request): User {
+  //   return user;
+  // }
 
   @Put('/:id')
   @UseBefore(RequireAuth)
