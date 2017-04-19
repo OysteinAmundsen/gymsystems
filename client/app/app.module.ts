@@ -25,6 +25,8 @@ import {
 // Components
 import { AppComponent } from './app.component';
 import { AuthHttp } from 'app/api/config/AuthHttp';
+import { RoleAdminGuard } from "app/shared/guards/role-guards";
+import { RoleClubGuard, RoleSecretariatGuard, RoleUserGuard } from "app/shared/guards/role-guards";
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { AuthHttp } from 'app/api/config/AuthHttp';
     SharedModule
   ],
   providers: [
+    // API Services
     UserService,
     ScoreService,
     ScoreGroupService,
@@ -48,7 +51,17 @@ import { AuthHttp } from 'app/api/config/AuthHttp';
     TeamsService,
     ConfigurationService,
     ScheduleService,
+
+    // SSE Provider
     EventService,
+
+    // Activation guards
+    RoleAdminGuard,
+    RoleSecretariatGuard,
+    RoleClubGuard,
+    RoleUserGuard,
+
+    // Authentication interceptor
     { provide: Http, useClass: AuthHttp }
   ],
   bootstrap: [AppComponent]

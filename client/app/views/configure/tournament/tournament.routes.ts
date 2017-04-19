@@ -6,18 +6,19 @@ import { DisciplineRoutes } from './disciplines/disciplines.routes';
 import { DivisionsComponent } from './divisions/divisions.component';
 import { TeamsComponent } from './teams/teams.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { RoleClubGuard, RoleAdminGuard } from "app/shared/guards/role-guards";
 
 export const TournamentRoutes: Routes = [
   {
     path: 'tournament', children: [
-      { path: '', component: TournamentComponent, pathMatch: 'full' },
-      { path: 'add', component: TournamentEditorComponent },
+      { path: '', component: TournamentComponent, pathMatch: 'full', canActivate: [RoleClubGuard] },
+      { path: 'add', component: TournamentEditorComponent, canActivate: [RoleAdminGuard]  },
       {
         path: ':id', component: TournamentEditorComponent, children: [
-          { path: 'divisions', component: DivisionsComponent },
+          { path: 'divisions', component: DivisionsComponent, canActivate: [RoleAdminGuard]  },
           ...DisciplineRoutes,
-          { path: 'teams', component: TeamsComponent },
-          { path: 'schedule', component: ScheduleComponent }
+          { path: 'teams', component: TeamsComponent, canActivate: [RoleClubGuard]  },
+          { path: 'schedule', component: ScheduleComponent, canActivate: [RoleAdminGuard]  }
         ]
       },
     ]

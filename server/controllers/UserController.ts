@@ -45,6 +45,13 @@ export class UserController {
     });
   }
 
+  @Post('/logout')
+  logout(@Req() req: any, @Res() res: Response): null {
+    const passport = Container.get(auth.Passport);
+    req.logOut();
+    return null;
+  }
+
   @Get()
   @UseBefore(RequireAuth)
   all() {

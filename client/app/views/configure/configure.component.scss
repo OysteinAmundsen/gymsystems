@@ -1,6 +1,4 @@
 @import "~styles/_variables";
-
-
 menu {
   @supports (display: flex) {
     margin-top: 1rem;
@@ -8,10 +6,8 @@ menu {
   @media (max-width: $stop1) {
     margin-top: 10px;
   }
-  li.active a {
-    color: white;
-  }
 }
+
 section {
   min-height: 12rem;
   margin-left: 13rem;

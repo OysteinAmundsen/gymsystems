@@ -6,13 +6,15 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { IUser } from './model/IUser';
+import { IUser, Role } from './model/IUser';
 import { IDiscipline } from './model/IDiscipline';
 // import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
   _currentUser: IUser;
+
+  roles: Role;
   get current(): IUser { return this._currentUser; }
   set current(user: IUser) { this._currentUser = user; }
 
@@ -40,10 +42,14 @@ export class UserService {
   }
 
   login(credentials: { username: string, password: string }): Observable<any> {
-    // credentials.password = bcrypt.hashSync(credentials.password, bcrypt.genSaltSync(10));
-
     return this.http.post('/api/users/login', credentials)
-      .map((res: Response) => this.userReceived(res))
-      ;
+      .map((res: Response) => this.userReceived(res));
+  }
+
+  logout() {
+    return this.http.post('/api/users/logout', {})
+      .map((res: Response) => {
+        return this.userReceived(res);
+      });
   }
 }
