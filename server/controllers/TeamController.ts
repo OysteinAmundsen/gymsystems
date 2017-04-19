@@ -52,15 +52,18 @@ export class TeamController {
   @Put('/:id')
   @UseBefore(RequireRoleClub)
   update( @Param('id') id: number, @Body() team: Team, @Res() res: Response) {
-    Logger.log.debug('Updating team');
     return this.repository.persist(team).catch(err => Logger.log.error(err));
   }
 
   @Post()
   @UseBefore(RequireRoleClub)
-  create( @Body() teams: Team[], @Res() res: Response): Promise<Team[]> {
-    Logger.log.debug('Creating teams');
-    return this.repository.persist(teams).catch(err => Logger.log.error(err));
+  create( @Body() team: Team | Team[], @Res() res: Response): Promise<Team[]> {
+    const teams = Array.isArray(team) ? team : [team];
+    return this.repository.persist(teams)
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   @Delete('/:id')

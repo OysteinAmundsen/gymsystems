@@ -40,6 +40,7 @@ export class ConfigurationController {
       .then(persisted => res.send(persisted))
       .catch(err => {
         Logger.log.error(err);
+        return { code: err.code, message: err.message };
       });
   }
 
@@ -50,6 +51,7 @@ export class ConfigurationController {
       .then(persisted => res.send(persisted))
       .catch(err => {
         Logger.log.error(err);
+        return { code: err.code, message: err.message };
       });
   }
 
@@ -60,6 +62,7 @@ export class ConfigurationController {
       .then(result => res.send(result))
       .catch(err => {
         Logger.log.error(err);
+        return { code: err.code, message: err.message };
       });
   }
 }

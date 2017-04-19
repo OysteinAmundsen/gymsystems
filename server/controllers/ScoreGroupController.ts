@@ -42,15 +42,18 @@ export class ScoreGroupController {
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @Body() scoreGroups: ScoreGroup[], @Res() res: Response): Promise<ScoreGroup[]> {
-    Logger.log.debug('Creating many scoreGroup');
-    return this.repository.persist(scoreGroups).catch(err => Logger.log.error(err));
+  create( @Body() scoreGroup: ScoreGroup | ScoreGroup[], @Res() res: Response): Promise<ScoreGroup[]> {
+    const scoreGroups = Array.isArray(scoreGroup) ? scoreGroup : [scoreGroup];
+    return this.repository.persist(scoreGroups)
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   @Put('/:id')
   @UseBefore(RequireRoleAdmin)
   update( @Param('id') id: number, @Body() scoreGroup: ScoreGroup) {
-    Logger.log.debug('Updating scoreGroup');
     return this.repository.persist(scoreGroup).catch(err => Logger.log.error(err));
   }
 

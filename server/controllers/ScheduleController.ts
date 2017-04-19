@@ -68,24 +68,29 @@ export class ScheduleController {
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @Body() participants: TournamentParticipant[], @Res() res: Response): Promise<TournamentParticipant[]> {
-    Logger.log.debug('Creating many participant');
-    return this.repository.persist(participants).catch(err => Logger.log.error(err));
+  create( @Body() participant: TournamentParticipant | TournamentParticipant[], @Res() res: Response): Promise<TournamentParticipant[]> {
+    const participants = Array.isArray(participant) ? participant : [participant];
+    return this.repository.persist(participants)
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   @Put('/:id')
   @UseBefore(RequireRoleAdmin)
   update( @Param('id') id: number, @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
-    Logger.log.debug('Updating participant');
     return this.repository.persist(participant)
       .then(() => this.get(id))
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   @Delete('/:id')
   @UseBefore(RequireRoleAdmin)
   remove( @EntityFromParam('id') participant: TournamentParticipant, @Res() res: Response) {
-    Logger.log.debug('Deleting participant');
     return this.removeMany([participant], res);
   }
 
@@ -94,6 +99,9 @@ export class ScheduleController {
   @UseBefore(RequireRoleAdmin)
   removeMany( @Body() participant: TournamentParticipant[], @Res() res: Response) {
     return this.repository.remove(participant)
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 }

@@ -77,28 +77,18 @@ export class UserController {
   @Put('/:id')
   @UseBefore(RequireAuth)
   update( @Param('id') id: number, @EntityFromBody() user: User, @Res() res: Response) {
-    Logger.log.debug('Updating user');
     return this.repository.persist(user).catch(err => Logger.log.error(err));
   }
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @EntityFromBody() user: User, @Res() res: Response) {
-    if (!Array.isArray(user)) {
-      Logger.log.debug('Creating one user');
-      return this.repository.persist(user).catch(err => Logger.log.error(err));
-    }
-    return null;
-  }
-
-  @Post()
-  @UseBefore(RequireRoleAdmin)
-  createMany( @Body() users: User[], @Res() res: Response) {
-    if (Array.isArray(users)) {
-      Logger.log.debug('Creating many users');
-      return this.repository.persist(users).catch(err => Logger.log.error(err));
-    }
-    return null;
+  create( @EntityFromBody() user: User, @Res() res: Response): Promise<User[]> {
+    const users = Array.isArray(user) ? user : [user];
+    return this.repository.persist(users)
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   @Delete('/:id')

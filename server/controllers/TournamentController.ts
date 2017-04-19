@@ -97,7 +97,10 @@ export class TournamentController {
   create( @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
       .then(persisted => this.createDefaults(persisted, res))
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   @Put('/:id')

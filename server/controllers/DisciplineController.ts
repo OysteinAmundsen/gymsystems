@@ -56,22 +56,33 @@ export class DisciplineController {
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @Body() discipline: Discipline[], @Res() res: Response): Promise<Discipline[]> {
-    Logger.log.debug('Creating discipline');
-    return this.repository.persist(discipline).catch(err => Logger.log.error(err));
+  create( @Body() discipline: Discipline | Discipline[], @Res() res: Response): Promise<Discipline[]> {
+    const disciplines = Array.isArray(discipline) ? discipline : [discipline];
+    return this.repository.persist(disciplines)
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   @Put('/:id')
   @UseBefore(RequireRoleAdmin)
   update( @Param('id') id: number, @EntityFromBody() discipline: Discipline): Promise<Discipline> {
-    Logger.log.debug('Updating discipline');
-    return this.repository.persist(discipline).catch(err => Logger.log.error(err));
+    return this.repository.persist(discipline)
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   @Delete('/:id')
   @UseBefore(RequireRoleAdmin)
   remove( @EntityFromParam('id') discipline: Discipline) {
-    return this.removeMany([discipline]).catch(err => Logger.log.error(err));
+    return this.removeMany([discipline])
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   removeMany(disciplines: Discipline[]) {

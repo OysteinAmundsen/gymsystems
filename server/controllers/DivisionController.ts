@@ -51,23 +51,33 @@ export class DivisionController {
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @Body() division: Division[], @Res() res: Response): Promise<Division[]> {
-    Logger.log.debug('Creating division');
-    return this.repository.persist(division).catch(err => Logger.log.error(err));
+  create( @Body() division: Division | Division[], @Res() res: Response): Promise<Division[]> {
+    const divisions = Array.isArray(division) ? division : [division];
+    return this.repository.persist(divisions)
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   @Put('/:id')
   @UseBefore(RequireRoleAdmin)
   update( @Param('id') id: number, @Body() division: Division, @Res() res: Response) {
-    Logger.log.debug('Updating division');
-    return this.repository.persist(division).catch(err => Logger.log.error(err));
+    return this.repository.persist(division)
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   @Delete('/:id')
   @UseBefore(RequireRoleAdmin)
   remove( @EntityFromParam('id') division: Division) {
     return this.removeMany([division])
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
   }
 
   removeMany(divisions: Division[]) {
