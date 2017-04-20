@@ -6,12 +6,9 @@ import { Role } from 'app/api/model/IUser';
 @Injectable()
 export class AuthenticatedGuard implements CanActivate {
 
-  currentUrl: string;
   currentUser;
 
-  constructor(protected router: Router, protected route: ActivatedRoute, protected userService: UserService) {
-    // Keep track of current url in order to redirect after login
-    this.route.url.subscribe(url => this.currentUrl = encodeURIComponent(url.join('/')));
+  constructor(protected router: Router, protected userService: UserService) {
     this.userService.getMe().subscribe(user => this.currentUser = user);
   }
 
@@ -37,7 +34,7 @@ export class AuthenticatedGuard implements CanActivate {
 
   private redirect(resolve, flag) {
     if (!flag) {
-      this.router.navigate(['/login'], { queryParams: { u: this.currentUrl } });
+      this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
     }
     resolve(flag);
   }

@@ -8,8 +8,7 @@ import { UserService } from 'app/api';
 
 @Injectable()
 export class AuthHttp extends Http {
-  currentUrl: string;
-  constructor(backend: XHRBackend, defaultOptions: RequestOptions, private router: Router, private route: ActivatedRoute) {
+  constructor(backend: XHRBackend, defaultOptions: RequestOptions, private router: Router) {
     super(backend, defaultOptions);
 
     // Prevent Ajax Request Caching for Internet Explorer
@@ -17,9 +16,6 @@ export class AuthHttp extends Http {
     defaultOptions.headers.append('Cache-control', 'no-store');
     defaultOptions.headers.append('Pragma', 'no-cache');
     defaultOptions.headers.append('Expires', '0');
-
-    // Keep track of current url in order to redirect after login
-    route.url.subscribe(url => this.currentUrl = encodeURIComponent(url.join('/')));
   }
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
@@ -32,7 +28,7 @@ export class AuthHttp extends Http {
     })
     .catch((err: any) => {
       if (err.status === 401) {
-        me.router.navigate(['/login'], { queryParams: { u: me.currentUrl } });
+        me.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
       }
       else {
         const body = err.text() || '';

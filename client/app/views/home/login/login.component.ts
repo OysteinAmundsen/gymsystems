@@ -1,34 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { UserService } from 'app/api';
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   error: string = '';
+  redirectTo: string = '/';
+  queryParamsSubscription: Subscription;
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
-    this.loginForm = this.fb.group({
+    const me = this;
+    me.loginForm = me.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+    me.queryParamsSubscription = me.route.queryParams.subscribe(params => {
+      if (params.u) {
+        me.redirectTo = decodeURIComponent(params.u);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.queryParamsSubscription.unsubscribe();
   }
 
   login() {
-    this.userService.login(this.loginForm.value).subscribe(
+    const me = this;
+    me.userService.login(me.loginForm.value).subscribe(
       result => {
-        this.router.navigate(['/']);
+        me.router.navigate([me.redirectTo]);
       },
       error => {
-        this.error = error;
+        me.error = error;
       });
   }
 }
