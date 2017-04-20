@@ -1,11 +1,17 @@
-<h2 *ngIf="tournament">
-  <span>{{ tournament.name }}</span>
-  <small>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
-</h2>
-<button type="button" class="pull-right primary raised" *ngIf="tournament && user && user.role >= roles.Secretariat" [routerLink]="['/list', tournament.id]">
-  <app-fa name="list" fw="true"></app-fa>
-  <span>List</span>
-</button>
+<header *ngIf="tournament">
+  <h2>
+    <span>{{ tournament.name }}</span>
+    <small>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
+  </h2>
+  <button type="button" class="pull-right primary raised" [routerLink]="['/list', tournament.id]">
+    <app-fa name="list" fw="true"></app-fa>
+    <span>List</span>
+  </button>
+  <button type="button" class="pull-right" *appIfAuth="'Admin'" [routerLink]="['/configure/display']">
+    <app-fa name="cog" fw="true"></app-fa>
+    <span>Settings </span>
+  </button>
+</header>
 
 <div role="table">
   <div role="row">
