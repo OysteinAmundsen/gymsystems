@@ -14,11 +14,11 @@
         <a routerLink="/">
           <app-fa name="home" fw="true"></app-fa> Home </a>
       </li>
-      <li [routerLinkActive]="['active']" *ngIf="!user">
+      <li [routerLinkActive]="['active']" *appIfAuth="false">
         <a routerLink="/login">
           <app-fa name="sign-in" fw="true"></app-fa> Login </a>
       </li>
-      <li [routerLinkActive]="['active']" *ngIf="user && user.role === roles.Admin">
+      <li [routerLinkActive]="['active']" *appIfAuth="'Admin'">
         <a routerLink="/configure">
           <app-fa name="cogs" fw="true"></app-fa> Configure </a>
       </li>

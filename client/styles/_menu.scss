@@ -51,6 +51,9 @@ menu[role="menu"] {
       display: table-cell;
       @include btn();
       background: $primary;
+      &.divider {
+        display: none;
+      }
     }
     a {
       display: inline-table;

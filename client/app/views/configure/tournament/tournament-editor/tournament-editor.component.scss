@@ -1,14 +1,15 @@
 @import "~styles/variables";
 @import "~styles/panel";
-
 table {
   cursor: pointer;
   padding: ($padding / 2) 0 $padding 0;
   border: 1px solid transparent;
+  width: 100%;
   &:hover {
     @include panel;
   }
-  td, th {
+  td,
+  th {
     border-bottom: 0;
   }
   th {

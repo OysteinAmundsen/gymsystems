@@ -103,7 +103,7 @@ export class DivisionsComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 187) {
+    if (evt.keyCode === 187 || evt.keyCode === 107) {
       this.addDivision();
     }
   }

@@ -1,34 +1,44 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
 import { UserService } from 'app/api';
 import { Role } from 'app/api/model/IUser';
 
 @Injectable()
 export class AuthenticatedGuard implements CanActivate {
 
-  constructor(protected router: Router, protected userService: UserService) { }
+  currentUrl: string;
+  currentUser;
+
+  constructor(protected router: Router, protected route: ActivatedRoute, protected userService: UserService) {
+    // Keep track of current url in order to redirect after login
+    this.route.url.subscribe(url => this.currentUrl = encodeURIComponent(url.join('/')));
+    this.userService.getMe().subscribe(user => this.currentUser = user);
+  }
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const me = this;
     return new Promise(resolve => {
-      this.userService.getMe().subscribe(user => {
-        me.redirect(resolve, (user != null));
-      });
+      // User not found. Go to login
+      me.redirect(resolve, (this.currentUser != null));
     });
   }
 
   protected hasRole(role) {
     const me = this;
     return new Promise(resolve => {
-      this.userService.getMe().subscribe(
-        user => me.redirect(resolve, (user != null && user.role >= role)),
-        err => me.redirect(resolve, false)
-      );
+      if (me.currentUser == null) { // User not found. Go to login
+        me.redirect(resolve, false);
+      }
+      else { // User found, but not privileged. Just reject route.
+        resolve(me.currentUser.role >= role);
+      }
     });
   }
 
   private redirect(resolve, flag) {
-    if (!flag) { this.router.navigate(['/login']); }
+    if (!flag) {
+      this.router.navigate(['/login'], { queryParams: { u: this.currentUrl } });
+    }
     resolve(flag);
   }
 }

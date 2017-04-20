@@ -18,6 +18,7 @@ export class DisplayComponent implements OnInit, OnDestroy {
 
   user: IUser;
   roles = Role;
+  userSubscription: Subscription;
   eventSubscription: Subscription;
   paramSubscription: Subscription;
 
@@ -30,7 +31,7 @@ export class DisplayComponent implements OnInit, OnDestroy {
     private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getMe().subscribe(result => this.user = result);
+    this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
     this.eventSubscription = this.eventService.connect().subscribe(message => {
       console.log(message);
     });
@@ -54,6 +55,7 @@ export class DisplayComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.eventSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
     if (this.paramSubscription) { this.paramSubscription.unsubscribe(); }
   }
 }

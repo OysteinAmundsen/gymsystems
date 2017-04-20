@@ -15,13 +15,14 @@ import { Role, IUser } from "app/api/model/IUser";
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, OnDestroy {
+  user: IUser;
+  roles = Role;
   tournament: ITournament;
   tournamentId: number;
   schedule: ITournamentParticipant[] = [];
   selected: ITournamentParticipant;
 
-  user: IUser;
-  roles = Role;
+  userSubscription: Subscription;
   eventSubscription: Subscription;
   paramSubscription: Subscription;
 
@@ -34,8 +35,8 @@ export class ListComponent implements OnInit, OnDestroy {
     private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getMe().subscribe(result => this.user = result);
     this.eventSubscription = this.eventService.connect().subscribe(message => this.loadSchedule());
+    this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
 
     if (this.tournamentService.selected) {
       this.tournamentId = this.tournamentService.selectedId;
@@ -59,6 +60,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.eventSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
     if (this.paramSubscription) { this.paramSubscription.unsubscribe(); }
   }
 
