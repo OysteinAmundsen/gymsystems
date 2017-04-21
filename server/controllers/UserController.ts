@@ -96,7 +96,7 @@ export class UserController {
 
   @Put('/:id')
   @UseBefore(RequireAuth)
-  update( @Param('id') id: number, @EntityFromBody() user: User, @Res() res: Response) {
+  update( @Param('id') id: number, @EntityFromBody() user: any, @Res() res: Response) {
     if (user.password) {
       // Password is updated. Encrypt and store entire user object
       const setPassword = user.password;
@@ -114,9 +114,13 @@ export class UserController {
         })
         .catch(err => Logger.log.error(err));
     }
-    return this.repository.findOneById(id).then(u => {
+    return this.repository.findOneById(id).then((u: any) => {
       // Overwrite all given properties, except password
-      Object.keys(u).forEach(k => { if (k !== 'password') { u[k] = user[k]; } });
+      Object.keys(u).forEach((k: string) => {
+        if (k !== 'password') {
+          u[k] = user[k];
+        }
+      });
       return this.repository.persist(u).catch(err => Logger.log.error(err));
     });
   }
