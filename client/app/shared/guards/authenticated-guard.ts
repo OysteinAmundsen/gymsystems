@@ -8,27 +8,27 @@ export class AuthenticatedGuard implements CanActivate {
 
   currentUser;
 
-  constructor(protected router: Router, protected userService: UserService) {
-    this.userService.getMe().subscribe(user => this.currentUser = user);
-  }
+  constructor(protected router: Router, protected userService: UserService) {  }
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const me = this;
     return new Promise(resolve => {
-      // User not found. Go to login
-      me.redirect(resolve, (this.currentUser != null));
+      this.userService.getMe().subscribe(user => {
+        if (user !== undefined) { // Since this is a ReplaySubject, first response is always undefined
+          this.redirect(resolve, (user != null)); // Second is always either a user or `null`
+        }
+      });
     });
   }
 
   protected hasRole(role) {
     const me = this;
     return new Promise(resolve => {
-      if (me.currentUser == null) { // User not found. Go to login
-        me.redirect(resolve, false);
-      }
-      else { // User found, but not privileged. Just reject route.
-        resolve(me.currentUser.role >= role);
-      }
+      this.userService.getMe().subscribe(user => {
+        if (user !== undefined) { // Since this is a ReplaySubject, first response is always undefined
+          user == null ? me.redirect(resolve, false) : resolve(user.role >= role);
+        }
+      });
     });
   }
 
@@ -37,5 +37,6 @@ export class AuthenticatedGuard implements CanActivate {
       this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
     }
     resolve(flag);
+    return flag;
   }
 }

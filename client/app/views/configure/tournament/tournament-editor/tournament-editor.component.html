@@ -3,7 +3,7 @@
   {{ tournamentForm.value.name || 'Tournament' }}
 </h1>
 
-<table *ngIf="!isEdit" title="Click to edit" (click)="isEdit = true">
+<table *ngIf="!isEdit" title="Click to edit" (click)="edit()">
   <tr>
     <th>Name</th>
     <td>{{ tournament.name }}</td>
@@ -56,19 +56,19 @@
 
 <menu *ngIf="tournamentForm.value.id" role="tablist">
   <ul>
-    <li [routerLinkActive]="['active']">
+    <li [routerLinkActive]="['active']" *appIfAuth="'Admin'">
       <a routerLink="./divisions">
         <app-fa name="cubes" fw="true"></app-fa> <span>Divisions</span> </a>
     </li>
-    <li [routerLinkActive]="['active']">
+    <li [routerLinkActive]="['active']" *appIfAuth="'Admin'">
       <a routerLink="./disciplines">
         <app-fa name="heartbeat" fw="true"></app-fa> <span>Disciplines</span> </a>
     </li>
-    <li [routerLinkActive]="['active']">
+    <li [routerLinkActive]="['active']" *appIfAuth="'Club'">
       <a routerLink="./teams">
         <app-fa name="users" fw="true"></app-fa> <span>Teams</span></a>
     </li>
-    <li [routerLinkActive]="['active']">
+    <li [routerLinkActive]="['active']" *appIfAuth="'Admin'">
       <a routerLink="./schedule">
         <app-fa name="sort-numeric-asc" fw="true"></app-fa> <span>Schedule</span></a>
     </li>

@@ -15,10 +15,11 @@ export const TournamentRoutes: Routes = [
       { path: 'add', component: TournamentEditorComponent, canActivate: [RoleAdminGuard]  },
       {
         path: ':id', component: TournamentEditorComponent, children: [
+          { path: '', redirectTo: 'teams', pathMatch: 'full', canActivate: [RoleClubGuard] },
           { path: 'divisions', component: DivisionsComponent, canActivate: [RoleAdminGuard]  },
           ...DisciplineRoutes,
           { path: 'teams', component: TeamsComponent, canActivate: [RoleClubGuard]  },
-          { path: 'schedule', component: ScheduleComponent, canActivate: [RoleAdminGuard]  }
+          { path: 'schedule', component: ScheduleComponent, canActivate: [RoleAdminGuard]  },
         ]
       },
     ]

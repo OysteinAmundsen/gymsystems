@@ -17,7 +17,7 @@ export class UserService {
   roles: Role;
 
   _isLoadingMe: boolean = false;
-  _meObservable = new ReplaySubject();
+  _meObservable = new ReplaySubject(1);
   _currentUser: IUser;
   private get currentUser(): IUser { return this._currentUser; }
   private set currentUser(user: IUser) {

@@ -2,8 +2,10 @@ import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { TournamentService } from 'app/api';
+import { TournamentService, UserService } from 'app/api';
 import { ITournament } from 'app/api/model/ITournament';
+import { Subscription } from "rxjs/Subscription";
+import { IUser, Role } from "app/api/model/IUser";
 
 @Component({
   selector: 'app-tournament-editor',
@@ -13,15 +15,19 @@ import { ITournament } from 'app/api/model/ITournament';
 export class TournamentEditorComponent implements OnInit, OnDestroy {
   @Input() tournament: ITournament = <ITournament>{};
   tournamentForm: FormGroup;
+  user: IUser;
+  userSubscription: Subscription;
   isEdit: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private userService: UserService,
     private tournamentService: TournamentService) { }
 
   ngOnInit() {
+    this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
     this.route.params.subscribe((params: any) => {
       if (params.id) {
         this.tournamentService.selectedId = params.id;
@@ -51,6 +57,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.tournamentService.selectedId = null;
     this.tournamentService.selected = null;
+    this.userSubscription.unsubscribe();
   }
 
   save() {
@@ -76,6 +83,12 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.isEdit = false;
     if (!this.tournamentForm.value.id) {
       this.router.navigate(['../'], { relativeTo: this.route });
+    }
+  }
+
+  edit() {
+    if (this.user && this.user.role >= Role.Admin) {
+      this.isEdit = true;
     }
   }
 

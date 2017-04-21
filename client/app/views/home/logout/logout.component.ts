@@ -10,8 +10,7 @@ import { UserService } from 'app/api';
 export class LogoutComponent {
 
   constructor(private router: Router, userService: UserService) {
-    userService.logout()
-      .subscribe(() => this.reroute(), () => this.reroute());
+    userService.logout().subscribe(() => this.reroute(), () => this.reroute());
   }
 
   reroute() {
