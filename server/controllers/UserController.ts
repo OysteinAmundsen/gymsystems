@@ -17,15 +17,15 @@ import * as _ from 'lodash';
 const messages = {
   created: `
 <h1>Welcome!</h1>
-<p>You are receiving this email because you have just been registerred as a user on <a href="www.gymsystems.org">GymSystems</a> as <%=roleName %>}</p>
-<p>&nbsp;</p>
+<p>You are receiving this email because you have just been registerred as a user on <a href="www.gymsystems.org">GymSystems</a> as "<%=roleName %>"}</p>
 <p>Please log in to <a href="www.gymsystems.org/login">www.gymsystems.org</a> using <b><%=name %></b>/<b><%=password %></b>`,
   passwordUpdate: `
 <h1>Your password is updated</h1>
 <p>You are receiving this email because your password on <a href="www.gymsystems.org">GymSystems</a> has just changed.</p>
-<p>&nbsp;</p>
 <p>Your new credentials are <b><%=name %></b>/<b><%=password %></b>`
 }
+
+const emailFrom = 'no-reply@gymsystems.org';
 
 /**
  *
@@ -104,10 +104,7 @@ export class UserController {
       return this.repository.persist(user)
         .then(persisted => {
           // Password is updated. Notify user by email
-          this.sendmail({
-            from: 'no-reply@gymsystems.org',
-            to: user.email,
-            subject: 'Your password is changed',
+          this.sendmail({ from: emailFrom, to: user.email, subject: 'Your password is changed',
             html: _.template(messages.passwordUpdate)({name: user.name, password: setPassword}),
           }, (err: any, reply: any) => {
             Logger.log.debug(err && err.stack);
@@ -119,8 +116,7 @@ export class UserController {
     }
     return this.repository.findOneById(id).then(u => {
       // Overwrite all given properties, except password
-      u.name = user.name;
-      u.role = user.role;
+      Object.keys(u).forEach(k => { if (k !== 'password') { u[k] = user[k]; } });
       return this.repository.persist(u).catch(err => Logger.log.error(err));
     });
   }
@@ -137,10 +133,7 @@ export class UserController {
           // Send email confirmation on user creation and login details
           const u: any = users.find(u => u.name === user.name);
           const roleName = RoleNames.find(r => r.id === u.role);
-          this.sendmail({
-            from: 'no-reply@gymsystems.org',
-            to: user.email,
-            subject: 'You are registerred',
+          this.sendmail({ from: emailFrom, to: user.email, subject: 'You are registerred',
             html: _.template(messages.created)({name: user.name, password: u['origPass'], roleName: roleName.name}),
           }, (err: any, reply: any) => {
             Logger.log.debug(err && err.stack);
