@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Validators, FormBuilder, FormGroup } from "@angular/forms";
+import { Validators, FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 
 import { UserService } from 'app/api';
 import { IUser, RoleNames } from 'app/api/model/IUser';
+import { ValidationService } from "app/api/validation/validation.service";
 
 @Component({
   selector: 'app-user-editor',
@@ -30,6 +31,7 @@ export class UserEditorComponent implements OnInit {
         this.userService.getById(params.id).subscribe(user => {
           this.user = JSON.parse(JSON.stringify(user)); // Clone user object
           this.user['repeatPassword'] = this.user.password;
+          this.user.email = this.user.email || '';
           this.userForm.setValue(this.user);
         });
       }
@@ -40,9 +42,12 @@ export class UserEditorComponent implements OnInit {
       id: [this.user.id],
       name: [this.user.name, [Validators.required]],
       role: [this.user.role, [Validators.required]],
+      email: [this.user.email, [Validators.required, ValidationService.emailValidator]],
       password: [this.user.password, [Validators.required]],
-      repeatPassword: [this.user.password, [Validators.required]],
-    });
+      repeatPassword: [this.user.password, [Validators.required]]
+    }, {validator: (c: AbstractControl) => {
+      return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false}};
+    }});
   }
 
   save() {

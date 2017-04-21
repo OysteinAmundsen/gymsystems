@@ -12,6 +12,7 @@ export const RoleNames: [{id: number, name: string}] = [
 export interface IUser {
   id: number;
   name: string;
+  email: string;
   password: string;
   role?: Role;
 }
