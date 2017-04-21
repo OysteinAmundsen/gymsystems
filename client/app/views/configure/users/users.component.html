@@ -1,0 +1,24 @@
+<h1>
+  <app-fa name="users" fw="true"></app-fa>
+  Users
+</h1>
+
+<table role="list" class="editable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let user of userList">
+    <tr [routerLink]="['.', user.id]" role="listitem">
+      <td>{{ user.name }}</td>
+      <td>{{ roleName(user) }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<button type="button" title="Add" [routerLink]="['./add']">
+  <app-fa name="plus" fw="true"></app-fa>
+  <span>Add User</span>
+</button>

@@ -11,6 +11,7 @@ import * as auth from 'passport';
 import { RequireAuth, RequireRoleAdmin } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';
 import { User } from '../model/User';
+import * as bcrypt from 'bcrypt';
 
 /**
  *
@@ -53,7 +54,7 @@ export class UserController {
   }
 
   @Get()
-  @UseBefore(RequireAuth)
+  @UseBefore(RequireRoleAdmin)
   all() {
     return this.repository.find();
   }
@@ -67,23 +68,34 @@ export class UserController {
     return null;
   }
 
-  // @UseBefore(RequireAuth)
-  // @EmptyResultCode(404)
-  // @Get('/:id')
-  // get( @EntityFromParam('id') user: User, @Req() req: Request): User {
-  //   return user;
-  // }
+  @UseBefore(RequireAuth)
+  @EmptyResultCode(404)
+  @Get('/get/:id')
+  get( @EntityFromParam('id') user: User, @Req() req: Request): User {
+    return user;
+  }
 
   @Put('/:id')
   @UseBefore(RequireAuth)
   update( @Param('id') id: number, @EntityFromBody() user: User, @Res() res: Response) {
-    return this.repository.persist(user).catch(err => Logger.log.error(err));
+    if (user.password) {
+      // Password is updated. Encrypt and store entire user object
+      user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8));
+      return this.repository.persist(user).catch(err => Logger.log.error(err));
+    }
+    return this.repository.findOneById(id).then(u => {
+      // Overwrite all given properties, except password
+      u.name = user.name;
+      u.role = user.role;
+      return this.repository.persist(u).catch(err => Logger.log.error(err));
+    });
   }
 
   @Post()
   @UseBefore(RequireRoleAdmin)
   create( @EntityFromBody() user: User, @Res() res: Response): Promise<User[]> {
     const users = Array.isArray(user) ? user : [user];
+    users.forEach(u => u.password = bcrypt.hashSync(u.password, bcrypt.genSaltSync(8)));
     return this.repository.persist(users)
       .catch(err => {
         Logger.log.error(err);

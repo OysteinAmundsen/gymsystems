@@ -32,7 +32,7 @@ export class UserService {
   }
 
   getById(id: number): Observable<IUser> {
-    return this.http.get('/api/users/' + id).map((res: Response) => res.json()).share();
+    return this.http.get('/api/users/get/' + id).map((res: Response) => res.json()).share();
   }
 
   private userReceived(res: Response) {
@@ -53,6 +53,15 @@ export class UserService {
         .subscribe();
     }
     return this._meObservable;
+  }
+
+  save(user: IUser): Observable<IUser> {
+    return (user.id ? this.http.put(`/api/users/${user.id}`, user) : this.http.post('/api/users/', user))
+      .map((res: Response) => res.json());
+  }
+
+  delete(user: IUser) {
+    return this.http.delete(`/api/users/${user.id}`);
   }
 
   login(credentials: { username: string, password: string }): Observable<any> {

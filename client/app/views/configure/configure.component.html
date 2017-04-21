@@ -9,6 +9,10 @@
         <app-fa name="tv" fw="true"></app-fa> <span>Display</span></a>
     </li>
     <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'">
+      <a routerLink="./users">
+        <app-fa name="users" fw="true"></app-fa> <span>Users</span></a>
+    </li>
+    <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'">
       <a routerLink="./advanced">
         <app-fa name="cogs" fw="true"></app-fa> <span>Advanced settings</span></a>
     </li>
