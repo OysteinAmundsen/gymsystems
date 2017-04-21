@@ -1,4 +1,4 @@
-import { Role, IUser } from './api/model/IUser';
+import { IUser } from './api/model/IUser';
 import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 
 import { TournamentService, UserService } from 'app/api';

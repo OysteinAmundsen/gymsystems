@@ -16,7 +16,6 @@ import { Role, IUser } from "app/api/model/IUser";
 })
 export class ListComponent implements OnInit, OnDestroy {
   user: IUser;
-  roles = Role;
   tournament: ITournament;
   tournamentId: number;
   schedule: ITournamentParticipant[] = [];
@@ -78,7 +77,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   select(participant: ITournamentParticipant) {
-    if (this.user && this.user.role >= this.roles.Secretariat) {
+    if (this.user && this.user.role >= Role.Secretariat) {
       this.selected = participant;
     }
   }

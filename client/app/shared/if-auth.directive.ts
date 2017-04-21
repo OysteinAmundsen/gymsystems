@@ -6,6 +6,9 @@ import { Role } from "app/api/model/IUser";
   selector: '[appIfAuth]'
 })
 export class IfAuthDirective {
+  visible: boolean = false;
+  roles = Role;
+
   @Input() set appIfAuth(value) {
     const me = this;
     this.userService.getMe().subscribe(user => {
@@ -24,9 +27,6 @@ export class IfAuthDirective {
       }
     });
   }
-
-  visible: boolean = false;
-  roles = Role;
 
   constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef, private userService: UserService) {  }
 

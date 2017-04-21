@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Rx';
 import { EventService, TournamentService, ScheduleService, TeamsService, UserService } from 'app/api';
 import { ITournament } from 'app/api/model/ITournament';
 import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
-import { IUser, Role } from 'app/api/model/IUser';
+import { IUser } from 'app/api/model/IUser';
 
 @Component({
   selector: 'app-display',
@@ -17,7 +17,6 @@ export class DisplayComponent implements OnInit, OnDestroy {
   schedule: ITournamentParticipant[] = [];
 
   user: IUser;
-  roles = Role;
   userSubscription: Subscription;
   eventSubscription: Subscription;
   paramSubscription: Subscription;

@@ -8,13 +8,11 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
-import { IUser, Role } from './model/IUser';
+import { IUser } from './model/IUser';
 import { IDiscipline } from './model/IDiscipline';
 
 @Injectable()
 export class UserService {
-
-  roles: Role;
 
   _isLoadingMe: boolean = false;
   _meObservable = new ReplaySubject(1);
