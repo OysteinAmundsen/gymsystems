@@ -10,8 +10,22 @@ import * as auth from 'passport';
 
 import { RequireAuth, RequireRoleAdmin } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';
-import { User } from '../model/User';
+import { User, RoleNames } from '../model/User';
 import * as bcrypt from 'bcrypt';
+import * as _ from 'lodash';
+
+const messages = {
+  created: `
+<h1>Welcome!</h1>
+<p>You are receiving this email because you have just been registerred as a user on <a href="www.gymsystems.org">GymSystems</a> as <%=roleName %>}</p>
+<p>&nbsp;</p>
+<p>Please log in to <a href="www.gymsystems.org/login">www.gymsystems.org</a> using <b><%=name %></b>/<b><%=password %></b>`,
+  passwordUpdate: `
+<h1>Your password is updated</h1>
+<p>You are receiving this email because your password on <a href="www.gymsystems.org">GymSystems</a> has just changed.</p>
+<p>&nbsp;</p>
+<p>Your new credentials are <b><%=name %></b>/<b><%=password %></b>`
+}
 
 /**
  *
@@ -21,6 +35,11 @@ import * as bcrypt from 'bcrypt';
 export class UserController {
   private repository: Repository<User>;
   private conn: Connection;
+
+  sendmail = require('sendmail')({
+    logger: Logger.log,
+    silent: false
+  });
 
   constructor() {
     this.conn = getConnectionManager().get();
@@ -80,8 +99,23 @@ export class UserController {
   update( @Param('id') id: number, @EntityFromBody() user: User, @Res() res: Response) {
     if (user.password) {
       // Password is updated. Encrypt and store entire user object
-      user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8));
-      return this.repository.persist(user).catch(err => Logger.log.error(err));
+      const setPassword = user.password;
+      user.password = bcrypt.hashSync(setPassword, bcrypt.genSaltSync(8));
+      return this.repository.persist(user)
+        .then(persisted => {
+          // Password is updated. Notify user by email
+          this.sendmail({
+            from: 'no-reply@gymsystems.org',
+            to: user.email,
+            subject: 'Your password is changed',
+            html: _.template(messages.passwordUpdate)({name: user.name, password: setPassword}),
+          }, (err: any, reply: any) => {
+            Logger.log.debug(err && err.stack);
+            Logger.log.debug(reply);
+          });
+          return persisted;
+        })
+        .catch(err => Logger.log.error(err));
     }
     return this.repository.findOneById(id).then(u => {
       // Overwrite all given properties, except password
@@ -95,8 +129,26 @@ export class UserController {
   @UseBefore(RequireRoleAdmin)
   create( @EntityFromBody() user: User, @Res() res: Response): Promise<User[]> {
     const users = Array.isArray(user) ? user : [user];
-    users.forEach(u => u.password = bcrypt.hashSync(u.password, bcrypt.genSaltSync(8)));
+    users.forEach((u: any) => u['origPass'] = u.password);
+    users.forEach((u: any) => u.password = bcrypt.hashSync(u.password, bcrypt.genSaltSync(8)));
     return this.repository.persist(users)
+      .then(persisted => {
+        persisted.forEach(user => {
+          // Send email confirmation on user creation and login details
+          const u: any = users.find(u => u.name === user.name);
+          const roleName = RoleNames.find(r => r.id === u.role);
+          this.sendmail({
+            from: 'no-reply@gymsystems.org',
+            to: user.email,
+            subject: 'You are registerred',
+            html: _.template(messages.created)({name: user.name, password: u['origPass'], roleName: roleName.name}),
+          }, (err: any, reply: any) => {
+            Logger.log.debug(err && err.stack);
+            Logger.log.debug(reply);
+          });
+        });
+        return persisted;
+      })
       .catch(err => {
         Logger.log.error(err);
         return { code: err.code, message: err.message };
