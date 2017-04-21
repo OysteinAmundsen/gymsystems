@@ -1,7 +1,21 @@
-<h1>
-  <app-fa name="trophy" fw="true"></app-fa>
-  {{ tournamentForm.value.name || 'Tournament' }}
-</h1>
+<header>
+  <h1>
+    <app-fa name="trophy" fw="true"></app-fa>
+    {{ tournamentForm.value.name || 'Tournament' }}
+  </h1>
+
+  <div *ngIf="tournament && tournament.id" class="pull-right buttons">
+    <button type="button" class="primary raised" *appIfAuth="'Secretariat'" [routerLink]="['/list', tournament.id]">
+      <app-fa name="list" fw="true"></app-fa>
+      <span>List</span>
+    </button>
+    <button type="button" class="pull-right primary raised" *appIfAuth="'Secretariat'" [routerLink]="['/display', tournament.id]">
+      <app-fa name="tv" fw="true"></app-fa>
+      <span>Display </span>
+    </button>
+  </div>
+</header>
+
 
 <table *ngIf="!isEdit" title="Click to edit" (click)="edit()">
   <tr>
