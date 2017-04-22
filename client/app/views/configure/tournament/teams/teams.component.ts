@@ -1,9 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { TournamentService, TeamsService } from 'app/api';
-import { DivisionType } from 'app/api/model/DivisionType';
-import { ITeam } from 'app/api/model/ITeam';
+import { TournamentService, TeamsService } from 'app/services/api';
+import { DivisionType } from 'app/services/model/DivisionType';
+import { ITeam } from 'app/services/model/ITeam';
 
 @Component({
   selector: 'app-teams',

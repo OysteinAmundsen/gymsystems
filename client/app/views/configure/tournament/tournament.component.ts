@@ -1,8 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { TournamentService } from 'app/api';
-import { ITournament } from 'app/api/model/ITournament';
+import { TournamentService } from 'app/services/api';
+import { ITournament } from 'app/services/model/ITournament';
 
 @Component({
   selector: 'app-tournament',

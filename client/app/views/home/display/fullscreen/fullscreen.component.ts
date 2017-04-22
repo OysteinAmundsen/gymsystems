@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, OnDestroy, OnInit } from '@angular
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
-import { EventService } from 'app/api/event.service';
+import { EventService } from 'app/services/api/event.service';
 
 @Component({
   selector: 'app-fullscreen',

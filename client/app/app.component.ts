@@ -1,7 +1,7 @@
-import { IUser } from './api/model/IUser';
+import { IUser } from './services/model/IUser';
 import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 
-import { TournamentService, UserService } from 'app/api';
+import { TournamentService, UserService } from 'app/services/api';
 import { Subscription } from "rxjs/Subscription";
 
 @Component({

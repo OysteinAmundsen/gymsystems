@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
-import { TournamentService, TeamsService, DisciplineService, DivisionService } from 'app/api';
-import { IDiscipline } from 'app/api/model/IDiscipline';
-import { IDivision } from 'app/api/model/IDivision';
-import { DivisionType } from 'app/api/model/DivisionType';
-import { ITeam } from 'app/api/model/ITeam';
+import { TournamentService, TeamsService, DisciplineService, DivisionService } from 'app/services/api';
+import { IDiscipline } from 'app/services/model/IDiscipline';
+import { IDivision } from 'app/services/model/IDivision';
+import { DivisionType } from 'app/services/model/DivisionType';
+import { ITeam } from 'app/services/model/ITeam';
 
 @Component({
   selector: 'app-team-editor',

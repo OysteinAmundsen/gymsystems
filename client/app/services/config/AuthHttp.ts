@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 
-import { UserService } from 'app/api';
+import { UserService } from 'app/services/api';
 
 @Injectable()
 export class AuthHttp extends Http {

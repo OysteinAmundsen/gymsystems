@@ -19,14 +19,14 @@ import {
   ConfigurationService,
   ScheduleService,
   EventService
-} from './api';
+} from './services/api';
 // import { RoleService } from './api';
 
 // Components
 import { AppComponent } from './app.component';
-import { AuthHttp } from 'app/api/config/AuthHttp';
-import { RoleAdminGuard } from "app/shared/guards/role-guards";
-import { RoleClubGuard, RoleSecretariatGuard, RoleUserGuard } from "app/shared/guards/role-guards";
+import { AuthHttp } from './services/config/AuthHttp';
+import { RoleAdminGuard } from './shared/guards/role-guards';
+import { RoleClubGuard, RoleSecretariatGuard, RoleUserGuard } from './shared/guards/role-guards';
 
 @NgModule({
   declarations: [

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { ITournamentParticipant } from './model/ITournamentParticipant';
+import { ITournamentParticipant } from '../model/ITournamentParticipant';
 
 @Injectable()
 export class ScheduleService {

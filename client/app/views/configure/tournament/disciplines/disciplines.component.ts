@@ -2,9 +2,9 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DragulaService } from 'ng2-dragula';
 
-import { TournamentService, DisciplineService, ScoreGroupService, ConfigurationService } from 'app/api';
-import { IScoreGroup } from 'app/api/model/IScoreGroup';
-import { IDiscipline } from 'app/api/model/IDiscipline';
+import { TournamentService, DisciplineService, ScoreGroupService, ConfigurationService } from 'app/services/api';
+import { IScoreGroup } from 'app/services/model/IScoreGroup';
+import { IDiscipline } from 'app/services/model/IDiscipline';
 
 @Component({
   selector: 'app-disciplines',

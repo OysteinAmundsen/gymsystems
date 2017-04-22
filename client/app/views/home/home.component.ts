@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { TournamentService } from 'app/api/tournament.service';
-import { ITournament } from 'app/api/model/ITournament';
+import { TournamentService } from 'app/services/api/tournament.service';
+import { ITournament } from 'app/services/model/ITournament';
 
 @Component({
   selector: 'app-home',

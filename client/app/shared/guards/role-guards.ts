@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthenticatedGuard } from 'app/shared/guards/authenticated-guard';
-import { UserService } from 'app/api';
-import { Role } from 'app/api/model/IUser';
+import { UserService } from 'app/services/api';
+import { Role } from 'app/services/model/IUser';
 
 @Injectable()
 export class RoleAdminGuard extends AuthenticatedGuard implements CanActivate {

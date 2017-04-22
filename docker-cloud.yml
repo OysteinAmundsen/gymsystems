@@ -11,7 +11,6 @@ client:
     - '80:3000'
   restart: on-failure
   volumes:
-    - /usr/src/app/node_modules
     - '/usr/src/app/log:/usr/src/app/log'
 db:
   environment:

@@ -5,8 +5,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { ITeam } from './model/ITeam';
-import { DivisionType } from './model/DivisionType';
+import { ITeam } from '../model/ITeam';
+import { DivisionType } from '../model/DivisionType';
 
 @Injectable()
 export class TeamsService {

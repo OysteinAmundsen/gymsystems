@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 
-import { UserService } from 'app/api';
-import { IUser, RoleNames } from 'app/api/model/IUser';
-import { ValidationService } from "app/api/validation/validation.service";
+import { UserService } from 'app/services/api';
+import { IUser, RoleNames } from 'app/services/model/IUser';
+import { ValidationService } from "app/services/validation/validation.service";
 
 @Component({
   selector: 'app-user-editor',

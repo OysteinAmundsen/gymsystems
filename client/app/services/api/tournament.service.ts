@@ -8,7 +8,7 @@ import 'rxjs/add/operator/share';
 import * as moment from 'moment';
 import Moment = moment.Moment;
 
-import { ITournament } from './model/ITournament';
+import { ITournament } from '../model/ITournament';
 
 @Injectable()
 export class TournamentService {

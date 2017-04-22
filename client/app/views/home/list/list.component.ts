@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
-import { TournamentService, ScheduleService, TeamsService, EventService, UserService } from 'app/api';
-import { ITournament } from 'app/api/model/ITournament';
-import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
-import { ITeam } from 'app/api/model/ITeam';
-import { DivisionType } from 'app/api/model/DivisionType';
-import { Role, IUser } from "app/api/model/IUser";
+import { TournamentService, ScheduleService, TeamsService, EventService, UserService } from 'app/services/api';
+import { ITournament } from 'app/services/model/ITournament';
+import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
+import { ITeam } from 'app/services/model/ITeam';
+import { DivisionType } from 'app/services/model/DivisionType';
+import { Role, IUser } from "app/services/model/IUser";
 
 @Component({
   selector: 'app-list',

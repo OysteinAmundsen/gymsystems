@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChildren, EventEmitter, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { ScoreService } from 'app/api';
-import { IScoreGroup } from 'app/api/model/IScoreGroup';
-import { Operation } from 'app/api/model/Operation';
-import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
-import { ITournamentParticipantScore } from 'app/api/model/ITournamentParticipantScore';
+import { ScoreService } from 'app/services/api';
+import { IScoreGroup } from 'app/services/model/IScoreGroup';
+import { Operation } from 'app/services/model/Operation';
+import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
+import { ITournamentParticipantScore } from 'app/services/model/ITournamentParticipantScore';
 import { IScoreContainer } from '../IScoreContainer';
 
 import { ScoreGroupComponent } from '../score-group/score-group.component';

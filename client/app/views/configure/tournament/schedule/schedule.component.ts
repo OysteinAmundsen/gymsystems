@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 
-import { TournamentService, TeamsService, DisciplineService, DivisionService, ScheduleService } from 'app/api';
-import { ITeam } from 'app/api/model/ITeam';
-import { IDiscipline } from 'app/api/model/IDiscipline';
-import { IDivision } from 'app/api/model/IDivision';
-import { ITournamentParticipant } from 'app/api/model/ITournamentParticipant';
-import { DivisionType } from 'app/api/model/DivisionType';
+import { TournamentService, TeamsService, DisciplineService, DivisionService, ScheduleService } from 'app/services/api';
+import { ITeam } from 'app/services/model/ITeam';
+import { IDiscipline } from 'app/services/model/IDiscipline';
+import { IDivision } from 'app/services/model/IDivision';
+import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
+import { DivisionType } from 'app/services/model/DivisionType';
 
 @Component({
   selector: 'app-schedule',

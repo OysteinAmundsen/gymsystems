@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { ScoreGroupService, ConfigurationService } from 'app/api';
-import { IDiscipline } from 'app/api/model/IDiscipline';
-import { IScoreGroup } from 'app/api/model/IScoreGroup';
-import { Operation } from 'app/api/model/Operation';
+import { ScoreGroupService, ConfigurationService } from 'app/services/api';
+import { IDiscipline } from 'app/services/model/IDiscipline';
+import { IScoreGroup } from 'app/services/model/IScoreGroup';
+import { Operation } from 'app/services/model/Operation';
 
 @Component({
   selector: 'app-score-system',

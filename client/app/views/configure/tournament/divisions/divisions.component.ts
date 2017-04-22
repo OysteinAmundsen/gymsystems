@@ -2,10 +2,10 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DragulaService } from 'ng2-dragula';
 
-import { TournamentService, DivisionService, ConfigurationService } from 'app/api';
-import { ITournament } from 'app/api/model/ITournament';
-import { IDivision } from 'app/api/model/IDivision';
-import { DivisionType } from 'app/api/model/DivisionType';
+import { TournamentService, DivisionService, ConfigurationService } from 'app/services/api';
+import { ITournament } from 'app/services/model/ITournament';
+import { IDivision } from 'app/services/model/IDivision';
+import { DivisionType } from 'app/services/model/DivisionType';
 
 @Component({
   selector: 'app-divisions',

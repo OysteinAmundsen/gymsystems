@@ -1,11 +1,11 @@
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { TournamentService, UserService } from 'app/api';
-import { ITournament } from 'app/api/model/ITournament';
 import { Subscription } from "rxjs/Subscription";
-import { IUser, Role } from "app/api/model/IUser";
+
+import { TournamentService, UserService } from 'app/services/api';
+import { ITournament } from 'app/services/model/ITournament';
+import { IUser, Role } from "app/services/model/IUser";
 
 @Component({
   selector: 'app-tournament-editor',

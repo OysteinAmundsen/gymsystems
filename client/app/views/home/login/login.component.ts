@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { UserService } from 'app/api';
+import { UserService } from 'app/services/api';
 import { Subscription } from "rxjs/Subscription";
 
 @Component({

@@ -2,9 +2,9 @@ import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@a
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { TournamentService, DisciplineService } from 'app/api';
-import { IDiscipline } from 'app/api/model/IDiscipline';
-import { ITournament } from 'app/api/model/ITournament';
+import { TournamentService, DisciplineService } from 'app/services/api';
+import { IDiscipline } from 'app/services/model/IDiscipline';
+import { ITournament } from 'app/services/model/ITournament';
 
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 

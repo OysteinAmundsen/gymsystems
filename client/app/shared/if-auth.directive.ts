@@ -1,6 +1,6 @@
 import { Directive, Renderer, ElementRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { UserService } from "app/api";
-import { Role } from "app/api/model/IUser";
+import { UserService } from "app/services/api";
+import { Role } from "app/services/model/IUser";
 
 @Directive({
   selector: '[appIfAuth]'

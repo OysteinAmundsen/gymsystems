@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { IDiscipline } from './model/IDiscipline';
+import { IDiscipline } from '../model/IDiscipline';
 
 @Injectable()
 export class DisciplineService {

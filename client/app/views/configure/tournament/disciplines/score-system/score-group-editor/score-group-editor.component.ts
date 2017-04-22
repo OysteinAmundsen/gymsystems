@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ScoreGroupService } from 'app/api';
-import { IDiscipline } from 'app/api/model/IDiscipline';
-import { IScoreGroup } from 'app/api/model/IScoreGroup';
-import { Operation } from 'app/api/model/Operation';
+import { ScoreGroupService } from 'app/services/api';
+import { IDiscipline } from 'app/services/model/IDiscipline';
+import { IScoreGroup } from 'app/services/model/IScoreGroup';
+import { Operation } from 'app/services/model/Operation';
 
 @Component({
   selector: 'app-score-group-editor',
