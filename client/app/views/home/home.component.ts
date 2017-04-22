@@ -11,12 +11,13 @@ import { ITournament } from 'app/services/model/ITournament';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   types = [];
+  current = [];
   isLoading: boolean = true;
 
   constructor(private tournamentService: TournamentService) {
-    tournamentService.past().subscribe(tournaments => this.types.push({ name: 'Past', tournaments: tournaments }));
-    tournamentService.current().subscribe(tournaments => this.types.push({ name: 'Current', tournaments: tournaments }));
     tournamentService.upcoming().subscribe(tournaments => this.types.push({ name: 'Future', tournaments: tournaments }));
+    tournamentService.past().subscribe(tournaments => this.types.push({ name: 'Past', tournaments: tournaments }));
+    tournamentService.current().subscribe(tournaments => this.current = tournaments);
   }
 
   ngOnInit() { }

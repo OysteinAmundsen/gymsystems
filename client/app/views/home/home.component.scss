@@ -1,8 +1,44 @@
-app-panel {
-  width: 100%;
+:host {
+  position: relative;
+  .fixed-back {
+    background-image: url(/assets/images/frontpage.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-origin: content-box;
+    background-position: 50%;
+    position: fixed;
+    top: 55px;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    z-index: -2;
+    // filter: sepia(50%) opacity(50%) brightness(100%);
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      background: linear-gradient(to top, #fff 0%, rgba(#fff, 0) 5%);
+    }
+    +* {
+      margin-top: 40%;
+    }
+  }
 }
 
-section {
-  float: left;
-  width: 33%;
+app-panel {
+  width: 100%;
+  tbody {
+    th {
+      padding-top: 2rem;
+      border-bottom: 1px solid #bbb;
+    }
+    &:first-child th {
+      padding-top: 0;
+    }
+  }
 }

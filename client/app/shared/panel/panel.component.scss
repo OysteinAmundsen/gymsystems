@@ -9,29 +9,28 @@
     border-style: solid;
     border-width: 1px;
     border-radius: $rounded;
-    margin-bottom: 20px;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .16), 0 0 2px 0 rgba(0, 0, 0, .12);
     header {
       color: $primaryDark;
-      font-size: 1.3em;
+      font-size: 1.2em;
       font-weight: bold;
-      padding: 10px $padding;
       border-bottom: 1px solid transparent;
       border-top-right-radius: $rounded;
       border-top-left-radius: $rounded;
-      >div.head {
-        display: block;
-        font-weight: bold;
-        font-size: 110%;
+      /deep/>.head {
+        padding: 10px $padding;
+        // font-size: 110%;
       }
     }
     div {
       padding: $padding;
     }
     footer {
-      padding: 10px $padding;
       border-bottom-right-radius: $rounded;
       border-bottom-left-radius: $rounded;
+      >* {
+        margin: 10px $padding;
+      }
     }
   }
 }

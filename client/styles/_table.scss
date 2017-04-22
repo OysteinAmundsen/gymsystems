@@ -1,5 +1,4 @@
 @import "variables";
-
 table[role="list"] {
   border-collapse: collapse;
   width: 100%;
@@ -10,8 +9,12 @@ table[role="list"] {
   td {
     border-bottom: 1px solid rgba($primary, 0.1);
   }
-  tbody, tr {
-    &[ role="listitem" ] {
+  tr:last-child td {
+    border-bottom: 0;
+  }
+  tbody,
+  tr {
+    &[ role="listitem"] {
       cursor: pointer;
       &:hover td {
         background-color: $primaryLight;
