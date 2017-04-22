@@ -1,6 +1,5 @@
 @import "variables";
 @import url("https://fonts.googleapis.com/css?family=Economica:400,700");
-
 // Top navbar
 nav {
   display: block;
@@ -21,12 +20,13 @@ nav {
     padding: 1rem 0.5rem 1rem 0.5rem;
     display: inline-block;
   }
-  a, app-fa {
+  a,
+  app-fa {
     color: rgba(white, 0.8);
     text-decoration: none;
     height: 3.5rem;
   }
-  header + app-fa {
+  header+app-fa {
     float: right;
     cursor: pointer;
     border-radius: $rounded;
@@ -41,7 +41,6 @@ nav {
       text-shadow: none;
     }
   }
-
   // Site menu
   ul {
     list-style: none;
@@ -68,11 +67,22 @@ nav {
       a {
         color: white;
       }
-      background: darken(rgba($primary, 0.4), 4%);
-      border-left-color: rgba(black,0.3);
-      border-right-color: rgba(white, 0.3);
-      box-shadow: 0px 5px 20px -4px rgba(0, 0, 0, 0.3) inset, 1px 0 8px rgba(255, 255, 255, 0.2);
-      text-shadow: 1px 1px 1px rgba(black, 0.4);
+      background: darken(rgba($primary, 0.4),
+      4%);
+      border-left-color: rgba(black,
+      0.3);
+      border-right-color: rgba(white,
+      0.3);
+      box-shadow: 0px 5px 20px -4px rgba(0,
+      0,
+      0,
+      0.3) inset,
+      1px 0 8px rgba(255,
+      255,
+      255,
+      0.2);
+      text-shadow: 1px 1px 1px rgba(black,
+      0.4);
     }
     @media (max-width: $stop1) {
       float: none;
@@ -95,4 +105,3 @@ nav {
     }
   }
 }
-

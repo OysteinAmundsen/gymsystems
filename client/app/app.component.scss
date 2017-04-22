@@ -27,13 +27,13 @@ svg {
     height: 170px;
     path {
       &:nth-child(1) {
-        fill: lighten($primary, 20%);
+        fill: rgba(lighten($primary, 20%), 0.4);
       }
       &:nth-child(2) {
-        fill: lighten($primary, 10%);
+        fill: rgba(lighten($primary, 10%), 0.7);
       }
       &:nth-child(3) {
-        fill: $primary;
+        fill: rgba($primary, 1);
       }
     }
   }
