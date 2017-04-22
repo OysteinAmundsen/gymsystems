@@ -62,6 +62,7 @@
     "rxjs": "^5.3.0",
     "sendmail": "^1.1.1",
     "serve-favicon": "~2.4.2",
+    "session-memory-store": "^0.2.2",
     "typedi": "~0.4.3",
     "typeorm": "^0.0.11",
     "typeorm-routing-controllers-extensions": "^0.0.7",

@@ -10,8 +10,6 @@ import * as bcrypt from 'bcrypt';
 import { User } from '../model/User';
 import { IVerifyOptions } from "passport-local";
 
-let userRepository: Repository<User> = null;
-
 /**
  * Configure `Passport` authentication strategies for our application
  *
@@ -19,8 +17,6 @@ let userRepository: Repository<User> = null;
  * @param {Passport} passport
  */
 export function setupAuthentication(app: Express): auth.Passport {
-  userRepository = getConnectionManager().get().getRepository(User);
-
   // Configure passport strategies
   passport.use('local-login', new LocalStrategy.Strategy({
     // Strategy options
@@ -29,6 +25,7 @@ export function setupAuthentication(app: Express): auth.Passport {
     passReqToCallback: true // allows us to pass back the entire request to the callback
   },// Verify function with request
     (req: Request, username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) => {
+      const userRepository: Repository<User> = getConnectionManager().get().getRepository(User);
       userRepository.findOne({ name: username })
         .then(user => {
           if (!user) { done('No user found.', null, { message: 'No user found'}); }

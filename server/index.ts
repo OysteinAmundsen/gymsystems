@@ -117,10 +117,12 @@ export class GymServer {
     // Configure authentication services
     this.app.use(cookieParser());
     this.app.use(bodyParser.urlencoded({ extended: false }));
+    const MemoryStore = require('session-memory-store')(session);
     this.app.use(session({
         secret: 'mysecretkey',
         resave: true,
         saveUninitialized: true,
+        store: new MemoryStore({expires: 60 * 60 * 12, checkperiod: 10 * 60}),
         cookie: {
           path: '/',
           httpOnly: true,
