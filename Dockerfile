@@ -15,7 +15,7 @@ RUN apt-get install -y make automake gcc g++
 WORKDIR $HOME
 
 # Install app dependencies
-COPY package.json $HOME
+ADD package.json $HOME/package.json
 RUN npm install --production
 
 # Bundle pre-built app
