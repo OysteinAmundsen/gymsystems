@@ -60,12 +60,13 @@ export class TournamentController {
   @Get('/current')
   @EmptyResultCode(200)
   current(): Promise<Tournament[]> {
-    const start = moment().utc().startOf('week').toDate();
-    const end = moment().utc().endOf('week').toDate();
+    const now = moment().utc();
+    const start = now.clone().startOf('day').toDate();
+    const end = now.clone().endOf('day').toDate();
     return this.repository
       .createQueryBuilder('tournament')
-      .where('tournament.startDate > :startDate', { startDate: start })
-      .andWhere('tournament.endDate < :endDate', { endDate: end })
+      .where('tournament.startDate <= :startDate', { startDate: start })
+      .andWhere('tournament.endDate >= :endDate', { endDate: end })
       .orderBy('startDate', 'DESC')
       .setLimit(10)
       .getMany();

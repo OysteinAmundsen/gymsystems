@@ -283,16 +283,16 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   selectDate(e: MouseEvent, date: moment.Moment) {
     if (e) { e.preventDefault(); }
 
-    setTimeout(() => {
-      this.value = {
-        day: date.format('DD'),
-        month: date.format('MM'),
-        year: date.format('YYYY'),
-        formatted: date.format(this.options.format),
-        momentObj: date.clone()
-      };
-      this.generateCalendar();
+    this.value = {
+      day: date.format('DD'),
+      month: date.format('MM'),
+      year: date.format('YYYY'),
+      formatted: date.format(this.options.format),
+      momentObj: date.clone()
+    };
+    this.generateCalendar();
 
+    setTimeout(() => {
       this.outputEvents.emit({ type: 'dateChanged', data: this.value });
       this.dateInput.nativeElement.focus();
       this.dateInput.nativeElement.blur();
@@ -334,7 +334,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   writeValue(date: DateModel) {
     if (!date) { return; }
     this.date = date;
-    this.currentDate = Moment(this.date);
+    this.currentDate = this.date.momentObj ? this.date.momentObj.clone() : Moment(this.date);
     this.selectDate(null, this.currentDate);
   }
 

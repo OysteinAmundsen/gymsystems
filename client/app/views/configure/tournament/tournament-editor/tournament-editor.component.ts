@@ -31,11 +31,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params: any) => {
       if (params.id) {
         this.tournamentService.selectedId = params.id;
-        this.tournamentService.getById(params.id).subscribe(tournament => {
-          this.tournament = tournament;
-          this.tournamentForm.setValue(tournament);
-          this.tournamentService.selected = this.tournament;
-        });
+        this.tournamentService.getById(params.id).subscribe(tournament => this.tournamentReceived(tournament));
       } else {
         this.isEdit = true;
       }
@@ -54,6 +50,12 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  tournamentReceived(tournament) {
+    this.tournament = tournament;
+    this.tournamentForm.setValue(tournament);
+    this.tournamentService.selected = this.tournament;
+  }
+
   ngOnDestroy() {
     this.tournamentService.selectedId = null;
     this.tournamentService.selected = null;
@@ -68,8 +70,10 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     if (formVal.endDate.hasOwnProperty('momentObj')) {
       formVal.endDate = formVal.endDate.momentObj.utc().toISOString();
     }
-    this.tournamentService.save(formVal).subscribe(result => {
-      this.router.navigate(['../', result.id], { relativeTo: this.route });
+    this.tournamentService.save(formVal).subscribe(tournament => {
+      this.isEdit = false;
+      this.tournamentReceived(tournament)
+      this.router.navigate(['../', tournament.id], { relativeTo: this.route });
     });
   }
 
