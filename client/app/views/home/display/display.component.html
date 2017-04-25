@@ -14,20 +14,12 @@
 </header>
 
 <div role="table">
-  <div role="row">
+  <div role="row" *ngIf="display">
     <section [routerLink]="['./1']">
-      <div>
-        <header>Landsturnstevnet 2017</header>
-        <p>&nbsp;</p>
-        <p>Arendal</p>
-        <p>Gneist</p>
-        <p>Sola</p>
-      </div>
+      <div [innerHtml]="display[0]"></div>
     </section>
     <section [routerLink]="['./2']">
-      <div>
-        Dette er en test. Mon tro om jeg får text wrapping på elementet?
-      </div>
+      <div [innerHtml]="display[1]"></div>
     </section>
   </div>
 </div>

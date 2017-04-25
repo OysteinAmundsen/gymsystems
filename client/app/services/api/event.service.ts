@@ -23,7 +23,7 @@ export class EventService {
   timer;
 
   constructor() {
-    this.observable = Observable.create(observer => {
+    this.observable = Observable.create((observer: Observer<any>) => {
       this.observer = observer;
       this.eventSource = this.createConnection();
       console.log('Connection established!');

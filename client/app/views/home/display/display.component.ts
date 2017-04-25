@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
-import { EventService, TournamentService, ScheduleService, TeamsService, UserService } from 'app/services/api';
+import { EventService, TournamentService, ScheduleService, TeamsService, UserService, ConfigurationService, DisplayService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 import { IUser } from 'app/services/model/IUser';
@@ -14,47 +14,40 @@ import { IUser } from 'app/services/model/IUser';
 })
 export class DisplayComponent implements OnInit, OnDestroy {
   tournament: ITournament;
-  schedule: ITournamentParticipant[] = [];
-
-  user: IUser;
-  userSubscription: Subscription;
+  tournamentId: number;
   eventSubscription: Subscription;
   paramSubscription: Subscription;
 
-  constructor(
-    private route: ActivatedRoute,
-    private scheduleService: ScheduleService,
-    private teamService: TeamsService,
-    private tournamentService: TournamentService,
-    private eventService: EventService,
-    private userService: UserService) { }
+  display = ['', ''];
+
+  constructor(private route: ActivatedRoute, private tournamentService: TournamentService, private displayService: DisplayService, private eventService: EventService) { }
 
   ngOnInit() {
-    this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
-    this.eventSubscription = this.eventService.connect().subscribe(message => {
-      console.log(message);
-    });
+    this.eventSubscription = this.eventService.connect().subscribe(message => this.renderDisplayTemplates());
 
-    if (this.tournamentService.selected) {
-      this.tournament = this.tournamentService.selected;
-    } else {
-      this.paramSubscription = this.route.params.subscribe((params: any) => {
-        const tournamentId = +params.id;
-        if (!isNaN(tournamentId)) {
-          this.tournamentService.selectedId = tournamentId;
-          this.tournamentService.getById(tournamentId).subscribe((tournament) => {
-            this.tournamentService.selected = tournament;
-            this.tournament = tournament;
-          });
-          this.scheduleService.getByTournament(tournamentId).subscribe((schedule) => this.schedule = schedule);
-        }
-      });
-    }
+    this.paramSubscription = this.route.params.subscribe((params: any) => {
+      this.tournamentId = +params.id;
+      if (this.tournamentService.selected) {
+        this.tournament = this.tournamentService.selected;
+        this.renderDisplayTemplates();
+      }
+      else {
+        this.tournamentService.selectedId = this.tournamentId;
+        this.tournamentService.getById(this.tournamentId).subscribe((tournament) => {
+          this.tournamentService.selected = tournament;
+          this.tournament = tournament;
+          this.renderDisplayTemplates();
+        });
+      }
+    });
+  }
+
+  renderDisplayTemplates() {
+    this.displayService.getAll(this.tournamentId).subscribe(displays => this.display = displays);
   }
 
   ngOnDestroy() {
     this.eventSubscription.unsubscribe();
-    this.userSubscription.unsubscribe();
     if (this.paramSubscription) { this.paramSubscription.unsubscribe(); }
   }
 }

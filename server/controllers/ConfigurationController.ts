@@ -10,10 +10,12 @@ import { RequireRoleAdmin } from '../middlewares/RequireAuth';
 
 import { Logger } from '../utils/Logger';
 import { Configuration } from '../model/Configuration';
+import { Service } from "typedi";
 
 /**
  *
  */
+@Service()
 @JsonController('/configuration')
 export class ConfigurationController {
   private repository: Repository<Configuration>;

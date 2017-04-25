@@ -20,7 +20,8 @@ import {
   TeamsService,
   ConfigurationService,
   ScheduleService,
-  EventService
+  EventService,
+  DisplayService
 } from './services/api';
 // import { RoleService } from './api';
 
@@ -66,6 +67,7 @@ export function HttpLoaderFactory(http: Http) {
     TeamsService,
     ConfigurationService,
     ScheduleService,
+    DisplayService,
 
     // SSE Provider
     EventService,
