@@ -50,7 +50,7 @@ If all you want to do is startup this project, your pretty much done now. The ap
 
 ## How to use
 
-This bit will contain a small user manual for the system in time.
+* [How to setup a tournament](/docs/TournamentSetup.md)
 
 ## Development
 

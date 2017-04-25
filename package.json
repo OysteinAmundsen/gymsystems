@@ -1,8 +1,20 @@
 {
   "name": "gymsystems",
   "version": "0.0.0",
+  "description": "Web system for competitive teamgym scoreboarding",
+  "homepage": "http://www.gymsystems.org",
+  "bugs": "https://github.com/OysteinAmundsen/gymsystems/issues",
+  "repository": {
+    "url": "https://github.com/OysteinAmundsen/gymsystems",
+    "type": "git"
+  },
+  "author": "oystein.amundsen@gmail.com",
   "license": "MIT",
   "angular-cli": {},
+  "private": true,
+  "engines": {
+    "node": ">=7.7.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "npm run server",
@@ -27,7 +39,6 @@
     "migrations": "typeorm migrations:run",
     "migrations:revert": "typeorm migrations:revert"
   },
-  "private": true,
   "dependencies": {
     "@angular/common": "^4.0.3",
     "@angular/compiler": "^4.0.3",
