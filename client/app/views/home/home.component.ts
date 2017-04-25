@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   isLoading: boolean = true;
 
   constructor(private tournamentService: TournamentService, private translate: TranslateService) {
+    this.translate.get(['Future', 'Past']).subscribe(); // Make sure texts exists and are translated
     tournamentService.upcoming().subscribe(tournaments => this._types.push({ name: 'Future', tournaments: tournaments }));
     tournamentService.past().subscribe(tournaments => this._types.push({ name: 'Past', tournaments: tournaments }));
     tournamentService.current().subscribe(tournaments => this.current = tournaments);

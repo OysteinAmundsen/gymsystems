@@ -1,18 +1,18 @@
 <h1>
   <app-fa name="tv" fw="true"></app-fa>
-  Display
+  <span translate>Display</span>
 </h1>
 
 <form class="panel">
   <div role="table">
     <div role="row">
-      <section *ngFor="let template of templates">
+      <section *ngFor="let template of templates; let i = index;">
         <app-macro-dialog></app-macro-dialog>
-        <textarea title="{{ template.title }}">{{ template.content }}</textarea>
+        <textarea title="{{ template.title }}" name="{{'template' + i}}" [(ngModel)]="template.content">{{ template.content }}</textarea>
       </section>
     </div>
   </div>
   <footer>
-    <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span>Save</span></button>
+    <button type="submit" title="Save" (click)="save()"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
   </footer>
 </form>
