@@ -5,19 +5,22 @@ import { TournamentService } from 'app/services/api/tournament.service';
 import { ITournament } from 'app/services/model/ITournament';
 import { TranslateService } from "@ngx-translate/core";
 
+type tournamentType = {name: string, tournaments: ITournament[]};
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  types = [];
+  _types: tournamentType[] = [];
+  get types() { return this._types.sort((a: tournamentType, b: tournamentType) => (a.name === 'Future') ? -1 : 1); } // Future first, allways
   current = [];
   isLoading: boolean = true;
 
   constructor(private tournamentService: TournamentService, private translate: TranslateService) {
-    tournamentService.upcoming().subscribe(tournaments => this.types.push({ name: 'Future', tournaments: tournaments }));
-    tournamentService.past().subscribe(tournaments => this.types.push({ name: 'Past', tournaments: tournaments }));
+    tournamentService.upcoming().subscribe(tournaments => this._types.push({ name: 'Future', tournaments: tournaments }));
+    tournamentService.past().subscribe(tournaments => this._types.push({ name: 'Past', tournaments: tournaments }));
     tournamentService.current().subscribe(tournaments => this.current = tournaments);
   }
 
