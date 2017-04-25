@@ -8,6 +8,7 @@
     "outDir": "dist/public",
     "assets": [
       "assets",
+      "i18n",
       "icons",
       "favicon.ico",
       "manifest.json",

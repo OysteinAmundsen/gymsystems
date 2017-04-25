@@ -6,11 +6,11 @@
 <table role="list" class="editable">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Judges</th>
-      <th>Max</th>
-      <th>Min</th>
+      <th translate>Name</th>
+      <th translate>Type</th>
+      <th translate>Judges</th>
+      <th translate>Max</th>
+      <th translate>Min</th>
     </tr>
   </thead>
   <tbody *ngFor="let score of scoreGroupList">
@@ -31,9 +31,9 @@
 
 <button type="button" *ngIf="selected == null" title="Add" (click)="addScoreGroup()">
   <app-fa name="plus" fw="true"></app-fa>
-  <span>Add ScoreGroup</span>
+  <span translate>Add ScoreGroup</span>
 </button>
 <button type="button" *ngIf="selected == null && canAddDefaults" title="Add default" (click)="addDefaults()">
   <app-fa name="plus-circle" fw="true"></app-fa>
-  <span>Add Default ScoreGroups</span>
+  <span translate>Add Default ScoreGroups</span>
 </button>

@@ -1,13 +1,13 @@
 <h1>
   <app-fa name="users" fw="true"></app-fa>
-  Users
+  <span translate>Users</span>
 </h1>
 
 <table role="list" class="editable">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Role</th>
+      <th translate>Name</th>
+      <th translate>Role</th>
     </tr>
   </thead>
   <tbody *ngFor="let user of userList">
@@ -20,5 +20,5 @@
 
 <button type="button" title="Add" [routerLink]="['./add']">
   <app-fa name="plus" fw="true"></app-fa>
-  <span>Add User</span>
+  <span translate>Add User</span>
 </button>

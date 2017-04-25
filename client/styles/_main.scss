@@ -1,16 +1,19 @@
 @import "./_variables";
-
 html {
   background-color: #fefefe;
 }
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   min-height: 100vh;
   position: relative;
-  margin: 0; padding:0;
+  margin: 0;
+  padding: 0;
 }
-body, body * {
+
+body,
+body * {
   box-sizing: border-box;
   margin: 0;
 }
@@ -18,9 +21,13 @@ body, body * {
 .container {
   margin: 0 auto;
   max-width: 1024px;
+  position: relative;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   color: lighten($text-color, 4%);
 }
 
@@ -28,12 +35,18 @@ h1 {
   margin: 0.8rem 0 1rem 0;
 }
 
-h1 { font-size: 2rem; }
-h2 { font-size: 1.3rem; }
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+}
 
 .pull-left {
   float: left;
 }
+
 .pull-right {
   float: right;
 }
@@ -44,6 +57,7 @@ h2 { font-size: 1.3rem; }
   border-spacing: 0.3rem;
   width: 100%;
 }
+
 [role="row"] {
   display: table-row;
 }
@@ -55,4 +69,15 @@ ul.unstyled {
 
 .warning {
   color: darken($warning, 30%);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.flag-icon {
+  filter: grayscale(80%) opacity(40%);
+  &.selected {
+    filter: grayscale(0%) opacity(100%);
+  }
 }

@@ -7,7 +7,7 @@
       <app-score-group *ngFor="let group of groupedScores" [model]="group" [form]="scoreForm" class="x{{ group.scores ? group.scores.length : '0' }} group_{{ group.group.type }}"></app-score-group>
 
       <section>
-        <header>Final score</header>
+        <header translate>Final score</header>
         <div *ngFor="let type of groupedScores" (click)="selectGroup(type)">
           <label class="large">{{ type.group.type }} : </label>
           <label class="small">{{ type.group.name }} <small>[{{ type.group.type }}]</small>: </label>
@@ -15,7 +15,7 @@
         </div>
         <footer>
           <label class="large">F:</label>
-          <label class="small">Final score:</label>
+          <label class="small" translate>Final score:</label>
           <code>{{ grandTotal | number:'1.3-3' }}</code>
         </footer>
       </section>
@@ -23,8 +23,8 @@
   </div>
 
   <footer>
-    <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span>Save</span></button>
-    <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span>Cancel</span></button>
-    <button type="button" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete</span></button>
+    <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+    <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
+    <button type="button" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
   </footer>
 </form>

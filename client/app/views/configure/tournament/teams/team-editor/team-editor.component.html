@@ -2,7 +2,7 @@
   <fieldset>
     <div class="row">
       <div class="col-12" appFloatingLabelContainer>
-        <label>Name</label>
+        <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
       </div>
     </div>
@@ -12,7 +12,7 @@
       <header>
         <h2>
           <app-fa name="cubes" fw="true"></app-fa>
-          <span>Division</span>
+          <span translate>Division</span>
         </h2>
       </header>
       <fieldset>
@@ -20,7 +20,7 @@
         <div appFloatingLabel>
           <label>
             <app-fa name="venus-mars" fw="true"></app-fa>
-            <span>Gender group</span>
+            <span translate>Gender group</span>
           </label>
           <select formControlName="genderDivision">
             <option *ngFor="let division of genderDivisions" [ngValue]="division.id">{{division.name}}</option>
@@ -30,7 +30,7 @@
         <div appFloatingLabel>
           <label>
             <app-fa name="child" fw="true"></app-fa>
-            <span>Age group</span>
+            <span translate>Age group</span>
           </label>
           <select formControlName="ageDivision">
             <option *ngFor="let division of ageDivisions" [ngValue]="division.id">{{division.name}}</option>
@@ -44,12 +44,12 @@
       <header>
         <h2>
           <app-fa name="heartbeat" fw="true"></app-fa>
-          <span>Disciplines</span>
+          <span translate>Disciplines</span>
         </h2>
       </header>
       <table role="list">
         <tr role="listitem">
-          <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()"> All</label></td>
+          <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()"> <span translate>All</span></label></td>
         </tr>
         <tbody *ngFor="let discipline of disciplines">
           <tr role="listitem">
@@ -66,8 +66,8 @@
 
   </div>
   <footer>
-    <button type="submit" title="Save" [disabled]="teamForm.invalid || teamForm.pristine"><app-fa name="save" fw="true"></app-fa> <span>Save</span></button>
-    <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span>Cancel</span></button>
-    <button type="button" *ngIf="teamForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete</span></button>
+    <button type="submit" title="Save" [disabled]="teamForm.invalid || teamForm.pristine"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+    <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
+    <button type="button" *ngIf="teamForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
   </footer>
 </form>

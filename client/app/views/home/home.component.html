@@ -1,19 +1,19 @@
 <div class="fixed-back"></div>
 
 <div class="row">
-  <div class="col-8">
+  <div class="col-8 main-content">
     <section *ngIf="current.length">
       <div *ngFor="let tournament of current">
         <h1>{{ tournament.name }}</h1>
 
         <span>{{ tournament.description }}</span>
-        <a [routerLink]="['/list/', tournament.id]">Go to scoreboard</a>
+        <a [routerLink]="['/list/', tournament.id]" translate>Go to scoreboard</a>
       </div>
     </section>
     <section *ngIf="!current.length">
-      <h1>No tournament today. </h1>
+      <h1 translate>No tournament today. </h1>
 
-      Come back later or checkout the past and future tournaments we have listed out for you on the right hand side.
+      <span translate>Come back later or checkout the past and future tournaments we have listed out for you on the right hand side.</span>
     </section>
   </div>
 
@@ -21,7 +21,7 @@
     <table class="table-hover" role="list" class="editable">
       <tbody *ngFor="let type of types;">
         <tr>
-          <th colspan="2">{{ type.name }} tournaments</th>
+          <th colspan="2">{{ type.name | translate }} <span translate>tournaments</span></th>
         </tr>
         <tr *ngFor="let tournament of type.tournaments" role="menuitem" [routerLink]="['/list/', tournament.id]" role="listitem">
           <td>{{ tournament.name }}</td>

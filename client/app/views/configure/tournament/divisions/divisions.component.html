@@ -4,7 +4,7 @@
     <header>
       <h2>
         <app-fa name="venus-mars" fw="true"></app-fa>
-        <span>Gender group</span>
+        <span translate>Gender group</span>
       </h2>
     </header>
     <table role="list" [dragula]="'gender-bag'" [dragulaModel]="genderDivisions" class="editable">
@@ -25,7 +25,7 @@
     <header>
       <h2>
         <app-fa name="child" fw="true"></app-fa>
-        <span>Age group</span>
+        <span translate>Age group</span>
       </h2>
     </header>
     <table role="list" [dragula]="'age-bag'" [dragulaModel]="ageDivisions" class="editable">
@@ -48,9 +48,9 @@
 </div>
 <button type="button" *ngIf="selected == null" title="Add" (click)="addDivision()">
   <app-fa name="plus" fw="true"></app-fa>
-  <span>Add Divisions</span>
+  <span translate>Add Divisions</span>
 </button>
 <button type="button" *ngIf="selected == null && canAddDefaults" title="Add default" (click)="addDefaults()">
   <app-fa name="plus-circle" fw="true"></app-fa>
-  <span>Add Default Divisions</span>
+  <span translate>Add Default Divisions</span>
 </button>

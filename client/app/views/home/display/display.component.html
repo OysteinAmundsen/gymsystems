@@ -5,11 +5,11 @@
   </h2>
   <button type="button" class="pull-right primary raised" [routerLink]="['/list', tournament.id]">
     <app-fa name="list" fw="true"></app-fa>
-    <span>List</span>
+    <span translate>List</span>
   </button>
   <button type="button" class="pull-right" *appIfAuth="'Admin'" [routerLink]="['/configure/display']">
     <app-fa name="cog" fw="true"></app-fa>
-    <span>Settings </span>
+    <span translate>Settings </span>
   </button>
 </header>
 
@@ -32,6 +32,4 @@
   </div>
 </div>
 
-<aside>
-  Click a panel to go fullscreen. Press <kbd>ESC</kbd> twice to return.
-</aside>
+<aside translate>Click a panel to go fullscreen. Press <kbd>ESC</kbd> twice to return.</aside>

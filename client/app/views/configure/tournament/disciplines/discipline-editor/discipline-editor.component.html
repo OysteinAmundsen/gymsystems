@@ -2,7 +2,7 @@
   <fieldset>
     <div class="row">
       <div class="col-12" appFloatingLabelContainer>
-        <label>Name</label>
+        <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
       </div>
     </div>
@@ -12,8 +12,8 @@
     <app-score-system [discipline]="discipline" (editModeChanged)="editingScore = $event"></app-score-system>
   </fieldset>
   <footer *ngIf="!editingScore">
-    <button type="submit" title="Save" [disabled]="disciplineForm.invalid || disciplineForm.pristine"><app-fa name="save" fw="true"></app-fa> <span>Save</span></button>
-    <button type="button" title="Cancel" (click)="cancel()"><app-fa name="arrow-left" fw="true"></app-fa> <span>Go back</span></button>
-    <button type="button" *ngIf="disciplineForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete</span></button>
+    <button type="submit" title="Save" [disabled]="disciplineForm.invalid || disciplineForm.pristine"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+    <button type="button" title="Cancel" (click)="cancel()"><app-fa name="arrow-left" fw="true"></app-fa> <span translate>Go back</span></button>
+    <button type="button" *ngIf="disciplineForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
   </footer>
 </form>

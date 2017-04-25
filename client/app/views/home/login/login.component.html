@@ -1,23 +1,23 @@
 <form class="panel" [formGroup]="loginForm" (submit)="login()">
   <header>
-    <h3>Login</h3>
+    <h3 translate>Login</h3>
   </header>
   <fieldset>
     <div class="row">
       <div class="col-xs-12" appFloatingLabelContainer>
-        <label for="login-user">Username</label>
+        <label for="login-user" translate>Username</label>
         <input type="text" formControlName="username" appAutofocus/>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12" appFloatingLabelContainer>
-        <label for="login-user">Password</label>
+        <label for="login-user" translate>Password</label>
         <input type="password" formControlName="password" />
       </div>
     </div>
   </fieldset>
   <footer>
-    <button type="submit" title="Login" [disabled]="loginForm.invalid || loginForm.pristine"><app-fa name="sign-in" fw="true"></app-fa> <span>Login</span></button>
+    <button type="submit" title="Login" [disabled]="loginForm.invalid || loginForm.pristine"><app-fa name="sign-in" fw="true"></app-fa> <span translate>Login</span></button>
   </footer>
 </form>
 

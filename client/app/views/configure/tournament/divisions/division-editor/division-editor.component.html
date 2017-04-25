@@ -2,11 +2,11 @@
   <fieldset>
     <div class="row">
       <div [className]="!division.type ? 'col-6' : 'col-12'" appFloatingLabelContainer>
-        <label>Name</label>
+        <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
       </div>
       <div *ngIf="!division.type" class="col-6" appFloatingLabelContainer>
-        <label>Type</label>
+        <label translate>Type</label>
         <select formControlName="type">
           <option *ngFor="let type of types" [ngValue]="type.id">{{type.name}}</option>
         </select>
@@ -14,8 +14,8 @@
     </div>
   </fieldset>
   <footer>
-    <button type="submit" title="Save" [disabled]="divisionForm.invalid || divisionForm.pristine"><app-fa name="save" fw="true"></app-fa> <span>Save</span></button>
-    <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span>Cancel</span></button>
-    <button type="button" *ngIf="divisionForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete</span></button>
+    <button type="submit" title="Save" [disabled]="divisionForm.invalid || divisionForm.pristine"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+    <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
+    <button type="button" *ngIf="divisionForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
   </footer>
 </form>

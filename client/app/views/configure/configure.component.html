@@ -2,24 +2,24 @@
   <ul>
     <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Club'">
       <a routerLink="./tournament">
-        <app-fa name="trophy" fw="true"></app-fa> <span>Tournaments</span> </a>
+        <app-fa name="trophy" fw="true"></app-fa> <span translate>Tournaments</span> </a>
     </li>
     <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'">
       <a routerLink="./display">
-        <app-fa name="tv" fw="true"></app-fa> <span>Display</span></a>
+        <app-fa name="tv" fw="true"></app-fa> <span translate>Display</span></a>
     </li>
     <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'">
       <a routerLink="./users">
-        <app-fa name="users" fw="true"></app-fa> <span>Users</span></a>
+        <app-fa name="users" fw="true"></app-fa> <span translate>Users</span></a>
     </li>
     <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'">
       <a routerLink="./advanced">
-        <app-fa name="cogs" fw="true"></app-fa> <span>Advanced settings</span></a>
+        <app-fa name="cogs" fw="true"></app-fa> <span translate>Advanced settings</span></a>
     </li>
     <li class="divider"></li>
     <li role="menuitem">
       <a routerLink="/logout">
-        <app-fa name="sign-out" fw="true"></app-fa> <span>Log out</span></a>
+        <app-fa name="sign-out" fw="true"></app-fa> <span translate>Log out</span></a>
     </li>
   </ul>
 </menu>

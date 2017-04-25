@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { TournamentService } from 'app/services/api/tournament.service';
 import { ITournament } from 'app/services/model/ITournament';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   current = [];
   isLoading: boolean = true;
 
-  constructor(private tournamentService: TournamentService) {
+  constructor(private tournamentService: TournamentService, private translate: TranslateService) {
     tournamentService.upcoming().subscribe(tournaments => this.types.push({ name: 'Future', tournaments: tournaments }));
     tournamentService.past().subscribe(tournaments => this.types.push({ name: 'Past', tournaments: tournaments }));
     tournamentService.current().subscribe(tournaments => this.current = tournaments);

@@ -7,11 +7,11 @@
   <div *ngIf="tournament && tournament.id" class="pull-right buttons">
     <button type="button" class="primary raised" *appIfAuth="'Secretariat'" [routerLink]="['/list', tournament.id]">
       <app-fa name="list" fw="true"></app-fa>
-      <span>List</span>
+      <span translate>List</span>
     </button>
     <button type="button" class="pull-right primary raised" *appIfAuth="'Secretariat'" [routerLink]="['/display', tournament.id]">
       <app-fa name="tv" fw="true"></app-fa>
-      <span>Display </span>
+      <span translate>Display </span>
     </button>
   </div>
 </header>
@@ -19,19 +19,19 @@
 
 <table *ngIf="!isEdit" title="Click to edit" (click)="edit()">
   <tr>
-    <th>Name</th>
+    <th translate>Name</th>
     <td>{{ tournament.name }}</td>
   </tr>
   <tr>
-    <th>Start date</th>
+    <th translate>Start date</th>
     <td>{{ tournament.startDate | date }}</td>
   </tr>
   <tr>
-    <th>End date</th>
+    <th translate>End date</th>
     <td>{{ tournament.endDate | date }}</td>
   </tr>
   <tr>
-    <th>Location</th>
+    <th translate>Location</th>
     <td>{{ tournament.location }}</td>
   </tr>
 </table>
@@ -40,31 +40,31 @@
   <fieldset>
     <div class="row">
       <div class="col-12" appFloatingLabelContainer>
-        <label>Name</label>
+        <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
       </div>
     </div>
 
     <div class="row">
       <div class="col-xs-4" appFloatingLabelContainer>
-        <label>Start date</label>
+        <label translate>Start date</label>
         <app-datepicker formControlName="startDate" [options]="{maxDate: tournamentForm.value.endDate, initialDate: tournamentForm.value.endDate, autoApply: true}"></app-datepicker>
       </div>
       <div class="col-xs-4" appFloatingLabelContainer>
-        <label>End date</label>
+        <label translate>End date</label>
         <app-datepicker formControlName="endDate" [options]="{minDate: tournamentForm.value.startDate, initialDate: tournamentForm.value.startDate, autoApply: true}"></app-datepicker>
       </div>
       <div class="col-xs-4" appFloatingLabelContainer>
-        <label>Location</label>
+        <label translate>Location</label>
         <input type="text" formControlName="location">
       </div>
     </div>
   </fieldset>
 
   <footer>
-    <button type="submit" title="Save" [disabled]="tournamentForm.invalid || tournamentForm.pristine"><app-fa name="save" fw="true"></app-fa> <span>Save</span></button>
-    <button type="button" title="Cancel" (click)="cancel()"><app-fa name="ban" fw="true"></app-fa> <span>Cancel</span></button>
-    <button type="button" *ngIf="tournamentForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete</span></button>
+    <button type="submit" title="Save" [disabled]="tournamentForm.invalid || tournamentForm.pristine"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+    <button type="button" title="Cancel" (click)="cancel()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
+    <button type="button" *ngIf="tournamentForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
   </footer>
 </form>
 
@@ -72,19 +72,19 @@
   <ul>
     <li [routerLinkActive]="['active']" *appIfAuth="'Admin'">
       <a routerLink="./divisions">
-        <app-fa name="cubes" fw="true"></app-fa> <span>Divisions</span> </a>
+        <app-fa name="cubes" fw="true"></app-fa> <span translate>Divisions</span> </a>
     </li>
     <li [routerLinkActive]="['active']" *appIfAuth="'Admin'">
       <a routerLink="./disciplines">
-        <app-fa name="heartbeat" fw="true"></app-fa> <span>Disciplines</span> </a>
+        <app-fa name="heartbeat" fw="true"></app-fa> <span translate>Disciplines</span> </a>
     </li>
     <li [routerLinkActive]="['active']" *appIfAuth="'Club'">
       <a routerLink="./teams">
-        <app-fa name="users" fw="true"></app-fa> <span>Teams</span></a>
+        <app-fa name="users" fw="true"></app-fa> <span translate>Teams</span></a>
     </li>
     <li [routerLinkActive]="['active']" *appIfAuth="'Admin'">
       <a routerLink="./schedule">
-        <app-fa name="sort-numeric-asc" fw="true"></app-fa> <span>Schedule</span></a>
+        <app-fa name="sort-numeric-asc" fw="true"></app-fa> <span translate>Schedule</span></a>
     </li>
   </ul>
 </menu>

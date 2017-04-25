@@ -5,22 +5,22 @@
   </h2>
   <button type="button" class="pull-right primary raised" *appIfAuth="'Secretariat'" [routerLink]="['/display', tournament.id]">
     <app-fa name="tv" fw="true"></app-fa>
-    <span>Display </span>
+    <span translate>Display </span>
   </button>
   <button type="button" class="pull-right" *appIfAuth="'Admin'" [routerLink]="['/configure/tournament', tournament.id]">
     <app-fa name="cog" fw="true"></app-fa>
-    <span>Settings </span>
+    <span translate>Settings </span>
   </button>
 </header>
 
 <table *ngIf="tournament && schedule.length" role="list">
   <thead>
     <tr>
-      <th>Start #</th>
-      <th>Team</th>
-      <th>Division</th>
-      <th>Discipline</th>
-      <th>Score</th>
+      <th translate>Start #</th>
+      <th translate>Team</th>
+      <th translate>Division</th>
+      <th translate>Discipline</th>
+      <th translate>Score</th>
       <th *appIfAuth="'Secretariat'"></th>
     </tr>
   </thead>
@@ -32,8 +32,8 @@
       <td>{{ item.discipline.name }}</td>
       <td>{{ score(item) | number:'1.3-3' }}</td>
       <td *appIfAuth="'Secretariat'">
-        <button *ngIf="score(item) === 0">Start</button>
-        <button *ngIf="score(item) > 0 && !item.published">Publish</button>
+        <button *ngIf="score(item) === 0" translate>Start</button>
+        <button *ngIf="score(item) > 0 && !item.published" translate>Publish</button>
       </td>
     </tr>
     <tr *ngIf="selected === item">

@@ -2,9 +2,9 @@
   <thead>
     <tr>
       <th>#</th>
-      <th>Team</th>
-      <th>Division</th>
-      <th>Discipline</th>
+      <th translate>Team</th>
+      <th translate>Division</th>
+      <th translate>Discipline</th>
       <th class="icons"></th>
     </tr>
   </thead>
@@ -22,10 +22,10 @@
 
 <button type="submit" (click)="saveSchedule()" [disabled]="!hasChanges()">
   <app-fa name="save" fw="true"></app-fa>
-  <span>Save</span>
+  <span translate>Save</span>
 </button>
 <button type="button" (click)="calculateSchedule()" *ngIf="haveMissing()">
   <app-fa name="calculator" fw="true"></app-fa>
-  <span>Calculate schedule</span>
+  <span translate>Calculate schedule</span>
 </button>
-<button type="button" *ngIf="schedule.length" title="Delete" class="pull-right warning" (click)="deleteAll()"><app-fa name="trash" fw="true"></app-fa> <span>Delete</span></button>
+<button type="button" *ngIf="schedule.length" title="Delete" class="pull-right warning" (click)="deleteAll()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>

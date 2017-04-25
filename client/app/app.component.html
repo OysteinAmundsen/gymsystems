@@ -12,15 +12,15 @@
     <ul class="pull-right" [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
       <li>
         <a routerLink="/">
-          <app-fa name="home" fw="true"></app-fa> Home </a>
+          <app-fa name="home" fw="true"></app-fa> <span translate>Home</span> </a>
       </li>
       <li [routerLinkActive]="['active']" *appIfAuth="false">
         <a routerLink="/login" [queryParams]="{u: locationHref}">
-          <app-fa name="sign-in" fw="true"></app-fa> Login </a>
+          <app-fa name="sign-in" fw="true"></app-fa> <span translate>Login</span> </a>
       </li>
       <li [routerLinkActive]="['active']" *appIfAuth="'Club'">
         <a routerLink="/configure">
-          <app-fa name="cogs" fw="true"></app-fa> Configure </a>
+          <app-fa name="cogs" fw="true"></app-fa> <span translate>Configure</span> </a>
       </li>
     </ul>
   </div>
@@ -32,9 +32,13 @@
 
 <footer>
   <div class="container">
+    <div class="language-selector">
+      <span (click)="changeLang('no')" [ngClass]="'clickable flag-icon flag-icon-no ' + (currentLang === 'no' ? 'selected' : '')"></span>
+      <span (click)="changeLang('en')" [ngClass]="'clickable flag-icon flag-icon-gb ' + (currentLang === 'en' ? 'selected' : '')"></span>
+    </div>
     <span *ngIf="user">
-      <b>Logged in as: </b>{{ user.name }}<br>
-      <a [routerLink]="['/logout']"><app-fa name="sign-out"></app-fa>Logout</a>
+      <b translate>Logged in as: </b><i>{{ user.name }}</i><br>
+      <a [routerLink]="['/logout']"><app-fa name="sign-out"></app-fa><span translate>Logout</span></a>
     </span>
     <div class="pull-left logo">
       <a href="http://www.gymogturn.no/"><img src="assets/images/NGTF_logo_farger.png" alt="Norges gym og Turnforening"></a>

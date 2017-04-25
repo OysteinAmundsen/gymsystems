@@ -7,11 +7,11 @@
   <fieldset>
     <div class="row">
       <div class="col-xs-8" appFloatingLabelContainer>
-        <label>Name</label>
+        <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
       </div>
       <div class="col-xs-4" appFloatingLabelContainer>
-        <label>Role</label>
+        <label translate>Role</label>
         <select formControlName="role">
           <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
         </select>
@@ -20,26 +20,26 @@
 
     <div class="row">
       <div class="col-xs-8" appFloatingLabelContainer>
-        <label>Email</label>
+        <label translate>Email</label>
         <input type="email" formControlName="email">
       </div>
     </div>
     <div class="row">
       <div class="col-xs-6" appFloatingLabelContainer>
-        <label>Password</label>
+        <label translate>Password</label>
         <input type="password" formControlName="password">
       </div>
       <div class="col-xs-6" appFloatingLabelContainer>
-        <label>Repeat password</label>
+        <label translate>Repeat password</label>
         <input type="password" formControlName="repeatPassword">
       </div>
     </div>
   </fieldset>
 
   <footer>
-    <button type="submit" title="Save" [disabled]="userForm.invalid || userForm.pristine"><app-fa name="save" fw="true"></app-fa> <span>Save</span></button>
-    <button type="button" title="Cancel" (click)="cancel()"><app-fa name="ban" fw="true"></app-fa> <span>Cancel</span></button>
-    <button type="button" *ngIf="userForm.value.id && userForm.value.id !== currentUser.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete</span></button>
+    <button type="submit" title="Save" [disabled]="userForm.invalid || userForm.pristine"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+    <button type="button" title="Cancel" (click)="cancel()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
+    <button type="button" *ngIf="userForm.value.id && userForm.value.id !== currentUser.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
   </footer>
 </form>
 

@@ -11,12 +11,14 @@ import { FaStackComponent } from './fontawesome/fa-stack.component';
 import { AutofocusDirective } from './autofocus/autofocus.directive';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { IfAuthDirective } from './if-auth.directive';
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   declarations: [
     DatepickerComponent,
@@ -30,6 +32,11 @@ import { IfAuthDirective } from './if-auth.directive';
     IfAuthDirective
   ],
   exports: [
+    // Export common modules
+    CommonModule,
+    TranslateModule,
+
+    // Export components
     DatepickerComponent,
     DialogComponent,
     FloatingLabelContainerDirective,

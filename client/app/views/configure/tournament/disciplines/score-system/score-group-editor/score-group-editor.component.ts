@@ -5,6 +5,7 @@ import { ScoreGroupService } from 'app/services/api';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IScoreGroup } from 'app/services/model/IScoreGroup';
 import { Operation } from 'app/services/model/Operation';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-score-group-editor',
@@ -18,7 +19,10 @@ export class ScoreGroupEditorComponent implements OnInit {
   scoreForm: FormGroup;
   operations = Operation;
 
-  constructor(private fb: FormBuilder, private scoreService: ScoreGroupService) { }
+  Adds: string;
+  Subtracts: string;
+
+  constructor(private fb: FormBuilder, private scoreService: ScoreGroupService, private translate: TranslateService) { }
 
   ngOnInit() {
     // Create form
@@ -31,6 +35,10 @@ export class ScoreGroupEditorComponent implements OnInit {
       type: [this.scoreGroup.type, [Validators.required]],
       operation: [this.scoreGroup.operation],
       discipline: [this.discipline]
+    });
+
+    this.translate.get(['Adds', 'Subtracts']).subscribe(texts => {
+      this.Adds = texts.Adds; this.Subtracts = texts.Subtracts;
     });
   }
 

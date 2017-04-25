@@ -2,37 +2,37 @@
   <fieldset>
     <div class="row">
       <div class="col-8" appFloatingLabelContainer>
-        <label>Name</label>
+        <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
       </div>
       <div class="col-2" appFloatingLabelContainer>
-        <label>Type</label>
+        <label translate>Type</label>
         <input type="text" formControlName="type">
       </div>
       <div class="col-2">
-        <label>Operation</label>
-        <app-slide-toggle onLabel="Adds" offLabel="Subtracts" [onState]="operations.Addition" [offState]="operations.Subtraction" [initState]="operations.Addition" formControlName="operation"></app-slide-toggle>
+        <label translate>Operation</label>
+        <app-slide-toggle [onLabel]="Adds" [offLabel]="Subtracts" [onState]="operations.Addition" [offState]="operations.Subtraction" [initState]="operations.Addition" formControlName="operation"></app-slide-toggle>
       </div>
     </div>
 
     <div class="row">
       <div class="col-4" appFloatingLabelContainer>
-        <label>Judges</label>
+        <label translate>Judges</label>
         <input type="number" formControlName="judges">
       </div>
       <div class="col-4" appFloatingLabelContainer>
-        <label>Max Score</label>
+        <label translate>Max Score</label>
         <input type="number" formControlName="max">
       </div>
       <div class="col-4" appFloatingLabelContainer>
-        <label>Min Score</label>
+        <label translate>Min Score</label>
         <input type="number" formControlName="min">
       </div>
     </div>
   </fieldset>
   <footer>
-    <button type="submit" title="Save" [disabled]="scoreForm.invalid || scoreForm.pristine"><app-fa name="save" fw="true"></app-fa> <span>Save</span></button>
-    <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span>Cancel</span></button>
-    <button type="button" *ngIf="scoreForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span>Delete</span></button>
+    <button type="submit" title="Save" [disabled]="scoreForm.invalid || scoreForm.pristine"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+    <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
+    <button type="button" *ngIf="scoreForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
   </footer>
 </form>

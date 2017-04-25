@@ -1,9 +1,9 @@
 <table role="list" class="editable">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Division</th>
-      <th>Disciplines</th>
+      <th translate>Name</th>
+      <th translate>Division</th>
+      <th translate>Disciplines</th>
     </tr>
   </thead>
   <tbody *ngFor="let team of teamList">
@@ -22,5 +22,5 @@
 
 <button type="button" *ngIf="selected == null" title="Add" (click)="addTeam()">
   <app-fa name="plus" fw="true"></app-fa>
-  <span>Add Team</span>
+  <span translate>Add Team</span>
 </button>

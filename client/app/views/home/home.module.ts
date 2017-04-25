@@ -23,7 +23,7 @@ import { LogoutComponent } from './logout/logout.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([...HomeRoutes]),
-    SharedModule,
+    SharedModule
   ],
   declarations: [
     HomeComponent,
