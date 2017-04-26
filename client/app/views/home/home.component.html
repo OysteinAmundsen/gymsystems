@@ -18,16 +18,18 @@
   </div>
 
   <app-panel class="col-4">
-    <table class="table-hover" role="list" class="editable">
-      <tbody *ngFor="let type of types;">
-        <tr>
-          <th colspan="2">{{ type.name | translate }} <span translate>tournaments</span></th>
-        </tr>
-        <tr *ngFor="let tournament of type.tournaments" role="menuitem" [routerLink]="['/list/', tournament.id]" role="listitem">
-          <td>{{ tournament.name }}</td>
-          <td>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table-hover" role="list" class="editable">
+        <tbody *ngFor="let type of types;">
+          <tr>
+            <th colspan="2">{{ type.name | translate }} <span translate>tournaments</span></th>
+          </tr>
+          <tr *ngFor="let tournament of type.tournaments" role="menuitem" [routerLink]="['/list/', tournament.id]" role="listitem">
+            <td>{{ tournament.name }}</td>
+            <td>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </app-panel>
 </div>

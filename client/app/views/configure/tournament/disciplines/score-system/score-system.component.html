@@ -3,31 +3,33 @@
   "{{ discipline.name }}" score system
 </h2>
 
-<table role="list" class="editable">
-  <thead>
-    <tr>
-      <th translate>Name</th>
-      <th translate>Type</th>
-      <th translate>Judges</th>
-      <th translate>Max</th>
-      <th translate>Min</th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let score of scoreGroupList">
-    <tr *ngIf="score !== selected" (click)="select(score)" role="listitem">
-      <td>{{ score.name }}</td>
-      <td>{{ score.type}}</td>
-      <td>{{ score.judges}}</td>
-      <td>{{ score.max}}</td>
-      <td>{{ score.min}}</td>
-    </tr>
-    <tr *ngIf="score === selected">
-      <td colspan="5">
-        <app-score-group-editor [scoreGroup]="selected" [discipline]="discipline" (scoreChanged)="onChange($event)"></app-score-group-editor>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table role="list" class="editable">
+    <thead>
+      <tr>
+        <th translate>Name</th>
+        <th translate>Type</th>
+        <th translate>Judges</th>
+        <th translate>Max</th>
+        <th translate>Min</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let score of scoreGroupList">
+      <tr *ngIf="score !== selected" (click)="select(score)" role="listitem">
+        <td>{{ score.name }}</td>
+        <td>{{ score.type}}</td>
+        <td>{{ score.judges}}</td>
+        <td>{{ score.max}}</td>
+        <td>{{ score.min}}</td>
+      </tr>
+      <tr *ngIf="score === selected">
+        <td colspan="5">
+          <app-score-group-editor [scoreGroup]="selected" [discipline]="discipline" (scoreChanged)="onChange($event)"></app-score-group-editor>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <button type="button" *ngIf="selected == null" title="Add" (click)="addScoreGroup()">
   <app-fa name="plus" fw="true"></app-fa>

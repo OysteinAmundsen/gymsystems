@@ -25,3 +25,11 @@ table[role="list"] {
     padding: $padding * 3;
   }
 }
+
+.table-responsive {
+  width: 100%;
+  overflow: auto;
+  table {
+    width: 99.5%;
+  }
+}

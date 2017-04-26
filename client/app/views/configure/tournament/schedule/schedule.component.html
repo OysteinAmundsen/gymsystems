@@ -1,24 +1,26 @@
-<table role="list">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th translate>Team</th>
-      <th translate>Division</th>
-      <th translate>Discipline</th>
-      <th class="icons"></th>
-    </tr>
-  </thead>
+<div class="table-responsive">
+  <table role="list">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th translate>Team</th>
+        <th translate>Division</th>
+        <th translate>Discipline</th>
+        <th class="icons"></th>
+      </tr>
+    </thead>
 
-  <tbody [dragula]="'schedule-bag'" [dragulaModel]="schedule">
-    <tr *ngFor="let item of schedule" class="draggable {{item.id ? '' : 'new'}}">
-      <td>{{ item.startNumber }}</td>
-      <td>{{ item.team.name }}</td>
-      <td>{{ division(item.team) }}</td>
-      <td>{{ item.discipline.name }}</td>
-      <td class="icons"><button type="button" class="warning" (click)="deleteParticipant(item)"><app-fa name="trash" fw="true"></app-fa></button>
-    </tr>
-  </tbody>
-</table>
+    <tbody [dragula]="'schedule-bag'" [dragulaModel]="schedule">
+      <tr *ngFor="let item of schedule" class="draggable {{item.id ? '' : 'new'}}">
+        <td>{{ item.startNumber }}</td>
+        <td>{{ item.team.name }}</td>
+        <td>{{ division(item.team) }}</td>
+        <td>{{ item.discipline.name }}</td>
+        <td class="icons"><button type="button" class="warning" (click)="deleteParticipant(item)"><app-fa name="trash" fw="true"></app-fa></button>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <button type="submit" (click)="saveSchedule()" [disabled]="!hasChanges()">
   <app-fa name="save" fw="true"></app-fa>

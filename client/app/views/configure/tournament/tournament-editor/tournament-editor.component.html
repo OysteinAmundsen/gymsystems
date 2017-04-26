@@ -17,24 +17,26 @@
 </header>
 
 
-<table *ngIf="!isEdit" title="Click to edit" (click)="edit()">
-  <tr>
-    <th translate>Name</th>
-    <td>{{ tournament.name }}</td>
-  </tr>
-  <tr>
-    <th translate>Start date</th>
-    <td>{{ tournament.startDate | date }}</td>
-  </tr>
-  <tr>
-    <th translate>End date</th>
-    <td>{{ tournament.endDate | date }}</td>
-  </tr>
-  <tr>
-    <th translate>Location</th>
-    <td>{{ tournament.location }}</td>
-  </tr>
-</table>
+<div class="table-responsive">
+  <table *ngIf="!isEdit" title="Click to edit" (click)="edit()">
+    <tr>
+      <th translate>Name</th>
+      <td>{{ tournament.name }}</td>
+    </tr>
+    <tr>
+      <th translate>Start date</th>
+      <td>{{ tournament.startDate | date }}</td>
+    </tr>
+    <tr>
+      <th translate>End date</th>
+      <td>{{ tournament.endDate | date }}</td>
+    </tr>
+    <tr>
+      <th translate>Location</th>
+      <td>{{ tournament.location }}</td>
+    </tr>
+  </table>
+</div>
 
 <form class="panel" [formGroup]="tournamentForm" (submit)="save()" *ngIf="isEdit">
   <fieldset>

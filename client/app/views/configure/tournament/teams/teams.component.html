@@ -1,24 +1,26 @@
-<table role="list" class="editable">
-  <thead>
-    <tr>
-      <th translate>Name</th>
-      <th translate>Division</th>
-      <th translate>Disciplines</th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let team of teamList">
-    <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
-      <td>{{ team.name }}</td>
-      <td>{{ divisions(team) }}</td>
-      <td>{{ disciplines(team) }}</td>
-    </tr>
-    <tr *ngIf="team === selected">
-      <td colspan="3">
-        <app-team-editor [team]="selected" (teamChanged)="onChange($event)"></app-team-editor>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table role="list" class="editable">
+    <thead>
+      <tr>
+        <th translate>Name</th>
+        <th translate>Division</th>
+        <th translate>Disciplines</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let team of teamList">
+      <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
+        <td>{{ team.name }}</td>
+        <td>{{ divisions(team) }}</td>
+        <td>{{ disciplines(team) }}</td>
+      </tr>
+      <tr *ngIf="team === selected">
+        <td colspan="3">
+          <app-team-editor [team]="selected" (teamChanged)="onChange($event)"></app-team-editor>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <button type="button" *ngIf="selected == null" title="Add" (click)="addTeam()">
   <app-fa name="plus" fw="true"></app-fa>

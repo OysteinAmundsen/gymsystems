@@ -3,24 +3,26 @@
   <span translate>Tournaments</span>
 </h1>
 
-<table role="list" class="editable">
-  <thead>
-    <tr>
-      <th translate>Name</th>
-      <th translate>Start date</th>
-      <th translate>End date</th>
-      <th translate>Location</th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let tournament of tournamentList">
-    <tr [routerLink]="['.', tournament.id]" role="listitem">
-      <td>{{ tournament.name }}</td>
-      <td>{{ tournament.startDate | date }}</td>
-      <td>{{ tournament.endDate | date }}</td>
-      <td>{{ tournament.location }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table role="list" class="editable">
+    <thead>
+      <tr>
+        <th translate>Name</th>
+        <th translate>Start date</th>
+        <th translate>End date</th>
+        <th translate>Location</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let tournament of tournamentList">
+      <tr [routerLink]="['.', tournament.id]" role="listitem">
+        <td>{{ tournament.name }}</td>
+        <td>{{ tournament.startDate | date }}</td>
+        <td>{{ tournament.endDate | date }}</td>
+        <td>{{ tournament.location }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <button type="button" title="Add" [routerLink]="['./add']">
   <app-fa name="plus" fw="true"></app-fa>

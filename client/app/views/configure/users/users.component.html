@@ -3,20 +3,22 @@
   <span translate>Users</span>
 </h1>
 
-<table role="list" class="editable">
-  <thead>
-    <tr>
-      <th translate>Name</th>
-      <th translate>Role</th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let user of userList">
-    <tr [routerLink]="['.', user.id]" role="listitem">
-      <td>{{ user.name }}</td>
-      <td>{{ roleName(user) }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table role="list" class="editable">
+    <thead>
+      <tr>
+        <th translate>Name</th>
+        <th translate>Role</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let user of userList">
+      <tr [routerLink]="['.', user.id]" role="listitem">
+        <td>{{ user.name }}</td>
+        <td>{{ roleName(user) }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <button type="button" title="Add" [routerLink]="['./add']">
   <app-fa name="plus" fw="true"></app-fa>

@@ -47,21 +47,23 @@
           <span translate>Disciplines</span>
         </h2>
       </header>
-      <table role="list">
-        <tr role="listitem">
-          <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()"> <span translate>All</span></label></td>
-        </tr>
-        <tbody *ngFor="let discipline of disciplines">
+      <div class="table-responsive">
+        <table role="list">
           <tr role="listitem">
-            <td>
-              <label>
-                <input type="checkbox" #selectedDisciplines [attr.data]="discipline.id">
-                {{ discipline.name }}
-              </label>
-            </td>
+            <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()"> <span translate>All</span></label></td>
           </tr>
-        </tbody>
-      </table>
+          <tbody *ngFor="let discipline of disciplines">
+            <tr role="listitem">
+              <td>
+                <label>
+                  <input type="checkbox" #selectedDisciplines [attr.data]="discipline.id">
+                  {{ discipline.name }}
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </div>
