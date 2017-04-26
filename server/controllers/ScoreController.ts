@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { Body, Delete, Get, JsonController, Param, Post, Put, UseBefore } from 'routing-controllers';
+import { Body, Delete, Get, JsonController, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Container, Service } from 'typedi';
 
@@ -40,11 +40,15 @@ export class ScoreController {
 
   @Post('/:id')
   @UseBefore(RequireRoleSecretariat)
-  createFromParticipant( @Param('id') participantId: number, @Body() scores: TournamentParticipantScore[]) {
+  createFromParticipant( @Param('id') participantId: number, @Body() scores: TournamentParticipantScore[], @Res() res: Response) {
     const scheduleRepository = Container.get(ScheduleController);
     const sseService = Container.get(SSEService);
     return scheduleRepository.getParticipantPlain(participantId)
       .then(p => {
+        if (p.endTime == null) {
+          p.endTime = new Date();
+          scheduleRepository.update(p.id, p, res);
+        }
         scores = scores.map(s => { s.participant = p; return s; });
         return this.repository.persist(scores)
           .then(s => {
@@ -64,13 +68,24 @@ export class ScoreController {
 
   @Delete('/:id')
   @UseBefore(RequireRoleSecretariat)
-  removeFromParticipant( @Param('id') participantId: number) {
+  removeFromParticipant( @Param('id') participantId: number, @Res() res: Response) {
+    const scheduleRepository = Container.get(ScheduleController);
     const sseService = Container.get(SSEService);
-    return this.repository.find({ participant: participantId })
-      .then(scores => this.repository.remove(scores).then(s => {
-        sseService.publish('Scores updated');
-        return s;
-      }))
-      .catch(err => Logger.log.error(err));
+    return scheduleRepository.getParticipantPlain(participantId)
+      .then(p => {
+        if (p.publishTime == null) { // Cannot delete if allready published
+          p.endTime = null;
+          p.startTime = null;
+          p.publishTime = null;
+          scheduleRepository.update(p.id, p, res);
+          return this.repository.find({ participant: participantId })
+            .then(scores => this.repository.remove(scores).then(s => {
+              sseService.publish('Scores updated');
+              return s;
+            }))
+            .catch(err => Logger.log.error(err));
+        }
+        return null;
+      });
   }
 }

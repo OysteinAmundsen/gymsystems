@@ -25,15 +25,16 @@
     </tr>
   </thead>
   <tbody *ngFor="let item of schedule">
-    <tr *ngIf="selected !== item" (click)="select(item)" role="listitem" [ngClass]="{hasScore: score(item) > 0}">
+    <tr *ngIf="selected !== item" (click)="select(item)" role="listitem" [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime}">
       <td>{{ item.startNumber }}</td>
       <td>{{ item.team.name }} </td>
       <td>{{ division(item.team) }}</td>
       <td>{{ item.discipline.name }}</td>
       <td>{{ score(item) | number:'1.3-3' }}</td>
       <td *appIfAuth="'Secretariat'">
-        <button *ngIf="score(item) === 0" translate>Start</button>
-        <button *ngIf="score(item) > 0 && !item.published" translate>Publish</button>
+        <button *ngIf="item.startTime == null" (click)="start(item, $event)"><app-fa name="play" fw="true"></app-fa><span translate>Start</span></button>
+        <button *ngIf="item.startTime != null && item.endTime == null && score(item) == 0" (click)="stop(item, $event)"><app-fa name="stop" fw="true"></app-fa><span translate>Stop</span></button>
+        <button *ngIf="score(item) > 0 && item.publishTime == null" (click)="publish(item, $event)"><app-fa name="share" fw="true"></app-fa><span translate>Publish</span></button>
       </td>
     </tr>
     <tr *ngIf="selected === item">

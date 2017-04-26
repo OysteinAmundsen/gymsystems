@@ -5,8 +5,10 @@ import { ITeam } from './ITeam';
 
 export interface ITournamentParticipant {
   id: number;
-  startTime: Date;
   startNumber: number;
+  startTime: Date;
+  endTime: Date;
+  publishTime: Date;
   discipline: IDiscipline;
   team: ITeam;
   tournament: ITournament;

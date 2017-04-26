@@ -17,8 +17,17 @@ td.editor {
 
 tr {
   color: rgba($text-color, 0.7);
-  &.hasScore {
+  td {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  &.isPublished {
     color: $text-color;
+  }
+  &.isPublished,
+  &.isStarted {
+    td {
+      background: transparent;
+    }
   }
   &.current {
     background: rgba(lighten(green, 50%), 0.2);

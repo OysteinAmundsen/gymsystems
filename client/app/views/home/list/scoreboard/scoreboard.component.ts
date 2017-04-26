@@ -122,8 +122,10 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
   }
 
   delete() {
-    this.participant.scores = [];
-    this.scoreService.removeFromParticipant(this.participant.id).subscribe(() => this.onClose.emit(true));
+    if (this.participant.publishTime == null) {
+      this.participant.scores = [];
+      this.scoreService.removeFromParticipant(this.participant.id).subscribe(() => this.onClose.emit(true));
+    }
   }
 
   @HostListener('window:keydown', ['$event'])

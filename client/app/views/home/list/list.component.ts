@@ -77,8 +77,35 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   select(participant: ITournamentParticipant) {
-    if (this.user && this.user.role >= Role.Secretariat) {
+    if (this.user && this.user.role >= Role.Secretariat && (participant == null || participant.startTime != null)) {
       this.selected = participant;
+    }
+  }
+
+  start(participant: ITournamentParticipant, evt: Event) {
+    if (this.user && this.user.role >= Role.Secretariat && participant.startTime == null) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      participant.startTime = new Date();
+      this.scheduleService.save(participant).subscribe(res => participant = res);
+    }
+  }
+
+  stop(participant: ITournamentParticipant, evt: Event) {
+    if (this.user && this.user.role >= Role.Secretariat && participant.startTime != null) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      participant.endTime = new Date();
+      this.scheduleService.save(participant).subscribe(res => participant = res);
+    }
+  }
+
+  publish(participant: ITournamentParticipant, evt: Event) {
+    if (this.user && this.user.role >= Role.Secretariat && participant.publishTime == null) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      participant.publishTime = new Date();
+      this.scheduleService.save(participant).subscribe(res => participant = res);
     }
   }
 

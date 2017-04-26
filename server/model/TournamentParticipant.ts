@@ -18,6 +18,15 @@ export class TournamentParticipant {
   @Column()
   startNumber: number;
 
+  @Column({ nullable: true })
+  startTime: Date;
+
+  @Column({ nullable: true })
+  endTime: Date;
+
+  @Column({ nullable: true })
+  publishTime: Date;
+
   @ManyToOne(type => Tournament, tournament => tournament.schedule, { nullable: false })
   tournament: Tournament;
 
