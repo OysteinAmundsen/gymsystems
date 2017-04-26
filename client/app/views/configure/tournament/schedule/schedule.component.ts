@@ -53,6 +53,41 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
+  saveSchedule() {
+    this.scheduleService.saveAll(this.schedule).subscribe(result => {
+      this.isDirty = false;
+      this.loadSchedule();
+    });
+  }
+
+  deleteParticipant(participant: ITournamentParticipant) {
+    if (participant.id) {
+      this.scheduleService.delete(participant).subscribe(result => this.loadSchedule());
+    } else {
+      const hash = this.stringHash(participant);
+      this.schedule.splice(this.schedule.findIndex(s => this.stringHash(s) === hash), 1);
+    }
+  }
+
+  deleteAll() {
+    const schedules = this.schedule.filter(s => s.id != null);
+    if (schedules.length) {
+      this.scheduleService.deleteAll(schedules).subscribe(result => this.loadSchedule());
+    } else {
+      this.loadSchedule();
+    }
+  }
+
+  division(team: ITeam) { return this.teamService.division(team); }
+
+  stringHash(participant: ITournamentParticipant): string {
+    return (participant.team.name + this.division(participant.team) + participant.discipline.name).replace(' ', '_');
+  }
+
+  hasChanges() {
+    return this.schedule.some(s => !s.id) || this.isDirty;
+  }
+
   calculateSchedule() {
     this.schedule = this.sortSchedule(this.schedule.concat(this.calculateMissing()));
   }
@@ -94,44 +129,20 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     return schedule;
   }
 
-  saveSchedule() {
-    this.scheduleService.saveAll(this.schedule).subscribe(result => {
-      this.isDirty = false;
-      this.loadSchedule();
-    });
-  }
-
-  deleteParticipant(participant: ITournamentParticipant) {
-    if (participant.id) {
-      this.scheduleService.delete(participant).subscribe(result => this.loadSchedule());
-    } else {
-      const hash = this.stringHash(participant);
-      this.schedule.splice(this.schedule.findIndex(s => this.stringHash(s) === hash), 1);
-    }
-  }
-
-  deleteAll() {
-    const schedules = this.schedule.filter(s => s.id != null);
-    if (schedules.length) {
-      this.scheduleService.deleteAll(schedules).subscribe(result => this.loadSchedule());
-    } else {
-      this.loadSchedule();
-    }
-  }
-
-  division(team: ITeam) { return this.teamService.division(team); }
-
   /**
    * Sort `a` according to `b` in the schedule, by the following rules:
    *
    *  1) Order by division first
    *  2) Must follow discipline areas in sequence. Each row must have the next sequence of discipline.
    *  3) Must not have the same team in two consequative rows.
+   *
+   * http://stackoverflow.com/questions/43627465/javascript-sorting-algorithm
    */
   sortSchedule(schedule: ITournamentParticipant[]) {
     const ageDivision = (team): IDivision => team.divisions.find(d => d.type === DivisionType.Age);
     const genderDivision = (team): IDivision => team.divisions.find(d => d.type === DivisionType.Gender);
 
+    // Provide initial sort
     schedule = schedule
       .sort((a: ITournamentParticipant, b: ITournamentParticipant) => {
         // Sort by age division
@@ -155,17 +166,21 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         return 0; // Will probably never reach here
       });
 
+    // Then manually reorder (using answer in http://stackoverflow.com/questions/43627465/javascript-sorting-algorithm#answer-43629921)
+    const result = [];
+    let index = 0;
+    let entry = schedule[0];
+    while (schedule.length) {
+      result.push(entry);
+      schedule.splice(index, 1);
+      index = schedule.findIndex(e => e.team.id > entry.team.id && e.discipline.sortOrder == ((entry.discipline.sortOrder + 1) % 3));
+      index = index == -1 ? 0 : index;
+      entry = schedule[index];
+    }
+
     // Set start number
     let startNo = 0;
-    schedule.forEach(s => s.startNumber = startNo++);
-    return schedule;
-  }
-
-  stringHash(participant: ITournamentParticipant): string {
-    return (participant.team.name + this.division(participant.team) + participant.discipline.name).replace(' ', '_');
-  }
-
-  hasChanges() {
-    return this.schedule.some(s => !s.id) || this.isDirty;
+    result.forEach(s => s.startNumber = startNo++);
+    return result;
   }
 }
