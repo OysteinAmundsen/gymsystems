@@ -166,14 +166,29 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         return 0; // Will probably never reach here
       });
 
-    // Then manually reorder (using answer in http://stackoverflow.com/questions/43627465/javascript-sorting-algorithm#answer-43629921)
+    // Manually reorder (using answer in http://stackoverflow.com/questions/43627465/javascript-sorting-algorithm#answer-43629921)
     const result = [];
     let index = 0;
     let entry = schedule[0];
     while (schedule.length) {
-      result.push(entry);
-      schedule.splice(index, 1);
-      index = schedule.findIndex(e => e.team.id > entry.team.id && e.discipline.sortOrder == ((entry.discipline.sortOrder + 1) % 3));
+      result.push(entry);         // Push previous entry
+      schedule.splice(index, 1);  // Remove previous entry from original data
+
+      // Get next entry
+      const entryAgeDiv               = ageDivision(entry.team);
+      const entryGenderDiv            = genderDivision(entry.team);
+      const stillContainsAgeGroup     = (schedule.filter(s => ageDivision(s.team).id    === entryAgeDiv.id).length > -1);
+      const stillContainsGenderGroup  = (schedule.filter(s => genderDivision(s.team).id === entryGenderDiv.id).length > -1);
+      index = schedule.findIndex(e => {
+        const hasNextDiscipline = e.discipline.sortOrder == ((entry.discipline.sortOrder + 1) % 3);
+        const isSameAge         = (stillContainsAgeGroup    ? ageDivision(e.team).id    === entryAgeDiv.id : true);
+        const isSameGender      = (stillContainsGenderGroup ? genderDivision(e.team).id === entryGenderDiv.id : true);
+        return e.team.id > entry.team.id && hasNextDiscipline
+          // Also concidering division sort (if there are more equal divisions left)
+          && isSameAge && isSameGender;
+      });
+
+      // Check if index of next entry is found. If not, default to first remaining entry.
       index = index == -1 ? 0 : index;
       entry = schedule[index];
     }
