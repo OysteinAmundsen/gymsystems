@@ -12,7 +12,16 @@ import { Subscription } from "rxjs/Subscription";
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
-  error: string = '';
+  _errorTimeout;
+  _error: string;
+  get error() { return this._error; }
+  set error(value) {
+    this._error = value;
+    if (this._errorTimeout) { clearTimeout(this._errorTimeout); }
+    if (value) {
+      this._errorTimeout = setTimeout(() => this._error = null, 3 * 1000);
+    }
+  }
   redirectTo: string = '/';
   queryParamsSubscription: Subscription;
 

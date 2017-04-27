@@ -21,11 +21,15 @@ export class ListComponent implements OnInit, OnDestroy {
   tournamentId: number;
   schedule: ITournamentParticipant[] = [];
   selected: ITournamentParticipant;
+  _errorTimeout;
   _error: string;
   get error() { return this._error; }
   set error(value) {
     this._error = value;
-    setTimeout(() => this._error = null, 3 * 60 * 1000);
+    if (this._errorTimeout) { clearTimeout(this._errorTimeout); }
+    if (value) {
+      this._errorTimeout = setTimeout(() => this._error = null, 3 * 1000);
+    }
   }
   userSubscription: Subscription;
   eventSubscription: Subscription;

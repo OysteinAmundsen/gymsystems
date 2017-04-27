@@ -18,7 +18,16 @@ export class UserEditorComponent implements OnInit {
   selectedUserId: number;
   user: IUser = <IUser>{};
   roles = RoleNames;
-  error: string;
+  _errorTimeout;
+  _error: string;
+  get error() { return this._error; }
+  set error(value) {
+    this._error = value;
+    if (this._errorTimeout) { clearTimeout(this._errorTimeout); }
+    if (value) {
+      this._errorTimeout = setTimeout(() => this._error = null, 3 * 1000);
+    }
+  }
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userService: UserService) { }
 

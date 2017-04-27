@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ElementRef, Input, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-dialog',
@@ -6,7 +6,11 @@ import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/co
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
-  isOpen: boolean = false;
+  @Input() noButtons: boolean = false;
+  _isOpen: boolean = false;
+  @Input()
+  set isOpen(value) { this._isOpen = value; value ? this.openDialog() : this.closeDialog(); }
+  get isOpen() { return this._isOpen; }
 
   @Output() onCancel = new EventEmitter();
   @Output() onVerify = new EventEmitter();
@@ -16,19 +20,35 @@ export class DialogComponent implements OnInit {
   ngOnInit() { }
 
   openDialog(): void {
-    this.isOpen = true;
+    this._isOpen = true;
     this.element.nativeElement.querySelector('[role="dialogContainer"]').className = 'open';
   }
   closeDialog(): void {
-    this.isOpen = false;
+    this._isOpen = false;
     this.element.nativeElement.querySelector('[role="dialogContainer"]').className = '';
   }
 
   okClicked() {
+    this.onVerify.emit();
     this.closeDialog();
   }
 
+  @HostListener('keyup', ['$event'])
+  onKey(event: KeyboardEvent) {
+    if (event.keyCode === 27) {
+      this.cancelClicked();
+    }
+  }
+
+  @HostListener('click', ['$event'])
+  genericClickHandler(event: MouseEvent) {
+    if (event.srcElement.getAttribute('role') === 'dialogContainer') {
+      this.cancelClicked();
+    }
+  }
+
   cancelClicked() {
+    this.onCancel.emit();
     this.closeDialog();
   }
 }

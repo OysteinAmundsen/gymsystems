@@ -43,4 +43,4 @@
   </footer>
 </form>
 
-{{ error }}
+<app-dialog [isOpen]="error != null" [noButtons]="true" (onCancel)="error = null">{{ error }}</app-dialog>

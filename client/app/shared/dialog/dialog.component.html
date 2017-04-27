@@ -3,7 +3,7 @@
     <div>
       <ng-content></ng-content>
     </div>
-    <footer>
+    <footer *ngIf="noButtons !== true">
       <button (click)="cancelClicked()">Cancel</button>
       <button type="submit" (click)="okClicked()">Ok</button>
     </footer>
