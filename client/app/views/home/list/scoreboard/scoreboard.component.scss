@@ -1,9 +1,9 @@
 @import "~styles/_variables";
 @import "~styles/panel";
-
 :host /deep/ {
   // Group sections
-  app-score-group, section {
+  app-score-group,
+  section {
     @include innerPanel;
     white-space: nowrap;
     height: 7.5rem;
@@ -51,7 +51,6 @@
       }
     }
   }
-
   // Final score box
   section {
     text-align: left;
@@ -88,7 +87,6 @@
       font-weight: bold;
     }
   }
-
   // Avg or total score numbers
   code {
     font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
@@ -98,6 +96,10 @@
   }
 }
 
-header > h3 {
+header>h3 {
   margin: 12px 24px;
+}
+
+form>footer>div.warning {
+  line-height: 40px;
 }
