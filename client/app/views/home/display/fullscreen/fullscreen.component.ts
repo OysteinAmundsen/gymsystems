@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 import { EventService } from 'app/services/api/event.service';
+import { DisplayService } from "app/services/api";
 
 @Component({
   selector: 'app-fullscreen',
@@ -11,16 +12,26 @@ import { EventService } from 'app/services/api/event.service';
 })
 export class FullscreenComponent implements OnInit, OnDestroy {
   eventSubscription: Subscription;
+  paramSubscription: Subscription;
+  tournamentId: number;
+  displayId: number;
+  displayHtml;
 
   constructor(
     private elRef: ElementRef,
     private route: ActivatedRoute,
     private router: Router,
+    private displayService: DisplayService,
     private eventService: EventService) { }
 
   ngOnInit() {
+    this.paramSubscription = this.route.params.subscribe((params: any) => {
+      this.tournamentId = +params.id;
+      this.displayId = +params.displayId;
+      this.loadDisplay();
+    });
     this.eventSubscription = this.eventService.connect().subscribe(message => {
-      console.log(message);
+      this.loadDisplay();
     });
 
     // Go fullscreen
@@ -36,8 +47,13 @@ export class FullscreenComponent implements OnInit, OnDestroy {
     }
   }
 
+  loadDisplay() {
+    this.displayService.getDisplay(this.tournamentId, this.displayId).subscribe(res => this.displayHtml = res);
+  }
+
   ngOnDestroy() {
     this.eventSubscription.unsubscribe();
+    if (this.paramSubscription) { this.paramSubscription.unsubscribe(); }
   }
 
   @HostListener('window:keydown', ['$event'])

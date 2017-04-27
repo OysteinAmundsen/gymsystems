@@ -15,11 +15,11 @@
 
 <div role="table">
   <div role="row" *ngIf="display">
-    <section [routerLink]="['./1']">
-      <div [innerHtml]="display[0]"></div>
+    <section [routerLink]="['./1']" class="displayContainer">
+      <div [innerHtml]="display[0]" class="display"></div>
     </section>
-    <section [routerLink]="['./2']">
-      <div [innerHtml]="display[1]"></div>
+    <section [routerLink]="['./2']" class="displayContainer">
+      <div [innerHtml]="display[1]" class="display"></div>
     </section>
   </div>
 </div>

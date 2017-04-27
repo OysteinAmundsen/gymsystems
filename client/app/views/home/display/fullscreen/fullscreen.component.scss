@@ -1,4 +1,4 @@
-:host {
+:host /deep/ {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -8,9 +8,4 @@
   color: white;
   font-size: 6.6vw;
   background: black;
-
-  header {
-    text-align: center;
-    font-size: 120%;
-  }
 }

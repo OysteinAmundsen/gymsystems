@@ -15,6 +15,6 @@ export class DisplayService {
   }
 
   getDisplay(tournamentId: number, displayId: number) {
-    return this.http.get(`/api/display/${tournamentId}/${displayId}`).map((res: Response) => res.json()).share();
+    return this.http.get(`/api/display/${tournamentId}/${displayId}`).map((res: Response) => res.text()).share();
   }
 }
