@@ -1,12 +1,13 @@
-import { Get, Param, Controller, JsonResponse, TextResponse } from "routing-controllers";
-import { Service, Container } from "typedi";
+import { Get, Param, Controller, JsonResponse, TextResponse } from 'routing-controllers';
+import { Service, Container } from 'typedi';
 import * as Handlebars from 'handlebars';
 
-import { TournamentController } from "./TournamentController";
-import { ConfigurationController } from "./ConfigurationController";
-import { ScheduleController } from "./ScheduleController";
+import { TournamentController } from './TournamentController';
+import { ConfigurationController } from './ConfigurationController';
+import { ScheduleController } from './ScheduleController';
 
-import { Tournament } from "../model/Tournament";
+import { Tournament } from '../model/Tournament';
+import { TournamentParticipant } from '../model/TournamentParticipant';
 
 /**
  *
@@ -41,14 +42,20 @@ export class DisplayController {
     // Load data
     const displayConfig = await Container.get(ConfigurationController).get('display');
     const tournament = await this.tournamentRepository.get(tournamentId);
-    const schedule = await this.scheduleRepository.getByTournament(tournamentId);
+    let schedule = await this.scheduleRepository.getByTournament(tournamentId);
 
     // Parse template
     const template = displayConfig.value[`display${id}`];
     return Handlebars.compile(template, {noEscape: true})({
       tournament: tournament,
-      next: [],     // Filtered from schedule by not yet started participants
-      published: [] // Filtered from schedule by allready published participants
+      // Filtered from schedule by not yet started participants
+      next: schedule.filter(s => s.startTime == null).sort((a: TournamentParticipant, b: TournamentParticipant) => {
+        return a.startNumber < b.startNumber ? -1 : 1;
+      }),
+      // Filtered from schedule by allready published participants
+      published: schedule.filter(s => s.publishTime != null).sort((a: TournamentParticipant, b: TournamentParticipant) => {
+        return a.publishTime > b.publishTime ? -1 : 1;
+      })
     });
   }
 
