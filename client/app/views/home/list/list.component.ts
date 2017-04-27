@@ -90,7 +90,7 @@ export class ListComponent implements OnInit, OnDestroy {
   select(participant: ITournamentParticipant) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant != null && participant.startTime == null) {
-        this.error = this.translate.instant('Cannot edit score. This participant hasn\'t started yet.');
+        this.error = this.translate.instant(`Cannot edit score. This participant hasn't started yet.`);
         return;
       }
       this.selected = participant;
@@ -113,7 +113,7 @@ export class ListComponent implements OnInit, OnDestroy {
   stop(participant: ITournamentParticipant, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.startTime == null) {
-        this.error = this.translate.instant('Cannot stop. This participant hasn\'t started yet.');
+        this.error = this.translate.instant(`Cannot stop. This participant hasn't started yet.`);
         return;
       }
       evt.preventDefault();
@@ -126,7 +126,7 @@ export class ListComponent implements OnInit, OnDestroy {
   publish(participant: ITournamentParticipant, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.publishTime != null) {
-        this.error = this.translate.instant('This participant\'s score is allready published.');
+        this.error = this.translate.instant(`This participant's score is allready published.`);
       }
       evt.preventDefault();
       evt.stopPropagation();
