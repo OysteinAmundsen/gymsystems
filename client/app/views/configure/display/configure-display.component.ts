@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationService } from "app/services/api";
+import { Title } from '@angular/platform-browser';
+
+import { ConfigurationService } from 'app/services/api';
 
 @Component({
   selector: 'app-configure-display',
@@ -8,7 +10,9 @@ import { ConfigurationService } from "app/services/api";
 })
 export class ConfigureDisplayComponent implements OnInit {
   templates: any = [];
-  constructor(private config: ConfigurationService) { }
+  constructor(private config: ConfigurationService, private title: Title) {
+    title.setTitle('Configure display | GymSystems');
+  }
 
   ngOnInit() {
     this.config.getByname('display').subscribe((res: any) => this.configReceived(res));

@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { ConfigurationService } from "app/services/api";
+import { Title } from '@angular/platform-browser';
+
+import { ConfigurationService } from 'app/services/api';
 
 @Component({
   selector: 'app-advanced',
@@ -17,7 +19,9 @@ export class AdvancedComponent implements OnInit {
     return this.configuration ? Object.keys(this.defaultValues) : null;
   }
 
-  constructor(private config: ConfigurationService) { }
+  constructor(private config: ConfigurationService, private title: Title) {
+    title.setTitle('Advanced configuration | GymSystems');
+  }
 
   ngOnInit() {
     this.config.all().subscribe(res => {

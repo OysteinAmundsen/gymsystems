@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { UserService } from 'app/services/api';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-logout',
@@ -13,7 +13,8 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 })
 export class LogoutComponent {
 
-  constructor(private router: Router, userService: UserService, private errorHandler: ErrorHandlerService, private translate: TranslateService, private angulartics: Angulartics2GoogleAnalytics) {
+  constructor(private router: Router, userService: UserService, private errorHandler: ErrorHandlerService, private translate: TranslateService, private title: Title) {
+    title.setTitle('Logout | GymSystems');
     userService.logout().subscribe(() => this.reroute(), () => this.reroute());
   }
 

@@ -1,14 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
+import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 import { TournamentService, ScheduleService, TeamsService, EventService, UserService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 import { ITeam } from 'app/services/model/ITeam';
 import { DivisionType } from 'app/services/model/DivisionType';
-import { Role, IUser } from "app/services/model/IUser";
-import { TranslateService } from "@ngx-translate/core";
+import { Role, IUser } from 'app/services/model/IUser';
 
 @Component({
   selector: 'app-list',
@@ -42,7 +43,7 @@ export class ListComponent implements OnInit, OnDestroy {
     private teamService: TeamsService,
     private tournamentService: TournamentService,
     private eventService: EventService,
-    private userService: UserService) { }
+    private userService: UserService, private title: Title) {  }
 
   ngOnInit() {
     this.eventSubscription = this.eventService.connect().subscribe(message => this.loadSchedule());
@@ -51,6 +52,7 @@ export class ListComponent implements OnInit, OnDestroy {
     if (this.tournamentService.selected) {
       this.tournamentId = this.tournamentService.selectedId;
       this.tournament = this.tournamentService.selected;
+      this.title.setTitle(`${this.tournament.name} | GymSystems`);
       this.loadSchedule();
     }
     else {
@@ -61,6 +63,7 @@ export class ListComponent implements OnInit, OnDestroy {
           this.tournamentService.getById(this.tournamentId).subscribe((tournament) => {
             this.tournamentService.selected = tournament;
             this.tournament = tournament;
+            this.title.setTitle(`${this.tournament.name} | GymSystems`);
           });
           this.loadSchedule();
         }

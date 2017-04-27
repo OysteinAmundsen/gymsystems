@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { UserService } from 'app/services/api';
 import { Subscription } from 'rxjs/Subscription';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +30,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   queryParamsSubscription: Subscription;
 
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private userService: UserService, private angulartics: Angulartics2GoogleAnalytics) { }
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private userService: UserService, private title: Title) {
+    title.setTitle('Login | GymSystems');
+  }
 
   ngOnInit() {
     const me = this;

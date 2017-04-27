@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 import { TournamentService } from 'app/services/api/tournament.service';
 import { ITournament } from 'app/services/model/ITournament';
-import { TranslateService } from "@ngx-translate/core";
 
 type tournamentType = {name: string, tournaments: ITournament[]};
 
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   current = [];
   isLoading: boolean = true;
 
-  constructor(private tournamentService: TournamentService, private translate: TranslateService) {
+  constructor(private tournamentService: TournamentService, private translate: TranslateService, private title: Title) {
+    title.setTitle('GymSystems');
     this.translate.get(['Future', 'Past']).subscribe(); // Make sure texts exists and are translated
     tournamentService.upcoming().subscribe(tournaments => this._types.push({ name: 'Future', tournaments: tournaments }));
     tournamentService.past().subscribe(tournaments => this._types.push({ name: 'Past', tournaments: tournaments }));

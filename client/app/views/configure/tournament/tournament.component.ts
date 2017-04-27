@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { TournamentService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
@@ -15,7 +16,11 @@ export class TournamentComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private tournamentService: TournamentService) { }
+    private tournamentService: TournamentService,
+    private title: Title
+  ) {
+    title.setTitle('Configure tournaments | GymSystems');
+  }
 
   ngOnInit() {
     this.tournamentService.all().subscribe(tournaments => this.tournamentList = tournaments);

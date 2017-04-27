@@ -1,11 +1,12 @@
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from 'rxjs/Subscription';
+import { Title } from '@angular/platform-browser';
 
 import { TournamentService, UserService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
-import { IUser, Role } from "app/services/model/IUser";
+import { IUser, Role } from 'app/services/model/IUser';
 
 @Component({
   selector: 'app-tournament-editor',
@@ -24,7 +25,9 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
-    private tournamentService: TournamentService) { }
+    private tournamentService: TournamentService,
+    private title: Title
+  ) {  }
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
@@ -52,6 +55,8 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
   tournamentReceived(tournament) {
     this.tournament = tournament;
+    this.title.setTitle(`Configure tournament: ${tournament.name} | GymSystems`);
+
     this.tournamentForm.setValue(tournament);
     this.tournamentService.selected = this.tournament;
   }

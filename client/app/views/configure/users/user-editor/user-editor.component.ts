@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Validators, FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
+import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 import { UserService } from 'app/services/api';
 import { IUser, RoleNames } from 'app/services/model/IUser';
-import { ValidationService } from "app/services/validation/validation.service";
+import { ValidationService } from 'app/services/validation/validation.service';
 
 @Component({
   selector: 'app-user-editor',
@@ -29,7 +30,8 @@ export class UserEditorComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userService: UserService, private title: Title) {
+  }
 
   ngOnInit() {
     this.userService.getMe().subscribe(user => this.currentUser = user);
@@ -39,10 +41,13 @@ export class UserEditorComponent implements OnInit {
         this.selectedUserId = params.id;
         this.userService.getById(params.id).subscribe(user => {
           this.user = JSON.parse(JSON.stringify(user)); // Clone user object
+          this.title.setTitle(`Configure user: ${this.user.name} | GymSystems`);
           this.user['repeatPassword'] = this.user.password;
           this.user.email = this.user.email || '';
           this.userForm.setValue(this.user);
         });
+      } else {
+        this.title.setTitle(`Add user | GymSystems`);
       }
     });
 
