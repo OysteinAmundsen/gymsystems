@@ -25,8 +25,8 @@
         <th *appIfAuth="'Secretariat'" class="actions"></th>
       </tr>
     </thead>
-    <tbody *ngFor="let item of schedule">
-      <tr *ngIf="selected !== item" (click)="select(item)" role="listitem" [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime}">
+    <tbody *ngFor="let item of schedule" [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime, isCurrent: item.startTime && !item.endTime && !item.publishTime}">
+      <tr *ngIf="selected !== item" (click)="select(item)" role="listitem">
         <td>{{ item.startNumber }}</td>
         <td>{{ item.team.name }} </td>
         <td>{{ division(item.team) }}</td>

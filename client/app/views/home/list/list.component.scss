@@ -20,7 +20,7 @@ td.editor {
   width: 40px;
 }
 
-tr {
+tbody {
   color: rgba($text-color, 0.7);
   td {
     background: rgba(0, 0, 0, 0.05);
@@ -34,7 +34,9 @@ tr {
       background: transparent;
     }
   }
-  &.current {
+  &.isCurrent {
     background: rgba(lighten(green, 50%), 0.2);
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
   }
 }
