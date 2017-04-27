@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -52,6 +53,7 @@ export function HttpLoaderFactory(http: Http) {
         deps: [Http]
       }
     }),
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
 
     AppRoutingModule,
     SharedModule

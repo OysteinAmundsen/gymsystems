@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from "@ngx-translate/core";
 
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { DialogComponent } from './dialog/dialog.component';
@@ -11,7 +12,6 @@ import { FaStackComponent } from './fontawesome/fa-stack.component';
 import { AutofocusDirective } from './autofocus/autofocus.directive';
 import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
 import { IfAuthDirective } from './if-auth.directive';
-import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [

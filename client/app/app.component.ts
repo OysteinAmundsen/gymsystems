@@ -1,5 +1,6 @@
 import { IUser } from './services/model/IUser';
 import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { TournamentService, UserService } from 'app/services/api';
 import { Subscription } from 'rxjs/Subscription';
@@ -27,7 +28,14 @@ export class AppComponent implements OnInit, OnDestroy {
   get error() { return this.errorHandler.error; }
   set error(value) { this.errorHandler.error = value; }
 
-  constructor(private element: ElementRef, private userService: UserService, private tournamentService: TournamentService, private translate: TranslateService, private errorHandler: ErrorHandlerService) {
+  constructor(
+    private element: ElementRef,
+    private userService: UserService,
+    private tournamentService: TournamentService,
+    private translate: TranslateService,
+    private errorHandler: ErrorHandlerService,
+    private angulartics: Angulartics2GoogleAnalytics
+  ) {
     this.translate.addLangs(['en', 'no']);
     this.translate.setDefaultLang('en');
 

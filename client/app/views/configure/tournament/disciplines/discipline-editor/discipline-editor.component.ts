@@ -20,7 +20,13 @@ export class DisciplineEditorComponent implements OnInit {
   disciplineForm: FormGroup;
   editingScore: boolean;
 
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private tournamentService: TournamentService, private disciplineService: DisciplineService) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private tournamentService: TournamentService,
+    private disciplineService: DisciplineService
+  ) { }
 
   ngOnInit() {
     // Create the form
