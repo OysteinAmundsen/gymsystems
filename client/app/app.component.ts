@@ -4,6 +4,7 @@ import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { TournamentService, UserService } from 'app/services/api';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   get currentLang() { return this.translate.currentLang; }
 
-  constructor(private element: ElementRef, private userService: UserService, private tournamentService: TournamentService, private translate: TranslateService) {
+  get error() { return this.errorHandler.error; }
+  set error(value) { this.errorHandler.error = value; }
+
+  constructor(private element: ElementRef, private userService: UserService, private tournamentService: TournamentService, private translate: TranslateService, private errorHandler: ErrorHandlerService) {
     this.translate.addLangs(['en', 'no']);
     this.translate.setDefaultLang('en');
 

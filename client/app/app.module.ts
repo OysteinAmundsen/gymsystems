@@ -30,6 +30,7 @@ import { AppComponent } from './app.component';
 import { AuthHttp } from './services/config/AuthHttp';
 import { RoleAdminGuard } from './shared/guards/role-guards';
 import { RoleClubGuard, RoleSecretariatGuard, RoleUserGuard } from './shared/guards/role-guards';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
@@ -58,6 +59,7 @@ export function HttpLoaderFactory(http: Http) {
   exports: [ TranslateModule ],
   providers: [
     // API Services
+    ErrorHandlerService,
     UserService,
     ScoreService,
     ScoreGroupService,

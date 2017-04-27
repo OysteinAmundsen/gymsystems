@@ -5,10 +5,11 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 
 import { UserService } from 'app/services/api';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 
 @Injectable()
 export class AuthHttp extends Http {
-  constructor(backend: XHRBackend, defaultOptions: RequestOptions, private router: Router) {
+  constructor(backend: XHRBackend, defaultOptions: RequestOptions, private router: Router, private error: ErrorHandlerService) {
     super(backend, defaultOptions);
 
     // Prevent Ajax Request Caching for Internet Explorer
@@ -33,6 +34,7 @@ export class AuthHttp extends Http {
       else {
         const body = err.text() || '';
         errMsg = `${err.status} - ${err.statusText || ''}: ${body}`;
+        this.error.error = errMsg;
       }
       return Observable.throw(errMsg);
     });
