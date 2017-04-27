@@ -84,10 +84,14 @@ export class ListComponent implements OnInit, OnDestroy {
   division(team: ITeam) { return this.teamService.division(team); }
 
   score(participant: ITournamentParticipant) {
-    return participant.discipline.scoreGroups.reduce((prev, curr) => {
+    // Calculate final score
+    const score = participant.discipline.scoreGroups.reduce((prev, curr) => {
       const scores = participant.scores.filter(s => s.scoreGroup.id === curr.id);
       return prev += scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
     }, 0);
+
+    // Only show score if score is published, OR logged in user is part of the secretariat
+    return (participant.publishTime || (this.user && this.user.role >= Role.Secretariat)) ? score : 0;
   }
 
   select(participant: ITournamentParticipant) {

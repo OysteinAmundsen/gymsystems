@@ -22,17 +22,15 @@ td.editor {
 
 tbody {
   color: rgba($text-color, 0.7);
-  td {
-    background: rgba(0, 0, 0, 0.05);
-  }
+  // background: rgba(150, 150, 150, 0.05);
+  opacity: 0.7;
   &.isPublished {
     color: $text-color;
   }
   &.isPublished,
   &.isStarted {
-    td {
-      background: transparent;
-    }
+    opacity: 1;
+    background: transparent;
   }
   &.isCurrent {
     background: rgba(lighten(green, 50%), 0.2);
