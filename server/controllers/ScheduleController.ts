@@ -1,7 +1,7 @@
 import { getConnectionManager, Repository } from 'typeorm';
 import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
-import { Service } from 'typedi';
+import { Service, Container } from 'typedi';
 
 import e = require('express');
 import Request = e.Request;
@@ -10,6 +10,7 @@ import Response = e.Response;
 import { Logger } from '../utils/Logger';
 import { RequireRoleAdmin } from '../middlewares/RequireAuth';
 import { TournamentParticipant } from '../model/TournamentParticipant';
+import { SSEService } from "../services/SSEService";
 
 /**
  *
@@ -80,8 +81,12 @@ export class ScheduleController {
   @Put('/:id')
   @UseBefore(RequireRoleAdmin)
   update( @Param('id') id: number, @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
+    const sseService = Container.get(SSEService);
     return this.repository.persist(participant)
-      .then(() => this.get(id))
+      .then(() => {
+        sseService.publish('Participant updated');
+        return this.get(id);
+      })
       .catch(err => {
         Logger.log.error(err);
         return { code: err.code, message: err.message };
