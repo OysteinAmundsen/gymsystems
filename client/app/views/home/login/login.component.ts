@@ -22,7 +22,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       this._errorTimeout = setTimeout(() => this._error = null, 3 * 1000);
     }
   }
-  redirectTo: string = '/';
+  _redirectTo: string = '/';
+  get redirectTo() { return this._redirectTo; }
+  set redirectTo(value) {
+    this._redirectTo = (value === '/login' ? '/' : value);
+  }
   queryParamsSubscription: Subscription;
 
   constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private userService: UserService) { }
@@ -51,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         me.router.navigate([me.redirectTo]);
       },
       error => {
-        me.error = error;
+        me.error = 'Wrong username or password';
       });
   }
 }
