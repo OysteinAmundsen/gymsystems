@@ -22,6 +22,32 @@ body * {
   margin: 0 auto;
   max-width: 1024px;
   position: relative;
+  .fixed-back {
+    background-image: url(/assets/images/frontpage2.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-origin: content-box;
+    background-position: 50%;
+    position: fixed;
+    top: 55px;
+    bottom: 0;
+    // max-height: 27rem;
+    left: 0;
+    right: 0;
+    z-index: -2;
+    // filter: grayscale(50%); //opacity(20%);
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      background: linear-gradient(to top, rgba(white, 0.9) 30%, rgba(#fff, 0) 80%);
+    }
+  }
 }
 
 h1,

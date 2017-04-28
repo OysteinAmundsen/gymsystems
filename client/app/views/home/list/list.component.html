@@ -1,8 +1,5 @@
 <header *ngIf="tournament">
-  <h2>
-    <span>{{ tournament.name }}</span>
-    <small>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
-  </h2>
+  <h2 class="pull-left">{{ tournament.name }}</h2>
   <button type="button" class="pull-right primary raised" *appIfAuth="'Secretariat'" [routerLink]="['/display', tournament.id]">
     <app-fa name="tv" fw="true"></app-fa>
     <span translate>Display </span>
@@ -11,6 +8,7 @@
     <app-fa name="cog" fw="true"></app-fa>
     <span translate>Settings </span>
   </button>
+  <small class="pull-right">{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
 </header>
 
 <section class="table-responsive">

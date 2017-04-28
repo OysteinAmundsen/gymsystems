@@ -33,6 +33,11 @@
 <app-dialog [isOpen]="error != null" [noButtons]="true" (onCancel)="error = null">{{ error }}</app-dialog>
 
 <footer>
+  <svg viewBox="0 0 200 40" preserveAspectRatio="none" class="site-header-background">
+    <path d="M 200,21 H 0 v -1 C 132,20 149,18 200,0 Z"/>
+    <path d="m 200,21 h -200 v -1 c 140,0 155,-1 200,-16 z"/>
+    <path d="m 200,21 h -200 v -1 c 140,0 150,1 200,-11 z"/>
+  </svg>
   <div class="container">
     <div class="language-selector">
       <span (click)="changeLang('no')" [ngClass]="'clickable flag-icon flag-icon-no ' + (currentLang === 'no' ? 'selected' : '')"></span>
@@ -43,8 +48,8 @@
       <a [routerLink]="['/logout']"><app-fa name="sign-out"></app-fa><span translate>Logout</span></a>
     </span>
     <div class="pull-left logo">
-      <a href="http://www.gymogturn.no/"><img src="assets/images/NGTF_logo_farger.png" alt="Norges gym og Turnforening"></a>
-      <a href="http://www.haugesundturn.no/"><img src="assets/images/HTF_Logo.png" alt="Haugesund Turnforening"></a>
+      <a href="http://www.haugesundturn.no/"><img src="assets/images/Logo-Haugesund-Turnforening.white.svg" height="101" alt="Haugesund Turnforening" title="Haugesund Turnforening"></a>
+      <a href="http://www.gymogturn.no/"><img src="assets/images/NGTF_logo_farger.png" alt="Norges gym- og Turnforening" title="Norges gym- og Turnforening"></a>
     </div>
   </div>
 </footer>

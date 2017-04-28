@@ -1,8 +1,10 @@
 @import "~styles/variables";
-h2 {
+header {
+  padding-bottom: 4rem;
+  padding-top: 1rem;
+  line-height: 3em;
   small {
-    float: right;
-    font-size: 0.6em;
+    font-size: 0.8em;
     font-weight: normal;
   }
 }

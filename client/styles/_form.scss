@@ -5,6 +5,7 @@ $labelHeight: 16px;
 @mixin input() {
   display: block;
   //box-shadow: 0 0 6px rgba(black, 0.2) inset;
+  background: transparent;
   border: 0;
   border-bottom: 1px solid rgba(black, 0.4);
   padding: ($padding * 2) $padding;

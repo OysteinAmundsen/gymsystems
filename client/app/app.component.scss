@@ -17,7 +17,7 @@
   }
 }
 
-svg {
+svg.site-header-background {
   display: none;
   @media (min-width: $stop1) {
     display: block;
@@ -74,15 +74,21 @@ nav+div.container {
 
 footer {
   background: $primary;
+  // background: white;
   min-height: 7.4rem;
   margin-top: 2rem;
   padding: 0.2rem;
   color: white;
   text-align: right;
-  border-top: 1px solid rgba(black, 0.6);
-  box-shadow: 0 1.5rem 4.2rem rgba($primaryDark, 1) inset; // inset, 0 -1.5rem 1.2rem rgba($primary, 1) inset;
+  // border-top: 15px solid $primary;
+  // border-top: 1px solid rgba(black, 0.6);
+  // box-shadow: 0 1.5rem 4.2rem rgba($primaryDark, 1) inset; // inset, 0 -1.5rem 1.2rem rgba($primary, 1) inset;
   position: relative;
   z-index: 10;
+  .site-header-background {
+    top: -88px;
+    right: 0;
+  }
   >.container {
     padding: 1.2rem 0;
     height: 7.7rem;
@@ -90,14 +96,17 @@ footer {
   .logo {
     margin-top: -1rem;
     img {
-      -webkit-filter: drop-shadow(1px 1px 2px rgba(black, 0.6)) drop-shadow(-1px -1px 1px rgba(white, 0.3));
-      filter: drop-shadow(1px 1px 2px rgba(black, 0.6)) drop-shadow(-1px -1px 1px rgba(white, 0.3));
+      margin-right: 1rem;
     }
+    // .shaded {
+    //   -webkit-filter: drop-shadow(1px 1px 2px rgba(black, 0.6)) drop-shadow(-1px -1px 1px rgba(white, 0.3));
+    //   filter: drop-shadow(1px 1px 2px rgba(black, 0.6)) drop-shadow(-1px -1px 1px rgba(white, 0.3));
+    // }
   }
 }
 
 .language-selector {
   position: absolute;
-  bottom: 0;
+  bottom: 1rem;
   right: 0;
 }

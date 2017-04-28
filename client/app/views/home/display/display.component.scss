@@ -3,6 +3,16 @@
   display: block;
 }
 
+header {
+  padding-bottom: 4rem;
+  padding-top: 1rem;
+  line-height: 3em;
+  small {
+    font-size: 0.8em;
+    font-weight: normal;
+  }
+}
+
 .displayContainer /deep/ {
   display: table-cell;
   width: 50%;
@@ -31,13 +41,5 @@
     right: 0;
     bottom: 0;
     padding: ($padding * 2);
-  }
-}
-
-h2 {
-  small {
-    float: right;
-    font-size: 0.6em;
-    font-weight: normal;
   }
 }

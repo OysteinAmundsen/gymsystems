@@ -1,40 +1,25 @@
 :host {
-  position: relative;
   .fixed-back {
-    background-image: url(/assets/images/frontpage.jpg);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-origin: content-box;
-    background-position: 50%;
-    position: fixed;
-    top: 55px;
-    bottom: 50%;
-    max-height: 27rem;
-    left: 0;
-    right: 0;
-    z-index: -2;
-    // filter: sepia(50%) opacity(50%) brightness(100%);
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      top: 0;
-      background: linear-gradient(to top, #fff 0%, rgba(#fff, 0) 5%);
-    }
     +* {
-      margin-top: 40%;
+      margin-top: 20%;
     }
   }
 }
 
-.main-content {}
+.main-content {
+  color: white;
+  text-shadow: 0 0 3px black;
+  h1 {
+    color: white;
+  }
+}
 
 app-panel {
   width: 100%;
+  table {
+    margin: 0 -4px;
+    width: calc(100% + 8px);
+  }
   tbody {
     th {
       padding-top: 2rem;

@@ -1,28 +1,24 @@
 // Settings
-$padding   : 4px;
-$negPad    : (0 - $padding);
-$rounded   : 2px;
-$margin    : 0.3rem;
-$navHeight : 3.5rem;
+$padding: 4px;
+$negPad: (0 - $padding);
+$rounded: 4px;
+$margin: 0.3rem;
+$navHeight: 3.5rem;
 $rowHeight: 50px;
-
 // Colors
-$text-color   : #343434;
-$primary      : #69f;
-$primaryDark  : darken($primary, 10%);
-$primaryLight : lighten($primary, 25%);
-$accent       : darken(complement($primary), 20%);
-$accentDark   : darken(complement($primaryDark), 20%);
-$navbar-color : lighten($primary, 42%);
+$text-color: #343434;
+$primary: #69f;
+$primaryDark: darken($primary, 10%);
+$primaryLight: lighten($primary, 25%);
+$accent: darken(complement($primary), 20%);
+$accentDark: darken(complement($primaryDark), 20%);
+$navbar-color: lighten($primary, 42%);
 $navbar-height: $rowHeight;
-$panel-color  : lighten($primary, 42%);
-$panel-height : $rowHeight;
+$panel-color: lighten($primary, 42%);
+$panel-height: $rowHeight;
 $primaryBorderColor: darken($panel-color, 8%);
-
 $warning: #c9302c;
-
 // Screen stops
-$stop0 : 64rem;
-$stop1 : 43rem;
-$stop2 : 30rem;
-
+$stop0: 64rem;
+$stop1: 43rem;
+$stop2: 30rem;
