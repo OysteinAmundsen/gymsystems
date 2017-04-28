@@ -11,6 +11,7 @@
   <small class="pull-right">{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
 </header>
 
+<section *ngIf="tournament"><pre>{{ tournament.description}}</pre></section>
 <section class="table-responsive">
   <table *ngIf="tournament && schedule.length" role="list">
     <thead>
