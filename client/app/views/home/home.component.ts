@@ -18,6 +18,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   get types() { return this._types.sort((a: tournamentType, b: tournamentType) => (a.name === 'Future') ? -1 : 1); } // Future first, allways
   current = [];
   isLoading: boolean = true;
+  get hasTournaments() {
+    return this.types.filter(t => t.tournaments.length > 0).length > 0;
+  }
 
   constructor(private tournamentService: TournamentService, private translate: TranslateService, private title: Title) {
     title.setTitle('GymSystems');

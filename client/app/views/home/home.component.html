@@ -20,7 +20,7 @@
     </section>
   </div>
 
-  <app-panel class="col-4">
+  <app-panel class="col-4" *ngIf="hasTournaments">
     <table class="table-hover" role="list" class="editable">
       <tbody *ngFor="let type of types;">
         <tr *ngIf="type.tournaments.length">

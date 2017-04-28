@@ -5,6 +5,28 @@
       margin-top: 20%;
     }
   }
+  /deep/ app-panel {
+    width: 100%;
+    >section {
+      div {
+        padding: 0 !important;
+      }
+    }
+  }
+  app-panel {
+    table {
+      width: 100%;
+    }
+    tbody {
+      // border-bottom: 2rem solid transparent;
+      th {
+        padding-top: 0.5rem;
+        border-bottom: 1px solid #bbb;
+        background: $primary;
+        color: white;
+      }
+    }
+  }
 }
 
 .main-content {
@@ -15,22 +37,5 @@
     display: inline-block;
     margin-top: 1rem;
     color: white;
-  }
-}
-
-app-panel {
-  width: 100%;
-  table {
-    margin: -5px -4px;
-    width: calc(100% + 8px);
-  }
-  tbody {
-    border-bottom: 2rem solid transparent;
-    th {
-      padding-top: 0.5rem;
-      border-bottom: 1px solid #bbb;
-      background: $primary;
-      color: white;
-    }
   }
 }
