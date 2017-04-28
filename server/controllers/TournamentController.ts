@@ -97,7 +97,10 @@ export class TournamentController {
   @UseBefore(RequireRoleAdmin)
   create( @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
-      .then(persisted => this.createDefaults(persisted, res))
+      .then(persisted => {
+        this.createDefaults(persisted, res);
+        return persisted;
+      })
       .catch(err => {
         Logger.log.error(err);
         return { code: err.code, message: err.message };

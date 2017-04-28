@@ -88,6 +88,10 @@
       <a routerLink="./schedule">
         <app-fa name="sort-numeric-asc" fw="true"></app-fa> <span translate>Schedule</span></a>
     </li>
+    <li [routerLinkActive]="['active']" *appIfAuth="'Admin'">
+      <a routerLink="./info">
+        <app-fa name="info" fw="true"></app-fa> <span translate>Info</span></a>
+    </li>
   </ul>
 </menu>
 

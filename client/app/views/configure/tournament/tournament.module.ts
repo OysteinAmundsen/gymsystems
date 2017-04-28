@@ -13,9 +13,9 @@ import { TournamentComponent } from './tournament.component';
 import { TournamentEditorComponent } from './tournament-editor/tournament-editor.component';
 
 import { TeamsComponent, TeamEditorComponent } from './teams';
-import { DivisionsComponent } from './divisions/divisions.component';
+import { DivisionsComponent, DivisionEditorComponent } from './divisions';
 import { ScheduleComponent } from './schedule/schedule.component';
-import { DivisionEditorComponent } from './divisions/division-editor/division-editor.component';
+import { InfoComponent } from './info/info.component';
 
 @NgModule({
   imports: [
@@ -30,7 +30,7 @@ import { DivisionEditorComponent } from './divisions/division-editor/division-ed
   ],
   declarations: [
     TournamentComponent, TournamentEditorComponent,
-    TeamsComponent, TeamEditorComponent, DivisionsComponent, ScheduleComponent, DivisionEditorComponent
+    TeamsComponent, TeamEditorComponent, DivisionsComponent, ScheduleComponent, DivisionEditorComponent, InfoComponent
   ]
 })
 export class TournamentModule { }

@@ -1,0 +1,11 @@
+@import "~styles/_variables";
+textarea {
+  border: 1px solid #ddd;
+  border-radius: $rounded;
+}
+
+.divider {
+  border-right: 1px solid #ddd;
+  padding-left: 1rem;
+  margin-right: 1rem;
+}

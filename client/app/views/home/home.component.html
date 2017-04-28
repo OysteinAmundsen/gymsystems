@@ -6,8 +6,11 @@
       <div *ngFor="let tournament of current">
         <h1>{{ tournament.name }}</h1>
 
-        <span>{{ tournament.description }}</span>
-        <a [routerLink]="['/list/', tournament.id]" translate>Go to scoreboard</a>
+        <div><pre>{{ tournament.description }}</pre></div>
+        <a [routerLink]="['/list/', tournament.id]">
+          <app-fa name="arrow-right" fw="true"></app-fa>
+          <span translate>Go to scoreboard</span>
+        </a>
       </div>
     </section>
     <section *ngIf="!current.length">
@@ -20,7 +23,7 @@
   <app-panel class="col-4">
     <table class="table-hover" role="list" class="editable">
       <tbody *ngFor="let type of types;">
-        <tr>
+        <tr *ngIf="type.tournaments.length">
           <th colspan="2">{{ type.name | translate }} <span translate>tournaments</span></th>
         </tr>
         <tr *ngFor="let tournament of type.tournaments" role="menuitem" [routerLink]="['/list/', tournament.id]" role="listitem">

@@ -1,0 +1,24 @@
+<form *ngIf="tournament" (submit)="save()">
+  <header>
+    <button><app-fa name="bold" fw="true"></app-fa></button>
+    <button><app-fa name="italic" fw="true"></app-fa></button>
+    <button><app-fa name="underline" fw="true"></app-fa></button>
+    <span class="divider"></span>
+    <button><app-fa name="list-ul" fw="true"></app-fa></button>
+    <button><app-fa name="list-ol" fw="true"></app-fa></button>
+    <span class="divider"></span>
+    <button><app-fa name="align-left" fw="true"></app-fa></button>
+    <button><app-fa name="align-center" fw="true"></app-fa></button>
+    <button><app-fa name="align-right" fw="true"></app-fa></button>
+    <button><app-fa name="align-justify" fw="true"></app-fa></button>
+    <span class="divider"></span>
+    <button><app-fa name="indent" fw="true"></app-fa></button>
+    <button><app-fa name="outdent" fw="true"></app-fa></button>
+  </header>
+
+  <textarea name="description" rows="20" [(ngModel)]="tournament.description"></textarea>
+
+  <footer>
+    <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+  </footer>
+</form>

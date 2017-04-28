@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { TournamentService, UserService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 import { IUser, Role } from 'app/services/model/IUser';
+import { Moment } from "moment";
 
 @Component({
   selector: 'app-tournament-editor',
@@ -33,8 +34,8 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
     this.route.params.subscribe((params: any) => {
       if (params.id) {
-        this.tournamentService.selectedId = params.id;
-        this.tournamentService.getById(params.id).subscribe(tournament => this.tournamentReceived(tournament));
+        this.tournamentService.selectedId = +params.id;
+        this.tournamentService.getById(+params.id).subscribe(tournament => this.tournamentReceived(tournament));
       } else {
         this.isEdit = true;
       }
@@ -47,6 +48,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       startDate: [this.tournament.startDate, [Validators.required]],
       endDate: [this.tournament.endDate, [Validators.required]],
       location: [this.tournament.location],
+      description: [this.tournament.description || '']
       // schedule: [this.tournament.schedule],
       // disciplines: [this.tournament.disciplines],
       // divisions: [this.tournament.divisions],
@@ -55,6 +57,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
   tournamentReceived(tournament) {
     this.tournament = tournament;
+    this.tournament.description = this.tournament.description || '';
     this.title.setTitle(`Configure tournament: ${tournament.name} | GymSystems`);
 
     this.tournamentForm.setValue(tournament);
@@ -70,10 +73,10 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   save() {
     const formVal = this.tournamentForm.value;
     if (formVal.startDate.hasOwnProperty('momentObj')) {
-      formVal.startDate = formVal.startDate.momentObj.utc().toISOString();
+      formVal.startDate = (<Moment>formVal.startDate.momentObj).startOf('day').utc().toISOString();
     }
     if (formVal.endDate.hasOwnProperty('momentObj')) {
-      formVal.endDate = formVal.endDate.momentObj.utc().toISOString();
+      formVal.endDate = (<Moment>formVal.endDate.momentObj).endOf('day').utc().toISOString();
     }
     this.tournamentService.save(formVal).subscribe(tournament => {
       this.isEdit = false;

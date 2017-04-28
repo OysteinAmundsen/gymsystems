@@ -43,7 +43,7 @@
       <span (click)="changeLang('no')" [ngClass]="'clickable flag-icon flag-icon-no ' + (currentLang === 'no' ? 'selected' : '')"></span>
       <span (click)="changeLang('en')" [ngClass]="'clickable flag-icon flag-icon-gb ' + (currentLang === 'en' ? 'selected' : '')"></span>
     </div>
-    <span *ngIf="user">
+    <span *ngIf="user" class="user-info">
       <b translate>Logged in as: </b><i>{{ user.name }}</i><br>
       <a [routerLink]="['/logout']"><app-fa name="sign-out"></app-fa><span translate>Logout</span></a>
     </span>

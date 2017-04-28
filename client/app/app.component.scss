@@ -93,6 +93,14 @@ footer {
     padding: 1.2rem 0;
     height: 7.7rem;
   }
+  .user-info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    a {
+      color: white;
+    }
+  }
   .logo {
     margin-top: -1rem;
     img {
