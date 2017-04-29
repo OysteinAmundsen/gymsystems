@@ -21,6 +21,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   get hasTournaments() {
     return this.types.filter(t => t.tournaments.length > 0).length > 0;
   }
+  get hasFuture() {
+    const future = this.types.find(t => t.name === 'Future');
+    return future && future.tournaments && future.tournaments.length;
+  }
+  get hasPast() {
+    const past = this.types.find(t => t.name === 'Past');
+    return past && past.tournaments && past.tournaments.length;
+  }
 
   constructor(private tournamentService: TournamentService, private translate: TranslateService, private title: Title) {
     title.setTitle('GymSystems');

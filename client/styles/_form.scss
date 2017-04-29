@@ -28,7 +28,7 @@ fieldset {
 form.panel {
   @include panel;
   header {
-    margin: $margin $margin 0 $margin;
+    margin: $margin ($margin * 2) 0 ($margin * 2);
     padding: ($padding * 2) ($padding * 2) 0 ($padding * 2);
   }
   fieldset {

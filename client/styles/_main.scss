@@ -102,8 +102,14 @@ ul.unstyled {
 }
 
 .flag-icon {
+  width: 1.5rem;
+  height: 1.5rem;
   filter: grayscale(80%) opacity(40%);
   &.selected {
     filter: grayscale(0%) opacity(100%);
   }
+}
+
+pre {
+  font-family: inherit;
 }
