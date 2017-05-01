@@ -1,26 +1,42 @@
 <div class="fixed-back"></div>
 
 <form class="panel" [formGroup]="loginForm" (submit)="login()">
-  <header>
-    <h3 translate>Login</h3>
-  </header>
-  <fieldset>
-    <div class="row">
-      <div class="col-xs-12" appFloatingLabelContainer>
-        <label for="login-user" translate>Username</label>
-        <input type="text" formControlName="username" appAutofocus/>
+  <section class="col-6 login">
+    <header>
+      <h3 translate>Login</h3>
+    </header>
+    <fieldset>
+      <div class="row">
+        <div class="col-xs-12" appFloatingLabelContainer>
+          <label for="login-user" translate>Username</label>
+          <input type="text" formControlName="username" appAutofocus/>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12" appFloatingLabelContainer>
-        <label for="login-user" translate>Password</label>
-        <input type="password" formControlName="password" />
+      <div class="row">
+        <div class="col-xs-12" appFloatingLabelContainer>
+          <label for="login-user" translate>Password</label>
+          <input type="password" formControlName="password" />
+        </div>
       </div>
+    </fieldset>
+    <footer>
+      <button type="submit" title="Login" [disabled]="loginForm.invalid || loginForm.pristine"><app-fa name="sign-in" fw="true"></app-fa> <span translate>Login</span></button>
+    </footer>
+  </section>
+  <section class="col-6 register">
+    <div class="content">
+      <header>
+        <h3 translate>Register</h3>
+      </header>
+      <span class="text" translate>
+        If you are a club representative, you can register to login to our system in order to add teams from your club to any tournaments.
+      </span>
     </div>
-  </fieldset>
-  <footer>
-    <button type="submit" title="Login" [disabled]="loginForm.invalid || loginForm.pristine"><app-fa name="sign-in" fw="true"></app-fa> <span translate>Login</span></button>
-  </footer>
+    <footer>
+      <a title="Register" [routerLink]="['../register']" class="btn">
+        <app-fa name="user-plus" fw="true"></app-fa> <span translate>Register</span></a>
+    </footer>
+  </section>
 </form>
 
 <app-dialog [isOpen]="error != null" [noButtons]="true" (onCancel)="error = null">{{ error }}</app-dialog>

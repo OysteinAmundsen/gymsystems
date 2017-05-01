@@ -34,10 +34,10 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
         display1: `<header>{{tournament.name}}</header>
 
 {{#list next len=3}}
-<div>{{team.name}} {{division}} {{discipline.name}}</div>
+<div>{{team.name}}  {{division}} {{discipline.name}}</div>
 {{/list}}`,
         display2: `{{#list published len=1}}
-<div>{{team.name}} {{division}}</div>
+<div>{{team.name}}  {{division}}</div>
 <div>{{discipline.name}}</div>
 <br>
 <div>{{total}}</div>

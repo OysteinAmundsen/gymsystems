@@ -16,6 +16,7 @@ import { ScoreboardComponent } from './list/scoreboard/scoreboard.component';
 import { DisplayComponent } from './display/display.component';
 import { FullscreenComponent } from './display/fullscreen/fullscreen.component';
 import { LogoutComponent } from './logout/logout.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { LogoutComponent } from './logout/logout.component';
 
     DisplayComponent,
     FullscreenComponent,
-    LogoutComponent
+    LogoutComponent,
+    RegisterComponent
   ]
 })
 export class HomeModule { }
