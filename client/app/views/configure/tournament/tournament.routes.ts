@@ -6,8 +6,8 @@ import { DisciplineRoutes } from './disciplines/disciplines.routes';
 import { DivisionsComponent } from './divisions/divisions.component';
 import { TeamsComponent } from './teams/teams.component';
 import { ScheduleComponent } from './schedule/schedule.component';
-import { InfoComponent } from "app/views/configure/tournament/info/info.component";
-import { RoleClubGuard, RoleAdminGuard } from "app/shared/guards/role-guards";
+import { InfoComponent } from './info/info.component';
+import { RoleClubGuard, RoleAdminGuard } from 'app/shared/guards/role-guards';
 
 export const TournamentRoutes: Routes = [
   {

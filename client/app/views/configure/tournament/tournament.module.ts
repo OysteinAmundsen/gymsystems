@@ -6,6 +6,7 @@ import { DragulaModule } from 'ng2-dragula';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { DisciplinesModule } from './disciplines/disciplines.module';
+import { DivisionsModule } from './divisions/divisions.module';
 
 import { TournamentRoutes } from './tournament.routes';
 
@@ -13,7 +14,6 @@ import { TournamentComponent } from './tournament.component';
 import { TournamentEditorComponent } from './tournament-editor/tournament-editor.component';
 
 import { TeamsComponent, TeamEditorComponent } from './teams';
-import { DivisionsComponent, DivisionEditorComponent } from './divisions';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { InfoComponent } from './info/info.component';
 
@@ -26,11 +26,12 @@ import { InfoComponent } from './info/info.component';
     DragulaModule,
 
     SharedModule,
-    DisciplinesModule
+    DisciplinesModule,
+    DivisionsModule
   ],
   declarations: [
     TournamentComponent, TournamentEditorComponent,
-    TeamsComponent, TeamEditorComponent, DivisionsComponent, ScheduleComponent, DivisionEditorComponent, InfoComponent
+    TeamsComponent, TeamEditorComponent, ScheduleComponent, InfoComponent
   ]
 })
 export class TournamentModule { }

@@ -13,8 +13,10 @@ import { Operation } from 'app/services/model/Operation';
 })
 export class ScoreSystemComponent implements OnInit {
   @Input() discipline: IDiscipline;
+  @Input() standalone: boolean = false;
   @Output() editModeChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
-  scoreGroupList: IScoreGroup[] = [];
+  @Input() scoreGroupList: IScoreGroup[] = [];
+  @Output() scoreGroupListChanged = new EventEmitter<IScoreGroup[]>();
   defaultScoreGroups: IScoreGroup[];
 
   _selected: IScoreGroup;
@@ -37,19 +39,23 @@ export class ScoreSystemComponent implements OnInit {
   }
 
   loadScoreGroups() {
-    this.scoreService.getByDiscipline(this.discipline.id).subscribe(scoreGroups => this.scoreGroupList = scoreGroups);
+    if (this.discipline) {
+      this.scoreService.getByDiscipline(this.discipline.id).subscribe(scoreGroups => this.scoreGroupList = scoreGroups);
+    }
+    this.scoreGroupListChanged.emit(this.scoreGroupList);
   }
 
   addScoreGroup() {
-    const scoreGroup = <IScoreGroup>{
+    const scoreGroup = <IScoreGroup>(this.standalone ? { name: null, type: null, judges: 1, max: 5, min: 0, operation: Operation.Addition } : {
       id: null, name: null, type: null, judges: 1, max: 5, min: 0, operation: Operation.Addition, discipline: this.discipline
-    };
+    });
     this.scoreGroupList.push(scoreGroup);
     this.selected = scoreGroup;
+    this.scoreGroupListChanged.emit(this.scoreGroupList);
   }
 
   addDefaults() {
-    if (this.defaultScoreGroups) {
+    if (this.discipline && this.defaultScoreGroups) {
       const scoreGroupList = this.findMissingDefaults().map(group => {
         group.discipline = this.discipline;
         return group;
@@ -59,13 +65,18 @@ export class ScoreSystemComponent implements OnInit {
   }
 
   findMissingDefaults() {
-    if (this.defaultScoreGroups && this.defaultScoreGroups.length) {
+    if (this.discipline && this.defaultScoreGroups && this.defaultScoreGroups.length) {
       return this.defaultScoreGroups.filter(def => this.scoreGroupList.findIndex(d => d.name === def.name) < 0);
     }
     return [];
   }
 
-  onChange() {
+  onChange(values) {
+    if (values !== 'DELETED') {
+      Object.keys(this.selected).forEach(k => this.selected[k] = values[k]);
+    } else {
+      this.scoreGroupList.splice(this.scoreGroupList.findIndex(d => d.type === this.selected.type), 1);
+    }
     this.select(null);
     this.loadScoreGroups();
   }

@@ -1,8 +1,3 @@
-<h2>
-  <app-fa name="star" fw="true"></app-fa>
-  "{{ discipline.name }}" <span translate>score system</span>
-</h2>
-
 <div class="table-responsive">
   <table role="list" class="editable">
     <thead>
@@ -24,7 +19,7 @@
       </tr>
       <tr *ngIf="score === selected">
         <td colspan="5">
-          <app-score-group-editor [scoreGroup]="selected" [discipline]="discipline" (scoreChanged)="onChange($event)"></app-score-group-editor>
+          <app-score-group-editor [scoreGroup]="selected" [discipline]="discipline" (scoreChanged)="onChange($event)" [standalone]="standalone"></app-score-group-editor>
         </td>
       </tr>
     </tbody>

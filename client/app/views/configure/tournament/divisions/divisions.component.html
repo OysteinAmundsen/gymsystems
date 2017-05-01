@@ -15,7 +15,7 @@
           </tr>
           <tr *ngIf="division === selected" class="static">
             <td colspan="1">
-              <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>
+              <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor>
             </td>
           </tr>
         </tbody>
@@ -38,7 +38,7 @@
           </tr>
           <tr *ngIf="division === selected" class="static">
             <td colspan="1">
-              <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>
+              <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor>
             </td>
           </tr>
         </tbody>
@@ -48,7 +48,7 @@
 
 </div>
 <div *ngIf="selected && !selected.type">
-  <app-division-editor [division]="selected" (divisionChanged)="onChange($event)"></app-division-editor>
+  <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor>
 </div>
 <button type="button" *ngIf="selected == null" title="Add" (click)="addDivision()">
   <app-fa name="plus" fw="true"></app-fa>

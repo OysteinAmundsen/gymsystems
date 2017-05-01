@@ -6,7 +6,7 @@
       </tr>
       <tr *ngIf="discipline === selected" class="static">
         <td colspan="1">
-          <app-discipline-editor [discipline]="selected" (disciplineChanged)="onChange($event)"></app-discipline-editor>
+          <app-discipline-editor [discipline]="selected" (disciplineChanged)="onChange($event)" [standalone]="standalone"></app-discipline-editor>
         </td>
       </tr>
     </tbody>

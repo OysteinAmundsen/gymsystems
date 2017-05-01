@@ -35,8 +35,9 @@ export class AdvancedComponent implements OnInit {
     return 2 + Object.keys(v).length;
   }
 
-  valueChanged(key) {
-    this.defaultValues[key] = JSON.parse(this.textAreas.nativeElement.value);
+  valueChanged(key, $event) {
+    this.defaultValues[key] = $event;
+    this.save();
   }
 
   save() {

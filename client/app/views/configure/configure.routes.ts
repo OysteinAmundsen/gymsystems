@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { TournamentRoutes } from './tournament/tournament.routes';
 import { UserRoutes } from './users/users.routes';
+import { AdvancedRoutes } from './advanced/advanced.routes';
 
 import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
@@ -14,8 +15,8 @@ export const ConfigureRoutes: Routes = [
     path: 'configure', component: ConfigureComponent, children: [
       ...TournamentRoutes,
       ...UserRoutes,
+      ...AdvancedRoutes,
       { path: 'display', component: ConfigureDisplayComponent, canActivate: [RoleAdminGuard] },
-      { path: 'advanced', component: AdvancedComponent, canActivate: [RoleAdminGuard] },
       { path: '', redirectTo: 'tournament', pathMatch: 'full', canActivate: [RoleClubGuard] },
     ]
   }

@@ -5,9 +5,8 @@ import { RouterModule } from '@angular/router';
 import { DragulaModule } from 'ng2-dragula';
 
 import { SharedModule } from 'app/shared/shared.module';
-import { DisciplinesComponent } from './disciplines.component';
-import { DisciplineEditorComponent } from './discipline-editor/discipline-editor.component';
-import { ScoreSystemComponent, ScoreGroupEditorComponent } from './score-system';
+import { DivisionsComponent } from './divisions.component';
+import { DivisionEditorComponent } from './division-editor/division-editor.component';
 
 @NgModule({
   imports: [
@@ -20,12 +19,10 @@ import { ScoreSystemComponent, ScoreGroupEditorComponent } from './score-system'
     SharedModule
   ],
   declarations: [
-    DisciplinesComponent, DisciplineEditorComponent,
-    ScoreSystemComponent, ScoreGroupEditorComponent,
+    DivisionsComponent, DivisionEditorComponent
   ],
   exports: [
-    DisciplinesComponent, DisciplineEditorComponent,
-    ScoreSystemComponent, ScoreGroupEditorComponent,
+    DivisionsComponent, DivisionEditorComponent
   ]
 })
-export class DisciplinesModule { }
+export class DivisionsModule { }

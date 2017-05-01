@@ -14,6 +14,7 @@ import { TournamentEditorComponent } from '../../tournament-editor/tournament-ed
   styleUrls: ['./discipline-editor.component.scss']
 })
 export class DisciplineEditorComponent implements OnInit {
+  @Input() standalone: boolean = false;
   @Input() discipline: IDiscipline = <IDiscipline>{};
   @Output() disciplineChanged: EventEmitter<any> = new EventEmitter<any>();
 
@@ -40,15 +41,23 @@ export class DisciplineEditorComponent implements OnInit {
   }
 
   save() {
-    this.disciplineService.save(this.disciplineForm.value).subscribe(result => {
-      this.disciplineChanged.emit(result);
-    });
+    if (this.discipline.tournament) {
+      this.disciplineService.save(this.disciplineForm.value).subscribe(result => {
+        this.disciplineChanged.emit(result);
+      });
+    } else {
+      this.disciplineChanged.emit(this.disciplineForm.value);
+    }
   }
 
   delete() {
-    this.disciplineService.delete(this.disciplineForm.value).subscribe(result => {
-      this.disciplineChanged.emit(result);
-    });
+    if (!this.standalone) {
+      this.disciplineService.delete(this.disciplineForm.value).subscribe(result => {
+        this.disciplineChanged.emit(result);
+      });
+    } else {
+      this.disciplineChanged.emit('DELETED');
+    }
   }
 
   cancel() {

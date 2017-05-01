@@ -11,6 +11,7 @@ import { DivisionType } from 'app/services/model/DivisionType';
   styleUrls: ['./division-editor.component.scss']
 })
 export class DivisionEditorComponent implements OnInit {
+  @Input() standalone: boolean = false;
   @Input() division: IDivision = <IDivision>{};
   @Output() divisionChanged: EventEmitter<any> = new EventEmitter<any>();
   divisionForm: FormGroup;
@@ -25,7 +26,7 @@ export class DivisionEditorComponent implements OnInit {
     this.divisionForm = this.fb.group({
       id: [this.division.id],
       name: [this.division.name, [Validators.required]],
-      tournament: [this.division.tournament, [Validators.required]],
+      tournament: [this.division.tournament],
       sortOrder: [this.division.sortOrder],
       type: [this.division.type, [Validators.required]]
     });
@@ -33,16 +34,25 @@ export class DivisionEditorComponent implements OnInit {
 
 
   save() {
-    this.divisionService.save(this.divisionForm.value).subscribe(result => {
-      this.divisionChanged.emit(result);
-      this.divisionForm.setValue(result);
-    });
+    if (this.division.tournament) {
+      this.divisionService.save(this.divisionForm.value).subscribe(result => {
+        this.divisionChanged.emit(result);
+        this.divisionForm.setValue(result);
+      });
+    }
+    else {
+      this.divisionChanged.emit(this.divisionForm.value);
+    }
   }
 
   delete() {
-    this.divisionService.delete(this.divisionForm.value).subscribe(result => {
-      this.divisionChanged.emit(result);
-    });
+    if (!this.standalone) {
+      this.divisionService.delete(this.divisionForm.value).subscribe(result => {
+        this.divisionChanged.emit(result);
+      });
+    } else {
+      this.divisionChanged.emit('DELETED');
+    }
   }
 
   close() {

@@ -13,6 +13,7 @@ import { TranslateService } from "@ngx-translate/core";
   styleUrls: ['./score-group-editor.component.scss']
 })
 export class ScoreGroupEditorComponent implements OnInit {
+  @Input() standalone: boolean = false;
   @Input() scoreGroup: IScoreGroup = <IScoreGroup>{ operation: Operation.Addition };
   @Input() discipline: IDiscipline;
   @Output() scoreChanged: EventEmitter<any> = new EventEmitter<any>();
@@ -43,15 +44,24 @@ export class ScoreGroupEditorComponent implements OnInit {
   }
 
   save() {
-    this.scoreService.save(this.scoreForm.value).subscribe(result => {
-      this.scoreChanged.emit(result);
-    });
+    if (this.discipline) {
+      this.scoreService.save(this.scoreForm.value).subscribe(result => {
+        this.scoreChanged.emit(result);
+      });
+    }
+    else {
+      this.scoreChanged.emit(this.scoreForm.value);
+    }
   }
 
   delete() {
-    this.scoreService.delete(this.scoreForm.value).subscribe(result => {
-      this.scoreChanged.emit(result);
-    })
+    if (!this.standalone) {
+      this.scoreService.delete(this.scoreForm.value).subscribe(result => {
+        this.scoreChanged.emit(result);
+      });
+    } else {
+      this.scoreChanged.emit('DELETED');
+    }
   }
 
   close() {

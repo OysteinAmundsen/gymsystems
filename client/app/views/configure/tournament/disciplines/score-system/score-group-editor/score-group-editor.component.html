@@ -33,6 +33,6 @@
   <footer>
     <button type="submit" title="Save" [disabled]="scoreForm.invalid || scoreForm.pristine"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
     <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
-    <button type="button" *ngIf="scoreForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
+    <button type="button" *ngIf="standalone || scoreForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
   </footer>
 </form>

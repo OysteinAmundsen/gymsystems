@@ -9,11 +9,16 @@
   </fieldset>
 
   <fieldset *ngIf="disciplineForm.value.id">
+    <h2>
+      <app-fa name="star" fw="true"></app-fa>
+      "{{ discipline.name }}" <span translate>score system</span>
+    </h2>
+
     <app-score-system [discipline]="discipline" (editModeChanged)="editingScore = $event"></app-score-system>
   </fieldset>
   <footer *ngIf="!editingScore">
     <button type="submit" title="Save" [disabled]="disciplineForm.invalid || disciplineForm.pristine"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
     <button type="button" title="Cancel" (click)="cancel()"><app-fa name="arrow-left" fw="true"></app-fa> <span translate>Go back</span></button>
-    <button type="button" *ngIf="disciplineForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
+    <button type="button" *ngIf="standalone || disciplineForm.value.id" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
   </footer>
 </form>

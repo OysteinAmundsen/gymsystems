@@ -3,19 +3,34 @@
   <span translate>Advanced settings</span>
 </h1>
 
-<h3>DefaultValues</h3>
+<h2 translate>Default values</h2>
+
 <menu role="tablist">
   <ul>
-    <li *ngFor="let v of defaultValueKeys" (click)="selected = v" [ngClass]="{'active': selected === v}">
-      <a>{{v}}</a>
+    <li (click)="selected = 'division'" [ngClass]="{'active': selected === 'division'}">
+      <a>
+        <app-fa name="cubes" fw="true"></app-fa> <span translate>Divisions</span></a>
+    </li>
+    <li (click)="selected = 'discipline'" [ngClass]="{'active': selected === 'discipline'}">
+      <a>
+        <app-fa name="heartbeat" fw="true"></app-fa> <span translate>Disciplines</span></a>
+    </li>
+    <li (click)="selected = 'scoreGroup'" [ngClass]="{'active': selected === 'scoreGroup'}">
+      <a>
+        <app-fa name="star" fw="true"></app-fa> <span translate>Score system</span></a>
     </li>
   </ul>
 </menu>
 
-<div *ngFor="let v of defaultValueKeys" [id]="v">
-  <textarea #area name="v" [rows]="getRows(defaultValues[v])" *ngIf="selected === v" (change)="valueChanged(v)">{{defaultValues[v] | json}}</textarea>
-</div>
-
-<footer>
-  <button type="submit" title="Save" (click)="save()"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
-</footer>
+<section *ngFor="let v of defaultValueKeys" [id]="v" class="tab-panel">
+  <!--<textarea #area name="v" [rows]="getRows(defaultValues[v])" *ngIf="selected === v" (change)="valueChanged(v)">{{defaultValues[v] | json}}</textarea>-->
+  <div *ngIf="v === 'scoreGroup' && selected === v">
+    <app-score-system [scoreGroupList]="defaultValues[v]" (scoreGroupListChanged)="valueChanged(v, $event)" [standalone]="true"></app-score-system>
+  </div>
+  <div *ngIf="v === 'discipline' && selected === v">
+    <app-disciplines [disciplineList]="defaultValues[v]" (disciplineListchanged)="valueChanged(v, $event)" [standalone]="true"></app-disciplines>
+  </div>
+  <div *ngIf="v === 'division' && selected === v">
+    <app-divisions [divisions]="defaultValues[v]" (divisionsChanged)="valueChanged(v, $event)" [standalone]="true"></app-divisions>
+  </div>
+</section>
