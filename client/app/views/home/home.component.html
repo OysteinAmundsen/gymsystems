@@ -17,7 +17,9 @@
       </div>
     </section>
     <section *ngIf="!current.length">
-      <h1 translate>No tournament today. </h1>
+      <header>
+        <h1 translate>No tournament today. </h1>
+      </header>
 
       <span *ngIf="hasPast && hasFuture" translate>Come back later or checkout the past and future tournaments we have listed out for you on the right hand side.</span>
       <span *ngIf="hasPast && !hasFuture" translate>Come back later or checkout the past tournaments we have listed out for you on the right hand side.</span>
