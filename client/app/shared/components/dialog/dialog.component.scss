@@ -1,6 +1,5 @@
-@import "../../../styles/variables";
-@import "../../../styles/panel";
-
+@import "~styles/variables";
+@import "~styles/panel";
 [role="dialogContainer"] {
   position: fixed;
   z-index: 20;
@@ -14,6 +13,7 @@
     display: block;
   }
 }
+
 aside {
   @include panel;
   position: relative;

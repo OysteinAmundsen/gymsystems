@@ -3,15 +3,21 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from "@ngx-translate/core";
 
-import { DatepickerComponent } from './datepicker/datepicker.component';
-import { DialogComponent } from './dialog/dialog.component';
-import { FloatingLabelContainerDirective } from './floating-label/floating-label-container.directive';
-import { PanelComponent } from './panel/panel.component';
-import { FaComponent } from './fontawesome/fa.component';
-import { FaStackComponent } from './fontawesome/fa-stack.component';
-import { AutofocusDirective } from './autofocus/autofocus.directive';
-import { SlideToggleComponent } from './slide-toggle/slide-toggle.component';
-import { IfAuthDirective } from './if-auth.directive';
+// Shared components
+import { DatepickerComponent } from './components/datepicker/datepicker.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { PanelComponent } from './components/panel/panel.component';
+import { FaComponent } from './components/fontawesome/fa.component';
+import { FaStackComponent } from './components/fontawesome/fa-stack.component';
+import { SlideToggleComponent } from './components/slide-toggle/slide-toggle.component';
+
+// Shared directives
+import { FloatingLabelContainerDirective } from './directives/floating-label/floating-label-container.directive';
+import { AutofocusDirective } from './directives/autofocus/autofocus.directive';
+import { IfAuthDirective } from './directives/auth/if-auth.directive';
+
+// Shared pipes
+import { ToUpperPipe } from './pipes/to-upper.pipe';
 
 @NgModule({
   imports: [
@@ -29,7 +35,8 @@ import { IfAuthDirective } from './if-auth.directive';
     FaStackComponent,
     AutofocusDirective,
     SlideToggleComponent,
-    IfAuthDirective
+    IfAuthDirective,
+    ToUpperPipe
   ],
   exports: [
     // Export common modules
@@ -39,13 +46,16 @@ import { IfAuthDirective } from './if-auth.directive';
     // Export components
     DatepickerComponent,
     DialogComponent,
-    FloatingLabelContainerDirective,
     PanelComponent,
     FaComponent,
     FaStackComponent,
-    AutofocusDirective,
     SlideToggleComponent,
-    IfAuthDirective
+
+    FloatingLabelContainerDirective,
+    AutofocusDirective,
+    IfAuthDirective,
+
+    ToUpperPipe
   ]
 })
 export class SharedModule { }

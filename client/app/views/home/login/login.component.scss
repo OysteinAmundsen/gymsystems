@@ -11,48 +11,50 @@ form {
   width: 600px;
   margin: 0 auto;
   overflow: hidden;
-  .login {
-    margin-right: 2rem;
-  }
-  .register {
-    padding-left: 2rem;
-    position: relative;
-    color: white;
-    &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: -2px;
-      right: -40px;
-      left: 15px;
-      bottom: -4px;
-      background: $primary;
-      transform: skew(-20deg);
-      box-shadow: 10px 0px 30px -15px black inset
-    }
-    .content {
-      position: relative;
-    }
-    .text {
-      padding: 0 16px;
-      display: inline-block;
-      text-align: right;
-    }
-    h3 {
-      color: inherit;
-      margin-bottom: 1rem;
-      text-align: right;
-    }
-    footer {
-      position: absolute;
-      bottom: 0;
-      right: 4px;
-      .btn {
-        color: inherit;
-      }
-    }
-  }
   footer {
     padding-left: 4px;
+  }
+}
+
+.login {
+  margin-right: 2rem;
+}
+
+.register {
+  padding-left: 2rem;
+  position: relative;
+  color: white;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -2px;
+    right: -40px;
+    left: 15px;
+    bottom: -4px;
+    background: $primary;
+    transform: skew(-20deg);
+    box-shadow: 10px 0px 30px -15px black inset
+  }
+  .content {
+    position: relative;
+  }
+  .text {
+    padding: 0 16px;
+    display: inline-block;
+    text-align: right;
+  }
+  h3 {
+    color: inherit;
+    margin-bottom: 1rem;
+    text-align: right;
+  }
+  footer {
+    position: absolute;
+    bottom: 0;
+    right: 4px;
+    .btn {
+      color: inherit;
+    }
   }
 }
