@@ -10,7 +10,7 @@ import * as auth from 'passport';
 
 import { RequireAuth, RequireRoleAdmin } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';
-import { User, RoleNames } from '../model/User';
+import { User, Role, RoleNames } from '../model/User';
 import * as bcrypt from 'bcrypt';
 import * as _ from 'lodash';
 
@@ -18,6 +18,10 @@ const messages = {
   created: `
 <h1>Welcome!</h1>
 <p>You are receiving this email because you have just been registerred as a user on <a href="www.gymsystems.org">GymSystems</a> as "<%=roleName %>"}</p>
+<p>Please log in to <a href="www.gymsystems.org/login">www.gymsystems.org</a> using <b><%=name %></b>/<b><%=password %></b>`,
+  clubCreated: `
+<h1>Welcome!</h1>
+<p>You are receiving this email because you have just been registerred as a user on <a href="www.gymsystems.org">GymSystems</a> as a representative of "<%=club %>"}</p>
 <p>Please log in to <a href="www.gymsystems.org/login">www.gymsystems.org</a> using <b><%=name %></b>/<b><%=password %></b>`,
   passwordUpdate: `
 <h1>Your password is updated</h1>
@@ -143,6 +147,29 @@ export class UserController {
             Logger.log.debug(err && err.stack);
             Logger.log.debug(reply);
           });
+        });
+        return persisted;
+      })
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
+  }
+
+  @Post('/register')
+  selfService(@EntityFromBody() user: User, @Res() res: Response) {
+    user.role = Role.Club; // Only clubs are allowed to use this
+    const origPass = user.password;
+    user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8));
+    return this.repository.persist(user)
+      .then(persisted => {
+        // Send email confirmation on user creation and login details
+        const roleName = RoleNames.find(r => r.id === user.role);
+        this.sendmail({ from: emailFrom, to: user.email, subject: 'You are registerred',
+          html: _.template(messages.clubCreated)({name: user.name, password: origPass, club: user.club}),
+        }, (err: any, reply: any) => {
+          Logger.log.debug(err && err.stack);
+          Logger.log.debug(reply);
         });
         return persisted;
       })

@@ -10,18 +10,22 @@
         <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
       </div>
-      <div class="col-xs-4" appFloatingLabelContainer>
+      <div class="col-xs-4" appFloatingLabelContainer *ngIf="userForm.value.id !== currentUser.id">
         <label translate>Role</label>
         <select formControlName="role">
-          <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
+          <option *ngFor="let role of roleNames" [ngValue]="role.id">{{role.name}}</option>
         </select>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-xs-8" appFloatingLabelContainer>
+      <div class="col-xs-7" appFloatingLabelContainer>
         <label translate>Email</label>
         <input type="email" formControlName="email">
+      </div>
+      <div class="col-5" appFloatingLabelContainer *ngIf="userForm.value.role === roles.Club">
+        <label translate>Club</label>
+        <input type="text" formControlName="club">
       </div>
     </div>
     <div class="row">

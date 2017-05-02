@@ -4,7 +4,7 @@ import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/fo
 import { Title } from '@angular/platform-browser';
 
 import { UserService } from 'app/services/api';
-import { IUser, RoleNames } from 'app/services/model/IUser';
+import { IUser, RoleNames, Role } from 'app/services/model/IUser';
 import { ValidationService } from 'app/services/validation/validation.service';
 
 @Component({
@@ -18,7 +18,9 @@ export class UserEditorComponent implements OnInit {
   userForm: FormGroup;
   selectedUserId: number;
   user: IUser = <IUser>{};
-  roles = RoleNames;
+  roleNames = RoleNames;
+  roles = Role;
+
   _errorTimeout;
   _error: string;
   get error() { return this._error; }
@@ -44,6 +46,7 @@ export class UserEditorComponent implements OnInit {
           this.title.setTitle(`Configure user: ${this.user.name} | GymSystems`);
           this.user['repeatPassword'] = this.user.password;
           this.user.email = this.user.email || '';
+          this.user.club = this.user.club || '';
           this.userForm.setValue(this.user);
         });
       } else {
@@ -57,11 +60,20 @@ export class UserEditorComponent implements OnInit {
       name: [this.user.name, [Validators.required]],
       role: [this.user.role, [Validators.required]],
       email: [this.user.email, [Validators.required, ValidationService.emailValidator]],
+      club: [this.user.club],
       password: [this.user.password, [Validators.required]],
       repeatPassword: [this.user.password, [Validators.required]]
     }, {validator: (c: AbstractControl) => {
       return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false}};
     }});
+
+    // Clubs should be registerred in all upper case
+    this.userForm.controls['club']
+      .valueChanges
+      .distinctUntilChanged()
+      .subscribe((t: string) => {
+        this.userForm.controls['club'].setValue(t.toUpperCase());
+      });
   }
 
   save() {

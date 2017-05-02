@@ -71,6 +71,10 @@ export class UserService {
       .map((res: Response) => res.json());
   }
 
+  register(user: IUser): Observable<IUser> {
+    return this.http.post('/api/users/register', user).map((res: Response) => res.json());
+  }
+
   delete(user: IUser) {
     return this.http.delete(`/api/users/${user.id}`);
   }
