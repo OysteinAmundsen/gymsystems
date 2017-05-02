@@ -32,8 +32,10 @@
 .main-content {
   color: white;
   text-shadow: 0px 3px 10px black, 0 0 3px black;
+  margin-bottom: 3rem;
   header {
     h1 {
+      color: white;
       margin-top: 0;
     }
     small {
@@ -41,10 +43,7 @@
       margin-right: 2rem;
     }
   }
-  h1,
-  a {
-    display: block;
-    margin-top: 1rem;
-    color: white;
+  .btn {
+    text-shadow: none;
   }
 }

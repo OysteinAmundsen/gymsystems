@@ -9,15 +9,12 @@ header {
   }
 }
 
-td:last-child {
-  padding: 0;
-}
-
 td.editor {
   padding: 0;
 }
 
 .actions {
+  padding: 0;
   max-width: 40px;
   width: 40px;
 }
@@ -26,6 +23,18 @@ tbody {
   color: rgba($text-color, 0.7);
   // background: rgba(150, 150, 150, 0.05);
   opacity: 0.7;
+  border-bottom: 1px solid rgba($primary, 0.1);
+  &:hover {
+    background-color: rgba($primary, 0.2);
+  }
+  // Resetting whats defined on hover for list-tables
+  tr:hover td {
+    background-color: transparent;
+  }
+  td {
+    border-bottom: 0;
+  }
+  // End reset
   &.isPublished {
     color: $text-color;
   }
@@ -38,5 +47,9 @@ tbody {
     background: rgba(lighten(green, 50%), 0.2);
     border-top: 1px solid #bbb;
     border-bottom: 1px solid #bbb;
+  }
+  .details td {
+    padding-top: 0;
+    margin-top: -1rem;
   }
 }

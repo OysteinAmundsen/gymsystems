@@ -44,3 +44,14 @@
 }
 
 @include create-cols(12);
+.visible-wide {
+  @media (max-width: $stop1) {
+    display: none;
+  }
+}
+
+.visible-narrow {
+  @media (min-width: $stop1) {
+    display: none;
+  }
+}
