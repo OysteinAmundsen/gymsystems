@@ -1,0 +1,32 @@
+@import "~styles/variables";
+header {
+  padding-bottom: 4rem;
+  padding-top: 1rem;
+  line-height: 3em;
+  small {
+    font-size: 0.8em;
+    line-height: normal;
+    font-weight: normal;
+    display: block;
+  }
+}
+
+.division {
+  margin-bottom: 1rem;
+  >h3 {
+    color: white;
+    background: $primary;
+    border-radius: $rounded $rounded 0 0;
+  }
+}
+
+table tr {
+  td {
+    opacity: 0.5;
+  }
+  &.isPublished {
+    td {
+      opacity: 1;
+    }
+  }
+}

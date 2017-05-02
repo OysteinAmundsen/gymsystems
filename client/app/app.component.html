@@ -22,6 +22,10 @@
         <a routerLink="/configure">
           <app-fa name="cogs" fw="true"></app-fa> <span translate>Configure</span> </a>
       </li>
+      <li [routerLinkActive]="['active']" *appIfAuth="true" class="visible-narrow">
+        <a routerLink="/logout">
+          <app-fa name="sign-out" fw="true"></app-fa> <span translate>Log out</span> </a>
+      </li>
     </ul>
   </div>
 </nav>

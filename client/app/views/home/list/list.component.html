@@ -1,5 +1,10 @@
 <header *ngIf="tournament">
+  <small>{{ tournament.startDate | date: 'dd.MM' }} - {{ tournament.endDate | date: 'dd.MM' }} {{ tournament.endDate | date: 'yyyy' }}</small>
   <h2 class="pull-left">{{ tournament.name }}</h2>
+  <button type="button" class="pull-right primary raised" [routerLink]="['/results', tournament.id]">
+    <app-fa name="trophy" fw="true"></app-fa>
+    <span translate>Results </span>
+  </button>
   <button type="button" class="pull-right primary raised" *appIfAuth="'Secretariat'" [routerLink]="['/display', tournament.id]">
     <app-fa name="tv" fw="true"></app-fa>
     <span translate>Display </span>
@@ -8,7 +13,6 @@
     <app-fa name="cog" fw="true"></app-fa>
     <span translate>Settings </span>
   </button>
-  <small class="pull-right">{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
 </header>
 
 <section *ngIf="tournament"><pre>{{ tournament.description}}</pre></section>

@@ -17,6 +17,7 @@ import { DisplayComponent } from './display/display.component';
 import { FullscreenComponent } from './display/fullscreen/fullscreen.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
+import { ResultsComponent } from './results/results.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { RegisterComponent } from './register/register.component';
     DisplayComponent,
     FullscreenComponent,
     LogoutComponent,
-    RegisterComponent
+    RegisterComponent,
+    ResultsComponent
   ]
 })
 export class HomeModule { }
