@@ -51,7 +51,7 @@ form {
   textarea,
   select {
     @include input();
-    width: 100%;
+    width: 99%;
     &.ng-invalid {
       border-color: red;
     }

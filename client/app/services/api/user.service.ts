@@ -83,7 +83,7 @@ export class UserService {
   logout() {
     return this.http.post('/api/users/logout', {})
       .map((res: Response) => {
-        return this.userReceived(res);
+        return this.userReceived(null);
       });
   }
 }

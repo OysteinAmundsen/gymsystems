@@ -8,7 +8,8 @@
 }
 
 form {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   margin: 0 auto;
   overflow: hidden;
   footer {
@@ -28,13 +29,23 @@ form {
     content: '';
     display: block;
     position: absolute;
-    top: -2px;
-    right: -40px;
-    left: 15px;
+    top: 0;
+    right: 0;
+    left: 0;
     bottom: -4px;
     background: $primary;
-    transform: skew(-20deg);
-    box-shadow: 10px 0px 30px -15px black inset
+    box-shadow: 0px 10px 30px -15px black inset
+  }
+  @media (min-width: $stop1) {
+    &:before {
+      content: '';
+      top: -2px;
+      right: -40px;
+      left: 15px;
+      bottom: -4px;
+      transform: skew(-20deg);
+      box-shadow: 10px 0px 30px -15px black inset
+    }
   }
   .content {
     position: relative;
@@ -43,6 +54,7 @@ form {
     padding: 0 16px;
     display: inline-block;
     text-align: right;
+    margin-bottom: 3rem;
   }
   h3 {
     color: inherit;

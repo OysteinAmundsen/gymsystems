@@ -1,3 +1,18 @@
-h1 {
-  color: white;
+@import "~styles/_variables";
+:host {
+  .fixed-back {
+    +* {
+      margin-top: 10%;
+    }
+  }
+}
+
+form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  overflow: hidden;
+  footer {
+    padding-left: 4px;
+  }
 }

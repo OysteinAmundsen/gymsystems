@@ -1,5 +1,44 @@
 <div class="fixed-back"></div>
 
-<section>
-  <h1>Not possible at the moment. Please come back later.</h1>
-</section>
+<form class="panel row" [formGroup]="registerForm" (submit)="register()">
+  <section class="col-12">
+    <header>
+      <h3 translate>Register</h3>
+    </header>
+    <fieldset>
+      <div class="row">
+        <div class="col-7" appFloatingLabelContainer>
+          <label for="name" translate>Username</label>
+          <input type="text" formControlName="name" appAutofocus/>
+        </div>
+        <div class="col-5" appFloatingLabelContainer>
+          <label translate>Club</label>
+          <input type="text" formControlName="club">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-7" appFloatingLabelContainer>
+          <label translate>Email</label>
+          <input type="email" formControlName="email">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6" appFloatingLabelContainer>
+          <label translate>Password</label>
+          <input type="password" formControlName="password">
+        </div>
+        <div class="col-6" appFloatingLabelContainer>
+          <label translate>Repeat password</label>
+          <input type="password" formControlName="repeatPassword">
+        </div>
+      </div>
+    </fieldset>
+    <footer>
+      <button type="submit" title="Login" [disabled]="registerForm.invalid || registerForm.pristine"><app-fa name="sign-in" fw="true"></app-fa> <span translate>Register</span></button>
+      <a title="Login" [routerLink]="['../login']" class="btn">
+        <app-fa name="sign-in" fw="true"></app-fa> <span translate>Back to login</span></a>
+    </footer>
+  </section>
+</form>
+
+<app-dialog [isOpen]="error != null" [noButtons]="true" (onCancel)="error = null">{{ error }}</app-dialog>

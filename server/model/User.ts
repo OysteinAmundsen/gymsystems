@@ -27,4 +27,6 @@ export class User {
 
   @Column()
   role: Role;
+  @Column({nullable: true})
+  club: string;
 }
