@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTabl
 import { Tournament } from './Tournament';
 import { Discipline } from './Discipline';
 import { Division } from './Division';
+import { Club } from './Club';
 
 /**
  *
@@ -28,4 +29,7 @@ export class Team {
 
   @ManyToOne(type => Tournament, tournament => tournament.teams, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
   tournament: Tournament;
+
+  @ManyToOne(type => Club, club => club.teams, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
+  club: Club;
 }

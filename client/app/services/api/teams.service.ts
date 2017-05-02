@@ -22,6 +22,10 @@ export class TeamsService {
     return this.http.get(`${this.url}/tournament/${id}`).map((res: Response) => res.json()).share();
   }
 
+  getMyTeamsByTournament(id: number): Observable<ITeam[]> {
+    return this.http.get(`${this.url}/my/tournament/${id}`).map((res: Response) => res.json()).share();
+  }
+
   getById(id: number): Observable<ITeam> {
     return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share();
   }

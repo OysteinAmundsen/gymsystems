@@ -1,0 +1,9 @@
+<input type="search" (focus)="onEnter()" (blur)="onLeave()" (keyup)="onKeyUp($event)" [(value)]="value" required="{{required}}" autocomplete="off">
+<ng-content></ng-content>
+<div *ngIf="popupVisible" class="panel">
+  <ul>
+    <li *ngFor="let item of matches" (mousedown)="select(item)">
+      <p>{{item[itemText]}}</p>
+    </li>
+  </ul>
+</div>

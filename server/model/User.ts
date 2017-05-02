@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import { Club } from './Club';
 
 export enum Role {
   Admin = 99, Secretariat = 80, Club = 50, User = 10
@@ -27,6 +28,7 @@ export class User {
 
   @Column()
   role: Role;
-  @Column({nullable: true})
-  club: string;
+
+  @ManyToOne(type => Club, club => club.users, { nullable: true })
+  club: Club;
 }

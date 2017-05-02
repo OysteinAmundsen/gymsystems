@@ -1,0 +1,37 @@
+@import "~styles/panel";
+@import "~styles/variables";
+:host {
+  display: block;
+  position: relative;
+  outline: none;
+  user-select: none;
+  backface-visibility: hidden;
+
+  div {
+    @include panel();
+    position: absolute;
+    left: 0;
+    top: 33px;
+    z-index: 10;
+    width: 100%;
+    margin: 0;
+    padding: 8px 0;
+    max-height: 256px;
+    min-height: 48px;
+    overflow-y: auto;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      cursor: pointer;
+      color: black;
+      padding: 12px 8px;
+      &:hover {
+        background-color: rgba($primary, 0.3);
+      }
+    }
+  }
+}

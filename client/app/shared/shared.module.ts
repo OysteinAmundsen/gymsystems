@@ -18,6 +18,7 @@ import { IfAuthDirective } from './directives/auth/if-auth.directive';
 
 // Shared pipes
 import { ToUpperPipe } from './pipes/to-upper.pipe';
+import { TypeaheadComponent } from './components/typeahead/typeahead.component';
 
 @NgModule({
   imports: [
@@ -29,14 +30,17 @@ import { ToUpperPipe } from './pipes/to-upper.pipe';
   declarations: [
     DatepickerComponent,
     DialogComponent,
-    FloatingLabelContainerDirective,
     PanelComponent,
     FaComponent,
     FaStackComponent,
-    AutofocusDirective,
     SlideToggleComponent,
+    TypeaheadComponent,
+
+    FloatingLabelContainerDirective,
+    AutofocusDirective,
     IfAuthDirective,
-    ToUpperPipe
+
+    ToUpperPipe,
   ],
   exports: [
     // Export common modules
@@ -50,6 +54,7 @@ import { ToUpperPipe } from './pipes/to-upper.pipe';
     FaComponent,
     FaStackComponent,
     SlideToggleComponent,
+    TypeaheadComponent,
 
     FloatingLabelContainerDirective,
     AutofocusDirective,

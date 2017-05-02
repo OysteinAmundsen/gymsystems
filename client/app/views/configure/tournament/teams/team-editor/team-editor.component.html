@@ -1,9 +1,13 @@
 <form class="panel" [formGroup]="teamForm" (submit)="save()">
   <fieldset>
     <div class="row">
-      <div class="col-12" appFloatingLabelContainer>
+      <div [ngClass]="{'col-7': !currentUser.club, 'col-12': currentUser.club}" appFloatingLabelContainer>
         <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
+      </div>
+      <div class="col-5" appFloatingLabelContainer *ngIf="!currentUser.club">
+        <label translate>Club</label>
+        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
       </div>
     </div>
   </fieldset>

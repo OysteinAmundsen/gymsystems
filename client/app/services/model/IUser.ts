@@ -1,3 +1,5 @@
+import { IClub } from './IClub';
+
 export enum Role {
   Admin = 99, Secretariat = 80, Club = 50, User = 10
 }
@@ -15,5 +17,5 @@ export interface IUser {
   email: string;
   password: string;
   role?: Role;
-  club: string;
+  club: IClub;
 }

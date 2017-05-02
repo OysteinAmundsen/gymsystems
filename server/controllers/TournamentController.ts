@@ -48,7 +48,7 @@ export class TournamentController {
   @Get('/past')
   @EmptyResultCode(200)
   past(): Promise<Tournament[]> {
-    const date = moment().utc().startOf('week').toDate();
+    const date = moment().utc().startOf('day').toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .where('tournament.endDate < :date', { date: date })
@@ -75,7 +75,7 @@ export class TournamentController {
   @Get('/future')
   @EmptyResultCode(200)
   future(): Promise<Tournament[]> {
-    const date = moment().utc().endOf('week').toDate();
+    const date = moment().utc().endOf('day').toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .where('tournament.startDate > :date', { date: date })

@@ -15,11 +15,11 @@ export class LogoutComponent {
 
   constructor(private router: Router, userService: UserService, private errorHandler: ErrorHandlerService, private translate: TranslateService, private title: Title) {
     title.setTitle('Logout | GymSystems');
-    userService.logout().subscribe(() => this.reroute(), () => this.reroute());
+    userService.logout().subscribe(() => this.reroute(), (err) => this.reroute(err));
   }
 
-  reroute() {
-    this.errorHandler.error = this.translate.instant('Logged out');
+  reroute(err?: string) {
+    this.errorHandler.error = this.translate.instant(err ? err : 'Logged out');
     this.router.navigate(['/']);
   }
 }

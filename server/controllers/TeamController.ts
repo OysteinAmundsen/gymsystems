@@ -1,7 +1,7 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
+import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
 import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
-import { Service } from 'typedi';
+import { Container, Service } from 'typedi';
 
 import e = require('express');
 import Request = e.Request;
@@ -9,7 +9,11 @@ import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
 import { RequireRoleClub } from '../middlewares/RequireAuth';
+import { UserController } from './UserController';
+
 import { Team } from '../model/Team';
+import { User } from '../model/User';
+import { Club } from '../model/Club';
 
 /**
  *
@@ -37,6 +41,30 @@ export class TeamController {
       .where('team.tournament=:id', { id: id })
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('team.disciplines', 'discipline')
+      .leftJoinAndSelect('team.club', 'club')
+      .orderBy('division.sortOrder', 'ASC')
+      .addOrderBy('team.name', 'ASC')
+      .addOrderBy('discipline.name', 'ASC')
+      .getMany();
+  }
+
+  @Get('/my/tournament/:id')
+  @UseBefore(RequireRoleClub)
+  @EmptyResultCode(404)
+  async getByMyTournament( @Param('id') id: number, @Req() req: Request, @Res() res: Response): Promise<Team[]> {
+    const userRepository = Container.get(UserController);
+    const user: User = await userRepository.me(req);
+    const query = this.repository.createQueryBuilder('team')
+      .where('team.tournament=:id', { id: id });
+    if (user.club) {
+      // If users role is anything other than Club, user should not be a part of any clubs.
+      // In those cases, adding this where clause would cause the query to return null.
+      query.andWhere('team.club=:clubId', {clubId: user.club.id});
+    }
+    return query
+      .leftJoinAndSelect('team.divisions', 'division')
+      .leftJoinAndSelect('team.disciplines', 'discipline')
+      .leftJoinAndSelect('team.club', 'club')
       .orderBy('division.sortOrder', 'ASC')
       .addOrderBy('team.name', 'ASC')
       .addOrderBy('discipline.name', 'ASC')

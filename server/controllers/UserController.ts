@@ -61,9 +61,11 @@ export class UserController {
         if (err) { return reject({httpCode: 401, message: err}); }
         if (!user) { info.httpCode = 401; return reject(info); }
 
-        req.logIn(user, (err: any) => {
+        req.logIn(user, async (err: any) => {
           if (err) { return reject({httpCode: 401, message: err}); }
-          return resolve(user);
+          let returnedUser = await this.me(req);
+          if (!returnedUser) { returnedUser = user; }
+          return resolve(returnedUser);
         });
       })(req, res, req.next);
     });
@@ -84,9 +86,12 @@ export class UserController {
 
   @EmptyResultCode(204)
   @Get('/me')
-  me( @Req() req: Request): User {
+  me( @Req() req: Request): Promise<User> {
     if (req.session && req.session.passport && req.session.passport.user) {
-      return <User>req.session.passport.user;
+      return this.repository.createQueryBuilder('user')
+        .where('user.id=:id', {id: req.session.passport.user.id})
+        .leftJoinAndSelect('user.club', 'club')
+        .getOne();
     }
     return null;
   }

@@ -1,20 +1,36 @@
 @import "variables";
 
 @mixin panel {
-  padding: ($padding / 2) 0 $padding 0;
-  border: 1px solid rgba(0,0,0,0.3);
+  display: table;
+  // padding: ($padding / 2) 0 $padding 0;
+  border-color: $primaryBorderColor;
+  border-width: 0; //1px;
+  border-style: solid;
+  // box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .16), 0 0 2px 0 rgba(0, 0, 0, .12);
   box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
   transition: box-shadow .28s cubic-bezier(.4,0,.2,1);
   will-change: box-shadow;
   border-radius: $rounded;
   position: relative;
-  //overflow: hidden;
-  background: white;
+  overflow: hidden;
+  background: rgba(white, 0.9);
   width: 100%;
+  > header {
+    color: $primaryDark;
+    font-size: 1.2em;
+    font-weight: bold;
+    // border-bottom: 1px solid transparent;
+    border-top-right-radius: $rounded;
+    border-top-left-radius: $rounded;
+    >.head {
+      padding: 10px $padding;
+      // font-size: 110%;
+    }
+  }
   > footer {
     clear: both;
-    padding: $margin;
-    margin: $padding 0 $negPad 0;
+    // padding: $margin;
+    // margin: $padding 0 $padding 0;
     @media (max-width: $stop1) {
       padding-top: 2px;
     }

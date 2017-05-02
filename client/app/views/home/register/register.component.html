@@ -13,7 +13,8 @@
         </div>
         <div class="col-5" appFloatingLabelContainer>
           <label translate>Club</label>
-          <input type="text" formControlName="club">
+          <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
+          <!--<input type="text" formControlName="club">-->
         </div>
       </div>
       <div class="row">

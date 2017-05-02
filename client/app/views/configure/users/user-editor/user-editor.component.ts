@@ -6,6 +6,7 @@ import { Title } from '@angular/platform-browser';
 import { UserService } from 'app/services/api';
 import { IUser, RoleNames, Role } from 'app/services/model/IUser';
 import { ValidationService } from 'app/services/validation/validation.service';
+import { IClub } from 'app/services/model/IClub';
 
 @Component({
   selector: 'app-user-editor',
@@ -46,7 +47,7 @@ export class UserEditorComponent implements OnInit {
           this.title.setTitle(`Configure user: ${this.user.name} | GymSystems`);
           this.user['repeatPassword'] = this.user.password;
           this.user.email = this.user.email || '';
-          this.user.club = this.user.club || '';
+          this.user.club = this.user.club || <IClub>{};
           this.userForm.setValue(this.user);
         });
       } else {

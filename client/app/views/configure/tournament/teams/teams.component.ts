@@ -1,16 +1,20 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { TournamentService, TeamsService } from 'app/services/api';
+import { TournamentService, TeamsService, UserService } from 'app/services/api';
 import { DivisionType } from 'app/services/model/DivisionType';
 import { ITeam } from 'app/services/model/ITeam';
+import { IUser } from 'app/services/model/IUser';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-teams',
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.scss']
 })
-export class TeamsComponent implements OnInit {
+export class TeamsComponent implements OnInit, OnDestroy {
+  currentUser: IUser;
+  userSubscription: Subscription;
   teamList: ITeam[] = [];
 
   _selected: ITeam;
@@ -22,16 +26,22 @@ export class TeamsComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private userService: UserService,
     private tournamentService: TournamentService,
     private teamService: TeamsService) {
   }
 
   ngOnInit() {
+    this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
     this.loadTeams();
   }
 
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
+  }
+
   loadTeams() {
-    this.teamService.getByTournament(this.tournamentService.selectedId).subscribe(teams => this.teamList = teams);
+    this.teamService.getMyTeamsByTournament(this.tournamentService.selectedId).subscribe(teams => this.teamList = teams);
   }
 
   divisions(team: ITeam) { return this.teamService.division(team); }
@@ -45,7 +55,12 @@ export class TeamsComponent implements OnInit {
 
   addTeam() {
     const team = <ITeam>{
-      id: null, name: null, divisions: [], disciplines: [], tournament: this.tournamentService.selected
+      id          : null,
+      name        : null,
+      divisions   : [],
+      disciplines : [],
+      club        : this.currentUser.club,
+      tournament  : this.tournamentService.selected
     };
     this.teamList.push(team);
     this.selected = team;
@@ -69,5 +84,4 @@ export class TeamsComponent implements OnInit {
       this.addTeam();
     }
   }
-
 }

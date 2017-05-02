@@ -10,3 +10,4 @@ export * from './user.service';
 export * from './configuration.service';
 export * from './schedule.service';
 export * from './event.service';
+export * from './club.service';

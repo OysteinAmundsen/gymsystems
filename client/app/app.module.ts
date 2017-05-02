@@ -22,7 +22,8 @@ import {
   ConfigurationService,
   ScheduleService,
   EventService,
-  DisplayService
+  DisplayService,
+  ClubService
 } from './services/api';
 // import { RoleService } from './api';
 
@@ -72,6 +73,7 @@ export function HttpLoaderFactory(http: Http) {
     ConfigurationService,
     ScheduleService,
     DisplayService,
+    ClubService,
 
     // SSE Provider
     EventService,

@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { UserService } from 'app/services/api';
+import { UserService, ClubService } from 'app/services/api';
 import { ValidationService } from 'app/services/validation/validation.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 import { IUser } from 'app/services/model/IUser';
+import { IClub } from "app/services/model/IClub";
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,8 @@ import { IUser } from 'app/services/model/IUser';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   user: IUser = <IUser>{};
+  clubs = [];
+  selectedClub: IClub;
   _errorTimeout;
   _error: string;
   get error() { return this._error; }
@@ -30,7 +33,13 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private errorHandler: ErrorHandlerService, private translate: TranslateService) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService,
+    private clubService: ClubService,
+    private errorHandler: ErrorHandlerService,
+    private translate: TranslateService) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -53,7 +62,25 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  register() {
+  getClubMatchesFn() {
+    let me = this;
+    return function (items, currentValue: string, matchText: string) {
+      if (!currentValue) { return items; }
+      return me.clubService.findByName(currentValue);
+    }
+  }
+
+  async register() {
+    const user = this.registerForm.value;
+    if (!this.selectedClub && user.club) {
+      const club = await this.clubService.saveClub(user.club).toPromise();
+      user.club = club;
+    }
+    else if (this.selectedClub && user.club === this.selectedClub.name) {
+      delete this.selectedClub.teams;
+      user.club = this.selectedClub;
+    }
+
     this.userService.register(this.registerForm.value).subscribe(
       res => this.registrationComplete(res),
       err => this.registrationComplete(err)
