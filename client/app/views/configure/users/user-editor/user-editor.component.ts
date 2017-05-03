@@ -73,7 +73,9 @@ export class UserEditorComponent implements OnInit {
       .valueChanges
       .distinctUntilChanged()
       .subscribe((t: string) => {
-        this.userForm.controls['club'].setValue(t.toUpperCase());
+        if (typeof t === 'string') {
+          this.userForm.controls['club'].setValue(t.toUpperCase());
+        }
       });
   }
 
