@@ -88,10 +88,7 @@ export class UserController {
   @Get('/me')
   me( @Req() req: Request): Promise<User> {
     if (req.session && req.session.passport && req.session.passport.user) {
-      return this.repository.createQueryBuilder('user')
-        .where('user.id=:id', {id: req.session.passport.user.id})
-        .leftJoinAndSelect('user.club', 'club')
-        .getOne();
+      return this.get(req.session.passport.user.id, req);
     }
     return null;
   }
@@ -99,8 +96,11 @@ export class UserController {
   @UseBefore(RequireAuth)
   @EmptyResultCode(404)
   @Get('/get/:id')
-  get( @EntityFromParam('id') user: User, @Req() req: Request): User {
-    return user;
+  get( @Param('id') userId: number, @Req() req: Request): Promise<User> {
+      return this.repository.createQueryBuilder('user')
+        .where('user.id=:id', {id: userId})
+        .leftJoinAndSelect('user.club', 'club')
+        .getOne();
   }
 
   @Put('/:id')

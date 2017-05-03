@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 
-import { UserService } from 'app/services/api';
+import { UserService, ClubService } from 'app/services/api';
 import { IUser, RoleNames, Role } from 'app/services/model/IUser';
 import { ValidationService } from 'app/services/validation/validation.service';
 import { IClub } from 'app/services/model/IClub';
@@ -17,6 +17,7 @@ export class UserEditorComponent implements OnInit {
 
   currentUser: IUser;
   userForm: FormGroup;
+  clubs = [];
   selectedUserId: number;
   user: IUser = <IUser>{};
   roleNames = RoleNames;
@@ -33,7 +34,7 @@ export class UserEditorComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userService: UserService, private title: Title) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userService: UserService, private clubService: ClubService, private title: Title) {
   }
 
   ngOnInit() {
@@ -76,8 +77,20 @@ export class UserEditorComponent implements OnInit {
         if (typeof t === 'string') {
           this.userForm.controls['club'].setValue(t.toUpperCase());
         }
+        if (typeof t === 'object') {
+          this.userForm.controls['club'].setValue((<IUser>t).name);
+        }
       });
   }
+
+  getClubMatchesFn() {
+    let me = this;
+    return function (items, currentValue: string, matchText: string) {
+      if (!currentValue) { return items; }
+      return me.clubService.findByName(currentValue);
+    }
+  }
+
 
   save() {
     this.error = '';
