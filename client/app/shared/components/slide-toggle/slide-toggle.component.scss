@@ -1,5 +1,8 @@
 @import "~styles/variables";
 
+:host {
+  display: inline-block;
+}
 .label {
     cursor: pointer;
     @supports (display: flex) {

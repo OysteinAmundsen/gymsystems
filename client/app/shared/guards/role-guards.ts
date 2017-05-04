@@ -10,6 +10,11 @@ export class RoleAdminGuard extends AuthenticatedGuard implements CanActivate {
 }
 
 @Injectable()
+export class RoleOrganizerGuard extends AuthenticatedGuard implements CanActivate {
+  canActivate() { return super.hasRole(Role.Organizer); }
+}
+
+@Injectable()
 export class RoleSecretariatGuard extends AuthenticatedGuard implements CanActivate {
   canActivate() { return super.hasRole(Role.Secretariat); }
 }

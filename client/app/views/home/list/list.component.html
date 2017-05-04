@@ -9,7 +9,7 @@
     <app-fa name="tv" fw="true"></app-fa>
     <span translate>Display </span>
   </button>
-  <button type="button" class="pull-right" *appIfAuth="'Admin'" [routerLink]="['/configure/tournament', tournament.id]">
+  <button type="button" class="pull-right" *appIfAuth="'Organizer'" [routerLink]="['/configure/tournament', tournament.id]">
     <app-fa name="cog" fw="true"></app-fa>
     <span translate>Settings </span>
   </button>

@@ -49,6 +49,13 @@ export class RequireRoleAdmin extends AuthMiddlewareBase {
 }
 
 @Middleware()
+export class RequireRoleOrganizer extends AuthMiddlewareBase {
+  public use(req: any, res: any, next?: (err?: any) => any): any {
+    if (this.hasRole(req, res, Role.Organizer, next) && next) { next(); }
+  }
+}
+
+@Middleware()
 export class RequireRoleSecretariat extends AuthMiddlewareBase {
   public use(req: any, res: any, next?: (err?: any) => any): any {
     if (this.hasRole(req, res, Role.Secretariat, next) && next) { next(); }

@@ -20,8 +20,8 @@ export class ScoreGroupEditorComponent implements OnInit {
   scoreForm: FormGroup;
   operations = Operation;
 
-  Adds: string;
-  Subtracts: string;
+  get Adds(): string { return this.translate.instant('Adds'); }
+  get Subtracts(): string { return this.translate.instant('Subtracts'); }
 
   constructor(private fb: FormBuilder, private scoreService: ScoreGroupService, private translate: TranslateService) { }
 
@@ -37,11 +37,8 @@ export class ScoreGroupEditorComponent implements OnInit {
       operation: [this.scoreGroup.operation],
       discipline: [this.discipline]
     });
-
-    this.translate.get(['Adds', 'Subtracts']).subscribe(texts => {
-      this.Adds = texts.Adds; this.Subtracts = texts.Subtracts;
-    });
   }
+
 
   save() {
     if (this.discipline) {

@@ -25,6 +25,8 @@
 	"Cannot stop. This participant hasn't started yet.": "",
 	"This participant's score is allready published.": "",
 	"Logged out": "",
+	"Organizer": "",
+	"Club": "",
 	"You are registerred! We've sent you an email with your credentials.": "",
 	"Home": "",
 	"Login": "",
@@ -78,7 +80,6 @@
 	"Add Tournament": "",
 	"Role": "",
 	"Email": "",
-	"Club": "",
 	"Password": "",
 	"Repeat password": "",
 	"Add User": "",
@@ -106,5 +107,10 @@
 	"Register": "",
 	"If you are a club representative, you can register to login to our system in order to add teams from your club to any tournaments.": "",
 	"...Logging out...": "",
+	"Register as": "",
+	"As a": "",
+	"representative, you can enter teams to participate in the tournament.": "",
+	"As an": "",
+	", you can create tournaments.": "",
 	"Back to login": ""
 }

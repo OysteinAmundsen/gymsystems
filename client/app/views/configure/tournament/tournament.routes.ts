@@ -7,21 +7,21 @@ import { DivisionsComponent } from './divisions/divisions.component';
 import { TeamsComponent } from './teams/teams.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { InfoComponent } from './info/info.component';
-import { RoleClubGuard, RoleAdminGuard } from 'app/shared/guards/role-guards';
+import { RoleClubGuard, RoleOrganizerGuard } from 'app/shared/guards/role-guards';
 
 export const TournamentRoutes: Routes = [
   {
     path: 'tournament', children: [
       { path: '', component: TournamentComponent, pathMatch: 'full', canActivate: [RoleClubGuard] },
-      { path: 'add', component: TournamentEditorComponent, canActivate: [RoleAdminGuard]  },
+      { path: 'add', component: TournamentEditorComponent, canActivate: [RoleOrganizerGuard]  },
       {
         path: ':id', component: TournamentEditorComponent, children: [
           { path: '', redirectTo: 'teams', pathMatch: 'full', canActivate: [RoleClubGuard] },
-          { path: 'divisions', component: DivisionsComponent, canActivate: [RoleAdminGuard]  },
+          { path: 'divisions', component: DivisionsComponent, canActivate: [RoleOrganizerGuard]  },
           ...DisciplineRoutes,
           { path: 'teams', component: TeamsComponent, canActivate: [RoleClubGuard]  },
-          { path: 'schedule', component: ScheduleComponent, canActivate: [RoleAdminGuard]  },
-          { path: 'info', component: InfoComponent, canActivate: [RoleAdminGuard]  },
+          { path: 'schedule', component: ScheduleComponent, canActivate: [RoleOrganizerGuard]  },
+          { path: 'info', component: InfoComponent, canActivate: [RoleOrganizerGuard]  },
         ]
       },
     ]

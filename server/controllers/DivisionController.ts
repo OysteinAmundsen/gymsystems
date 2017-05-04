@@ -7,7 +7,7 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
-import { RequireRoleAdmin } from '../middlewares/RequireAuth';
+import { RequireRoleOrganizer } from '../middlewares/RequireAuth';
 
 import { Tournament } from '../model/Tournament';
 import { ConfigurationController } from './ConfigurationController';
@@ -49,7 +49,7 @@ export class DivisionController {
   }
 
   @Post()
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   create( @Body() division: Division | Division[], @Res() res: Response): Promise<Division[]> {
     const divisions = Array.isArray(division) ? division : [division];
     return this.repository.persist(divisions)
@@ -60,7 +60,7 @@ export class DivisionController {
   }
 
   @Put('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   update( @Param('id') id: number, @Body() division: Division, @Res() res: Response) {
     return this.repository.persist(division)
       .catch(err => {
@@ -70,7 +70,7 @@ export class DivisionController {
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   async remove( @Param('id') divisionId: number) {
     const division = await this.repository.findOneById(divisionId);
     return this.removeMany([division])

@@ -11,16 +11,28 @@
           <label for="name" translate>Username</label>
           <input type="text" formControlName="name" appAutofocus/>
         </div>
-        <div class="col-5" appFloatingLabelContainer>
-          <label translate>Club</label>
-          <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
-          <!--<input type="text" formControlName="club">-->
+        <div class="col-5 lowered">
+          <label translate>Register as</label>
+          <div class="control">
+            <app-slide-toggle [onLabel]="Organizer" [offLabel]="Club" [onState]="type.Organizer" [offState]="type.Club" [initState]="type.Club" formControlName="role"></app-slide-toggle>
+            <div class="help-block">
+              <app-fa name="question-circle" fw="true"></app-fa>
+              <div class="help">
+                <p translate>As a <b translate>Club</b> representative, you can enter teams to participate in the tournament.</p>
+                <p translate>As an <b translate>Organizer</b>, you can create tournaments.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-7" appFloatingLabelContainer>
           <label translate>Email</label>
           <input type="email" formControlName="email">
+        </div>
+        <div class="col-5" appFloatingLabelContainer>
+          <label translate>Club</label>
+          <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
         </div>
       </div>
       <div class="row">

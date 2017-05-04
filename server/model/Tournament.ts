@@ -1,14 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
 
 import { Discipline } from './Discipline';
 import { Division } from './Division';
 import { Team } from './Team';
 import { TournamentParticipant } from './TournamentParticipant';
+import { User } from "./User";
 
 @Entity()
 export class Tournament {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @ManyToOne(type => User, user => user.tournaments, {nullable: false})
+  createdBy: User;
 
   @Column({ unique: true, length: 200 })
   name: string;

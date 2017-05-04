@@ -11,8 +11,65 @@ form {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  overflow: hidden;
   footer {
     padding: 4px;
+  }
+}
+.lowered {
+  &:hover .help-block {
+    display: inline-block;
+  }
+  .control {
+    padding-top: 1rem;
+    display: block;
+  }
+}
+
+.help-block {
+  $helpColor: $primary;
+  $helpBorder: darken($helpColor, 10%);
+
+  display: none;
+  vertical-align: top;
+  position: relative;
+  app-fa {
+    color: darken($helpColor, 50%);
+    font-size: 1.2rem;
+    &:hover +.help {
+      display: block;
+    }
+  }
+  .help {
+    position: absolute;
+    left: -25%;
+    display: none;
+    background: $helpColor;
+    border-radius: $rounded;
+    border: 1px solid $helpBorder;
+    padding: 0 $padding;
+    margin: 0 10px;
+    z-index: 5;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.4);
+    margin-left: -38px;
+    min-width: 200px;
+    top: 1.5rem;
+    color: white;
+    p {
+      padding: $padding 0;
+    }
+    &:before {
+      content: '';
+      display: block;
+      width: 10px;
+      height: 10px;
+      background: $helpColor;
+      border-style: solid;
+      border-color: $helpBorder;
+      border-width: 1px 0 0 1px;
+      transform: rotate(45deg);
+      position: absolute;
+      top: -5px;
+      left: 50px;
+    }
   }
 }

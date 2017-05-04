@@ -25,6 +25,8 @@
   "Cannot stop. This participant hasn't started yet.": "Kan ikke stoppe. denne deltaker har ikke startet enda.",
   "This participant's score is allready published.": "Denne deltakers poeng er allerede publisert.",
   "Logged out": "Logget ut",
+	"Organizer": "Organisator",
+  "Club": "Klubb",
   "You are registerred! We've sent you an email with your credentials.": "Du er registrert! Vi har sendt deg en e-post med påloggings informasjon.",
   "Home": "Hjem",
   "Login": "Logg inn",
@@ -103,6 +105,10 @@
   "Register": "Registrer",
   "If you are a club representative, you can register to login to our system in order to add teams from your club to any tournaments.": "Hvis du representerer en klubb, kan du registrere deg i vårt system for å legge til lag i turneringer.",
   "...Logging out...": "...Logger ut...",
-  "Club": "Klubb",
+	"Register as": "Registrer som",
+  "As a": "Som en",
+  "representative, you can enter teams to participate in the tournament.": "representant kan du melde lag på i konkurranser",
+  "As an": "Som en",
+  ", you can create tournaments.": " kan du opprette konkurranser.",
   "Back to login": "Tilbake til innlogging"
 }

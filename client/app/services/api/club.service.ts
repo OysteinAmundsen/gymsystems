@@ -12,7 +12,7 @@ export class ClubService {
   constructor(private http: Http) { }
 
   findByName(name: string): Observable<IClub[]> {
-    return this.http.get(`/api/clubs/?name=${name}`).map((res: Response) => res.json()).share();
+    return this.http.get(`/api/clubs?name=${name}`).map((res: Response) => res.json()).share();
   }
 
   saveClub(name: string) {

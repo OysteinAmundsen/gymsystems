@@ -7,7 +7,7 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
-import { RequireRoleAdmin } from '../middlewares/RequireAuth';
+import { RequireRoleOrganizer } from '../middlewares/RequireAuth';
 
 import { ConfigurationController } from './ConfigurationController';
 import { TeamController } from './TeamController';
@@ -54,7 +54,7 @@ export class DisciplineController {
   }
 
   @Post()
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   create( @Body() discipline: Discipline | Discipline[], @Res() res: Response): Promise<Discipline[]> {
     const disciplines = Array.isArray(discipline) ? discipline : [discipline];
     return this.repository.persist(disciplines)
@@ -65,7 +65,7 @@ export class DisciplineController {
   }
 
   @Put('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   update( @Param('id') id: number, @Body() discipline: Discipline): Promise<Discipline> {
     return this.repository.persist(discipline)
       .catch(err => {
@@ -75,7 +75,7 @@ export class DisciplineController {
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   async remove( @Param('id') disciplineId: number) {
     const discipline = await this.repository.findOneById(disciplineId);
     return this.removeMany([discipline])

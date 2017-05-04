@@ -7,7 +7,7 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
-import { RequireRoleAdmin } from '../middlewares/RequireAuth';
+import { RequireRoleOrganizer } from '../middlewares/RequireAuth';
 import { ScoreGroup } from '../model/ScoreGroup';
 
 /**
@@ -40,7 +40,7 @@ export class ScoreGroupController {
   }
 
   @Post()
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   create( @Body() scoreGroup: ScoreGroup | ScoreGroup[], @Res() res: Response): Promise<ScoreGroup[]> {
     const scoreGroups = Array.isArray(scoreGroup) ? scoreGroup : [scoreGroup];
     return this.repository.persist(scoreGroups)
@@ -51,13 +51,13 @@ export class ScoreGroupController {
   }
 
   @Put('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   update( @Param('id') id: number, @Body() scoreGroup: ScoreGroup) {
     return this.repository.persist(scoreGroup).catch(err => Logger.log.error(err));
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   async remove( @Param('id') scoreGroupId: number) {
     const scoreGroup = await this.repository.findOneById(scoreGroupId);
     return this.removeMany([scoreGroup]).catch(err => Logger.log.error(err));

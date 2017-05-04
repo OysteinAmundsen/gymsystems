@@ -25,6 +25,8 @@
   "Cannot stop. This participant hasn't started yet.": "Cannot stop. This participant hasn't started yet.",
   "This participant's score is allready published.": "This participant's score is allready published.",
   "Logged out": "Logged out",
+	"Organizer": "Organizer",
+  "Club": "Club",
   "You are registerred! We've sent you an email with your credentials.": "You are registerred! We've sent you an email with your credentials.",
   "Home": "Home",
   "Login": "Login",
@@ -103,6 +105,10 @@
   "Register": "Register",
   "If you are a club representative, you can register to login to our system in order to add teams from your club to any tournaments.": "If you are a club representative, you can register to login to our system in order to add teams from your club to any tournaments.",
   "...Logging out...": "...Logging out...",
-  "Club": "Club",
+	"Register as": "Register as",
+  "As a": "As a",
+  "representative, you can enter teams to participate in the tournament.": "representative, you can enter teams to participate in the tournament.",
+  "As an": "As an",
+  ", you can create tournaments.": ", you can create tournaments.",
   "Back to login": "Back to login"
 }

@@ -9,8 +9,12 @@ import { UserService, ClubService } from 'app/services/api';
 import { ValidationService } from 'app/services/validation/validation.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
-import { IUser } from 'app/services/model/IUser';
+import { IUser, Role } from 'app/services/model/IUser';
 import { IClub } from "app/services/model/IClub";
+
+enum Type {
+  Organizer = 0 + Role.Organizer, Club = 0 + Role.Club
+}
 
 @Component({
   selector: 'app-register',
@@ -33,6 +37,11 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  get Organizer(): string { return this.translate.instant('Organizer'); }
+  get Club(): string { return this.translate.instant('Club'); }
+
+  type = Type;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -46,6 +55,7 @@ export class RegisterComponent implements OnInit {
       id: [this.user.id],
       name: [this.user.name, [Validators.required]],
       email: [this.user.email, [Validators.required, ValidationService.emailValidator]],
+      role: [this.user.role, [Validators.required]],
       club: [this.user.club, [Validators.required]],
       password: [this.user.password, [Validators.required]],
       repeatPassword: [this.user.password, [Validators.required]]

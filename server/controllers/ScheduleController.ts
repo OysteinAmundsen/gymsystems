@@ -7,7 +7,7 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
-import { RequireRoleAdmin } from '../middlewares/RequireAuth';
+import { RequireRoleOrganizer } from '../middlewares/RequireAuth';
 import { TournamentParticipant } from '../model/TournamentParticipant';
 import { SSEService } from "../services/SSEService";
 
@@ -67,7 +67,7 @@ export class ScheduleController {
   }
 
   @Post()
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   create( @Body() participant: TournamentParticipant | TournamentParticipant[], @Res() res: Response): Promise<TournamentParticipant[]> {
     const participants = Array.isArray(participant) ? participant : [participant];
     return this.repository.persist(participants)
@@ -78,7 +78,7 @@ export class ScheduleController {
   }
 
   @Put('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   update( @Param('id') id: number, @Body() participant: TournamentParticipant, @Res() res: Response) {
     const sseService = Container.get(SSEService);
     return this.repository.persist(participant)
@@ -93,7 +93,7 @@ export class ScheduleController {
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   async remove( @Param('id') participantId: number, @Res() res: Response) {
     const participant = await this.repository.findOneById(participantId);
     return this.removeMany([participant], res);
@@ -101,7 +101,7 @@ export class ScheduleController {
 
   @Delete('/many')
   @EmptyResultCode(200)
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   removeMany( @Body() participant: TournamentParticipant[], @Res() res: Response) {
     return this.repository.remove(participant)
       .catch(err => {

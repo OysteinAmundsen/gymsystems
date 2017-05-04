@@ -7,11 +7,13 @@ import Request = e.Request;
 import Response = e.Response;
 import * as auth from 'passport';
 
-import { RequireAuth, RequireRoleAdmin } from '../middlewares/RequireAuth';
+import { RequireAuth, RequireRoleAdmin, RequireRoleOrganizer } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';
 import { User, Role, RoleNames } from '../model/User';
 import * as bcrypt from 'bcrypt';
 import * as _ from 'lodash';
+import { ClubController } from "./ClubController";
+import { Club } from "../model/Club";
 
 const messages = {
   created: `
@@ -78,9 +80,16 @@ export class UserController {
   }
 
   @Get()
-  @UseBefore(RequireRoleAdmin)
-  all() {
-    return this.repository.find();
+  @UseBefore(RequireRoleOrganizer)
+  async all(@Req() req: Request): Promise<User[]> {
+    const me = await this.me(req);
+
+    const query = this.repository.createQueryBuilder('user');
+    if (me.role < Role.Admin) {
+      // Limit to show users in my own club only
+      query.where('user.club=:clubId', {clubId: me.club.id});
+    }
+    return query.getMany();
   }
 
   @EmptyResultCode(204)
@@ -102,9 +111,27 @@ export class UserController {
         .getOne();
   }
 
+  async checkClub(user: User, res: Response) {
+    const clubRepository = Container.get(ClubController);
+    if (typeof user.club === 'string') {
+      const club: Club[] = await clubRepository.all(null, user.club);
+      if (club.length === 1) {
+        user.club = club[0];
+      } else {
+        return false;
+      }
+    }
+    return user;
+  }
+
   @Put('/:id')
   @UseBefore(RequireAuth)
   update( @Param('id') id: number, @Body() user: any, @Res() res: Response) {
+    // Make sure club is an object
+    if (!this.checkClub(user, res)) {
+      res.status(400);
+      return {code: 400, message: 'Club name given has no unique match'};
+    }
     if (user.password) {
       // Password is updated. Encrypt and store entire user object
       const setPassword = user.password;
@@ -134,11 +161,35 @@ export class UserController {
   }
 
   @Post()
-  @UseBefore(RequireRoleAdmin)
-  create( @Body() user: User, @Res() res: Response): Promise<User[]> {
+  @UseBefore(RequireRoleOrganizer)
+  async create( @Body() user: User, @Req() req: Request, @Res() res: Response): Promise<User[] | any> {
     const users = Array.isArray(user) ? user : [user];
+
+    // Make sure club is an object
+    for (let j = 0; j < users.length; j++) {
+      if (!this.checkClub(users[j], res)) {
+        res.status(400);
+        return {code: 400, message: 'Club name given has no unique match'};
+      }
+    }
+
+    const me = await this.me(req);
+    if (me.role < Role.Admin) {
+      if (users.some(u => u.club.id !== me.club.id)) {
+        res.status(403);
+        return { code: 403, message: 'You are not authorized to create users in other clubs than your own.' };
+      }
+      if (users.some(u => u.role > me.role)) {
+        res.status(403);
+        return { code: 403, message: 'Your are not authorized to create users with higher privileges than your own.'}
+      }
+    }
+
+    // Hash up passwords
     users.forEach((u: any) => u['origPass'] = u.password);
     users.forEach((u: any) => u.password = bcrypt.hashSync(u.password, bcrypt.genSaltSync(8)));
+
+    // Create users
     return this.repository.persist(users)
       .then(persisted => {
         persisted.forEach(user => {
@@ -162,7 +213,10 @@ export class UserController {
 
   @Post('/register')
   selfService(@Body() user: User, @Res() res: Response) {
-    user.role = Role.Club; // Only clubs are allowed to use this
+    // Only clubs and Organizers are allowed to use this
+    if (user.role !== Role.Organizer && user.role !== Role.Club) {
+      user.role = Role.Club;
+    }
     const origPass = user.password;
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8));
     return this.repository.persist(user)
@@ -184,9 +238,16 @@ export class UserController {
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleAdmin)
-  async remove( @Param('id') userId: number, @Res() res: Response) {
+  @UseBefore(RequireRoleOrganizer)
+  async remove( @Param('id') userId: number, @Req() req: Request, @Res() res: Response) {
+    const me = await this.me(req);
     const user = await this.repository.findOneById(userId);
+    if (me.role < Role.Admin) {
+      if (me.club.id !== user.club.id) {
+        res.status(403);
+        return { code: 403, message: 'You are not authorized to remove users from other clubs than your own.'};
+      }
+    }
     return this.repository.remove(user)
       .catch(err => Logger.log.error(err));
   }

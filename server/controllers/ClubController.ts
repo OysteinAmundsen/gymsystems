@@ -26,8 +26,13 @@ export class ClubController {
   }
 
   @Get()
-  all(@QueryParam('name') name?: number) {
-    return this.repository.find();
+  all(@Req() req: Request, name?: string) {
+    const n = name || req.query['name'];
+    const query = this.repository.createQueryBuilder('club');
+    if (n) {
+      query.where('club.name like :name', {name: `%${n}%`});
+    }
+    return query.getMany();
   }
 
   @Get('/:id')

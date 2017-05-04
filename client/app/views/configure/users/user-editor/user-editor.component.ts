@@ -92,7 +92,7 @@ export class UserEditorComponent implements OnInit {
   }
 
 
-  save() {
+  async save() {
     this.error = '';
     const formVal = this.userForm.value;
 
@@ -101,6 +101,9 @@ export class UserEditorComponent implements OnInit {
       delete formVal.password;
     }
     delete formVal.repeatPassword;
+
+    // If no club, just copy our own
+    formVal.club = formVal.club || this.currentUser.club;
 
     // Make sure you don't degrade yourself
     if (this.currentUser.id === formVal.id && this.currentUser.role !== formVal.role) {

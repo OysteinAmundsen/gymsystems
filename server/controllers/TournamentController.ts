@@ -1,5 +1,5 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { Delete, EmptyResultCode, Get, JsonController, Body, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
+import { Delete, EmptyResultCode, Get, JsonController, Body, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
 import { Service, Container } from 'typedi';
 
 import e = require('express');
@@ -9,7 +9,7 @@ import Response = e.Response;
 import { Logger } from '../utils/Logger';
 import moment = require('moment');
 
-import { RequireRoleAdmin } from '../middlewares/RequireAuth';
+import { RequireRoleOrganizer } from '../middlewares/RequireAuth';
 
 import { ScoreGroupController } from './ScoreGroupController';
 import { DisciplineController } from './DisciplineController';
@@ -21,6 +21,7 @@ import { Division } from '../model/Division';
 import { Discipline } from '../model/Discipline';
 import { ScoreGroup } from '../model/ScoreGroup';
 import { TournamentParticipant } from '../model/TournamentParticipant';
+import { UserController } from "./UserController";
 
 /**
  *
@@ -93,8 +94,11 @@ export class TournamentController {
   }
 
   @Post()
-  @UseBefore(RequireRoleAdmin)
-  create( @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
+  @UseBefore(RequireRoleOrganizer)
+  async create( @Body() tournament: Tournament, @Req() req: Request, @Res() res: Response) {
+    const userRepository = Container.get(UserController);
+    const me = await userRepository.me(req);
+    tournament.createdBy = me;
     return this.repository.persist(tournament)
       .then(persisted => {
         this.createDefaults(persisted, res);
@@ -107,14 +111,14 @@ export class TournamentController {
   }
 
   @Put('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
       .catch(err => Logger.log.error(err));
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRoleOrganizer)
   async remove( @Param('id') tournamentId: number, @Res() res: Response) {
     const tournament = await this.repository.findOneById(tournamentId);
     // This should cascade, but it wont. :-(

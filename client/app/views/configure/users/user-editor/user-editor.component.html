@@ -23,7 +23,7 @@
         <label translate>Email</label>
         <input type="email" formControlName="email">
       </div>
-      <div class="col-5" appFloatingLabelContainer *ngIf="userForm.value.role === roles.Club">
+      <div class="col-5" appFloatingLabelContainer *ngIf="userForm.value.role < roles.Admin">
         <label translate>Club</label>
         <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
         <!--<input type="text" formControlName="club">-->
