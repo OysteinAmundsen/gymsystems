@@ -1,6 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
 import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
-import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service, Container } from 'typedi';
 
 import e = require('express');
@@ -80,7 +79,7 @@ export class ScheduleController {
 
   @Put('/:id')
   @UseBefore(RequireRoleAdmin)
-  update( @Param('id') id: number, @EntityFromBody() participant: TournamentParticipant, @Res() res: Response) {
+  update( @Param('id') id: number, @Body() participant: TournamentParticipant, @Res() res: Response) {
     const sseService = Container.get(SSEService);
     return this.repository.persist(participant)
       .then(() => {
@@ -95,7 +94,8 @@ export class ScheduleController {
 
   @Delete('/:id')
   @UseBefore(RequireRoleAdmin)
-  remove( @EntityFromParam('id') participant: TournamentParticipant, @Res() res: Response) {
+  async remove( @Param('id') participantId: number, @Res() res: Response) {
+    const participant = await this.repository.findOneById(participantId);
     return this.removeMany([participant], res);
   }
 

@@ -1,6 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
 import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
-import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service } from 'typedi';
 
 import e = require('express');
@@ -36,8 +35,8 @@ export class ScoreGroupController {
 
   @Get('/:id')
   @EmptyResultCode(404)
-  get( @EntityFromParam('id') scoreGroup: ScoreGroup): ScoreGroup {
-    return scoreGroup;
+  get( @Param('id') scoreGroupId: number): Promise<ScoreGroup> {
+    return this.repository.findOneById(scoreGroupId);
   }
 
   @Post()
@@ -59,7 +58,8 @@ export class ScoreGroupController {
 
   @Delete('/:id')
   @UseBefore(RequireRoleAdmin)
-  remove( @EntityFromParam('id') scoreGroup: ScoreGroup) {
+  async remove( @Param('id') scoreGroupId: number) {
+    const scoreGroup = await this.repository.findOneById(scoreGroupId);
     return this.removeMany([scoreGroup]).catch(err => Logger.log.error(err));
   }
 

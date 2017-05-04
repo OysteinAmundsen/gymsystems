@@ -1,6 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
 import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
-import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Service, Container } from 'typedi';
 
 import e = require('express');
@@ -67,7 +66,7 @@ export class DisciplineController {
 
   @Put('/:id')
   @UseBefore(RequireRoleAdmin)
-  update( @Param('id') id: number, @EntityFromBody() discipline: Discipline): Promise<Discipline> {
+  update( @Param('id') id: number, @Body() discipline: Discipline): Promise<Discipline> {
     return this.repository.persist(discipline)
       .catch(err => {
         Logger.log.error(err);
@@ -77,7 +76,8 @@ export class DisciplineController {
 
   @Delete('/:id')
   @UseBefore(RequireRoleAdmin)
-  remove( @EntityFromParam('id') discipline: Discipline) {
+  async remove( @Param('id') disciplineId: number) {
+    const discipline = await this.repository.findOneById(disciplineId);
     return this.removeMany([discipline])
       .catch(err => {
         Logger.log.error(err);

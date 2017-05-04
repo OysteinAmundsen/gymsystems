@@ -1,6 +1,5 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
 import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Req, Res, UseBefore } from 'routing-controllers';
-import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Container, Service } from 'typedi';
 
 import e = require('express');
@@ -136,7 +135,7 @@ export class UserController {
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @EntityFromBody() user: User, @Res() res: Response): Promise<User[]> {
+  create( @Body() user: User, @Res() res: Response): Promise<User[]> {
     const users = Array.isArray(user) ? user : [user];
     users.forEach((u: any) => u['origPass'] = u.password);
     users.forEach((u: any) => u.password = bcrypt.hashSync(u.password, bcrypt.genSaltSync(8)));
@@ -162,7 +161,7 @@ export class UserController {
   }
 
   @Post('/register')
-  selfService(@EntityFromBody() user: User, @Res() res: Response) {
+  selfService(@Body() user: User, @Res() res: Response) {
     user.role = Role.Club; // Only clubs are allowed to use this
     const origPass = user.password;
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8));
@@ -186,7 +185,8 @@ export class UserController {
 
   @Delete('/:id')
   @UseBefore(RequireRoleAdmin)
-  remove( @EntityFromParam('id') user: User, @Res() res: Response) {
+  async remove( @Param('id') userId: number, @Res() res: Response) {
+    const user = await this.repository.findOneById(userId);
     return this.repository.remove(user)
       .catch(err => Logger.log.error(err));
   }

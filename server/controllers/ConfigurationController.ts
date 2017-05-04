@@ -1,6 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
-import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
+import { Delete, EmptyResultCode, Get, JsonController, Body, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
 
 import e = require('express');
 import Request = e.Request;
@@ -37,7 +36,7 @@ export class ConfigurationController {
 
   @Post()
   @UseBefore(RequireRoleAdmin)
-  create( @EntityFromBody() configuration: Configuration, @Res() res: Response) {
+  create( @Body() configuration: Configuration, @Res() res: Response) {
     return this.repository.persist(configuration)
       .then(persisted => res.send(persisted))
       .catch(err => {
@@ -48,7 +47,7 @@ export class ConfigurationController {
 
   @Put('/:id')
   @UseBefore(RequireRoleAdmin)
-  update( @Param('id') id: number, @EntityFromBody() configuration: Configuration, @Res() res: Response) {
+  update( @Param('id') id: number, @Body() configuration: Configuration, @Res() res: Response) {
     return this.repository.persist(configuration)
       .then(persisted => res.send(persisted))
       .catch(err => {
@@ -59,7 +58,8 @@ export class ConfigurationController {
 
   @Delete('/:id')
   @UseBefore(RequireRoleAdmin)
-  remove( @EntityFromParam('id') configuration: Configuration, @Res() res: Response) {
+  async remove( @Param('id') configurationId: string, @Res() res: Response) {
+    const configuration = await this.repository.findOneById(configurationId);
     return this.repository.remove(configuration)
       .then(result => res.send(result))
       .catch(err => {

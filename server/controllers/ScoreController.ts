@@ -1,6 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
 import { Body, Delete, Get, JsonController, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
-import { EntityFromParam, EntityFromBody } from 'typeorm-routing-controllers-extensions';
 import { Container, Service } from 'typedi';
 
 import e = require('express');

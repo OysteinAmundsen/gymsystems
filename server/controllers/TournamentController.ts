@@ -1,6 +1,5 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
 import { Delete, EmptyResultCode, Get, JsonController, Body, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
-import { EntityFromParam } from 'typeorm-routing-controllers-extensions';
 import { Service, Container } from 'typedi';
 
 import e = require('express');
@@ -116,7 +115,8 @@ export class TournamentController {
 
   @Delete('/:id')
   @UseBefore(RequireRoleAdmin)
-  remove( @EntityFromParam('id') tournament: Tournament, @Res() res: Response) {
+  async remove( @Param('id') tournamentId: number, @Res() res: Response) {
+    const tournament = await this.repository.findOneById(tournamentId);
     // This should cascade, but it wont. :-(
     const divisionRepository = Container.get(DivisionController);
     const disciplineRepository = Container.get(DisciplineController);

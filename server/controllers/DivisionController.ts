@@ -1,6 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
 import { Delete, EmptyResultCode, Get, JsonController, Body, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
-import { EntityFromParam } from 'typeorm-routing-controllers-extensions';
 import { Service, Container } from 'typedi';
 
 import e = require('express');
@@ -72,7 +71,8 @@ export class DivisionController {
 
   @Delete('/:id')
   @UseBefore(RequireRoleAdmin)
-  remove( @EntityFromParam('id') division: Division) {
+  async remove( @Param('id') divisionId: number) {
+    const division = await this.repository.findOneById(divisionId);
     return this.removeMany([division])
       .catch(err => {
         Logger.log.error(err);
