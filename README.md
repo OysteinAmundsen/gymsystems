@@ -50,7 +50,7 @@ If all you want to do is startup this project, your pretty much done now. The ap
 
 ## How to use
 
-* [How to setup a tournament](/docs/TournamentSetup.md)
+Please refer to our [wiki](wiki)
 
 ## Development
 
