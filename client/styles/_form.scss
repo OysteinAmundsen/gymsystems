@@ -4,18 +4,15 @@ $inputHeight: 33px;
 $labelHeight: 16px;
 @mixin input() {
   display: block;
-  //box-shadow: 0 0 6px rgba(black, 0.2) inset;
   background: transparent;
   border: 0;
   border-bottom: 1px solid rgba(black, 0.4);
   padding: ($padding * 2) $padding;
-  //border-radius: $rounded;
   min-height: $inputHeight;
   outline: none;
   margin: 2px;
   &:focus,
   &:active {
-    //box-shadow: 0 0 6px rgba(black, 0.2) inset, 0 0 3px 1px rgba(blue, 0.4);
     border-color: rgba($primaryDark, 0.8);
     box-shadow: 0 -2px 2px -1px rgba($primary, 0.6) inset;
   }

@@ -145,17 +145,9 @@
           width: 100%;
           outline: none;
           display: inline-block;
-          // border: 1px solid $primary;
-          // background: $primary;
-          // color: #FFFFFF;
-          // margin-right: 5px;
-          // border-radius: 5px;
-          // cursor: pointer;
           text-align: center;
-          // padding: 5px 10px;
           &.u-is-secondary {
             background: #FFFFFF;
-            // color: $primary;
             &:hover {
               color: $primary;
             }

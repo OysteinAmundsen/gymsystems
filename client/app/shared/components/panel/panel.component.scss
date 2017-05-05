@@ -7,12 +7,5 @@
     div {
       padding: $padding;
     }
-    footer {
-      border-bottom-right-radius: $rounded;
-      border-bottom-left-radius: $rounded;
-      >* {
-        margin: 10px $padding;
-      }
-    }
   }
 }

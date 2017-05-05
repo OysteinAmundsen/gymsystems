@@ -32,11 +32,9 @@ body * {
     position: fixed;
     top: 55px;
     bottom: 0;
-    // max-height: 27rem;
     left: 0;
     right: 0;
     z-index: -2;
-    // filter: grayscale(50%); //opacity(20%);
     &:after {
       content: '';
       display: block;

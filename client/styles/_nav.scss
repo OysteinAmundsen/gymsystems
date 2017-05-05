@@ -5,8 +5,6 @@ nav {
   display: block;
   height: $navHeight;
   background: $primary;
-  //box-shadow: 0 1px 0.7rem rgba(black, 0.6), 0 1.5rem 1.2rem rgba(white, 0.3) inset;
-  //border-bottom: 1px solid rgba(black,0.2);
   &:after {
     content: '';
     display: table;
@@ -31,7 +29,6 @@ nav {
     cursor: pointer;
     border-radius: $rounded;
     padding: 0.8rem 0.5rem 1.2rem 0.5rem;
-    //text-shadow: -1px 1px 3px rgba(black, 0.5);
     display: none;
     @media (max-width: $stop1) {
       display: inline-block;
@@ -67,22 +64,11 @@ nav {
       a {
         color: white;
       }
-      background: darken(rgba($primary, 0.4),
-      4%);
-      border-left-color: rgba(black,
-      0.3);
-      border-right-color: rgba(white,
-      0.3);
-      box-shadow: 0px 5px 20px -4px rgba(0,
-      0,
-      0,
-      0.3) inset,
-      1px 0 8px rgba(255,
-      255,
-      255,
-      0.2);
-      text-shadow: 1px 1px 1px rgba(black,
-      0.4);
+      background: darken(rgba($primary, 0.4), 4%);
+      border-left-color: rgba(black, 0.3);
+      border-right-color: rgba(white, 0.3);
+      box-shadow: 0px 5px 20px -4px rgba(0, 0, 0, 0.3) inset, 1px 0 8px rgba(255, 255, 255, 0.2);
+      text-shadow: 1px 1px 1px rgba(black, 0.4);
     }
     @media (max-width: $stop1) {
       float: none;
