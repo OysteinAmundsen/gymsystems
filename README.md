@@ -50,7 +50,7 @@ If all you want to do is startup this project, your pretty much done now. The ap
 
 ## How to use
 
-Please refer to our [wiki](wiki)
+Please refer to our [wiki](../../wiki)
 
 ## Development
 
