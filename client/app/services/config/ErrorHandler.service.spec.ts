@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ErrorHandlerService } from './error-handler.service';
+import { ErrorHandlerService } from './ErrorHandler.service';
 
 describe('ErrorHandlerService', () => {
   beforeEach(() => {

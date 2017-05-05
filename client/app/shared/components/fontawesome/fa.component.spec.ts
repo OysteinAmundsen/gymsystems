@@ -4,7 +4,7 @@ import { FaComponent } from './fa.component';
 
 describe('FaComponent', () => {
   let component: FaComponent;
-  let fixture: ComponentFixture<app-faComponent >;
+  let fixture: ComponentFixture<FaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

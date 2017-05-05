@@ -2,10 +2,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { MaterialModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
-import { FaComponent } from '../fontawesome';
+import { FaComponent } from '../fontawesome/fa.component';
 import { TypeaheadComponent } from './typeahead.component';
 
 describe('PagerComponent', () => {
@@ -15,8 +14,7 @@ describe('PagerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        MaterialModule
+        FormsModule
       ],
       declarations: [TypeaheadComponent, FaComponent]
     })

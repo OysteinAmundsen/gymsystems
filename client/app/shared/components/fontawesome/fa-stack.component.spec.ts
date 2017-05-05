@@ -4,7 +4,7 @@ import { FaStackComponent } from './fa-stack.component';
 
 describe('FaStackComponent', () => {
   let component: FaStackComponent;
-  let fixture: ComponentFixture<app-faStackComponent >;
+  let fixture: ComponentFixture<FaStackComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
