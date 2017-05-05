@@ -87,10 +87,10 @@ export class TournamentController {
   @Get('/:id')
   @EmptyResultCode(404)
   get( @Param('id') id: number): Promise<Tournament> {
-    if (!isNaN(id)) {
-      return this.repository.findOne({ id: id });
-    }
-    return null;
+    return this.repository.createQueryBuilder('tournament')
+      .where('tournament.id=:id', { id: id })
+      .innerJoinAndSelect('tournament.createdBy', 'user')
+      .getOne();
   }
 
   @Post()

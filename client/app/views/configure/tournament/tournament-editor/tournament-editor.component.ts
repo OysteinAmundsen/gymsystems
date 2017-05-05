@@ -48,10 +48,8 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       startDate: [this.tournament.startDate, [Validators.required]],
       endDate: [this.tournament.endDate, [Validators.required]],
       location: [this.tournament.location],
-      description: [this.tournament.description || '']
-      // schedule: [this.tournament.schedule],
-      // disciplines: [this.tournament.disciplines],
-      // divisions: [this.tournament.divisions],
+      description: [this.tournament.description || ''],
+      createdBy: [this.tournament.createdBy]
     });
   }
 
