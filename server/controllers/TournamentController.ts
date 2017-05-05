@@ -41,7 +41,7 @@ export class TournamentController {
   all(): Promise<Tournament[]> {
     return this.repository
       .createQueryBuilder('tournament')
-      .orderBy('startDate', 'DESC')
+      .orderBy('tournament.startDate', 'DESC')
       .getMany();
   }
 
@@ -67,7 +67,7 @@ export class TournamentController {
       .createQueryBuilder('tournament')
       .where('tournament.startDate <= :startDate', { startDate: start })
       .andWhere('tournament.endDate >= :endDate', { endDate: end })
-      .orderBy('startDate', 'DESC')
+      .orderBy('tournament.startDate', 'DESC')
       .setLimit(10)
       .getMany();
   }
