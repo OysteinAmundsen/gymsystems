@@ -155,42 +155,32 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         const bGenDiv = genderDivision(b.team).sortOrder;
         if (aGenDiv != bGenDiv) { return (aGenDiv < bGenDiv) ? -1 : 1; }
 
-        // Sort by team
-        if (a.team.id != b.team.id) return a.team.id < b.team.id ? -1 : 1;
-
-        // Sort by discipline
-        const aDis = a.discipline.sortOrder;
-        const bDis = b.discipline.sortOrder;
-        if (aDis != bDis) { return aDis < bDis ? -1 : 1; }
-
-        return 0; // Will probably never reach here
+        return 0;
       });
 
     // Manually reorder (using answer in http://stackoverflow.com/questions/43627465/javascript-sorting-algorithm#answer-43629921)
     const result = [];
-    let index = 0;
-    let entry = schedule[0];
     while (schedule.length) {
-      result.push(entry);         // Push previous entry
-      schedule.splice(index, 1);  // Remove previous entry from original data
+      const currDivision = this.division(schedule[0].team);
+      const scheduleByDivision = schedule.filter(s => this.division(s.team) === currDivision); // Find all in the same division
+      schedule = schedule.filter(s => !scheduleByDivision.includes(s));                        // Remove from original array
 
-      // Get next entry
-      const entryAgeDiv               = ageDivision(entry.team);
-      const entryGenderDiv            = genderDivision(entry.team);
-      const stillContainsAgeGroup     = (schedule.filter(s => ageDivision(s.team).id    === entryAgeDiv.id).length > -1);
-      const stillContainsGenderGroup  = (schedule.filter(s => genderDivision(s.team).id === entryGenderDiv.id).length > -1);
-      index = schedule.findIndex(e => {
-        const hasNextDiscipline = e.discipline.sortOrder == ((entry.discipline.sortOrder + 1) % 3);
-        const isSameAge         = (stillContainsAgeGroup    ? ageDivision(e.team).id    === entryAgeDiv.id : true);
-        const isSameGender      = (stillContainsGenderGroup ? genderDivision(e.team).id === entryGenderDiv.id : true);
-        return e.team.id > entry.team.id && hasNextDiscipline
-          // Also concidering division sort (if there are more equal divisions left)
-          && isSameAge && isSameGender;
-      });
+      let index = 0;
+      let entry = scheduleByDivision[0];
+      while (scheduleByDivision.length) {     // Loop over division schedule
+        result.push(entry);                   // Push previous entry
+        scheduleByDivision.splice(index, 1);  // Remove previous entry from original data
 
-      // Check if index of next entry is found. If not, default to first remaining entry.
-      index = index == -1 ? 0 : index;
-      entry = schedule[index];
+        // Get next entry
+        index = scheduleByDivision.findIndex(e => {
+          const hasNextDiscipline = e.discipline.sortOrder == ((entry.discipline.sortOrder + 1) % 3);
+          return e.team.id != entry.team.id && hasNextDiscipline;
+        });
+
+        // Check if index of next entry is found. If not, default to first remaining entry.
+        index = index == -1 ? 0 : index;
+        entry = scheduleByDivision[index];
+      }
     }
 
     // Set start number

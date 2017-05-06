@@ -2,4 +2,8 @@
 
 echo "=> Building"
 
-docker run --rm -v $(pwd):/app -w=/app node:7.7.3-alpine /bin/sh -c "apk update && apk add git python make g++ && npm install && npm run build"
+docker run --rm \
+  -v $(pwd):/app \
+  -w=/app \
+  node:7.7.3-alpine \
+  /bin/sh -c "apk update && apk add git python make g++ && npm install && npm run build"
