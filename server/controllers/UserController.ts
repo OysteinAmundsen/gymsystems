@@ -19,8 +19,8 @@ import { isMyClub, validateClub } from "../service/ClubValidator";
 const messages = {
   created: `
 <h1>Welcome!</h1>
-<p>You are receiving this email because you have just been registerred as a user with role "<%=roleName %>", a representative of "<%=club %>" on <a href="www.gymsystems.org">GymSystems</a>}</p>
-<p>Please log in to <a href="www.gymsystems.org/login">www.gymsystems.org</a> using <b><%=name %></b>/<b><%=password %></b>`,
+<p>You are receiving this email because you have just been registerred as a user with role "<%=roleName %>", a representative of "<%=club %>", on <a href="www.gymsystems.org">GymSystems</a>.</p>
+<p>You can <a href="www.gymsystems.org/login">log in</a> using <b><%=name %></b>/<b><%=password %></b>.`,
   passwordUpdate: `
 <h1>Your password is updated</h1>
 <p>You are receiving this email because your password on <a href="www.gymsystems.org">GymSystems</a> has just changed.</p>

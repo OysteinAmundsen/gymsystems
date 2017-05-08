@@ -141,8 +141,10 @@ export class TeamController {
     const scheduler = Container.get(ScheduleController);
     const participants = await scheduler.repository.createQueryBuilder('participant')
       .where('participant.team=:id', {id: team.id})
+      .innerJoinAndSelect('participant.tournament', 'tournament')
+      .leftJoinAndSelect('tournament.createdBy', 'user')
       .getMany();
-    await scheduler.removeMany(participants, res);
+    await scheduler.removeMany(participants, res, req);
 
     // Then remove the team
     return this.repository.remove(team)

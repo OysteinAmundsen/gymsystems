@@ -18,6 +18,7 @@ import { Role, IUser } from 'app/services/model/IUser';
 })
 export class ListComponent implements OnInit, OnDestroy {
   user: IUser;
+  roles = Role;
   tournament: ITournament;
   tournamentId: number;
   schedule: ITournamentParticipant[] = [];
@@ -95,7 +96,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   select(participant: ITournamentParticipant) {
-    if (this.user && this.user.role >= Role.Secretariat) {
+    if (this.user && (this.user.role >= Role.Admin || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.createdBy.club.id))) {
       if (participant != null && participant.startTime == null) {
         this.error = this.translate.instant(`Cannot edit score. This participant hasn't started yet.`);
         return;
@@ -113,7 +114,7 @@ export class ListComponent implements OnInit, OnDestroy {
       evt.preventDefault();
       evt.stopPropagation();
       participant.startTime = new Date();
-      this.scheduleService.save(participant).subscribe(res => participant = res);
+      this.scheduleService.start(participant).subscribe();
     }
   }
 
@@ -126,7 +127,7 @@ export class ListComponent implements OnInit, OnDestroy {
       evt.preventDefault();
       evt.stopPropagation();
       participant.endTime = new Date();
-      this.scheduleService.save(participant).subscribe(res => participant = res);
+      this.scheduleService.stop(participant).subscribe();
     }
   }
 
@@ -138,7 +139,7 @@ export class ListComponent implements OnInit, OnDestroy {
       evt.preventDefault();
       evt.stopPropagation();
       participant.publishTime = new Date();
-      this.scheduleService.save(participant).subscribe(res => participant = res);
+      this.scheduleService.publish(participant).subscribe();
     }
   }
 

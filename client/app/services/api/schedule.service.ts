@@ -30,6 +30,18 @@ export class ScheduleService {
     return call.map((res: Response) => res.json());
   }
 
+  start(participant: ITournamentParticipant) {
+    return this.http.post(`${this.url}/${participant.id}/start`, {}).map((res: Response) => res.json());
+  }
+
+  stop(participant: ITournamentParticipant) {
+    return this.http.post(`${this.url}/${participant.id}/stop`, {}).map((res: Response) => res.json());
+  }
+
+  publish(participant: ITournamentParticipant) {
+    return this.http.post(`${this.url}/${participant.id}/publish`, {}).map((res: Response) => res.json());
+  }
+
   saveAll(participants: ITournamentParticipant[]) {
     return this.http.post(this.url, participants).map((res: Response) => res.json());
   }

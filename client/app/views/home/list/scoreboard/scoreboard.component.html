@@ -25,7 +25,13 @@
   <footer>
     <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
     <button type="button" title="Cancel" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
-    <button *ngIf="participant.publishTime == null" type="button" title="Delete" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
-    <div *ngIf="participant.publishTime != null" class="pull-right warning" translate>Allready published!</div>
+    <button *ngIf="participant.publishTime == null || currentUser.role >= roles.Organizer" type="button" title="Delete" class="pull-right warning" (click)="delete()">
+      <app-fa name="trash" fw="true"></app-fa>
+      <span *ngIf="participant.publishTime == null" translate>Delete</span>
+      <span *ngIf="participant.publishTime != null" translate>Allready published!</span>
+    </button>
+    <div *ngIf="participant.publishTime != null && currentUser.role < roles.Organizer" class="pull-right warning">
+      <span translate>Allready published!</span>
+    </div>
   </footer>
 </form>

@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
+import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
 import { Service, Container } from 'typedi';
 
 import e = require('express');
@@ -7,9 +7,15 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
-import { RequireRoleOrganizer } from '../middlewares/RequireAuth';
+
+import { RequireRoleOrganizer, RequireRoleSecretariat } from '../middlewares/RequireAuth';
+import { isSameClubAsMe, isAllSameClubAsMe } from '../service/CreatedByValidator';
+
+import { SSEService } from '../services/SSEService';
+import { UserController } from '../controllers/UserController';
+
 import { TournamentParticipant } from '../model/TournamentParticipant';
-import { SSEService } from "../services/SSEService";
+import { Role } from '../model/User';
 
 /**
  *
@@ -62,14 +68,49 @@ export class ScheduleController {
       .getOne();
   }
 
+  @Post('/:id/start')
+  @UseBefore(RequireRoleSecretariat)
+  async start(@Param('id') id: number, @Res() res: Response, @Req() req: Request) {
+    const participant = await this.getParticipantPlain(id);
+    participant.startTime = new Date();
+    return this.update(id, participant, res, req);
+  }
+
+  @Post('/:id/stop')
+  @UseBefore(RequireRoleSecretariat)
+  async stop(@Param('id') id: number, @Res() res: Response, @Req() req: Request) {
+    const participant = await this.getParticipantPlain(id);
+    participant.endTime = new Date();
+    return this.update(id, participant, res, req);
+  }
+
+  @Post('/:id/publish')
+  @UseBefore(RequireRoleSecretariat)
+  async publish(@Param('id') id: number, @Res() res: Response, @Req() req: Request) {
+    const participant = await this.getParticipantPlain(id);
+    participant.publishTime = new Date();
+    return this.update(id, participant, res, req);
+  }
+
   getParticipantPlain(id: number): Promise<TournamentParticipant> {
-    return this.repository.findOneById(id);
+    return this.repository.createQueryBuilder('tournament_participant')
+      .where('tournament_participant.id=:id', { id: id })
+      .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
+      .leftJoinAndSelect('tournament.createdBy', 'user')
+      .leftJoinAndSelect('user.club', 'club')
+      .getOne();
   }
 
   @Post()
   @UseBefore(RequireRoleOrganizer)
-  create( @Body() participant: TournamentParticipant | TournamentParticipant[], @Res() res: Response): Promise<TournamentParticipant[]> {
+  async create( @Body() participant: TournamentParticipant | TournamentParticipant[], @Res() res: Response, @Req() req: Request) {
     const participants = Array.isArray(participant) ? participant : [participant];
+    const sameClub = await isAllSameClubAsMe(participants.map(p => p.tournament), req);
+    if (!sameClub) {
+      res.status(403);
+      return {code: 403, message: 'You are not authorized to create participants in a tournament not run by your club.'};
+    }
+
     return this.repository.persist(participants)
       .catch(err => {
         Logger.log.error(err);
@@ -79,8 +120,13 @@ export class ScheduleController {
 
   @Put('/:id')
   @UseBefore(RequireRoleOrganizer)
-  update( @Param('id') id: number, @Body() participant: TournamentParticipant, @Res() res: Response) {
+  async update( @Param('id') id: number, @Body() participant: TournamentParticipant, @Res() res: Response, @Req() req: Request) {
     const sseService = Container.get(SSEService);
+    const sameClub = await isSameClubAsMe(participant.tournament, req);
+    if (!sameClub) {
+      res.status(403);
+      return {code: 403, message: 'You are not authorized to update participants in a tournament not run by your club.'};
+    }
     return this.repository.persist(participant)
       .then(() => {
         sseService.publish('Participant updated');
@@ -94,15 +140,26 @@ export class ScheduleController {
 
   @Delete('/:id')
   @UseBefore(RequireRoleOrganizer)
-  async remove( @Param('id') participantId: number, @Res() res: Response) {
+  async remove( @Param('id') participantId: number, @Res() res: Response, @Req() req: Request) {
     const participant = await this.repository.findOneById(participantId);
-    return this.removeMany([participant], res);
+    const sameClub = await isSameClubAsMe(participant.tournament, req);
+
+    if (!sameClub) {
+      res.status(403);
+      return {code: 403, message: 'You are not authorized to remove participants in a tournament not run by your club.'};
+    }
+    return this.removeMany([participant], res, req);
   }
 
   @Delete('/many')
   @EmptyResultCode(200)
   @UseBefore(RequireRoleOrganizer)
-  removeMany( @Body() participant: TournamentParticipant[], @Res() res: Response) {
+  async removeMany( @Body() participant: TournamentParticipant[], @Res() res: Response, @Req() req: Request) {
+    const sameClub = await isAllSameClubAsMe(participant.map(p => p.tournament), req);
+    if (!sameClub) {
+      res.status(403);
+      return {code: 403, message: 'You are not authorized to create participants in a tournament not run by your club.'};
+    }
     return this.repository.remove(participant)
       .catch(err => {
         Logger.log.error(err);

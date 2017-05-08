@@ -1,13 +1,15 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChildren, EventEmitter, HostListener } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChildren, EventEmitter, HostListener, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
-import { ScoreService } from 'app/services/api';
+import { ScoreService, UserService } from 'app/services/api';
 import { IScoreGroup } from 'app/services/model/IScoreGroup';
 import { Operation } from 'app/services/model/Operation';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 import { ITournamentParticipantScore } from 'app/services/model/ITournamentParticipantScore';
-import { IScoreContainer } from '../IScoreContainer';
+import { IUser, Role } from 'app/services/model/IUser';
 
+import { IScoreContainer } from '../IScoreContainer';
 import { ScoreGroupComponent } from '../score-group/score-group.component';
 
 /**
@@ -18,10 +20,13 @@ import { ScoreGroupComponent } from '../score-group/score-group.component';
   templateUrl: './scoreboard.component.html',
   styleUrls: ['./scoreboard.component.scss']
 })
-export class ScoreboardComponent implements OnInit, AfterViewInit {
+export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
   grandTotal: number = 0;
   scoreForm: FormGroup;
   scores: ITournamentParticipantScore[];
+  roles = Role;
+  currentUser: IUser;
+  userSubscription: Subscription;
 
   _groupedScores;
   get groupedScores(): IScoreContainer[] {
@@ -46,9 +51,10 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
   @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChildren(ScoreGroupComponent) groups: ScoreGroupComponent[];
 
-  constructor(private scoreService: ScoreService, private element: ElementRef, private fb: FormBuilder) { }
+  constructor(private scoreService: ScoreService, private element: ElementRef, private fb: FormBuilder, private userService: UserService) { }
 
   ngOnInit() {
+    this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
     if (!this.participant.scores.length) {
       // Empty score array. Create one score, per judge, per scoregroup
       this.participant.discipline.scoreGroups.forEach(group => {
@@ -77,6 +83,10 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
     this.scoreForm.valueChanges.subscribe(() => this.calculateTotals());
     this.calculateTotals();
     this.selectGroup(this.groupedScores[0]);
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 
   calculateTotals() {
@@ -122,7 +132,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit {
   }
 
   delete() {
-    if (this.participant.publishTime == null) {
+    if (this.currentUser.role >= Role.Organizer || this.participant.publishTime == null) {
       this.participant.scores = [];
       this.scoreService.removeFromParticipant(this.participant.id).subscribe(() => this.onClose.emit(true));
     }
