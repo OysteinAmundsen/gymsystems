@@ -2,10 +2,10 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/OysteinAmundsen/gymsystems.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/OysteinAmundsen/gymsystems.svg?branch=master)](https://travis-ci.org/OysteinAmundsen/gymsystems)
-[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
 
 This is a complete web based system for managing the secretariat for Team Gymnastic sports. There are not many proffesional scoring or managing systems available, and therefore we saw the need for creating one. And since these minority sports are typically not funded, and therefore prone to voluntary work, we wanted this system to be a community open-source project as well. We will therefore never ask for money for this system, but instead wecome improvements through pull-requests.
 
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
 
 ## Note
 
