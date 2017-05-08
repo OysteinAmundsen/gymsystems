@@ -19,11 +19,7 @@ import { isMyClub, validateClub } from "../service/ClubValidator";
 const messages = {
   created: `
 <h1>Welcome!</h1>
-<p>You are receiving this email because you have just been registerred as a user on <a href="www.gymsystems.org">GymSystems</a> as "<%=roleName %>"}</p>
-<p>Please log in to <a href="www.gymsystems.org/login">www.gymsystems.org</a> using <b><%=name %></b>/<b><%=password %></b>`,
-  clubCreated: `
-<h1>Welcome!</h1>
-<p>You are receiving this email because you have just been registerred as a user on <a href="www.gymsystems.org">GymSystems</a> as a representative of "<%=club %>"}</p>
+<p>You are receiving this email because you have just been registerred as a user with role "<%=roleName %>", a representative of "<%=club %>" on <a href="www.gymsystems.org">GymSystems</a>}</p>
 <p>Please log in to <a href="www.gymsystems.org/login">www.gymsystems.org</a> using <b><%=name %></b>/<b><%=password %></b>`,
   passwordUpdate: `
 <h1>Your password is updated</h1>
@@ -130,7 +126,10 @@ export class UserController {
   async update( @Param('id') id: number, @Body() user: User, @Res() res: Response) {
     // Make sure club is an object
     const hasClub = await validateClub([<BelongsToClub>user]);
-    if (!hasClub)  { res.status(400); return {code: 400, message: 'Club name given has no unique match'}; }
+    if (!hasClub)  {
+      res.status(400);
+      return {code: 400, message: 'Club name given has no unique match'};
+    }
 
     if (user.password) {
       // Password is updated. Encrypt and store entire user object
@@ -149,8 +148,10 @@ export class UserController {
         })
         .catch(err => Logger.log.error(err));
     }
+
+    // Fetch original user object, and ...
     return this.getUser(id).then((u: any) => {
-      // Overwrite all given properties, except password
+      // ... overwrite all given properties, !except password!
       Object.keys(user).forEach((k: string) => {
         if (k !== 'password') {
           (<any>u)[k] = (<any>user)[k];
@@ -163,54 +164,32 @@ export class UserController {
   @Post()
   @UseBefore(RequireRoleOrganizer)
   async create( @Body() user: User, @Req() req: Request, @Res() res: Response): Promise<User[] | any> {
-    const users = Array.isArray(user) ? user : [user];
     const me = await this.me(req);
 
     // Make sure club is an object
-    const hasClub = await validateClub(users);
-    const isSameClub = await isMyClub(users, req);
+    const hasClub = await validateClub([user]);
+    const isSameClub = await isMyClub([user], req);
     if (!hasClub)  {
       res.status(400);
       return {code: 400, message: 'Club name given has no unique match'};
     }
     if (!isSameClub) {
       res.status(403);
-      return {code: 403, message: 'You are not authorized to remove teams from other clubs than your own.'};
+      return {code: 403, message: 'You are not authorized to create teams for other clubs than your own.'};
     }
-    if (users.some(u => u.role > me.role) && me.role < Role.Admin) {
+    if (user.role > me.role && me.role < Role.Admin) {
       res.status(403);
       return { code: 403, message: 'Your are not authorized to create users with higher privileges than your own.'}
     }
 
-    // Hash up passwords
-    users.forEach((u: any) => u['origPass'] = u.password);
-    users.forEach((u: any) => u.password = bcrypt.hashSync(u.password, bcrypt.genSaltSync(8)));
-
-    // Create users
-    return this.repository.persist(users)
-      .then(persisted => {
-        persisted.forEach(user => {
-          // Send email confirmation on user creation and login details
-          const u: any = users.find(u => u.name === user.name);
-          const roleName = RoleNames.find(r => r.id === u.role);
-          this.sendmail({ from: emailFrom, to: user.email, subject: 'You are registerred',
-            html: _.template(messages.created)({name: user.name, password: u['origPass'], roleName: roleName.name}),
-          }, (err: any, reply: any) => {
-            Logger.log.debug(err && err.stack);
-            Logger.log.debug(reply);
-          });
-        });
-        return persisted;
-      })
-      .catch(err => {
-        Logger.log.error(err);
-        return { code: err.code, message: err.message };
-      });
+    return this.createUser(user);
   }
 
   @Post('/register')
   async selfService(@Body() user: User, @Res() res: Response) {
     // Only clubs and Organizers are allowed to use this
+    // and we are in a context where we do not have a logged in user.
+    // We will therefore assume lowest role `Club` if none is given.
     if (user.role !== Role.Organizer && user.role !== Role.Club) {
       user.role = Role.Club;
     }
@@ -221,14 +200,20 @@ export class UserController {
       return {code: 400, message: 'Club name given has no unique match'};
     }
 
+    return this.createUser(user);
+  }
+
+  private createUser(user: User) {
     const origPass = user.password;
+
+    // Hash up password
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8));
     return this.repository.persist(user)
       .then(persisted => {
         // Send email confirmation on user creation and login details
         const roleName = RoleNames.find(r => r.id === user.role);
         this.sendmail({ from: emailFrom, to: user.email, subject: 'You are registerred',
-          html: _.template(messages.clubCreated)({name: user.name, password: origPass, club: user.club}),
+          html: _.template(messages.created)({name: user.name, password: origPass, roleName: roleName.name, club: user.club}),
         }, (err: any, reply: any) => {
           Logger.log.debug(err && err.stack);
           Logger.log.debug(reply);
