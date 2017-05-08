@@ -105,6 +105,11 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
+  canStart(participant: ITournamentParticipant, index: number) {
+    let previousStarted = (index > 0 ? this.schedule[index - 1].startTime != null : true);
+    return participant.startTime == null && previousStarted;
+  }
+
   start(participant: ITournamentParticipant, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.startTime != null) {

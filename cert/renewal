@@ -1,0 +1,11 @@
+#!/bin/bash
+
+export LETSENCRYPT_EMAIL=oystein.amundsen@gmail.com
+export DNSNAME=www.gymsystems.org
+
+docker run --rm --name letsencrypt \
+    -v "/usr/share/nginx/html:/usr/share/nginx/html" \
+    -v "/etc/letsencrypt:/etc/letsencrypt" \
+    -v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
+    quay.io/letsencrypt/letsencrypt:latest \
+    certonly -n --webroot -w /usr/share/nginx/html -d $DNSNAME --agree-tos
