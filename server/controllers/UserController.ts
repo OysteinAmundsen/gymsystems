@@ -13,7 +13,8 @@ import { User, Role, RoleNames } from '../model/User';
 import * as bcrypt from 'bcrypt';
 import * as _ from 'lodash';
 import { ClubController } from "./ClubController";
-import { Club } from "../model/Club";
+import { Club, BelongsToClub } from "../model/Club";
+import { isMyClub, validateClub } from "../service/ClubValidator";
 
 const messages = {
   created: `
@@ -58,22 +59,21 @@ export class UserController {
     const passport = Container.get(auth.Passport);
     return new Promise((resolve, reject) => {
       passport.authenticate('local-login', { failWithError: true }, (err: any, user: User, info: any) => {
-        console.log('User', JSON.stringify(err), JSON.stringify(user), JSON.stringify(info));
         if (err) { return reject({httpCode: 401, message: err}); }
-        if (!user) { info.httpCode = 401; return reject(info); }
+        if (!user) { return reject({httpCode: 401, message: err || 'No user found'}); }
 
         req.logIn(user, async (err: any) => {
           if (err) { return reject({httpCode: 401, message: err}); }
+
           let returnedUser = await this.me(req);
-          if (!returnedUser) { returnedUser = user; }
-          return resolve(returnedUser);
+          return resolve(returnedUser || user);
         });
       })(req, res, req.next);
     });
   }
 
   @Post('/logout')
-  logout(@Req() req: any, @Res() res: Response): null {
+  logout(@Req() req: Request, @Res() res: Response): null {
     const passport = Container.get(auth.Passport);
     req.logOut();
     return null;
@@ -89,49 +89,49 @@ export class UserController {
       // Limit to show users in my own club only
       query.where('user.club=:clubId', {clubId: me.club.id});
     }
-    return query.getMany();
+    return query
+      .leftJoinAndSelect('user.club', 'club')
+      .getMany();
   }
 
   @EmptyResultCode(204)
   @Get('/me')
-  me( @Req() req: Request): Promise<User> {
+  me( @Req() req: any): Promise<User> {
     if (req.session && req.session.passport && req.session.passport.user) {
-      return this.get(req.session.passport.user.id, req);
+      return this.getUser(req.session.passport.user.id);
     }
     return null;
+  }
+
+  private getUser(userId: number, clubId?: number) {
+    const query = this.repository.createQueryBuilder('user')
+      .where('user.id=:id', {id: userId});
+    if (clubId) { // Limit to show users in my own club only
+      query.andWhere('user.club=:clubId', {clubId: clubId});
+    }
+    return query
+      .leftJoinAndSelect('user.club', 'club')
+      .getOne();
   }
 
   @UseBefore(RequireAuth)
   @EmptyResultCode(404)
   @Get('/get/:id')
-  get( @Param('id') userId: number, @Req() req: Request): Promise<User> {
-      return this.repository.createQueryBuilder('user')
-        .where('user.id=:id', {id: userId})
-        .leftJoinAndSelect('user.club', 'club')
-        .getOne();
-  }
+  async get( @Param('id') userId: number, @Req() req: Request): Promise<User> {
+    const me = await this.me(req);
 
-  async checkClub(user: User, res: Response) {
-    const clubRepository = Container.get(ClubController);
-    if (typeof user.club === 'string') {
-      const club: Club[] = await clubRepository.all(null, user.club);
-      if (club.length === 1) {
-        user.club = club[0];
-      } else {
-        return false;
-      }
-    }
-    return user;
+    // Limit to show users in my own club only
+    let clubId = (me.role < Role.Admin) ? me.club.id : null;
+    return this.getUser(userId, clubId);
   }
 
   @Put('/:id')
   @UseBefore(RequireAuth)
-  update( @Param('id') id: number, @Body() user: any, @Res() res: Response) {
+  async update( @Param('id') id: number, @Body() user: User, @Res() res: Response) {
     // Make sure club is an object
-    if (!this.checkClub(user, res)) {
-      res.status(400);
-      return {code: 400, message: 'Club name given has no unique match'};
-    }
+    const hasClub = await validateClub([<BelongsToClub>user]);
+    if (!hasClub)  { res.status(400); return {code: 400, message: 'Club name given has no unique match'}; }
+
     if (user.password) {
       // Password is updated. Encrypt and store entire user object
       const setPassword = user.password;
@@ -149,11 +149,11 @@ export class UserController {
         })
         .catch(err => Logger.log.error(err));
     }
-    return this.repository.findOneById(id).then((u: any) => {
+    return this.getUser(id).then((u: any) => {
       // Overwrite all given properties, except password
       Object.keys(user).forEach((k: string) => {
         if (k !== 'password') {
-          u[k] = user[k];
+          (<any>u)[k] = (<any>user)[k];
         }
       });
       return this.repository.persist(u).catch(err => Logger.log.error(err));
@@ -164,25 +164,22 @@ export class UserController {
   @UseBefore(RequireRoleOrganizer)
   async create( @Body() user: User, @Req() req: Request, @Res() res: Response): Promise<User[] | any> {
     const users = Array.isArray(user) ? user : [user];
+    const me = await this.me(req);
 
     // Make sure club is an object
-    for (let j = 0; j < users.length; j++) {
-      if (!this.checkClub(users[j], res)) {
-        res.status(400);
-        return {code: 400, message: 'Club name given has no unique match'};
-      }
+    const hasClub = await validateClub(users);
+    const isSameClub = await isMyClub(users, req);
+    if (!hasClub)  {
+      res.status(400);
+      return {code: 400, message: 'Club name given has no unique match'};
     }
-
-    const me = await this.me(req);
-    if (me.role < Role.Admin) {
-      if (users.some(u => u.club.id !== me.club.id)) {
-        res.status(403);
-        return { code: 403, message: 'You are not authorized to create users in other clubs than your own.' };
-      }
-      if (users.some(u => u.role > me.role)) {
-        res.status(403);
-        return { code: 403, message: 'Your are not authorized to create users with higher privileges than your own.'}
-      }
+    if (!isSameClub) {
+      res.status(403);
+      return {code: 403, message: 'You are not authorized to remove teams from other clubs than your own.'};
+    }
+    if (users.some(u => u.role > me.role) && me.role < Role.Admin) {
+      res.status(403);
+      return { code: 403, message: 'Your are not authorized to create users with higher privileges than your own.'}
     }
 
     // Hash up passwords
@@ -212,11 +209,18 @@ export class UserController {
   }
 
   @Post('/register')
-  selfService(@Body() user: User, @Res() res: Response) {
+  async selfService(@Body() user: User, @Res() res: Response) {
     // Only clubs and Organizers are allowed to use this
     if (user.role !== Role.Organizer && user.role !== Role.Club) {
       user.role = Role.Club;
     }
+
+    const hasClub = await validateClub([<BelongsToClub>user]);
+    if (!hasClub)  {
+      res.status(400);
+      return {code: 400, message: 'Club name given has no unique match'};
+    }
+
     const origPass = user.password;
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8));
     return this.repository.persist(user)
@@ -240,14 +244,11 @@ export class UserController {
   @Delete('/:id')
   @UseBefore(RequireRoleOrganizer)
   async remove( @Param('id') userId: number, @Req() req: Request, @Res() res: Response) {
-    const me = await this.me(req);
-    const user = await this.repository.findOneById(userId);
-    if (me.role < Role.Admin) {
-      if (me.club.id !== user.club.id) {
-        res.status(403);
-        return { code: 403, message: 'You are not authorized to remove users from other clubs than your own.'};
-      }
-    }
+    const user = await this.getUser(userId);
+    const isSameClub = await isMyClub([<BelongsToClub>user], req);
+
+    if (!isSameClub) { res.status(403); return {code: 403, message: 'You are not authorized to remove users from other clubs than your own.'}; }
+
     return this.repository.remove(user)
       .catch(err => Logger.log.error(err));
   }

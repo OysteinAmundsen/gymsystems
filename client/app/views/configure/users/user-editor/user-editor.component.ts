@@ -20,7 +20,9 @@ export class UserEditorComponent implements OnInit {
   clubs = [];
   selectedUserId: number;
   user: IUser = <IUser>{};
-  roleNames = RoleNames;
+  get roleNames() {
+    return RoleNames.filter(r => r.id <= this.currentUser.role);
+  };
   roles = Role;
 
   _errorTimeout;

@@ -17,7 +17,7 @@ import { Club } from '../model/Club';
 @Service()
 @JsonController('/clubs')
 export class ClubController {
-  private repository: Repository<Club>;
+  public repository: Repository<Club>;
   private conn: Connection;
 
   constructor() {

@@ -11,8 +11,10 @@ import { RequireRoleClub } from '../middlewares/RequireAuth';
 import { UserController } from './UserController';
 
 import { Team } from '../model/Team';
-import { User } from '../model/User';
-import { Club } from '../model/Club';
+import { User, Role } from '../model/User';
+import { Club, BelongsToClub } from '../model/Club';
+import { ClubController } from "./ClubController";
+import { validateClub, isMyClub } from "../service/ClubValidator";
 
 /**
  *
@@ -36,15 +38,7 @@ export class TeamController {
   @Get('/tournament/:id')
   @EmptyResultCode(404)
   getByTournament( @Param('id') id: number, @Res() res: Response): Promise<Team[]> {
-    return this.repository.createQueryBuilder('team')
-      .where('team.tournament=:id', { id: id })
-      .leftJoinAndSelect('team.divisions', 'division')
-      .leftJoinAndSelect('team.disciplines', 'discipline')
-      .leftJoinAndSelect('team.club', 'club')
-      .orderBy('division.sortOrder', 'ASC')
-      .addOrderBy('team.name', 'ASC')
-      .addOrderBy('discipline.name', 'ASC')
-      .getMany();
+    return this.getTournament(id, null);
   }
 
   @Get('/my/tournament/:id')
@@ -53,9 +47,13 @@ export class TeamController {
   async getByMyTournament( @Param('id') id: number, @Req() req: Request, @Res() res: Response): Promise<Team[]> {
     const userRepository = Container.get(UserController);
     const user: User = await userRepository.me(req);
+    return this.getTournament(id, user)
+  }
+
+  private getTournament(id: number, user: User) {
     const query = this.repository.createQueryBuilder('team')
       .where('team.tournament=:id', { id: id });
-    if (user.club) {
+    if (user && user.club) {
       // If users role is anything other than Club, user should not be a part of any clubs.
       // In those cases, adding this where clause would cause the query to return null.
       query.andWhere('team.club=:clubId', {clubId: user.club.id});
@@ -78,14 +76,37 @@ export class TeamController {
 
   @Put('/:id')
   @UseBefore(RequireRoleClub)
-  update( @Param('id') id: number, @Body() team: Team, @Res() res: Response) {
+  async update( @Param('id') id: number, @Body() team: Team, @Req() req: Request, @Res() res: Response) {
+    const hasClub = await validateClub([team]);
+    const isSameClub = await isMyClub([team], req);
+    if (!hasClub)  {
+      res.status(400);
+      return {code: 400, message: 'Club name given has no unique match'};
+    }
+    if (!isSameClub) {
+      res.status(403);
+      return {code: 403, message: 'Cannot update teams for other clubs than your own'};
+    }
+
     return this.repository.persist(team).catch(err => Logger.log.error(err));
   }
 
   @Post()
   @UseBefore(RequireRoleClub)
-  create( @Body() team: Team | Team[], @Res() res: Response): Promise<Team[]> {
+  async create( @Body() team: Team | Team[], @Req() req: Request, @Res() res: Response) {
     const teams = Array.isArray(team) ? team : [team];
+
+    const hasClub = await validateClub(teams);
+    const isSameClub = await isMyClub(teams, req);
+    if (!hasClub)  {
+      res.status(400);
+      return {code: 400, message: 'Club name given has no unique match'};
+    }
+    if (!isSameClub) {
+      res.status(403);
+      return {code: 403, message: 'Cannot create teams for other clubs than your own'};
+    }
+
     return this.repository.persist(teams)
       .catch(err => {
         Logger.log.error(err);
@@ -95,8 +116,15 @@ export class TeamController {
 
   @Delete('/:id')
   @UseBefore(RequireRoleClub)
-  async remove( @Param('id') teamId: number, @Res() res: Response) {
+  async remove( @Param('id') teamId: number, @Req() req: Request, @Res() res: Response) {
     const team = await this.repository.findOneById(teamId);
+    const isSameClub = await isMyClub([team], req);
+
+    if (!isSameClub) {
+      res.status(403);
+      return {code: 403, message: 'You are not authorized to remove teams from other clubs than your own.'};
+    }
+
     return this.repository.remove(team)
       .catch(err => Logger.log.error(err));
   }

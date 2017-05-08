@@ -6,7 +6,7 @@
 <form class="panel" [formGroup]="userForm" (submit)="save()">
   <fieldset>
     <div class="row">
-      <div class="col-xs-8" appFloatingLabelContainer>
+      <div [ngClass]="userForm.value.id !== currentUser.id ? 'col-xs-8' : 'col-xs-12'" appFloatingLabelContainer>
         <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
       </div>
@@ -19,11 +19,11 @@
     </div>
 
     <div class="row">
-      <div class="col-xs-7" appFloatingLabelContainer>
+      <div [ngClass]="userForm.value.id !== currentUser.id && currentUser.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12'" appFloatingLabelContainer>
         <label translate>Email</label>
         <input type="email" formControlName="email">
       </div>
-      <div class="col-5" appFloatingLabelContainer *ngIf="userForm.value.role < roles.Admin">
+      <div class="col-5" appFloatingLabelContainer *ngIf="userForm.value.role < roles.Admin && currentUser.role >= roles.Admin">
         <label translate>Club</label>
         <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
         <!--<input type="text" formControlName="club">-->

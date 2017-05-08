@@ -29,7 +29,7 @@
       cursor: pointer;
       color: black;
       padding: 8px;
-      &:hover {
+      &:hover, &.selected {
         background-color: rgba($primary, 0.3);
       }
     }

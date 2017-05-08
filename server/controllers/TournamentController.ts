@@ -23,6 +23,8 @@ import { ScoreGroup } from '../model/ScoreGroup';
 import { TournamentParticipant } from '../model/TournamentParticipant';
 import { UserController } from "./UserController";
 
+import { isCreatedByMe } from "../service/CreatedByValidator";
+
 /**
  *
  */
@@ -119,8 +121,14 @@ export class TournamentController {
 
   @Delete('/:id')
   @UseBefore(RequireRoleOrganizer)
-  async remove( @Param('id') tournamentId: number, @Res() res: Response) {
+  async remove( @Param('id') tournamentId: number, @Req() req: Request, @Res() res: Response) {
     const tournament = await this.repository.findOneById(tournamentId);
+    const isMe = await isCreatedByMe(tournament, req);
+    if (!isMe) {
+      res.status(403);
+      return { code: 403, message: 'Only the creator of a tournament can remove.'};
+    }
+
     // This should cascade, but it wont. :-(
     const divisionRepository = Container.get(DivisionController);
     const disciplineRepository = Container.get(DisciplineController);

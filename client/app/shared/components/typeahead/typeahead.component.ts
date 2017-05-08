@@ -9,7 +9,8 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChange
+  SimpleChange,
+  HostListener
 } from '@angular/core';
 import { Subscription } from "rxjs/Subscription";
 
@@ -36,6 +37,19 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   @Input() selectedItem;
   @Output() selectedItemChange = new EventEmitter();
   hasFocus: boolean;
+
+  _selectedIndex: number;
+  get selectedIndex() { return this._selectedIndex; }
+  set selectedIndex(value) {
+    if (!value) { value = 0;}
+    if (value > this._selectedIndex && value >= this.matches.length) {
+      value = this.matches.length - 1;
+    }
+    if (value < this._selectedIndex && value < 0) {
+      value = 0;
+    }
+    this._selectedIndex = value;
+  }
 
   _value: string;
   @Input()
@@ -75,9 +89,21 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   }
 
   //[(value)] is buggy and does not propagate changes on the md-input so we can get the value correctly
-  onKeyUp(event) {
-    this.value = event.target.value;
-    this.setMatches();
+  onKeyPress(event: KeyboardEvent) {
+    console.log(event.keyCode);
+    const keyCode = event.keyCode;
+    const input: HTMLInputElement = <HTMLInputElement>event.target;
+    setTimeout(() => {
+      this.value = input.value;
+      this.setMatches();
+
+      switch (keyCode) {
+        case 40: this.selectedIndex++; break;
+        case 38: this.selectedIndex--; break;
+        case 13:
+        case 9: this.select(this.matches[this.selectedIndex]); break;
+      }
+    });
   }
 
   select(item) {

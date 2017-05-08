@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, OneToMany, OneToOne, JoinColumn } from 'typeorm';
-import { Club } from './Club';
+import { Club, BelongsToClub } from './Club';
 import { Tournament } from "./Tournament";
 
 export enum Role {
@@ -14,8 +14,13 @@ export const RoleNames: [{id: number, name: string}] = [
   {id: Role.User,        name: 'User'},
 ]
 
+export interface CreatedBy {
+  createdBy: User;
+}
+
+
 @Entity()
-export class User {
+export class User implements BelongsToClub {
   @PrimaryGeneratedColumn()
   id: number;
 

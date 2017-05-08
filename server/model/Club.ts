@@ -5,6 +5,10 @@ import { Division } from './Division';
 import { Team } from './Team';
 import { User } from './User';
 
+
+export interface BelongsToClub {
+  club: Club;
+}
 /**
  *
  *

@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTabl
 import { Tournament } from './Tournament';
 import { Discipline } from './Discipline';
 import { Division } from './Division';
-import { Club } from './Club';
+import { Club, BelongsToClub } from './Club';
 
 /**
  *
@@ -12,7 +12,7 @@ import { Club } from './Club';
  */
 @Entity()
 @Index('team_name_tournament', (team: Team) => [team.name, team.tournament], { unique: true})
-export class Team {
+export class Team implements BelongsToClub {
   @PrimaryGeneratedColumn()
   id: number;
 
