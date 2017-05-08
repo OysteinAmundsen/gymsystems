@@ -213,7 +213,7 @@ export class UserController {
         // Send email confirmation on user creation and login details
         const roleName = RoleNames.find(r => r.id === user.role);
         this.sendmail({ from: emailFrom, to: user.email, subject: 'You are registerred',
-          html: _.template(messages.created)({name: user.name, password: origPass, roleName: roleName.name, club: user.club}),
+          html: _.template(messages.created)({name: user.name, password: origPass, roleName: roleName.name, club: user.club ? user.club.name : 'No club'}),
         }, (err: any, reply: any) => {
           Logger.log.debug(err && err.stack);
           Logger.log.debug(reply);
