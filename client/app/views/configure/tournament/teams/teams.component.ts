@@ -41,7 +41,12 @@ export class TeamsComponent implements OnInit, OnDestroy {
   }
 
   loadTeams() {
-    this.teamService.getMyTeamsByTournament(this.tournamentService.selectedId).subscribe(teams => this.teamList = teams);
+    if (this.currentUser.role >= Role.Organizer) {
+      this.teamService.getByTournament(this.tournamentService.selectedId).subscribe(teams => this.teamList = teams);
+    }
+    else {
+      this.teamService.getMyTeamsByTournament(this.tournamentService.selectedId).subscribe(teams => this.teamList = teams);
+    }
   }
 
   divisions(team: ITeam) { return this.teamService.division(team); }

@@ -3,3 +3,10 @@
 form {
   margin-top: 1rem;
 }
+.unselectable {
+  background-color: rgba($warning, 0.1);
+  opacity: 0.6;
+  tr {
+    cursor: not-allowed !important;
+  }
+}

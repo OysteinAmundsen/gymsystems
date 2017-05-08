@@ -5,16 +5,18 @@
         <th translate>Name</th>
         <th translate>Division</th>
         <th translate>Disciplines</th>
+        <th translate>Club</th>
       </tr>
     </thead>
-    <tbody *ngFor="let team of teamList" [ngClass]="{'unselectable': !canSelect(team)}">
+    <tbody *ngFor="let team of teamList" [ngClass]="{'unselectable': !canSelect(team)}" [title]="!canSelect(team) ? 'You do not have the privileges to edit this team' : ''">
       <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
         <td>{{ team.name }}</td>
         <td>{{ divisions(team) }}</td>
         <td>{{ disciplines(team) }}</td>
+        <td>{{ team.club.name }}</td>
       </tr>
       <tr *ngIf="team === selected">
-        <td colspan="3">
+        <td colspan="4">
           <app-team-editor [team]="selected" (teamChanged)="onChange($event)"></app-team-editor>
         </td>
       </tr>

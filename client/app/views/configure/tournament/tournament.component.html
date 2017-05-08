@@ -11,6 +11,7 @@
         <th translate>Start date</th>
         <th translate>End date</th>
         <th translate>Location</th>
+        <th translate>Created by</th>
       </tr>
     </thead>
     <tbody *ngFor="let tournament of tournamentList">
@@ -19,6 +20,7 @@
         <td>{{ tournament.startDate | date }}</td>
         <td>{{ tournament.endDate | date }}</td>
         <td>{{ tournament.location }}</td>
+        <td>{{ tournament.createdBy.name }}</td>
       </tr>
     </tbody>
   </table>
