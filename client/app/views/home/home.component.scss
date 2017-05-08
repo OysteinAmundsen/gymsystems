@@ -8,6 +8,7 @@
   /deep/ app-panel {
     width: 100%;
     >section {
+      border-width: 0 !important;
       overflow: hidden;
       div {
         padding: 0 !important;

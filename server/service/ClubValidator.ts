@@ -33,6 +33,6 @@ export async function isMyClub(body: BelongsToClub[], req: Request): Promise<boo
   const me = await userRepository.me(req);
 
   return body.every(b => {
-    return (b.club && b.club.id === me.club.id) || me.role > Role.Admin;
+    return me.role >= Role.Admin || (b.club && b.club.id === me.club.id);
   });
 }

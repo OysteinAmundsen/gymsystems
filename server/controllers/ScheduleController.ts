@@ -17,7 +17,7 @@ import { SSEService } from "../services/SSEService";
 @Service()
 @JsonController('/schedule')
 export class ScheduleController {
-  private repository: Repository<TournamentParticipant>;
+  public repository: Repository<TournamentParticipant>;
 
   constructor() {
     this.repository = getConnectionManager().get().getRepository(TournamentParticipant);

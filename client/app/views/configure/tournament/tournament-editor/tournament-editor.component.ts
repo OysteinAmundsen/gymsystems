@@ -18,6 +18,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   @Input() tournament: ITournament = <ITournament>{};
   tournamentForm: FormGroup;
   user: IUser;
+  roles = Role;
   userSubscription: Subscription;
   isEdit: boolean = false;
 
@@ -97,7 +98,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   }
 
   edit() {
-    if (this.user && this.user.role >= Role.Admin) {
+    if (this.user && (this.user.role >= Role.Admin || this.tournament.createdBy.id === this.user.id)) {
       this.isEdit = true;
     }
   }

@@ -27,9 +27,9 @@ export class Team implements BelongsToClub {
   @JoinTable()
   disciplines: Discipline[] = [];
 
-  @ManyToOne(type => Tournament, tournament => tournament.teams, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
+  @ManyToOne(type => Tournament, tournament => tournament.teams, { nullable: false, onDelete: 'CASCADE' })
   tournament: Tournament;
 
-  @ManyToOne(type => Club, club => club.teams, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
+  @ManyToOne(type => Club, club => club.teams, { nullable: false, onDelete: 'CASCADE' })
   club: Club;
 }

@@ -8,13 +8,15 @@ import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
 import { RequireRoleClub } from '../middlewares/RequireAuth';
+import { validateClub, isMyClub } from '../service/ClubValidator';
+
 import { UserController } from './UserController';
+import { ClubController } from './ClubController';
+import { ScheduleController } from './ScheduleController';
 
 import { Team } from '../model/Team';
 import { User, Role } from '../model/User';
 import { Club, BelongsToClub } from '../model/Club';
-import { ClubController } from "./ClubController";
-import { validateClub, isMyClub } from "../service/ClubValidator";
 
 /**
  *
@@ -32,7 +34,14 @@ export class TeamController {
 
   @Get()
   all() {
-    return this.repository.find();
+    return this.repository.createQueryBuilder('team')
+      .leftJoinAndSelect('team.divisions', 'division')
+      .leftJoinAndSelect('team.disciplines', 'discipline')
+      .leftJoinAndSelect('team.club', 'club')
+      .orderBy('division.sortOrder', 'ASC')
+      .addOrderBy('team.name', 'ASC')
+      .addOrderBy('discipline.name', 'ASC')
+      .getMany();
   }
 
   @Get('/tournament/:id')
@@ -71,7 +80,10 @@ export class TeamController {
   @Get('/:id')
   @EmptyResultCode(404)
   get( @Param('id') teamId: number): Promise<Team> {
-    return this.repository.findOneById(teamId);
+    return this.repository.createQueryBuilder('team')
+      .where('team.id=:id', {id: teamId})
+      .leftJoinAndSelect('team.club', 'club')
+      .getOne();
   }
 
   @Put('/:id')
@@ -117,7 +129,7 @@ export class TeamController {
   @Delete('/:id')
   @UseBefore(RequireRoleClub)
   async remove( @Param('id') teamId: number, @Req() req: Request, @Res() res: Response) {
-    const team = await this.repository.findOneById(teamId);
+    const team = await this.get(teamId);
     const isSameClub = await isMyClub([team], req);
 
     if (!isSameClub) {
@@ -125,6 +137,14 @@ export class TeamController {
       return {code: 403, message: 'You are not authorized to remove teams from other clubs than your own.'};
     }
 
+    // Remove participants setup by this team
+    const scheduler = Container.get(ScheduleController);
+    const participants = await scheduler.repository.createQueryBuilder('participant')
+      .where('participant.team=:id', {id: team.id})
+      .getMany();
+    await scheduler.removeMany(participants, res);
+
+    // Then remove the team
     return this.repository.remove(team)
       .catch(err => Logger.log.error(err));
   }

@@ -43,6 +43,8 @@ export class TournamentController {
   all(): Promise<Tournament[]> {
     return this.repository
       .createQueryBuilder('tournament')
+      .innerJoinAndSelect('tournament.createdBy', 'user')
+      .leftJoinAndSelect('user.club', 'club')
       .orderBy('tournament.startDate', 'DESC')
       .getMany();
   }
@@ -92,6 +94,7 @@ export class TournamentController {
     return this.repository.createQueryBuilder('tournament')
       .where('tournament.id=:id', { id: id })
       .innerJoinAndSelect('tournament.createdBy', 'user')
+      .leftJoinAndSelect('user.club', 'club')
       .getOne();
   }
 

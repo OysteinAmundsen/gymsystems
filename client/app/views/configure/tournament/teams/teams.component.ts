@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TournamentService, TeamsService, UserService } from 'app/services/api';
 import { DivisionType } from 'app/services/model/DivisionType';
 import { ITeam } from 'app/services/model/ITeam';
-import { IUser } from 'app/services/model/IUser';
+import { IUser, Role } from 'app/services/model/IUser';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -72,10 +72,18 @@ export class TeamsComponent implements OnInit, OnDestroy {
   }
 
   select(team: ITeam) {
-    if (team && !team.tournament) {
-      team.tournament = this.tournamentService.selected;
+    if (team) {
+      if (!team.tournament) {
+        team.tournament = this.tournamentService.selected;
+      }
+      if (this.currentUser.role >= Role.Admin || team.club.id === this.currentUser.club.id) {
+        this.selected = team;
+      }
     }
-    this.selected = team;
+  }
+
+  canSelect(team: ITeam) {
+    return (this.currentUser.role >= Role.Admin || team.club.id === this.currentUser.club.id);
   }
 
   @HostListener('window:keyup', ['$event'])

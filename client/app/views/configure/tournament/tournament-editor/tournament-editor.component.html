@@ -72,11 +72,11 @@
 
 <menu *ngIf="tournamentForm.value.id" role="tablist">
   <ul>
-    <li [routerLinkActive]="['active']" *appIfAuth="'Organizer'">
+    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || (user.role >= roles.Organizer && tournament.createdBy.id === user.id)">
       <a routerLink="./divisions">
         <app-fa name="cubes" fw="true"></app-fa> <span translate>Divisions</span> </a>
     </li>
-    <li [routerLinkActive]="['active']" *appIfAuth="'Organizer'">
+    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || (user.role >= roles.Organizer && tournament.createdBy.id === user.id)">
       <a routerLink="./disciplines">
         <app-fa name="heartbeat" fw="true"></app-fa> <span translate>Disciplines</span> </a>
     </li>
@@ -84,11 +84,11 @@
       <a routerLink="./teams">
         <app-fa name="users" fw="true"></app-fa> <span translate>Teams</span></a>
     </li>
-    <li [routerLinkActive]="['active']" *appIfAuth="'Organizer'">
+    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || (user.role >= roles.Organizer && tournament.createdBy.id === user.id)">
       <a routerLink="./schedule">
         <app-fa name="sort-numeric-asc" fw="true"></app-fa> <span translate>Schedule</span></a>
     </li>
-    <li [routerLinkActive]="['active']" *appIfAuth="'Organizer'">
+    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || (user.role >= roles.Organizer && tournament.createdBy.id === user.id)">
       <a routerLink="./info">
         <app-fa name="info" fw="true"></app-fa> <span translate>Info</span></a>
     </li>

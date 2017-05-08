@@ -7,7 +7,7 @@
         <th translate>Disciplines</th>
       </tr>
     </thead>
-    <tbody *ngFor="let team of teamList">
+    <tbody *ngFor="let team of teamList" [ngClass]="{'unselectable': !canSelect(team)}">
       <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
         <td>{{ team.name }}</td>
         <td>{{ divisions(team) }}</td>
