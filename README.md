@@ -2,6 +2,8 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/OysteinAmundsen/gymsystems.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/OysteinAmundsen/gymsystems.svg?branch=master)](https://travis-ci.org/OysteinAmundsen/gymsystems)
+[![Dependency Status](https://david-dm.org/OysteinAmundsen/gymsystems.svg)](https://david-dm.org/OysteinAmundsen/gymsystems)
+[![devDependency Status](https://david-dm.org/OysteinAmundsen/gymsystems/dev-status.svg)](https://david-dm.org/OysteinAmundsen/gymsystems#info=devDependencies)
 [![GitHub issues](https://img.shields.io/github/issues/OysteinAmundsen/gymsystems.svg)](https://github.com/OysteinAmundsen/gymsystems/issues)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/OysteinAmundsen/gymsystems.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FOysteinAmundsen%2Fgymsystems)
 
