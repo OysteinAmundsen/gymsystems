@@ -8,9 +8,11 @@ import { HttpLoaderFactory } from 'app';
 import { SharedModule } from 'app/shared/shared.module';
 import { UserEditorComponent } from './user-editor.component';
 import { UserService, ClubService } from 'app/services/api';
-import { Observable } from "rxjs/Observable";
-import { IUser, Role } from "app/services/model/IUser";
-import { IClub } from "app/services/model/IClub";
+import { Observable } from 'rxjs/Observable';
+import { IUser, Role } from 'app/services/model/IUser';
+import { IClub } from 'app/services/model/IClub';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { ClubServiceStub } from 'app/services/api/club.service.stub';
 
 describe('UserEditorComponent', () => {
   let component: UserEditorComponent;
@@ -34,24 +36,9 @@ describe('UserEditorComponent', () => {
       ],
       declarations: [ UserEditorComponent ],
       providers: [
-        UserService,
-        ClubService
+        {provide: UserService, useClass: UserServiceStub},
+        {provide: ClubService, useClass: ClubServiceStub},
       ]
-    })
-    .overrideComponent(UserEditorComponent, {
-      set: {
-        providers: [
-          { provide: UserService, useClass: class DataStub {
-              getMe(): Observable<IUser> {
-                return Observable.of(user);
-              }
-              getById(id: number): Observable<IUser> {
-                return Observable.of(user);
-              }
-            }
-          },
-        ]
-      }
     })
     .compileComponents();
   }));
@@ -67,14 +54,3 @@ describe('UserEditorComponent', () => {
   });
 });
 
-const club: IClub = <IClub>{
-  id          : 0,
-  name        : 'HAUGESUND TURNFORENING'
-}
-const user: IUser = <IUser>{
-  id    : 0,
-  name  : 'admin',
-  email : 'admin@admin.no',
-  role  : Role.Admin,
-  club  : club
-};

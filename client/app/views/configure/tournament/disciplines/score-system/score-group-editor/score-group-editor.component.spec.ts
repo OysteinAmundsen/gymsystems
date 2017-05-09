@@ -10,6 +10,7 @@ import { HttpLoaderFactory } from 'app';
 import { ScoreGroupEditorComponent } from './score-group-editor.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { ScoreGroupService } from 'app/services/api';
+import { ScoreGroupServiceStub } from 'app/services/api/scoregroup.service.stub';
 
 describe('ScoreGroupEditorComponent', () => {
   let component: ScoreGroupEditorComponent;
@@ -32,7 +33,7 @@ describe('ScoreGroupEditorComponent', () => {
       ],
       declarations: [ ScoreGroupEditorComponent ],
       providers: [
-        ScoreGroupService
+        {provide: ScoreGroupService, useClass: ScoreGroupServiceStub},
       ]
     })
     .compileComponents();

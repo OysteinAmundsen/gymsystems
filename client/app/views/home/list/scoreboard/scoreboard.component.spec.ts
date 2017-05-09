@@ -12,12 +12,14 @@ import { ScoreGroupComponent } from '../score-group/score-group.component';
 import { ScoreComponent } from '../score/score.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { ScoreService, UserService } from 'app/services/api';
-import { ITournamentParticipant } from "app/services/model/ITournamentParticipant";
-import { IDiscipline } from "app/services/model/IDiscipline";
-import { ITeam } from "app/services/model/ITeam";
-import { ITournament } from "app/services/model/ITournament";
-import { IScoreGroup } from "app/services/model/IScoreGroup";
-import { Operation } from "app/services/model/Operation";
+import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
+import { IDiscipline } from 'app/services/model/IDiscipline';
+import { ITeam } from 'app/services/model/ITeam';
+import { ITournament } from 'app/services/model/ITournament';
+import { IScoreGroup } from 'app/services/model/IScoreGroup';
+import { Operation } from 'app/services/model/Operation';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { ScoreServiceStub } from 'app/services/api/score.service.stub';
 
 describe('ScoreboardComponent', () => {
   let component: ScoreboardComponent;
@@ -46,8 +48,8 @@ describe('ScoreboardComponent', () => {
         ScoreComponent
       ],
       providers: [
-        ScoreService,
-        UserService
+        {provide: ScoreService, useClass: ScoreServiceStub},
+        {provide: UserService, useClass: UserServiceStub},
       ]
     })
     .compileComponents();

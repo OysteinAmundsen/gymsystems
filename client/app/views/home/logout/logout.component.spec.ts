@@ -9,6 +9,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { LogoutComponent } from './logout.component';
 import { UserService } from 'app/services/api';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
 
 describe('LogoutComponent', () => {
   let component: LogoutComponent;
@@ -32,7 +33,7 @@ describe('LogoutComponent', () => {
       ],
       declarations: [ LogoutComponent ],
       providers: [
-        UserService,
+        {provide: UserService, useClass: UserServiceStub},
         ErrorHandlerService
       ]
     })

@@ -12,7 +12,10 @@ import { SharedModule } from 'app/shared/shared.module';
 import { TournamentService, UserService, TeamsService } from 'app/services/api';
 import { IClub } from 'app/services/model/IClub';
 import { IUser, Role } from 'app/services/model/IUser';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
+import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
 
 describe('TeamsComponent', () => {
   let component: TeamsComponent;
@@ -39,9 +42,9 @@ describe('TeamsComponent', () => {
         TeamEditorComponent
       ],
       providers: [
-        TeamsService,
-        UserService,
-        TournamentService
+        {provide: TeamsService, useClass: TeamsServiceStub},
+        {provide: UserService, useClass: UserServiceStub},
+        {provide: TournamentService, useClass: TournamentServiceStub},
       ]
     })
     .overrideComponent(TeamsComponent, {

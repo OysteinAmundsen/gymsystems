@@ -12,6 +12,10 @@ import { DisciplinesComponent } from './disciplines.component';
 import { DisciplineEditorComponent } from './discipline-editor/discipline-editor.component';
 import { ScoreSystemComponent, ScoreGroupEditorComponent } from './score-system';
 import { TournamentService, DisciplineService, ScoreGroupService, ConfigurationService } from 'app/services/api';
+import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
+import { ScoreGroupServiceStub } from 'app/services/api/scoregroup.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
 
 describe('ConfigureDisciplinesComponent', () => {
   let component: DisciplinesComponent;
@@ -41,10 +45,10 @@ describe('ConfigureDisciplinesComponent', () => {
         ScoreGroupEditorComponent
       ],
       providers: [
-        TournamentService,
-        DisciplineService,
-        ScoreGroupService,
-        ConfigurationService
+        {provide: TournamentService, useClass: TournamentServiceStub},
+        {provide: DisciplineService, useClass: DisciplineServiceStub},
+        {provide: ScoreGroupService, useClass: ScoreGroupServiceStub},
+        {provide: ConfigurationService, useClass: ConfigurationServiceStub},
       ]
     })
       .compileComponents();

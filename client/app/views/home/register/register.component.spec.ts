@@ -9,6 +9,8 @@ import { SharedModule } from 'app/shared/shared.module';
 import { RegisterComponent } from './register.component';
 import { UserService, ClubService } from 'app/services/api';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ClubServiceStub } from 'app/services/api/club.service.stub';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -32,9 +34,10 @@ describe('RegisterComponent', () => {
       ],
       declarations: [ RegisterComponent ],
       providers: [
-        UserService,
+        {provide: UserService, useClass: UserServiceStub},
+        {provide: ClubService, useClass: ClubServiceStub},
         ErrorHandlerService,
-        ClubService
+
       ]
     })
     .compileComponents();

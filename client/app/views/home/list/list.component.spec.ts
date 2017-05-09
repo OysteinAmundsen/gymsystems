@@ -12,6 +12,11 @@ import { TournamentService, UserService, ScheduleService, TeamsService, EventSer
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { ScoreGroupComponent } from './score-group/score-group.component';
 import { ScoreComponent } from './score/score.component';
+import { EventServiceStub } from 'app/services/api/event.service.stub';
+import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
+import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -40,11 +45,11 @@ describe('ListComponent', () => {
         ScoreComponent
       ],
       providers: [
-        ScheduleService,
-        UserService,
-        TournamentService,
-        TeamsService,
-        EventService
+        {provide: ScheduleService, useClass: ScheduleServiceStub},
+        {provide: UserService, useClass: UserServiceStub},
+        {provide: TournamentService, useClass: TournamentServiceStub},
+        {provide: TeamsService, useClass: TeamsServiceStub},
+        {provide: EventService, useClass: EventServiceStub},
       ]
     })
     .compileComponents();

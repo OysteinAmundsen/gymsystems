@@ -10,6 +10,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ConfigureDisplayComponent } from './configure-display.component';
 import { MacroDialogComponent } from './macro-dialog/macro-dialog.component';
 import { ConfigurationService } from 'app/services/api';
+import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
 
 describe('ConfigureDisplayComponent', () => {
   let component: ConfigureDisplayComponent;
@@ -35,7 +36,7 @@ describe('ConfigureDisplayComponent', () => {
         MacroDialogComponent
       ],
       providers: [
-        ConfigurationService
+        {provide: ConfigurationService, useClass: ConfigurationServiceStub},
       ]
     })
     .compileComponents();

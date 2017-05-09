@@ -8,6 +8,7 @@ import { ConfigureComponent } from './configure.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { UserService } from 'app/services/api';
 import { HttpModule } from '@angular/http';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
 
 describe('ConfigureComponent', () => {
 
@@ -22,7 +23,7 @@ describe('ConfigureComponent', () => {
       ],
       declarations: [ ConfigureComponent ],
       providers: [
-        UserService,
+        {provide: UserService, useClass: UserServiceStub},
       ]
     })
     .compileComponents();

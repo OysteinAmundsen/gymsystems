@@ -9,11 +9,17 @@ import { HttpLoaderFactory } from 'app';
 import { TeamEditorComponent } from './team-editor.component';
 import { TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService } from 'app/services/api';
 import { SharedModule } from 'app/shared/shared.module';
-import { ITeam } from "app/services/model/ITeam";
-import { ITournament } from "app/services/model/ITournament";
-import { IClub } from "app/services/model/IClub";
-import { IUser, Role } from "app/services/model/IUser";
-import { Observable } from "rxjs/Observable";
+import { ITeam } from 'app/services/model/ITeam';
+import { ITournament } from 'app/services/model/ITournament';
+import { IClub } from 'app/services/model/IClub';
+import { IUser, Role } from 'app/services/model/IUser';
+import { Observable } from 'rxjs/Observable';
+import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
+import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { ClubServiceStub } from 'app/services/api/club.service.stub';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { DivisionServiceStub } from 'app/services/api/division.service.stub';
+import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
 
 describe('TeamEditorComponent', () => {
   let component: TeamEditorComponent;
@@ -36,12 +42,12 @@ describe('TeamEditorComponent', () => {
       ],
       declarations: [ TestCmpWrapper, TeamEditorComponent ],
       providers: [
-        TeamsService,
-        TournamentService,
-        ClubService,
-        UserService,
-        DivisionService,
-        DisciplineService
+        {provide: TeamsService, useClass: TeamsServiceStub},
+        {provide: TournamentService, useClass: TournamentServiceStub},
+        {provide: ClubService, useClass: ClubServiceStub},
+        {provide: UserService, useClass: UserServiceStub},
+        {provide: DivisionService, useClass: DivisionServiceStub},
+        {provide: DisciplineService, useClass: DisciplineServiceStub},
       ]
     })
     .overrideComponent(TeamEditorComponent, {

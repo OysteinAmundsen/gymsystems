@@ -8,6 +8,11 @@ import { HttpLoaderFactory } from 'app';
 import { SharedModule } from 'app/shared/shared.module';
 import { ResultsComponent } from './results.component';
 import { ScheduleService, TeamsService, TournamentService, EventService, UserService } from 'app/services/api';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { EventServiceStub } from 'app/services/api/event.service.stub';
+import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
+import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
 
 describe('ResultsComponent', () => {
   let component: ResultsComponent;
@@ -31,11 +36,11 @@ describe('ResultsComponent', () => {
       ],
       declarations: [ ResultsComponent ],
       providers: [
-        ScheduleService,
-        TeamsService,
-        TournamentService,
-        EventService,
-        UserService
+        {provide: ScheduleService, useClass: ScheduleServiceStub},
+        {provide: TeamsService, useClass: TeamsServiceStub},
+        {provide: TournamentService, useClass: TournamentServiceStub},
+        {provide: EventService, useClass: EventServiceStub},
+        {provide: UserService, useClass: UserServiceStub},
       ]
     })
     .compileComponents();

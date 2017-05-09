@@ -1,7 +1,6 @@
 export * from './discipline.service';
 export * from './division.service';
 export * from './display.service';
-export * from './role.service';
 export * from './score.service';
 export * from './scoregroup.service';
 export * from './teams.service';

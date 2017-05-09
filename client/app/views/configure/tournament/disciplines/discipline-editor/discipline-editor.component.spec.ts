@@ -10,6 +10,8 @@ import { SharedModule } from 'app/shared/shared.module';
 import { DisciplineEditorComponent } from './discipline-editor.component';
 import { ScoreSystemComponent, ScoreGroupEditorComponent } from '../score-system';
 import { TournamentService, DisciplineService } from 'app/services/api';
+import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
 
 describe('DisciplineEditorComponent', () => {
   let component: DisciplineEditorComponent;
@@ -36,8 +38,8 @@ describe('DisciplineEditorComponent', () => {
         ScoreSystemComponent, ScoreGroupEditorComponent,
       ],
       providers: [
-        TournamentService,
-        DisciplineService
+        {provide: TournamentService, useClass: TournamentServiceStub},
+        {provide: DisciplineService, useClass: DisciplineServiceStub},
       ]
     })
     .compileComponents();

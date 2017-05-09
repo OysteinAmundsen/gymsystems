@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
@@ -8,12 +8,18 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2/di
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
 
+import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { TournamentService, UserService } from 'app/services/api';
+
 import { AppComponent } from './app.component';
 import { SharedModule } from 'app/shared/shared.module';
-import { UserService, TournamentService } from 'app/services/api';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -34,12 +40,18 @@ describe('AppComponent', () => {
         AppComponent
       ],
       providers: [
-        UserService,
-        TournamentService,
+        {provide: UserService, useClass: UserServiceStub },
+        {provide: TournamentService, useClass: TournamentServiceStub },
         ErrorHandlerService,
       ]
     });
     TestBed.compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create the app', async(() => {

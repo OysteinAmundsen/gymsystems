@@ -9,6 +9,8 @@ import { SharedModule } from 'app/shared/shared.module';
 import { TournamentComponent } from './tournament.component';
 import { TournamentEditorComponent } from './tournament-editor/tournament-editor.component';
 import { TournamentService, UserService } from 'app/services/api';
+import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
 
 describe('TournamentComponent', () => {
   let component: TournamentComponent;
@@ -35,8 +37,8 @@ describe('TournamentComponent', () => {
         TournamentEditorComponent
       ],
       providers: [
-        TournamentService,
-        UserService
+        {provide: TournamentService, useClass: TournamentServiceStub},
+        {provide: UserService, useClass: UserServiceStub},
       ]
     })
     .compileComponents();

@@ -7,6 +7,7 @@ import { HttpLoaderFactory } from 'app';
 import { DivisionEditorComponent } from './division-editor.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { DivisionService } from 'app/services/api';
+import { DivisionServiceStub } from 'app/services/api/division.service.stub';
 
 describe('DivisionEditorComponent', () => {
   let component: DivisionEditorComponent;
@@ -29,7 +30,7 @@ describe('DivisionEditorComponent', () => {
       ],
       declarations: [ DivisionEditorComponent ],
       providers: [
-        DivisionService
+        {provide: DivisionService, useClass: DivisionServiceStub},
       ]
     })
     .compileComponents();

@@ -7,6 +7,11 @@ import { HttpLoaderFactory } from 'app';
 import { SharedModule } from 'app/shared/shared.module';
 import { FullscreenComponent } from './fullscreen.component';
 import { ConfigurationService, ScheduleService, TournamentService, DisplayService, EventService } from 'app/services/api';
+import { EventServiceStub } from 'app/services/api/event.service.stub';
+import { DisplayServiceStub } from 'app/services/api/display.service.stub';
+import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
 
 describe('FullscreenComponent', () => {
   let component: FullscreenComponent;
@@ -28,11 +33,11 @@ describe('FullscreenComponent', () => {
       ],
       declarations: [ FullscreenComponent ],
       providers: [
-        ConfigurationService,
-        ScheduleService,
-        TournamentService,
-        DisplayService,
-        EventService
+        {provide: ConfigurationService, useClass: ConfigurationServiceStub},
+        {provide: ScheduleService, useClass: ScheduleServiceStub},
+        {provide: TournamentService, useClass: TournamentServiceStub},
+        {provide: DisplayService, useClass: DisplayServiceStub},
+        {provide: EventService, useClass: EventServiceStub},
       ]
     })
     .compileComponents();

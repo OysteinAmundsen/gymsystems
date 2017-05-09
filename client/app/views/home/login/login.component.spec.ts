@@ -9,6 +9,7 @@ import { HttpLoaderFactory } from 'app';
 import { SharedModule } from 'app/shared/shared.module';
 import { LoginComponent } from './login.component';
 import { UserService } from 'app/services/api';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -34,7 +35,7 @@ describe('LoginComponent', () => {
         LoginComponent
       ],
       providers: [
-        UserService,
+        {provide: UserService, useClass: UserServiceStub},
       ]
     })
     .compileComponents();
