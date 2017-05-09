@@ -17,7 +17,45 @@
   </head>
 
   <body>
-    <app-root><span translate>Loading...</span></app-root>
+    <app-root>
+      <svg viewBox="0 0 200 40" preserveAspectRatio="none" class="site-header-background">
+        <path d="M 0,0 H 200 V 13 c -139,0 -149,1 -200,23 z" />
+        <path d="M 0,0 H 200 V 13 c -139,0 -149,1 -200,17 z" />
+        <path d="M 0,0 H 200 V 13 c -139,0 -149,1 -200,11 z" />
+      </svg>
+      <nav>
+        <div class="container">
+          <header>
+            <a class="appLogo" routerLink="/"><span>Gym</span><span>Systems</span></a>
+          </header>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="loader">
+          <h1 translate>Loading...</h1>
+          <script>
+            var counter = 0;
+            function animate() {
+              var loader = document.querySelector('.loader h1');
+              if (loader) {
+                counter++;
+                if (counter > 10) { loader.innerHTML = 'Loading...'; }
+                loader.innerHTML += '.';
+                setTimeout(animate, 1000);
+              }
+            }
+            animate();
+          </script>
+        </div>
+      </div>
+      <footer>
+        <svg viewBox="0 0 200 38" preserveAspectRatio="none" class="site-header-background">
+          <path d="M 200,21 H 0 v -1 C 132,20 149,18 200,0 Z"/>
+          <path d="m 200,21 h -200 v -1 c 140,0 155,-1 200,-16 z"/>
+          <path d="m 200,21 h -200 v -1 c 140,0 150,1 200,-11 z"/>
+        </svg>
+      </footer>
+    </app-root>
   </body>
 
   <script>
@@ -30,5 +68,4 @@
     // ga('send', 'pageview'); // Use angulartics2 instead to track ng routes
 
   </script>
-
 </html>
