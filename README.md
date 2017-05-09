@@ -3,7 +3,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/OysteinAmundsen/gymsystems.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/OysteinAmundsen/gymsystems.svg?branch=master)](https://travis-ci.org/OysteinAmundsen/gymsystems)
 [![GitHub issues](https://img.shields.io/github/issues/OysteinAmundsen/gymsystems.svg)](https://github.com/OysteinAmundsen/gymsystems/issues)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/OysteinAmundsen/gymsystems.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/OysteinAmundsen/gymsystems.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FOysteinAmundsen%2Fgymsystems)
 
 This is a complete web based system for managing the secretariat for Team Gymnastic sports. There are not many proffesional scoring or managing systems available, and therefore we saw the need for creating one. And since these minority sports are typically not funded, and therefore prone to voluntary work, we wanted this system to be a community open-source project as well. We will therefore never ask for money for this system, but instead wecome improvements through pull-requests.
 
