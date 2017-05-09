@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpModule, Http } from '@angular/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpLoaderFactory } from 'app';
 
 import { DivisionEditorComponent } from './division-editor.component';
+import { SharedModule } from 'app/shared/shared.module';
+import { DivisionService } from 'app/services/api';
 
 describe('DivisionEditorComponent', () => {
   let component: DivisionEditorComponent;
@@ -8,7 +14,23 @@ describe('DivisionEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DivisionEditorComponent ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+        HttpModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [Http]
+          }
+        }),
+      ],
+      declarations: [ DivisionEditorComponent ],
+      providers: [
+        DivisionService
+      ]
     })
     .compileComponents();
   }));

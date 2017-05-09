@@ -1,28 +1,36 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+
+import { TestBed, async } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ConfigureComponent } from './configure.component';
+import { SharedModule } from 'app/shared/shared.module';
+import { UserService } from 'app/services/api';
+import { HttpModule } from '@angular/http';
 
 describe('ConfigureComponent', () => {
-  let component: ConfigureComponent;
-  let fixture: ComponentFixture<ConfigureComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConfigureComponent ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
+        SharedModule,
+        HttpModule,
+      ],
+      declarations: [ ConfigureComponent ],
+      providers: [
+        UserService,
+      ]
     })
     .compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ConfigureComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(ConfigureComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
   });
 });

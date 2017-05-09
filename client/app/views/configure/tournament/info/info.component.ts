@@ -30,5 +30,4 @@ export class InfoComponent implements OnInit {
   save() {
     this.tournamentService.save(this.tournament).subscribe(res => this.tournament = res);
   }
-
 }

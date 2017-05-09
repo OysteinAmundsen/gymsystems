@@ -1,9 +1,15 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule, Http } from '@angular/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpLoaderFactory } from 'app';
+
+import { SharedModule } from 'app/shared/shared.module';
 import { ConfigureDisplayComponent } from './configure-display.component';
+import { MacroDialogComponent } from './macro-dialog/macro-dialog.component';
+import { ConfigurationService } from 'app/services/api';
 
 describe('ConfigureDisplayComponent', () => {
   let component: ConfigureDisplayComponent;
@@ -11,7 +17,26 @@ describe('ConfigureDisplayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConfigureDisplayComponent ]
+      imports: [
+        SharedModule,
+        FormsModule,
+        HttpModule,
+        ReactiveFormsModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [Http]
+          }
+        }),
+      ],
+      declarations: [
+        ConfigureDisplayComponent,
+        MacroDialogComponent
+      ],
+      providers: [
+        ConfigurationService
+      ]
     })
     .compileComponents();
   }));

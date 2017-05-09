@@ -1,6 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpModule, Http } from '@angular/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpLoaderFactory } from 'app';
 
+import { SharedModule } from 'app/shared/shared.module';
 import { LogoutComponent } from './logout.component';
+import { UserService } from 'app/services/api';
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 describe('LogoutComponent', () => {
   let component: LogoutComponent;
@@ -8,7 +16,25 @@ describe('LogoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LogoutComponent ]
+      imports: [
+        RouterTestingModule,
+        HttpModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [Http]
+          }
+        }),
+      ],
+      declarations: [ LogoutComponent ],
+      providers: [
+        UserService,
+        ErrorHandlerService
+      ]
     })
     .compileComponents();
   }));

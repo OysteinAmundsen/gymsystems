@@ -1,6 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 import { InfoComponent } from './info.component';
+import { SharedModule } from 'app/shared/shared.module';
+import { HttpModule } from '@angular/http';
+import { ConfigurationService, TournamentService } from 'app/services/api';
 
 describe('InfoComponent', () => {
   let component: InfoComponent;
@@ -8,7 +15,25 @@ describe('InfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InfoComponent ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+        RouterTestingModule,
+        HttpModule
+      ],
+      declarations: [ InfoComponent ],
+      providers: [
+        ConfigurationService,
+        TournamentService,
+        {
+          provide: ActivatedRoute, useValue: {
+            parent: {
+              params: Observable.of({ id: 1 })
+            }
+          }
+        }
+      ]
     })
     .compileComponents();
   }));

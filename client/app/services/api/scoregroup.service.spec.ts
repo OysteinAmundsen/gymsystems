@@ -1,9 +1,12 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { HttpModule } from '@angular/http';
+
 import { ScoreGroupService } from './scoregroup.service';
 
 describe('ScoreService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpModule],
       providers: [ScoreGroupService]
     });
   });
