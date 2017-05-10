@@ -9,25 +9,14 @@
 
 This is a complete web based system for managing the secretariat for Team Gymnastic sports. There are not many proffesional scoring or managing systems available, and therefore we saw the need for creating one. And since these minority sports are typically not funded, and therefore prone to voluntary work, we wanted this system to be a community open-source project as well. We will therefore never ask for money for this system, but instead wecome improvements through pull-requests.
 
-[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/) Install on your own container stack, or follow [the installation guide](#installation).
+The system is now running live on [www.gymsystems.org](http://www.gymsystems.org), but you are welcome to host this yourself if you require a clean stack. Please read the [installation guide](#installation) below for detailed instructions on how to set this up.
 
-## Note
-
-This project is still a work in progress. 
-
-
-## Prerequisites
-
-You need to install the following:
-
-* [NodeJS](https://nodejs.org/) 6 or higher
-* [Docker](https://www.docker.com/)
-
+We've developed a comprehensive users manual over at our [wiki](../../wiki). This should describe in depth how the system is to be used. If you feel that the manual is missing some information, feel free to open a new [issue](../../issues), and we will add or clarify. 
 
 ## Table of contents
 
 * [Installation](#installation)
-* [How to use](#how-to-use)
+* [How to use (own wiki space)](../../wiki)
 * [Development](#development)
   - [Database](#database)
   - [Server](#server)
@@ -36,9 +25,23 @@ You need to install the following:
 
 ## Installation
 
-**BEFORE YOU INSTALL:** please read the [prerequisites](#prerequisites)
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/) 
+
+This system is written entirely in Typescript. It is intended to be run in a docker container, but it is flexible enough to setup any which way you want. 
+Install on your own docker-cloud container stack using this button, or follow the manual installation guide below.
+
 
 **NOTE:** If you want to devlop on this project, you should look at the [development](#development) info below, as doing a full `docker-build` is not required for development. 
+
+
+### Manual installation
+
+In order to install and setup the system manually, you need to install the following first:
+
+* [NodeJS](https://nodejs.org/) 7 or higher
+* [Docker](https://www.docker.com/)
+
+
 
 For a production ready deployment, do this:
 
@@ -56,11 +59,10 @@ They're put together using `docker-compose` and should be available on port 80 o
 
 If all you want to do is startup this project, your pretty much done now. The application should be available on `http://[docker-machine]` <- which usually is [localhost](http://localhost)
 
-## How to use
-
-Please refer to our [wiki](../../wiki)
 
 ## Development
+
+We welcome pull-requests to our system. We therefore want you to be able to setup a development environment quickly and easily. The information below should be all you as a developer require to get up and running quickly, and make all the changes you want. 
 
 ### Database
 
@@ -73,7 +75,7 @@ The docker container shoud be setup with a volume mounted from your local file s
 
 ### Server
 
-You can start the server bit of this project up in two ways:
+You can start the server bit of this project up in three ways:
 
 1. Build once and serve
 
@@ -82,7 +84,7 @@ You can start the server bit of this project up in two ways:
   npm run server
   ```
 
-  This will build the backend and frontend, and start up the server on [localhost:3000](http://localhost:3000). 
+  This will build the backend **and frontend**, and start up the server on [localhost:3000](http://localhost:3000). 
 
 2. Build continously and serve
 
@@ -90,7 +92,17 @@ You can start the server bit of this project up in two ways:
   npm run dev
   ```
   This command will continuously build the backend while you develop, and restart the Node Express server when build is done. This will not affect changes you make in the `client` though. 
+  
+  **This will not build the frontend**. In this mode, you only have the server. You will need to start the [client](#client) in a separate process.
 
+3. Build continously and **debug**
+
+  ```bash
+  npm run server:build:watch
+  ```
+  This command will continously build the backend while you develop. It will not start the server though. We like to use VSCode, and have included VSCode launch settings in this repository for you. Choose to debug `Server` in VSCode, and you are up. When you do changes to the code, the server will rebuild and your debugging session will restart automatically.
+
+  **This will not build the frontend**. In this mode, you only have the server. You will need to start the [client](#client) in a separate process.
 
 ### Client
 
