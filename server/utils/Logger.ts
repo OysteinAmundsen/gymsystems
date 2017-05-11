@@ -27,15 +27,16 @@ export namespace Logger {
     const regexp = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
     return JSON.stringify({
       level: logEntry.level,
+      timestamp: new Date().toISOString(),
       message: logEntry.message.replace(regexp, ''),
-      timestamp: new Date().toISOString()
     });
   }
   export let log: LoggerInstance = new winston.Logger({
     transports: [
       new winston.transports.File({
-        level: 'info',
-        filename: './log/all-logs.log',
+        name: 'errorLog',
+        level: 'error',
+        filename: './log/errors.log',
         handleExceptions: true,
         json: false,
         maxsize: (1 * 1024 * 1024), // 1MB
@@ -43,7 +44,19 @@ export namespace Logger {
         colorize: false,
         formatter: formatter
       }),
+      new winston.transports.File({
+        name: 'info',
+        level: 'info',
+        filename: './log/all-logs.log',
+        handleExceptions: false,
+        json: false,
+        maxsize: (1 * 1024 * 1024), // 1MB
+        maxFiles: 5,
+        colorize: false,
+        formatter: formatter
+      }),
       new winston.transports.Console({
+        name: 'all',
         level: 'debug',
         handleExceptions: true,
         json: false,
