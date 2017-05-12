@@ -18,3 +18,4 @@ services:
     volumes:
       - /usr/src/app/node_modules
       - ./log:/usr/src/app/log
+      - ./media:/usr/src/app/media

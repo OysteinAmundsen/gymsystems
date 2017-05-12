@@ -13,7 +13,7 @@ import { Subscription } from "rxjs/Subscription";
 @Component({
   selector: 'app-team-editor',
   templateUrl: './team-editor.component.html',
-  styleUrls: ['./team-editor.component.scss']
+  styleUrls: ['./team-editor.component.scss'],
 })
 export class TeamEditorComponent implements OnInit, OnDestroy {
   @Input() team: ITeam = <ITeam>{};
@@ -93,6 +93,16 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
+  }
+
+  fileAdded($event, discipline: IDiscipline) {
+    let fileList: FileList = (<HTMLInputElement>event.target).files;
+    if(fileList.length > 0) {
+      this.teamService.upload(fileList[0], this.teamForm.value, discipline).subscribe(
+        data => console.log('success'),
+        error => console.log(error)
+      )
+    }
   }
 
   async save() {

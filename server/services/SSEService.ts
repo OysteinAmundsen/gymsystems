@@ -8,6 +8,7 @@ import { Logger } from '../utils/Logger';
 /**
  * Singleton class serving as SSE event handler
  */
+@Service()
 export class SSEService {
   openConnections: Response[] = [];
   app: Express;
@@ -15,9 +16,6 @@ export class SSEService {
   constructor() {
     this.app = Container.get(GymServer).app;
     this.app.use('/api/event', (req, res) => this.connect(req, res));
-
-    // Register instance in DI container
-    Container.set(SSEService, this);
   }
 
   /**

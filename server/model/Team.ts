@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, Index } from 'typeorm';
 import { Tournament } from './Tournament';
 import { Discipline } from './Discipline';
-import { Division } from './Division';
+import { Division, DivisionType } from './Division';
 import { Club, BelongsToClub } from './Club';
 
 /**
@@ -32,4 +32,10 @@ export class Team implements BelongsToClub {
 
   @ManyToOne(type => Club, club => club.teams, { nullable: false, onDelete: 'CASCADE' })
   club: Club;
+
+  get divisionName(): string {
+    const ageDivision = this.divisions.find(d => d.type === DivisionType.Age);
+    const genderDivision = this.divisions.find(d => d.type === DivisionType.Gender);
+    return `${genderDivision.name} ${ageDivision.name}`;
+  }
 }

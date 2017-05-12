@@ -7,6 +7,7 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
+import { MediaHelper } from '../services/MediaHelper';
 import moment = require('moment');
 
 import { RequireRoleOrganizer } from '../middlewares/RequireAuth';
@@ -21,9 +22,9 @@ import { Division } from '../model/Division';
 import { Discipline } from '../model/Discipline';
 import { ScoreGroup } from '../model/ScoreGroup';
 import { TournamentParticipant } from '../model/TournamentParticipant';
-import { UserController } from "./UserController";
+import { UserController } from './UserController';
 
-import { isCreatedByMe } from "../service/CreatedByValidator";
+import { isCreatedByMe } from '../validators/CreatedByValidator';
 
 /**
  *
@@ -37,6 +38,26 @@ export class TournamentController {
   constructor() {
     this.conn = getConnectionManager().get();
     this.repository = this.conn.getRepository(Tournament);
+    this.checkCronJobs();
+  }
+
+  checkCronJobs() {
+    // Server probably restarted. Recreate cronjobs based on active tournaments
+    const today = moment();
+    this.all().then(allTournaments => {
+      Logger.log.info(allTournaments.length ? '** Recreating cronjobs' : '** No cronjobs to register');
+      if (allTournaments.length) {
+        // Schedule upcoming tournaments for expiration
+        allTournaments
+          .filter(t => t.endDate > today.toDate())
+          .forEach(t => Container.get(MediaHelper).expireArchive(t.id, t.endDate));
+
+        // Make sure old tournaments are cleaned out
+        allTournaments
+          .filter(t => t.endDate < today.toDate())
+          .forEach(t => Container.get(MediaHelper).removeArchive(t.id));
+      }
+    })
   }
 
   @Get()
@@ -104,9 +125,13 @@ export class TournamentController {
     const userRepository = Container.get(UserController);
     const me = await userRepository.me(req);
     tournament.createdBy = me;
+
     return this.repository.persist(tournament)
       .then(persisted => {
         this.createDefaults(persisted, res);
+
+        // Create media folder for this tournament
+        Container.get(MediaHelper).createArchive(persisted.id, persisted.endDate);
         return persisted;
       })
       .catch(err => {
@@ -143,6 +168,8 @@ export class TournamentController {
     ]).then(() => {
       // Remove the tournament.
       return this.repository.remove(tournament)
+        // Remove media dir
+        .then(() => Container.get(MediaHelper).removeArchive(tournament.id))
         .catch(err => Logger.log.error(err));
     });
   }

@@ -9,7 +9,7 @@ import Response = e.Response;
 import { Logger } from '../utils/Logger';
 
 import { RequireRoleSecretariat } from '../middlewares/RequireAuth';
-import { isSameClubAsMe } from '../service/CreatedByValidator';
+import { isSameClubAsMe } from '../validators/CreatedByValidator';
 
 import { SSEService } from '../services/SSEService';
 import { ScheduleController } from './ScheduleController';

@@ -12,6 +12,7 @@ client:
   restart: on-failure
   volumes:
     - '/usr/src/app/log:/usr/src/app/log'
+    - '/usr/src/app/media:/usr/src/app/media'
 db:
   environment:
     - MYSQL_DATABASE=gymsystem

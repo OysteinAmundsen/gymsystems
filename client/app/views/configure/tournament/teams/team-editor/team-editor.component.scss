@@ -1,15 +1,18 @@
 @import "~styles/variables";
 
 table[role="list"] {
-  tr[role="listitem"] td {
-    padding: 0 $padding * 3;
-    label {
-      line-height: $padding * 10;
-      display: block;
-      height: $padding * 10;
-    }
-    input {
-      margin-right: 0.5rem;
+  tr[role="listitem"] {
+    cursor: inherit;
+    td {
+      padding: 0 $padding * 3;
+      label {
+        line-height: $padding * 10;
+        display: block;
+        height: $padding * 10;
+      }
+      input {
+        margin-right: 0.5rem;
+      }
     }
   }
   thead th {
@@ -20,4 +23,21 @@ table[role="list"] {
 }
 header {
   margin-left: 1rem;
+}
+
+td.media {
+  label.file-upload {
+    position: relative;
+    input[type="file"] {
+      cursor: pointer;
+      position: absolute;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      z-index: 999;
+      margin: 0;
+      padding: 0;
+    }
+  }
 }

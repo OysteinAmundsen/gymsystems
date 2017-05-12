@@ -23,7 +23,7 @@ import {
   ScheduleService,
   EventService,
   DisplayService,
-  ClubService
+  ClubService,
 } from './services/api';
 // import { RoleService } from './api';
 

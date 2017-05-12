@@ -8,7 +8,7 @@ import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
 import { RequireRoleClub } from '../middlewares/RequireAuth';
-import { validateClub, isMyClub } from '../service/ClubValidator';
+import { validateClub, isMyClub } from '../validators/ClubValidator';
 
 import { UserController } from './UserController';
 import { ClubController } from './ClubController';
@@ -83,6 +83,8 @@ export class TeamController {
     return this.repository.createQueryBuilder('team')
       .where('team.id=:id', {id: teamId})
       .leftJoinAndSelect('team.club', 'club')
+      .leftJoinAndSelect('team.divisions', 'divisions')
+      .leftJoinAndSelect('team.tournament', 'tournament')
       .getOne();
   }
 

@@ -51,10 +51,11 @@
           <span translate>Disciplines</span>
         </h2>
       </header>
-      <div class="table-responsive">
+      <div>
         <table role="list">
           <tr role="listitem">
             <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()"> <span translate>All</span></label></td>
+            <td><app-fa name="music" fw="true"></app-fa></td>
           </tr>
           <tbody *ngFor="let discipline of disciplines">
             <tr role="listitem">
@@ -62,6 +63,12 @@
                 <label>
                   <input type="checkbox" #selectedDisciplines [attr.data]="discipline.id">
                   {{ discipline.name }}
+                </label>
+              </td>
+              <td class="media">
+                <label class="file-upload">
+                  <input type="file" (change)="fileAdded($event, discipline)" placeholder="Upload file" accept=".mp3">
+                  <app-fa name="upload" fw="true"></app-fa>
                 </label>
               </td>
             </tr>

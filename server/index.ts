@@ -27,6 +27,7 @@ const rc = require('routing-controllers');
 import { setupAuthentication } from './config/AuthenticationConfig';
 import { SSEService } from './services/SSEService';
 import { Logger } from './utils/Logger';
+import { MediaHelper } from './services/MediaHelper';
 import { ERROR_MESSAGES } from './messages';
 
 /**
@@ -53,7 +54,7 @@ export class GymServer {
 `);
     return new GymServer()
       .start()
-      .then(() => Logger.log.debug('Server started...'))
+      .then(() => Logger.log.debug('** Server started...'))
       .catch((error: any) => Logger.log.error((ERROR_MESSAGES[error.code]) ? ERROR_MESSAGES[error.code] : error));
   }
 
@@ -79,8 +80,9 @@ export class GymServer {
     };
 
     // Connect to database and startup Express
+    Logger.log.info('** Connecting to database and setting up schema');
     return createConnection(config[0]).then(async connection => {
-      Logger.log.info('DB connected');
+      Logger.log.info('** DB connected. Creating server...');
       return this.createServer()
         .listen(this.port)  // Listen on provided port, on all network interfaces.
         .on('listening', () => this.onReady())
@@ -115,6 +117,7 @@ export class GymServer {
     }
 
     // Configure authentication services
+    Logger.log.info('** Setting up authentication services');
     this.app.use(cookieParser());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     const MemoryStore = require('session-memory-store')(session);
@@ -134,6 +137,7 @@ export class GymServer {
     const passport = setupAuthentication(this.app);
 
     // Setup routing-controllers
+    Logger.log.info('** Setting up REST endpoints');
     useExpressServer(this.app, {
       routePrefix: '/api',
       controllers: [__dirname + '/controllers/*.js'],
@@ -143,6 +147,7 @@ export class GymServer {
 
     // Registerring custom services
     new SSEService();
+    new MediaHelper();
 
     // Setup base route to everything else
     this.app.get('/*', (req: e.Request, res: e.Response) => {

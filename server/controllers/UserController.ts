@@ -14,7 +14,7 @@ import * as bcrypt from 'bcrypt';
 import * as _ from 'lodash';
 import { ClubController } from "./ClubController";
 import { Club, BelongsToClub } from "../model/Club";
-import { isMyClub, validateClub } from "../service/ClubValidator";
+import { isMyClub, validateClub } from "../validators/ClubValidator";
 
 const messages = {
   created: `

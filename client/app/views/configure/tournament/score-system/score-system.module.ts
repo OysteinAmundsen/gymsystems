@@ -5,10 +5,8 @@ import { RouterModule } from '@angular/router';
 import { DragulaModule } from 'ng2-dragula';
 
 import { SharedModule } from 'app/shared/shared.module';
-import { ScoreSystemModule } from '../score-system/score-system.module';
-
-import { DisciplinesComponent } from './disciplines.component';
-import { DisciplineEditorComponent } from './discipline-editor/discipline-editor.component';
+import { ScoreSystemComponent } from './score-system.component';
+import { ScoreGroupEditorComponent } from './score-group-editor/score-group-editor.component';
 
 @NgModule({
   imports: [
@@ -17,15 +15,14 @@ import { DisciplineEditorComponent } from './discipline-editor/discipline-editor
     ReactiveFormsModule,
     RouterModule,
     DragulaModule,
-    ScoreSystemModule,
 
     SharedModule
   ],
   declarations: [
-    DisciplinesComponent, DisciplineEditorComponent
+    ScoreSystemComponent, ScoreGroupEditorComponent,
   ],
   exports: [
-    DisciplinesComponent, DisciplineEditorComponent,
+    ScoreSystemComponent, ScoreGroupEditorComponent,
   ]
 })
-export class DisciplinesModule { }
+export class ScoreSystemModule { }

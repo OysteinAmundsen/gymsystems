@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
 import { ITeam } from '../model/ITeam';
+import { IDiscipline } from '../model/IDiscipline';
 import { DivisionType } from '../model/DivisionType';
 
 @Injectable()
@@ -44,4 +45,14 @@ export class TeamsService {
     const genderDiv = team.divisions.find(d => d.type === DivisionType.Gender);
     return (genderDiv ? genderDiv.name : '') + ' ' + (ageDiv ? ageDiv.name : '');
   }
+
+  upload(file: File, team: ITeam, discipline: IDiscipline) {
+    let formData = new FormData();
+    formData.append('media', file, file.name);
+
+    return this.http.post(`/api/media/upload/${team.id}/${discipline.id}`, formData)
+      .map(res => res.json())
+      .catch(error => Observable.throw(error));
+  }
+
 }

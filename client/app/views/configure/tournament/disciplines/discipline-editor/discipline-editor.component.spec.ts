@@ -7,8 +7,10 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
 
 import { SharedModule } from 'app/shared/shared.module';
+import { ScoreSystemModule } from '../../score-system/score-system.module';
+
 import { DisciplineEditorComponent } from './discipline-editor.component';
-import { ScoreSystemComponent, ScoreGroupEditorComponent } from '../score-system';
+
 import { TournamentService, DisciplineService } from 'app/services/api';
 import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
@@ -25,6 +27,7 @@ describe('DisciplineEditorComponent', () => {
         RouterTestingModule,
         HttpModule,
         SharedModule,
+        ScoreSystemModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -34,8 +37,7 @@ describe('DisciplineEditorComponent', () => {
         }),
       ],
       declarations: [
-        DisciplineEditorComponent ,
-        ScoreSystemComponent, ScoreGroupEditorComponent,
+        DisciplineEditorComponent
       ],
       providers: [
         {provide: TournamentService, useClass: TournamentServiceStub},

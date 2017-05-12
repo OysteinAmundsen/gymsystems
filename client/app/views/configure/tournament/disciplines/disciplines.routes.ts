@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { DisciplinesComponent } from './disciplines.component';
 import { DisciplineEditorComponent } from './discipline-editor/discipline-editor.component';
-import { ScoreSystemComponent } from './score-system';
+import { ScoreSystemComponent } from '../score-system';
 import { RoleOrganizerGuard } from 'app/shared/guards/role-guards';
 
 export const DisciplineRoutes: Routes = [
