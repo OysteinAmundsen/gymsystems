@@ -71,6 +71,8 @@ export class TeamController {
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('team.disciplines', 'discipline')
       .leftJoinAndSelect('team.club', 'club')
+      .leftJoinAndSelect('team.media', 'media')
+      .leftJoinAndSelect('media.discipline', 'media_dicsipline')
       .orderBy('division.sortOrder', 'ASC')
       .addOrderBy('team.name', 'ASC')
       .addOrderBy('discipline.name', 'ASC')
@@ -85,6 +87,8 @@ export class TeamController {
       .leftJoinAndSelect('team.club', 'club')
       .leftJoinAndSelect('team.divisions', 'divisions')
       .leftJoinAndSelect('team.tournament', 'tournament')
+      .leftJoinAndSelect('team.media', 'media')
+      .leftJoinAndSelect('media.discipline', 'media_dicsipline')
       .getOne();
   }
 

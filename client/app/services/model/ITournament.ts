@@ -1,10 +1,12 @@
+
+import * as moment from 'moment';
+import Moment = moment.Moment;
+
+import { IUser } from './IUser';
+import { IMedia } from './IMedia';
 import { IDivision } from './IDivision';
 import { IDiscipline } from './IDiscipline';
 import { ITournamentParticipant } from './ITournamentParticipant';
-
-import * as moment from 'moment';
-import { IUser } from "app/services/model/IUser";
-import Moment = moment.Moment;
 
 export interface ITournament {
   id: number;
@@ -17,4 +19,5 @@ export interface ITournament {
   schedule: ITournamentParticipant[];
   disciplines: IDiscipline[];
   divisions: IDivision[];
+  media: IMedia[];
 }

@@ -10,6 +10,8 @@ import { ITournamentParticipant } from 'app/services/model/ITournamentParticipan
 import { ITeam } from 'app/services/model/ITeam';
 import { DivisionType } from 'app/services/model/DivisionType';
 import { Role, IUser } from 'app/services/model/IUser';
+import { IDiscipline } from "app/services/model/IDiscipline";
+import { IMedia } from "app/services/model/IMedia";
 
 @Component({
   selector: 'app-list',
@@ -17,6 +19,7 @@ import { Role, IUser } from 'app/services/model/IUser';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, OnDestroy {
+  audio = new Audio();
   user: IUser;
   roles = Role;
   tournament: ITournament;
@@ -110,6 +113,10 @@ export class ListComponent implements OnInit, OnDestroy {
     return participant.startTime == null && previousStarted;
   }
 
+  getMedia(participant: ITournamentParticipant): IMedia {
+    return participant.team.media ? participant.team.media.find(m => m.discipline.id === participant.discipline.id) : null;
+  }
+
   start(participant: ITournamentParticipant, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.startTime != null) {
@@ -119,7 +126,16 @@ export class ListComponent implements OnInit, OnDestroy {
       evt.preventDefault();
       evt.stopPropagation();
       participant.startTime = new Date();
-      this.scheduleService.start(participant).subscribe();
+      this.scheduleService.start(participant).subscribe(() => {
+        const media = this.getMedia(participant);
+        if (media) {
+          this.audio.src = `/api/media/${participant.tournament.id}/${participant.discipline.id}`;
+          this.audio.load();
+          this.audio.play();
+
+          media.isPlaying = true;
+        }
+      });
     }
   }
 
@@ -131,8 +147,15 @@ export class ListComponent implements OnInit, OnDestroy {
       }
       evt.preventDefault();
       evt.stopPropagation();
+
+      const media = this.getMedia(participant);
+      if (media) {
+        this.audio.pause();
+        media.isPlaying = false;
+      }
+
       participant.endTime = new Date();
-      this.scheduleService.stop(participant).subscribe();
+      this.scheduleService.stop(participant).subscribe(() => this.loadSchedule());
     }
   }
 

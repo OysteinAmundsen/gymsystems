@@ -11,19 +11,19 @@ export async function isCreatedByMe(obj: CreatedBy, req: Request): Promise<boole
   const userRepository = Container.get(UserController);
   const me = await userRepository.me(req);
 
-  return  (obj.createdBy.id === me.id || me.role >= Role.Admin);
+  return  (me.role >= Role.Admin || obj.createdBy.id === me.id);
 }
 
 export async function isSameClubAsMe(obj: CreatedBy, req: Request): Promise<boolean> {
   const userRepository = Container.get(UserController);
   const me = await userRepository.me(req);
 
-  return (obj.createdBy.club.id === me.club.id || me.role >= Role.Admin);
+  return (me.role >= Role.Admin || obj.createdBy.club.id === me.club.id);
 }
 
 export async function isAllSameClubAsMe(obj: CreatedBy[], req: Request): Promise<boolean> {
   const userRepository = Container.get(UserController);
   const me = await userRepository.me(req);
 
-  return (obj.every(p => (p.createdBy.club.id === me.club.id || me.role >= Role.Admin)));
+  return (obj.every(p => (me.role >= Role.Admin || p.createdBy.club.id === me.club.id)));
 }

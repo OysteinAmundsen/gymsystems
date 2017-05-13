@@ -44,6 +44,8 @@ export class ScheduleController {
       .leftJoinAndSelect('tournament_participant.team', 'team')
       .leftJoinAndSelect('tournament_participant.scores', 'scores')
       .leftJoinAndSelect('discipline.scoreGroups', 'scoreGroups')
+      .leftJoinAndSelect('team.media', 'media')
+      .leftJoinAndSelect('media.discipline', 'media_discipline')
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('scores.scoreGroup', 'scoresScoreGroup')
       .orderBy('tournament_participant.startNumber', 'ASC')

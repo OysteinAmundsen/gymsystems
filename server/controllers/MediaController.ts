@@ -1,4 +1,5 @@
-import { Get, Param, Controller, JsonResponse, TextResponse, Post, Req, UseBefore, Res } from 'routing-controllers';
+import { Get, Param, Controller, JsonResponse, TextResponse, Post, Req, UseBefore, Res, Delete, JsonController, UseAfter } from 'routing-controllers';
+import { Repository, getConnectionManager } from 'typeorm';
 import { Service, Container } from 'typedi';
 import * as _ from 'lodash';
 import * as multer from 'multer';
@@ -10,16 +11,21 @@ import Response = e.Response;
 import { MediaHelper } from '../services/MediaHelper';
 import { TeamController } from '../controllers/TeamController';
 import { DisciplineController } from '../controllers/DisciplineController';
-import { RequireRoleClub } from "../middlewares/RequireAuth";
+import { RequireRoleClub } from '../middlewares/RequireAuth';
+import { Media } from '../model/Media';
 
 /**
  *
  */
 @Service()
-@Controller('/media')
+@JsonController('/media')
 export class MediaController {
 
-  constructor() { }
+  private repository: Repository<Media>;
+
+  constructor() {
+    this.repository = getConnectionManager().get().getRepository(Media);
+  }
 
   private static async calculateFileName(teamId: number, disciplineId: number) {
     const team = await Container.get(TeamController).get(teamId);
@@ -28,11 +34,14 @@ export class MediaController {
     return {
       archiveId: team.tournament.id,
       expiration: team.tournament.endDate,
-      mediaName: `${team.name}_${_.snakeCase(team.divisionName)}_${discipline.name}`
+      mediaName: `${team.name}_${_.snakeCase(team.divisionName)}_${discipline.name}`,
+      team: team,
+      discipline: discipline
     }
   }
 
   @Post('/upload/:teamId/:disciplineId')
+  @JsonResponse()
   @UseBefore(RequireRoleClub)
   @UseBefore(multer({dest: 'tmp'}).single('media'))
   async uploadMediaForTeamInDiscipline(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Req() req: Request) {
@@ -45,13 +54,46 @@ export class MediaController {
     helper.createArchive(metaData.archiveId, metaData.expiration);
 
     // Store uploaded data in media folder
-    return helper.storeMediaInArchive(metaData.archiveId, metaData.mediaName, req.file);
+    return helper.storeMediaInArchive(metaData.archiveId, metaData.mediaName, req.file)
+      .then((fileName) => {
+
+        // Create a media link for this entry
+        return this.repository.persist(<Media>{
+          filename: fileName,
+          discipline: metaData.discipline,
+          team: metaData.team,
+          tournament: metaData.team.tournament
+        });
+      });
+  }
+
+  private getMedia(teamId: number, disciplineId: number) {
+    return this.repository.createQueryBuilder('media')
+      .where('media.team=:teamId', {teamId: teamId})
+      .andWhere('media.discipline=:disciplineId', {disciplineId: disciplineId})
+      .leftJoinAndSelect('media.tournament', 'tournament')
+      .getOne();
+  }
+
+  @Delete('/:teamId/:disciplineId')
+  @UseBefore(RequireRoleClub)
+  async removeMedia(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response) {
+    const media = await this.getMedia(teamId, disciplineId);
+    if (media) {
+      Container.get(MediaHelper).removeMediaFromArchive(media.tournament.id, media.filename);
+      return this.repository.remove(media);
+    }
+    return Promise.reject({httpCode: 404, message: 'No media found'});
   }
 
   @Get('/:teamId/:disciplineId')
-  async getMedia(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response) {
-    const metaData = await MediaController.calculateFileName(teamId, disciplineId);
-    const helper = Container.get(MediaHelper);
-    return helper.getMediaFromArchive(metaData.archiveId, metaData.mediaName, res);
-  }
+  @UseAfter(async (req: any, res: any, next?: (err?: any) => any) => {
+    const media = await Container.get(MediaController).getMedia(req.params.teamId, req.params.disciplineId);
+    if (media) {
+      const helper = Container.get(MediaHelper);
+      return helper.getMediaFromArchive(media.tournament.id, media.filename, res);
+    }
+    return null;
+  })
+  async streamMedia(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response) { }
 }

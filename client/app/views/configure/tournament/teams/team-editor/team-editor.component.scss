@@ -1,4 +1,5 @@
 @import "~styles/variables";
+@import "~styles/buttons";
 
 table[role="list"] {
   tr[role="listitem"] {
@@ -25,9 +26,17 @@ header {
   margin-left: 1rem;
 }
 
+td.media-head {
+  padding-top: ($padding * 3);
+  padding-left: ($padding * 6) !important;
+  margin: 0 2px 2px 2px;
+}
 td.media {
   label.file-upload {
     position: relative;
+    @include btn();
+    max-width: 40px;
+    padding-top: 0;
     input[type="file"] {
       cursor: pointer;
       position: absolute;

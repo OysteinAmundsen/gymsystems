@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 import { TournamentService, TeamsService, DisciplineService, DivisionService, ClubService, UserService } from 'app/services/api';
 import { IDiscipline } from 'app/services/model/IDiscipline';
@@ -7,8 +8,8 @@ import { IDivision } from 'app/services/model/IDivision';
 import { DivisionType } from 'app/services/model/DivisionType';
 import { ITeam } from 'app/services/model/ITeam';
 import { IClub } from 'app/services/model/IClub';
-import { IUser } from "app/services/model/IUser";
-import { Subscription } from "rxjs/Subscription";
+import { IUser } from 'app/services/model/IUser';
+import { IMedia } from 'app/services/model/IMedia';
 
 @Component({
   selector: 'app-team-editor',
@@ -19,6 +20,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   @Input() team: ITeam = <ITeam>{};
   @Output() teamChanged: EventEmitter<any> = new EventEmitter<any>();
   @ViewChildren('selectedDisciplines') selectedDisciplines;
+  audio = new Audio();
   teamForm: FormGroup;
   disciplines: IDiscipline[];
   divisions: IDivision[] = [];
@@ -97,12 +99,50 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   fileAdded($event, discipline: IDiscipline) {
     let fileList: FileList = (<HTMLInputElement>event.target).files;
-    if(fileList.length > 0) {
-      this.teamService.upload(fileList[0], this.teamForm.value, discipline).subscribe(
-        data => console.log('success'),
+    const upload = () => {
+      this.teamService.uploadMedia(fileList[0], this.teamForm.value, discipline).subscribe(
+        data => this.reloadTeam(),
         error => console.log(error)
       )
     }
+    if(fileList.length > 0) {
+      if (this.teamForm.dirty) { this.save().then(upload); }
+      else { upload(); }
+    }
+  }
+
+  reloadTeam() {
+    this.teamService.getById(this.team.id).subscribe(team => {
+      this.team = team;
+      this.teamForm.setValue(team);
+    });
+  }
+
+  hasMedia(discipline: IDiscipline) {
+    return this.getMedia(discipline) != null;
+  }
+
+  getMedia(discipline: IDiscipline): IMedia {
+    return this.team.media ? this.team.media.find(m => m.discipline.id === discipline.id) : null;
+  }
+
+  previewMedia(discipline: IDiscipline) {
+    const media = this.getMedia(discipline);
+    this.audio.src = `/api/media/${this.team.tournament.id}/${discipline.id}`;
+    this.audio.load();
+    this.audio.play();
+
+    media.isPlaying = true;
+  }
+
+  stopMedia(discipline: IDiscipline) {
+    const media = this.getMedia(discipline);
+    this.audio.pause();
+    media.isPlaying = false;
+  }
+
+  removeMedia(discipline: IDiscipline) {
+    this.teamService.removeMedia(this.team, discipline).subscribe(() => this.reloadTeam());
   }
 
   async save() {

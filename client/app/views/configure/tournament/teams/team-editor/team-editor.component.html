@@ -55,7 +55,7 @@
         <table role="list">
           <tr role="listitem">
             <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()"> <span translate>All</span></label></td>
-            <td><app-fa name="music" fw="true"></app-fa></td>
+            <td class="media-head"><app-fa name="music" fw="true"></app-fa></td>
           </tr>
           <tbody *ngFor="let discipline of disciplines">
             <tr role="listitem">
@@ -66,7 +66,10 @@
                 </label>
               </td>
               <td class="media">
-                <label class="file-upload">
+                <button *ngIf="hasMedia(discipline) && !getMedia(discipline).isPlaying" type="button" (click)="previewMedia(discipline)"><app-fa name="play" fw="true"></app-fa></button>
+                <button *ngIf="hasMedia(discipline) && getMedia(discipline).isPlaying" type="button" (click)="stopMedia(discipline)"><app-fa name="stop" fw="true"></app-fa></button>
+                <button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning"><app-fa name="trash" fw="true"></app-fa></button>
+                <label class="file-upload" *ngIf="!hasMedia(discipline) && !teamForm.invalid">
                   <input type="file" (change)="fileAdded($event, discipline)" placeholder="Upload file" accept=".mp3">
                   <app-fa name="upload" fw="true"></app-fa>
                 </label>

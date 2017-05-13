@@ -46,7 +46,7 @@ export class TeamsService {
     return (genderDiv ? genderDiv.name : '') + ' ' + (ageDiv ? ageDiv.name : '');
   }
 
-  upload(file: File, team: ITeam, discipline: IDiscipline) {
+  uploadMedia(file: File, team: ITeam, discipline: IDiscipline) {
     let formData = new FormData();
     formData.append('media', file, file.name);
 
@@ -55,4 +55,12 @@ export class TeamsService {
       .catch(error => Observable.throw(error));
   }
 
+  streamMedia(team: ITeam, discipline: IDiscipline) {
+  }
+
+  removeMedia(team: ITeam, discipline: IDiscipline) {
+    return this.http.delete(`/api/media/${team.id}/${discipline.id}`)
+      .map(res => res.json())
+      .catch(error => Observable.throw(error));
+  }
 }

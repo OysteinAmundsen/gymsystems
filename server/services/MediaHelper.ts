@@ -41,10 +41,11 @@ export class MediaHelper {
 
     return new Promise((resolve, reject) => {
       const extension = file.originalname.substring(file.originalname.lastIndexOf('.') + 1);
-      Logger.log.info(`Storing '${newPath}.${extension}'`);
-      fs.rename(file.path, `${newPath}.${extension}`, (err) => {
+      const fileName = `${newPath}.${extension}` ;
+      Logger.log.info(`Storing '${fileName}'`);
+      fs.rename(file.path, `${fileName}`, (err) => {
         if (err) { reject(err); }
-        else { resolve(); }
+        else { resolve(fileName); }
       });
     });
   }
@@ -53,17 +54,29 @@ export class MediaHelper {
    *
    */
   getMediaFromArchive(archiveId: number, fileName: string, res: Response) {
-    const newPath = `./media/${archiveId}/${fileName}.mp3`;
-
-    Logger.log.info(`Retreiving '${newPath}'`);
-    var stat = fs.statSync(newPath);
+    var stat = fs.statSync(fileName);
     res.writeHead(200, {
         'Content-Type': 'audio/mpeg',
         'Content-Length': stat.size
     });
 
-    var readStream = fs.createReadStream(newPath);
-    readStream.pipe(res)
+    Logger.log.info(`Streaming '${fileName}' : ${stat.size}`);
+    var readStream = fs.createReadStream(fileName);
+    readStream.pipe(res);
+  }
+
+  removeMediaFromArchive(archiveId: number, fileName: string) {
+    return new Promise((resolve, reject) => {
+      if (fileName.length) {
+        rimraf(`./media/${archiveId}/${fileName}`, (err: Error) => {
+          if (err) { reject(err.message); }
+          else { resolve(); }
+        });
+      }
+      else {
+        reject('No file found');
+      }
+    });
   }
 
   /**
