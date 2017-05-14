@@ -27,7 +27,6 @@ const rc = require('routing-controllers');
 import { setupAuthentication } from './config/AuthenticationConfig';
 import { SSEService } from './services/SSEService';
 import { Logger } from './utils/Logger';
-import { MediaHelper } from './services/MediaHelper';
 import { ERROR_MESSAGES } from './messages';
 
 /**
@@ -147,7 +146,6 @@ export class GymServer {
 
     // Registerring custom services
     new SSEService();
-    new MediaHelper();
 
     // Setup base route to everything else
     this.app.get('/*', (req: e.Request, res: e.Response) => {

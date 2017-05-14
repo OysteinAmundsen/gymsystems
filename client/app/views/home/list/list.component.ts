@@ -5,13 +5,15 @@ import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 
 import { TournamentService, ScheduleService, TeamsService, EventService, UserService } from 'app/services/api';
+import { MediaService } from 'app/services/media.service';
+
 import { ITournament } from 'app/services/model/ITournament';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 import { ITeam } from 'app/services/model/ITeam';
 import { DivisionType } from 'app/services/model/DivisionType';
 import { Role, IUser } from 'app/services/model/IUser';
-import { IDiscipline } from "app/services/model/IDiscipline";
-import { IMedia } from "app/services/model/IMedia";
+import { IDiscipline } from 'app/services/model/IDiscipline';
+import { IMedia } from 'app/services/model/IMedia';
 
 @Component({
   selector: 'app-list',
@@ -19,7 +21,6 @@ import { IMedia } from "app/services/model/IMedia";
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, OnDestroy {
-  audio = new Audio();
   user: IUser;
   roles = Role;
   tournament: ITournament;
@@ -47,7 +48,9 @@ export class ListComponent implements OnInit, OnDestroy {
     private teamService: TeamsService,
     private tournamentService: TournamentService,
     private eventService: EventService,
-    private userService: UserService, private title: Title) {  }
+    private userService: UserService,
+    private title: Title,
+    private mediaService: MediaService) {  }
 
   ngOnInit() {
     this.eventSubscription = this.eventService.connect().subscribe(message => this.loadSchedule());
@@ -128,13 +131,7 @@ export class ListComponent implements OnInit, OnDestroy {
       participant.startTime = new Date();
       this.scheduleService.start(participant).subscribe(() => {
         const media = this.getMedia(participant);
-        if (media) {
-          this.audio.src = `/api/media/${participant.tournament.id}/${participant.discipline.id}`;
-          this.audio.load();
-          this.audio.play();
-
-          media.isPlaying = true;
-        }
+        this.mediaService.play(media);
       });
     }
   }
@@ -148,11 +145,7 @@ export class ListComponent implements OnInit, OnDestroy {
       evt.preventDefault();
       evt.stopPropagation();
 
-      const media = this.getMedia(participant);
-      if (media) {
-        this.audio.pause();
-        media.isPlaying = false;
-      }
+      this.mediaService.stop();
 
       participant.endTime = new Date();
       this.scheduleService.stop(participant).subscribe(() => this.loadSchedule());

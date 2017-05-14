@@ -73,6 +73,7 @@ export class TeamController {
       .leftJoinAndSelect('team.club', 'club')
       .leftJoinAndSelect('team.media', 'media')
       .leftJoinAndSelect('media.discipline', 'media_dicsipline')
+      .leftJoinAndSelect('media.tournament', 'media_tournament')
       .orderBy('division.sortOrder', 'ASC')
       .addOrderBy('team.name', 'ASC')
       .addOrderBy('discipline.name', 'ASC')

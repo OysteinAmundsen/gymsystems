@@ -7,7 +7,6 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
-import { MediaHelper } from '../services/MediaHelper';
 import moment = require('moment');
 
 import { RequireRole } from '../middlewares/RequireAuth';
@@ -25,7 +24,8 @@ import { TournamentParticipant } from '../model/TournamentParticipant';
 import { UserController } from './UserController';
 
 import { isCreatedByMe } from '../validators/CreatedByValidator';
-import { Role } from "../model/User";
+import { Role } from '../model/User';
+import { MediaController } from './MediaController';
 
 /**
  *
@@ -51,12 +51,12 @@ export class TournamentController {
         // Schedule upcoming tournaments for expiration
         allTournaments
           .filter(t => t.endDate > today.toDate())
-          .forEach(t => Container.get(MediaHelper).expireArchive(t.id, t.endDate));
+          .forEach(t => Container.get(MediaController).expireArchive(t.id, t.endDate));
 
         // Make sure old tournaments are cleaned out
         allTournaments
           .filter(t => t.endDate < today.toDate())
-          .forEach(t => Container.get(MediaHelper).removeArchive(t.id));
+          .forEach(t => Container.get(MediaController).removeArchive(t.id));
       }
     })
   }
@@ -132,7 +132,7 @@ export class TournamentController {
         this.createDefaults(persisted, res);
 
         // Create media folder for this tournament
-        Container.get(MediaHelper).createArchive(persisted.id, persisted.endDate);
+        Container.get(MediaController).createArchive(persisted.id, persisted.endDate);
         return persisted;
       })
       .catch(err => {
@@ -146,7 +146,7 @@ export class TournamentController {
   update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
       .then(persisted => {
-        Container.get(MediaHelper).expireArchive(persisted.id, persisted.endDate)
+        Container.get(MediaController).expireArchive(persisted.id, persisted.endDate)
         return persisted;
       })
       .catch(err => Logger.log.error(err));
@@ -174,7 +174,7 @@ export class TournamentController {
       // Remove the tournament.
       return this.repository.remove(tournament)
         // Remove media dir
-        .then(() => Container.get(MediaHelper).removeArchive(tournament.id))
+        .then(() => Container.get(MediaController).removeArchive(tournament.id))
         .catch(err => Logger.log.error(err));
     });
   }

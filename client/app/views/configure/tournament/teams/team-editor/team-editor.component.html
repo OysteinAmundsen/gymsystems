@@ -66,8 +66,8 @@
                 </label>
               </td>
               <td class="media">
-                <button *ngIf="hasMedia(discipline) && !getMedia(discipline).isPlaying" type="button" (click)="previewMedia(discipline)"><app-fa name="play" fw="true"></app-fa></button>
-                <button *ngIf="hasMedia(discipline) && getMedia(discipline).isPlaying" type="button" (click)="stopMedia(discipline)"><app-fa name="stop" fw="true"></app-fa></button>
+                <button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)"><app-fa name="play" fw="true"></app-fa></button>
+                <button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)"><app-fa name="stop" fw="true"></app-fa></button>
                 <button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning"><app-fa name="trash" fw="true"></app-fa></button>
                 <label class="file-upload" *ngIf="!hasMedia(discipline) && !teamForm.invalid">
                   <input type="file" (change)="fileAdded($event, discipline)" placeholder="Upload file" accept=".mp3">

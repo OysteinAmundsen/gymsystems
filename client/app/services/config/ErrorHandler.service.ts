@@ -12,7 +12,7 @@ export class ErrorHandlerService {
     this._error = value;
     if (this._errorTimeout) { clearTimeout(this._errorTimeout); }
     if (value) {
-      this._errorTimeout = setTimeout(() => this._error = null, 3 * 1000);
+      this._errorTimeout = setTimeout(() => this._error = null, 10 * 1000);
     }
   }
 

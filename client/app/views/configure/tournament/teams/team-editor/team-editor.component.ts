@@ -3,6 +3,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 import { TournamentService, TeamsService, DisciplineService, DivisionService, ClubService, UserService } from 'app/services/api';
+import { MediaService } from 'app/services/media.service';
+
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IDivision } from 'app/services/model/IDivision';
 import { DivisionType } from 'app/services/model/DivisionType';
@@ -20,7 +22,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   @Input() team: ITeam = <ITeam>{};
   @Output() teamChanged: EventEmitter<any> = new EventEmitter<any>();
   @ViewChildren('selectedDisciplines') selectedDisciplines;
-  audio = new Audio();
   teamForm: FormGroup;
   disciplines: IDiscipline[];
   divisions: IDivision[] = [];
@@ -52,7 +53,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     private clubService: ClubService,
     private userService: UserService,
     private divisionService: DivisionService,
-    private disciplineService: DisciplineService) { }
+    private disciplineService: DisciplineService,
+    private mediaService: MediaService) { }
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
@@ -126,19 +128,18 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     return this.team.media ? this.team.media.find(m => m.discipline.id === discipline.id) : null;
   }
 
+  isPlaying(media: IMedia) {
+    return this.mediaService.whatsPlaying ? this.mediaService.whatsPlaying.id === media.id : false;
+  }
+
   previewMedia(discipline: IDiscipline) {
     const media = this.getMedia(discipline);
-    this.audio.src = `/api/media/${this.team.tournament.id}/${discipline.id}`;
-    this.audio.load();
-    this.audio.play();
-
-    media.isPlaying = true;
+    this.mediaService.play(media);
   }
 
   stopMedia(discipline: IDiscipline) {
     const media = this.getMedia(discipline);
-    this.audio.pause();
-    media.isPlaying = false;
+    this.mediaService.stop();
   }
 
   removeMedia(discipline: IDiscipline) {
