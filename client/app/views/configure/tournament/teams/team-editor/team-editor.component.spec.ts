@@ -92,11 +92,11 @@ const user: IUser = <IUser>{
 
 @Component({
  selector  : 'test-cmp',
- template  : '<app-team-editor [team]='selected' (teamChanged)='onChange($event)'></app-team-editor>'
+ template  : `<app-team-editor [team]='selected' (teamChanged)='onChange($event)'></app-team-editor>`
 })
 class TestCmpWrapper {
 
-    selected: ITeam = {
+    selected: ITeam = <ITeam>{
       id          : 0,
       name        : 'Haugesund-1',
       divisions   : [],

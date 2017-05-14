@@ -114,9 +114,19 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   }
 
   reloadTeam() {
+    const ageDivision = this.team.divisions.find(d => d.type === DivisionType.Age);
+    const genderDivision = this.team.divisions.find(d => d.type === DivisionType.Gender);
     this.teamService.getById(this.team.id).subscribe(team => {
       this.team = team;
-      this.teamForm.setValue(team);
+      this.teamForm.setValue({
+        id: this.team.id,
+        name: this.team.name,
+        club: this.team.club ? this.team.club.name : '',
+        ageDivision: ageDivision ? ageDivision.id : null,
+        genderDivision: genderDivision ? genderDivision.id : null,
+        disciplines: this.team.disciplines,
+        tournament: this.team.tournament
+      });
     });
   }
 
@@ -143,6 +153,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   }
 
   removeMedia(discipline: IDiscipline) {
+    this.stopMedia(discipline);
     this.teamService.removeMedia(this.team, discipline).subscribe(() => this.reloadTeam());
   }
 
