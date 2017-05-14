@@ -7,7 +7,7 @@ import Request = e.Request;
 import Response = e.Response;
 import * as auth from 'passport';
 
-import { RequireAuth, RequireRoleAdmin, RequireRoleOrganizer } from '../middlewares/RequireAuth';
+import { RequireAuth, RequireRole } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';
 import { User, Role, RoleNames } from '../model/User';
 import * as bcrypt from 'bcrypt';
@@ -76,7 +76,7 @@ export class UserController {
   }
 
   @Get()
-  @UseBefore(RequireRoleOrganizer)
+  @UseBefore(RequireRole.get(Role.Organizer))
   async all(@Req() req: Request): Promise<User[]> {
     const me = await this.me(req);
 
@@ -162,7 +162,7 @@ export class UserController {
   }
 
   @Post()
-  @UseBefore(RequireRoleOrganizer)
+  @UseBefore(RequireRole.get(Role.Organizer))
   async create( @Body() user: User, @Req() req: Request, @Res() res: Response): Promise<User[] | any> {
     const me = await this.me(req);
 
@@ -227,7 +227,7 @@ export class UserController {
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleOrganizer)
+  @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') userId: number, @Req() req: Request, @Res() res: Response) {
     const user = await this.getUser(userId);
     const isSameClub = await isMyClub([<BelongsToClub>user], req);

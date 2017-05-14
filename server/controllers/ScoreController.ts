@@ -8,7 +8,7 @@ import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
 
-import { RequireRoleSecretariat } from '../middlewares/RequireAuth';
+import { RequireRole } from '../middlewares/RequireAuth';
 import { isSameClubAsMe } from '../validators/CreatedByValidator';
 
 import { SSEService } from '../services/SSEService';
@@ -42,7 +42,7 @@ export class ScoreController {
   }
 
   @Post('/:id')
-  @UseBefore(RequireRoleSecretariat)
+  @UseBefore(RequireRole.get(Role.Secretariat))
   async createFromParticipant( @Param('id') participantId: number, @Body() scores: TournamentParticipantScore[], @Res() res: Response, @Req() req: Request) {
     const scheduleRepository = Container.get(ScheduleController);
     const sseService = Container.get(SSEService);
@@ -70,7 +70,7 @@ export class ScoreController {
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleSecretariat)
+  @UseBefore(RequireRole.get(Role.Secretariat))
   async removeFromParticipant( @Param('id') participantId: number, @Res() res: Response, @Req() req: Request) {
     const scheduleRepository = Container.get(ScheduleController);
     const sseService = Container.get(SSEService);

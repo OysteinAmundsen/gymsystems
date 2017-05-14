@@ -5,11 +5,12 @@ import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
 
-import { RequireRoleAdmin } from '../middlewares/RequireAuth';
+import { RequireRole } from '../middlewares/RequireAuth';
 
 import { Logger } from '../utils/Logger';
 import { Configuration } from '../model/Configuration';
 import { Service } from "typedi";
+import { Role } from "../model/User";
 
 /**
  *
@@ -35,7 +36,7 @@ export class ConfigurationController {
   }
 
   @Post()
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRole.get(Role.Admin))
   create( @Body() configuration: Configuration, @Res() res: Response) {
     return this.repository.persist(configuration)
       .then(persisted => res.send(persisted))
@@ -46,7 +47,7 @@ export class ConfigurationController {
   }
 
   @Put('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRole.get(Role.Admin))
   update( @Param('id') id: number, @Body() configuration: Configuration, @Res() res: Response) {
     return this.repository.persist(configuration)
       .then(persisted => res.send(persisted))
@@ -57,7 +58,7 @@ export class ConfigurationController {
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRole.get(Role.Admin))
   async remove( @Param('id') configurationId: string, @Res() res: Response) {
     const configuration = await this.repository.findOneById(configurationId);
     return this.repository.remove(configuration)

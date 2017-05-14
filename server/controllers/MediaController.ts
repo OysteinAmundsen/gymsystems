@@ -11,8 +11,9 @@ import Response = e.Response;
 import { MediaHelper } from '../services/MediaHelper';
 import { TeamController } from '../controllers/TeamController';
 import { DisciplineController } from '../controllers/DisciplineController';
-import { RequireRoleClub } from '../middlewares/RequireAuth';
+import { RequireRole } from '../middlewares/RequireAuth';
 import { Media } from '../model/Media';
+import { Role } from "../model/User";
 
 /**
  *
@@ -42,7 +43,7 @@ export class MediaController {
 
   @Post('/upload/:teamId/:disciplineId')
   @JsonResponse()
-  @UseBefore(RequireRoleClub)
+  @UseBefore(RequireRole.get(Role.Club))
   @UseBefore(multer({dest: 'tmp'}).single('media'))
   async uploadMediaForTeamInDiscipline(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Req() req: Request) {
     const metaData = await MediaController.calculateFileName(teamId, disciplineId);
@@ -76,7 +77,7 @@ export class MediaController {
   }
 
   @Delete('/:teamId/:disciplineId')
-  @UseBefore(RequireRoleClub)
+  @UseBefore(RequireRole.get(Role.Club))
   async removeMedia(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response) {
     const media = await this.getMedia(teamId, disciplineId);
     if (media) {

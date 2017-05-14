@@ -7,7 +7,7 @@ import Request = e.Request;
 import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
-import { RequireRoleClub } from '../middlewares/RequireAuth';
+import { RequireRole } from '../middlewares/RequireAuth';
 import { validateClub, isMyClub } from '../validators/ClubValidator';
 
 import { UserController } from './UserController';
@@ -51,7 +51,7 @@ export class TeamController {
   }
 
   @Get('/my/tournament/:id')
-  @UseBefore(RequireRoleClub)
+  @UseBefore(RequireRole.get(Role.Club))
   @EmptyResultCode(404)
   async getByMyTournament( @Param('id') id: number, @Req() req: Request, @Res() res: Response): Promise<Team[]> {
     const userRepository = Container.get(UserController);
@@ -93,7 +93,7 @@ export class TeamController {
   }
 
   @Put('/:id')
-  @UseBefore(RequireRoleClub)
+  @UseBefore(RequireRole.get(Role.Club))
   async update( @Param('id') id: number, @Body() team: Team, @Req() req: Request, @Res() res: Response) {
     const hasClub = await validateClub([team]);
     const isSameClub = await isMyClub([team], req);
@@ -110,7 +110,7 @@ export class TeamController {
   }
 
   @Post()
-  @UseBefore(RequireRoleClub)
+  @UseBefore(RequireRole.get(Role.Club))
   async create( @Body() team: Team | Team[], @Req() req: Request, @Res() res: Response) {
     const teams = Array.isArray(team) ? team : [team];
 
@@ -133,7 +133,7 @@ export class TeamController {
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleClub)
+  @UseBefore(RequireRole.get(Role.Club))
   async remove( @Param('id') teamId: number, @Req() req: Request, @Res() res: Response) {
     const team = await this.get(teamId);
     const isSameClub = await isMyClub([team], req);

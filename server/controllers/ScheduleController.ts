@@ -8,7 +8,7 @@ import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
 
-import { RequireRoleOrganizer, RequireRoleSecretariat } from '../middlewares/RequireAuth';
+import { RequireRole } from '../middlewares/RequireAuth';
 import { isSameClubAsMe, isAllSameClubAsMe } from '../validators/CreatedByValidator';
 
 import { SSEService } from '../services/SSEService';
@@ -71,7 +71,7 @@ export class ScheduleController {
   }
 
   @Post('/:id/start')
-  @UseBefore(RequireRoleSecretariat)
+  @UseBefore(RequireRole.get(Role.Secretariat))
   async start(@Param('id') id: number, @Res() res: Response, @Req() req: Request) {
     const participant = await this.getParticipantPlain(id);
     participant.startTime = new Date();
@@ -79,7 +79,7 @@ export class ScheduleController {
   }
 
   @Post('/:id/stop')
-  @UseBefore(RequireRoleSecretariat)
+  @UseBefore(RequireRole.get(Role.Secretariat))
   async stop(@Param('id') id: number, @Res() res: Response, @Req() req: Request) {
     const participant = await this.getParticipantPlain(id);
     participant.endTime = new Date();
@@ -87,7 +87,7 @@ export class ScheduleController {
   }
 
   @Post('/:id/publish')
-  @UseBefore(RequireRoleSecretariat)
+  @UseBefore(RequireRole.get(Role.Secretariat))
   async publish(@Param('id') id: number, @Res() res: Response, @Req() req: Request) {
     const participant = await this.getParticipantPlain(id);
     participant.publishTime = new Date();
@@ -104,7 +104,7 @@ export class ScheduleController {
   }
 
   @Post()
-  @UseBefore(RequireRoleOrganizer)
+  @UseBefore(RequireRole.get(Role.Organizer))
   async create( @Body() participant: TournamentParticipant | TournamentParticipant[], @Res() res: Response, @Req() req: Request) {
     const participants = Array.isArray(participant) ? participant : [participant];
     const sameClub = await isAllSameClubAsMe(participants.map(p => p.tournament), req);
@@ -121,7 +121,7 @@ export class ScheduleController {
   }
 
   @Put('/:id')
-  @UseBefore(RequireRoleOrganizer)
+  @UseBefore(RequireRole.get(Role.Organizer))
   async update( @Param('id') id: number, @Body() participant: TournamentParticipant, @Res() res: Response, @Req() req: Request) {
     const sseService = Container.get(SSEService);
     const sameClub = await isSameClubAsMe(participant.tournament, req);
@@ -141,7 +141,7 @@ export class ScheduleController {
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleOrganizer)
+  @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') participantId: number, @Res() res: Response, @Req() req: Request) {
     const participant = await this.repository.findOneById(participantId);
     const sameClub = await isSameClubAsMe(participant.tournament, req);
@@ -155,7 +155,7 @@ export class ScheduleController {
 
   @Delete('/many')
   @EmptyResultCode(200)
-  @UseBefore(RequireRoleOrganizer)
+  @UseBefore(RequireRole.get(Role.Organizer))
   async removeMany( @Body() participant: TournamentParticipant[], @Res() res: Response, @Req() req: Request) {
     const sameClub = await isAllSameClubAsMe(participant.map(p => p.tournament), req);
     if (!sameClub) {

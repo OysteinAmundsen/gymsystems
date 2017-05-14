@@ -10,7 +10,7 @@ import { Logger } from '../utils/Logger';
 import { MediaHelper } from '../services/MediaHelper';
 import moment = require('moment');
 
-import { RequireRoleOrganizer } from '../middlewares/RequireAuth';
+import { RequireRole } from '../middlewares/RequireAuth';
 
 import { ScoreGroupController } from './ScoreGroupController';
 import { DisciplineController } from './DisciplineController';
@@ -25,6 +25,7 @@ import { TournamentParticipant } from '../model/TournamentParticipant';
 import { UserController } from './UserController';
 
 import { isCreatedByMe } from '../validators/CreatedByValidator';
+import { Role } from "../model/User";
 
 /**
  *
@@ -120,7 +121,7 @@ export class TournamentController {
   }
 
   @Post()
-  @UseBefore(RequireRoleOrganizer)
+  @UseBefore(RequireRole.get(Role.Organizer))
   async create( @Body() tournament: Tournament, @Req() req: Request, @Res() res: Response) {
     const userRepository = Container.get(UserController);
     const me = await userRepository.me(req);
@@ -141,7 +142,7 @@ export class TournamentController {
   }
 
   @Put('/:id')
-  @UseBefore(RequireRoleOrganizer)
+  @UseBefore(RequireRole.get(Role.Organizer))
   update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
       .then(persisted => {
@@ -152,7 +153,7 @@ export class TournamentController {
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleOrganizer)
+  @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') tournamentId: number, @Req() req: Request, @Res() res: Response) {
     const tournament = await this.repository.findOneById(tournamentId);
     const isMe = await isCreatedByMe(tournament, req);

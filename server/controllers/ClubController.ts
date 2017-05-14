@@ -6,10 +6,11 @@ import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
 
-import { RequireRoleClub, RequireRoleAdmin } from '../middlewares/RequireAuth';
+import { RequireRole } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';
 
 import { Club } from '../model/Club';
+import { Role } from "../model/User";
 
 /**
  *
@@ -51,7 +52,7 @@ export class ClubController {
   }
 
   @Delete('/:id')
-  @UseBefore(RequireRoleAdmin)
+  @UseBefore(RequireRole.get(Role.Admin))
   async remove( @Param('id') clubId: number, @Res() res: Response) {
     const club = await this.repository.findOneById(clubId);
     return this.repository.remove(club)
