@@ -66,10 +66,10 @@
                 </label>
               </td>
               <td class="media">
-                <button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)"><app-fa name="play" fw="true"></app-fa></button>
-                <button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)"><app-fa name="stop" fw="true"></app-fa></button>
-                <button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning"><app-fa name="trash" fw="true"></app-fa></button>
-                <label class="file-upload" *ngIf="!hasMedia(discipline) && !teamForm.invalid">
+                <button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)" title="Play media"><app-fa name="play" fw="true"></app-fa></button>
+                <button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" title="Stop playing"><app-fa name="stop" fw="true"></app-fa></button>
+                <button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" title="Remove media"><app-fa name="trash" fw="true"></app-fa></button>
+                <label class="file-upload btn" *ngIf="!hasMedia(discipline) && !teamForm.invalid" title="Upload media">
                   <input type="file" (change)="fileAdded($event, discipline)" placeholder="Upload file" accept=".mp3">
                   <app-fa name="upload" fw="true"></app-fa>
                 </label>

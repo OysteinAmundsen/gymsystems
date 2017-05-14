@@ -1,5 +1,4 @@
 @import "~styles/variables";
-@import "~styles/buttons";
 
 table[role="list"] {
   tr[role="listitem"] {
@@ -34,7 +33,6 @@ td.media-head {
 td.media {
   label.file-upload {
     position: relative;
-    @include btn();
     max-width: 40px;
     padding-top: 0;
     input[type="file"] {
