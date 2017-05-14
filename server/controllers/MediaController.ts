@@ -104,8 +104,9 @@ export class MediaController {
   async removeMedia(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response) {
     const media = await this.getMedia(teamId, disciplineId);
     if (media) {
-      this.removeMediaFromArchive(media.tournament.id, media.filename);
-      return this.repository.remove(media);
+      return this.removeMediaFromArchive(media.tournament.id, media.filename).then(() => {;
+        return this.repository.remove(media);
+      });
     }
     return Promise.reject({httpCode: 404, message: 'No media found'});
   }
@@ -159,7 +160,7 @@ export class MediaController {
   removeMediaFromArchive(archiveId: number, fileName: string) {
     return new Promise((resolve, reject) => {
       if (fileName.length) {
-        rimraf(`./media/${archiveId}/${fileName}`, (err: Error) => {
+        rimraf(`${fileName}`, (err: Error) => {
           if (err) { reject(err.message); }
           else { resolve(); }
         });

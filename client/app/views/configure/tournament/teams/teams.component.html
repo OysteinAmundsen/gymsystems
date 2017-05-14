@@ -12,7 +12,7 @@
       <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
         <td>{{ team.name }}</td>
         <td>{{ divisions(team) }}</td>
-        <td>{{ disciplines(team) }}</td>
+        <td [innerHTML]="disciplines(team)"></td>
         <td>{{ team.club.name }}</td>
       </tr>
       <tr *ngIf="team === selected">

@@ -53,7 +53,10 @@ export class TeamsComponent implements OnInit, OnDestroy {
 
   disciplines(team: ITeam) {
     if (team.disciplines.length) {
-      return team.disciplines.map(d => d.name).join(', ');
+      return team.disciplines.map(d => {
+        const media = team.media.find(m => m.discipline.id === d.id);
+        return (media ? `<span class="success">&#9835;${d.name}</span>` : `<span class="warning">${d.name}</span>`);
+      }).join(', ');
     }
     return '';
   }
