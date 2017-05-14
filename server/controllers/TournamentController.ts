@@ -144,6 +144,10 @@ export class TournamentController {
   @UseBefore(RequireRoleOrganizer)
   update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
     return this.repository.persist(tournament)
+      .then(persisted => {
+        Container.get(MediaHelper).expireArchive(persisted.id, persisted.endDate)
+        return persisted;
+      })
       .catch(err => Logger.log.error(err));
   }
 
