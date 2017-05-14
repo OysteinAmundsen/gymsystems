@@ -128,6 +128,12 @@ export class ListComponent implements OnInit, OnDestroy {
       }
       evt.preventDefault();
       evt.stopPropagation();
+
+      // Autostop last participant if this is not allready done
+      this.schedule
+        .filter(p => p.startTime != null && p.endTime == null)
+        .map(p => this.stop(p, evt));
+
       participant.startTime = new Date();
       this.scheduleService.start(participant).subscribe(() => {
         const media = this.getMedia(participant);
