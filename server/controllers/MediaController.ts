@@ -26,6 +26,7 @@ import { TournamentController } from '../controllers/TournamentController';
 import { Team } from '../model/Team';
 import { Discipline } from '../model/Discipline';
 import { Division } from '../model/Division';
+import { isMyClub } from "../validators/ClubValidator";
 
 type jobType = {
   id: number,
@@ -62,8 +63,16 @@ export class MediaController {
   @JsonResponse()
   @UseBefore(RequireRole.get(Role.Club))
   @UseBefore(multer({dest: 'tmp'}).single('media'))
-  async uploadMediaForTeamInDiscipline(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Req() req: Request) {
+  async uploadMediaForTeamInDiscipline(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Req() req: Request, @Res() res: Response) {
     const metaData = await MediaController.calculateFileName(teamId, disciplineId);
+
+    // Validate club
+    const myClub = await isMyClub([metaData.team], req);
+    if (!myClub) {
+      res.status(403);
+      return {httpCode: 403, message: 'Cannot add media for a team belonging to different club than yours'};
+    }
+
 
     // Make sure media folder exists. This should be created when tournament is created,
     // but in case that did not complete, we give it another shot here. In case it allready
@@ -101,7 +110,16 @@ export class MediaController {
 
   @Delete('/:teamId/:disciplineId')
   @UseBefore(RequireRole.get(Role.Club))
-  async removeMedia(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response) {
+  async removeMedia(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response, @Req() req: Request) {
+    // Validate club
+    const team = await Container.get(TeamController).get(teamId);
+    const myClub = await isMyClub([team], req);
+    if (!myClub) {
+      res.status(403);
+      return {httpCode: 403, message: 'Cannot remove media for a team belonging to different club than yours'};
+    }
+
+    // Remove media
     const media = await this.getMedia(teamId, disciplineId);
     if (media) {
       return this.removeMediaFromArchive(media.tournament.id, media.filename).then(() => {;
