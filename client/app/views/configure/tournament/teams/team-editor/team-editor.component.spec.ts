@@ -8,6 +8,7 @@ import { HttpLoaderFactory } from 'app';
 
 import { TeamEditorComponent } from './team-editor.component';
 import { TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService } from 'app/services/api';
+import { MediaService } from 'app/services/media.service';
 import { SharedModule } from 'app/shared/shared.module';
 import { ITeam } from 'app/services/model/ITeam';
 import { ITournament } from 'app/services/model/ITournament';
@@ -48,6 +49,7 @@ describe('TeamEditorComponent', () => {
         {provide: UserService, useClass: UserServiceStub},
         {provide: DivisionService, useClass: DivisionServiceStub},
         {provide: DisciplineService, useClass: DisciplineServiceStub},
+        MediaService
       ]
     })
     .overrideComponent(TeamEditorComponent, {
@@ -90,7 +92,7 @@ const user: IUser = <IUser>{
 
 @Component({
  selector  : 'test-cmp',
- template  : '<app-team-editor [team]="selected" (teamChanged)="onChange($event)"></app-team-editor>'
+ template  : '<app-team-editor [team]='selected' (teamChanged)='onChange($event)'></app-team-editor>'
 })
 class TestCmpWrapper {
 

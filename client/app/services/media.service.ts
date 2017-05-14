@@ -3,16 +3,18 @@ import { IMedia } from "app/services/model/IMedia";
 
 @Injectable()
 export class MediaService {
-  audio = new Audio();
+  private audio = new Audio();
   whatsPlaying: IMedia;
 
   constructor() { }
 
   play(media: IMedia) {
-    this.audio.src = `/api/media/${media.tournament.id}/${media.discipline.id}`;
-    this.audio.load();
-    this.audio.play();
-    this.whatsPlaying = media;
+    if (media) {
+      this.audio.src = `/api/media/${media.tournament.id}/${media.discipline.id}`;
+      this.audio.load();
+      this.audio.play();
+      this.whatsPlaying = media;
+    }
   }
 
   stop() {

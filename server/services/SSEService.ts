@@ -16,6 +16,8 @@ export class SSEService {
   constructor() {
     this.app = Container.get(GymServer).app;
     this.app.use('/api/event', (req, res) => this.connect(req, res));
+
+    Container.set(SSEService, this);
   }
 
   /**

@@ -9,9 +9,12 @@ import { HttpLoaderFactory } from 'app';
 import { SharedModule } from 'app/shared/shared.module';
 import { ListComponent } from './list.component';
 import { TournamentService, UserService, ScheduleService, TeamsService, EventService } from 'app/services/api';
+import { MediaService } from 'app/services/media.service';
+
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { ScoreGroupComponent } from './score-group/score-group.component';
 import { ScoreComponent } from './score/score.component';
+
 import { EventServiceStub } from 'app/services/api/event.service.stub';
 import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
 import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
@@ -50,6 +53,7 @@ describe('ListComponent', () => {
         {provide: TournamentService, useClass: TournamentServiceStub},
         {provide: TeamsService, useClass: TeamsServiceStub},
         {provide: EventService, useClass: EventServiceStub},
+        MediaService
       ]
     })
     .compileComponents();
