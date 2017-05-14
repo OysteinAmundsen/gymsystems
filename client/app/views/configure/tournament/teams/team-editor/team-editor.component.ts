@@ -185,12 +185,18 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         return this.disciplines.find(d => d.id === +disciplineId);
       });
 
+    // Apply media
+    team.media = this.team.media;
+
     // Save team
     this.teamService.save(team).subscribe(result => {
       this.teamChanged.emit(result);
     });
   }
 
+  disciplinesChanged() {
+    this.teamForm.markAsDirty();
+  }
   getClubMatchesFn() {
     let me = this;
     return function (items, currentValue: string, matchText: string) {

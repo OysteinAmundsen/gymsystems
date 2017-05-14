@@ -22,7 +22,7 @@ export class Media {
   @JoinColumn()
   discipline: Discipline;
 
-  @OneToOne(type => Team, { nullable: false })
+  @OneToOne(type => Team, { nullable: false, cascadeInsert: false, cascadeUpdate: false })
   @JoinColumn()
   team: Team;
 

@@ -17,6 +17,7 @@ import { ScheduleController } from './ScheduleController';
 import { Team } from '../model/Team';
 import { User, Role } from '../model/User';
 import { Club, BelongsToClub } from '../model/Club';
+import { MediaController } from "./MediaController";
 
 /**
  *
@@ -86,6 +87,7 @@ export class TeamController {
     return this.repository.createQueryBuilder('team')
       .where('team.id=:id', {id: teamId})
       .leftJoinAndSelect('team.club', 'club')
+      .leftJoinAndSelect('team.disciplines', 'disciplines')
       .leftJoinAndSelect('team.divisions', 'divisions')
       .leftJoinAndSelect('team.tournament', 'tournament')
       .leftJoinAndSelect('team.media', 'media')
@@ -108,7 +110,18 @@ export class TeamController {
       return {code: 403, message: 'Cannot update teams for other clubs than your own'};
     }
 
-    return this.repository.persist(team).catch(err => Logger.log.error(err));
+    const mediaController = Container.get(MediaController);
+    return Promise.all(team.media.map(async m => {
+      if (team.disciplines.findIndex(d => d.id === m.discipline.id) === -1) {
+        // Discipline is removed. Remove media
+        return mediaController.removeMedia(id, m.discipline.id, res, req);
+      }
+      return Promise.resolve();
+    })).then(() => {
+      return this.repository.persist(team).catch(err => Logger.log.error(err));
+    }).catch(err => {
+      return err;
+    });
   }
 
   @Post()

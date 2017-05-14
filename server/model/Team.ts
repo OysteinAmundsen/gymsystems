@@ -34,7 +34,7 @@ export class Team implements BelongsToClub {
   @ManyToOne(type => Club, club => club.teams, { nullable: false, onDelete: 'CASCADE' })
   club: Club;
 
-  @OneToMany(type => Media, media => media.team)
+  @OneToMany(type => Media, media => media.team, { cascadeInsert: false, cascadeUpdate: false })
   media: Media[] = [];
 
   get divisionName(): string {

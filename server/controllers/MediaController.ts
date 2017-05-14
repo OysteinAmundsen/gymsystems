@@ -93,7 +93,7 @@ export class MediaController {
       });
   }
 
-  private getMedia(teamId: number, disciplineId: number) {
+  public getMedia(teamId: number, disciplineId: number) {
     return this.repository.createQueryBuilder('media')
       .where('media.team=:teamId', {teamId: teamId})
       .andWhere('media.discipline=:disciplineId', {disciplineId: disciplineId})
