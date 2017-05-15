@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
+import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { HomeComponent } from './home.component';
@@ -22,6 +23,7 @@ describe('HomeComponent', () => {
         SharedModule,
         RouterTestingModule,
         HttpModule,
+        MarkdownToHtmlModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
