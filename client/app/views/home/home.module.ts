@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'app/shared/shared.module';
+import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
 import { HomeRoutes } from './home.routes';
 import { HomeComponent } from './home.component';
@@ -25,7 +26,8 @@ import { ResultsComponent } from './results/results.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([...HomeRoutes]),
-    SharedModule
+    MarkdownToHtmlModule,
+    SharedModule,
   ],
   declarations: [
     HomeComponent,

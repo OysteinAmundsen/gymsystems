@@ -15,7 +15,7 @@
   </button>
 </header>
 
-<section *ngIf="tournament"><pre>{{ tournament.description}}</pre></section>
+<section *ngIf="tournament"><pre [innerHTML]="description | MarkdownToHtml"></pre></section>
 <section class="table-responsive">
   <table *ngIf="tournament && schedule.length" role="list">
     <thead>

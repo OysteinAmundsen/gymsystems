@@ -19,7 +19,10 @@ export class Tournament implements CreatedBy{
   name: string;
 
   @Column({ type: 'text', nullable: true })
-  description: string;
+  description_no: string;
+
+  @Column({ type: 'text', nullable: true })
+  description_en: string;
 
   @Column()
   startDate: Date;

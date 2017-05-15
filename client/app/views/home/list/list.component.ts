@@ -37,6 +37,10 @@ export class ListComponent implements OnInit, OnDestroy {
       this._errorTimeout = setTimeout(() => this._error = null, 3 * 1000);
     }
   }
+
+  get description() {
+    return (this.tournament ? this.tournament['description_' + this.translate.currentLang] : '');
+  }
   userSubscription: Subscription;
   eventSubscription: Subscription;
   paramSubscription: Subscription;

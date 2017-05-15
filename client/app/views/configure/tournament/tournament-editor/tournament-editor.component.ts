@@ -8,6 +8,7 @@ import { TournamentService, UserService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 import { IUser, Role } from 'app/services/model/IUser';
 import { Moment } from "moment";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-tournament-editor',
@@ -28,6 +29,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private userService: UserService,
     private tournamentService: TournamentService,
+    private translate: TranslateService,
     private title: Title
   ) {  }
 
@@ -49,17 +51,26 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       startDate: [this.tournament.startDate, [Validators.required]],
       endDate: [this.tournament.endDate, [Validators.required]],
       location: [this.tournament.location],
-      description: [this.tournament.description || ''],
+      description: [this.tournament['description_' + this.translate.currentLang] || ''],
       createdBy: [this.tournament.createdBy]
     });
   }
 
   tournamentReceived(tournament) {
     this.tournament = tournament;
-    this.tournament.description = this.tournament.description || '';
+    this.tournament.description_no = this.tournament.description_no || '';
+    this.tournament.description_en = this.tournament.description_en || '';
     this.title.setTitle(`Configure tournament: ${tournament.name} | GymSystems`);
 
-    this.tournamentForm.setValue(tournament);
+    this.tournamentForm.setValue({
+      id: this.tournament.id,
+      name: this.tournament.name,
+      startDate: this.tournament.startDate,
+      endDate: this.tournament.endDate,
+      location: this.tournament.location,
+      description: this.tournament['description_' + this.translate.currentLang] || '',
+      createdBy: this.tournament.createdBy
+    });
     this.tournamentService.selected = this.tournament;
   }
 

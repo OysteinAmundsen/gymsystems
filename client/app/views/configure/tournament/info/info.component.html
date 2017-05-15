@@ -1,19 +1,14 @@
 <form *ngIf="tournament" (submit)="save()">
   <header>
-    <button><span class="flag-icon flag-icon-no"></span></button>
-    <button><span class="flag-icon flag-icon-gb"></span></button>
+    <button type="button" title="Select language to edit" (click)="setLang('no')"><span [ngClass]="'clickable flag-icon flag-icon-no ' + (lng === 'no' ? 'selected' : '')"></span></button>
+    <button type="button" title="Select language to edit" (click)="setLang('en')"><span [ngClass]="'clickable flag-icon flag-icon-gb ' + (lng === 'en' ? 'selected' : '')"></span></button>
     <span class="divider"></span>
-    <button><app-fa name="bold" fw="true"></app-fa></button>
-    <button><app-fa name="italic" fw="true"></app-fa></button>
-    <button><app-fa name="underline" fw="true"></app-fa></button>
-    <span class="divider"></span>
-    <button><app-fa name="align-left" fw="true"></app-fa></button>
-    <button><app-fa name="align-center" fw="true"></app-fa></button>
-    <button><app-fa name="align-right" fw="true"></app-fa></button>
-    <button><app-fa name="align-justify" fw="true"></app-fa></button>
+    <button type="button" title="Set selected text in bold" (click)="bold()"><app-fa name="bold" fw="true"></app-fa></button>
+    <button type="button" title="Set selected text in italic" (click)="italic()"><app-fa name="italic" fw="true"></app-fa></button>
+    <button type="button" title="Underline selected text" (click)="underline()"><app-fa name="underline" fw="true"></app-fa></button>
   </header>
 
-  <textarea name="description" rows="20" [(ngModel)]="tournament['description' + lng]"></textarea>
+  <textarea name="description" rows="20" [(ngModel)]="tournament['description_' + lng]" #infoText></textarea>
 
   <footer>
     <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>

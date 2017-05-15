@@ -9,7 +9,7 @@
           <h1>{{ tournament.name }}</h1>
         </header>
 
-        <div><pre [innerHtml]="tournament.description"></pre></div>
+        <div><pre [innerHtml]="getDescription(tournament) | MarkdownToHtml"></pre></div>
         <a [routerLink]="['/list/', tournament.id]" class="btn primary">
           <app-fa name="arrow-right" fw="true"></app-fa>
           <span translate>Go to scoreboard</span>

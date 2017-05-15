@@ -44,4 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.tournamentService.selectedId = null;
     this.tournamentService.selected = null;
   }
+
+  getDescription(tournament: ITournament) {
+    return (tournament ? tournament['description_' + this.translate.currentLang] : '');
+  }
 }

@@ -12,7 +12,8 @@ export interface ITournament {
   id: number;
   createdBy: IUser;
   name: string;
-  description: string;
+  description_no: string;
+  description_en: string;
   startDate: Date | Moment | string;
   endDate: Date | Moment | string;
   location: string;
