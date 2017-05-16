@@ -90,7 +90,6 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
 
   //[(value)] is buggy and does not propagate changes on the md-input so we can get the value correctly
   onKeyPress(event: KeyboardEvent) {
-    console.log(event.keyCode);
     const keyCode = event.keyCode;
     const input: HTMLInputElement = <HTMLInputElement>event.target;
     setTimeout(() => {

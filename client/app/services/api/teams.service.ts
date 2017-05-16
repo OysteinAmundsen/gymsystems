@@ -36,8 +36,8 @@ export class TeamsService {
     return call.map((res: Response) => res.json());
   }
 
-  delete(team: ITeam) {
-    return this.http.delete(`${this.url}/${team.id}`);
+  delete(team: ITeam): Observable<ITeam> {
+    return this.http.delete(`${this.url}/${team.id}`).map((res: Response) => res.json());
   }
 
   division(team: ITeam) {

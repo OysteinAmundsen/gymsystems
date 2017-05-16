@@ -87,6 +87,8 @@ export class TeamsComponent implements OnInit, OnDestroy {
       if (this.currentUser.role >= Role.Admin || team.club.id === this.currentUser.club.id) {
         this.selected = team;
       }
+    } else {
+      this.selected = null;
     }
   }
 

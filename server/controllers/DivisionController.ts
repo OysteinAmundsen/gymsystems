@@ -13,6 +13,7 @@ import { Tournament } from '../model/Tournament';
 import { ConfigurationController } from './ConfigurationController';
 import { Division } from '../model/Division';
 import { Role } from "../model/User";
+import { MediaController } from "./MediaController";
 
 /**
  *
@@ -36,6 +37,8 @@ export class DivisionController {
   getByTournament( @Param('id') id: number): Promise<Division[]> {
     return this.repository.createQueryBuilder('division')
       .where('division.tournament=:id', { id: id })
+      .leftJoinAndSelect('division.tournament', 'tournament')
+      .leftJoinAndSelect('division.teams', 'teams')
       .orderBy('division.sortOrder', 'ASC')
       .getMany();
   }
@@ -82,7 +85,19 @@ export class DivisionController {
   }
 
   removeMany(divisions: Division[]) {
-    return this.repository.remove(divisions);
+    const mediaRepository = Container.get(MediaController);
+    var promises = [];
+    for (let d = 0; d < divisions.length; d++) {
+      for (let t = 0; t < divisions[d].teams.length; t++) {
+        promises.push(mediaRepository.removeMediaInternal(divisions[d].teams[t].id));
+      }
+    }
+
+    return Promise.all(promises).then(() => this.repository.remove(divisions.map(d => {
+      delete d.tournament;
+      delete d.teams;
+      return d;
+    })));
   }
 
   createDefaults(tournament: Tournament, res: Response): Promise<Division[]> {

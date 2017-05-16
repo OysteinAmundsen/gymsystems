@@ -158,6 +158,10 @@ export class TeamController {
       return {code: 403, message: 'You are not authorized to remove teams from other clubs than your own.'};
     }
 
+    // Remove media setup by this team
+    const mediaRepository = Container.get(MediaController);
+    await mediaRepository.removeMediaInternal(teamId);
+
     // Remove participants setup by this team
     const scheduler = Container.get(ScheduleController);
     const participants = await scheduler.repository.createQueryBuilder('participant')

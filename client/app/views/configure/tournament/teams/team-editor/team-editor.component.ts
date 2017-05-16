@@ -108,26 +108,30 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       )
     }
     if(fileList.length > 0) {
-      if (this.teamForm.dirty) { this.save().then(upload); }
+      if (this.teamForm.dirty) {
+        this.save(true).then(upload);
+      }
       else { upload(); }
     }
   }
 
-  reloadTeam() {
+  teamReceived(team: ITeam) {
     const ageDivision = this.team.divisions.find(d => d.type === DivisionType.Age);
     const genderDivision = this.team.divisions.find(d => d.type === DivisionType.Gender);
-    this.teamService.getById(this.team.id).subscribe(team => {
-      this.team = team;
-      this.teamForm.setValue({
-        id: this.team.id,
-        name: this.team.name,
-        club: this.team.club ? this.team.club.name : '',
-        ageDivision: ageDivision ? ageDivision.id : null,
-        genderDivision: genderDivision ? genderDivision.id : null,
-        disciplines: this.team.disciplines,
-        tournament: this.team.tournament
-      });
+    this.team = team;
+    this.teamForm.setValue({
+      id: this.team.id,
+      name: this.team.name,
+      club: this.team.club ? this.team.club.name : '',
+      ageDivision: ageDivision ? ageDivision.id : null,
+      genderDivision: genderDivision ? genderDivision.id : null,
+      disciplines: this.team.disciplines,
+      tournament: this.team.tournament
     });
+  }
+
+  reloadTeam() {
+    this.teamService.getById(this.team.id).subscribe(team => this.teamReceived(team));
   }
 
   hasMedia(discipline: IDiscipline) {
@@ -157,7 +161,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     this.teamService.removeMedia(this.team, discipline).subscribe(() => this.reloadTeam());
   }
 
-  async save() {
+  async save(keepOpen?: boolean) {
     const team = this.teamForm.value;
 
     // Compute division set
@@ -189,8 +193,15 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     team.media = this.team.media;
 
     // Save team
-    this.teamService.save(team).subscribe(result => {
-      this.teamChanged.emit(result);
+    return new Promise((resolve, reject) => {
+      this.teamService.save(team).subscribe(result => {
+        const t: ITeam = Array.isArray(result) ? result[0] : result;
+        this.teamReceived(t);
+        if (!keepOpen) {
+          this.teamChanged.emit(t);
+        }
+        resolve(t);
+      });
     });
   }
 

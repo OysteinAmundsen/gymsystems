@@ -162,21 +162,27 @@ export class TournamentController {
       return { code: 403, message: 'Only the creator of a tournament can remove.'};
     }
 
-    // This should cascade, but it wont. :-(
-    const divisionRepository = Container.get(DivisionController);
-    const disciplineRepository = Container.get(DisciplineController);
+    // Remove media
+    await Container.get(MediaController).removeArchive(tournamentId);
+
+    // Remove participants
     const participantRepository = this.conn.getRepository(TournamentParticipant);
-    return Promise.all([
-      divisionRepository.getByTournament(tournament.id).then((e: Division[]) => divisionRepository.removeMany(e)),
-      disciplineRepository.getByTournament(tournament.id).then((e: Discipline[]) => disciplineRepository.removeMany(e)),
-      participantRepository.find({ tournament: tournament.id }).then((e) => participantRepository.remove(e))
-    ]).then(() => {
-      // Remove the tournament.
-      return this.repository.remove(tournament)
-        // Remove media dir
-        .then(() => Container.get(MediaController).removeArchive(tournament.id))
-        .catch(err => Logger.log.error(err));
-    });
+    const participants = await participantRepository.find({ tournament: tournament.id });
+    await participantRepository.remove(participants);
+
+    // Remove divisions
+    const divisionRepository = Container.get(DivisionController);
+    const divisions = await divisionRepository.getByTournament(tournamentId);
+    await divisionRepository.removeMany(divisions);
+
+    // Remove disciplines
+    const disciplineRepository = Container.get(DisciplineController);
+    const disciplines = await disciplineRepository.getByTournament(tournamentId);
+    await disciplineRepository.removeMany(disciplines);
+
+    // Lastly remove the tournament.
+    return this.repository.remove(tournament)
+      .catch(err => Logger.log.error(err));
   }
 
   createDefaults(tournament: Tournament, res: Response): Promise<Tournament> {

@@ -13,7 +13,7 @@
         <td>{{ team.name }}</td>
         <td>{{ divisions(team) }}</td>
         <td [innerHTML]="disciplines(team)"></td>
-        <td>{{ team.club.name }}</td>
+        <td>{{ team.club ? team.club.name : '' }}</td>
       </tr>
       <tr *ngIf="team === selected">
         <td colspan="4">

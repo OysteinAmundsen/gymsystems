@@ -59,6 +59,8 @@ export class MediaController {
     }
   }
 
+
+
   @Post('/upload/:teamId/:disciplineId')
   @JsonResponse()
   @UseBefore(RequireRole.get(Role.Club))
@@ -72,7 +74,6 @@ export class MediaController {
       res.status(403);
       return {httpCode: 403, message: 'Cannot add media for a team belonging to different club than yours'};
     }
-
 
     // Make sure media folder exists. This should be created when tournament is created,
     // but in case that did not complete, we give it another shot here. In case it allready
@@ -92,21 +93,29 @@ export class MediaController {
         });
       });
   }
+  private storeMediaInArchive(archiveId: number, fileName: string, file: any): Promise<any> {
+    const newPath = `./media/${archiveId}/${fileName}`;
 
-  public getMedia(teamId: number, disciplineId: number) {
-    return this.repository.createQueryBuilder('media')
-      .where('media.team=:teamId', {teamId: teamId})
-      .andWhere('media.discipline=:disciplineId', {disciplineId: disciplineId})
-      .leftJoinAndSelect('media.tournament', 'tournament')
-      .getOne();
+    return new Promise((resolve, reject) => {
+      const extension = file.originalname.substring(file.originalname.lastIndexOf('.') + 1);
+      const fileName = `${newPath}.${extension}` ;
+      Logger.log.info(`Storing '${fileName}'`);
+      fs.rename(file.path, `${fileName}`, (err) => {
+        if (err) { reject(err); }
+        else { resolve(fileName); }
+      });
+    });
+  }
+  createArchive(id: number, expire: Date) {
+    mkdirp(`./media/${id}`, (err) => {
+      if (err) { Logger.log.error(err); }
+      this.expireArchive(id, expire); // Register for expiration
+      Logger.log.info(`Created tournament media folder at: './media/${id}'`);
+    });
   }
 
-  async removeTournamentMedia(tournamentId: number) {
-    const medias = await this.repository.createQueryBuilder('media')
-      .where('media.tournament=:tournamentId', {tournamentId: tournamentId})
-      .getMany();
-    return this.repository.remove(medias);
-  }
+
+
 
   @Delete('/:teamId/:disciplineId')
   @UseBefore(RequireRole.get(Role.Club))
@@ -120,25 +129,47 @@ export class MediaController {
     }
 
     // Remove media
-    const media = await this.getMedia(teamId, disciplineId);
-    if (media) {
-      return this.removeMediaFromArchive(media.tournament.id, media.filename).then(() => {;
-        return this.repository.remove(media);
-      });
-    }
-    return Promise.reject({httpCode: 404, message: 'No media found'});
+    return this.removeMediaInternal(teamId, disciplineId);
   }
+  async removeMediaInternal(teamId: number, disciplineId?: number) {
+    const media = await this.getMedia(teamId, disciplineId);
+    if (media && media.length) {
+      return Promise.all(media.map(m => {
+        return new Promise((resolve, reject) => {
+          rimraf(`${m.filename}`, (err: Error) => {
+            if (err) { return reject(err.message); }
+            return this.repository.remove(m).then(() => resolve());
+          });
+        });
+      }));
+    }
+    return Promise.resolve();
+  }
+
+
 
   @Get('/:teamId/:disciplineId')
   @UseAfter(async (req: any, res: any, next?: (err?: any) => any) => {
     const controller = Container.get(MediaController);
-    const media = await controller.getMedia(req.params.teamId, req.params.disciplineId);
-    if (media) {
-      return controller.getMediaFromArchive(media.tournament.id, media.filename, res);
-    }
-    return controller.repository.remove(media).then(() => {
+    const medias = await controller.getMedia(req.params.teamId, req.params.disciplineId);
+    if (!medias || !medias.length) {
       res.status(404).send('No media found!');
+    }
+
+    const media = medias[0];
+    var stat = fs.statSync(media.filename);
+    if (!stat.isFile()) {
+      return controller.repository.remove(media).then(() => {
+        res.status(404).send('No media found!');
+      });
+    }
+
+    Logger.log.info(`Streaming '${media.filename}' : ${stat.size}`);
+    res.writeHead(200, {
+      'Content-Type': 'audio/mpeg',
+      'Content-Length': stat.size
     });
+    fs.createReadStream(media.filename).pipe(res);
   })
   async streamMedia(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response) { }
 
@@ -146,85 +177,48 @@ export class MediaController {
   /**
    *
    */
-  storeMediaInArchive(archiveId: number, fileName: string, file: any): Promise<any> {
-    const newPath = `./media/${archiveId}/${fileName}`;
-
-    return new Promise((resolve, reject) => {
-      const extension = file.originalname.substring(file.originalname.lastIndexOf('.') + 1);
-      const fileName = `${newPath}.${extension}` ;
-      Logger.log.info(`Storing '${fileName}'`);
-      fs.rename(file.path, `${fileName}`, (err) => {
-        if (err) { reject(err); }
-        else { resolve(fileName); }
-      });
-    });
+  private getMedia(teamId: number, disciplineId?: number): Promise<Media[]> {
+    const query = this.repository.createQueryBuilder('media')
+      .where('media.team=:teamId', {teamId: teamId});
+    if (disciplineId) {
+      query.andWhere('media.discipline=:disciplineId', {disciplineId: disciplineId});
+    }
+    return query.leftJoinAndSelect('media.tournament', 'tournament')
+      .getMany();
   }
 
-  /**
-   *
-   */
-  getMediaFromArchive(archiveId: number, fileName: string, res: Response) {
-    var stat = fs.statSync(fileName);
-    res.writeHead(200, {
-        'Content-Type': 'audio/mpeg',
-        'Content-Length': stat.size
-    });
-
-    Logger.log.info(`Streaming '${fileName}' : ${stat.size}`);
-    var readStream = fs.createReadStream(fileName);
-    readStream.pipe(res);
-  }
-
-  removeMediaFromArchive(archiveId: number, fileName: string) {
-    return new Promise((resolve, reject) => {
-      if (fileName.length) {
-        rimraf(`${fileName}`, (err: Error) => {
-          if (err) { reject(err.message); }
-          else { resolve(); }
-        });
-      }
-      else {
-        reject('No file found');
-      }
-    });
-  }
-
-  /**
-   * Create the storage space for this tournament
-   */
-  createArchive(id: number, expire: Date) {
-    mkdirp(`./media/${id}`, (err) => {
-      if (err) { Logger.log.error(err); }
-      this.expireArchive(id, expire); // Register for expiration
-      Logger.log.info(`Created tournament media folder at: './media/${id}'`);
-    });
-  }
 
   /**
    * Remove the storage space for this tournament
    */
-  removeArchive(id: number) {
-    rimraf(`./media/${id}`, (err: Error) => {
-      if (err) { Logger.log.error(err.message); }
+  removeArchive(id: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      rimraf(`./media/${id}`, (err: Error) => {
+        if (err) {
+          Logger.log.error(err.message);
+          reject(err);
+        }
+        Logger.log.info(`Tournament media folder './media/${id}' removed!`);
 
-      // Remove cronjob registered to this removal
-      this.removeCronJob(id);
+        // Remove cronjob registered to this removal
+        schedule.cancelJob(id.toString());
 
-      // Remove persisted media pointers
-      this.removeTournamentMedia(id);
-      Logger.log.info(`Tournament media folder './media/${id}' removed!`);
+        // Remove persisted media pointers
+        this.repository.createQueryBuilder('media')
+          .where('media.tournament=:tournamentId', {tournamentId: id})
+          .getMany()
+          .then(medias => {
+            this.repository.remove(medias).then(() => resolve());
+          })
+      });
     });
-  }
-
-  private removeCronJob(id: number) {
-    schedule.cancelJob(id.toString());
   }
 
   /**
    * Register cronjob to remove storage space at a specific datestamp
    */
   expireArchive(id: number, expire: Date) {
-    this.removeCronJob(id); // If cronjob allready exists, remove old one first.
+    schedule.cancelJob(id.toString()); // If cronjob allready exists, remove old one first.
 
     // Create cronjob
     schedule.scheduleJob(id.toString(), expire, () => this.removeArchive(id))

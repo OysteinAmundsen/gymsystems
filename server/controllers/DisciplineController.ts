@@ -17,6 +17,7 @@ import { Discipline } from '../model/Discipline';
 import { Tournament } from '../model/Tournament';
 import { ScoreGroup } from '../model/ScoreGroup';
 import { Role } from "../model/User";
+import { MediaController } from "./MediaController";
 
 /**
  *
@@ -40,6 +41,8 @@ export class DisciplineController {
   getByTournament( @Param('id') id: number): Promise<Discipline[]> {
     return this.repository.createQueryBuilder('discipline')
       .where('discipline.tournament=:id', { id: id })
+      .leftJoinAndSelect('discipline.tournament', 'tournament')
+      .leftJoinAndSelect('discipline.teams', 'teams')
       .orderBy('discipline.sortOrder', 'ASC')
       .getMany();
   }
@@ -86,14 +89,24 @@ export class DisciplineController {
       });
   }
 
-  removeMany(disciplines: Discipline[]) {
+  async removeMany(disciplines: Discipline[]) {
     const scoreGroupRepository = Container.get(ScoreGroupController);
-    const teamRepository = Container.get(TeamController);
-    return Promise.all(
-      disciplines.map(d => scoreGroupRepository.getByDiscipline(d.id).then((e: ScoreGroup[]) => scoreGroupRepository.removeMany(e)))
-    ).then(() => {
-      return this.repository.remove(disciplines);
-    });
+    const mediaRepository = Container.get(MediaController);
+    var promises = [];
+    for (let d = 0; d < disciplines.length; d++) {
+      const scoreGroups = await scoreGroupRepository.getByDiscipline(disciplines[d].id);
+      promises.push(scoreGroupRepository.removeMany(scoreGroups));
+
+      for (let t = 0; t < disciplines[d].teams.length; t++) {
+        promises.push(mediaRepository.removeMediaInternal(disciplines[d].teams[t].id));
+      }
+    }
+    return Promise.all(promises).then(() => this.repository.remove(disciplines.map(d => {
+      delete d.teams;
+      delete d.tournament;
+      delete d.scoreGroups;
+      return d;
+    })));
   }
 
   createDefaults(tournament: Tournament, res: Response): Promise<Discipline[]> {
