@@ -3,37 +3,45 @@
   <span translate>Advanced settings</span>
 </h1>
 
-<h2 translate>Default values</h2>
-
-<menu role="tablist">
-  <ul>
-    <li (click)="selected = 'division'" [ngClass]="{'active': selected === 'division'}">
-      <a>
-        <app-fa name="cubes" fw="true"></app-fa> <span translate>Divisions</span></a>
-    </li>
-    <li (click)="selected = 'discipline'" [ngClass]="{'active': selected === 'discipline'}">
-      <a>
-        <app-fa name="heartbeat" fw="true"></app-fa> <span translate>Disciplines</span></a>
-    </li>
-    <li (click)="selected = 'scoreGroup'" [ngClass]="{'active': selected === 'scoreGroup'}">
-      <a>
-        <app-fa name="star" fw="true"></app-fa> <span translate>Score system</span></a>
-    </li>
-  </ul>
-</menu>
-
-<section *ngFor="let v of defaultValueKeys" [id]="v" class="tab-panel">
-  <!--<textarea #area name="v" [rows]="getRows(defaultValues[v])" *ngIf="selected === v" (change)="valueChanged(v)">{{defaultValues[v] | json}}</textarea>-->
-  <div *ngIf="v === 'scoreGroup' && selected === v">
-    <app-score-system [scoreGroupList]="defaultValues[v]" (scoreGroupListChanged)="valueChanged(v, $event)" [standalone]="true"></app-score-system>
-  </div>
-  <div *ngIf="v === 'discipline' && selected === v">
-    <app-disciplines [disciplineList]="defaultValues[v]" (disciplineListchanged)="valueChanged(v, $event)" [standalone]="true"></app-disciplines>
-  </div>
-  <div *ngIf="v === 'division' && selected === v">
-    <app-divisions [divisions]="defaultValues[v]" (divisionsChanged)="valueChanged(v, $event)" [standalone]="true"></app-divisions>
-  </div>
+<section>
+  <h2 translate>Default participant execution time</h2>
+  <form class="row" (submit)="save()" class="horizontal">
+    <div class="col-xs-5" appFloatingLabelContainer>
+      <label translate>Execution time in minutes</label>
+      <input type="number" name="executionTime" [(ngModel)]="executionTime" />
+    </div>
+    <div class="col-xs-2">
+      <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+    </div>
+  </form>
 </section>
 
 <section>
+  <h2 translate>Default values</h2>
+
+  <menu role="tablist">
+    <ul>
+      <li (click)="selected = 'division'" [ngClass]="{'active': selected === 'division'}">
+        <a><app-fa name="cubes" fw="true"></app-fa> <span translate>Divisions</span></a>
+      </li>
+      <li (click)="selected = 'discipline'" [ngClass]="{'active': selected === 'discipline'}">
+        <a><app-fa name="heartbeat" fw="true"></app-fa> <span translate>Disciplines</span></a>
+      </li>
+      <li (click)="selected = 'scoreGroup'" [ngClass]="{'active': selected === 'scoreGroup'}">
+        <a><app-fa name="star" fw="true"></app-fa> <span translate>Score system</span></a>
+      </li>
+    </ul>
+  </menu>
+
+  <div class="tab-panel">
+    <div *ngIf="selected === 'scoreGroup'">
+      <app-score-system [scoreGroupList]="defaultValues.scoreGroup" (scoreGroupListChanged)="valueChanged(defaultValues.scoreGroup, $event)" [standalone]="true"></app-score-system>
+    </div>
+    <div *ngIf="selected === 'discipline'">
+      <app-disciplines [disciplineList]="defaultValues.discipline" (disciplineListchanged)="valueChanged(defaultValues.discipline, $event)" [standalone]="true"></app-disciplines>
+    </div>
+    <div *ngIf="selected === 'division'">
+      <app-divisions [divisions]="defaultValues.division" (divisionsChanged)="valueChanged(defaultValues.division, $event)" [standalone]="true"></app-divisions>
+    </div>
+  </div>
 </section>

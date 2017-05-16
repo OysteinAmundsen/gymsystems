@@ -9,7 +9,7 @@
     </header>
     <div class="table-responsive">
       <table role="list" [dragula]="'gender-bag'" [dragulaModel]="genderDivisions" class="editable">
-        <tbody *ngFor="let division of genderDivisions">
+        <tbody *ngFor="let division of genderDivisions | orderBy: 'sortOrder'">
           <tr *ngIf="division !== selected" (click)="select(division)" role="listitem" class="draggable">
             <td>{{ division.name }}</td>
           </tr>
@@ -32,7 +32,7 @@
     </header>
     <div class="table-responsive">
       <table role="list" [dragula]="'age-bag'" [dragulaModel]="ageDivisions" class="editable">
-        <tbody *ngFor="let division of ageDivisions">
+        <tbody *ngFor="let division of ageDivisions | orderBy: 'sortOrder'">
           <tr *ngIf="division !== selected" (click)="select(division)" role="listitem">
             <td>{{ division.name }}</td>
           </tr>

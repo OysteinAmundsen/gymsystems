@@ -19,6 +19,19 @@ export class AdvancedComponent implements OnInit {
     return this.configuration ? Object.keys(this.defaultValues) : null;
   }
 
+  get executionTime() {
+    return this.configuration ? this.configuration.find(c => c.name === 'scheduleExecutionTime').value : null;
+  }
+  set executionTime(value) {
+    let execIndex = this.configuration.findIndex(c => c.name === 'scheduleExecutionTime');
+    if (execIndex == -1) {
+      this.configuration.push({name: 'scheduleExecutionTime', value: value});
+    }
+    else {
+      this.configuration[execIndex].value = value;
+    }
+  }
+
   constructor(private config: ConfigurationService, private title: Title) {
     title.setTitle('Advanced configuration | GymSystems');
   }

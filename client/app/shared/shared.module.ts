@@ -19,6 +19,7 @@ import { IfAuthDirective } from './directives/auth/if-auth.directive';
 // Shared pipes
 import { ToUpperPipe } from './pipes/to-upper.pipe';
 import { TypeaheadComponent } from './components/typeahead/typeahead.component';
+import { OrderByPipe } from './pipes/order-by.pipe';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { TypeaheadComponent } from './components/typeahead/typeahead.component';
     IfAuthDirective,
 
     ToUpperPipe,
+    OrderByPipe,
   ],
   exports: [
     // Export common modules
@@ -60,7 +62,8 @@ import { TypeaheadComponent } from './components/typeahead/typeahead.component';
     AutofocusDirective,
     IfAuthDirective,
 
-    ToUpperPipe
+    ToUpperPipe,
+    OrderByPipe,
   ]
 })
 export class SharedModule { }

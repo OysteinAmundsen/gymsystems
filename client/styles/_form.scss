@@ -44,6 +44,11 @@ form {
       margin-top: 0;
     }
   }
+  &.horizontal {
+    >* {
+      vertical-align: bottom;
+    }
+  }
   input:not([type="checkbox"]),
   textarea,
   select {

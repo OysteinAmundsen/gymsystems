@@ -4,7 +4,19 @@ import * as moment from 'moment';
 
 const Moment: any = (<any>moment).default || moment;
 
+export interface CalendarDate {
+  day: number;
+  month: number;
+  year: number;
+  enabled: boolean;
+  today: boolean;
+  selected: boolean;
+  momentObj: moment.Moment;
+}
+
 export interface IDateModel {
+  hour: string;
+  minute: string;
   day: string;
   month: string;
   year: string;
@@ -12,7 +24,9 @@ export interface IDateModel {
   momentObj: moment.Moment;
 }
 
-export class DateModel {
+export class DateModel implements IDateModel{
+  hour: string;
+  minute: string;
   day: string;
   month: string;
   year: string;
@@ -20,6 +34,8 @@ export class DateModel {
   momentObj: moment.Moment;
 
   constructor(obj?: IDateModel) {
+    this.minute = obj && obj.minute ? obj.minute : null;
+    this.hour = obj && obj.hour ? obj.hour : null;
     this.day = obj && obj.day ? obj.day : null;
     this.month = obj && obj.month ? obj.month : null;
     this.year = obj && obj.year ? obj.year : null;
@@ -30,6 +46,7 @@ export class DateModel {
 
 export interface IDatePickerOptions {
   autoApply?: boolean;
+  setTime?: boolean;
   style?: 'normal' | 'big' | 'bold';
   locale?: string;
   minDate?: Date;
@@ -39,8 +56,9 @@ export interface IDatePickerOptions {
   format?: string;
 }
 
-export class DatePickerOptions {
+export class DatePickerOptions implements IDatePickerOptions {
   autoApply?: boolean;
+  setTime?: boolean;
   style?: 'normal' | 'big' | 'bold';
   locale?: string;
   minDate?: Date;
@@ -51,24 +69,15 @@ export class DatePickerOptions {
 
   constructor(obj?: IDatePickerOptions) {
     this.autoApply = (obj && obj.autoApply === true) ? true : false;
+    this.setTime = (obj && obj.setTime === true) ? true : false;
     this.style = obj && obj.style ? obj.style : 'normal';
     this.locale = obj && obj.locale ? obj.locale : 'en';
     this.minDate = obj && obj.minDate ? obj.minDate : null;
     this.maxDate = obj && obj.maxDate ? obj.maxDate : null;
     this.initialDate = obj && obj.initialDate ? obj.initialDate : null;
     this.firstWeekdaySunday = obj && obj.firstWeekdaySunday ? obj.firstWeekdaySunday : false;
-    this.format = obj && obj.format ? obj.format : 'YYYY-MM-DD';
+    this.format = obj && obj.format ? obj.format : 'YYYY-MM-DD' + (this.setTime ? ' HH:mm' : '');
   }
-}
-
-export interface CalendarDate {
-  day: number;
-  month: number;
-  year: number;
-  enabled: boolean;
-  today: boolean;
-  selected: boolean;
-  momentObj: moment.Moment;
 }
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
@@ -93,10 +102,10 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   date: DateModel;
 
   opened: boolean;
+  show: 'year' | 'date' | 'time' = 'date';
   currentDate: moment.Moment;
   days: CalendarDate[];
   years: number[];
-  yearPicker: boolean;
 
   minDate: moment.Moment | any;
   maxDate: moment.Moment | any;
@@ -111,6 +120,8 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     this.days = [];
     this.years = [];
     this.date = new DateModel({
+      hour: null,
+      minute: null,
       day: null,
       month: null,
       year: null,
@@ -153,6 +164,8 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     const date: moment.Moment = Moment(value, this.options.format);
 
     if (this.value && date.isValid) {
+      this.value.minute = date.format('mm');
+      this.value.hour = date.format('HH');
       this.value.day = date.format('DD');
       this.value.month = date.format('MM');
       this.value.year = date.format('YYYY');
@@ -195,13 +208,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
           if (!date) {
             throw new Error(`Invalid date: ${e.data}`);
           }
-          this.value = {
-            day: date.format('DD'),
-            month: date.format('MM'),
-            year: date.format('YYYY'),
-            formatted: date.format(this.options.format),
-            momentObj: date
-          };
+          this.value = this.modelFromDate(date);
         }
       });
     }
@@ -280,16 +287,22 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  selectDate(e: MouseEvent, date: moment.Moment) {
-    if (e) { e.preventDefault(); }
-
-    this.value = {
+  modelFromDate(date: moment.Moment) {
+    return {
+      minute: date.format('mm'),
+      hour: date.format('HH'),
       day: date.format('DD'),
       month: date.format('MM'),
       year: date.format('YYYY'),
       formatted: date.format(this.options.format),
       momentObj: date.clone()
     };
+  }
+
+  selectDate(e: MouseEvent, date: moment.Moment) {
+    if (e) { e.preventDefault(); }
+
+    this.value = this.modelFromDate(date);
     this.generateCalendar();
 
     setTimeout(() => {
@@ -308,14 +321,8 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
 
     setTimeout(() => {
       const date: moment.Moment = this.currentDate.year(year);
-      this.value = {
-        day: date.format('DD'),
-        month: date.format('MM'),
-        year: date.format('YYYY'),
-        formatted: date.format(this.options.format),
-        momentObj: date
-      };
-      this.yearPicker = false;
+      this.value = this.modelFromDate(date);
+      this.show = 'date';
       this.generateCalendar();
     });
   }
@@ -371,7 +378,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   open() {
     this.setup();
     this.opened = true;
-    this.yearPicker = false;
+    this.show = 'date';
     this.outputEvents.emit({ type: 'default', data: 'opened' });
   }
 
@@ -381,16 +388,30 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   }
 
   openYearPicker() {
-    setTimeout(() => this.yearPicker = true);
+    setTimeout(() => {
+      this.show = 'year';
+      setTimeout(() => this.el.nativeElement.querySelector('.selected').scrollIntoView());
+    });
   }
 
-  @HostListener('keyup', ['$event'])
+  openTimePicker() {
+    setTimeout(() => this.show = 'time');
+  }
+  openDatePicker() {
+    setTimeout(() => this.show = 'date');
+  }
+
+  @HostListener('keydown', ['$event'])
   onKey(event: KeyboardEvent) {
     switch (event.key) {
       case 'ArrowDown': this.open(); break;
       case 'ArrowUp': this.close(); break;
-      case 'ArrowLeft': this.prevMonth(); break;
-      case 'ArrowRight': this.nextMonth(); break;
+    }
+    if (this.opened) {
+      switch (event.key) {
+        case 'ArrowLeft': event.preventDefault(); event.stopPropagation(); this.prevMonth(); break;
+        case 'ArrowRight': event.preventDefault(); event.stopPropagation(); this.nextMonth(); break;
+      }
     }
   }
 }
