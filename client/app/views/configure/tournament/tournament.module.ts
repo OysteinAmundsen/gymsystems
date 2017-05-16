@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DragulaModule } from 'ng2-dragula';
+import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { DisciplinesModule } from './disciplines/disciplines.module';
@@ -24,6 +25,7 @@ import { InfoComponent } from './info/info.component';
     ReactiveFormsModule,
     RouterModule,
     DragulaModule,
+    MarkdownToHtmlModule,
 
     SharedModule,
     DisciplinesModule,

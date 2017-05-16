@@ -73,7 +73,6 @@ export class InfoComponent implements OnInit {
 
   @HostListener('keydown', ['$event'])
   onKeypress(event: KeyboardEvent) {
-    console.log(event.keyCode);
     if (event.ctrlKey) {
       switch(event.keyCode) {
         case 66: event.preventDefault(); this.bold(); break;

@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
 import { InfoComponent } from './info.component';
 import { SharedModule } from 'app/shared/shared.module';
@@ -25,6 +26,7 @@ describe('InfoComponent', () => {
         SharedModule,
         RouterTestingModule,
         HttpModule,
+        MarkdownToHtmlModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

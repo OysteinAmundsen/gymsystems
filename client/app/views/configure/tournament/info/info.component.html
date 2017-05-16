@@ -1,14 +1,22 @@
 <form *ngIf="tournament" (submit)="save()">
   <header>
-    <button type="button" title="Select language to edit" (click)="setLang('no')"><span [ngClass]="'clickable flag-icon flag-icon-no ' + (lng === 'no' ? 'selected' : '')"></span></button>
-    <button type="button" title="Select language to edit" (click)="setLang('en')"><span [ngClass]="'clickable flag-icon flag-icon-gb ' + (lng === 'en' ? 'selected' : '')"></span></button>
+    <button type="button" [title]="'Edit norwegian description' | translate" (click)="setLang('no')"><span [ngClass]="'clickable flag-icon flag-icon-no ' + (lng === 'no' ? 'selected' : '')"></span></button>
+    <button type="button" title="Edit english description" (click)="setLang('en')"><span [ngClass]="'clickable flag-icon flag-icon-gb ' + (lng === 'en' ? 'selected' : '')"></span></button>
     <span class="divider"></span>
-    <button type="button" title="Set selected text in bold" (click)="bold()"><app-fa name="bold" fw="true"></app-fa></button>
-    <button type="button" title="Set selected text in italic" (click)="italic()"><app-fa name="italic" fw="true"></app-fa></button>
-    <button type="button" title="Underline selected text" (click)="underline()"><app-fa name="underline" fw="true"></app-fa></button>
+    <button type="button" [disabled]="preview" title="Set selected text in bold" (click)="bold()"><app-fa name="bold" fw="true"></app-fa></button>
+    <button type="button" [disabled]="preview" title="Set selected text in italic" (click)="italic()"><app-fa name="italic" fw="true"></app-fa></button>
+    <button type="button" [disabled]="preview" title="Underline selected text" (click)="underline()"><app-fa name="underline" fw="true"></app-fa></button>
+    <span class="divider"></span>
+    <button type="button" *ngIf="!preview" title="Preview text" (click)="preview = true"><app-fa name="eye" fw="true"></app-fa> Preview</button>
+    <button type="button" *ngIf="preview" title="Edit mode" (click)="preview = false"><app-fa name="code" fw="true"></app-fa> Edit</button>
   </header>
 
-  <textarea name="description" rows="20" [(ngModel)]="tournament['description_' + lng]" #infoText></textarea>
+  <section>
+    <textarea *ngIf="!preview" name="description" rows="20" [(ngModel)]="tournament['description_' + lng]" #infoText></textarea>
+    <div *ngIf="preview" class="preview">
+      <pre [innerHTML]="tournament['description_' + lng] | MarkdownToHtml"></pre>
+    </div>
+  </section>
 
   <footer>
     <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
