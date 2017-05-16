@@ -3,12 +3,13 @@ import { Routes } from '@angular/router';
 import { TournamentRoutes } from './tournament/tournament.routes';
 import { UserRoutes } from './users/users.routes';
 import { AdvancedRoutes } from './advanced/advanced.routes';
+import { RoleGuard } from 'app/shared/guards/role-guard';
+import { Role } from 'app/services/model/IUser';
 
 import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
 import { UsersComponent } from 'app/views/configure/users/users.component';
 import { AdvancedComponent } from './advanced/advanced.component';
-import { RoleAdminGuard, RoleClubGuard } from 'app/shared/guards/role-guards';
 
 export const ConfigureRoutes: Routes = [
   {
@@ -16,8 +17,8 @@ export const ConfigureRoutes: Routes = [
       ...TournamentRoutes,
       ...UserRoutes,
       ...AdvancedRoutes,
-      { path: 'display', component: ConfigureDisplayComponent, canActivate: [RoleAdminGuard] },
-      { path: '', redirectTo: 'tournament', pathMatch: 'full', canActivate: [RoleClubGuard] },
+      { path: 'display', component: ConfigureDisplayComponent, canActivate: [RoleGuard], data: { role: Role.Admin} },
+      { path: '', redirectTo: 'tournament', pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club} },
     ]
   }
 ];

@@ -30,7 +30,7 @@ import {
 // Components
 import { AppComponent } from './app.component';
 import { AuthHttp } from './services/config/AuthHttp';
-import { RoleAdminGuard, RoleOrganizerGuard, RoleClubGuard, RoleSecretariatGuard, RoleUserGuard } from './shared/guards/role-guards';
+import { RoleGuard } from './shared/guards/role-guard';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { MediaService } from 'app/services/media.service';
 
@@ -80,11 +80,7 @@ export function HttpLoaderFactory(http: Http) {
     EventService,
 
     // Activation guards
-    RoleAdminGuard,
-    RoleOrganizerGuard,
-    RoleSecretariatGuard,
-    RoleClubGuard,
-    RoleUserGuard,
+    RoleGuard,
 
     // Authentication interceptor
     { provide: Http, useClass: AuthHttp }

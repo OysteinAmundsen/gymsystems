@@ -98,8 +98,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
       return prev += scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
     }, 0);
 
-    // Only show score if score is published, OR logged in user is part of the secretariat
-    return (participant.publishTime || (this.user && this.user.role >= Role.Secretariat)) ? score : 0;
+    // Only show score if score is published
+    return participant.publishTime ? score : 0;
   }
 
   getByDivision(name: string, filteredSchedule?: ITournamentParticipant[]) {

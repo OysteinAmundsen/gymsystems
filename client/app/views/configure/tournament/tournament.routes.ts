@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { RoleGuard } from 'app/shared/guards/role-guard';
+import { Role } from 'app/services/model/IUser';
 
 import { TournamentComponent } from './tournament.component';
 import { TournamentEditorComponent } from './tournament-editor/tournament-editor.component';
@@ -7,21 +9,20 @@ import { DivisionsComponent } from './divisions/divisions.component';
 import { TeamsComponent } from './teams/teams.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { InfoComponent } from './info/info.component';
-import { RoleClubGuard, RoleOrganizerGuard } from 'app/shared/guards/role-guards';
 
 export const TournamentRoutes: Routes = [
   {
     path: 'tournament', children: [
-      { path: '', component: TournamentComponent, pathMatch: 'full', canActivate: [RoleClubGuard] },
-      { path: 'add', component: TournamentEditorComponent, canActivate: [RoleOrganizerGuard]  },
+      { path: '', component: TournamentComponent, pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club} },
+      { path: 'add', component: TournamentEditorComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
       {
         path: ':id', component: TournamentEditorComponent, children: [
-          { path: '', redirectTo: 'teams', pathMatch: 'full', canActivate: [RoleClubGuard] },
-          { path: 'divisions', component: DivisionsComponent, canActivate: [RoleOrganizerGuard]  },
+          { path: '', redirectTo: 'teams', pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club} },
+          { path: 'divisions', component: DivisionsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
           ...DisciplineRoutes,
-          { path: 'teams', component: TeamsComponent, canActivate: [RoleClubGuard]  },
-          { path: 'schedule', component: ScheduleComponent, canActivate: [RoleOrganizerGuard]  },
-          { path: 'info', component: InfoComponent, canActivate: [RoleOrganizerGuard]  },
+          { path: 'teams', component: TeamsComponent, canActivate: [RoleGuard], data: { role: Role.Club}  },
+          { path: 'schedule', component: ScheduleComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
+          { path: 'info', component: InfoComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
         ]
       },
     ]
