@@ -5,7 +5,7 @@
     <span class="divider"></span>
     <button type="button" [disabled]="preview" title="Set selected text in bold" (click)="bold()"><app-fa name="bold" fw="true"></app-fa></button>
     <button type="button" [disabled]="preview" title="Set selected text in italic" (click)="italic()"><app-fa name="italic" fw="true"></app-fa></button>
-    <button type="button" [disabled]="preview" title="Underline selected text" (click)="underline()"><app-fa name="underline" fw="true"></app-fa></button>
+    <button type="button" [disabled]="preview" title="Toggle header level" (click)="toggleHeaders()"><app-fa name="header" fw="true"></app-fa></button>
     <span class="divider"></span>
     <button type="button" *ngIf="!preview" title="Preview text" (click)="preview = true"><app-fa name="eye" fw="true"></app-fa> Preview</button>
     <button type="button" *ngIf="preview" title="Edit mode" (click)="preview = false"><app-fa name="code" fw="true"></app-fa> Edit</button>

@@ -43,42 +43,71 @@ export class InfoComponent implements OnInit {
     }
   }
 
-  private splitValue(value, selection: {start, end}) {
+  private splitValue(value, selection: {start, end, startOfLine, endOfLine}) {
     return {
       start: value.substring(0, selection.start),
       selection: value.substring(selection.start, selection.end),
-      end: value.substring(selection.end)
+      end: value.substring(selection.end),
+
+      beforeLine: value.substring(0, selection.startOfLine),
+      line: value.substring(selection.startOfLine, selection.endOfLine),
+      afterLine: value.substring(selection.endOfLine)
     };
   }
 
   private getSelection() {
+    const text:string  = this.tournament['description_' + this.lng];
+    const start:number = this.infoText.nativeElement.selectionStart;
+    const end:number   = this.infoText.nativeElement.selectionEnd;
+    const startOfLine  = text.substring(0, start).lastIndexOf('\n') + 1;
+    const endOfLine    = text.substring(end).indexOf('\n') || text.length;
     return {
-      start: this.infoText.nativeElement.selectionStart,
-      end: this.infoText.nativeElement.selectionEnd
+      start: start,
+      end: end,
+      startOfLine: startOfLine > -1 ? startOfLine : 0,
+      endOfLine: endOfLine > -1 ? endOfLine : text.length
     }
   }
 
+  returnfocus(start, end) {
+    this.infoText.nativeElement.focus();
+    setTimeout(() => this.infoText.nativeElement.setSelectionRange(start, end));
+  }
+
   bold() {
-    let text = this.splitValue(this.tournament['description_' + this.lng], this.getSelection());
+    const selection = this.getSelection();
+    let text = this.splitValue(this.tournament['description_' + this.lng], selection);
+
     this.tournament['description_' + this.lng] = `${text.start}**${text.selection}**${text.end}`;
+    this.returnfocus(selection.start, selection.end + 4);
   }
   italic() {
-    let text = this.splitValue(this.tournament['description_' + this.lng], this.getSelection());
+    const selection = this.getSelection();
+    let text = this.splitValue(this.tournament['description_' + this.lng], selection);
+
     this.tournament['description_' + this.lng] = `${text.start}*${text.selection}*${text.end}`;
+    this.returnfocus(selection.start, selection.end + 2);
   }
-  underline() {
-    let text = this.splitValue(this.tournament['description_' + this.lng], this.getSelection());
-    this.tournament['description_' + this.lng] = `${text.start}__${text.selection}__${text.end}`;
+
+  toggleHeaders() {
+    const selection = this.getSelection();
+    const text = this.splitValue(this.tournament['description_' + this.lng], selection);
+    const line = text.line.substring(text.line.lastIndexOf('#') + 1).trim();
+    const headers = text.line.substring(0, text.line.lastIndexOf('#') + 1)
+    const head = headers.length > 4 ? '' : headers + '# ';
+
+    this.tournament['description_' + this.lng] = `${text.beforeLine}${head}${line}${text.afterLine}`;
+    this.returnfocus(selection.startOfLine, selection.startOfLine);
   }
 
   @HostListener('keydown', ['$event'])
   onKeypress(event: KeyboardEvent) {
     if (event.ctrlKey) {
-      switch(event.keyCode) {
-        case 66: event.preventDefault(); this.bold(); break;
-        case 73: event.preventDefault(); this.italic(); break;
-        case 85: event.preventDefault(); this.underline(); break;
-        case 83: event.preventDefault(); this.save(); break;
+      switch(event.key) {
+        case 'b': event.preventDefault(); this.bold(); break;
+        case 'i': event.preventDefault(); this.italic(); break;
+        case 'h': event.preventDefault(); this.toggleHeaders(); break;
+        case 's': event.preventDefault(); this.save(); break;
       }
     }
   }
