@@ -171,7 +171,7 @@ export class MediaController {
     });
     fs.createReadStream(media.filename).pipe(res);
   })
-  async streamMedia(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response) { }
+  streamMedia(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response) { }
 
 
   /**

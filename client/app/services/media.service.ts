@@ -10,7 +10,7 @@ export class MediaService {
 
   play(media: IMedia) {
     if (media) {
-      this.audio.src = `/api/media/${media.tournament.id}/${media.discipline.id}`;
+      this.audio.src = `/api/media/${media.team.id}/${media.discipline.id}`;
       this.audio.load();
       this.audio.play();
       this.whatsPlaying = media;
