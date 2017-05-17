@@ -34,14 +34,17 @@
 }
 
 .main-content {
-  color: white;
-  text-shadow: 0px 3px 10px black, 0 0 3px black;
+  color: black;
   margin-bottom: 3rem;
+  background: rgba(white,0.4);
+  padding: 8px;
+  border-radius: 8px;
   @media (min-width: $stop1) {
     padding-right: 2rem;
   }
   header {
     h1 {
+      text-shadow: 0px 3px 10px black, 0 0 3px black;
       color: white;
       margin-top: 0;
     }

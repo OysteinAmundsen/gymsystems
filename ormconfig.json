@@ -11,6 +11,7 @@
     },
     "logging": {
       "logQueries": true,
+      "logOnlyFailedQueries": true,
       "logFailedQueryError": true
     },
     "entities": [
