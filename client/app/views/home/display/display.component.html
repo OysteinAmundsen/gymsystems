@@ -1,4 +1,5 @@
 <header *ngIf="tournament">
+  <small>{{ tournament.startDate | date: 'dd.MM' }} - {{ tournament.endDate | date: 'dd.MM' }} {{ tournament.endDate | date: 'yyyy' }}</small>
   <h2 class="pull-left">{{ tournament.name }}</h2>
   <button type="button" class="pull-right primary raised" [routerLink]="['/list', tournament.id]">
     <app-fa name="list" fw="true"></app-fa>
@@ -8,7 +9,6 @@
     <app-fa name="cog" fw="true"></app-fa>
     <span translate>Settings </span>
   </button>
-  <small class="pull-right">{{ tournament.startDate | date: 'dd.MM.yyyy' }}</small>
 </header>
 
 <div role="table">
