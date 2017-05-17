@@ -196,7 +196,7 @@ export class MediaController {
       rimraf(`./media/${id}`, (err: Error) => {
         if (err) {
           Logger.log.error(err.message);
-          reject(err);
+          // reject(err);
         }
         Logger.log.info(`Tournament media folder './media/${id}' removed!`);
 
