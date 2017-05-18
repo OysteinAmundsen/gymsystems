@@ -5,6 +5,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from 'app/services/api';
 import { Subscription } from 'rxjs/Subscription';
 import { Title } from '@angular/platform-browser';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 
 @Component({
   selector: 'app-login',
@@ -13,16 +14,6 @@ import { Title } from '@angular/platform-browser';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
-  _errorTimeout;
-  _error: string;
-  get error() { return this._error; }
-  set error(value) {
-    this._error = value;
-    if (this._errorTimeout) { clearTimeout(this._errorTimeout); }
-    if (value) {
-      this._errorTimeout = setTimeout(() => this._error = null, 3 * 1000);
-    }
-  }
   _redirectTo: string = '/';
   get redirectTo() { return this._redirectTo; }
   set redirectTo(value) {
@@ -30,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   queryParamsSubscription: Subscription;
 
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private userService: UserService, private title: Title) {
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private userService: UserService, private title: Title, private errorHandler: ErrorHandlerService) {
     title.setTitle('Login | GymSystems');
   }
 
@@ -57,8 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       result => {
         me.router.navigate([me.redirectTo]);
       },
-      error => {
-        me.error = 'Wrong username or password';
-      });
+      error => this.errorHandler.error = 'Wrong username or password'
+    );
   }
 }

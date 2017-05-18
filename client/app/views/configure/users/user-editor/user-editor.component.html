@@ -47,5 +47,3 @@
     <button type="button" *ngIf="userForm.value.id && userForm.value.id !== currentUser.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
   </footer>
 </form>
-
-<app-dialog [isOpen]="error != null" [noButtons]="true" (onCancel)="error = null">{{ error }}</app-dialog>

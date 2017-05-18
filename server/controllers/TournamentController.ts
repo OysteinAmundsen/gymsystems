@@ -113,6 +113,7 @@ export class TournamentController {
   @Get('/:id')
   @EmptyResultCode(404)
   get( @Param('id') id: number): Promise<Tournament> {
+    if (isNaN(id)) { return Promise.reject(null); }
     return this.repository.createQueryBuilder('tournament')
       .where('tournament.id=:id', { id: id })
       .innerJoinAndSelect('tournament.createdBy', 'user')
@@ -144,6 +145,7 @@ export class TournamentController {
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
+    if (isNaN(id)) { return Promise.reject(null); }
     return this.repository.persist(tournament)
       .then(persisted => {
         Container.get(MediaController).expireArchive(persisted.id, persisted.endDate)
@@ -155,6 +157,7 @@ export class TournamentController {
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') tournamentId: number, @Req() req: Request, @Res() res: Response) {
+    if (isNaN(tournamentId)) { return Promise.reject(null); }
     const tournament = await this.repository.findOneById(tournamentId);
     const isMe = await isCreatedByMe(tournament, req);
     if (!isMe) {

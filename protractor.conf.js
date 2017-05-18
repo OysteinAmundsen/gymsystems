@@ -9,7 +9,22 @@ exports.config = {
     './e2e/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'chrome',
+    chromeOptions: {
+      prefs: {
+        'credentials_enable_service': false,
+        'profile': {
+          'password_manager_enabled': false
+        }
+      },
+      args: [
+        '--disable-cache',
+        '--disable-application-cache',
+        '--disable-offline-load-stale-cache',
+        '--disk-cache-size=0',
+        '--v8-cache-options=off'
+      ]
+    }
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',

@@ -14,6 +14,7 @@ import { DivisionType } from 'app/services/model/DivisionType';
 import { Role, IUser } from 'app/services/model/IUser';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IMedia } from 'app/services/model/IMedia';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 
 @Component({
   selector: 'app-list',
@@ -27,16 +28,6 @@ export class ListComponent implements OnInit, OnDestroy {
   tournamentId: number;
   schedule: ITournamentParticipant[] = [];
   selected: ITournamentParticipant;
-  _errorTimeout;
-  _error: string;
-  get error() { return this._error; }
-  set error(value) {
-    this._error = value;
-    if (this._errorTimeout) { clearTimeout(this._errorTimeout); }
-    if (value) {
-      this._errorTimeout = setTimeout(() => this._error = null, 3 * 1000);
-    }
-  }
 
   get description() {
     return (this.tournament ? this.tournament['description_' + this.translate.currentLang] : '');
@@ -54,7 +45,8 @@ export class ListComponent implements OnInit, OnDestroy {
     private eventService: EventService,
     private userService: UserService,
     private title: Title,
-    private mediaService: MediaService) {  }
+    private mediaService: MediaService,
+    private errorHandler: ErrorHandlerService) {  }
 
   ngOnInit() {
     this.eventSubscription = this.eventService.connect().subscribe(message => this.loadSchedule());
@@ -108,7 +100,7 @@ export class ListComponent implements OnInit, OnDestroy {
   select(participant: ITournamentParticipant) {
     if (this.user && (this.user.role >= Role.Admin || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.createdBy.club.id))) {
       if (participant != null && participant.startTime == null) {
-        this.error = this.translate.instant(`Cannot edit score. This participant hasn't started yet.`);
+        this.errorHandler.error = this.translate.instant(`Cannot edit score. This participant hasn't started yet.`);
         return;
       }
       this.selected = participant;
@@ -127,7 +119,7 @@ export class ListComponent implements OnInit, OnDestroy {
   start(participant: ITournamentParticipant, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.startTime != null) {
-        this.error = this.translate.instant('This participant has allready started.');
+        this.errorHandler.error = this.translate.instant('This participant has allready started.');
         return;
       }
       evt.preventDefault();
@@ -149,7 +141,7 @@ export class ListComponent implements OnInit, OnDestroy {
   stop(participant: ITournamentParticipant, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.startTime == null) {
-        this.error = this.translate.instant(`Cannot stop. This participant hasn't started yet.`);
+        this.errorHandler.error = this.translate.instant(`Cannot stop. This participant hasn't started yet.`);
         return;
       }
       evt.preventDefault();
@@ -165,7 +157,7 @@ export class ListComponent implements OnInit, OnDestroy {
   publish(participant: ITournamentParticipant, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.publishTime != null) {
-        this.error = this.translate.instant(`This participant's score is allready published.`);
+        this.errorHandler.error = this.translate.instant(`This participant's score is allready published.`);
       }
       evt.preventDefault();
       evt.stopPropagation();

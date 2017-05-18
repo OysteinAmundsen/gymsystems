@@ -24,5 +24,31 @@
       "migrationsDir": "server/migrations"
     },
     "autoSchemaSync": true
+  },
+  {
+    "name": "test",
+    "driver": {
+      "type": "mysql",
+      "host": "localhost",
+      "port": 3305,
+      "username": "system",
+      "password": "admin",
+      "database": "gymsystem_test"
+    },
+    "logging": {
+      "logQueries": true,
+      "logOnlyFailedQueries": true,
+      "logFailedQueryError": true
+    },
+    "entities": [
+      "dist/model/*.js"
+    ],
+    "migrations": [
+      "dist/migrations/*.js"
+    ],
+    "cli": {
+      "migrationsDir": "server/migrations"
+    },
+    "autoSchemaSync": true
   }
 ]

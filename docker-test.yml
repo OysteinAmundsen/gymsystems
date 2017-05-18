@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  test:
+    image: mysql
+    container_name: gymsystems_test
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gymsystem_test
+      MYSQL_USER: system
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3305:3306"

@@ -18,7 +18,7 @@ import * as auth from 'passport';
 
 // Persistance
 import 'reflect-metadata';
-import { createConnection, useContainer } from 'typeorm';
+import { createConnection, useContainer, ConnectionOptions } from 'typeorm';
 import { useExpressServer } from 'routing-controllers';
 import { Container } from 'typedi';
 const rc = require('routing-controllers');
@@ -45,14 +45,14 @@ export class GymServer {
    * @returns {Promise<any>}
    * @constructor
    */
-  static Initialize(): Promise<any> {
+  static Initialize(args: string[]): Promise<any> {
     Logger.log.debug(`
 **********************
   Starting GymSystems
 **********************
 `);
     return new GymServer()
-      .start()
+      .start(args)
       .then(() => Logger.log.debug('** Server started...'))
       .catch((error: any) => Logger.log.error((ERROR_MESSAGES[error.code]) ? ERROR_MESSAGES[error.code] : error));
   }
@@ -70,17 +70,31 @@ export class GymServer {
    *
    * @returns {Promise<Server>}
    */
-  start(): Promise<Server> {
+  start(args: string[]): Promise<Server> {
     // Read typeorm config and add our own Logger
     const config: any = JSON.parse(fs.readFileSync(path.join('.', 'ormconfig.json'), 'utf8'));
-    config[0].logging.logger = (level: string, message: string) => {
+
+    // Use config from command line (if given)
+    let index = 0;
+    if (args.length > 2) {
+      Logger.log.debug(`Finding typeorm config ${args[2]}`);
+      index = config.findIndex((c: ConnectionOptions) => c.name === args[2]);
+      Logger.log.debug(`Using typeorm config "${config[index].name}"`);
+    }
+    const configuration = config[index];
+
+    // Apply logger system to typeorm config
+    configuration.logging.logger = (level: string, message: string) => {
       if (level === 'log') { level = 'info'; }
       (<any>Logger.log)[level](`${message}`);
     };
 
+    // Rename configuration to 'default' as typeorm requires a default config
+    configuration.name = 'default';
+
     // Connect to database and startup Express
     Logger.log.info('** Connecting to database and setting up schema');
-    return createConnection(config[0]).then(async connection => {
+    return createConnection(configuration).then(async connection => {
       Logger.log.info('** DB connected. Creating server...');
       return this.createServer()
         .listen(this.port)  // Listen on provided port, on all network interfaces.
@@ -173,4 +187,6 @@ export class GymServer {
   }
 }
 
-(function standalone() { GymServer.Initialize(); })();
+(function standalone() {
+  GymServer.Initialize(process.argv);
+})();

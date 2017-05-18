@@ -7,6 +7,7 @@ import { UserService, ClubService } from 'app/services/api';
 import { IUser, RoleNames, Role } from 'app/services/model/IUser';
 import { ValidationService } from 'app/services/validation/validation.service';
 import { IClub } from 'app/services/model/IClub';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 
 @Component({
   selector: 'app-user-editor',
@@ -25,18 +26,7 @@ export class UserEditorComponent implements OnInit {
   };
   roles = Role;
 
-  _errorTimeout;
-  _error: string;
-  get error() { return this._error; }
-  set error(value) {
-    this._error = value;
-    if (this._errorTimeout) { clearTimeout(this._errorTimeout); }
-    if (value) {
-      this._errorTimeout = setTimeout(() => this._error = null, 3 * 1000);
-    }
-  }
-
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userService: UserService, private clubService: ClubService, private title: Title) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userService: UserService, private clubService: ClubService, private title: Title, private errorHandler: ErrorHandlerService) {
   }
 
   ngOnInit() {
@@ -95,7 +85,6 @@ export class UserEditorComponent implements OnInit {
 
 
   async save() {
-    this.error = '';
     const formVal = this.userForm.value;
 
     // Cleanup password
@@ -109,7 +98,7 @@ export class UserEditorComponent implements OnInit {
 
     // Make sure you don't degrade yourself
     if (this.currentUser.id === formVal.id && this.currentUser.role !== formVal.role) {
-      this.error = 'You cannot upgrade/degrade yourself. If you belive your role should be different, contact a person with a higher or equal role.';
+      this.errorHandler.error = 'You cannot upgrade/degrade yourself. If you belive your role should be different, contact a person with a higher or equal role.';
       return;
     }
     this.userService.save(formVal).subscribe(result => {
@@ -118,7 +107,7 @@ export class UserEditorComponent implements OnInit {
   }
 
   delete() {
-    this.error = '';
+    this.errorHandler.error = '';
     if (this.userForm.value.id !== this.currentUser.id) {
       this.userService.delete(this.userForm.value).subscribe(result => {
         this.router.navigate(['../'], { relativeTo: this.route });
