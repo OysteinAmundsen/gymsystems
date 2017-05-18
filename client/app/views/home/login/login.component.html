@@ -21,7 +21,7 @@
       </div>
     </fieldset>
     <footer>
-      <button type="submit" title="Login" [disabled]="loginForm.invalid || loginForm.pristine"><app-fa name="sign-in" fw="true"></app-fa> <span translate>Login</span></button>
+      <button type="submit" [title]="'Login' | translate" [disabled]="loginForm.invalid || loginForm.pristine"><app-fa name="sign-in" fw="true"></app-fa> <span translate>Login</span></button>
     </footer>
   </section>
 
@@ -35,7 +35,7 @@
       </span>
     </div>
     <footer>
-      <a title="Register" [routerLink]="['../register']" class="btn">
+      <a [title]="'Register' | translate" [routerLink]="['../register']" class="btn">
         <app-fa name="user-plus" fw="true"></app-fa> <span translate>Register</span></a>
     </footer>
   </section>

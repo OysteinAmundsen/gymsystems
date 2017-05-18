@@ -30,4 +30,4 @@
   <app-fa name="calculator" fw="true"></app-fa>
   <span translate>Calculate schedule</span>
 </button>
-<button type="button" *ngIf="schedule.length" title="Delete" class="pull-right warning" (click)="deleteAll()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
+<button type="button" *ngIf="schedule.length" [title]="'Delete' | translate" class="pull-right warning" (click)="deleteAll()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>

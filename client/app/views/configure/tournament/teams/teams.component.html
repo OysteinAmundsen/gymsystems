@@ -24,7 +24,7 @@
   </table>
 </div>
 
-<button type="button" *ngIf="selected == null" title="Add" (click)="addTeam()">
+<button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addTeam()">
   <app-fa name="plus" fw="true"></app-fa>
   <span translate>Add Team</span>
 </button>

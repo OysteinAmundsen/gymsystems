@@ -1,14 +1,14 @@
 <form *ngIf="tournament" (submit)="save()">
   <header>
     <button type="button" [title]="'Edit norwegian description' | translate" (click)="setLang('no')"><span [ngClass]="'clickable flag-icon flag-icon-no ' + (lng === 'no' ? 'selected' : '')"></span></button>
-    <button type="button" title="Edit english description" (click)="setLang('en')"><span [ngClass]="'clickable flag-icon flag-icon-gb ' + (lng === 'en' ? 'selected' : '')"></span></button>
+    <button type="button" [title]="'Edit english description' | translate" (click)="setLang('en')"><span [ngClass]="'clickable flag-icon flag-icon-gb ' + (lng === 'en' ? 'selected' : '')"></span></button>
     <span class="divider"></span>
-    <button type="button" [disabled]="preview" title="Set selected text in bold" (click)="bold()"><app-fa name="bold" fw="true"></app-fa></button>
-    <button type="button" [disabled]="preview" title="Set selected text in italic" (click)="italic()"><app-fa name="italic" fw="true"></app-fa></button>
-    <button type="button" [disabled]="preview" title="Toggle header level" (click)="toggleHeaders()"><app-fa name="header" fw="true"></app-fa></button>
+    <button type="button" [disabled]="preview" [title]="'Set selected text in bold' | translate" (click)="bold()"><app-fa name="bold" fw="true"></app-fa></button>
+    <button type="button" [disabled]="preview" [title]="'Set selected text in italic' | translate" (click)="italic()"><app-fa name="italic" fw="true"></app-fa></button>
+    <button type="button" [disabled]="preview" [title]="'Toggle header level' | translate" (click)="toggleHeaders()"><app-fa name="header" fw="true"></app-fa></button>
     <span class="divider"></span>
-    <button type="button" *ngIf="!preview" title="Preview text" (click)="preview = true"><app-fa name="eye" fw="true"></app-fa> Preview</button>
-    <button type="button" *ngIf="preview" title="Edit mode" (click)="preview = false"><app-fa name="code" fw="true"></app-fa> Edit</button>
+    <button type="button" *ngIf="!preview" [title]="'Preview text' | translate" (click)="preview = true"><app-fa name="eye" fw="true"></app-fa> <span translate>Preview</span></button>
+    <button type="button" *ngIf="preview" [title]="'Edit mode' | translate" (click)="preview = false"><app-fa name="code" fw="true"></app-fa> <span translate>Edit</span></button>
   </header>
 
   <section>
@@ -19,6 +19,6 @@
   </section>
 
   <footer>
-    <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+    <button type="submit" [title]="'Save' | translate"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
   </footer>
 </form>

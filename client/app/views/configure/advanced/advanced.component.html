@@ -11,7 +11,7 @@
       <input type="number" name="executionTime" [(ngModel)]="executionTime" />
     </div>
     <div class="col-xs-2">
-      <button type="submit" title="Save"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+      <button type="submit" [title]="'Save' | translate"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
     </div>
   </form>
 </section>

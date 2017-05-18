@@ -26,7 +26,7 @@
   </table>
 </div>
 
-<button type="button" title="Add" [routerLink]="['./add']" *appIfAuth="'Organizer'">
+<button type="button" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
   <app-fa name="plus" fw="true"></app-fa>
   <span translate>Add Tournament</span>
 </button>
