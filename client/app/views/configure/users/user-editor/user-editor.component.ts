@@ -26,8 +26,14 @@ export class UserEditorComponent implements OnInit {
   };
   roles = Role;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userService: UserService, private clubService: ClubService, private title: Title, private errorHandler: ErrorHandlerService) {
-  }
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService,
+    private clubService: ClubService,
+    private title: Title,
+    private errorHandler: ErrorHandlerService) { }
 
   ngOnInit() {
     this.userService.getMe().subscribe(user => this.currentUser = user);

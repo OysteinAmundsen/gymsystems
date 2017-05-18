@@ -13,6 +13,7 @@ import { IUser, Role } from 'app/services/model/IUser';
 import { IClub } from 'app/services/model/IClub';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { ClubServiceStub } from 'app/services/api/club.service.stub';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 
 describe('UserEditorComponent', () => {
   let component: UserEditorComponent;
@@ -36,6 +37,7 @@ describe('UserEditorComponent', () => {
       ],
       declarations: [ UserEditorComponent ],
       providers: [
+        ErrorHandlerService,
         {provide: UserService, useClass: UserServiceStub},
         {provide: ClubService, useClass: ClubServiceStub},
       ]
