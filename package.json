@@ -27,7 +27,7 @@
     "deploy": "npm run build && npm run docker",
     "docker": "sh docker-build",
     "docker:dev": "docker-compose build && docker-compose up -d",
-    "docker:test": "docker-compose -f docker-test.yml build && docker-compose -f docker-test.yml up -d",
+    "docker:test": "docker-compose -f docker-e2eTest.yml build && docker-compose -f docker-e2eTest.yml up -d",
     "server": "node ./dist/index.js",
     "server:watch": "nodemon --delay .2 ./dist/index.js -w dist",
     "server:build": "tsc --project ./server/tsconfig.json",

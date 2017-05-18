@@ -1,5 +1,6 @@
 import { browser, ExpectedConditions } from 'protractor';
 import { RegisterPage } from './pages/register.po';
+import { LoginPage } from "./pages/login.po";
 
 describe('gymsystems App: Register', function() {
   let page: RegisterPage;
@@ -28,8 +29,19 @@ describe('gymsystems App: Register', function() {
 
   describe('allow registration', () => {
     it('when all is correct', () => {
-      page.enterData('test', false, 'test@test.no', 'Turn', 'test', 'test');
+      page.enterData('organizer', true, 'organizer@thisemailadressdoesnotexist.no', 'Fictional club', 'test', 'test');
       expect(page.registerButton.isEnabled()).toBeTruthy();
+
+      page.registerButton.click();
+    });
+  });
+
+  describe('allow login for new user', () => {
+    it ('should be logged in', () => {
+      let login = new LoginPage();
+      login.navigateTo();
+      login.login('organizer', 'test');
+      expect<any>(login.loggedInUser).toBe('organizer');
     });
   });
 });
