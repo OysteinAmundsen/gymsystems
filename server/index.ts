@@ -38,6 +38,7 @@ export class GymServer {
   public app: e.Express;
   private port: number = process.env.PORT || 3000;
   private clientPath = path.join(__dirname, './public');
+  private args: string[];
 
   /**
    * Bootstrap the application.
@@ -71,6 +72,7 @@ export class GymServer {
    * @returns {Promise<Server>}
    */
   start(args: string[]): Promise<Server> {
+    this.args = args;
     // Read typeorm config and add our own Logger
     const config: any = JSON.parse(fs.readFileSync(path.join('.', 'ormconfig.json'), 'utf8'));
 
@@ -117,16 +119,19 @@ export class GymServer {
     this.app.set('etag', false);
     this.app.disable('x-powered-by');   // Do not announce our architecture to the world!
 
-    // Setup morgan access logger using winston
-    this.app.use(morgan('combined', { stream: Logger.stream }));
+    // Setup the following only if we are not running tests
+    if (this.args.length <= 2 || this.args[2] !== 'test') {
+      // Setup morgan access logger using winston
+      this.app.use(morgan('combined', { stream: Logger.stream }));
 
-    // Setup static resources
-    this.app.use(serveStatic(this.clientPath));
+      // Setup static resources
+      this.app.use(serveStatic(this.clientPath));
 
-    // Favicon service
-    const faviconPath = path.join(this.clientPath, 'favicon.ico');
-    if (fs.existsSync(path.resolve(faviconPath))) {
-      this.app.use(favicon(faviconPath));
+      // Favicon service
+      const faviconPath = path.join(this.clientPath, 'favicon.ico');
+      if (fs.existsSync(path.resolve(faviconPath))) {
+        this.app.use(favicon(faviconPath));
+      }
     }
 
     // Configure authentication services
@@ -162,10 +167,11 @@ export class GymServer {
     new SSEService();
 
     // Setup base route to everything else
-    this.app.get('/*', (req: e.Request, res: e.Response) => {
-      res.sendFile(path.resolve(this.clientPath, 'index.html'));
-    });
-
+    if (this.args.length <= 2 || this.args[2] !== 'test') {
+      this.app.get('/*', (req: e.Request, res: e.Response) => {
+        res.sendFile(path.resolve(this.clientPath, 'index.html'));
+      });
+    }
     return this.app;
   }
 

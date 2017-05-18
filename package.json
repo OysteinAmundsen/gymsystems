@@ -20,7 +20,7 @@
     "start": "npm run server",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "npm run docker:test && npm run server:build && typeorm schema:sync -c test && typeorm migrations:run -c test && concurrently -s first --kill-others \"node ./dist/index.js test\" \"ng e2e --proxy-config proxy.conf.json\"",
+    "e2e": "npm run docker:test && npm run server:build && typeorm schema:sync -c test && typeorm migrations:run -c test && concurrently -s first --kill-others \"node ./dist/index.js test\" \"ng e2e --progress=false --proxy-config proxy.conf.json\"",
     "clean": "rm -rf dist",
     "dev": "npm run server:build && concurrently --kill-others \"npm run server:build:watch\" \"npm run server:watch\"",
     "build": "npm run server:build & npm run client:build",

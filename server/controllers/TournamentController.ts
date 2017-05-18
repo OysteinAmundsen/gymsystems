@@ -72,7 +72,6 @@ export class TournamentController {
   }
 
   @Get('/past')
-  @EmptyResultCode(200)
   past(): Promise<Tournament[]> {
     const date = moment().utc().startOf('day').toDate();
     return this.repository
@@ -84,7 +83,6 @@ export class TournamentController {
   }
 
   @Get('/current')
-  @EmptyResultCode(200)
   current(): Promise<Tournament[]> {
     const now = moment().utc();
     const start = now.clone().startOf('day').toDate();
@@ -99,7 +97,6 @@ export class TournamentController {
   }
 
   @Get('/future')
-  @EmptyResultCode(200)
   future(): Promise<Tournament[]> {
     const date = moment().utc().endOf('day').toDate();
     return this.repository

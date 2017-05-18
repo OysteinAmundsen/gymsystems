@@ -36,7 +36,7 @@
       "database": "gymsystem_test"
     },
     "logging": {
-      "logQueries": true,
+      "logQueries": false,
       "logOnlyFailedQueries": true,
       "logFailedQueryError": true
     },
