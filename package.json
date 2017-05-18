@@ -38,7 +38,7 @@
     "db:sync": "typeorm schema:sync && npm run migrations",
     "migrations": "typeorm migrations:run",
     "migrations:revert": "typeorm migrations:revert",
-    "i18n": "ng2-translate-extract --dir ./client/app --output ./client/i18n --format=json --clean"
+    "i18n": "ngx-translate-extract -i ./client/app -o ./client/i18n/template.json ./client/i18n/no.json ./client/i18n/en.json --clean --sort"
   },
   "dependencies": {
     "@angular/common": "^4.1.2",
@@ -91,7 +91,7 @@
   "devDependencies": {
     "@angular/cli": "~1.0.3",
     "@angular/compiler-cli": "^4.1.2",
-    "@biesbjerg/ng2-translate-extract": "^0.6.0",
+    "@biesbjerg/ngx-translate-extract": "^2.3.1",
     "@types/bcrypt": "^1.0.0",
     "@types/body-parser": "^1.16.3",
     "@types/bunyan": "^0.0.36",
