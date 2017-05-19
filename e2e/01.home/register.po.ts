@@ -1,5 +1,6 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, ExpectedConditions } from 'protractor';
 import { AppRootPage } from "../app.po";
+import { LoginPage } from "./login.po";
 
 export class RegisterPage extends AppRootPage {
 
@@ -14,6 +15,9 @@ export class RegisterPage extends AppRootPage {
 
   // Menu
   navigateTo() {
+    // super.navigateTo();
+    // this.goToLogin();
+    // new LoginPage().registerButton.click();
     return browser.get(this.url);
   }
 
@@ -40,5 +44,27 @@ export class RegisterPage extends AppRootPage {
       this.repeatPassword.clear();
       this.repeatPassword.sendKeys(repeatPass);
     }
+  }
+
+  registerUser(username: string, isOrganizer: boolean, club: string) {
+    this.navigateTo();
+    this.enterData(username, isOrganizer, 'organizer@thisemailadressdoesnotexist.no', club, 'test', 'test');
+    browser.wait(ExpectedConditions.textToBePresentInElementValue(this.club, club.toUpperCase()), 1000); // Wait for typeahead to complete
+    expect(this.registerButton.isEnabled()).toBeTruthy();
+
+    this.registerButton.click();
+
+    browser.wait(ExpectedConditions.visibilityOf(this.error), 1000);
+    expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/');
+    expect<any>(this.error.getText()).toEqual(`You are registerred! We've sent you an email with your credentials.`);
+  }
+
+  OrganizerClub: string = 'Fictional Club';
+  createOrganizer() {
+    this.registerUser('organizer', true, this.OrganizerClub);
+  }
+
+  createClub(name: string, club: string) {
+    this.registerUser(name, false, club);
   }
 }

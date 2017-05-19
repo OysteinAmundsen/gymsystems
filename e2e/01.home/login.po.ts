@@ -1,4 +1,4 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, ExpectedConditions } from 'protractor';
 import { AppRootPage } from "../app.po";
 
 export class LoginPage extends AppRootPage {
@@ -6,7 +6,8 @@ export class LoginPage extends AppRootPage {
   url: string = '/login';
   get username() { return element(by.css('app-login input[formcontrolname="username"]')); }
   get password() { return element(by.css('app-login input[formcontrolname="password"]')); }
-  get loginButton() { return element(by.css('app-login footer button[type="submit"]')); }
+  get loginButton() { return element(by.css('app-login .login footer button[type="submit"]')); }
+  get registerButton() { return element(by.css('app-login .register footer a[href="/register"]')); }
 
   // Menu
   navigateTo() {
@@ -21,5 +22,12 @@ export class LoginPage extends AppRootPage {
     this.password.sendKeys(password);
 
     this.loginButton.click();
+  }
+
+  loginAdmin() {
+    this.navigateTo();
+    this.login('admin', 'admin');
+    browser.wait(ExpectedConditions.visibilityOf(this.userInfo), 1000);
+    expect<any>(this.userInfo.getText()).toEqual('admin');
   }
 }

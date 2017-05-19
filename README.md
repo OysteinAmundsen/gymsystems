@@ -112,6 +112,30 @@ npm run client
 
 This will run a continuous build and browsersync session for the frontend. Use this if you are developing the client. This starts up a small development server on [localhost:4200](http://localhost:4200), with a proxy to the backend so all api calls will work seamlessly. 
 
+### Tests
+
+#### Unit tests
+
+The project contains unit tests for every component, directive, pipe and service. We run the unit tests on every github push, so we don't break anything before a deploy - which is also triggered by a github push. In order to run them manually:
+
+```
+npm run test
+```
+
+#### E2E tests
+
+We've also added end to end integration tests served using protractor and a separate database structure. The following will setup a docker container with a clean mysql database setup with default data. It will start up a server with a minimum of logging, so as not to clutter test output, and finally it will run the selenium driven protractor tests in a chrome instance. 
+
+```
+npm run e2e
+```
+
+The database will be dropped when the tests complete. If it for any reason should still persist (you can check using `docker ps`, you can clean up using
+
+```
+npm run poste2e
+```
+
 ## Architecture
 
 We've based the system on a NodeJS Express server using MySQL backend over Docker, serving an Angular 2 frontend. 

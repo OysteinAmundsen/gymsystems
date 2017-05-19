@@ -17,7 +17,7 @@ export class ClubService {
   }
 
   getClub(name: string): Observable<IClub[]> {
-    return this.http.get(`/api/clubs/byname/${name}`).map((res: Response) => res.json()).share();
+    return this.findByName(name);
   }
 
   saveClub(name: string) {
@@ -27,8 +27,11 @@ export class ClubService {
   async validateClub(obj: IBelongsToClub) {
     let club;
     if (typeof obj.club === 'string') {
-      let club = await this.getClub(obj.club).toPromise();
-      if (!club) {
+      let clubs = await this.findByName(obj.club).toPromise();
+      if (clubs && clubs.length) {
+        club = clubs[0];
+      }
+      else {
         club = await this.saveClub(obj.club).toPromise();
       }
     }

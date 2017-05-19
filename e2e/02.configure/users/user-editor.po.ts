@@ -1,7 +1,7 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, ExpectedConditions } from 'protractor';
 import { AppRootPage } from "../../app.po";
 
-export class UserEditorPage extends AppRootPage {
+export class UserEditor extends AppRootPage {
 
   url: string = '/register';
   get username() { return element(by.css('app-user-editor input[formcontrolname="name"]')); }
@@ -42,5 +42,8 @@ export class UserEditorPage extends AppRootPage {
       this.repeatPassword.clear();
       this.repeatPassword.sendKeys(repeatPass);
     }
+  }
+
+  removeOrganizer() {
   }
 }

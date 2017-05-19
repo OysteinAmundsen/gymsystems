@@ -1,37 +1,35 @@
 import { browser } from 'protractor';
 import { HomePage } from './home.po';
 
-describe('gymsystems App', () => {
-  let page: HomePage;
+describe('gymsystems: Home', () => {
+  let home: HomePage;
 
   beforeAll(() => {
-    page = new HomePage();
-    page.navigateTo();
+    home = new HomePage();
+    home.navigateTo();
   });
 
-  describe('when not logged in', () => {
-    it('should display message saying "No tournaments"', () => {
-      expect<any>(page.currentTournamentHeader).toEqual('No tournament today.');
-    });
-
-    it('should be able to change language', () => {
-      // To norwegian
-      page.changeLanguage('no');
-      expect<any>(page.currentTournamentHeader).toEqual('Ingen turneringer idag.');
-
-      // And back again
-      page.changeLanguage('en');
-      expect<any>(page.currentTournamentHeader).toEqual('No tournament today.');
-    });
-
-    it('should redirect to login page when login button is pushed', () => {
-      page.goToLogin();
-      expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/login?u=%252F');
-    })
-
-    it('should redirect to home page when home button is pushed', () => {
-      page.goHome();
-      expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + page.url);
-    })
+  it('should display message saying "No tournaments"', () => {
+    expect<any>(home.currentTournamentHeader).toEqual('No tournament today.');
   });
+
+  it('should be able to change language', () => {
+    // To norwegian
+    home.changeLanguage('no');
+    expect<any>(home.currentTournamentHeader).toEqual('Ingen turneringer idag.');
+
+    // And back again
+    home.changeLanguage('en');
+    expect<any>(home.currentTournamentHeader).toEqual('No tournament today.');
+  });
+
+  it('should redirect to login page when login button is pushed', () => {
+    home.goToLogin();
+    expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/login?u=%252F');
+  })
+
+  it('should redirect to home page when home button is pushed', () => {
+    home.goHome();
+    expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + home.url);
+  })
 });

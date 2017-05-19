@@ -1,13 +1,16 @@
 import { browser, element, by } from 'protractor';
 
 export class AppRootPage {
+  url: string = '/';
 
   // Menu
-  get loginButton() { return element(by.css('app-root nav ul li a[href^="/login"]')); }
-  get userInfo() { return element(by.css('app-root .user-info > i')); }
-  get logoutButton() { return element(by.css('app-root .user-info a[href="/logout"]')); }
   get homeButton() { return element(by.css('app-root nav ul li a[href="/"]')); }
   get configureButton() { return element(by.css('app-root nav ul li a[href^="/configure"]')); }
+  get loginButton() { return element(by.css('app-root nav ul li a[href^="/login"]')); }
+
+  // Footer
+  get userInfo() { return element(by.css('app-root .user-info > i')); }
+  get logoutButton() { return element(by.css('app-root .user-info a[href="/logout"]')); }
 
   // Language
   get langNOButton() { return element(by.css('app-root footer .language-selector .flag-icon-no')); }
@@ -16,8 +19,16 @@ export class AppRootPage {
   // Contents
   get error() { return element(by.css('app-dialog aside[role="dialog"] > div > pre')); }
 
+  navigateTo() {
+    browser.get(this.url);
+  }
+
   goToLogin() {
     this.loginButton.click();
+  }
+
+  goToConfigure() {
+    this.configureButton.click();
   }
 
   logout() {

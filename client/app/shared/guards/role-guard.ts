@@ -16,11 +16,12 @@ export class RoleGuard implements CanActivate {
       subscription = this.userService.getMe().subscribe(user => {
         if (user !== undefined) {     // Since this is a ReplaySubject, first response is always undefined
           if (user == null) {         // This route requires a logged in user role. Redirect to login
-            this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
             resolve(false);
+            this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
           }
           else {                      // We have a user. Now check role
             resolve(user.role >= role);
+            if (user.role < role) { this.router.navigate(['/']); }
           }
           // Cleanup! No need to continue to listen for user after route granted/denied
           setTimeout(() => {
