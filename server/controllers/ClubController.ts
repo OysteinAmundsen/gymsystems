@@ -42,6 +42,14 @@ export class ClubController {
     return this.repository.findOneById(clubId);
   }
 
+  @Get('/byname/:name')
+  @EmptyResultCode(404)
+  getByName(@Param('name') name: string): Promise<Club> {
+    return this.repository.createQueryBuilder('club')
+      .where('club.name=:name', {name: name})
+      .getOne();
+  }
+
   @Post()
   create( @Body() club: Club, @Res() res: Response): Promise<Club> {
     return this.repository.persist(club)

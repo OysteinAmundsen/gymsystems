@@ -12,9 +12,11 @@ import { Logger } from '../utils/Logger';
 import { User, Role, RoleNames } from '../model/User';
 import * as bcrypt from 'bcrypt';
 import * as _ from 'lodash';
-import { ClubController } from "./ClubController";
-import { Club, BelongsToClub } from "../model/Club";
-import { isMyClub, validateClub } from "../validators/ClubValidator";
+
+import { ClubController } from './ClubController';
+import { Club, BelongsToClub } from '../model/Club';
+import { isMyClub, validateClub } from '../validators/ClubValidator';
+import { GymServer } from '../index';
 
 const messages = {
   created: `
@@ -137,13 +139,15 @@ export class UserController {
       user.password = bcrypt.hashSync(setPassword, bcrypt.genSaltSync(8));
       return this.repository.persist(user)
         .then(persisted => {
-          // Password is updated. Notify user by email
-          this.sendmail({ from: emailFrom, to: user.email, subject: 'Your password is changed',
-            html: _.template(messages.passwordUpdate)({name: user.name, password: setPassword}),
-          }, (err: any, reply: any) => {
-            Logger.log.debug(err && err.stack);
-            Logger.log.debug(reply);
-          });
+          if (!Container.get(GymServer).isTest) {
+            // We are not in test mode, Password is updated. Notify user by email
+            this.sendmail({ from: emailFrom, to: user.email, subject: 'Your password is changed',
+              html: _.template(messages.passwordUpdate)({name: user.name, password: setPassword}),
+            }, (err: any, reply: any) => {
+              Logger.log.debug(err && err.stack);
+              Logger.log.debug(reply);
+            });
+          }
           return persisted;
         })
         .catch(err => Logger.log.error(err));
@@ -167,12 +171,7 @@ export class UserController {
     const me = await this.me(req);
 
     // Make sure club is an object
-    const hasClub = await validateClub([user]);
     const isSameClub = await isMyClub([user], req);
-    if (!hasClub)  {
-      res.status(400);
-      return {code: 400, message: 'Club name given has no unique match'};
-    }
     if (!isSameClub) {
       res.status(403);
       return {code: 403, message: 'You are not authorized to create teams for other clubs than your own.'};
@@ -182,7 +181,7 @@ export class UserController {
       return { code: 403, message: 'Your are not authorized to create users with higher privileges than your own.'}
     }
 
-    return this.createUser(user);
+    return this.createUser(user, res);
   }
 
   @Post('/register')
@@ -194,34 +193,42 @@ export class UserController {
       user.role = Role.Club;
     }
 
+    return this.createUser(user, res);
+  }
+
+  private async createUser(user: User, res: Response) {
     const hasClub = await validateClub([<BelongsToClub>user]);
     if (!hasClub)  {
       res.status(400);
-      return {code: 400, message: 'Club name given has no unique match'};
+      return {code: 400, message: 'No Club name given, or Club name has no unique match'};
     }
 
-    return this.createUser(user);
-  }
-
-  private createUser(user: User) {
     const origPass = user.password;
 
     // Hash up password
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8));
     return this.repository.persist(user)
       .then(persisted => {
-        // Send email confirmation on user creation and login details
-        const roleName = RoleNames.find(r => r.id === user.role);
-        this.sendmail({ from: emailFrom, to: user.email, subject: 'You are registerred',
-          html: _.template(messages.created)({name: user.name, password: origPass, roleName: roleName.name, club: user.club ? user.club.name : 'No club'}),
-        }, (err: any, reply: any) => {
-          Logger.log.debug(err && err.stack);
-          Logger.log.debug(reply);
-        });
+        if (!Container.get(GymServer).isTest) {
+          // We are not in test mode, send email confirmation on user creation and login details
+          const roleName = RoleNames.find(r => r.id === user.role);
+          this.sendmail({ from: emailFrom, to: user.email, subject: 'You are registerred',
+            html: _.template(messages.created)({name: user.name, password: origPass, roleName: roleName.name, club: user.club ? user.club.name : 'No club'}),
+          }, (err: any, reply: any) => {
+            Logger.log.debug(err && err.stack);
+            Logger.log.debug(reply);
+          });
+        }
         return persisted;
       })
       .catch(err => {
+        if (err.code === 'ER_DUP_ENTRY') {
+          res.status(403);
+          return { code: 403, message: 'A user with this name allready exists'};
+        }
+        // Default response
         Logger.log.error(err);
+        res.status(400);
         return { code: err.code, message: err.message };
       });
   }

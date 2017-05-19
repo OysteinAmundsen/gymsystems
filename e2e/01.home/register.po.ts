@@ -1,11 +1,11 @@
 import { browser, element, by } from 'protractor';
-import { AppRootPage } from "./app.po";
+import { AppRootPage } from "../app.po";
 
 export class RegisterPage extends AppRootPage {
 
   url: string = '/register';
   get username() { return element(by.css('app-register input[formcontrolname="name"]')); }
-  get role() { return element(by.css('app-register app-slide-toggle[formcontrolname="role"] input')); }
+  get role() { return element(by.css('app-register app-slide-toggle[formcontrolname="role"] label')); }
   get email() { return element(by.css('app-register input[formcontrolname="email"]')); }
   get club() { return element(by.css('app-register app-typeahead[formcontrolname="club"] input')); }
   get password() { return element(by.css('app-register input[formcontrolname="password"]')); }

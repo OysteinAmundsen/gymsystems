@@ -21,6 +21,7 @@ import { ClubServiceStub } from 'app/services/api/club.service.stub';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 
 describe('TeamEditorComponent', () => {
   let component: TeamEditorComponent;
@@ -49,7 +50,8 @@ describe('TeamEditorComponent', () => {
         {provide: UserService, useClass: UserServiceStub},
         {provide: DivisionService, useClass: DivisionServiceStub},
         {provide: DisciplineService, useClass: DisciplineServiceStub},
-        MediaService
+        MediaService,
+        ErrorHandlerService,
       ]
     })
     .overrideComponent(TeamEditorComponent, {

@@ -106,8 +106,10 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   }
 
   select(item) {
-    this.selectedItemChange.emit(item);
-    this.value = item[this.itemText];
+    if (item) {
+      this.selectedItemChange.emit(item);
+      this.value = item[this.itemText];
+    }
     this.popupVisible = false;
   }
 

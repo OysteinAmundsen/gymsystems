@@ -12,6 +12,7 @@ import { ITeam } from 'app/services/model/ITeam';
 import { IClub } from 'app/services/model/IClub';
 import { IUser } from 'app/services/model/IUser';
 import { IMedia } from 'app/services/model/IMedia';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 
 @Component({
   selector: 'app-team-editor',
@@ -54,6 +55,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private divisionService: DivisionService,
     private disciplineService: DisciplineService,
+    private errorHandler: ErrorHandlerService,
     private mediaService: MediaService) { }
 
   ngOnInit() {
@@ -172,13 +174,16 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     delete team.genderDivision;
 
     // Get club
-    if (!this.selectedClub) {
-      const club = await this.clubService.saveClub(team.club).toPromise();
-      team.club = club;
+    if (!this.selectedClub && team.club) {
+      team.club = await this.clubService.validateClub(team);
     }
-    else {
+    else if (this.selectedClub && this.selectedClub.id) {
       delete this.selectedClub.teams;
       team.club = this.selectedClub;
+    }
+    else {
+      this.errorHandler.error = 'No club set. Cannot register!';
+      return;
     }
 
     // Compute discipline set

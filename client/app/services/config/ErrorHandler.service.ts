@@ -8,10 +8,10 @@ export class ErrorHandlerService {
   private _errorTimeout;
   private _error: string;
   get error() { return this._error; }
-  set error(value) {
-    this._error = value;
+  set error(value: string) {
     if (this._errorTimeout) { clearTimeout(this._errorTimeout); }
     if (value) {
+      this._error = value.replace(/^"|"$/g, '');
       this._errorTimeout = setTimeout(() => this._error = null, 10 * 1000);
     }
   }

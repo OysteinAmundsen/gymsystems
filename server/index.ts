@@ -6,6 +6,9 @@ import * as fs from 'fs';
 // Express
 import { Server } from 'http';
 import * as e from 'express';
+import Request = e.Request;
+import Response = e.Response;
+
 import * as serveStatic from 'serve-static';
 import * as favicon from 'serve-favicon';
 import * as morgan from 'morgan';
@@ -28,6 +31,7 @@ import { setupAuthentication } from './config/AuthenticationConfig';
 import { SSEService } from './services/SSEService';
 import { Logger } from './utils/Logger';
 import { ERROR_MESSAGES } from './messages';
+import { NextFunction, ErrorRequestHandler } from "express-serve-static-core";
 
 /**
  * Our application starts here.
@@ -38,7 +42,7 @@ export class GymServer {
   public app: e.Express;
   private port: number = process.env.PORT || 3000;
   private clientPath = path.join(__dirname, './public');
-  private args: string[];
+  public isTest: boolean = false;
 
   /**
    * Bootstrap the application.
@@ -72,7 +76,8 @@ export class GymServer {
    * @returns {Promise<Server>}
    */
   start(args: string[]): Promise<Server> {
-    this.args = args;
+    this.isTest = args.length > 2 && args[2] === 'test';
+
     // Read typeorm config and add our own Logger
     const config: any = JSON.parse(fs.readFileSync(path.join('.', 'ormconfig.json'), 'utf8'));
 
@@ -120,7 +125,7 @@ export class GymServer {
     this.app.disable('x-powered-by');   // Do not announce our architecture to the world!
 
     // Setup the following only if we are not running tests
-    if (this.args.length <= 2 || this.args[2] !== 'test') {
+    if (!this.isTest) {
       // Setup morgan access logger using winston
       this.app.use(morgan('combined', { stream: Logger.stream }));
 
@@ -163,11 +168,13 @@ export class GymServer {
       interceptors: [__dirname + '/interceptors/*.js']
     });
 
+    this.app.use(this.globalErrorHandler);
+
     // Registerring custom services
     new SSEService();
 
     // Setup base route to everything else
-    if (this.args.length <= 2 || this.args[2] !== 'test') {
+    if (!this.isTest) {
       this.app.get('/*', (req: e.Request, res: e.Response) => {
         res.sendFile(path.resolve(this.clientPath, 'index.html'));
       });
@@ -190,6 +197,11 @@ export class GymServer {
    */
   private onServerInitError(error: any) {
     Logger.log.error((ERROR_MESSAGES[error.code] ? ERROR_MESSAGES[error.code] : error));
+  }
+
+  private globalErrorHandler(err: any, req: Request, res: Response, next: NextFunction): any {
+    if (err) { Logger.log.error(err); }
+    if (next) { next(); }
   }
 }
 

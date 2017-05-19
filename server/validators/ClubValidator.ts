@@ -4,6 +4,8 @@ import e = require('express');
 import Request = e.Request;
 import Response = e.Response;
 
+import { Logger } from '../utils/Logger';
+
 import { Role, User } from '../model/User';
 import { BelongsToClub, Club } from '../model/Club';
 import { ClubController } from '../controllers/ClubController';
@@ -16,15 +18,16 @@ export async function validateClub(body: BelongsToClub[]): Promise<boolean> {
 
     // Auto convert string to object
     if (typeof obj.club === 'string') {
-      const club: Club[] = await clubRepository.all(null, obj.club);
-      if (club.length === 1) {
-        obj.club = club[0];
+      const club: Club = await clubRepository.getByName(obj.club);
+      if (club) {
+        obj.club = club;
       } else {
+        Logger.log.error(`No club with name "${obj.club}" found`);
         return false;
       }
     }
   }
-
+  Logger.log.debug(JSON.stringify(body));
   return true;
 }
 

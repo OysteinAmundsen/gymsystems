@@ -14,9 +14,9 @@
     </thead>
     <tbody *ngFor="let user of userList">
       <tr [routerLink]="['.', user.id]" role="listitem">
-        <td>{{ user.name }}</td>
-        <td>{{ roleName(user) }}</td>
-        <td>{{ user.club ? user.club.name : '' }}</td>
+        <td class="username">{{ user.name }}</td>
+        <td class="rolename">{{ roleName(user) }}</td>
+        <td class="clubname">{{ user.club ? user.club.name : '' }}</td>
       </tr>
     </tbody>
   </table>

@@ -4,7 +4,7 @@ export class AppRootPage {
 
   // Menu
   get loginButton() { return element(by.css('app-root nav ul li a[href^="/login"]')); }
-  get loggedInUser() { return element(by.css('app-root .user-info i')).getText(); }
+  get userInfo() { return element(by.css('app-root .user-info > i')); }
   get logoutButton() { return element(by.css('app-root .user-info a[href="/logout"]')); }
   get homeButton() { return element(by.css('app-root nav ul li a[href="/"]')); }
   get configureButton() { return element(by.css('app-root nav ul li a[href^="/configure"]')); }

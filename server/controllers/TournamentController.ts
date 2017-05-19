@@ -79,7 +79,8 @@ export class TournamentController {
       .where('tournament.endDate < :date', { date: date })
       .orderBy('tournament.startDate', 'DESC')
       .setLimit(10)
-      .getMany();
+      .getMany()
+      .catch(() => Logger.log.debug(`Query for past tournament was rejected before it was fulfilled`));
   }
 
   @Get('/current')
@@ -93,7 +94,8 @@ export class TournamentController {
       .andWhere('tournament.endDate >= :endDate', { endDate: end })
       .orderBy('tournament.startDate', 'DESC')
       .setLimit(10)
-      .getMany();
+      .getMany()
+      .catch(() => Logger.log.debug(`Query for current tournaments was rejected before it was fulfilled`));
   }
 
   @Get('/future')
@@ -104,7 +106,8 @@ export class TournamentController {
       .where('tournament.startDate > :date', { date: date })
       .orderBy('tournament.startDate', 'DESC')
       .setLimit(10)
-      .getMany();
+      .getMany()
+      .catch(() => Logger.log.debug(`Query for future tournaments was rejected before it was fulfilled`));
   }
 
   @Get('/:id')
@@ -115,7 +118,8 @@ export class TournamentController {
       .where('tournament.id=:id', { id: id })
       .innerJoinAndSelect('tournament.createdBy', 'user')
       .leftJoinAndSelect('user.club', 'club')
-      .getOne();
+      .getOne()
+      .catch(() => Logger.log.debug(`Query for tournament id ${id} was rejected before it was fulfilled`));
   }
 
   @Post()

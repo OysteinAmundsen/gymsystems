@@ -1,5 +1,5 @@
 import { browser, ExpectedConditions } from 'protractor';
-import { LoginPage } from './pages/login.po';
+import { LoginPage } from './login.po';
 
 describe('gymsystems App: Login', function() {
   let page: LoginPage;
@@ -24,7 +24,7 @@ describe('gymsystems App: Login', function() {
         browser.wait(ExpectedConditions.visibilityOf(page.error), 1000);
 
         expect<any>(getUrl()).toEqual(browser.baseUrl + '/login');
-        expect<any>(page.error.getText()).not.toEqual('');
+        expect<any>(page.error.getText()).toEqual('Wrong username or password');
 
         page.dismissError();
         expect<any>(page.error.getText()).toEqual('');
@@ -37,6 +37,7 @@ describe('gymsystems App: Login', function() {
     });
   });
 
+  // Cleanup
   describe('when logged in', () => {
     beforeEach(() => browser.ignoreSynchronization = true);
     afterEach(() => browser.ignoreSynchronization = false);
@@ -44,7 +45,7 @@ describe('gymsystems App: Login', function() {
       page.logout();
       browser.wait(ExpectedConditions.visibilityOf(page.error), 1000);
 
-      expect<any>(page.error.getText()).not.toEqual('');
+      expect<any>(page.error.getText()).toEqual('Logged out');
       expect<any>(getUrl()).toEqual(browser.baseUrl + '/');
     });
   });

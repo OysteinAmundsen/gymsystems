@@ -1,5 +1,5 @@
 import { browser, element, by } from 'protractor';
-import { AppRootPage } from "./app.po";
+import { AppRootPage } from "../app.po";
 
 export class LoginPage extends AppRootPage {
 

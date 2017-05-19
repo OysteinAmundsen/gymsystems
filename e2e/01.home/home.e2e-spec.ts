@@ -1,5 +1,5 @@
 import { browser } from 'protractor';
-import { HomePage } from './pages/home.po';
+import { HomePage } from './home.po';
 
 describe('gymsystems App', () => {
   let page: HomePage;

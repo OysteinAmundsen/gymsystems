@@ -32,8 +32,9 @@ export class AuthHttp extends Http {
         me.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
       }
       else {
-        const body = err.text() || '';
-        errMsg = `${err.status} - ${err.statusText || ''}: ${body}`;
+        let body: any;
+        try { body = err.json(); } catch (ex) { body = err.text() || ''; }
+        errMsg = `${err.status} - ${err.statusText || ''}: ${body.message ? body.message : body}`;
         this.error.error = errMsg;
       }
       return Observable.throw(errMsg);

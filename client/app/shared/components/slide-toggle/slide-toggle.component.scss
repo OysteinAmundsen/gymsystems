@@ -4,7 +4,7 @@
   display: inline-block;
 }
 .label {
-    cursor: pointer;
+    cursor: pointer !important;
     @supports (display: flex) {
       display: flex;
       flex: 1;

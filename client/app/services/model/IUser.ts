@@ -1,4 +1,5 @@
 import { IClub } from './IClub';
+import { IBelongsToClub } from './IBelongsToClub';
 
 export enum Role {
   Admin = 99, Organizer = 90, Secretariat = 80, Club = 50, User = 10
@@ -12,7 +13,7 @@ export const RoleNames: [{id: number, name: string}] = [
   {id: Role.User,        name: 'User'},
 ]
 
-export interface IUser {
+export interface IUser extends IBelongsToClub  {
   id: number;
   name: string;
   email: string;
