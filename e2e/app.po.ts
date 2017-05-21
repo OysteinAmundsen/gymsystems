@@ -1,16 +1,18 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, ExpectedConditions } from 'protractor';
+import { LoginPage } from "./01.home/login.po";
 
 export class AppRootPage {
   url: string = '/';
 
   // Menu
-  get homeButton() { return element(by.css('app-root nav ul li a[href="/"]')); }
-  get configureButton() { return element(by.css('app-root nav ul li a[href^="/configure"]')); }
-  get loginButton() { return element(by.css('app-root nav ul li a[href^="/login"]')); }
+  get nav() { return element(by.css('app-root nav ul li')); }
+  get navHome() { return element(by.css('app-root nav ul li a[href="/"]')); }
+  get navConfigure() { return element(by.css('app-root nav ul li a[href^="/configure"]')); }
+  get navLogin() { return element(by.css('app-root nav ul li a[href^="/login"]')); }
 
   // Footer
   get userInfo() { return element(by.css('app-root .user-info > i')); }
-  get logoutButton() { return element(by.css('app-root .user-info a[href="/logout"]')); }
+  get navLogout() { return element(by.css('app-root .user-info a[href="/logout"]')); }
 
   // Language
   get langNOButton() { return element(by.css('app-root footer .language-selector .flag-icon-no')); }
@@ -19,24 +21,33 @@ export class AppRootPage {
   // Contents
   get error() { return element(by.css('app-dialog aside[role="dialog"] > div > pre')); }
 
-  navigateTo() {
+  browserLoad() {
     browser.get(this.url);
   }
 
+  navigateTo() {
+    this.navHome.click();
+  }
+
   goToLogin() {
-    this.loginButton.click();
+    this.navLogin.click();
   }
 
   goToConfigure() {
-    this.configureButton.click();
+    this.navConfigure.click();
   }
 
   logout() {
-    this.logoutButton.click();
+    this.navLogout.click();
+    browser.wait(ExpectedConditions.visibilityOf(this.error), 5000, 'No logout displayed');
+    expect<any>(this.error.getText()).toEqual('Logged out');
+
+    this.dismissError();
+    expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/');
   }
 
   goHome() {
-    this.homeButton.click();
+    this.navHome.click();
   }
 
   changeLanguage(lng: string) {
@@ -45,5 +56,6 @@ export class AppRootPage {
 
   dismissError() {
     element(by.css('app-dialog div[role="dialogContainer"]')).click();
+    expect<any>(this.error.getText()).toEqual('');
   }
 }

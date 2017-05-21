@@ -26,7 +26,7 @@ describe('gymsystems: Configure users', function() {
 
   describe('when not logged in', () => {
     it('should redirect to login', () => {
-      users.navigateTo();
+      users.browserLoad();
       expect<any>(browser.getCurrentUrl().then(url => decodeURIComponent(url))).toEqual(browser.baseUrl + '/login?u=' + encodeURIComponent(users.url));
     });
   });
@@ -37,28 +37,28 @@ describe('gymsystems: Configure users', function() {
     beforeAll(() => {
       // Create club1
       register.createClub('club1', register.OrganizerClub);
-      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000);
+      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000, 'Registration message did not show');
+      register.dismissError();
       userCount++;
 
       // Create club2
       register.createClub('club2', 'Another club');
-      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000);
+      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000, 'Registration message did not show');
+      register.dismissError();
       userCount++;
     });
     afterAll(() => {
       login.logout();
-      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000);
-      login.dismissError();
     });
 
     it('should not gain access to the users panel', () => {
       // Log in as club1
-      login.navigateTo();
+      login.browserLoad();
       login.login('club1', 'test');
-      browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 1000);
-      expect<any>(login.userInfo.getText()).toBe('club1');
+      browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 1000, 'User info did not show');
+      expect<any>(login.userInfo.getText()).toBe('club1', 'User info did not display club1 user');
 
-      users.navigateTo();
+      users.browserLoad();
       expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/', 'should be redirected home for any url you do not have the privileges to see.');
     });
   });
@@ -69,26 +69,24 @@ describe('gymsystems: Configure users', function() {
     beforeAll(() => {
       // Create organizer
       register.createOrganizer();
-      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000);
+      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000, 'Registration message did not show');
       userCount++;
 
       // Log in as organizer
-      login.navigateTo();
+      login.browserLoad();
       login.login('organizer', 'test');
-      browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 1000);
+      browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 1000, 'User info did not display organizer');
       expect<any>(login.userInfo.getText()).toBe('organizer');
 
-      users.navigateTo();
+      users.browserLoad();
     });
     afterAll(() => {
       login.logout();
-      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000);
-      login.dismissError();
     });
 
     it('should display a list of registerred users', () => {
       // Go to configure/users
-      browser.wait(ExpectedConditions.visibilityOf(users.dataRows), 1000);
+      browser.wait(ExpectedConditions.visibilityOf(users.dataRows), 1000, 'User grid did not show');
       expect<any>(users.rowCount).toBe(2, 'Should only see users connected to the same club');
     });
 
@@ -106,12 +104,10 @@ describe('gymsystems: Configure users', function() {
     beforeAll(() => {
       login.loginAdmin();
       // Go to configure/users
-      users.navigateTo();
+      users.browserLoad();
     });
     afterAll(() => {
       login.logout();
-      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000);
-      login.dismissError();
     });
 
     it('should display a list of registerred users', () => {

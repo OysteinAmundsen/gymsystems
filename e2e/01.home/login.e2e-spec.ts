@@ -6,11 +6,11 @@ describe('gymsystems: Login', function() {
 
   beforeAll(() => {
     login = new LoginPage();
+    login.browserLoad();
   });
 
   beforeEach(() => {
     browser.ignoreSynchronization = true;
-    login.navigateTo();
   });
   afterEach(() => browser.ignoreSynchronization = false);
 
@@ -24,11 +24,10 @@ describe('gymsystems: Login', function() {
     login.login('test', 'test');
     browser.wait(ExpectedConditions.visibilityOf(login.error), 1000);
 
-    expect<any>(getUrl()).toEqual(browser.baseUrl + '/login');
     expect<any>(login.error.getText()).toEqual('Wrong username or password');
-
     login.dismissError();
-    expect<any>(login.error.getText()).toEqual('');
+
+    expect<any>(getUrl()).toEqual(browser.baseUrl + '/login');
   });
 
   it('should accept login if you use correct credentials', () => {
@@ -36,10 +35,5 @@ describe('gymsystems: Login', function() {
 
     // Cleanup
     login.logout();
-    browser.wait(ExpectedConditions.visibilityOf(login.error), 1000);
-    expect<any>(login.error.getText()).toEqual('Logged out');
-
-    login.dismissError();
-    expect<any>(getUrl()).toEqual(browser.baseUrl + '/');
   });
 });

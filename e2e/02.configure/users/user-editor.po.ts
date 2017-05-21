@@ -15,7 +15,7 @@ export class UserEditor extends AppRootPage {
   get deleteButton() { return element(by.css('app-user-editor footer button[title="Delete"]')); }
 
   // Menu
-  navigateTo() {
+  browserLoad() {
     return browser.get(this.url);
   }
 

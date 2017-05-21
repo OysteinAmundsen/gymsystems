@@ -6,7 +6,7 @@ export class HomePage extends AppRootPage {
   // Contents
   get currentTournamentHeader() { return element(by.css('app-root app-home .main-content header h1')).getText(); }
 
-  navigateTo() {
+  browserLoad() {
     return browser.get(this.url);
   }
 }

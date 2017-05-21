@@ -14,23 +14,7 @@ describe('gymsystems: Register', function() {
     register = new RegisterPage();
     users = new ConfigureUsers();
 
-    register.navigateTo();
-  });
-  afterAll(() => {
-    // Log in admin
-    login.loginAdmin();
-
-    // Go to configure/users
-    this.navigateTo();
-    browser.wait(ExpectedConditions.visibilityOf(this.rows), 1000);
-    expect<any>(this.rowCount).toBe(2);
-
-    // Remove user
-    users.removeUser('organizer');
-    expect<any>(this.rowCount).toBe(1);
-
-    // Logout admin
-    login.logout();
+    register.browserLoad();
   });
 
   beforeEach(() => browser.ignoreSynchronization = true);
@@ -61,7 +45,6 @@ describe('gymsystems: Register', function() {
       expect<any>(register.error.getText()).toEqual('403 - Forbidden: A user with this name allready exists');
 
       register.dismissError();
-      register.navigateTo();
     });
   });
 
@@ -73,7 +56,7 @@ describe('gymsystems: Register', function() {
 
   describe('newly created user', () => {
     it ('should be able to log in', () => {
-      login.navigateTo();
+      login.browserLoad();
       login.login('organizer', 'test');
       browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 1000);
       expect<any>(login.userInfo.getText()).toBe('organizer');
@@ -81,10 +64,23 @@ describe('gymsystems: Register', function() {
 
     it('should be able to log out', () => {
       register.logout();
-      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000);
-
-      expect<any>(register.error.getText()).toEqual('Logged out');
-      expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/');
     });
+
+    it('can be removed by admin', () => {
+      login.browserLoad();
+      // Log in admin
+      login.loginAdmin();
+
+      // Go to configure/users
+      users.navigateTo();
+      expect<any>(users.rowCount).toBe(2);
+
+      // Remove user
+      users.removeUser('organizer');
+      expect<any>(users.rowCount).toBe(1);
+
+      // Logout admin
+      login.logout();
+    })
   });
 });

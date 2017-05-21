@@ -14,11 +14,14 @@ export class RegisterPage extends AppRootPage {
   get registerButton() { return element(by.css('app-register footer button[type="submit"]')); }
 
   // Menu
-  navigateTo() {
-    // super.navigateTo();
-    // this.goToLogin();
-    // new LoginPage().registerButton.click();
+  browserLoad() {
     return browser.get(this.url);
+  }
+
+  navigateTo() {
+    let login = new LoginPage();
+    login.navigateTo();
+    login.registerButton.click();
   }
 
   enterData(username: string, isOrganizer: boolean, email: string, club: string, password: string, repeatPass: string) {

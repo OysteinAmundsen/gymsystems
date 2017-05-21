@@ -1,12 +1,13 @@
-import { browser } from 'protractor';
+import { browser, ExpectedConditions } from 'protractor';
 import { HomePage } from './home.po';
+import { LoginPage } from "./login.po";
 
 describe('gymsystems: Home', () => {
   let home: HomePage;
 
   beforeAll(() => {
     home = new HomePage();
-    home.navigateTo();
+    home.browserLoad();
   });
 
   it('should display message saying "No tournaments"', () => {
@@ -24,7 +25,8 @@ describe('gymsystems: Home', () => {
   });
 
   it('should redirect to login page when login button is pushed', () => {
-    home.goToLogin();
+    let login = new LoginPage();
+    login.navigateTo();
     expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/login?u=%252F');
   })
 

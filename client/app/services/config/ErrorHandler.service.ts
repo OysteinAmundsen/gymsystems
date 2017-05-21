@@ -13,6 +13,8 @@ export class ErrorHandlerService {
     if (value) {
       this._error = value.replace(/^"|"$/g, '');
       this._errorTimeout = setTimeout(() => this._error = null, 10 * 1000);
+    } else {
+      this._error = null;
     }
   }
 

@@ -1,6 +1,7 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
 import { AppRootPage } from "../../app.po";
 import { LoginPage } from "../../01.home/login.po";
+import { Configure } from "../configure.po";
 import { UserEditor } from "./user-editor.po";
 
 export class ConfigureUsers extends AppRootPage {
@@ -10,8 +11,15 @@ export class ConfigureUsers extends AppRootPage {
   get dataRows() { return element(by.css('app-users table tbody')); }
   get rowCount() { return element.all(by.css('app-users table tbody')).count(); }
 
-  navigateTo() {
+  browserLoad() {
     return browser.get(this.url);
+  }
+
+  navigateTo() {
+    let configure = new Configure();
+    configure.navigateTo();
+    configure.users.click();
+    browser.wait(ExpectedConditions.visibilityOf(this.dataRows), 1000);
   }
 
   getRowByUsername(user: string) {

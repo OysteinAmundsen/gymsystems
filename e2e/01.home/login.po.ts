@@ -10,8 +10,13 @@ export class LoginPage extends AppRootPage {
   get registerButton() { return element(by.css('app-login .register footer a[href="/register"]')); }
 
   // Menu
-  navigateTo() {
+  browserLoad() {
     return browser.get(this.url);
+  }
+
+  navigateTo() {
+    this.goToLogin();
+    browser.wait(ExpectedConditions.visibilityOf(this.username), 5000, 'Login dialog did not display');
   }
 
   login(username, password) {
@@ -27,7 +32,7 @@ export class LoginPage extends AppRootPage {
   loginAdmin() {
     this.navigateTo();
     this.login('admin', 'admin');
-    browser.wait(ExpectedConditions.visibilityOf(this.userInfo), 1000);
-    expect<any>(this.userInfo.getText()).toEqual('admin');
+    browser.wait(ExpectedConditions.visibilityOf(this.userInfo), 5000, 'User info did not show');
+    expect<any>(this.userInfo.getText()).toEqual('admin', 'User info displays incorrectly');
   }
 }
