@@ -21,11 +21,34 @@ import { ClubServiceStub } from 'app/services/api/club.service.stub';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
+const club: IClub = <IClub>{
+  id          : 0,
+  name        : 'HAUGESUND TURNFORENING'
+}
+const user: IUser = <IUser>{
+  id    : 0,
+  name  : 'admin',
+  email : 'admin@admin.no',
+  role  : Role.Admin,
+  club  : club
+};
+@Component({
+ selector  : 'app-cmp',
+ template  : `<app-team-editor [team]='selected' (teamChanged)='onChange($event)'></app-team-editor>`
+})
+class WrapperComponent {
+  selected: ITeam = <ITeam>{
+    id: 0, name: 'Haugesund-1', divisions: [], disciplines: [], club: club, tournament: <ITournament>{
+      id: 0, createdBy: user, name: 'Landsturnstevnet 2017', description_no: 'Test tekst', description_en: 'Test text',
+      location: 'Haugesund', schedule: [], disciplines: [], divisions: []
+    },
+  }
+}
 describe('TeamEditorComponent', () => {
   let component: TeamEditorComponent;
-  let fixture: ComponentFixture<TestCmpWrapper>;
+  let fixture: ComponentFixture<WrapperComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -42,7 +65,7 @@ describe('TeamEditorComponent', () => {
           }
         }),
       ],
-      declarations: [ TestCmpWrapper, TeamEditorComponent ],
+      declarations: [ WrapperComponent, TeamEditorComponent ],
       providers: [
         {provide: TeamsService, useClass: TeamsServiceStub},
         {provide: TournamentService, useClass: TournamentServiceStub},
@@ -70,7 +93,7 @@ describe('TeamEditorComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestCmpWrapper);
+    fixture = TestBed.createComponent(WrapperComponent);
     component = fixture.debugElement.children[0].componentInstance;
     fixture.detectChanges();
   });
@@ -79,41 +102,3 @@ describe('TeamEditorComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-const club: IClub = <IClub>{
-  id          : 0,
-  name        : 'HAUGESUND TURNFORENING'
-}
-const user: IUser = <IUser>{
-  id    : 0,
-  name  : 'admin',
-  email : 'admin@admin.no',
-  role  : Role.Admin,
-  club  : club
-};
-
-@Component({
- selector  : 'test-cmp',
- template  : `<app-team-editor [team]='selected' (teamChanged)='onChange($event)'></app-team-editor>`
-})
-class TestCmpWrapper {
-
-    selected: ITeam = <ITeam>{
-      id          : 0,
-      name        : 'Haugesund-1',
-      divisions   : [],
-      disciplines : [],
-      tournament  : <ITournament>{
-        id          : 0,
-        createdBy   : user,
-        name        : 'Landsturnstevnet 2017',
-        description_no : 'Test tekst',
-        description_en : 'Test text',
-        location    : 'Haugesund',
-        schedule    : [],
-        disciplines : [],
-        divisions   : []
-      },
-      club        : club
-    }
-}

@@ -10,7 +10,7 @@ import { RequireRole } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';
 
 import { Club } from '../model/Club';
-import { Role } from "../model/User";
+import { Role } from '../model/User';
 
 /**
  *

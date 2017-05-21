@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from "rxjs/Rx";
+import { ReplaySubject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
@@ -14,7 +14,7 @@ import { IDiscipline } from '../model/IDiscipline';
 @Injectable()
 export class UserService {
 
-  _isLoadingMe: boolean = false;
+  _isLoadingMe = false;
   _meObservable = new ReplaySubject(1);
   _currentUser: IUser;
   _recheck;

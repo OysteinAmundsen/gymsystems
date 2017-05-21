@@ -1,8 +1,8 @@
 import { browser, ExpectedConditions } from 'protractor';
 import { RegisterPage } from './register.po';
-import { LoginPage } from "./login.po";
-import { ConfigureUsers } from "../02.configure/users/users.po";
-import { UserEditor } from "../02.configure/users/user-editor.po";
+import { LoginPage } from './login.po';
+import { ConfigureUsers } from '../02.configure/users/users.po';
+import { UserEditor } from '../02.configure/users/user-editor.po';
 
 describe('gymsystems: Register', function() {
   let register: RegisterPage;
@@ -67,8 +67,8 @@ describe('gymsystems: Register', function() {
     });
 
     it('can be removed by admin', () => {
-      login.browserLoad();
       // Log in admin
+      login.browserLoad();
       login.loginAdmin();
 
       // Go to configure/users

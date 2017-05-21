@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TournamentService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-info',
@@ -12,6 +12,7 @@ import { TranslateService } from "@ngx-translate/core";
 export class InfoComponent implements OnInit {
   tournament: ITournament;
   lng: string = this.translate.currentLang;
+  preview = false;
   @ViewChild('infoText') infoText;
   constructor(private route: ActivatedRoute, private tournamentService: TournamentService, private translate: TranslateService) { }
 
@@ -19,8 +20,7 @@ export class InfoComponent implements OnInit {
     this.route.parent.params.subscribe((params: any) => {
       if (this.tournamentService.selected) {
         this.tournament = this.tournamentService.selected
-      }
-      else if (params.id) {
+      } else if (params.id) {
         this.tournamentService.selectedId = +params.id;
         this.tournamentService.getById(params.id).subscribe(tournament => {
           this.tournament = tournament;
@@ -56,9 +56,9 @@ export class InfoComponent implements OnInit {
   }
 
   private getSelection() {
-    const text:string  = this.tournament['description_' + this.lng];
-    const start:number = this.infoText.nativeElement.selectionStart;
-    const end:number   = this.infoText.nativeElement.selectionEnd;
+    const text: string  = this.tournament['description_' + this.lng];
+    const start: number = this.infoText.nativeElement.selectionStart;
+    const end: number   = this.infoText.nativeElement.selectionEnd;
     const startOfLine  = text.substring(0, start).lastIndexOf('\n') + 1;
     const endOfLine    = text.substring(end).indexOf('\n') || text.length;
     return {
@@ -76,14 +76,14 @@ export class InfoComponent implements OnInit {
 
   bold() {
     const selection = this.getSelection();
-    let text = this.splitValue(this.tournament['description_' + this.lng], selection);
+    const text = this.splitValue(this.tournament['description_' + this.lng], selection);
 
     this.tournament['description_' + this.lng] = `${text.start}**${text.selection}**${text.end}`;
     this.returnfocus(selection.start, selection.end + 4);
   }
   italic() {
     const selection = this.getSelection();
-    let text = this.splitValue(this.tournament['description_' + this.lng], selection);
+    const text = this.splitValue(this.tournament['description_' + this.lng], selection);
 
     this.tournament['description_' + this.lng] = `${text.start}*${text.selection}*${text.end}`;
     this.returnfocus(selection.start, selection.end + 2);
@@ -103,7 +103,7 @@ export class InfoComponent implements OnInit {
   @HostListener('keydown', ['$event'])
   onKeypress(event: KeyboardEvent) {
     if (event.ctrlKey) {
-      switch(event.key) {
+      switch (event.key) {
         case 'b': event.preventDefault(); this.bold(); break;
         case 'i': event.preventDefault(); this.italic(); break;
         case 'h': event.preventDefault(); this.toggleHeaders(); break;

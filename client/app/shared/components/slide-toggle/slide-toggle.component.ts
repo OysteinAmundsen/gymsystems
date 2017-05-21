@@ -10,8 +10,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class SlideToggleComponent implements OnInit, ControlValueAccessor {
   @ViewChild('toggler') toggleElm: ElementRef;
 
-  @Input() onLabel: string = 'on';
-  @Input() offLabel: string = 'off';
+  @Input() onLabel = 'on';
+  @Input() offLabel = 'off';
   @Input() onState: any = true;
   @Input() offState: any = false;
   @Input() initState: any = false;

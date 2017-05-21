@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Request, Response, RequestOptionsArgs, RequestOptions, XHRBackend } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 
 import { UserService } from 'app/services/api';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 @Injectable()
 export class AuthHttp extends Http {
@@ -24,14 +24,13 @@ export class AuthHttp extends Http {
     const me = this;
 
     return super.request(url, options).map(res => {
-      //Successful Response;
+      // Successful Response;
       return res;
     })
     .catch((err: any) => {
       if (err.status === 401) {
         me.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
-      }
-      else {
+      } else {
         let body: any;
         try { body = err.json(); } catch (ex) { body = err.text() || ''; }
         errMsg = `${err.status} - ${err.statusText || ''}: ${body.message ? body.message : body}`;

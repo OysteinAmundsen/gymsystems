@@ -9,7 +9,7 @@ import Response = e.Response;
 import { Logger } from '../utils/Logger';
 import { RequireRole } from '../middlewares/RequireAuth';
 import { ScoreGroup } from '../model/ScoreGroup';
-import { Role } from "../model/User";
+import { Role } from '../model/User';
 
 /**
  *

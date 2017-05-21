@@ -10,7 +10,7 @@ export class RoleGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const me = this;
-    let role: Role = route.data['role'] as Role || Role.Admin;
+    const role: Role = route.data['role'] as Role || Role.Admin;
     let subscription: Subscription;
     return new Promise(resolve => {
       subscription = this.userService.getMe().subscribe(user => {
@@ -18,8 +18,7 @@ export class RoleGuard implements CanActivate {
           if (user == null) {         // This route requires a logged in user role. Redirect to login
             resolve(false);
             this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
-          }
-          else {                      // We have a user. Now check role
+          } else {                   // We have a user. Now check role
             resolve(user.role >= role);
             if (user.role < role) { this.router.navigate(['/']); }
           }

@@ -9,14 +9,30 @@ import { HttpLoaderFactory } from 'app';
 
 import { ScoreGroupComponent } from './score-group.component';
 import { ScoreComponent } from 'app/views/home/list/score/score.component';
-import { IScoreContainer } from "app/views/home/list/IScoreContainer";
-import { IScoreGroup } from "app/services/model/IScoreGroup";
-import { IDiscipline } from "app/services/model/IDiscipline";
-import { Operation } from "app/services/model/Operation";
+import { IScoreContainer } from 'app/views/home/list/IScoreContainer';
+import { IScoreGroup } from 'app/services/model/IScoreGroup';
+import { IDiscipline } from 'app/services/model/IDiscipline';
+import { Operation } from 'app/services/model/Operation';
 
+@Component({
+ selector  : 'app-cmp',
+ template  : `<app-score-group [model]="group" [form]="scoreForm"></app-score-group>`
+})
+class WrapperComponent {
+  group: IScoreContainer = <IScoreContainer>{
+    scores: [], group: <IScoreGroup>{
+      id: 0, name: '', type: 'C', judges: 2, max: 5, min: 0, discipline: <IDiscipline>{ }, operation: Operation.Addition
+    },
+  }
+  scoreForm;
+
+  constructor(private fb: FormBuilder) {
+    this.scoreForm = fb.group({ 'field_C_0': [''], 'field_C_1': [''] });
+  }
+}
 describe('ScoreGroupComponent', () => {
   let component: ScoreGroupComponent;
-  let fixture: ComponentFixture<TestCmpWrapper>;
+  let fixture: ComponentFixture<WrapperComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -34,7 +50,7 @@ describe('ScoreGroupComponent', () => {
         }),
       ],
       declarations: [
-        TestCmpWrapper,
+        WrapperComponent,
         ScoreGroupComponent,
         ScoreComponent
       ]
@@ -43,7 +59,7 @@ describe('ScoreGroupComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestCmpWrapper);
+    fixture = TestBed.createComponent(WrapperComponent);
     component = fixture.debugElement.children[0].componentInstance;
     fixture.detectChanges();
   });
@@ -52,33 +68,3 @@ describe('ScoreGroupComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-@Component({
- selector  : 'test-cmp',
- template  : `<app-score-group [model]="group" [form]="scoreForm"></app-score-group>`
-})
-class TestCmpWrapper {
-  group: IScoreContainer = <IScoreContainer>{
-    group: <IScoreGroup>{
-      id: 0,
-      name: '',
-      type: 'C',
-      judges: 2,
-      max: 5,
-      min: 0,
-      discipline: <IDiscipline>{
-
-      },
-      operation: Operation.Addition
-    },
-    scores: []
-  }
-  scoreForm;
-
-  constructor(private fb: FormBuilder) {
-    this.scoreForm = fb.group({
-      'field_C_0': [''],
-      'field_C_1': ['']
-    });
-  }
-}

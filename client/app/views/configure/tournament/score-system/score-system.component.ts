@@ -13,7 +13,7 @@ import { Operation } from 'app/services/model/Operation';
 })
 export class ScoreSystemComponent implements OnInit {
   @Input() discipline: IDiscipline;
-  @Input() standalone: boolean = false;
+  @Input() standalone = false;
   @Output() editModeChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() scoreGroupList: IScoreGroup[] = [];
   @Output() scoreGroupListChanged = new EventEmitter<IScoreGroup[]>();

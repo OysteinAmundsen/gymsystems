@@ -2,7 +2,7 @@ import { Observer } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-interface Callback { (data: any): void; }
+type Callback = (data: any) => void;
 
 declare class EventSource {
   onmessage: Callback;
@@ -14,7 +14,7 @@ declare class EventSource {
 
 @Injectable()
 export class EventService {
-  url: string = '/api/event';
+  url = '/api/event';
   observable: Observable<any>;
   observer: Observer<any>;
   eventSource: EventSource;

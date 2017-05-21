@@ -1,9 +1,9 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
-import { AppRootPage } from "../app.po";
+import { AppRootPage } from '../app.po';
 
 export class LoginPage extends AppRootPage {
 
-  url: string = '/login';
+  url = '/login';
   get username() { return element(by.css('app-login input[formcontrolname="username"]')); }
   get password() { return element(by.css('app-login input[formcontrolname="password"]')); }
   get loginButton() { return element(by.css('app-login .login footer button[type="submit"]')); }

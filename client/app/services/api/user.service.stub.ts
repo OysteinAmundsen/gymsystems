@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from "rxjs/Rx";
+import { ReplaySubject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
@@ -10,7 +10,7 @@ import 'rxjs/add/observable/throw';
 
 import { IUser, Role } from '../model/IUser';
 import { IDiscipline } from '../model/IDiscipline';
-import { IClub } from "app/services/model/IClub";
+import { IClub } from 'app/services/model/IClub';
 
 @Injectable()
 export class UserServiceStub {

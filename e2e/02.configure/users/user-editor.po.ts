@@ -1,9 +1,9 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
-import { AppRootPage } from "../../app.po";
+import { AppRootPage } from '../../app.po';
 
 export class UserEditor extends AppRootPage {
 
-  url: string = '/register';
+  url = '/register';
   get username() { return element(by.css('app-user-editor input[formcontrolname="name"]')); }
   get role() { return element(by.css('app-user-editor select[formcontrolname="role"]')); }
   get email() { return element(by.css('app-user-editor input[formcontrolname="email"]')); }

@@ -9,7 +9,7 @@ import { ITournamentParticipant } from '../model/ITournamentParticipant';
 
 @Injectable()
 export class ScheduleService {
-  url: string = '/api/schedule';
+  url = '/api/schedule';
 
   constructor(private http: Http) {  }
 

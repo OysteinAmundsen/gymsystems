@@ -4,11 +4,11 @@ import { Discipline } from './Discipline';
 import { Division } from './Division';
 import { Team } from './Team';
 import { TournamentParticipant } from './TournamentParticipant';
-import { User, CreatedBy } from "./User";
-import { Media } from "./Media";
+import { User, CreatedBy } from './User';
+import { Media } from './Media';
 
 @Entity()
-export class Tournament implements CreatedBy{
+export class Tournament implements CreatedBy {
   @PrimaryGeneratedColumn()
   id: number;
 

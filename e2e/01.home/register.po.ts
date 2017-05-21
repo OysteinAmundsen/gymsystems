@@ -1,10 +1,11 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
-import { AppRootPage } from "../app.po";
-import { LoginPage } from "./login.po";
+import { AppRootPage } from '../app.po';
+import { LoginPage } from './login.po';
 
 export class RegisterPage extends AppRootPage {
+  OrganizerClub = 'Fictional Club';
 
-  url: string = '/register';
+  url = '/register';
   get username() { return element(by.css('app-register input[formcontrolname="name"]')); }
   get role() { return element(by.css('app-register app-slide-toggle[formcontrolname="role"] label')); }
   get email() { return element(by.css('app-register input[formcontrolname="email"]')); }
@@ -19,7 +20,7 @@ export class RegisterPage extends AppRootPage {
   }
 
   navigateTo() {
-    let login = new LoginPage();
+    const login = new LoginPage();
     login.navigateTo();
     login.registerButton.click();
   }
@@ -29,7 +30,7 @@ export class RegisterPage extends AppRootPage {
       this.username.clear();
       this.username.sendKeys(username);
     }
-    if (isOrganizer) this.role.click();
+    if (isOrganizer) { this.role.click(); }
 
     if (email) {
       this.email.clear();
@@ -51,7 +52,7 @@ export class RegisterPage extends AppRootPage {
 
   registerUser(username: string, isOrganizer: boolean, club: string) {
     this.navigateTo();
-    this.enterData(username, isOrganizer, 'organizer@thisemailadressdoesnotexist.no', club, 'test', 'test');
+    this.enterData(username, isOrganizer, `${username}@thisemailadressdoesnotexist.no`, club, 'test', 'test');
     browser.wait(ExpectedConditions.textToBePresentInElementValue(this.club, club.toUpperCase()), 1000); // Wait for typeahead to complete
     expect(this.registerButton.isEnabled()).toBeTruthy();
 
@@ -62,7 +63,6 @@ export class RegisterPage extends AppRootPage {
     expect<any>(this.error.getText()).toEqual(`You are registerred! We've sent you an email with your credentials.`);
   }
 
-  OrganizerClub: string = 'Fictional Club';
   createOrganizer() {
     this.registerUser('organizer', true, this.OrganizerClub);
   }

@@ -6,7 +6,7 @@ import { Title } from '@angular/platform-browser';
 import { TournamentService } from 'app/services/api/tournament.service';
 import { ITournament } from 'app/services/model/ITournament';
 
-type tournamentType = {name: string, tournaments: ITournament[]};
+interface TournamentType {name: string, tournaments: ITournament[]}
 
 @Component({
   selector: 'app-home',
@@ -14,10 +14,10 @@ type tournamentType = {name: string, tournaments: ITournament[]};
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  _types: tournamentType[] = [];
-  get types() { return this._types.sort((a: tournamentType, b: tournamentType) => (a.name === 'Future') ? -1 : 1); } // Future first, allways
+  _types: TournamentType[] = [];
+  get types() { return this._types.sort((a: TournamentType, b: TournamentType) => (a.name === 'Future') ? -1 : 1); } // Future first, allways
   current = [];
-  isLoading: boolean = true;
+  isLoading = true;
   get hasTournaments() {
     return this.types.filter(t => t.tournaments.length > 0).length > 0;
   }

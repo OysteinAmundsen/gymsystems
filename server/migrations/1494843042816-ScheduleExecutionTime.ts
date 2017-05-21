@@ -1,4 +1,4 @@
-import { Connection, EntityManager, MigrationInterface, QueryRunner } from "typeorm";
+import { Connection, EntityManager, MigrationInterface, QueryRunner } from 'typeorm';
 
 export class ScheduleExecutionTime1494843042816 implements MigrationInterface {
 

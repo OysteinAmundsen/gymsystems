@@ -16,8 +16,8 @@ import { ScoreGroupController } from './ScoreGroupController';
 import { Discipline } from '../model/Discipline';
 import { Tournament } from '../model/Tournament';
 import { ScoreGroup } from '../model/ScoreGroup';
-import { Role } from "../model/User";
-import { MediaController } from "./MediaController";
+import { Role } from '../model/User';
+import { MediaController } from './MediaController';
 
 /**
  *

@@ -8,7 +8,7 @@ import { Container, Service } from 'typedi';
 import * as bcrypt from 'bcrypt';
 
 import { User } from '../model/User';
-import { IVerifyOptions } from "passport-local";
+import { IVerifyOptions } from 'passport-local';
 
 /**
  * Configure `Passport` authentication strategies for our application

@@ -9,7 +9,7 @@ import { IScoreGroup } from '../model/IScoreGroup';
 
 @Injectable()
 export class ScoreGroupService {
-  url: string = '/api/scoregroups';
+  url = '/api/scoregroups';
 
   constructor(private http: Http) {  }
 

@@ -14,7 +14,7 @@ import { IDiscipline } from 'app/services/model/IDiscipline';
 export class DisciplinesComponent implements OnInit, OnDestroy {
   get tournament() { return this.tournamentService.selected; };
   get tournamentId() { return this.tournamentService.selectedId; }
-  @Input() standalone: boolean = false;
+  @Input() standalone = false;
   @Input() disciplineList: IDiscipline[] = [];
   @Output() disciplineListchanged = new EventEmitter<IDiscipline[]>();
   defaultScoreGroups: IScoreGroup[];
@@ -76,7 +76,7 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
   }
 
   addDiscipline() {
-    let discipline: IDiscipline = <IDiscipline> (this.standalone ? { name: null, sortOrder: null } : {
+    const discipline: IDiscipline = <IDiscipline> (this.standalone ? { name: null, sortOrder: null } : {
       id: null, name: null, teams: [], tournament: this.tournament, sortOrder: null
     });
     this.disciplineList.push(discipline);

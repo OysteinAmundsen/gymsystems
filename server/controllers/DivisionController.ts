@@ -12,8 +12,8 @@ import { RequireRole } from '../middlewares/RequireAuth';
 import { Tournament } from '../model/Tournament';
 import { ConfigurationController } from './ConfigurationController';
 import { Division } from '../model/Division';
-import { Role } from "../model/User";
-import { MediaController } from "./MediaController";
+import { Role } from '../model/User';
+import { MediaController } from './MediaController';
 
 /**
  *

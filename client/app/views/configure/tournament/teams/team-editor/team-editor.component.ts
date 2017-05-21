@@ -12,7 +12,7 @@ import { ITeam } from 'app/services/model/ITeam';
 import { IClub } from 'app/services/model/IClub';
 import { IUser } from 'app/services/model/IUser';
 import { IMedia } from 'app/services/model/IMedia';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 @Component({
   selector: 'app-team-editor',
@@ -102,18 +102,17 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   }
 
   fileAdded($event, discipline: IDiscipline) {
-    let fileList: FileList = (<HTMLInputElement>event.target).files;
+    const fileList: FileList = (<HTMLInputElement>event.target).files;
     const upload = () => {
       this.teamService.uploadMedia(fileList[0], this.teamForm.value, discipline).subscribe(
         data => this.reloadTeam(),
         error => console.log(error)
       )
     }
-    if(fileList.length > 0) {
+    if (fileList.length > 0) {
       if (this.teamForm.dirty) {
         this.save(true).then(upload);
-      }
-      else { upload(); }
+      } else { upload(); }
     }
   }
 
@@ -176,12 +175,10 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     // Get club
     if (!this.selectedClub && team.club) {
       team.club = await this.clubService.validateClub(team);
-    }
-    else if (this.selectedClub && this.selectedClub.id) {
+    } else if (this.selectedClub && this.selectedClub.id) {
       delete this.selectedClub.teams;
       team.club = this.selectedClub;
-    }
-    else {
+    } else {
       this.errorHandler.error = 'No club set. Cannot register!';
       return;
     }
@@ -214,7 +211,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     this.teamForm.markAsDirty();
   }
   getClubMatchesFn() {
-    let me = this;
+    const me = this;
     return function (items, currentValue: string, matchText: string) {
       if (!currentValue) { return items; }
       return me.clubService.findByName(currentValue);

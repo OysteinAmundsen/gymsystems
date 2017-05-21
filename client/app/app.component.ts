@@ -5,7 +5,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { TournamentService, UserService } from 'app/services/api';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,7 @@ import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  navState: boolean = false;
+  navState = false;
 
   get tournament() { return this.tournamentService.selected; }
 
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.translate.addLangs(['en', 'no']);
     this.translate.setDefaultLang('en');
 
-    let browserLang: string = this.translate.getBrowserLang();
+    const browserLang: string = this.translate.getBrowserLang();
     this.translate.use(browserLang.match(/en|no/) ? browserLang : 'en');
   }
 

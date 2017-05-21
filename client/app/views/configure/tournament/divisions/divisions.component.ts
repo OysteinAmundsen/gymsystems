@@ -13,7 +13,7 @@ import { DivisionType } from 'app/services/model/DivisionType';
   styleUrls: ['./divisions.component.scss']
 })
 export class DivisionsComponent implements OnInit, OnDestroy {
-  @Input() standalone: boolean = false;
+  @Input() standalone = false;
   @Input() divisions: IDivision[] = [];
 
   @Output() divisionsChanged = new EventEmitter<IDivision[]>();
@@ -21,7 +21,7 @@ export class DivisionsComponent implements OnInit, OnDestroy {
   genderDivisions: IDivision[];
   defaultDivisions: IDivision[];
   selected: IDivision;
-  isAdding: boolean = false;
+  isAdding = false;
 
   get tournament() { return this.tournamentService.selected; };
   get tournamentId() { return this.tournamentService.selectedId; };

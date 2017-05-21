@@ -7,7 +7,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { IConfiguration } from '../model/IConfiguration';
-import { DivisionType } from "app/services/model/DivisionType";
+import { DivisionType } from 'app/services/model/DivisionType';
 
 @Injectable()
 export class ConfigurationServiceStub  {

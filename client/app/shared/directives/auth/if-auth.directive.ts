@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
   selector: '[appIfAuth]'
 })
 export class IfAuthDirective implements OnDestroy {
-  visible: boolean = false;
+  visible = false;
   roles = Role;
 
   userSubscription: Subscription;
@@ -20,14 +20,12 @@ export class IfAuthDirective implements OnDestroy {
         const showOnAuth = !!value;
         const role = typeof value === 'string' && me.roles[value] ? me.roles[value] : null;
 
-        if (showOnAuth && !user) me.hide();          // `*ngIf="user"`
-        else if (!showOnAuth && user) me.hide();     // `*ngIf="!user"`
-        else if (role && user && user.role < role) { // `*ngIf="user.role !== xxx"` - Check role as well as authentication
+        if ((showOnAuth && !user) || (!showOnAuth && user) || (role && user && user.role < role)) {
           me.hide();
+        } else {
+          // Alls good. Add template to DOM
+          me.show();
         }
-
-        // Alls good. Add template to DOM
-        else me.show();
       }
     });
   }

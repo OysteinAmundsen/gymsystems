@@ -7,8 +7,8 @@ import { Title } from '@angular/platform-browser';
 import { TournamentService, UserService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 import { IUser, Role } from 'app/services/model/IUser';
-import { Moment } from "moment";
-import { TranslateService } from "@ngx-translate/core";
+import { Moment } from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-tournament-editor',
@@ -21,7 +21,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   user: IUser;
   roles = Role;
   userSubscription: Subscription;
-  isEdit: boolean = false;
+  isEdit = false;
 
   constructor(
     private fb: FormBuilder,

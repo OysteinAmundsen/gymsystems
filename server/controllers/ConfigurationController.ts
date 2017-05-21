@@ -9,8 +9,8 @@ import { RequireRole } from '../middlewares/RequireAuth';
 
 import { Logger } from '../utils/Logger';
 import { Configuration } from '../model/Configuration';
-import { Service } from "typedi";
-import { Role } from "../model/User";
+import { Service } from 'typedi';
+import { Role } from '../model/User';
 
 /**
  *

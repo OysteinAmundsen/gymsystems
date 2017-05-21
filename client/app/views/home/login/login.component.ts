@@ -5,7 +5,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from 'app/services/api';
 import { Subscription } from 'rxjs/Subscription';
 import { Title } from '@angular/platform-browser';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
-  _redirectTo: string = '/';
+  _redirectTo = '/';
   get redirectTo() { return this._redirectTo; }
   set redirectTo(value) {
     this._redirectTo = (value === '/login' ? '/' : value);

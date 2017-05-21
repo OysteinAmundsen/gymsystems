@@ -11,7 +11,7 @@ import { DivisionType } from 'app/services/model/DivisionType';
   styleUrls: ['./division-editor.component.scss']
 })
 export class DivisionEditorComponent implements OnInit {
-  @Input() standalone: boolean = false;
+  @Input() standalone = false;
   @Input() division: IDivision = <IDivision>{};
   @Output() divisionChanged: EventEmitter<any> = new EventEmitter<any>();
   divisionForm: FormGroup;

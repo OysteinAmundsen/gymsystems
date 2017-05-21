@@ -14,7 +14,7 @@ import { DivisionType } from 'app/services/model/DivisionType';
 import { Role, IUser } from 'app/services/model/IUser';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IMedia } from 'app/services/model/IMedia';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 @Component({
   selector: 'app-list',
@@ -57,8 +57,7 @@ export class ListComponent implements OnInit, OnDestroy {
       this.tournament = this.tournamentService.selected;
       this.title.setTitle(`${this.tournament.name} | GymSystems`);
       this.loadSchedule();
-    }
-    else {
+    } else {
       this.paramSubscription = this.route.params.subscribe((params: any) => {
         this.tournamentId = +params.id;
         if (!isNaN(this.tournamentId)) {
@@ -108,7 +107,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   canStart(participant: ITournamentParticipant, index: number) {
-    let previousStarted = (index > 0 ? this.schedule[index - 1].startTime != null : true);
+    const previousStarted = (index > 0 ? this.schedule[index - 1].startTime != null : true);
     return participant.startTime == null && previousStarted;
   }
 

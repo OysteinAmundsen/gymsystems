@@ -7,7 +7,7 @@ import { UserService, ClubService } from 'app/services/api';
 import { IUser, RoleNames, Role } from 'app/services/model/IUser';
 import { ValidationService } from 'app/services/validation/validation.service';
 import { IClub } from 'app/services/model/IClub';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 @Component({
   selector: 'app-user-editor',
@@ -19,6 +19,7 @@ export class UserEditorComponent implements OnInit {
   currentUser: IUser;
   userForm: FormGroup;
   clubs = [];
+  selectedClub: IClub;
   selectedUserId: number;
   user: IUser = <IUser>{};
   get roleNames() {
@@ -82,7 +83,7 @@ export class UserEditorComponent implements OnInit {
   }
 
   getClubMatchesFn() {
-    let me = this;
+    const me = this;
     return function (items, currentValue: string, matchText: string) {
       if (!currentValue) { return items; }
       return me.clubService.findByName(currentValue);

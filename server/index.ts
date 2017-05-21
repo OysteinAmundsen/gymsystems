@@ -31,7 +31,7 @@ import { setupAuthentication } from './config/AuthenticationConfig';
 import { SSEService } from './services/SSEService';
 import { Logger } from './utils/Logger';
 import { ERROR_MESSAGES } from './messages';
-import { NextFunction, ErrorRequestHandler } from "express-serve-static-core";
+import { NextFunction, ErrorRequestHandler } from 'express-serve-static-core';
 
 /**
  * Our application starts here.

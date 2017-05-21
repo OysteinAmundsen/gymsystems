@@ -10,7 +10,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { LoginComponent } from './login.component';
 import { UserService } from 'app/services/api';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

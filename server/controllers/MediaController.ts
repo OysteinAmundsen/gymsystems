@@ -18,7 +18,7 @@ import { TeamController } from '../controllers/TeamController';
 import { DisciplineController } from '../controllers/DisciplineController';
 import { RequireRole } from '../middlewares/RequireAuth';
 import { Media } from '../model/Media';
-import { Role } from "../model/User";
+import { Role } from '../model/User';
 
 import { Logger } from '../utils/Logger';
 
@@ -26,7 +26,7 @@ import { TournamentController } from '../controllers/TournamentController';
 import { Team } from '../model/Team';
 import { Discipline } from '../model/Discipline';
 import { Division } from '../model/Division';
-import { isMyClub } from "../validators/ClubValidator";
+import { isMyClub } from '../validators/ClubValidator';
 
 type jobType = {
   id: number,

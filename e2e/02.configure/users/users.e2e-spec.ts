@@ -1,8 +1,8 @@
 import { browser, ExpectedConditions } from 'protractor';
-import { ConfigureUsers } from "./users.po";
-import { UserEditor } from "./user-editor.po";
-import { LoginPage } from "../../01.home/login.po";
-import { RegisterPage } from "../../01.home/register.po";
+import { ConfigureUsers } from './users.po';
+import { UserEditor } from './user-editor.po';
+import { LoginPage } from '../../01.home/login.po';
+import { RegisterPage } from '../../01.home/register.po';
 
 describe('gymsystems: Configure users', function() {
   let users: ConfigureUsers;

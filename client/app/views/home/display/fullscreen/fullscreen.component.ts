@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 import { EventService } from 'app/services/api/event.service';
-import { DisplayService } from "app/services/api";
+import { DisplayService } from 'app/services/api';
 
 @Component({
   selector: 'app-fullscreen',

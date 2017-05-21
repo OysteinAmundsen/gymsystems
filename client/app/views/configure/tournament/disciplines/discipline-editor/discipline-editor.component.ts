@@ -14,7 +14,7 @@ import { TournamentEditorComponent } from '../../tournament-editor/tournament-ed
   styleUrls: ['./discipline-editor.component.scss']
 })
 export class DisciplineEditorComponent implements OnInit {
-  @Input() standalone: boolean = false;
+  @Input() standalone = false;
   @Input() discipline: IDiscipline = <IDiscipline>{};
   @Output() disciplineChanged: EventEmitter<any> = new EventEmitter<any>();
 
@@ -36,7 +36,7 @@ export class DisciplineEditorComponent implements OnInit {
       name: [this.discipline.name, [Validators.required]],
       teams: [this.discipline.teams],
       tournament: [this.discipline.tournament],
-      //scoreGroups: [this.discipline.scoreGroups]
+      // scoreGroups: [this.discipline.scoreGroups]
     });
   }
 

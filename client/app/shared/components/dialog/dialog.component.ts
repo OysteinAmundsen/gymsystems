@@ -6,8 +6,8 @@ import { Component, OnInit, Output, EventEmitter, ElementRef, Input, HostListene
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
-  @Input() noButtons: boolean = false;
-  _isOpen: boolean = false;
+  @Input() noButtons = false;
+  _isOpen = false;
   @Input()
   set isOpen(value) { this._isOpen = value; value ? this.openDialog() : this.closeDialog(); }
   get isOpen() { return this._isOpen; }

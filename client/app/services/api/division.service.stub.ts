@@ -7,8 +7,8 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { IDivision } from '../model/IDivision';
-import { DivisionType } from "app/services/model/DivisionType";
-import { ITournament } from "app/services/model/ITournament";
+import { DivisionType } from 'app/services/model/DivisionType';
+import { ITournament } from 'app/services/model/ITournament';
 
 @Injectable()
 export class DivisionServiceStub {

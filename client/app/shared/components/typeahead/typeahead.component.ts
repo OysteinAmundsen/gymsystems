@@ -12,13 +12,7 @@ import {
   SimpleChange,
   HostListener
 } from '@angular/core';
-import { Subscription } from "rxjs/Subscription";
-
-export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TypeaheadComponent),
-  multi: true
-};
+import { Subscription } from 'rxjs/Subscription';
 
 const noop = () => { };
 
@@ -26,10 +20,14 @@ const noop = () => { };
   selector: 'app-typeahead',
   templateUrl: './typeahead.component.html',
   styleUrls: ['./typeahead.component.scss'],
-  providers: [INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => TypeaheadComponent),
+    multi: true
+  }]
 })
 export class TypeaheadComponent implements ControlValueAccessor, AfterContentInit, OnChanges {
-  @Input() required: boolean = false;
+  @Input() required = false;
   @Input() items = [];
   @Input() itemText: string;
   @Input() getMatches: Function;
@@ -41,7 +39,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   _selectedIndex: number;
   get selectedIndex() { return this._selectedIndex; }
   set selectedIndex(value) {
-    if (!value) { value = 0;}
+    if (!value) { value = 0; }
     if (value > this._selectedIndex && value >= this.matches.length) {
       value = this.matches.length - 1;
     }
@@ -68,6 +66,8 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
 
   popupVisible = false;
   private matches = [];
+  matchSubscription: Subscription;
+  matcher: string;
 
   ngAfterContentInit() {
     this.setMatches();
@@ -88,7 +88,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     this.popupVisible = false;
   }
 
-  //[(value)] is buggy and does not propagate changes on the md-input so we can get the value correctly
+  // [(value)] is buggy and does not propagate changes on the md-input so we can get the value correctly
   onKeyPress(event: KeyboardEvent) {
     const keyCode = event.keyCode;
     const input: HTMLInputElement = <HTMLInputElement>event.target;
@@ -113,11 +113,9 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     this.popupVisible = false;
   }
 
-  matchSubscription: Subscription;
-  matcher: string;
   private setMatches() {
     if (this.value) {
-      let m = this.getMatches(this.items, this.value, this.itemText);
+      const m = this.getMatches(this.items, this.value, this.itemText);
       if (m instanceof Observable) {
         // Cancel last call
         if (this.matcher !== this.value) {

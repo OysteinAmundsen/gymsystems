@@ -1,13 +1,15 @@
 import { browser, ExpectedConditions } from 'protractor';
-import { LoginPage } from '../01.home/login.po';
-import { RegisterPage } from '../01.home/register.po';
-import { ConfigureUsers } from './users/users.po';
-import { Configure } from './configure.po';
+import { ConfigureTournaments } from "./tournaments.po";
+import { LoginPage } from "../../01.home/login.po";
+import { RegisterPage } from "../../01.home/register.po";
+import { Configure } from "../configure.po";
+import { ConfigureUsers } from "../users/users.po";
 
 describe('gymsystems: Configure', function() {
   let login: LoginPage;
   let register: RegisterPage;
   let users: ConfigureUsers;
+  let tournaments: ConfigureTournaments;
   let configure: Configure;
 
   const userCount = 1; // Start of with admin as the only user
@@ -16,6 +18,7 @@ describe('gymsystems: Configure', function() {
     login = new LoginPage();
     register = new RegisterPage();
     users = new ConfigureUsers();
+    tournaments = new ConfigureTournaments();
     configure = new Configure();
 
     browser.ignoreSynchronization = true
@@ -25,7 +28,28 @@ describe('gymsystems: Configure', function() {
   });
 
 
-  describe('menu visible to', () => {
+  describe('an organizer', () => {
+    beforeAll(() => {
+      register.browserLoad();
+
+      // Create organizer
+      register.createOrganizer();
+      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000, 'Registration message did not show');
+      register.dismissError();
+    });
+
+    it('should be able to create tournaments', () => {
+      // Login as club representative
+      login.navigateTo();
+      login.login('organizer', 'test');
+      browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 5000, 'User info did not show');
+      expect<any>(login.userInfo.getText()).toEqual('organizer', 'User info displays incorrectly');
+
+      login.logout();
+    });
+  });
+
+  describe('a club', () => {
     beforeAll(() => {
       register.browserLoad();
 
@@ -34,36 +58,25 @@ describe('gymsystems: Configure', function() {
       browser.wait(ExpectedConditions.visibilityOf(register.error), 1000, 'Registration message did not show');
       register.dismissError();
 
-      // Create organizer
-      register.createOrganizer();
+      // Create club2
+      register.createClub('club2', 'Another club');
       browser.wait(ExpectedConditions.visibilityOf(register.error), 1000, 'Registration message did not show');
       register.dismissError();
     });
 
-    it('club should only see tournaments menu', () => {
+    it('should be able to create tournaments', () => {
       // Login as club representative
       login.navigateTo();
       login.login('club1', 'test');
       browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 5000, 'User info did not show');
       expect<any>(login.userInfo.getText()).toEqual('club1', 'User info displays incorrectly');
 
-      configure.navigateTo();
-      expect<any>(configure.menuItems.count()).toBe(2); // Including logout
       login.logout();
     });
-    it('organizer should see tournaments and users menu', () => {
-      // Login as club representative
-      login.navigateTo();
-      login.login('organizer', 'test');
-      browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 5000, 'User info did not show');
-      expect<any>(login.userInfo.getText()).toEqual('organizer', 'User info displays incorrectly');
+  });
 
-      configure.navigateTo();
-      expect<any>(configure.menuItems.count()).toBe(3); // Including logout
-      login.logout();
-    });
-
-    it('can cleanup as admin', () => {
+  describe('admin', () => {
+    it('can cleanup', () => {
       // Login as admin
       login.loginAdmin();
 
@@ -73,6 +86,7 @@ describe('gymsystems: Configure', function() {
       // Remove users
       users.removeUser('organizer');
       users.removeUser('club1');
+      users.removeUser('club2');
       expect<any>(users.rowCount).toBe(1, 'Only admin user left in the system');
 
       // Logout

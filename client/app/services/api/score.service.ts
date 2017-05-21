@@ -9,7 +9,7 @@ import { ITournamentParticipantScore } from '../model/ITournamentParticipantScor
 
 @Injectable()
 export class ScoreService {
-  url: string = '/api/score/participant';
+  url = '/api/score/participant';
 
   constructor(private http: Http) {  }
 

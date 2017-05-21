@@ -1,8 +1,8 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
-import { AppRootPage } from "../app.po";
+import { AppRootPage } from '../app.po';
 
 export class Configure extends AppRootPage {
-  url: string = '/configure';
+  url = '/configure';
   // Contents
 
   get menu() { return element(by.css('app-configure > menu')); }
@@ -20,4 +20,5 @@ export class Configure extends AppRootPage {
     this.goToConfigure();
     browser.wait(ExpectedConditions.visibilityOf(this.menu), 5000, 'Configuration menu did not display');
   }
+
 }

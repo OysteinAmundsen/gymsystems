@@ -9,7 +9,7 @@ import { IConfiguration } from '../model/IConfiguration';
 
 @Injectable()
 export class ConfigurationService  {
-  url: string = '/api/configuration';
+  url = '/api/configuration';
 
   constructor(private http: Http) {}
 

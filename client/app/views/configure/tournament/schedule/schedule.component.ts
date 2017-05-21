@@ -125,7 +125,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         });
       });
     });
-    this.disciplines = disciplines.sort((a,b) => a.sortOrder < b.sortOrder ? -1 : 1 );
+    this.disciplines = disciplines.sort((a, b) => a.sortOrder < b.sortOrder ? -1 : 1 );
     return schedule;
   }
 

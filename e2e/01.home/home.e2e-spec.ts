@@ -1,6 +1,6 @@
 import { browser, ExpectedConditions } from 'protractor';
 import { HomePage } from './home.po';
-import { LoginPage } from "./login.po";
+import { LoginPage } from './login.po';
 
 describe('gymsystems: Home', () => {
   let home: HomePage;
@@ -25,7 +25,7 @@ describe('gymsystems: Home', () => {
   });
 
   it('should redirect to login page when login button is pushed', () => {
-    let login = new LoginPage();
+    const login = new LoginPage();
     login.navigateTo();
     expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/login?u=%252F');
   })

@@ -27,11 +27,10 @@ export class ClubService {
   async validateClub(obj: IBelongsToClub) {
     let club;
     if (typeof obj.club === 'string') {
-      let clubs = await this.findByName(obj.club).toPromise();
+      const clubs = await this.findByName(obj.club).toPromise();
       if (clubs && clubs.length) {
         club = clubs[0];
-      }
-      else {
+      } else {
         club = await this.saveClub(obj.club).toPromise();
       }
     }

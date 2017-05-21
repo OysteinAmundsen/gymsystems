@@ -9,7 +9,7 @@ import { IDiscipline } from '../model/IDiscipline';
 
 @Injectable()
 export class DisciplineService {
-  url: string = '/api/disciplines';
+  url = '/api/disciplines';
 
   constructor(private http: Http) {  }
 

@@ -1,8 +1,7 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
-import { LoginPage } from "./01.home/login.po";
 
 export class AppRootPage {
-  url: string = '/';
+  url = '/';
 
   // Menu
   get nav() { return element(by.css('app-root nav ul li')); }

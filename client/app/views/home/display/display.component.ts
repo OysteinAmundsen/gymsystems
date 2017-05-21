@@ -3,7 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { Title } from '@angular/platform-browser';
 
-import { EventService, TournamentService, ScheduleService, TeamsService, UserService, ConfigurationService, DisplayService } from 'app/services/api';
+import {
+  EventService,
+  TournamentService,
+  ScheduleService,
+  TeamsService,
+  UserService,
+  ConfigurationService,
+  DisplayService
+} from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 import { IUser } from 'app/services/model/IUser';
@@ -21,7 +29,12 @@ export class DisplayComponent implements OnInit, OnDestroy {
 
   display = ['', ''];
 
-  constructor(private route: ActivatedRoute, private tournamentService: TournamentService, private displayService: DisplayService, private eventService: EventService, private title: Title) {
+  constructor(
+    private route: ActivatedRoute,
+    private tournamentService: TournamentService,
+    private displayService: DisplayService,
+    private eventService: EventService,
+    private title: Title) {
   }
 
   ngOnInit() {
@@ -33,8 +46,7 @@ export class DisplayComponent implements OnInit, OnDestroy {
         this.tournament = this.tournamentService.selected;
         this.title.setTitle(`${this.tournament.name} | GymSystems`);
         this.renderDisplayTemplates();
-      }
-      else {
+      } else {
         this.tournamentService.selectedId = this.tournamentId;
         this.tournamentService.getById(this.tournamentId).subscribe((tournament) => {
           this.tournamentService.selected = tournament;
@@ -52,6 +64,8 @@ export class DisplayComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.eventSubscription.unsubscribe();
-    if (this.paramSubscription) { this.paramSubscription.unsubscribe(); }
+    if (this.paramSubscription) {
+      this.paramSubscription.unsubscribe();
+    }
   }
 }

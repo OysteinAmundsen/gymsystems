@@ -6,15 +6,19 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class OrderByPipe implements PipeTransform {
 
   transform(records: Array<any>, args?: any): any {
-    let direction = (args.substring(0,1) == '~' ? -1 : 1);
-    let property = args.replace('~', '');
+    const direction = (args.substring(0, 1) == '~' ? -1 : 1);
+    const property = args.replace('~', '');
     if (!records || !records.length) {
       return records;
     }
     return records.sort((a, b) => {
-      if (a[property] < b[property])      { return -1 * direction; }
-      else if (a[property] > b[property]) { return 1 * direction; }
-      else                                { return 0; }
+      if (a[property] < b[property])      {
+        return -1 * direction;
+      } else if (a[property] > b[property]) {
+        return 1 * direction;
+      } else {
+        return 0;
+      }
     });
   };
 }

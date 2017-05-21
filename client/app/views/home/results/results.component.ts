@@ -64,8 +64,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.tournament = this.tournamentService.selected;
       this.title.setTitle(`${this.tournament.name} | GymSystems`);
       this.loadResults();
-    }
-    else {
+    } else {
       this.paramSubscription = this.route.params.subscribe((params: any) => {
         this.tournamentId = +params.id;
         if (!isNaN(this.tournamentId)) {
@@ -103,7 +102,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   getByDivision(name: string, filteredSchedule?: ITournamentParticipant[]) {
-    let schedule = filteredSchedule || this.schedule;
+    const schedule = filteredSchedule || this.schedule;
     return schedule.filter(s => this.teamService.division(s.team) === name)
       .sort((a: ITournamentParticipant, b: ITournamentParticipant) => {
         return this.score(a) > this.score(b) ? -1 : 1;
@@ -111,7 +110,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   getByDiscipline(name: string, filteredSchedule?: ITournamentParticipant[]) {
-    let schedule = filteredSchedule || this.schedule;
+    const schedule = filteredSchedule || this.schedule;
     return schedule.filter(s => s.discipline.name === name)
       .sort((a: ITournamentParticipant, b: ITournamentParticipant) => {
         return this.score(a) > this.score(b) ? -1 : 1;

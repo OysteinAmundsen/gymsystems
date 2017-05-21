@@ -9,7 +9,7 @@ import { ITournamentParticipantScore } from 'app/services/model/ITournamentParti
   styleUrls: ['./score.component.scss']
 })
 export class ScoreComponent implements OnInit {
-  defaultScore: number = 0.0;
+  defaultScore = 0.0;
   ct: AbstractControl;
 
   @ViewChild('score') input: ElementRef;
@@ -31,8 +31,7 @@ export class ScoreComponent implements OnInit {
         if (value == null || value < this.model.scoreGroup.min) {
           this.score = this.model.scoreGroup.min;
           this.input.nativeElement.select();
-        }
-        else if (value > this.model.scoreGroup.max) {
+        } else if (value > this.model.scoreGroup.max) {
           this.score = this.model.scoreGroup.max;
         }
       });
@@ -48,9 +47,7 @@ export class ScoreComponent implements OnInit {
     if (event.srcElement === this.input.nativeElement) {
       if (event.code === 'PageDown' && this.ct.value > this.model.scoreGroup.min) {
         this.score -= 1;
-      }
-
-      else if (event.code === 'PageUp' && this.ct.value < this.model.scoreGroup.max) {
+      } else if (event.code === 'PageUp' && this.ct.value < this.model.scoreGroup.max) {
         this.score += 1;
       }
     }

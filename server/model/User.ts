@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { Club, BelongsToClub } from './Club';
-import { Tournament } from "./Tournament";
+import { Tournament } from './Tournament';
 
 export enum Role {
   Admin = 99, Organizer = 90, Secretariat = 80, Club = 50, User = 10

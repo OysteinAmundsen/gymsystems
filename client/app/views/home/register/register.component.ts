@@ -10,7 +10,7 @@ import { ValidationService } from 'app/services/validation/validation.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 import { IUser, Role } from 'app/services/model/IUser';
-import { IClub } from "app/services/model/IClub";
+import { IClub } from 'app/services/model/IClub';
 
 enum Type {
   Organizer = 0 + Role.Organizer, Club = 0 + Role.Club
@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit {
   }
 
   getClubMatchesFn() {
-    let me = this;
+    const me = this;
     return function (items, currentValue: string, matchText: string) {
       if (!currentValue) { return items; }
       return me.clubService.findByName(currentValue);
@@ -74,12 +74,10 @@ export class RegisterComponent implements OnInit {
     const user = this.registerForm.value;
     if (!this.selectedClub && user.club) {
       user.club = await this.clubService.validateClub(user);
-    }
-    else if (this.selectedClub && this.selectedClub.id) {
+    } else if (this.selectedClub && this.selectedClub.id) {
       delete this.selectedClub.teams;
       user.club = this.selectedClub;
-    }
-    else {
+    } else {
       this.errorHandler.error = 'No club set. Cannot register!';
       return;
     }

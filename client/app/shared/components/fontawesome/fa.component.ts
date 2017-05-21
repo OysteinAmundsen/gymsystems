@@ -35,10 +35,10 @@ export class FaComponent implements OnInit, OnChanges {
   ngOnInit() { }
 
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
-    let me = this;
+    const me = this;
     Object.keys(changes).forEach(function (key) {
-      let previousValue = changes[key].previousValue;
-      let currentValue = changes[key].currentValue;
+      const previousValue = changes[key].previousValue;
+      const currentValue = changes[key].currentValue;
       switch (key) {
         case 'name':
           me.removeFaClass(`fa-${previousValue}`);

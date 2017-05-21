@@ -17,7 +17,7 @@ import { ScheduleController } from './ScheduleController';
 import { Team } from '../model/Team';
 import { User, Role } from '../model/User';
 import { Club, BelongsToClub } from '../model/Club';
-import { MediaController } from "./MediaController";
+import { MediaController } from './MediaController';
 
 /**
  *

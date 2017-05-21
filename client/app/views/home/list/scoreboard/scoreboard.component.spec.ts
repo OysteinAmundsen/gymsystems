@@ -21,9 +21,24 @@ import { Operation } from 'app/services/model/Operation';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { ScoreServiceStub } from 'app/services/api/score.service.stub';
 
+@Component({
+ selector  : 'app-cmp',
+ template  : `<app-scoreboard [participant]="item" (onClose)="closeEditor()"></app-scoreboard>`
+})
+class WrapperComponent {
+  item: ITournamentParticipant = <ITournamentParticipant>{
+    id: 0, startNumber: 0, team: <ITeam>{}, tournament: <ITournament>{}, scores: [], discipline: <IDiscipline>{
+      id: 0, name: '', sortOrder: 0, tournament: <ITournament>{}, scoreGroups: [
+        <IScoreGroup>{ id: 0, name: '', type: 'C', judges: 2, max: 5, min: 0, discipline: <IDiscipline>{ }, operation: Operation.Addition }
+      ]
+    },
+  }
+  constructor() {
+  }
+}
 describe('ScoreboardComponent', () => {
   let component: ScoreboardComponent;
-  let fixture: ComponentFixture<TestCmpWrapper>;
+  let fixture: ComponentFixture<WrapperComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -42,7 +57,7 @@ describe('ScoreboardComponent', () => {
         }),
       ],
       declarations: [
-        TestCmpWrapper,
+        WrapperComponent,
         ScoreboardComponent,
         ScoreGroupComponent,
         ScoreComponent
@@ -56,7 +71,7 @@ describe('ScoreboardComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestCmpWrapper);
+    fixture = TestBed.createComponent(WrapperComponent);
     component = fixture.debugElement.children[0].componentInstance;
     fixture.detectChanges();
   });
@@ -65,37 +80,3 @@ describe('ScoreboardComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-@Component({
- selector  : 'test-cmp',
- template  : `<scoreboard [participant]="item" (onClose)="closeEditor()"></scoreboard>`
-})
-class TestCmpWrapper {
-  item: ITournamentParticipant = <ITournamentParticipant>{
-    id: 0,
-    startNumber: 0,
-    discipline: <IDiscipline>{
-      id: 0,
-      name: '',
-      sortOrder: 0,
-      tournament: <ITournament>{},
-      scoreGroups: [
-        <IScoreGroup>{
-          id: 0,
-          name: '',
-          type: 'C',
-          judges: 2,
-          max: 5,
-          min: 0,
-          discipline: <IDiscipline>{ },
-          operation: Operation.Addition
-        }
-      ]
-    },
-    team: <ITeam>{},
-    tournament: <ITournament>{},
-    scores: []
-  }
-  constructor() {
-  }
-}

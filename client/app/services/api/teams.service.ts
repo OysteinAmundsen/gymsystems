@@ -11,7 +11,7 @@ import { DivisionType } from '../model/DivisionType';
 
 @Injectable()
 export class TeamsService {
-  url: string = '/api/teams';
+  url = '/api/teams';
 
   constructor(private http: Http) {  }
 
@@ -47,7 +47,7 @@ export class TeamsService {
   }
 
   uploadMedia(file: File, team: ITeam, discipline: IDiscipline) {
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append('media', file, file.name);
 
     return this.http.post(`/api/media/upload/${team.id}/${discipline.id}`, formData)

@@ -12,7 +12,7 @@ import { ITournament } from '../model/ITournament';
 
 @Injectable()
 export class TournamentService {
-  private url: string = '/api/tournaments';
+  private url = '/api/tournaments';
   private _selectedTournament: ITournament;
   get selected(): ITournament { return this._selectedTournament; }
   set selected(tournament: ITournament) { this._selectedTournament = tournament; }
@@ -37,7 +37,7 @@ export class TournamentService {
   }
 
   save(tournament: ITournament) {
-    let call = (tournament.id) ? this.http.put(`${this.url}/${tournament.id}`, tournament) : this.http.post(this.url, tournament);
+    const call = (tournament.id) ? this.http.put(`${this.url}/${tournament.id}`, tournament) : this.http.post(this.url, tournament);
     return call.map((res: Response) => res.json());
   }
 

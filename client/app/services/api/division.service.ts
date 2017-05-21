@@ -9,7 +9,7 @@ import { IDivision } from '../model/IDivision';
 
 @Injectable()
 export class DivisionService {
-  url: string = '/api/divisions';
+  url = '/api/divisions';
 
   constructor(private http: Http) {  }
 

@@ -1,4 +1,15 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChildren, EventEmitter, HostListener, OnDestroy } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Output,
+  ViewChildren,
+  EventEmitter,
+  HostListener,
+  OnDestroy
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -16,12 +27,12 @@ import { ScoreGroupComponent } from '../score-group/score-group.component';
  *
  */
 @Component({
-  selector: 'scoreboard',
+  selector: 'app-scoreboard',
   templateUrl: './scoreboard.component.html',
   styleUrls: ['./scoreboard.component.scss']
 })
 export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
-  grandTotal: number = 0;
+  grandTotal = 0;
   scoreForm: FormGroup;
   scores: ITournamentParticipantScore[];
   roles = Role;
@@ -51,7 +62,12 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChildren(ScoreGroupComponent) groups: ScoreGroupComponent[];
 
-  constructor(private scoreService: ScoreService, private element: ElementRef, private fb: FormBuilder, private userService: UserService) { }
+  constructor(
+    private scoreService: ScoreService,
+    private element: ElementRef,
+    private fb: FormBuilder,
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
