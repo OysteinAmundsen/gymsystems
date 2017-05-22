@@ -7,10 +7,10 @@ export class Configure extends AppRootPage {
 
   get menu() { return element(by.css('app-configure > menu')); }
   get menuItems() { return element.all(by.css('app-configure > menu li a')); }
-  get tournaments() { return element(by.css('app-configure > menu li a[routerlink="./tournament"]')); }
-  get users() { return element(by.css('app-configure > menu li a[routerlink="./users"]')); }
-  get display() { return element(by.css('app-configure > menu li a[routerlink="./display"]')); }
-  get advanced() { return element(by.css('app-configure > menu li a[routerlink="./advanced"]')); }
+  get menuTournaments() { return element(by.css('app-configure > menu li a[routerlink="./tournament"]')); }
+  get menuUsers() { return element(by.css('app-configure > menu li a[routerlink="./users"]')); }
+  get menuDisplay() { return element(by.css('app-configure > menu li a[routerlink="./display"]')); }
+  get menuAdvanced() { return element(by.css('app-configure > menu li a[routerlink="./advanced"]')); }
 
   browserLoad() {
     return browser.get(this.url);

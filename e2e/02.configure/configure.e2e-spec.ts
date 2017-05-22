@@ -12,71 +12,71 @@ describe('gymsystems: Configure', function() {
 
   const userCount = 1; // Start of with admin as the only user
 
-  beforeAll(() => {
+  beforeAll((done) => {
     login = new LoginPage();
     register = new RegisterPage();
     users = new ConfigureUsers();
     configure = new Configure();
 
-    browser.ignoreSynchronization = true
+    users.setUp().then(() => done());
+    browser.ignoreSynchronization = true;
+    login.browserLoad();
   });
-  afterAll(() => {
+  afterAll((done) => {
+    users.tearDown().then(() => done());
     browser.ignoreSynchronization = false
   });
 
 
-  describe('menu visible to', () => {
-    beforeAll(() => {
-      register.browserLoad();
-
-      // Create club1
-      register.createClub('club1', register.OrganizerClub);
-      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000, 'Registration message did not show');
-      register.dismissError();
-
-      // Create organizer
-      register.createOrganizer();
-      browser.wait(ExpectedConditions.visibilityOf(register.error), 1000, 'Registration message did not show');
-      register.dismissError();
-    });
-
-    it('club should only see tournaments menu', () => {
+  describe('as club representative', () => {
+    beforeAll((done) => {
       // Login as club representative
-      login.navigateTo();
+      // login.navigateTo();
       login.login('club1', 'test');
       browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 5000, 'User info did not show');
       expect<any>(login.userInfo.getText()).toEqual('club1', 'User info displays incorrectly');
 
       configure.navigateTo();
-      expect<any>(configure.menuItems.count()).toBe(2); // Including logout
-      login.logout();
     });
-    it('organizer should see tournaments and users menu', () => {
-      // Login as club representative
+    afterAll((done) => login.logout());
+
+    it('should see tournaments menu', () => {
+      expect<any>(configure.menuTournaments.isDisplayed()).toBeTruthy();
+    });
+    it('should not see users menu', () => {
+      expect<any>(configure.menuUsers.isDisplayed()).toBeFalsy();
+    });
+    it('should not see display menu', () => {
+      expect<any>(configure.menuDisplay.isDisplayed()).toBeFalsy();
+    });
+    it('should not see users menu', () => {
+      expect<any>(configure.menuAdvanced.isDisplayed()).toBeFalsy();
+    });
+  });
+
+  describe('as organizer', () => {
+    beforeAll((done) => {
+      // Login as organizer
       login.navigateTo();
       login.login('organizer', 'test');
       browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 5000, 'User info did not show');
       expect<any>(login.userInfo.getText()).toEqual('organizer', 'User info displays incorrectly');
 
       configure.navigateTo();
-      expect<any>(configure.menuItems.count()).toBe(3); // Including logout
-      login.logout();
     });
+    afterAll((done) => login.logout());
 
-    it('can cleanup as admin', () => {
-      // Login as admin
-      login.loginAdmin();
-
-      // Go to configure/users
-      users.navigateTo();
-
-      // Remove users
-      users.removeUser('organizer');
-      users.removeUser('club1');
-      expect<any>(users.rowCount).toBe(1, 'Only admin user left in the system');
-
-      // Logout
-      login.logout();
-    })
+    it('should see tournaments menu', () => {
+      expect<any>(configure.menuTournaments.isDisplayed()).toBeTruthy();
+    });
+    it('should see users menu', () => {
+      expect<any>(configure.menuUsers.isDisplayed()).toBeTruthy();
+    });
+    it('should not see display menu', () => {
+      expect<any>(configure.menuDisplay.isDisplayed()).toBeFalsy();
+    });
+    it('should not see users menu', () => {
+      expect<any>(configure.menuAdvanced.isDisplayed()).toBeFalsy();
+    });
   });
 });

@@ -15,10 +15,11 @@ describe('gymsystems: Register', function() {
     users = new ConfigureUsers();
 
     register.browserLoad();
+    browser.ignoreSynchronization = true;
   });
-
-  beforeEach(() => browser.ignoreSynchronization = true);
-  afterEach(() => browser.ignoreSynchronization = false);
+  afterAll(() => {
+    browser.ignoreSynchronization = false;
+  });
 
   describe('deny registration', () => {
     it('when missing fields', () => {
@@ -49,12 +50,13 @@ describe('gymsystems: Register', function() {
   });
 
   describe('allow registration', () => {
+    afterAll((done) => {
+      users.tearDown().then(() => done());
+    });
     it('when all is correct', () => {
       register.createOrganizer();
     });
-  });
 
-  describe('newly created user', () => {
     it ('should be able to log in', () => {
       login.browserLoad();
       login.login('organizer', 'test');
@@ -65,22 +67,5 @@ describe('gymsystems: Register', function() {
     it('should be able to log out', () => {
       register.logout();
     });
-
-    it('can be removed by admin', () => {
-      // Log in admin
-      login.browserLoad();
-      login.loginAdmin();
-
-      // Go to configure/users
-      users.navigateTo();
-      expect<any>(users.rowCount).toBe(2);
-
-      // Remove user
-      users.removeUser('organizer');
-      expect<any>(users.rowCount).toBe(1);
-
-      // Logout admin
-      login.logout();
-    })
   });
 });

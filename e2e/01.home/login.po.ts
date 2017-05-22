@@ -30,7 +30,6 @@ export class LoginPage extends AppRootPage {
   }
 
   loginAdmin() {
-    this.navigateTo();
     this.login('admin', 'admin');
     browser.wait(ExpectedConditions.visibilityOf(this.userInfo), 5000, 'User info did not show');
     expect<any>(this.userInfo.getText()).toEqual('admin', 'User info displays incorrectly');

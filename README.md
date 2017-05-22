@@ -130,7 +130,7 @@ We've also added end to end integration tests served using protractor and a sepa
 npm run e2e
 ```
 
-The database will be dropped when the tests complete. If it for any reason should still persist (you can check using `docker ps`, you can clean up using
+The database will be dropped when the tests complete. If it for any reason should still persist (you can check using `docker ps`), you can clean up using
 
 ```
 npm run poste2e
