@@ -5,6 +5,7 @@ import { Configure } from "../configure.po";
 
 export class ConfigureTournaments extends AppRootPage {
   url = '/configure/tournament';
+  get dataTable() { return element(by.css('app-tournament table')); }
   get dataRows() { return element(by.css('app-tournament table tbody:first-of-type')); }
 
   browserLoad() {
@@ -15,7 +16,7 @@ export class ConfigureTournaments extends AppRootPage {
     const configure = new Configure();
     configure.navigateTo();
     configure.menuTournaments.click();
-    browser.wait(ExpectedConditions.visibilityOf(this.dataRows), 1000);
+    browser.wait(ExpectedConditions.visibilityOf(this.dataTable), 1000, 'Tournament does not display');
   }
 
   setUp() {

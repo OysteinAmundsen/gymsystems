@@ -29,7 +29,7 @@ describe('gymsystems: Configure', function() {
 
 
   describe('as club representative', () => {
-    beforeAll((done) => {
+    beforeAll(() => {
       // Login as club representative
       // login.navigateTo();
       login.login('club1', 'test');
@@ -38,24 +38,24 @@ describe('gymsystems: Configure', function() {
 
       configure.navigateTo();
     });
-    afterAll((done) => login.logout());
+    afterAll(() => login.logout());
 
     it('should see tournaments menu', () => {
       expect<any>(configure.menuTournaments.isDisplayed()).toBeTruthy();
     });
     it('should not see users menu', () => {
-      expect<any>(configure.menuUsers.isDisplayed()).toBeFalsy();
+      expect<any>(configure.menuUsers.isPresent()).toBeFalsy();
     });
     it('should not see display menu', () => {
-      expect<any>(configure.menuDisplay.isDisplayed()).toBeFalsy();
+      expect<any>(configure.menuDisplay.isPresent()).toBeFalsy();
     });
     it('should not see users menu', () => {
-      expect<any>(configure.menuAdvanced.isDisplayed()).toBeFalsy();
+      expect<any>(configure.menuAdvanced.isPresent()).toBeFalsy();
     });
   });
 
   describe('as organizer', () => {
-    beforeAll((done) => {
+    beforeAll(() => {
       // Login as organizer
       login.navigateTo();
       login.login('organizer', 'test');
@@ -64,7 +64,7 @@ describe('gymsystems: Configure', function() {
 
       configure.navigateTo();
     });
-    afterAll((done) => login.logout());
+    afterAll(() => login.logout());
 
     it('should see tournaments menu', () => {
       expect<any>(configure.menuTournaments.isDisplayed()).toBeTruthy();
@@ -73,10 +73,10 @@ describe('gymsystems: Configure', function() {
       expect<any>(configure.menuUsers.isDisplayed()).toBeTruthy();
     });
     it('should not see display menu', () => {
-      expect<any>(configure.menuDisplay.isDisplayed()).toBeFalsy();
+      expect<any>(configure.menuDisplay.isPresent()).toBeFalsy();
     });
     it('should not see users menu', () => {
-      expect<any>(configure.menuAdvanced.isDisplayed()).toBeFalsy();
+      expect<any>(configure.menuAdvanced.isPresent()).toBeFalsy();
     });
   });
 });

@@ -60,10 +60,10 @@ export class ConfigureUsers extends AppRootPage {
             queryRunner.insert('user', { name: 'club1',     email: 'club1@bla.no',     password: pass, role: Role.Club,      club: 1 }),
             queryRunner.insert('user', { name: 'club2',     email: 'club2@bla.no',     password: pass, role: Role.Club,      club: 2 })
           ]).then(() => resolve())
-            .catch(err => reject(err));
-        }).catch(err => reject(err));
+            .catch(err => { console.log(err); reject(); });
+        }).catch(err => { console.log(err); reject(err); });
       });
-    }).catch(err => console.log(err));
+    });
   }
 
   tearDown() {
@@ -77,9 +77,9 @@ export class ConfigureUsers extends AppRootPage {
         ]).then(() => {
           queryRunner.query('delete from club where id > 0')
             .then(() => resolve())
-            .catch(err => reject(err));
-        }).catch(err => reject(err));
+            .catch(err => { console.log(err); reject(err); });
+        }).catch(err => { console.log(err); reject(err); });
       });
-    }).catch(err => console.log(err));
+    });
   }
 }

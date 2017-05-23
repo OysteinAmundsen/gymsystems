@@ -50,54 +50,71 @@ describe('gymsystems: Configure Tournaments', function() {
     })
 
     it('should be able to create tournaments', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit tournaments', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to see divisions', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit divisions', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to see disciplines', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit disciplines', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit score system in discipline', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to see teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to add teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit own teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to see schedule', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to calculate schedule based on teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to remove team in discipline from schedule', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to see info', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit info', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to remove own teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should not be able to remove other clubs teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
   });
@@ -116,27 +133,35 @@ describe('gymsystems: Configure Tournaments', function() {
       login.logout();
     })
     it('should not be able to create tournaments', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should not be able to see divisions', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should not be able to see disciplines', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to see teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to add teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit own teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should not be able to see schedule', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should not be able to see info', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
   });
@@ -156,54 +181,71 @@ describe('gymsystems: Configure Tournaments', function() {
     })
 
     it('should be able to create tournaments', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit tournaments', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to see divisions', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit divisions', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to see disciplines', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit disciplines', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit score system in discipline', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to see teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to add teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit own teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to see schedule', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to calculate schedule based on teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to remove team in discipline from schedule', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to see info', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to edit info', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should be able to remove own teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
     it('should not be able to remove other clubs teams', () => {
+      // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
     });
   });
