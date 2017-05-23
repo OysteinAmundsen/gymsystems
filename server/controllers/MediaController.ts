@@ -64,7 +64,7 @@ export class MediaController {
   @Post('/upload/:teamId/:disciplineId')
   @JsonResponse()
   @UseBefore(RequireRole.get(Role.Club))
-  @UseBefore(multer({dest: 'tmp'}).single('media'))
+  @UseBefore(multer({dest: 'media'}).single('media'))
   async uploadMediaForTeamInDiscipline(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Req() req: Request, @Res() res: Response) {
     const metaData = await MediaController.calculateFileName(teamId, disciplineId);
 
