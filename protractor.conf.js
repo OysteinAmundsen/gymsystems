@@ -10,12 +10,12 @@ exports.config = {
   allScriptsTimeout: 11000,
   specs: [
     './e2e/**/*.e2e-spec.ts'
-    // './e2e/**/home.e2e-spec.ts'
-    // './e2e/**/login.e2e-spec.ts'
-    // './e2e/**/register.e2e-spec.ts'
-    // './e2e/**/configure.e2e-spec.ts'
-    // './e2e/**/users.e2e-spec.ts'
-    // './e2e/**/tournaments.e2e-spec.ts'
+    // './e2e/**/home.e2e-spec.ts',
+    // './e2e/**/login.e2e-spec.ts',
+    // './e2e/**/register.e2e-spec.ts',
+    // './e2e/**/configure.e2e-spec.ts',
+    // './e2e/**/users.e2e-spec.ts',
+    // './e2e/**/tournament.e2e-spec.ts'
   ],
   capabilities: {
     'browserName': 'chrome',

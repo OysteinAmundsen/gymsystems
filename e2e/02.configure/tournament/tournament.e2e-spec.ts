@@ -5,7 +5,7 @@ import { RegisterPage } from "../../01.home/register.po";
 import { Configure } from "../configure.po";
 import { ConfigureUsers } from "../users/users.po";
 
-describe('gymsystems: Configure Tournaments', function() {
+describe('GYMSYSTEMS: Configure Tournaments', function() {
   let login: LoginPage;
   let register: RegisterPage;
   let users: ConfigureUsers;
@@ -14,19 +14,19 @@ describe('gymsystems: Configure Tournaments', function() {
 
   const userCount = 1; // Start of with admin as the only user
 
-  beforeAll((done) => {
+  beforeAll((done: any) => {
     login = new LoginPage();
     register = new RegisterPage();
     users = new ConfigureUsers();
     tournaments = new ConfigureTournaments();
     configure = new Configure();
 
-    users.setUp().then(() => done());
-    browser.ignoreSynchronization = true
+    users.setUp().then(() => done()).catch(err => done(err));
+    browser.ignoreSynchronization = true;
   });
-  afterAll((done) => {
-    users.tearDown().then(() => done());
-    browser.ignoreSynchronization = false
+  afterAll((done: any) => {
+    users.tearDown().then(() => done()).catch(err => done(err));
+    browser.ignoreSynchronization = false;
   });
 
 
@@ -38,7 +38,7 @@ describe('gymsystems: Configure Tournaments', function() {
   describe('an organizer', () => {
     beforeAll(() => {
       // Login as organizer
-      login.navigateTo();
+      login.browserLoad();
       login.login('organizer', 'test');
       browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 5000, 'User info did not show');
       expect<any>(login.userInfo.getText()).toEqual('organizer', 'User info displays incorrectly');
@@ -122,7 +122,7 @@ describe('gymsystems: Configure Tournaments', function() {
   describe('a club', () => {
     beforeAll(() => {
       // Login as club representative
-      login.navigateTo();
+      login.browserLoad();
       login.login('club1', 'test');
       browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 5000, 'User info did not show');
       expect<any>(login.userInfo.getText()).toEqual('club1', 'User info displays incorrectly');
@@ -169,7 +169,7 @@ describe('gymsystems: Configure Tournaments', function() {
   describe('as admin', () => {
     beforeAll(() => {
       // Login as organizer
-      login.navigateTo();
+      login.browserLoad();
       login.loginAdmin();
       browser.wait(ExpectedConditions.visibilityOf(login.userInfo), 5000, 'User info did not show');
       expect<any>(login.userInfo.getText()).toEqual('admin', 'User info displays incorrectly');

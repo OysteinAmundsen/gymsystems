@@ -1,7 +1,7 @@
 import { browser, ExpectedConditions } from 'protractor';
 import { LoginPage } from './login.po';
 
-describe('gymsystems: Login', function() {
+describe('GYMSYSTEMS: Login', function() {
   let login: LoginPage;
 
   beforeAll(() => {

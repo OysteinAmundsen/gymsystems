@@ -2,7 +2,7 @@ import { browser, ExpectedConditions } from 'protractor';
 import { HomePage } from './home.po';
 import { LoginPage } from './login.po';
 
-describe('gymsystems: Home', () => {
+describe('GYMSYSTEMS: Home', () => {
   let home: HomePage;
   let login: LoginPage;
 

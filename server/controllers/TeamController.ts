@@ -91,7 +91,7 @@ export class TeamController {
       .leftJoinAndSelect('team.divisions', 'divisions')
       .leftJoinAndSelect('team.tournament', 'tournament')
       .leftJoinAndSelect('team.media', 'media')
-      .leftJoinAndSelect('media.tournament', 'media_tournament')
+      .leftJoinAndSelect('media.team', 'media_team')
       .leftJoinAndSelect('media.discipline', 'media_dicsipline')
       .getOne();
   }

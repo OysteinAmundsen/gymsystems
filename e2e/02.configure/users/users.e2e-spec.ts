@@ -4,24 +4,24 @@ import { UserEditor } from './user-editor.po';
 import { LoginPage } from '../../01.home/login.po';
 import { RegisterPage } from '../../01.home/register.po';
 
-describe('gymsystems: Configure users', function() {
+describe('GYMSYSTEMS: Configure users', function() {
   let users: ConfigureUsers;
   let userEditor: UserEditor;
   let login: LoginPage;
   let register: RegisterPage;
 
-  beforeAll((done) => {
+  beforeAll((done: any) => {
     users = new ConfigureUsers();
     userEditor = new UserEditor();
     login = new LoginPage();
     register = new RegisterPage();
 
-    users.setUp().then(() => done());
-    browser.ignoreSynchronization = true
+    users.setUp().then(() => done()).catch(err => done(err));
+    browser.ignoreSynchronization = true;
   });
-  afterAll((done) => {
-    users.tearDown().then(() => done());
-    browser.ignoreSynchronization = false
+  afterAll((done: any) => {
+    users.tearDown().then(() => done()).catch(err => done(err));
+    browser.ignoreSynchronization = false;
   });
 
 
@@ -60,7 +60,7 @@ describe('gymsystems: Configure users', function() {
 
     it('should display a list of registerred users', () => {
       browser.wait(ExpectedConditions.visibilityOf(users.dataRows), 1000, 'User grid did not show');
-      expect<any>(users.rowCount).toBe(2, 'Should only see users connected to the same club');
+      expect<any>(users.rowCount).toBe(3, 'Should only see users connected to the same club');
     });
 
     it('should not be able to remove itself', () => {
@@ -81,7 +81,7 @@ describe('gymsystems: Configure users', function() {
     it('should be able to remove users in same club', () => {
       // Remove user
       users.removeUser('club1');
-      expect<any>(users.rowCount).toBe(1);
+      expect<any>(users.rowCount).toBe(2);
     });
 
     it('should be able to create users', () => {
@@ -104,12 +104,14 @@ describe('gymsystems: Configure users', function() {
 
     it('should display a list of registerred users', () => {
       browser.wait(ExpectedConditions.visibilityOf(users.dataRows), 1000);
-      expect<any>(users.rowCount).toBe(3, 'Should see all users in the system');
+      expect<any>(users.rowCount).toBe(5, 'Should see all users in the system');
     });
 
     it('should be able to remove the users just created', () => {
       users.removeUser('organizer');
+      users.removeUser('secretariat');
       users.removeUser('club2');
+      users.removeUser('club3');
       expect<any>(users.rowCount).toBe(1, 'Only admin user left in the system');
     });
   });

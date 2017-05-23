@@ -12,18 +12,18 @@ describe('gymsystems: Configure', function() {
 
   const userCount = 1; // Start of with admin as the only user
 
-  beforeAll((done) => {
+  beforeAll((done: any) => {
     login = new LoginPage();
     register = new RegisterPage();
     users = new ConfigureUsers();
     configure = new Configure();
 
-    users.setUp().then(() => done());
+    users.setUp().then(() => done()).catch(err => done(err));
     browser.ignoreSynchronization = true;
     login.browserLoad();
   });
-  afterAll((done) => {
-    users.tearDown().then(() => done());
+  afterAll((done: any) => {
+    users.tearDown().then(() => done()).catch(err => done(err));
     browser.ignoreSynchronization = false
   });
 

@@ -4,7 +4,7 @@ import { LoginPage } from './login.po';
 import { ConfigureUsers } from '../02.configure/users/users.po';
 import { UserEditor } from '../02.configure/users/user-editor.po';
 
-describe('gymsystems: Register', function() {
+describe('GYMSYSTEMS: Register', function() {
   let register: RegisterPage;
   let login: LoginPage;
   let users: ConfigureUsers;
@@ -50,8 +50,8 @@ describe('gymsystems: Register', function() {
   });
 
   describe('allow registration', () => {
-    afterAll((done) => {
-      users.tearDown().then(() => done());
+    afterAll((done: any) => {
+      users.tearDown().then(() => done()).catch(err => done(err));
     });
     it('when all is correct', () => {
       register.createOrganizer();
