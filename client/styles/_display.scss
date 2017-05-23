@@ -1,10 +1,26 @@
 .display {
-  * {
-    font-size: 90%;
+  > * {
+    font-size: 70%;
   }
   header {
     text-align: center;
     font-size: 120%;
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
+  }
+  .large {
+    font-size: 85%;
+    margin-bottom: 1em;
+  }
+  .largest {
+    font-size: 150%;
+  }
+  .center {
+    text-align: center;
+  }
+  em {
+    font-style: inherit;
+    font-weight: bold;
+    min-width: 31%;
+    display: inline-block;
   }
 }

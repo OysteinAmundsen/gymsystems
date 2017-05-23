@@ -46,24 +46,23 @@ export class DisplayController {
 
     // Parse template
     const template = displayConfig.value[`display${id}`];
+    const sorter = (a: TournamentParticipant, b: TournamentParticipant) => a.startNumber < b.startNumber ? -1 : 1;
     return Handlebars.compile(template, {noEscape: true})({
       tournament: tournament,
-      // Filtered from schedule by not yet started participants
-      next: schedule.filter(s => s.startTime == null).sort((a: TournamentParticipant, b: TournamentParticipant) => {
-        return a.startNumber < b.startNumber ? -1 : 1;
-      }),
-      // Filtered from schedule by allready published participants
-      published: schedule.filter(s => s.publishTime != null).sort((a: TournamentParticipant, b: TournamentParticipant) => {
-        return a.publishTime > b.publishTime ? -1 : 1;
-      })
+      // Get current participant from schedule
+      current: schedule.filter(s => s.startTime != null && !s.endTime && !s.publishTime),
+      next: schedule.filter(s => !s.startTime).sort(sorter),           // Filtered from schedule by not yet started participants
+      published: schedule.filter(s => s.publishTime != null).sort(sorter)     // Filtered from schedule by allready published participants
     });
   }
 
   listHelper(context: any, options: any) {
     let ret = '';
-    let len = options.hash.len || context.length; // Use given `len` attribute, or default to entire contexts length.
-    for(let i=0; i < len; i++) {
-      ret += `<p>${options.fn(context[i])}</p>`;
+    if (options) {
+      let len = (options.hash ? options.hash.len : null) || context.length; // Use given `len` attribute, or default to entire contexts length.
+      for(let i=0; i < len; i++) {
+        ret += `<p>${options.fn(context[i])}</p>`;
+      }
     }
     return ret;
   }

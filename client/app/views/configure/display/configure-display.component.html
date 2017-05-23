@@ -8,7 +8,7 @@
     <div role="row">
       <section *ngFor="let template of templates; let i = index;">
         <app-macro-dialog></app-macro-dialog>
-        <textarea title="{{ template.title }}" name="{{'template' + i}}" [(ngModel)]="template.content">{{ template.content }}</textarea>
+        <textarea title="{{ template.title }}" name="{{'template' + i}}" [(ngModel)]="template.content" rows="20">{{ template.content }}</textarea>
       </section>
     </div>
   </div>

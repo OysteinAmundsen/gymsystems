@@ -31,6 +31,7 @@ export class MacroDialogComponent extends DialogComponent implements OnInit {
       { get header() { return me.translate.instant('Lists'); }},
       { name: 'published', get desc() { return me.translate.instant('List of score-published participants. Sorted by publishedTime.'); }},
       { name: 'next', get desc() { return me.translate.instant('List of participants yet to perform. Sorted by startTime'); }},
+      { name: 'current', get desc() { return me.translate.instant('Current participant on the floor. This is a list, but should only contain one item.'); }},
 
       // Participant properties
       { get header() { return me.translate.instant('Participant list item'); }},

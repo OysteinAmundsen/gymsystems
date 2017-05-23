@@ -70,7 +70,7 @@
                 <button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" [title]="'Stop playing' | translate"><app-fa name="stop" fw="true"></app-fa></button>
                 <button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate"><app-fa name="trash" fw="true"></app-fa></button>
                 <label class="file-upload btn" *ngIf="!hasMedia(discipline) && !teamForm.invalid && selectedDisciplines.checked" [title]="'Upload media' | translate">
-                  <input type="file" (change)="fileAdded($event, discipline)" accept=".mp3">
+                  <input type="file" (change)="fileAdded($event, discipline)" accept=".mp3,.wav">
                   <app-fa name="upload" fw="true"></app-fa>
                 </label>
               </td>
