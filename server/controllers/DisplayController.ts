@@ -23,6 +23,7 @@ export class DisplayController {
     this.scheduleRepository = Container.get(ScheduleController);
 
     Handlebars.registerHelper('list', this.listHelper);
+    Handlebars.registerHelper('fix', this.toFixedHelper);
   }
 
   @Get('/:tournamentId')
@@ -65,5 +66,13 @@ export class DisplayController {
       }
     }
     return ret;
+  }
+
+  toFixedHelper(context: any, options:any) {
+    if (options) {
+      let len = options.hash ? options.hash.len : 0;
+      return `${context.toFixed(len)}`;
+    }
+    return context;
   }
 }
