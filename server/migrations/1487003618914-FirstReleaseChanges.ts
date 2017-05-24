@@ -33,43 +33,41 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
       value: JSON.stringify({
         display1:
 `<header>
-  {{tournament.name}}
-  <div class="center">
+  {{tournament.name}}<br>
     ----------------------------------
-  </div>
 </header>
 
 {{#list current len=1}}
-  <div class="large">
+  {{#size 1}}
     <em>{{team.name}}</em>
     {{division}} {{discipline.name}}
-  </div>
+  {{/size}}
 {{/list}}
 
 <br>
 {{#list next len=2}}
-  <div>
+  {{#size 0}}
     <em>{{team.name}}</em>
     {{division}} {{discipline.name}}
-  </div>
+  {{/size}}
 {{/list}}`,
         display2:
 `{{#list published len=1}}
   <header>
-    {{team.name}}  {{division}}
-    <div class="center">
+    {{team.name}}  {{division}}<br>
       ----------------------------------
-    </div>
   </header>
 
-  <div class="large center">
-    {{discipline.name}}
-  </div>
+  {{#center}}
+    {{#size 1}}
+      {{discipline.name}}
+    {{/size}}
 
-  <br>
-  <div class="largest center">
-    {{#fix total len=3}}{{/fix}}
-  </div>
+    <br><br>
+    {{#size 5}}
+      {{#fix total len=3}}{{/fix}}
+    {{/size}}
+  {{/center}}
 {{/list}}`
       })
     });
