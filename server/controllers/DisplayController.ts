@@ -22,8 +22,30 @@ export class DisplayController {
     this.tournamentRepository = Container.get(TournamentController);
     this.scheduleRepository = Container.get(ScheduleController);
 
-    Handlebars.registerHelper('list', this.listHelper);
-    Handlebars.registerHelper('fix', this.toFixedHelper);
+    Handlebars.registerHelper('list', function (context: any, options: any) {
+      let ret = '';
+      if (options) {
+        let len = (options.hash ? options.hash.len : null) || context.length; // Use given `len` attribute, or default to entire contexts length.
+        for(let i=0; i < len; i++) {
+          ret += `<p>${options.fn(context[i])}</p>`;
+        }
+      }
+      return ret;
+    });
+    Handlebars.registerHelper('fix', function (context: any, options:any) {
+      if (options) {
+        let len = options.hash ? options.hash.len : 0;
+        return `${context.toFixed(len)}`;
+      }
+      return context;
+    });
+    Handlebars.registerHelper('center', function (options: any) {
+      return `<div class="center">${options.fn(this)}</div>`;
+    });
+    Handlebars.registerHelper('size', function (context: any, options: any) {
+      let size = context || 0;
+      return `<span class="size-${size}">${options.fn(this)}</span>`;
+    });
   }
 
   @Get('/:tournamentId')
@@ -55,24 +77,5 @@ export class DisplayController {
       next: schedule.filter(s => !s.startTime).sort(sorter),           // Filtered from schedule by not yet started participants
       published: schedule.filter(s => s.publishTime != null).sort(sorter)     // Filtered from schedule by allready published participants
     });
-  }
-
-  listHelper(context: any, options: any) {
-    let ret = '';
-    if (options) {
-      let len = (options.hash ? options.hash.len : null) || context.length; // Use given `len` attribute, or default to entire contexts length.
-      for(let i=0; i < len; i++) {
-        ret += `<p>${options.fn(context[i])}</p>`;
-      }
-    }
-    return ret;
-  }
-
-  toFixedHelper(context: any, options:any) {
-    if (options) {
-      let len = options.hash ? options.hash.len : 0;
-      return `${context.toFixed(len)}`;
-    }
-    return context;
   }
 }

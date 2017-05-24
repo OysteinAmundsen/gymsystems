@@ -16,16 +16,19 @@ export class MacroDialogComponent extends DialogComponent implements OnInit {
 
     const me = this;
     this.macros = [
+      // Logic
+      { get header() { return me.translate.instant('Logical items'); }},
+      { name: '#list', get desc() { return me.translate.instant('Access properties inside a list. Append a number, to define how many items from this list you wish to display.'); }},
+      { name: '#center', get desc() { return me.translate.instant('Container for centered text'); }},
+      { name: '#fix', get desc() { return me.translate.instant('Apply a fixed number of decimals on a numeric'); }},
+      { name: '#size', get desc() { return me.translate.instant('Can be a font size between 0, 3 - 3 being the largest.'); }},
+
       // Tournament properties
       { get header() { return me.translate.instant('Tournament'); }},
       { name: 'tournament.name', get desc() { return me.translate.instant('The name of this tournament'); }},
       { name: 'tournament.startDate', get desc() { return me.translate.instant('The tournaments start date'); }},
       { name: 'tournament.endDate', get desc() { return me.translate.instant('The tournaments end date'); }},
       { name: 'tournament.location', get desc() { return me.translate.instant('The tournaments location'); }},
-
-      // Logic
-      { get header() { return me.translate.instant('Logical items'); }},
-      { name: '#list', get desc() { return me.translate.instant('Access properties inside a list. Append a number, to define how many items from this list you wish to display.'); }},
 
       // Schedule properties
       { get header() { return me.translate.instant('Lists'); }},

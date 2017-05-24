@@ -31,7 +31,8 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
     await queryRunner.insert('configuration', {
       name: 'display',
       value: JSON.stringify({
-        display1: `<header>
+        display1:
+`<header>
   {{tournament.name}}
   <div class="center">
     ----------------------------------
@@ -39,33 +40,36 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
 </header>
 
 {{#list current len=1}}
-<div class="large">
-  <em>{{team.name}}</em>
-  {{division}} {{discipline.name}}
-</div>
+  <div class="large">
+    <em>{{team.name}}</em>
+    {{division}} {{discipline.name}}
+  </div>
 {{/list}}
+
 <br>
 {{#list next len=2}}
-<div>
-  <em>{{team.name}}</em>
-  {{division}} {{discipline.name}}
-</div>
-{{/list}}`,
-        display2: `{{#list published len=1}}
-<header>
-  {{team.name}}  {{division}}
-  <div class="center">
-    ----------------------------------
+  <div>
+    <em>{{team.name}}</em>
+    {{division}} {{discipline.name}}
   </div>
-</header>
+{{/list}}`,
+        display2:
+`{{#list published len=1}}
+  <header>
+    {{team.name}}  {{division}}
+    <div class="center">
+      ----------------------------------
+    </div>
+  </header>
 
-<div class="large center">
-  {{discipline.name}}
-</div>
-<br>
-<div class="largest center">
-  {{total}}
-</div>
+  <div class="large center">
+    {{discipline.name}}
+  </div>
+
+  <br>
+  <div class="largest center">
+    {{#fix total len=3}}{{/fix}}
+  </div>
 {{/list}}`
       })
     });
