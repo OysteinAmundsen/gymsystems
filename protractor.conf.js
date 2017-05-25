@@ -17,24 +17,26 @@ exports.config = {
     // './e2e/**/users.e2e-spec.ts',
     // './e2e/**/tournament.e2e-spec.ts'
   ],
-  capabilities: {
-    'browserName': 'chrome',
-    chromeOptions: {
-      prefs: {
-        'credentials_enable_service': false,
-        'profile': {
-          'password_manager_enabled': false
-        }
-      },
-      args: [
-        '--disable-cache',
-        '--disable-application-cache',
-        '--disable-offline-load-stale-cache',
-        '--disk-cache-size=0',
-        '--v8-cache-options=off'
-      ]
-    }
-  },
+  // multiCapabilities: [
+  capabilities:
+    { 'browserName': 'chrome', chromeOptions: {
+        prefs: {
+          'credentials_enable_service': false,
+          'profile': { 'password_manager_enabled': false }
+        },
+        args: [
+          '--disable-cache',
+          '--disable-application-cache',
+          '--disable-offline-load-stale-cache',
+          '--disk-cache-size=0',
+          '--v8-cache-options=off'
+        ]
+      }
+    },
+  //   ,
+  //   { 'browserName': 'firefox'},
+  //   { 'browserName': 'internet explorer', 'platform': 'ANY', 'version': '11'},
+  // ],
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
   framework: 'jasmine',
