@@ -41,8 +41,8 @@ export class MacroDialogComponent extends DialogComponent implements OnInit {
       { name: 'team.name', get desc() { return me.translate.instant('The team name'); }},
       { name: 'startNumber', get desc() { return me.translate.instant('The start number of this team'); }},
       { name: 'startTime', get desc() { return me.translate.instant('The scheduled time the team is to start its performance'); }},
-      { name: 'division.name', get desc() { return me.translate.instant('The division this team is competing in'); }},
-      { name: 'discipline.name', get desc() { return me.translate.instant('The discipline this team is competing in'); }},
+      { name: 'division', get desc() { return me.translate.instant('The division this team is competing in'); }},
+      { name: 'disciplineName', get desc() { return me.translate.instant('The discipline this team is competing in'); }},
       { name: 'total', get desc() { return me.translate.instant('The total score this team received in this discipline'); }},
     ];
   }

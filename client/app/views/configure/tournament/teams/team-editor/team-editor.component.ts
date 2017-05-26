@@ -13,6 +13,8 @@ import { IClub } from 'app/services/model/IClub';
 import { IUser } from 'app/services/model/IUser';
 import { IMedia } from 'app/services/model/IMedia';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { TranslateService } from "@ngx-translate/core";
+import { Classes } from "app/services/model/Classes";
 
 @Component({
   selector: 'app-team-editor',
@@ -22,7 +24,7 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 export class TeamEditorComponent implements OnInit, OnDestroy {
   @Input() team: ITeam = <ITeam>{};
   @Output() teamChanged: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChildren('selectedDisciplines') selectedDisciplines;
+  @ViewChildren('selectedDisciplines') disciplineCheckboxes;
   teamForm: FormGroup;
   disciplines: IDiscipline[];
   divisions: IDivision[] = [];
@@ -38,13 +40,17 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   get ageDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Age); }
   get genderDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Gender); }
   get allChecked() {
-    if (this.selectedDisciplines && this.selectedDisciplines.length) {
+    if (this.disciplineCheckboxes && this.disciplineCheckboxes.length) {
       const team = this.teamForm.value;
-      const checked = this.selectedDisciplines.filter((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked);
-      return checked.length === this.selectedDisciplines.length;
+      const checked = this.disciplineCheckboxes.filter((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked);
+      return checked.length === this.disciplineCheckboxes.length;
     }
     return false;
   }
+
+  classes = Classes;
+  get TeamGym(): string { return this.translate.instant('TeamGym'); }
+  get National(): string { return this.translate.instant('National classes'); }
 
   constructor(
     private fb: FormBuilder,
@@ -56,6 +62,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     private divisionService: DivisionService,
     private disciplineService: DisciplineService,
     private errorHandler: ErrorHandlerService,
+    private translate: TranslateService,
     private mediaService: MediaService) { }
 
   ngOnInit() {
@@ -66,7 +73,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       this.disciplines = d;
       setTimeout(() => {
         // Set selected disciplines
-        this.selectedDisciplines
+        this.disciplineCheckboxes
           .forEach((element: ElementRef) => {
             const el = <HTMLInputElement>element.nativeElement;
             const disciplineId = el.attributes.getNamedItem('data').nodeValue;
@@ -85,7 +92,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       ageDivision: [ageDivision ? ageDivision.id : null, [Validators.required]],
       genderDivision: [genderDivision ? genderDivision.id : null, [Validators.required]],
       disciplines: [this.team.disciplines],
-      tournament: [this.team.tournament]
+      tournament: [this.team.tournament],
+      class: [this.team.class]
     });
 
     // Clubs should be registerred in all upper case
@@ -94,6 +102,19 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       .distinctUntilChanged()
       .subscribe((t: string) => {
         this.teamForm.controls['club'].setValue(t.toUpperCase());
+      });
+
+    // Select all disciplines if TeamGym is chosen
+    this.teamForm.controls['class']
+      .valueChanges
+      .distinctUntilChanged()
+      .subscribe((c: Classes) => {
+        if (c === Classes.TeamGym) {
+          this.disciplineCheckboxes.forEach((element: ElementRef) => {
+            const el = <HTMLInputElement>element.nativeElement;
+            el.checked = true;
+          });
+        }
       });
   }
 
@@ -127,7 +148,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       ageDivision: ageDivision ? ageDivision.id : null,
       genderDivision: genderDivision ? genderDivision.id : null,
       disciplines: this.team.disciplines,
-      tournament: this.team.tournament
+      tournament: this.team.tournament,
+      class: this.team.class
     });
   }
 
@@ -184,7 +206,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     }
 
     // Compute discipline set
-    team.disciplines = this.selectedDisciplines
+    team.disciplines = this.disciplineCheckboxes
       .filter((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked)
       .map((elm: ElementRef) => {
         const disciplineId = (<HTMLInputElement>elm.nativeElement).attributes.getNamedItem('data').nodeValue;
@@ -231,7 +253,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   toggleChecked() {
     const state = this.allChecked;
-    this.selectedDisciplines.forEach((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked = !state);
+    this.disciplineCheckboxes.forEach((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked = !state);
   }
 
   @HostListener('window:keyup', ['$event'])

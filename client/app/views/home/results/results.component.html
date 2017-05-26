@@ -1,6 +1,6 @@
 <header *ngIf="tournament">
   <small>{{ tournament.startDate | date: 'dd.MM' }} - {{ tournament.endDate | date: 'dd.MM' }} {{ tournament.endDate | date: 'yyyy' }}</small>
-  <h2 class="pull-left">{{ tournament.name }}</h2>
+  <h1 class="pull-left">{{ tournament.name }}</h1>
   <button type="button" class="pull-right primary raised" [routerLink]="['/list', tournament.id]">
     <app-fa name="list" fw="true"></app-fa>
     <span translate>List </span>
@@ -23,7 +23,22 @@
     <div *ngFor="let discipline of disciplines" class="col-4">
       <h4>{{discipline}}</h4>
       <table>
-        <tr *ngFor="let participant of getByDiscipline(discipline, getByDivision(division))" [ngClass]="{isPublished: participant.publishTime != null}">
+        <tr *ngFor="let participant of getByDiscipline(discipline, getByDivision(division))" [ngClass]="{isPublished: isPublished(participant)}">
+          <td>{{participant.team.name}}</td>
+          <td>{{score(participant) | number:'1.3-3'}}
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="division" *ngIf="teamGymDivisions.length">
+  <h3 translate>TeamGym</h3>
+  <div class="row">
+    <div *ngFor="let division of teamGymDivisions" class="col-4">
+      <h4>{{division}}</h4>
+      <table>
+        <tr *ngFor="let participant of getByTeamGym(division)" [ngClass]="{isPublished: isPublished(participant)}">
           <td>{{participant.team.name}}</td>
           <td>{{score(participant) | number:'1.3-3'}}
         </tr>

@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Tournament } from './Tournament';
-import { Team } from './Team';
+import { Team, Classes } from './Team';
 import { Discipline } from './Discipline';
 import { TournamentParticipantScore } from './TournamentParticipantScore';
 import { Division, DivisionType } from './Division';
@@ -41,6 +41,10 @@ export class TournamentParticipant {
 
   @OneToMany(type => TournamentParticipantScore, score => score.participant, { cascadeInsert: true, cascadeUpdate: true })
   scores: TournamentParticipantScore[];
+
+  get disciplineName(): string {
+    return (this.team.class === Classes.TeamGym ? 'TG: ' : '') + this.discipline.name;
+  }
 
   get division(): string {
     const ageDivision = (team: Team): Division => team.divisions.find(d => d.type === DivisionType.Age);

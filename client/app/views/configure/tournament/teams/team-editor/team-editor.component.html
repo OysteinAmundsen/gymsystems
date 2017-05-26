@@ -49,19 +49,20 @@
         <h2>
           <app-fa name="heartbeat" fw="true"></app-fa>
           <span translate>Disciplines</span>
+          <app-slide-toggle [onLabel]="TeamGym" [offLabel]="National" [onState]="classes.TeamGym" [offState]="classes.National" [initState]="classes.National" formControlName="class"></app-slide-toggle>
         </h2>
       </header>
       <div>
         <table role="list">
           <tr role="listitem">
-            <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()"> <span translate>All</span></label></td>
+            <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()" [disabled]="teamForm.value.class === classes.TeamGym"> <span translate>All</span></label></td>
             <td class="media-head"><app-fa name="music" fw="true"></app-fa></td>
           </tr>
           <tbody *ngFor="let discipline of disciplines">
             <tr role="listitem">
               <td>
                 <label>
-                  <input type="checkbox" #selectedDisciplines [attr.data]="discipline.id" (change)="disciplinesChanged()">
+                  <input type="checkbox" #selectedDisciplines [attr.data]="discipline.id" (change)="disciplinesChanged()" [disabled]="teamForm.value.class === classes.TeamGym">
                   {{ discipline.name }}
                 </label>
               </td>

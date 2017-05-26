@@ -5,6 +5,9 @@ import { Media } from './Media';
 import { Division, DivisionType } from './Division';
 import { Club, BelongsToClub } from './Club';
 
+export enum Classes {
+  TeamGym = 1, National = 2
+}
 /**
  *
  *
@@ -36,6 +39,9 @@ export class Team implements BelongsToClub {
 
   @OneToMany(type => Media, media => media.team, { cascadeInsert: false, cascadeUpdate: false })
   media: Media[] = [];
+
+  @Column({ default: Classes.National })
+  class: Classes;
 
   get divisionName(): string {
     const ageDivision = this.divisions.find(d => d.type === DivisionType.Age);

@@ -23,6 +23,10 @@ table[role="list"] {
 }
 header {
   margin-left: 1rem;
+  app-slide-toggle {
+    float: right;
+    min-width: 10rem;
+  }
 }
 
 td.media-head {

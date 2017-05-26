@@ -4,6 +4,7 @@ import { IDivision } from './IDivision';
 import { IClub } from './IClub';
 import { IMedia } from './IMedia';
 import { IBelongsToClub } from './IBelongsToClub';
+import { Classes } from "app/services/model/Classes";
 
 export interface ITeam extends IBelongsToClub {
   id: number;
@@ -13,4 +14,5 @@ export interface ITeam extends IBelongsToClub {
   tournament: ITournament;
   club: IClub;
   media: IMedia[];
+  class: Classes;
 }

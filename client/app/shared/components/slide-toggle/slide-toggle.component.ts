@@ -21,8 +21,8 @@ export class SlideToggleComponent implements OnInit, ControlValueAccessor {
 
   _state: any;
   get state(): any {
-    if (this._state == null && this.initState !== undefined) {
-      this.state = this.initState;
+    if (this._state == null) {
+      this._state = this.initState;
     }
     return this._state;
   }

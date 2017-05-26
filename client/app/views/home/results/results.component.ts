@@ -10,6 +10,7 @@ import { ITournamentParticipant } from 'app/services/model/ITournamentParticipan
 import { ITeam } from 'app/services/model/ITeam';
 import { DivisionType } from 'app/services/model/DivisionType';
 import { Role, IUser } from 'app/services/model/IUser';
+import { Classes } from "app/services/model/Classes";
 
 @Component({
   selector: 'app-results',
@@ -27,7 +28,18 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   get divisions() {
     const divisions = [];
-    this.schedule.forEach(s => {
+    this.schedule.filter(s => s.team.class != Classes.TeamGym).forEach(s => {
+      const divName = this.teamService.division(s.team);
+      if (divisions.indexOf(divName) < 0) {
+        divisions.push(divName);
+      }
+    });
+    return divisions;
+  }
+
+  get teamGymDivisions() {
+    const divisions = [];
+    this.teamgym.forEach(s => {
       const divName = this.teamService.division(s.team);
       if (divisions.indexOf(divName) < 0) {
         divisions.push(divName);
@@ -38,12 +50,16 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   get disciplines() {
     const disciplines = [];
-    this.schedule.forEach(s => {
+    this.schedule.filter(s => s.team.class != Classes.TeamGym).forEach(s => {
       if (disciplines.indexOf(s.discipline.name) < 0) {
         disciplines.push(s.discipline.name);
       }
     });
     return disciplines;
+  }
+
+  get teamgym() {
+    return this.schedule.filter(s => s.team.class == Classes.TeamGym);
   }
 
   constructor(
@@ -91,14 +107,39 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   score(participant: ITournamentParticipant) {
-    // Calculate final score
-    const score = participant.discipline.scoreGroups.reduce((prev, curr) => {
-      const scores = participant.scores.filter(s => s.scoreGroup.id === curr.id);
-      return prev += scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
-    }, 0);
+    let score;
+    if (participant.team.class === Classes.National) {
+      // Calculate final National classes score
+      score = this.calcDisciplineScore(participant);
+    } else {
+      // For teamgym every discipline must be published before final score can be calculated
+      const teamScore = this.schedule.filter(s => s.team.id === participant.team.id);
+      const total = teamScore.reduce((prev, curr) => {
+        const score = this.calcDisciplineScore(curr);
+        return prev += score;
+      }, 0);
+      return total / teamScore.length; // Return average
+    }
 
     // Only show score if score is published
     return participant.publishTime ? score : 0;
+  }
+
+  private calcDisciplineScore(participant: ITournamentParticipant) {
+    return participant.discipline.scoreGroups.reduce((prev, curr) => {
+        const scores = participant.scores.filter(s => s.scoreGroup.id === curr.id);
+        return prev += scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
+      }, 0);
+  }
+
+  isPublished(item: ITournamentParticipant) {
+    if (item.team.class === Classes.TeamGym) {
+      // For teamgym every discipline must be published before final score can be calculated
+      const teamScore = this.schedule.filter(s => s.team.id === item.team.id);
+      return teamScore.every(t => t.publishTime != null);
+    } else {
+      return item.publishTime != null;
+    }
   }
 
   getByDivision(name: string, filteredSchedule?: ITournamentParticipant[]) {
@@ -111,7 +152,20 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   getByDiscipline(name: string, filteredSchedule?: ITournamentParticipant[]) {
     const schedule = filteredSchedule || this.schedule;
-    return schedule.filter(s => s.discipline.name === name)
+    return schedule.filter(s => s.discipline.name === name && s.team.class !== Classes.TeamGym)
+      .sort((a: ITournamentParticipant, b: ITournamentParticipant) => {
+        return this.score(a) > this.score(b) ? -1 : 1;
+      });
+  }
+
+  getByTeamGym(divisionName: string) {
+    const me = this;
+    return this.schedule.filter(s => {
+      const divName = me.teamService.division(s.team);
+      return s.team.class === Classes.TeamGym
+          && s.discipline.name === me.disciplines[0] // Only one entry per team.
+          && divName === divisionName;
+    })
       .sort((a: ITournamentParticipant, b: ITournamentParticipant) => {
         return this.score(a) > this.score(b) ? -1 : 1;
       });

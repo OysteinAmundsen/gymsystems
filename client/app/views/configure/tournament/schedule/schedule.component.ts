@@ -145,6 +145,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     // Provide initial sort
     schedule = schedule
       .sort((a: ITournamentParticipant, b: ITournamentParticipant) => {
+        // Sort by class first
+        if (a.team.class != b.team.class) { return a.team.class > b.team.class ? -1 : 1; }
+
         // Sort by age division
         const aAgeDiv = ageDivision(a.team).sortOrder;
         const bAgeDiv = ageDivision(b.team).sortOrder;

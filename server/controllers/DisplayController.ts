@@ -74,7 +74,7 @@ export class DisplayController {
       tournament: tournament,
       // Get current participant from schedule
       current: schedule.filter(s => s.startTime != null && !s.endTime && !s.publishTime),
-      next: schedule.filter(s => !s.startTime).sort(sorter),           // Filtered from schedule by not yet started participants
+      next: schedule.filter(s => !s.startTime).sort(sorter),                  // Filtered from schedule by not yet started participants
       published: schedule.filter(s => s.publishTime != null).sort(sorter)     // Filtered from schedule by allready published participants
     });
   }

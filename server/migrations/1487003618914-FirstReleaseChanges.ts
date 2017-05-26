@@ -48,7 +48,7 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
 {{#list next len=2}}
   {{#size 0}}
     <em>{{team.name}}</em>
-    {{division}} {{discipline.name}}
+    {{division}} {{disciplineName}}
   {{/size}}
 {{/list}}`,
         display2:
@@ -60,7 +60,7 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
 
   {{#center}}
     {{#size 1}}
-      {{discipline.name}}
+      {{disciplineName}}
     {{/size}}
 
     <br><br>

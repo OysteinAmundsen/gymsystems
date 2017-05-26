@@ -1,4 +1,5 @@
 .display {
+  padding: 1%;
   .size-0 {
     font-size: 70%;
   }
@@ -9,7 +10,7 @@
   header, .size-2 {
     text-align: center;
     font-size: 120%;
-    margin-bottom: 1em;
+    margin-bottom: 0.2em;
   }
   .size-3 {
     font-size: 150%;
@@ -26,7 +27,8 @@
   em {
     font-style: inherit;
     font-weight: bold;
-    min-width: 31%;
+    min-width: 38%;
     display: inline-block;
+    text-align: right;
   }
 }

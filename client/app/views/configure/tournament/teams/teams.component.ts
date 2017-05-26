@@ -2,10 +2,12 @@ import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TournamentService, TeamsService, UserService } from 'app/services/api';
+import { Subscription } from 'rxjs';
+
 import { DivisionType } from 'app/services/model/DivisionType';
 import { ITeam } from 'app/services/model/ITeam';
 import { IUser, Role } from 'app/services/model/IUser';
-import { Subscription } from 'rxjs';
+import { Classes } from "app/services/model/Classes";
 
 @Component({
   selector: 'app-teams',
@@ -53,7 +55,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
 
   disciplines(team: ITeam) {
     if (team.disciplines.length) {
-      return team.disciplines.map(d => {
+      return (team.class === Classes.TeamGym ? '<b>TG:</b> ' : '') + team.disciplines.map(d => {
         const media = team.media.find(m => m.discipline.id === d.id);
         return (media ? `<span class="success">&#9835;${d.name}</span>` : `<span class="warning">${d.name}</span>`);
       }).join(', ');
