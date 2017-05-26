@@ -7,6 +7,7 @@ import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IDivision } from 'app/services/model/IDivision';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 import { DivisionType } from 'app/services/model/DivisionType';
+import { Classes } from "app/services/model/Classes";
 
 @Component({
   selector: 'app-schedule',
@@ -17,6 +18,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   schedule: ITournamentParticipant[] = [];
   teams: ITeam[] = [];
   disciplines: IDiscipline[];
+  classes = Classes;
   dragulaSubscription;
   isDirty = false;
 

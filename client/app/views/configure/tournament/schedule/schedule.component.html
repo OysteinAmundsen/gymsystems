@@ -15,7 +15,7 @@
         <td>{{ item.startNumber }}</td>
         <td>{{ item.team.name }}</td>
         <td>{{ division(item.team) }}</td>
-        <td>{{ item.discipline.name }}</td>
+        <td><b *ngIf="item.team.class === classes.TeamGym">TG: </b>{{ item.discipline.name }}</td>
         <td class="icons"><button type="button" class="warning" (click)="deleteParticipant(item)"><app-fa name="trash" fw="true"></app-fa></button>
       </tr>
     </tbody>
