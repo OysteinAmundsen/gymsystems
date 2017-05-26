@@ -7,10 +7,12 @@ import { Title } from '@angular/platform-browser';
 import { TournamentService, ScheduleService, TeamsService, EventService, UserService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
+import { ITournamentParticipantScore } from 'app/services/model/ITournamentParticipantScore';
 import { ITeam } from 'app/services/model/ITeam';
 import { DivisionType } from 'app/services/model/DivisionType';
 import { Role, IUser } from 'app/services/model/IUser';
 import { Classes } from "app/services/model/Classes";
+import { IDiscipline } from "app/services/model/IDiscipline";
 
 @Component({
   selector: 'app-results',
@@ -123,6 +125,31 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     // Only show score if score is published
     return participant.publishTime ? score : 0;
+  }
+
+  scoreHeadByGroup(discipline: string): {type: string, value: number}[] {
+    let d = this.schedule.find(s => s.discipline.name === discipline).discipline;
+    return this.scoresByGroup(<ITournamentParticipant>{discipline: d, scores: []});
+  }
+  scoresByGroup(participant: ITournamentParticipant): {type: string, value: number}[] {
+    let scores = [];
+    participant.discipline.scoreGroups.forEach(g => {
+      if (participant.scores.length) {
+        participant.scores
+          .filter(s => s.scoreGroup.id === g.id).sort((a, b) => a.judgeIndex < b.judgeIndex ? -1: 1)
+          .forEach(s => scores.push({type: s.scoreGroup.type + (s.judgeIndex ? s.judgeIndex : ''), value: s.value}));
+      }
+      else {
+        for (let j = 0; j < g.judges; j++) {
+          scores.push({type: g.type + (j+1), value: 0});
+        }
+      }
+    });
+    return scores;
+  }
+
+  teamGymScoresByGroup(participant) {
+    let scores = [];
   }
 
   private calcDisciplineScore(participant: ITournamentParticipant) {

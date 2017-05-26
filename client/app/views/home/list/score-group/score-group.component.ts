@@ -41,7 +41,8 @@ export class ScoreGroupComponent implements OnInit, AfterViewInit {
         if (me.model.total > 0 && score.score === score.defaultScore) {
           // Check previous and copy (0 is not allowed)
           const index = me.model.scores.findIndex(s => s.scoreGroup.name === score.model.scoreGroup.name) + idx;
-          const control = me.form.controls[`field_${me.model.group.type}_${index - 1}`];
+          if (!score.model.judgeIndex) { score.model.judgeIndex = index - 1; }
+          const control = me.form.controls[`field_${me.model.group.type}_${score.model.judgeIndex}`];
           if (index > -1 && control) {
             score.score = control.value;
           }

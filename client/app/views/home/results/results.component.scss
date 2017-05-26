@@ -1,5 +1,8 @@
 @import "~styles/variables";
 header {
+  @media print {
+    display: none;
+  }
   padding-bottom: 4rem;
   padding-top: 1rem;
   line-height: 3em;
@@ -12,22 +15,54 @@ header {
   }
 }
 
-.division {
-  margin-bottom: 1rem;
-  >h3 {
-    color: white;
-    background: $primary;
-    border-radius: $rounded $rounded 0 0;
+section pre {
+  @media print {
+    display: none;
   }
 }
 
-table tr {
-  td {
-    opacity: 0.5;
+.division {
+  @media print {
+    page-break-after: always;
+    [class*="col-"] {
+      display: block;
+    }
   }
-  &.isPublished {
+  margin-bottom: 1rem;
+  h3 {
+    color: white;
+    background: $primary;
+    border-radius: $rounded $rounded 0 0;
+    @media print {
+      color: black;
+      text-transform: uppercase;
+      margin: 1rem 0;
+    }
+  }
+  h4 {
+    color: black;
+    @media print {
+      text-decoration: underline;
+    }
+  }
+}
+
+table {
+  @media print {
+    margin-bottom: 2rem;
+  }
+  tr {
     td {
-      opacity: 1;
+      opacity: 0.5;
+      min-width: 6rem;
+      &.print-only {
+        min-width: 4rem;
+      }
+    }
+    &.isPublished {
+      td {
+        opacity: 1;
+      }
     }
   }
 }

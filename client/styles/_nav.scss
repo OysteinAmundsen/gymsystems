@@ -2,6 +2,10 @@
 @import url("https://fonts.googleapis.com/css?family=Economica:400,700");
 // Top navbar
 nav {
+  @media print {
+    display: none;
+  }
+
   display: block;
   height: $navHeight;
   background: $primary;

@@ -100,6 +100,9 @@ ul.unstyled {
 }
 
 .flag-icon {
+  @media print {
+    display: none;
+  }
   &.flag-icon-large {
     width: 1.5rem;
     height: 1.5rem;
@@ -115,4 +118,10 @@ ul.unstyled {
 pre {
   font-family: inherit;
   white-space: pre-wrap;
+}
+
+.print-only {
+  @media screen {
+    display: none;
+  }
 }

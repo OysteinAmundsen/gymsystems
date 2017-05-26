@@ -1,5 +1,8 @@
 @import "variables";
 @mixin btn() {
+  @media print {
+    display: none;
+  }
   $timer: .4s;
   padding: $padding * 3;
   margin: 0 2px 2px 2px;

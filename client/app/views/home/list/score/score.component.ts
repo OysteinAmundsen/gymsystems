@@ -24,7 +24,8 @@ export class ScoreComponent implements OnInit {
   constructor(private element: ElementRef) { }
 
   ngOnInit() {
-    this.ct = this.form.controls[`field_${this.model.scoreGroup.type}_${this.index}`];
+    if (!this.model.judgeIndex) { this.model.judgeIndex = this.index + 1; }
+    this.ct = this.form.controls[`field_${this.model.scoreGroup.type}_${this.model.judgeIndex}`];
     if (this.ct) {
       this.ct.valueChanges.subscribe(value => {
         // Force value to be within range

@@ -5,5 +5,6 @@ export interface ITournamentParticipantScore {
   id: number;
   value: number;
   scoreGroup: IScoreGroup;
+  judgeIndex: number;
   participant: ITournamentParticipant;
 }

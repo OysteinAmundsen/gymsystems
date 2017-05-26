@@ -19,6 +19,9 @@
 
 
 footer {
+  @media print {
+    display: none;
+  }
   .user-info {
     position: absolute;
     top: 0;
