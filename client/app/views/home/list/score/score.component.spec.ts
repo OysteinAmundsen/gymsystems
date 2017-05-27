@@ -20,14 +20,14 @@ import { ITournamentParticipant } from 'app/services/model/ITournamentParticipan
 class WrapperComponent {
   form;
   score: ITournamentParticipantScore = <ITournamentParticipantScore>{
-    id: 0, value: 0, participant: <ITournamentParticipant>{ },
+    id: 0, value: 0, participant: <ITournamentParticipant>{ }, judgeIndex: 1,
     scoreGroup: <IScoreGroup>{
       id: 0, name: '', type: 'C', judges: 2, max: 5, min: 0, discipline: <IDiscipline>{ }, operation: Operation.Addition
     },
   }
   idx = 0;
   constructor(private fb: FormBuilder) {
-    this.form = fb.group({ 'field_C_0': [''] });
+    this.form = fb.group({ 'field_C_1': [''] });
   }
 }
 
