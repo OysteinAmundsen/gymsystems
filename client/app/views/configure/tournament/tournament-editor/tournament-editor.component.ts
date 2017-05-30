@@ -89,10 +89,12 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.tournament.description_no = this.tournament.description_no || '';
     this.tournament.description_en = this.tournament.description_en || '';
     this.title.setTitle(`Configure tournament: ${tournament.name} | GymSystems`);
-    this.tournament.times = this.tournament.times.map(t => {
-      t.day = moment(t.day);
-      return t;
-    });
+    if (this.tournament.times) {
+      this.tournament.times = this.tournament.times.map(t => {
+        t.day = moment(t.day);
+        return t;
+      });
+    }
 
     this.tournamentForm.setValue({
       id: this.tournament.id,
