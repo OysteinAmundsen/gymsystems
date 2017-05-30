@@ -13,9 +13,7 @@ describe('PagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        FormsModule
-      ],
+      imports: [ FormsModule ],
       declarations: [TypeaheadComponent, FaComponent]
     })
       .compileComponents();

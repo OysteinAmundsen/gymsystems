@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MultirangeComponent } from './multirange.component';
+import { FormsModule } from "@angular/forms";
 
 describe('MultirangeComponent', () => {
   let component: MultirangeComponent;
@@ -8,6 +9,7 @@ describe('MultirangeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ FormsModule ],
       declarations: [ MultirangeComponent ]
     })
     .compileComponents();
