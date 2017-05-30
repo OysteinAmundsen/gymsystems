@@ -21,7 +21,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "clean": "rm -rf dist",
-    "cloc": "cloc client > client/README.md && cloc server > server/README.md && cloc e2e > e2e/README.md",
+    "cloc": "cloc client > client/LOC.txt && cloc server > server/LOC.txt && cloc e2e > e2e/LOC.txt",
     "i18n": "ngx-translate-extract -i ./client/app -o ./client/i18n/template.json ./client/i18n/no.json ./client/i18n/en.json --clean --sort",
     "build": "npm run server:build & npm run client:build",
     "deploy": "npm run build && npm run docker",
