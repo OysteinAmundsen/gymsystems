@@ -128,8 +128,13 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   scoreHeadByGroup(discipline: string): {type: string, value: number}[] {
-    let d = this.schedule.find(s => s.discipline.name === discipline).discipline;
-    return this.scoresByGroup(<ITournamentParticipant>{discipline: d, scores: []});
+    if (discipline) {
+      let d = this.schedule.find(s => s.discipline.name === discipline);
+      if (d) {
+        return this.scoresByGroup(<ITournamentParticipant>{discipline: d.discipline, scores: []});
+      }
+    }
+    return null;
   }
   scoresByGroup(participant: ITournamentParticipant): {type: string, value: number}[] {
     let scores = [];
