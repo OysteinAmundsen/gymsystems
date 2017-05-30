@@ -1,0 +1,9 @@
+<output>{{ tooltip }}</output>
+
+<div class="range-container">
+  <datalist class="ticks">
+    <option *ngFor="let idx of ticks"></option>
+  </datalist>
+  <input [name]="name + '-low-val'" type="range" [min]="min" [max]="max" [(ngModel)]="valueLow" #low class="low">
+  <input [name]="name + '-high-val'" type="range" [min]="min" [max]="max" [(ngModel)]="valueHigh" #high class="high">
+</div>

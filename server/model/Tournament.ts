@@ -30,6 +30,9 @@ export class Tournament implements CreatedBy {
   @Column()
   endDate: Date;
 
+  @Column({type: 'json', nullable: true})
+  times: {day: Date, time: string}[];
+
   @Column()
   location: string;
 

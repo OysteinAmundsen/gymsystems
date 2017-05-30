@@ -1,7 +1,9 @@
 @import "variables";
 @import "panel";
+
 $inputHeight: 33px;
 $labelHeight: 16px;
+
 @mixin input() {
   display: block;
   background: transparent;

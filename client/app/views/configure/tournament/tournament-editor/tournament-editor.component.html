@@ -50,16 +50,25 @@
     <div class="row">
       <div class="col-xs-4" appFloatingLabelContainer>
         <label translate>Start date</label>
-        <app-datepicker formControlName="startDate" [options]="{maxDate: tournamentForm.value.endDate, initialDate: tournamentForm.value.endDate, autoApply: true, setTime: true}"></app-datepicker>
+        <app-datepicker formControlName="startDate" [options]="{maxDate: tournamentForm.value.endDate, initialDate: tournamentForm.value.endDate, autoApply: true}"></app-datepicker>
       </div>
       <div class="col-xs-4" appFloatingLabelContainer>
         <label translate>End date</label>
-        <app-datepicker formControlName="endDate" [options]="{minDate: tournamentForm.value.startDate, initialDate: tournamentForm.value.startDate, autoApply: true, setTime: true}"></app-datepicker>
+        <app-datepicker formControlName="endDate" [options]="{minDate: tournamentForm.value.startDate, initialDate: tournamentForm.value.startDate, autoApply: true}"></app-datepicker>
       </div>
       <div class="col-xs-4" appFloatingLabelContainer>
         <label translate>Location</label>
         <input type="text" formControlName="location">
       </div>
+    </div>
+
+  </fieldset>
+
+  <fieldset class="start-stop-container">
+    <legend><app-fa name="clock-o" fw="true"></app-fa><span translate>Time</span></legend>
+    <div class="row start-stop" *ngFor="let obj of selectedDays">
+      <label>{{ obj.day.format('ddd') }}</label>
+      <app-multirange [name]="obj.day.format('ddd')" min="0" max="24" [value]="obj.time" (valueChanges)="timeRangeChange($event, obj)"></app-multirange>
     </div>
   </fieldset>
 

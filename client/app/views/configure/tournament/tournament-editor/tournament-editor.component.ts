@@ -10,6 +10,10 @@ import { IUser, Role } from 'app/services/model/IUser';
 import { Moment } from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 
+import * as moment from 'moment';
+
+const Moment: any = (<any>moment).default || moment;
+
 @Component({
   selector: 'app-tournament-editor',
   templateUrl: './tournament-editor.component.html',
@@ -22,6 +26,26 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   roles = Role;
   userSubscription: Subscription;
   isEdit = false;
+
+  private get startDate(): Moment {
+    const startDate = this.tournamentForm.value.startDate;
+    return startDate ? (startDate.hasOwnProperty('momentObj') ? startDate.momentObj : moment(startDate)) : null;
+  }
+
+  private get endDate(): Moment {
+    const endDate = this.tournamentForm.value.endDate;
+    return endDate ? (endDate.hasOwnProperty('momentObj') ? endDate.momentObj : moment(endDate)) : null;
+  }
+
+  get selectedDays(): {day: Moment}[] {
+    if (!this.tournamentForm.value.times && this.startDate && this.endDate) {
+      this.tournamentForm.value.times = [];
+      for (let j = 0; j < moment.duration(this.endDate.diff(this.startDate)).asDays(); j++) {
+        this.tournamentForm.value.times.push({day: moment(this.startDate.clone().add(j, 'day')), time: "12,18"});
+      }
+    }
+    return this.tournamentForm.value.times;
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -52,8 +76,12 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       endDate: [this.tournament.endDate, [Validators.required]],
       location: [this.tournament.location],
       description: [this.tournament['description_' + this.translate.currentLang] || ''],
-      createdBy: [this.tournament.createdBy]
+      createdBy: [this.tournament.createdBy],
+      times: [this.tournament.times]
     });
+
+    this.tournamentForm.controls['startDate'].valueChanges.distinctUntilChanged().subscribe((val: any) => this.tournamentForm.value.times = null);
+    this.tournamentForm.controls['endDate'].valueChanges.distinctUntilChanged().subscribe((val: any) => this.tournamentForm.value.times = null);
   }
 
   tournamentReceived(tournament) {
@@ -61,6 +89,10 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.tournament.description_no = this.tournament.description_no || '';
     this.tournament.description_en = this.tournament.description_en || '';
     this.title.setTitle(`Configure tournament: ${tournament.name} | GymSystems`);
+    this.tournament.times = this.tournament.times.map(t => {
+      t.day = moment(t.day);
+      return t;
+    });
 
     this.tournamentForm.setValue({
       id: this.tournament.id,
@@ -69,7 +101,8 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       endDate: this.tournament.endDate,
       location: this.tournament.location,
       description: this.tournament['description_' + this.translate.currentLang] || '',
-      createdBy: this.tournament.createdBy
+      createdBy: this.tournament.createdBy,
+      times: this.tournament.times || null
     });
     this.tournamentService.selected = this.tournament;
   }
@@ -78,6 +111,12 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.tournamentService.selectedId = null;
     this.tournamentService.selected = null;
     this.userSubscription.unsubscribe();
+  }
+
+  timeRangeChange(event, obj) {
+    obj.time = event;
+    const time = this.tournamentForm.value.times.find(t => t.day === obj.day);
+    this.tournamentForm.markAsDirty();
   }
 
   save() {

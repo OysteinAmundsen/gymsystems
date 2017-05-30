@@ -20,6 +20,7 @@ import { IfAuthDirective } from './directives/auth/if-auth.directive';
 import { ToUpperPipe } from './pipes/to-upper.pipe';
 import { TypeaheadComponent } from './components/typeahead/typeahead.component';
 import { OrderByPipe } from './pipes/order-by.pipe';
+import { MultirangeComponent } from './components/multirange/multirange.component';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
     FaStackComponent,
     SlideToggleComponent,
     TypeaheadComponent,
+    MultirangeComponent,
 
     FloatingLabelContainerDirective,
     AutofocusDirective,
@@ -57,6 +59,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
     FaStackComponent,
     SlideToggleComponent,
     TypeaheadComponent,
+    MultirangeComponent,
 
     FloatingLabelContainerDirective,
     AutofocusDirective,

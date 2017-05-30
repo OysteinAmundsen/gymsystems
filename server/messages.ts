@@ -8,8 +8,8 @@ export let ERROR_MESSAGES: any = {
   ECONNREFUSED: `${chalk.red.bold('Connection refused!')}
 
 ${chalk.cyan.underline('Tip:')}
-     Did you forget to start the database? 
-     Before you try and run the server standalone, ${chalk.white.bold('Please run:')} 
+     Did you forget to start the database?
+     Before you try and run the server standalone, ${chalk.white.bold('Please run:')}
        ${chalk.yellow('./docker-build')} \n\n`,
 
   ER_DBACCESS_DENIED_ERROR: `${chalk.red.bold('Database access denied!')}
@@ -26,6 +26,8 @@ ${chalk.cyan.underline('Tip:')}
   EADDRINUSE: `${chalk.red.bold('Address is in use!')}
 
 ${chalk.cyan.underline('Tip:')}
-     Check if anything else occupies ${chalk.yellow.bold('port 3000')} on your machine.\n\n`
+     Check if anything else occupies ${chalk.yellow.bold('port 3000')} on your machine.\n
+        ${chalk.white.bold('netstat -aon | find "3000"')}
+        ${chalk.white.bold('taskkill /F /pid <processId>')}\n\n`
 
 };
