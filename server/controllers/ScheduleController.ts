@@ -145,25 +145,29 @@ export class ScheduleController {
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') participantId: number, @Res() res: Response, @Req() req: Request) {
     const participant = await this.repository.findOneById(participantId);
-    const sameClub = await isSameClubAsMe(participant.tournament, req);
-
-    if (!sameClub) {
-      res.status(403);
-      return {code: 403, message: 'You are not authorized to remove participants in a tournament not run by your club.'};
-    }
     return this.removeMany([participant], res, req);
   }
 
-  @Delete('/many')
+  @Delete('/tournament/:id')
   @EmptyResultCode(200)
   @UseBefore(RequireRole.get(Role.Organizer))
-  async removeMany( @Body() participant: TournamentParticipant[], @Res() res: Response, @Req() req: Request) {
-    const sameClub = await isAllSameClubAsMe(participant.map(p => p.tournament), req);
+  async removeAllFromTournament( @Param('id') tournamentId: number, @Res() res: Response, @Req() req: Request) {
+    const participants = await this.repository.createQueryBuilder('tournament_participant')
+      .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
+      .leftJoinAndSelect('tournament.createdBy', 'user')
+      .leftJoinAndSelect('user.club', 'club')
+      .where('tournament_participant.tournament=:id', { id: tournamentId })
+      .getMany();
+    return this.removeMany(participants, res, req);
+  }
+
+  async removeMany(participants: TournamentParticipant[], res: Response, req: Request) {
+    const sameClub = await isAllSameClubAsMe(participants.map(p => p.tournament), req);
     if (!sameClub) {
       res.status(403);
-      return {code: 403, message: 'You are not authorized to create participants in a tournament not run by your club.'};
+      return {code: 403, message: 'You are not authorized to remove participants from a tournament not run by your club.'};
     }
-    return this.repository.remove(participant)
+    return this.repository.remove(participants)
       .catch(err => {
         Logger.log.error(err);
         return { code: err.code, message: err.message };

@@ -1,12 +1,13 @@
 @import "~styles/variables";
+
 header {
-  @media print {
-    display: none;
-  }
   padding-bottom: 4rem;
   padding-top: 1rem;
   line-height: 3em;
   margin-bottom: 0.5rem;
+  @media print {
+    display: none;
+  }
   small {
     font-size: 0.8em;
     line-height: normal;
@@ -22,21 +23,23 @@ section pre {
 }
 
 .division {
+  margin-bottom: 1rem;
   @media print {
     page-break-after: always;
     [class*="col-"] {
       display: block;
     }
   }
-  margin-bottom: 1rem;
   h3 {
     color: white;
     background: $primary;
     border-radius: $rounded $rounded 0 0;
+    padding: 5px 10px;
     @media print {
       color: black;
       text-transform: uppercase;
       margin: 1rem 0;
+      padding-left: 0;
     }
   }
   h4 {
@@ -50,8 +53,15 @@ section pre {
 table {
   @media print {
     margin-bottom: 2rem;
+    border-collapse: collapse;
+    td {
+      border-bottom: 1px solid $primary;
+    }
   }
   tr {
+    th {
+      text-align: left;
+    }
     td {
       opacity: 0.5;
       min-width: 6rem;

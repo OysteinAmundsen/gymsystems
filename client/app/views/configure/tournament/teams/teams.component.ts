@@ -51,7 +51,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
     }
   }
 
-  divisions(team: ITeam) { return this.teamService.division(team); }
+  divisions(team: ITeam) { return this.teamService.getDivisionName(team); }
 
   disciplines(team: ITeam) {
     if (team.disciplines.length) {

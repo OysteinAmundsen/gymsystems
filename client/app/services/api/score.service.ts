@@ -6,6 +6,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
 import { ITournamentParticipantScore } from '../model/ITournamentParticipantScore';
+import { ITournamentParticipant } from "../model/ITournamentParticipant";
+import { Classes } from "../model/Classes";
 
 @Injectable()
 export class ScoreService {
@@ -23,5 +25,18 @@ export class ScoreService {
 
   removeFromParticipant(participantId: number) {
     return this.http.delete(`${this.url}/${participantId}`).map((res: Response) => res.json()).share();
+  }
+
+  calculateTeamTotal(participants: ITournamentParticipant[]) {
+    if (!participants || !participants.length) { return 0; }
+    return participants.reduce((prev, curr) => prev += this.calculateTotal(curr), 0) / participants.length;
+  }
+
+  calculateTotal(participant: ITournamentParticipant) {
+    // Calculate final score
+    return participant.discipline.scoreGroups.reduce((prev, curr) => {
+      const scores = participant.scores.filter(s => s.scoreGroup.id === curr.id);
+      return prev += scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
+    }, 0);
   }
 }

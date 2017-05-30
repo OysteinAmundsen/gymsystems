@@ -40,7 +40,7 @@ export class TeamsService {
     return this.http.delete(`${this.url}/${team.id}`).map((res: Response) => res.json());
   }
 
-  division(team: ITeam) {
+  getDivisionName(team: ITeam) {
     const ageDiv = team.divisions.find(d => d.type === DivisionType.Age);
     const genderDiv = team.divisions.find(d => d.type === DivisionType.Gender);
     return (genderDiv ? genderDiv.name : '') + ' ' + (ageDiv ? ageDiv.name : '');

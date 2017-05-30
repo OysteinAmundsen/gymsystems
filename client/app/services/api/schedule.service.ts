@@ -50,7 +50,7 @@ export class ScheduleService {
     return this.http.delete(`${this.url}/${participant.id}`);
   }
 
-  deleteAll(participants: ITournamentParticipant[]) {
-    return this.http.delete(`${this.url}/many`, { body: participants });
+  deleteAll(id: number) {
+    return this.http.delete(`${this.url}/tournament/${id}`);
   }
 }

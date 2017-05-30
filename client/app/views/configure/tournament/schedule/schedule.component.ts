@@ -74,13 +74,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   deleteAll() {
     const schedules = this.schedule.filter(s => s.id != null);
     if (schedules.length) {
-      this.scheduleService.deleteAll(schedules).subscribe(result => this.loadSchedule());
+      this.scheduleService.deleteAll(this.tournamentService.selectedId).subscribe(result => this.loadSchedule());
     } else {
       this.loadSchedule();
     }
   }
 
-  division(team: ITeam) { return this.teamService.division(team); }
+  division(team: ITeam) { return this.teamService.getDivisionName(team); }
 
   stringHash(participant: ITournamentParticipant): string {
     return (participant.team.name + this.division(participant.team) + participant.discipline.name).replace(' ', '_');

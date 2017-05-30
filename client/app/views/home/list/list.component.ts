@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Rx';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 
-import { TournamentService, ScheduleService, TeamsService, EventService, UserService } from 'app/services/api';
+import { TournamentService, ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 
 import { ITournament } from 'app/services/model/ITournament';
@@ -42,6 +42,7 @@ export class ListComponent implements OnInit, OnDestroy {
     private scheduleService: ScheduleService,
     private teamService: TeamsService,
     private tournamentService: TournamentService,
+    private scoreService: ScoreService,
     private eventService: EventService,
     private userService: UserService,
     private title: Title,
@@ -83,14 +84,10 @@ export class ListComponent implements OnInit, OnDestroy {
     this.scheduleService.getByTournament(this.tournamentId).subscribe((schedule) => this.schedule = schedule);
   }
 
-  division(team: ITeam) { return this.teamService.division(team); }
+  division(team: ITeam) { return this.teamService.getDivisionName(team); }
 
   score(participant: ITournamentParticipant) {
-    // Calculate final score
-    const score = participant.discipline.scoreGroups.reduce((prev, curr) => {
-      const scores = participant.scores.filter(s => s.scoreGroup.id === curr.id);
-      return prev += scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
-    }, 0);
+    const score = this.scoreService.calculateTotal(participant);
 
     // Only show score if score is published, OR logged in user is part of the secretariat
     return (participant.publishTime || (this.user && this.user.role >= Role.Secretariat)) ? score : 0;
