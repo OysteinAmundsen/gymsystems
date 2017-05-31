@@ -13,7 +13,8 @@
 
     <tbody dragula="schedule-bag" [dragulaModel]="schedule">
       <tr *ngFor="let item of schedule" class="draggable {{item.id ? '' : 'new'}}" [ngClass]="{'day-split': isNewDay(item)}">
-        <td>#{{ item.startNumber + 1 }}</td>
+        <td *ngIf="item.type === participationTypes.Training">Tr</td>
+        <td *ngIf="item.type === participationTypes.Live">#{{ item.startNumber + 1 }}</td>
         <td class="visible-wide" [innerHtml]="startTime(item)"></td>
         <td>{{ item.team.name }}</td>
         <td>{{ division(item.team) }}</td>

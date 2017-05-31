@@ -5,6 +5,9 @@ import { Discipline } from './Discipline';
 import { TournamentParticipantScore } from './TournamentParticipantScore';
 import { Division, DivisionType } from './Division';
 
+export enum ParticipationType {
+  Training = 1, Live = 2
+}
 /**
  * Marks one entry in the tournaments schedule
  *
@@ -27,6 +30,9 @@ export class TournamentParticipant {
 
   @Column({ nullable: true })
   publishTime: Date;
+
+  @Column({ default: ParticipationType.Live })
+  type: ParticipationType;
 
   @ManyToOne(type => Tournament, tournament => tournament.schedule, { nullable: false })
   tournament: Tournament;

@@ -18,6 +18,7 @@ import { ITeam } from 'app/services/model/ITeam';
 import { ITournament } from 'app/services/model/ITournament';
 import { IScoreGroup } from 'app/services/model/IScoreGroup';
 import { Operation } from 'app/services/model/Operation';
+
 import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { ScoreServiceStub } from 'app/services/api/score.service.stub';
 

@@ -21,12 +21,14 @@ import { ScheduleService, ConfigurationService } from "app/services/api";
 import { scoreGroups } from 'app/services/api/scoregroup.service.stub';
 import { dummyTournament } from 'app/services/api/tournament.service.stub';
 import { dummyTeam } from 'app/services/api/teams.service.stub';
+import { ParticipationType } from "app/services/model/ParticipationType";
 
 function generateParticipants(amount: number): ITournamentParticipant[] {
   return Array(amount).fill(0).map((s, i) => {
     return <ITournamentParticipant>{
       id: i,
       startNumber: i,
+      type: ParticipationType.Live,
       discipline: <IDiscipline>{
         scoreGroups: scoreGroups
       },

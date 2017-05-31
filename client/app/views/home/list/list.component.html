@@ -31,7 +31,8 @@
     </thead>
     <tbody *ngFor="let item of schedule; let i = index;" [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime, isCurrent: item.startTime && !item.endTime && !item.publishTime}">
       <tr *ngIf="selected !== item" (click)="select(item)" role="listitem">
-        <td>#{{ item.startNumber + 1 }}</td>
+        <td *ngIf="item.type === participationTypes.Training">Tr</td>
+        <td *ngIf="item.type === participationTypes.Live">#{{ item.startNumber + 1 }}</td>
         <td class="visible-wide" [innerHtml]="startTime(item)"></td>
         <td>{{ item.team.name }} </td>
         <td class="visible-wide">{{ division(item.team) }}</td>

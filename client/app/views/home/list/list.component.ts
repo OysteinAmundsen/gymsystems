@@ -18,6 +18,7 @@ import { Role, IUser } from 'app/services/model/IUser';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IMedia } from 'app/services/model/IMedia';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ParticipationType } from "app/services/model/ParticipationType";
 
 @Component({
   selector: 'app-list',
@@ -27,6 +28,7 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 export class ListComponent implements OnInit, OnDestroy {
   user: IUser;
   roles = Role;
+  participationTypes = ParticipationType;
   tournament: ITournament;
   tournamentId: number;
   schedule: ITournamentParticipant[] = [];

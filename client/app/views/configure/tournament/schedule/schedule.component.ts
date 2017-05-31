@@ -11,6 +11,7 @@ import { IDivision } from 'app/services/model/IDivision';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 import { DivisionType } from 'app/services/model/DivisionType';
 import { Classes } from "app/services/model/Classes";
+import { ParticipationType } from "app/services/model/ParticipationType";
 
 @Component({
   selector: 'app-schedule',
@@ -22,6 +23,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   teams: ITeam[] = [];
   disciplines: IDiscipline[];
   classes = Classes;
+  participationTypes = ParticipationType;
   dragulaSubscription;
   isDirty = false;
 
@@ -139,7 +141,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         team.disciplines.forEach(dis => { // ...and each discipline, create a participant object
           if (disciplines.findIndex(d => d.id === dis.id) < 0) { disciplines.push(dis); }
 
-          const participant = <ITournamentParticipant>{ discipline: dis, team: team, tournament: tournament };
+          const participant = <ITournamentParticipant>{ discipline: dis, team: team, tournament: tournament, type: ParticipationType.Live };
           if (this.schedule.findIndex(s => this.stringHash(s) === this.stringHash(participant)) < 0) {
             // Only push if participant is not allready registerred
             schedule.push(participant);
