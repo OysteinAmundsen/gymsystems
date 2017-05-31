@@ -43,7 +43,7 @@ export class ScoreComponent implements OnInit {
    *
    * @param event
    */
-  @HostListener('window:keyup', ['$event'])
+  @HostListener('window:keydown', ['$event'])
   onKey(event: KeyboardEvent) {
     if (event.srcElement === this.input.nativeElement) {
       if (event.code === 'PageDown' && this.ct.value > this.model.scoreGroup.min) {
@@ -51,6 +51,12 @@ export class ScoreComponent implements OnInit {
       } else if (event.code === 'PageUp' && this.ct.value < this.model.scoreGroup.max) {
         this.score += 1;
       }
+      // if(event.key === ','){
+      //   this.input.nativeElement.value = this.score.toFixed(1);
+      //   (<HTMLInputElement>this.input.nativeElement).setSelectionRange(this.score.toString().length - 1, this.score.toString().length);
+      //   event.preventDefault();
+      //   return false;
+      // }
     }
   }
 }
