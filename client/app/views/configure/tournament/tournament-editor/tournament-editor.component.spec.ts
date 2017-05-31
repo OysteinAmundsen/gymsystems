@@ -10,6 +10,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { UserService, TournamentService } from 'app/services/api';
 import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 
 describe('TournamentEditorComponent', () => {
   let component: TournamentEditorComponent;
@@ -33,6 +34,7 @@ describe('TournamentEditorComponent', () => {
       ],
       declarations: [ TournamentEditorComponent ],
       providers: [
+        ErrorHandlerService,
         {provide: UserService, useClass: UserServiceStub},
         {provide: TournamentService, useClass: TournamentServiceStub},
       ]

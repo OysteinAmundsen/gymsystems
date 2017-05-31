@@ -11,6 +11,7 @@ import { Moment } from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 const Moment: any = (<any>moment).default || moment;
 
 @Component({
@@ -25,6 +26,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   roles = Role;
   userSubscription: Subscription;
   isEdit = false;
+  isAdding = false;
 
   private get startDate(): Moment {
     const startDate = this.tournamentForm.value.startDate;
@@ -52,6 +54,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private userService: UserService,
     private tournamentService: TournamentService,
+    private error: ErrorHandlerService,
     private translate: TranslateService,
     private title: Title
   ) {  }
@@ -63,6 +66,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
         this.tournamentService.selectedId = +params.id;
         this.tournamentService.getById(+params.id).subscribe(tournament => this.tournamentReceived(tournament));
       } else {
+        this.isAdding = true;
         this.isEdit = true;
       }
     });
@@ -135,9 +139,16 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       formVal.endDate = (<Moment>formVal.endDate.momentObj).endOf('day').utc().toISOString();
     }
     this.tournamentService.save(formVal).subscribe(tournament => {
+      if (tournament.hasOwnProperty('code')) {
+        this.error.error = `${tournament.message}`;
+        return false;
+      }
+      this.tournamentReceived(tournament);
       this.isEdit = false;
-      this.tournamentReceived(tournament)
-      this.router.navigate(['../', tournament.id], { relativeTo: this.route });
+      if (this.isAdding) {
+        this.isAdding = false;
+        this.router.navigate(['../', tournament.id], { relativeTo: this.route });
+      }
     });
   }
 
@@ -149,9 +160,9 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
   cancel() {
     this.isEdit = false;
-    if (!this.tournamentForm.value.id) {
-      this.router.navigate(['../'], { relativeTo: this.route });
-    }
+    // if (!this.tournamentForm.value.id) {
+    //   this.router.navigate(['../'], { relativeTo: this.route });
+    // }
   }
 
   edit() {
