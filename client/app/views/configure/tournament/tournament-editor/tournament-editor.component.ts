@@ -27,6 +27,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   isEdit = false;
   isAdding = false;
+  isSaving = false;
 
   private get startDate(): Moment {
     const startDate = this.tournamentForm.value.startDate;
@@ -138,7 +139,9 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     if (formVal.endDate.hasOwnProperty('momentObj')) {
       formVal.endDate = (<Moment>formVal.endDate.momentObj).endOf('day').utc().toISOString();
     }
+    this.isSaving = true;
     this.tournamentService.save(formVal).subscribe(tournament => {
+      this.isSaving = false;
       if (tournament.hasOwnProperty('code')) {
         this.error.error = `${tournament.message}`;
         return false;

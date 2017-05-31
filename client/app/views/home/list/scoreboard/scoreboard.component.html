@@ -23,7 +23,7 @@
   </div>
 
   <footer>
-    <button type="submit" [title]="'Save' | translate"><app-fa name="save" fw="true"></app-fa> <span translate>Save</span></button>
+    <button type="submit" [title]="'Save' | translate"><app-fa [name]="isSaving ? 'circle-o-notch fa-spin' : 'save'" fw="true"></app-fa> <span translate>Save</span></button>
     <button type="button" [title]="'Cancel' | translate" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
     <button *ngIf="participant.publishTime == null || currentUser.role >= roles.Organizer" type="button" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()">
       <app-fa name="trash" fw="true"></app-fa>

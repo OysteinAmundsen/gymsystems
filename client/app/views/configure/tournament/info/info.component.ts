@@ -13,25 +13,41 @@ export class InfoComponent implements OnInit {
   tournament: ITournament;
   lng: string = this.translate.currentLang;
   preview = false;
+  isSaving = false;
+  original: string;
   @ViewChild('infoText') infoText;
   constructor(private route: ActivatedRoute, private tournamentService: TournamentService, private translate: TranslateService) { }
 
   ngOnInit() {
     this.route.parent.params.subscribe((params: any) => {
       if (this.tournamentService.selected) {
-        this.tournament = this.tournamentService.selected
+        this.tournament = this.tournamentService.selected;
+        this.original = JSON.stringify([this.tournament.description_en, this.tournament.description_no]);
       } else if (params.id) {
         this.tournamentService.selectedId = +params.id;
         this.tournamentService.getById(params.id).subscribe(tournament => {
           this.tournament = tournament;
           this.tournamentService.selected = tournament;
+          this.original = JSON.stringify([this.tournament.description_en, this.tournament.description_no]);
         });
       }
     });
   }
 
   save() {
-    this.tournamentService.save(this.tournament).subscribe(res => this.tournament = res);
+    this.isSaving = true;
+    if (this.tournament.description_en && !this.tournament.description_no) { this.tournament.description_no = this.tournament.description_en; }
+    if (this.tournament.description_no && !this.tournament.description_en) { this.tournament.description_en = this.tournament.description_no; }
+    this.tournamentService.save(this.tournament).subscribe(res => {
+      this.isSaving = false;
+      this.tournament = res;
+      this.original = JSON.stringify([this.tournament.description_en, this.tournament.description_no]);
+    });
+  }
+
+  isChanged() {
+    const current: string = JSON.stringify([this.tournament.description_en, this.tournament.description_no]);
+    return current !== this.original;
   }
 
   setLang(lng) {

@@ -26,6 +26,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   participationTypes = ParticipationType;
   dragulaSubscription;
   isDirty = false;
+  isSaving = false;
 
   constructor(
     private divisionService: DivisionService,
@@ -61,8 +62,10 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   saveSchedule() {
+    this.isSaving = true;
     this.scheduleService.saveAll(this.schedule).subscribe(result => {
       this.isDirty = false;
+      this.isSaving = false;
       this.loadSchedule();
     });
   }

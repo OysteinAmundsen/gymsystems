@@ -12,6 +12,7 @@ export class AdvancedComponent implements OnInit {
   @ViewChild('area') textAreas: ElementRef;
   configuration;
   selected;
+  isSaving = false;
   get defaultValues() {
     return this.configuration ? this.configuration.find(c => c.name === 'defaultValues').value : null;
   }
@@ -57,6 +58,7 @@ export class AdvancedComponent implements OnInit {
   }
 
   save() {
-    this.config.save(this.configuration).subscribe(res => this.configuration = res);
+    this.isSaving = true;
+    this.config.save(this.configuration).subscribe(res => { this.configuration = res; this.isSaving = false; });
   }
 }

@@ -37,6 +37,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   clubs = [];
   selectedClub: IClub;
+  isSaving = false;
   get ageDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Age); }
   get genderDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Gender); }
   get allChecked() {
@@ -218,7 +219,9 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
     // Save team
     return new Promise((resolve, reject) => {
+      this.isSaving = true;
       this.teamService.save(team).subscribe(result => {
+        this.isSaving = false;
         const t: ITeam = Array.isArray(result) ? result[0] : result;
         this.teamReceived(t);
         if (!keepOpen) {
