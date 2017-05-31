@@ -33,7 +33,7 @@ export class DisplayController {
       return ret;
     });
     Handlebars.registerHelper('fix', function (context: any, options:any) {
-      if (options) {
+      if (options && context != null) {
         let len = options.hash ? options.hash.len : 0;
         return `${context.toFixed(len)}`;
       }
