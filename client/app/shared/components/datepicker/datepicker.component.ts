@@ -265,11 +265,11 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
       const selected: boolean = (selectedDate && selectedDate.isSame(currentDate, 'day'));
       let betweenMinMax = true;
 
-      if (this.minDate !== null && this.maxDate !== null) {
-        betweenMinMax = currentDate.isBetween(this.minDate, this.maxDate, 'day', '[]');
-      } else if (this.minDate !== null) {
-        betweenMinMax = currentDate.isAfter(this.minDate, 'day');
-      } else if (this.maxDate !== null) {
+      if (this.minDate != null && this.maxDate != null) {
+        betweenMinMax = currentDate.isBetween(this.minDate.clone().subtract(1,'day'), this.maxDate, 'day', '[]');
+      } else if (this.minDate != null) {
+        betweenMinMax = currentDate.isAfter(this.minDate.clone().subtract(1,'day'), 'day');
+      } else if (this.maxDate != null) {
         betweenMinMax = currentDate.isBefore(this.maxDate, 'day');
       }
 

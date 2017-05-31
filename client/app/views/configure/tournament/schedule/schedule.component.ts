@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 
+import * as moment from 'moment';
+const Moment: any = (<any>moment).default || moment;
+
 import { TournamentService, TeamsService, DisciplineService, DivisionService, ScheduleService } from 'app/services/api';
 import { ITeam } from 'app/services/model/ITeam';
 import { IDiscipline } from 'app/services/model/IDiscipline';
@@ -78,6 +81,23 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     } else {
       this.loadSchedule();
     }
+  }
+
+  startTime(participant: ITournamentParticipant) {
+    let time: moment.Moment = this.scheduleService.calculateStartTime(this.tournamentService.selected, participant);
+    if (time) { return time.format('HH:mm'); }
+    return '<span class="warning">ERR</span>';
+  }
+
+  isNewDay(participant: ITournamentParticipant) {
+    const nextParticipant = this.schedule.find(s => s.startNumber === participant.startNumber + 1);
+    if (nextParticipant) {
+      const thisTime = this.scheduleService.calculateStartTime(this.tournamentService.selected, participant);
+      const nextTime = this.scheduleService.calculateStartTime(this.tournamentService.selected, nextParticipant);
+      const difference = moment.duration(nextTime.diff(thisTime)).asDays();
+      return (difference >= 1);
+    }
+    return false;
   }
 
   division(team: ITeam) { return this.teamService.getDivisionName(team); }

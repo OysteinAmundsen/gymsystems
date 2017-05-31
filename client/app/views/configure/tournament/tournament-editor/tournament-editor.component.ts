@@ -11,7 +11,6 @@ import { Moment } from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
-
 const Moment: any = (<any>moment).default || moment;
 
 @Component({
@@ -68,6 +67,9 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       }
     });
 
+    // Make sure we have translations for weekdays
+    this.translate.get(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']).subscribe();
+
     // Create the form
     this.tournamentForm = this.fb.group({
       id: [this.tournament.id],
@@ -80,8 +82,11 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       times: [this.tournament.times]
     });
 
-    this.tournamentForm.controls['startDate'].valueChanges.distinctUntilChanged().subscribe((val: any) => this.tournamentForm.value.times = null);
-    this.tournamentForm.controls['endDate'].valueChanges.distinctUntilChanged().subscribe((val: any) => this.tournamentForm.value.times = null);
+    const reset = () => {
+      this.tournamentForm.value.times = null;
+    }
+    this.tournamentForm.controls['startDate'].valueChanges.distinctUntilChanged().subscribe((val: any) => setTimeout(reset));
+    this.tournamentForm.controls['endDate'].valueChanges.distinctUntilChanged().subscribe((val: any) => setTimeout(reset));
   }
 
   tournamentReceived(tournament) {

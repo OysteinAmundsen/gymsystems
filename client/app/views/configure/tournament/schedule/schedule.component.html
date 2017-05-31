@@ -3,6 +3,7 @@
     <thead>
       <tr>
         <th>#</th>
+        <th translate class="visible-wide">Time</th>
         <th translate>Team</th>
         <th translate>Division</th>
         <th translate>Discipline</th>
@@ -10,9 +11,10 @@
       </tr>
     </thead>
 
-    <tbody [dragula]="'schedule-bag'" [dragulaModel]="schedule">
-      <tr *ngFor="let item of schedule" class="draggable {{item.id ? '' : 'new'}}">
-        <td>{{ item.startNumber }}</td>
+    <tbody dragula="schedule-bag" [dragulaModel]="schedule">
+      <tr *ngFor="let item of schedule" class="draggable {{item.id ? '' : 'new'}}" [ngClass]="{'day-split': isNewDay(item)}">
+        <td>#{{ item.startNumber + 1 }}</td>
+        <td class="visible-wide" [innerHtml]="startTime(item)"></td>
         <td>{{ item.team.name }}</td>
         <td>{{ division(item.team) }}</td>
         <td><b *ngIf="item.team.class === classes.TeamGym">TG: </b>{{ item.discipline.name }}</td>

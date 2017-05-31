@@ -20,7 +20,11 @@ export class AdvancedComponent implements OnInit {
   }
 
   get executionTime() {
-    return this.configuration ? this.configuration.find(c => c.name === 'scheduleExecutionTime').value : null;
+    if (this.configuration) {
+      const exec = this.configuration.find(c => c.name === 'scheduleExecutionTime');
+      return exec ? exec.value : null;
+    }
+    return null;
   }
   set executionTime(value) {
     const execIndex = this.configuration.findIndex(c => c.name === 'scheduleExecutionTime');

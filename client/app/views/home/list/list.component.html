@@ -20,7 +20,8 @@
   <table *ngIf="tournament && schedule.length" role="list">
     <thead>
       <tr>
-        <th translate>Start #</th>
+        <th translate>Start</th>
+        <th translate class="visible-wide">Time</th>
         <th translate>Team</th>
         <th class="visible-wide" translate>Division</th>
         <th class="visible-wide" translate>Discipline</th>
@@ -30,7 +31,8 @@
     </thead>
     <tbody *ngFor="let item of schedule; let i = index;" [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime, isCurrent: item.startTime && !item.endTime && !item.publishTime}">
       <tr *ngIf="selected !== item" (click)="select(item)" role="listitem">
-        <td>{{ item.startNumber }}</td>
+        <td>#{{ item.startNumber + 1 }}</td>
+        <td class="visible-wide" [innerHtml]="startTime(item)"></td>
         <td>{{ item.team.name }} </td>
         <td class="visible-wide">{{ division(item.team) }}</td>
         <td class="visible-wide">{{ item.discipline.name }}</td>
@@ -48,14 +50,19 @@
         </td>
       </tr>
       <tr *ngIf="selected !== item" (click)="select(item)" class="visible-narrow details">
-        <td>&nbsp;</td>
+        <td>{{ startTime(item) }}</td>
         <td><small>{{ division(item.team) }} - {{ item.discipline.name }}</small></td>
         <td>&nbsp;</td>
         <td *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.createdBy.club.id))">&nbsp;</td>
       </tr>
       <tr *ngIf="selected === item">
-        <td colspan="6" class="editor">
+        <td colspan="7" class="editor">
           <app-scoreboard [participant]="item" (onClose)="closeEditor()"></app-scoreboard>
+        </td>
+      </tr>
+      <tr *ngIf="isNewDay(item)">
+        <td colspan="7" class="day-split">
+          {{ startDate(schedule[i+1]) | translate }}
         </td>
       </tr>
     </tbody>

@@ -4,6 +4,9 @@ import { Subscription } from 'rxjs/Rx';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 
+import * as moment from 'moment';
+const Moment: any = (<any>moment).default || moment;
+
 import { TournamentService, ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 
@@ -53,6 +56,9 @@ export class ListComponent implements OnInit, OnDestroy {
     this.eventSubscription = this.eventService.connect().subscribe(message => this.loadSchedule());
     this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
 
+    // Make sure we have translations for weekdays
+    this.translate.get(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']).subscribe();
+
     if (this.tournamentService.selected) {
       this.tournamentId = this.tournamentService.selectedId;
       this.tournament = this.tournamentService.selected;
@@ -82,6 +88,27 @@ export class ListComponent implements OnInit, OnDestroy {
 
   loadSchedule() {
     this.scheduleService.getByTournament(this.tournamentId).subscribe((schedule) => this.schedule = schedule);
+  }
+
+  startTime(participant: ITournamentParticipant) {
+    let time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
+    if (time) { return time.format('HH:mm'); }
+    return '<span class="warning">ERR</span>';
+  }
+  startDate(participant: ITournamentParticipant) {
+    let time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
+    if (time) { return time.format('ddd'); }
+    return '';
+  }
+  isNewDay(participant: ITournamentParticipant) {
+    const nextParticipant = this.schedule.find(s => s.startNumber === participant.startNumber + 1);
+    if (nextParticipant) {
+      const thisTime = this.scheduleService.calculateStartTime(this.tournamentService.selected, participant);
+      const nextTime = this.scheduleService.calculateStartTime(this.tournamentService.selected, nextParticipant);
+      const difference = moment.duration(nextTime.diff(thisTime)).asDays();
+      return (difference >= 1);
+    }
+    return participant.startNumber === 0;
   }
 
   division(team: ITeam) { return this.teamService.getDivisionName(team); }

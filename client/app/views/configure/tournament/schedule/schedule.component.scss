@@ -1,5 +1,12 @@
+@import '~styles/variables';
+
 tr.new td {
   background: rgba(lighten(green, 50%), 0.1);
+}
+
+tr.day-split td {
+  border-bottom-width: 2px;
+  border-bottom-color: $text-color;
 }
 
 table[role="list"] tr td.icons {
