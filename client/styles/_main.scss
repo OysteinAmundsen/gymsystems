@@ -125,3 +125,9 @@ pre {
     display: none;
   }
 }
+
+.screen-only {
+  @media print {
+    display: none;
+  }
+}

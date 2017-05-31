@@ -57,6 +57,15 @@ table {
     td {
       border-bottom: 1px solid $primary;
     }
+    tbody.team {
+      .team-total > td {
+        padding-top: 1rem;
+        border-bottom-width: 2px;
+      }
+      .team-details > td {
+        border-bottom-style: dotted;
+      }
+    }
   }
   tr {
     th {

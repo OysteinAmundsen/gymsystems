@@ -134,8 +134,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }, []);
   }
 
-  teamGymScoresByGroup(participant) {
-    let scores = [];
+  teamGymScoresByGroup(participant): {discipline: string, total: number, scores: {type: string, value: number}[] }[] {
+    return this.schedule.filter(s => s.team.id === participant.team.id).reduce((p, c) => {
+      p.push({discipline: c.discipline.name, total: this.scoreService.calculateTotal(c), scores: this.scoresByGroup(c)});
+      return p;
+    }, []);
   }
 
   isPublished(item: ITournamentParticipant) {
