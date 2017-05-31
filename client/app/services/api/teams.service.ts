@@ -55,9 +55,6 @@ export class TeamsService {
       .catch(error => Observable.throw(error));
   }
 
-  streamMedia(team: ITeam, discipline: IDiscipline) {
-  }
-
   removeMedia(team: ITeam, discipline: IDiscipline) {
     return this.http.delete(`/api/media/${team.id}/${discipline.id}`)
       .map(res => res.json())

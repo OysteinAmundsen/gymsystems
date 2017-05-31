@@ -12,6 +12,21 @@ import Moment = moment.Moment;
 import { ITournament } from '../model/ITournament';
 import { IUser } from 'app/services/model/IUser';
 
+export const dummyTournament = <ITournament>{
+  id: 1,
+  createdBy: <IUser>{},
+  name: '',
+  description_no: '',
+  description_en: '',
+  startDate: new Date(),
+  endDate: new Date(),
+  location: '',
+  schedule: [],
+  disciplines: [],
+  divisions: [],
+  times: [{day: new Date(), time: "12,18"}]
+};
+
 @Injectable()
 export class TournamentServiceStub {
   previous: ITournament = <ITournament>{
@@ -25,21 +40,10 @@ export class TournamentServiceStub {
     location: '',
     schedule: [],
     disciplines: [],
-    divisions: []
+    divisions: [],
+    times: null
   };
-  present: ITournament = <ITournament>{
-    id: 1,
-    createdBy: <IUser>{},
-    name: '',
-    description_no: '',
-    description_en: '',
-    startDate: new Date(),
-    endDate: new Date(),
-    location: '',
-    schedule: [],
-    disciplines: [],
-    divisions: []
-  };
+  present: ITournament = dummyTournament;
   future: ITournament = <ITournament>{
     id: 2,
     createdBy: <IUser>{},
@@ -51,11 +55,15 @@ export class TournamentServiceStub {
     location: '',
     schedule: [],
     disciplines: [],
-    divisions: []
+    divisions: [],
+    times: null
   };
   tournaments: ITournament[] = [
     this.previous, this.present, this.future
   ]
+
+  selected = dummyTournament;
+  selectedId = dummyTournament.id;
   constructor(private http: Http) {  }
 
   all(): Observable<ITournament[]> {

@@ -6,41 +6,45 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
+import * as moment from 'moment';
+const Moment: any = (<any>moment).default || moment;
+
 import { ITournamentParticipant } from '../model/ITournamentParticipant';
 import { IDiscipline } from '../model/IDiscipline';
 import { ITeam } from '../model/ITeam';
 import { ITournament } from '../model/ITournament';
 import { IClub } from '../model/IClub';
 import { IScoreGroup } from "app/services/model/IScoreGroup";
+import { ScheduleService, ConfigurationService } from "app/services/api";
+
+// Dummy data
+import { scoreGroups } from 'app/services/api/scoregroup.service.stub';
+import { dummyTournament } from 'app/services/api/tournament.service.stub';
+import { dummyTeam } from 'app/services/api/teams.service.stub';
+
+function generateParticipants(amount: number): ITournamentParticipant[] {
+  return Array(amount).fill(0).map((s, i) => {
+    return <ITournamentParticipant>{
+      id: i,
+      startNumber: i,
+      discipline: <IDiscipline>{
+        scoreGroups: scoreGroups
+      },
+      team: dummyTeam,
+      tournament: dummyTournament,
+      scores: []
+    }
+  });
+}
 
 @Injectable()
 export class ScheduleServiceStub {
-  participant: ITournamentParticipant = <ITournamentParticipant>{
-    id: 0,
-    startNumber: 0,
-    discipline: <IDiscipline>{
-      scoreGroups: <IScoreGroup[]>[
-        { id: 1, name: 'Composition', type: 'C',  operation: 1, judges: 2, max: 5,  min: 0, discipline: null },
-        { id: 2, name: 'Execution',   type: 'E',  operation: 1, judges: 4, max: 10, min: 0, discipline: null },
-        { id: 3, name: 'Difficulty',  type: 'D',  operation: 1, judges: 2, max: 5,  min: 0, discipline: null },
-        { id: 4, name: 'Adjustments', type: 'HJ', operation: 2, judges: 1, max: 5,  min: 0, discipline: null }
-      ]
-    },
-    team: <ITeam>{
-      id: 0,
-      name: '',
-      divisions: [],
-      disciplines: [],
-      tournament: <ITournament>{},
-      club: <IClub>{}
-    },
-    tournament: <ITournament>{},
-    scores: []
-  };
-  schedule: ITournamentParticipant[] = [
-    this.participant
-  ]
-  constructor(private http: Http) {  }
+  original: ScheduleService;
+  participant: ITournamentParticipant = generateParticipants(1)[0];
+  schedule: ITournamentParticipant[] = generateParticipants(10);
+  constructor(private http: Http, private configService: ConfigurationService) {
+    this.original = new ScheduleService(http, configService);
+  }
 
   all(): Observable<ITournamentParticipant[]> {
     return Observable.of(this.schedule);
@@ -80,5 +84,9 @@ export class ScheduleServiceStub {
 
   deleteAll(participants: ITournamentParticipant[]) {
     return Observable.of(null);
+  }
+
+  calculateStartTime(tournament: ITournament, participant: ITournamentParticipant): moment.Moment {
+    return this.original.calculateStartTime(tournament, participant);
   }
 }

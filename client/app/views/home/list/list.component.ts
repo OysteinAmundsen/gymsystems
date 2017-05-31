@@ -105,7 +105,7 @@ export class ListComponent implements OnInit, OnDestroy {
     if (nextParticipant) {
       const thisTime = this.scheduleService.calculateStartTime(this.tournamentService.selected, participant);
       const nextTime = this.scheduleService.calculateStartTime(this.tournamentService.selected, nextParticipant);
-      const difference = moment.duration(nextTime.diff(thisTime)).asDays();
+      const difference = moment.duration(nextTime.startOf('day').diff(thisTime.startOf('day'))).asDays();
       return (difference >= 1);
     }
     return participant.startNumber === 0;

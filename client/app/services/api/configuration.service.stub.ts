@@ -31,6 +31,7 @@ export class ConfigurationServiceStub  {
         { name: 'Adjustments', type: 'HJ', operation: 2, judges: 1, max: 5,  min: 0 }
       ],
     }},
+    { name: 'scheduleExecutionTime', value: '5' },
     {name: 'display', value: {
       display1: `<header>{{tournament.name}}</header>
 

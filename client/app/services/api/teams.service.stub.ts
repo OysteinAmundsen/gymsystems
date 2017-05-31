@@ -11,20 +11,30 @@ import { DivisionType } from '../model/DivisionType';
 import { ITournament } from 'app/services/model/ITournament';
 import { IClub } from 'app/services/model/IClub';
 
+import { TeamsService } from "app/services/api";
+import { IDiscipline } from "app/services/model/IDiscipline";
+
+import { dummyTournament } from 'app/services/api/tournament.service.stub';
+
+export const dummyTeam = <ITeam>{
+  id: 0,
+  name: '',
+  divisions: [],
+  disciplines: [],
+  tournament: dummyTournament,
+  club: <IClub>{}
+};
+
 @Injectable()
 export class TeamsServiceStub {
-  team: ITeam = <ITeam>{
-    id: 0,
-    name: '',
-    divisions: [],
-    disciplines: [],
-    tournament: <ITournament>{},
-    club: <IClub>{}
-  };
+  original: TeamsService;
+  team: ITeam = dummyTeam;
   teams: ITeam[] = [
     this.team
   ];
-  constructor(private http: Http) {  }
+  constructor(private http: Http) {
+    this.original = new TeamsService(http);
+  }
 
   all(): Observable<ITeam[]> {
     return Observable.of(this.teams);
@@ -50,7 +60,13 @@ export class TeamsServiceStub {
     return Observable.of(null);
   }
 
-  division(team: ITeam) {
-    return Observable.of(null);
+  getDivisionName(team: ITeam) {
+    return this.original.getDivisionName(team);
+  }
+
+  uploadMedia(file: File, team: ITeam, discipline: IDiscipline) {
+  }
+
+  removeMedia(team: ITeam, discipline: IDiscipline) {
   }
 }

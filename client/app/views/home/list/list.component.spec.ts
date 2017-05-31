@@ -9,7 +9,7 @@ import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { ListComponent } from './list.component';
-import { TournamentService, UserService, ScheduleService, TeamsService, EventService } from 'app/services/api';
+import { TournamentService, UserService, ScheduleService, TeamsService, EventService, ConfigurationService, ScoreService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
@@ -22,6 +22,8 @@ import { TournamentServiceStub } from 'app/services/api/tournament.service.stub'
 import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ConfigurationServiceStub } from "app/services/api/configuration.service.stub";
+import { ScoreServiceStub } from "app/services/api/score.service.stub";
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -56,6 +58,8 @@ describe('ListComponent', () => {
         {provide: TournamentService, useClass: TournamentServiceStub},
         {provide: TeamsService, useClass: TeamsServiceStub},
         {provide: EventService, useClass: EventServiceStub},
+        {provide: ScoreService, useClass: ScoreServiceStub},
+        {provide: ConfigurationService, useClass: ConfigurationServiceStub},
         ErrorHandlerService,
         MediaService
       ]

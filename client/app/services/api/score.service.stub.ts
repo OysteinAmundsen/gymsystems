@@ -7,10 +7,15 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { ITournamentParticipantScore } from '../model/ITournamentParticipantScore';
+import { ScoreService } from "app/services/api";
+import { ITournamentParticipant } from "app/services/model/ITournamentParticipant";
 
 @Injectable()
 export class ScoreServiceStub {
-  constructor(private http: Http) {  }
+  original: ScoreService;
+  constructor(private http: Http) {
+    this.original = new ScoreService(http);
+  }
 
   getByParticipant(participantId: number) {
     return Observable.of(null);
@@ -22,5 +27,13 @@ export class ScoreServiceStub {
 
   removeFromParticipant(participantId: number) {
     return Observable.of(null);
+  }
+
+  calculateTeamTotal(participants: ITournamentParticipant[]) {
+    return this.original.calculateTeamTotal(participants);
+  }
+
+  calculateTotal(participant: ITournamentParticipant) {
+    return this.original.calculateTotal(participant);
   }
 }
