@@ -11,7 +11,7 @@
       <input type="number" name="executionTime" [(ngModel)]="executionTime" />
     </div>
     <div class="col-xs-2">
-      <button type="submit" [title]="'Save' | translate"><app-fa [name]="isSaving ? 'circle-o-notch fa-spin' : 'save'" fw="true"></app-fa> <span translate>Save</span></button>
+      <app-save-button buttonType="submit"></app-save-button>
     </div>
   </form>
 </section>

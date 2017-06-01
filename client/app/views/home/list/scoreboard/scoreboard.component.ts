@@ -38,7 +38,6 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
   roles = Role;
   currentUser: IUser;
   userSubscription: Subscription;
-  isSaving = false;
 
   _groupedScores;
   get groupedScores(): IScoreContainer[] {
@@ -144,9 +143,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   save() {
-    this.isSaving = true;
     this.scoreService.saveFromParticipant(this.participant.id, this.participant.scores).subscribe(participant => {
-      this.isSaving = false;
       this.onClose.emit(true);
     });
   }

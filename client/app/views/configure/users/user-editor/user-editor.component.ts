@@ -26,7 +26,6 @@ export class UserEditorComponent implements OnInit {
     return RoleNames.filter(r => r.id <= this.currentUser.role);
   };
   roles = Role;
-  isSaving = false;
 
   constructor(
     private fb: FormBuilder,
@@ -109,9 +108,7 @@ export class UserEditorComponent implements OnInit {
       this.errorHandler.error = 'You cannot upgrade/degrade yourself. If you belive your role should be different, contact a person with a higher or equal role.';
       return;
     }
-    this.isSaving = true;
     this.userService.save(formVal).subscribe(result => {
-      this.isSaving = false;
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

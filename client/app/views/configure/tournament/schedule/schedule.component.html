@@ -25,10 +25,7 @@
   </table>
 </div>
 
-<button type="submit" (click)="saveSchedule()" [disabled]="!hasChanges()">
-  <app-fa [name]="isSaving ? 'circle-o-notch fa-spin' : 'save'" fw="true"></app-fa>
-  <span translate>Save</span>
-</button>
+<app-save-button buttonType="submit" (click)="saveSchedule()" [disabled]="!hasChanges()"></app-save-button>
 <button type="button" (click)="calculateSchedule()" *ngIf="haveMissing()">
   <app-fa name="calculator" fw="true"></app-fa>
   <span translate>Calculate schedule</span>

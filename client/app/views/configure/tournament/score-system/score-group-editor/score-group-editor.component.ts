@@ -19,7 +19,6 @@ export class ScoreGroupEditorComponent implements OnInit {
   @Output() scoreChanged: EventEmitter<any> = new EventEmitter<any>();
   scoreForm: FormGroup;
   operations = Operation;
-  isSaving = false;
 
   get Adds(): string { return this.translate.instant('Adds'); }
   get Subtracts(): string { return this.translate.instant('Subtracts'); }
@@ -43,9 +42,7 @@ export class ScoreGroupEditorComponent implements OnInit {
 
   save() {
     if (this.discipline) {
-      this.isSaving = true;
       this.scoreService.save(this.scoreForm.value).subscribe(result => {
-        this.isSaving = false;
         this.scoreChanged.emit(result);
       });
     } else {

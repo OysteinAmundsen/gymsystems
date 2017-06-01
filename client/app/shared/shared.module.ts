@@ -21,6 +21,7 @@ import { ToUpperPipe } from './pipes/to-upper.pipe';
 import { TypeaheadComponent } from './components/typeahead/typeahead.component';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { MultirangeComponent } from './components/multirange/multirange.component';
+import { SaveButtonComponent } from './components/save-button/save-button.component';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { MultirangeComponent } from './components/multirange/multirange.componen
     SlideToggleComponent,
     TypeaheadComponent,
     MultirangeComponent,
+    SaveButtonComponent,
 
     FloatingLabelContainerDirective,
     AutofocusDirective,
@@ -60,6 +62,7 @@ import { MultirangeComponent } from './components/multirange/multirange.componen
     SlideToggleComponent,
     TypeaheadComponent,
     MultirangeComponent,
+    SaveButtonComponent,
 
     FloatingLabelContainerDirective,
     AutofocusDirective,

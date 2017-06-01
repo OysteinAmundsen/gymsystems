@@ -19,6 +19,6 @@
   </section>
 
   <footer>
-    <button type="submit" [title]="'Save' | translate" [disabled]="!isChanged()"><app-fa [name]="isSaving ? 'circle-o-notch fa-spin' : 'save'" fw="true"></app-fa> <span translate>Save</span></button>
+    <app-save-button buttonType="submit" [disabled]="!isChanged()"></app-save-button>
   </footer>
 </form>

@@ -13,7 +13,6 @@ export class InfoComponent implements OnInit {
   tournament: ITournament;
   lng: string = this.translate.currentLang;
   preview = false;
-  isSaving = false;
   original: string;
   @ViewChild('infoText') infoText;
   constructor(private route: ActivatedRoute, private tournamentService: TournamentService, private translate: TranslateService) { }
@@ -35,11 +34,9 @@ export class InfoComponent implements OnInit {
   }
 
   save() {
-    this.isSaving = true;
     if (this.tournament.description_en && !this.tournament.description_no) { this.tournament.description_no = this.tournament.description_en; }
     if (this.tournament.description_no && !this.tournament.description_en) { this.tournament.description_en = this.tournament.description_no; }
     this.tournamentService.save(this.tournament).subscribe(res => {
-      this.isSaving = false;
       this.tournament = res;
       this.original = JSON.stringify([this.tournament.description_en, this.tournament.description_no]);
     });

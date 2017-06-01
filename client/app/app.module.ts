@@ -29,7 +29,7 @@ import {
 
 // Components
 import { AppComponent } from './app.component';
-import { AuthHttp } from './services/config/AuthHttp';
+import { HttpInterceptor } from './services/config/HttpInterceptor';
 import { RoleGuard } from './shared/guards/role-guard';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { MediaService } from 'app/services/media.service';
@@ -83,7 +83,7 @@ export function HttpLoaderFactory(http: Http) {
     RoleGuard,
 
     // Authentication interceptor
-    { provide: Http, useClass: AuthHttp }
+    { provide: Http, useClass: HttpInterceptor }
   ],
   bootstrap: [AppComponent]
 })

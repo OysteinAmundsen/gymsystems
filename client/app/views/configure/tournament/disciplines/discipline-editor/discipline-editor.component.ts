@@ -20,7 +20,6 @@ export class DisciplineEditorComponent implements OnInit {
 
   disciplineForm: FormGroup;
   editingScore: boolean;
-  isSaving = false;
 
   constructor(
     private fb: FormBuilder,
@@ -43,9 +42,7 @@ export class DisciplineEditorComponent implements OnInit {
 
   save() {
     if (this.discipline.tournament) {
-      this.isSaving = true;
       this.disciplineService.save(this.disciplineForm.value).subscribe(result => {
-        this.isSaving = false;
         this.disciplineChanged.emit(result);
       });
     } else {

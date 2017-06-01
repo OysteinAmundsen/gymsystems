@@ -12,7 +12,7 @@ export class AdvancedComponent implements OnInit {
   @ViewChild('area') textAreas: ElementRef;
   configuration;
   selected;
-  isSaving = false;
+  isLoading = false;
   get defaultValues() {
     return this.configuration ? this.configuration.find(c => c.name === 'defaultValues').value : null;
   }
@@ -41,9 +41,11 @@ export class AdvancedComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.config.all().subscribe(res => {
       this.configuration = res;
       this.selected = this.defaultValueKeys[0];
+      setTimeout(() => this.isLoading = false);
     });
   }
 
@@ -53,12 +55,13 @@ export class AdvancedComponent implements OnInit {
   }
 
   valueChanged(key, $event) {
-    this.defaultValues[key] = $event;
-    this.save();
+    if (!this.isLoading) {
+      this.defaultValues[key] = $event;
+      this.save();
+    }
   }
 
   save() {
-    this.isSaving = true;
-    this.config.save(this.configuration).subscribe(res => { this.configuration = res; this.isSaving = false; });
+    this.config.save(this.configuration).subscribe(res => this.configuration = res);
   }
 }

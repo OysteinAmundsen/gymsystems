@@ -14,7 +14,6 @@ export class DivisionEditorComponent implements OnInit {
   @Input() standalone = false;
   @Input() division: IDivision = <IDivision>{};
   @Output() divisionChanged: EventEmitter<any> = new EventEmitter<any>();
-  isSaving = false;
   divisionForm: FormGroup;
   types = [
     { id: DivisionType.Age, name: 'Age' },
@@ -36,9 +35,7 @@ export class DivisionEditorComponent implements OnInit {
 
   save() {
     if (this.division.tournament) {
-      this.isSaving = true;
       this.divisionService.save(this.divisionForm.value).subscribe(result => {
-        this.isSaving = false;
         this.divisionChanged.emit(result);
         this.divisionForm.setValue(result);
       });

@@ -10,7 +10,6 @@ import { ConfigurationService } from 'app/services/api';
 })
 export class ConfigureDisplayComponent implements OnInit {
   templates: any = [];
-  isSaving = false;
   constructor(private config: ConfigurationService, private title: Title) {
     title.setTitle('Configure display | GymSystems');
   }
@@ -31,13 +30,12 @@ export class ConfigureDisplayComponent implements OnInit {
   }
 
   save() {
-    this.isSaving = true;
     this.config.save({
       name: 'display',
       value: {
         display1: this.templates[0].content,
         display2: this.templates[1].content
       }
-    }).subscribe(res => { this.configReceived(res); this.isSaving = false; });
+    }).subscribe(res => this.configReceived(res));
   }
 }
