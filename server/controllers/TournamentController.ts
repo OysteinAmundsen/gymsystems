@@ -85,13 +85,10 @@ export class TournamentController {
 
   @Get('/current')
   current(): Promise<Tournament[]> {
-    const now = moment().utc();
-    const start = now.clone().startOf('day').toDate();
-    const end = now.clone().endOf('day').toDate();
+    const now = moment().utc().toDate();
     return this.repository
       .createQueryBuilder('tournament')
-      .where('tournament.startDate <= :startDate', { startDate: start })
-      .andWhere('tournament.endDate >= :endDate', { endDate: end })
+      .where(':now between tournament.startDate and tournament.endDate', { now: now })
       .orderBy('tournament.startDate', 'DESC')
       .setLimit(10)
       .getMany()

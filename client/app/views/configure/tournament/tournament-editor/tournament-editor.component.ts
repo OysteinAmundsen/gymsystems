@@ -133,10 +133,10 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   save() {
     const formVal = this.tournamentForm.value;
     if (formVal.startDate.hasOwnProperty('momentObj')) {
-      formVal.startDate = (<Moment>formVal.startDate.momentObj).startOf('day').utc().toISOString();
+      formVal.startDate = formVal.startDate.momentObj.clone().utc().startOf('day').toISOString();
     }
     if (formVal.endDate.hasOwnProperty('momentObj')) {
-      formVal.endDate = (<Moment>formVal.endDate.momentObj).endOf('day').utc().toISOString();
+      formVal.endDate = formVal.endDate.momentObj.clone().utc().endOf('day').toISOString();
     }
     this.tournamentService.save(formVal).subscribe(tournament => {
       if (tournament.hasOwnProperty('code')) {
