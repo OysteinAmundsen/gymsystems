@@ -14,7 +14,7 @@ import { IClub } from 'app/services/model/IClub';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { ClubServiceStub } from 'app/services/api/club.service.stub';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
 
 describe('UserEditorComponent', () => {
   let component: UserEditorComponent;

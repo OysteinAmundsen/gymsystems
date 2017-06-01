@@ -1,18 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { TranslateService } from '@ngx-translate/core';
-import { Title } from '@angular/platform-browser';
 
-import { TournamentService, ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
+import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 import { ITournamentParticipantScore } from 'app/services/model/ITournamentParticipantScore';
 import { ITeam } from 'app/services/model/ITeam';
 import { DivisionType } from 'app/services/model/DivisionType';
 import { Role, IUser } from 'app/services/model/IUser';
-import { Classes } from "app/services/model/Classes";
-import { IDiscipline } from "app/services/model/IDiscipline";
+import { Classes } from 'app/services/model/Classes';
+import { IDiscipline } from 'app/services/model/IDiscipline';
+import { EventComponent } from '../event.component';
 
 @Component({
   selector: 'app-results',
@@ -22,11 +20,10 @@ import { IDiscipline } from "app/services/model/IDiscipline";
 export class ResultsComponent implements OnInit, OnDestroy {
   user: IUser;
   tournament: ITournament;
-  tournamentId: number;
   schedule: ITournamentParticipant[] = [];
   userSubscription: Subscription;
   eventSubscription: Subscription;
-  paramSubscription: Subscription;
+  tournamentSubscription: Subscription;
 
   get divisions() {
     return this.getDivisionNames(this.national);
@@ -48,48 +45,32 @@ export class ResultsComponent implements OnInit, OnDestroy {
   get national() { return this.schedule.filter(s => s.team.class == Classes.National); }
 
   constructor(
-    private route: ActivatedRoute,
-    private translate: TranslateService,
+    private parent: EventComponent,
     private scheduleService: ScheduleService,
     private teamService: TeamsService,
     private scoreService: ScoreService,
-    private tournamentService: TournamentService,
     private eventService: EventService,
-    private userService: UserService, private title: Title) {  }
+    private userService: UserService) {  }
 
   ngOnInit() {
-    this.eventSubscription = this.eventService.connect().subscribe(message => this.loadResults());
-    this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
-
-    if (this.tournamentService.selected) {
-      this.tournamentId = this.tournamentService.selectedId;
-      this.tournament = this.tournamentService.selected;
-      this.title.setTitle(`${this.tournament.name} | GymSystems`);
-      this.loadResults();
-    } else {
-      this.paramSubscription = this.route.params.subscribe((params: any) => {
-        this.tournamentId = +params.id;
-        if (!isNaN(this.tournamentId)) {
-          this.tournamentService.selectedId = this.tournamentId;
-          this.tournamentService.getById(this.tournamentId).subscribe((tournament) => {
-            this.tournamentService.selected = tournament;
-            this.tournament = tournament;
-            this.title.setTitle(`${this.tournament.name} | GymSystems`);
-          });
-          this.loadResults();
-        }
-      });
-    }
+    this.tournamentSubscription = this.parent.tournamentSubject.subscribe(tournament => {
+      if (tournament && tournament.id) {
+        this.tournament = tournament;
+        this.eventSubscription = this.eventService.connect().subscribe(message => this.loadResults());
+        this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
+        this.loadResults();
+      }
+    });
   }
 
   ngOnDestroy() {
-    this.eventSubscription.unsubscribe();
-    this.userSubscription.unsubscribe();
-    if (this.paramSubscription) { this.paramSubscription.unsubscribe(); }
+    this.tournamentSubscription.unsubscribe();
+    if (this.eventSubscription) { this.eventSubscription.unsubscribe(); }
+    if (this.userSubscription) { this.userSubscription.unsubscribe(); }
   }
 
   loadResults() {
-    this.scheduleService.getByTournament(this.tournamentId).subscribe((schedule) => this.schedule = schedule);
+    this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => this.schedule = schedule);
   }
 
   getDivisionNames(participants: ITournamentParticipant[]) {

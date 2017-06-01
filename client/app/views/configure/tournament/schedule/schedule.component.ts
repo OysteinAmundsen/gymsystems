@@ -4,14 +4,16 @@ import { DragulaService } from 'ng2-dragula';
 import * as moment from 'moment';
 const Moment: any = (<any>moment).default || moment;
 
-import { TournamentService, TeamsService, DisciplineService, DivisionService, ScheduleService } from 'app/services/api';
+import { TournamentService, TeamsService, ScheduleService } from 'app/services/api';
 import { ITeam } from 'app/services/model/ITeam';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IDivision } from 'app/services/model/IDivision';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 import { DivisionType } from 'app/services/model/DivisionType';
-import { Classes } from "app/services/model/Classes";
-import { ParticipationType } from "app/services/model/ParticipationType";
+import { Classes } from 'app/services/model/Classes';
+import { ParticipationType } from 'app/services/model/ParticipationType';
+import { ITournament } from 'app/services/model/ITournament';
+import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
 @Component({
   selector: 'app-schedule',
@@ -19,6 +21,7 @@ import { ParticipationType } from "app/services/model/ParticipationType";
   styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
+  tournament: ITournament;
   schedule: ITournamentParticipant[] = [];
   teams: ITeam[] = [];
   disciplines: IDiscipline[];
@@ -28,22 +31,24 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   isDirty = false;
 
   constructor(
-    private divisionService: DivisionService,
-    private disciplineService: DisciplineService,
+    private parent: TournamentEditorComponent,
     private teamService: TeamsService,
     private scheduleService: ScheduleService,
     private tournamentService: TournamentService,
     private dragulaService: DragulaService) { }
 
   ngOnInit() {
-    this.loadSchedule();
-    if (!this.dragulaService.find('schedule-bag')) {
-      this.dragulaService.setOptions('schedule-bag', { invalid: (el: HTMLElement, handle) => el.classList.contains('static') });
-    }
-    this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
-      setTimeout(() => { // Sometimes dragula is not finished syncing model
-        this.schedule.forEach((div, idx) => div.startNumber = idx);
-        this.isDirty = true;
+    this.parent.tournamentSubject.subscribe(tournament => {
+      this.tournament = tournament;
+      this.loadSchedule();
+      if (!this.dragulaService.find('schedule-bag')) {
+        this.dragulaService.setOptions('schedule-bag', { invalid: (el: HTMLElement, handle) => el.classList.contains('static') });
+      }
+      this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
+        setTimeout(() => { // Sometimes dragula is not finished syncing model
+          this.schedule.forEach((div, idx) => div.startNumber = idx);
+          this.isDirty = true;
+        });
       });
     });
   }
@@ -53,9 +58,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   loadSchedule() {
-    const tournamentId = this.tournamentService.selectedId;
-    this.teamService.getByTournament(tournamentId).subscribe(teams => this.teams = teams);
-    this.scheduleService.getByTournament(tournamentId).subscribe(schedule => {
+    this.teamService.getByTournament(this.tournament.id).subscribe(teams => this.teams = teams);
+    this.scheduleService.getByTournament(this.tournament.id).subscribe(schedule => {
       this.schedule = schedule;
     });
   }
@@ -79,14 +83,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   deleteAll() {
     const schedules = this.schedule.filter(s => s.id != null);
     if (schedules.length) {
-      this.scheduleService.deleteAll(this.tournamentService.selectedId).subscribe(result => this.loadSchedule());
+      this.scheduleService.deleteAll(this.tournament.id).subscribe(result => this.loadSchedule());
     } else {
       this.loadSchedule();
     }
   }
 
   startTime(participant: ITournamentParticipant) {
-    let time: moment.Moment = this.scheduleService.calculateStartTime(this.tournamentService.selected, participant);
+    let time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
     if (time) { return time.format('HH:mm'); }
     return '<span class="warning">ERR</span>';
   }
@@ -94,8 +98,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   isNewDay(participant: ITournamentParticipant) {
     const nextParticipant = this.schedule.find(s => s.startNumber === participant.startNumber + 1);
     if (nextParticipant) {
-      const thisTime = this.scheduleService.calculateStartTime(this.tournamentService.selected, participant);
-      const nextTime = this.scheduleService.calculateStartTime(this.tournamentService.selected, nextParticipant);
+      const thisTime = this.scheduleService.calculateStartTime(this.tournament, participant);
+      const nextTime = this.scheduleService.calculateStartTime(this.tournament, nextParticipant);
       if (thisTime && nextTime) {
         const difference = moment.duration(nextTime.startOf('day').diff(thisTime.startOf('day'))).asDays();
         return (difference >= 1);
@@ -136,7 +140,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     const divisions = this.calculateDivisions();
     const disciplines: IDiscipline[] = [];
     const schedule: ITournamentParticipant[] = [];
-    const tournament = this.tournamentService.selected;
+    const tournament = this.tournament;
     divisions.forEach(div => {            // For each division...
       const teamsInDivision = this.teams.filter(t => this.division(t) === div);
       teamsInDivision.forEach(team => {   // ...and each team in division

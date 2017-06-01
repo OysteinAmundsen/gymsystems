@@ -6,7 +6,7 @@ import 'rxjs/add/observable/throw';
 
 import { UserService } from 'app/services/api';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { Subject } from "rxjs/Subject";
+import { Subject } from 'rxjs/Subject';
 
 export interface HttpAction {
   url: string;

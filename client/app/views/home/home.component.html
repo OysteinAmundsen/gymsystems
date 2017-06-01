@@ -10,7 +10,7 @@
         </header>
 
         <div><pre [innerHtml]="getDescription(tournament) | MarkdownToHtml"></pre></div>
-        <a [routerLink]="['/list/', tournament.id]" class="btn primary">
+        <a [routerLink]="['/event', tournament.id, 'list']" class="btn primary">
           <app-fa name="arrow-right" fw="true"></app-fa>
           <span translate>Go to scoreboard</span>
         </a>
@@ -34,7 +34,7 @@
         <tr *ngIf="type.tournaments.length">
           <th colspan="2">{{ type.name | translate }} <span translate>tournaments</span></th>
         </tr>
-        <tr *ngFor="let tournament of type.tournaments" role="menuitem" [routerLink]="['/list/', tournament.id]" role="listitem">
+        <tr *ngFor="let tournament of type.tournaments" role="menuitem" [routerLink]="['/event', tournament.id, 'list']" role="listitem">
           <td>{{ tournament.name }}</td>
           <td>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</td>
         </tr>

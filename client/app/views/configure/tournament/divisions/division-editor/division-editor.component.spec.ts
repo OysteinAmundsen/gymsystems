@@ -9,8 +9,8 @@ import { DivisionEditorComponent } from './division-editor.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { DivisionService } from 'app/services/api';
 import { DivisionServiceStub } from 'app/services/api/division.service.stub';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
 
 describe('DivisionEditorComponent', () => {
   let component: DivisionEditorComponent;

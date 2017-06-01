@@ -40,10 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() { }
 
-  ngOnDestroy() {
-    this.tournamentService.selectedId = null;
-    this.tournamentService.selected = null;
-  }
+  ngOnDestroy() {  }
 
   getDescription(tournament: ITournament) {
     return (tournament ? tournament['description_' + this.translate.currentLang] : '');

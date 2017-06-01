@@ -21,8 +21,8 @@ import { Operation } from 'app/services/model/Operation';
 
 import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { ScoreServiceStub } from 'app/services/api/score.service.stub';
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 @Component({
  selector  : 'app-cmp',

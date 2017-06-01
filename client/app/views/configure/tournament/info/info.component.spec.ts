@@ -12,10 +12,19 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
 import { ConfigurationService, TournamentService } from 'app/services/api';
 import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
-import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
+import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
+import { ReplaySubject } from 'rxjs/Rx';
+import { ITournament } from 'app/services/model/ITournament';
 
+class DummyParent {
+  tournamentSubject = new ReplaySubject<ITournament>(1);
+  constructor() {
+    this.tournamentSubject.next(dummyTournament);
+  }
+}
 describe('InfoComponent', () => {
   let component: InfoComponent;
   let fixture: ComponentFixture<InfoComponent>;
@@ -42,8 +51,9 @@ describe('InfoComponent', () => {
       providers: [
         ErrorHandlerService,
         { provide: Http, useClass: HttpInterceptor },
-        {provide: ConfigurationService, useClass: ConfigurationServiceStub},
-        {provide: TournamentService, useClass: TournamentServiceStub},
+        { provide: TournamentEditorComponent, useClass: DummyParent },
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub },
+        { provide: TournamentService, useClass: TournamentServiceStub },
         {
           provide: ActivatedRoute, useValue: {
             parent: {

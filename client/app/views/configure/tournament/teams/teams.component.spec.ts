@@ -15,8 +15,17 @@ import { IUser, Role } from 'app/services/model/IUser';
 import { Observable } from 'rxjs/Observable';
 import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
+import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
+import { ReplaySubject } from 'rxjs/Rx';
+import { ITournament } from 'app/services/model/ITournament';
 
+class DummyParent {
+  tournamentSubject = new ReplaySubject<ITournament>(1);
+  constructor() {
+    this.tournamentSubject.next(dummyTournament);
+  }
+}
 describe('TeamsComponent', () => {
   let component: TeamsComponent;
   let fixture: ComponentFixture<TeamsComponent>;
@@ -42,6 +51,7 @@ describe('TeamsComponent', () => {
         TeamEditorComponent
       ],
       providers: [
+        {provide: TournamentEditorComponent, useClass: DummyParent},
         {provide: TeamsService, useClass: TeamsServiceStub},
         {provide: UserService, useClass: UserServiceStub},
         {provide: TournamentService, useClass: TournamentServiceStub},

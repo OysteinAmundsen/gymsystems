@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { TournamentService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 import { TranslateService } from '@ngx-translate/core';
+import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
 @Component({
   selector: 'app-info',
@@ -15,20 +15,13 @@ export class InfoComponent implements OnInit {
   preview = false;
   original: string;
   @ViewChild('infoText') infoText;
-  constructor(private route: ActivatedRoute, private tournamentService: TournamentService, private translate: TranslateService) { }
+  constructor(private parent: TournamentEditorComponent, private tournamentService: TournamentService, private translate: TranslateService) { }
 
   ngOnInit() {
-    this.route.parent.params.subscribe((params: any) => {
-      if (this.tournamentService.selected) {
-        this.tournament = this.tournamentService.selected;
+    this.parent.tournamentSubject.subscribe(tournament => {
+      if (tournament) {
+        this.tournament = tournament;
         this.original = JSON.stringify([this.tournament.description_en, this.tournament.description_no]);
-      } else if (params.id) {
-        this.tournamentService.selectedId = +params.id;
-        this.tournamentService.getById(params.id).subscribe(tournament => {
-          this.tournament = tournament;
-          this.tournamentService.selected = tournament;
-          this.original = JSON.stringify([this.tournament.description_en, this.tournament.description_no]);
-        });
       }
     });
   }

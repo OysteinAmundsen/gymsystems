@@ -11,8 +11,8 @@ import { ScoreGroupEditorComponent } from './score-group-editor.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { ScoreGroupService } from 'app/services/api';
 import { ScoreGroupServiceStub } from 'app/services/api/scoregroup.service.stub';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
 
 describe('ScoreGroupEditorComponent', () => {
   let component: ScoreGroupEditorComponent;

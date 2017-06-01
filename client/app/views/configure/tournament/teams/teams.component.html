@@ -17,7 +17,7 @@
       </tr>
       <tr *ngIf="team === selected">
         <td colspan="4">
-          <app-team-editor [team]="selected" (teamChanged)="onChange($event)"></app-team-editor>
+          <app-team-editor [tournament]="tournament" [team]="selected" (teamChanged)="onChange($event)"></app-team-editor>
         </td>
       </tr>
     </tbody>

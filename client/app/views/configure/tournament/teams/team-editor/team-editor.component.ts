@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRe
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
-import { TournamentService, TeamsService, DisciplineService, DivisionService, ClubService, UserService } from 'app/services/api';
+import { TeamsService, DisciplineService, DivisionService, ClubService, UserService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 
 import { IDiscipline } from 'app/services/model/IDiscipline';
@@ -13,8 +13,10 @@ import { IClub } from 'app/services/model/IClub';
 import { IUser } from 'app/services/model/IUser';
 import { IMedia } from 'app/services/model/IMedia';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { TranslateService } from "@ngx-translate/core";
-import { Classes } from "app/services/model/Classes";
+import { TranslateService } from '@ngx-translate/core';
+import { Classes } from 'app/services/model/Classes';
+import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
+import { ITournament } from 'app/services/model/ITournament';
 
 @Component({
   selector: 'app-team-editor',
@@ -23,6 +25,7 @@ import { Classes } from "app/services/model/Classes";
 })
 export class TeamEditorComponent implements OnInit, OnDestroy {
   @Input() team: ITeam = <ITeam>{};
+  @Input() tournament: ITournament;
   @Output() teamChanged: EventEmitter<any> = new EventEmitter<any>();
   @ViewChildren('selectedDisciplines') disciplineCheckboxes;
   teamForm: FormGroup;
@@ -54,8 +57,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private elm: ElementRef,
-    private tournamentService: TournamentService,
+    private parent: TournamentEditorComponent,
     private teamService: TeamsService,
     private clubService: ClubService,
     private userService: UserService,
@@ -67,55 +69,58 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
-    const tournamentId = this.tournamentService.selectedId;
-    this.divisionService.getByTournament(tournamentId).subscribe(d => this.divisions = d);
-    this.disciplineService.getByTournament(tournamentId).subscribe(d => {
-      this.disciplines = d;
-      setTimeout(() => {
-        // Set selected disciplines
-        this.disciplineCheckboxes
-          .forEach((element: ElementRef) => {
-            const el = <HTMLInputElement>element.nativeElement;
-            const disciplineId = el.attributes.getNamedItem('data').nodeValue;
-            el.checked = this.team.disciplines.findIndex(d => d.id === +disciplineId) > -1;
-          });
+    this.parent.tournamentSubject.subscribe(tournament => {
+      this.tournament = tournament;
+      this.divisionService.getByTournament(this.tournament.id).subscribe(d => this.divisions = d);
+      this.disciplineService.getByTournament(this.tournament.id).subscribe(d => {
+        this.disciplines = d;
+        setTimeout(() => {
+          // Set selected disciplines
+          this.disciplineCheckboxes
+            .forEach((element: ElementRef) => {
+              const el = <HTMLInputElement>element.nativeElement;
+              const disciplineId = el.attributes.getNamedItem('data').nodeValue;
+              el.checked = this.team.disciplines.findIndex(d => d.id === +disciplineId) > -1;
+            });
+        });
       });
+
+
+      // Group divisions by type
+      const ageDivision = this.team.divisions.find(d => d.type === DivisionType.Age);
+      const genderDivision = this.team.divisions.find(d => d.type === DivisionType.Gender);
+      this.teamForm = this.fb.group({
+        id: [this.team.id],
+        name: [this.team.name, [Validators.required]],
+        club: [this.team.club ? this.team.club.name : '', [Validators.required]],
+        ageDivision: [ageDivision ? ageDivision.id : null, [Validators.required]],
+        genderDivision: [genderDivision ? genderDivision.id : null, [Validators.required]],
+        disciplines: [this.team.disciplines],
+        tournament: [this.team.tournament],
+        class: [this.team.class]
+      });
+
+      // Clubs should be registerred in all upper case
+      this.teamForm.controls['club']
+        .valueChanges
+        .distinctUntilChanged()
+        .subscribe((t: string) => {
+          this.teamForm.controls['club'].setValue(t.toUpperCase());
+        });
+
+      // Select all disciplines if TeamGym is chosen
+      this.teamForm.controls['class']
+        .valueChanges
+        .distinctUntilChanged()
+        .subscribe((c: Classes) => {
+          if (c === Classes.TeamGym) {
+            this.disciplineCheckboxes.forEach((element: ElementRef) => {
+              const el = <HTMLInputElement>element.nativeElement;
+              el.checked = true;
+            });
+          }
+        });
     });
-
-    // Group divisions by type
-    const ageDivision = this.team.divisions.find(d => d.type === DivisionType.Age);
-    const genderDivision = this.team.divisions.find(d => d.type === DivisionType.Gender);
-    this.teamForm = this.fb.group({
-      id: [this.team.id],
-      name: [this.team.name, [Validators.required]],
-      club: [this.team.club ? this.team.club.name : '', [Validators.required]],
-      ageDivision: [ageDivision ? ageDivision.id : null, [Validators.required]],
-      genderDivision: [genderDivision ? genderDivision.id : null, [Validators.required]],
-      disciplines: [this.team.disciplines],
-      tournament: [this.team.tournament],
-      class: [this.team.class]
-    });
-
-    // Clubs should be registerred in all upper case
-    this.teamForm.controls['club']
-      .valueChanges
-      .distinctUntilChanged()
-      .subscribe((t: string) => {
-        this.teamForm.controls['club'].setValue(t.toUpperCase());
-      });
-
-    // Select all disciplines if TeamGym is chosen
-    this.teamForm.controls['class']
-      .valueChanges
-      .distinctUntilChanged()
-      .subscribe((c: Classes) => {
-        if (c === Classes.TeamGym) {
-          this.disciplineCheckboxes.forEach((element: ElementRef) => {
-            const el = <HTMLInputElement>element.nativeElement;
-            el.checked = true;
-          });
-        }
-      });
   }
 
   ngOnDestroy() {

@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { TranslateService } from '@ngx-translate/core';
-import { Title } from '@angular/platform-browser';
 
 import * as moment from 'moment';
 const Moment: any = (<any>moment).default || moment;
@@ -18,7 +16,8 @@ import { Role, IUser } from 'app/services/model/IUser';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IMedia } from 'app/services/model/IMedia';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { ParticipationType } from "app/services/model/ParticipationType";
+import { ParticipationType } from 'app/services/model/ParticipationType';
+import { EventComponent } from '../event.component';
 
 @Component({
   selector: 'app-list',
@@ -30,7 +29,6 @@ export class ListComponent implements OnInit, OnDestroy {
   roles = Role;
   participationTypes = ParticipationType;
   tournament: ITournament;
-  tournamentId: number;
   schedule: ITournamentParticipant[] = [];
   selected: ITournamentParticipant;
 
@@ -39,10 +37,11 @@ export class ListComponent implements OnInit, OnDestroy {
   }
   userSubscription: Subscription;
   eventSubscription: Subscription;
-  paramSubscription: Subscription;
+  tournamentSubscription: Subscription;
+
 
   constructor(
-    private route: ActivatedRoute,
+    private parent: EventComponent,
     private translate: TranslateService,
     private scheduleService: ScheduleService,
     private teamService: TeamsService,
@@ -50,46 +49,32 @@ export class ListComponent implements OnInit, OnDestroy {
     private scoreService: ScoreService,
     private eventService: EventService,
     private userService: UserService,
-    private title: Title,
     private mediaService: MediaService,
     private errorHandler: ErrorHandlerService) {  }
 
   ngOnInit() {
-    this.eventSubscription = this.eventService.connect().subscribe(message => this.loadSchedule());
-    this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
 
     // Make sure we have translations for weekdays
     this.translate.get(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']).subscribe();
 
-    if (this.tournamentService.selected) {
-      this.tournamentId = this.tournamentService.selectedId;
-      this.tournament = this.tournamentService.selected;
-      this.title.setTitle(`${this.tournament.name} | GymSystems`);
-      this.loadSchedule();
-    } else {
-      this.paramSubscription = this.route.params.subscribe((params: any) => {
-        this.tournamentId = +params.id;
-        if (!isNaN(this.tournamentId)) {
-          this.tournamentService.selectedId = this.tournamentId;
-          this.tournamentService.getById(this.tournamentId).subscribe((tournament) => {
-            this.tournamentService.selected = tournament;
-            this.tournament = tournament;
-            this.title.setTitle(`${this.tournament.name} | GymSystems`);
-          });
-          this.loadSchedule();
-        }
-      });
-    }
+    this.tournamentSubscription = this.parent.tournamentSubject.subscribe(tournament => {
+      if (tournament && tournament.id) {
+        this.tournament = tournament;
+        this.eventSubscription = this.eventService.connect().subscribe(message => this.loadSchedule());
+        this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
+        this.loadSchedule();
+      }
+    });
   }
 
   ngOnDestroy() {
-    this.eventSubscription.unsubscribe();
-    this.userSubscription.unsubscribe();
-    if (this.paramSubscription) { this.paramSubscription.unsubscribe(); }
+    this.tournamentSubscription.unsubscribe();
+    if (this.eventSubscription) { this.eventSubscription.unsubscribe(); }
+    if (this.userSubscription) { this.userSubscription.unsubscribe(); }
   }
 
   loadSchedule() {
-    this.scheduleService.getByTournament(this.tournamentId).subscribe((schedule) => this.schedule = schedule);
+    this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => this.schedule = schedule);
   }
 
   startTime(participant: ITournamentParticipant) {
@@ -106,8 +91,8 @@ export class ListComponent implements OnInit, OnDestroy {
   isNewDay(participant: ITournamentParticipant) {
     const nextParticipant = this.schedule.find(s => s.startNumber === participant.startNumber + 1);
     if (nextParticipant) {
-      const thisTime = this.scheduleService.calculateStartTime(this.tournamentService.selected, participant);
-      const nextTime = this.scheduleService.calculateStartTime(this.tournamentService.selected, nextParticipant);
+      const thisTime = this.scheduleService.calculateStartTime(this.tournament, participant);
+      const nextTime = this.scheduleService.calculateStartTime(this.tournament, nextParticipant);
       if (thisTime && nextTime) {
         const difference = moment.duration(nextTime.startOf('day').diff(thisTime.startOf('day'))).asDays();
         return (difference >= 1);

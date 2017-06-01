@@ -4,19 +4,29 @@ import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
 import { DragulaModule } from 'ng2-dragula';
+import { ReplaySubject } from 'rxjs/Rx';
 
 import { ScheduleComponent } from './schedule.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { ScheduleService, TournamentService, DivisionService, DisciplineService, TeamsService, ConfigurationService } from 'app/services/api';
-import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+
+import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
 import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
 import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
-import { ConfigurationServiceStub } from "app/services/api/configuration.service.stub";
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
+import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
+import { ITournament } from 'app/services/model/ITournament';
 
+class DummyParent {
+  tournamentSubject = new ReplaySubject<ITournament>(1);
+  constructor() {
+    this.tournamentSubject.next(dummyTournament);
+  }
+}
 describe('ScheduleComponent', () => {
   let component: ScheduleComponent;
   let fixture: ComponentFixture<ScheduleComponent>;
@@ -40,6 +50,7 @@ describe('ScheduleComponent', () => {
       providers: [
         ErrorHandlerService,
         { provide: Http, useClass: HttpInterceptor },
+        { provide: TournamentEditorComponent, useClass: DummyParent },
         { provide: TournamentService, useClass: TournamentServiceStub },
         { provide: DivisionService, useClass: DivisionServiceStub },
         { provide: DisciplineService, useClass: DisciplineServiceStub },

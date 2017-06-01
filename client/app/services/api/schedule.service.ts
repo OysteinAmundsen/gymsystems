@@ -9,8 +9,8 @@ import * as moment from 'moment';
 const Moment: any = (<any>moment).default || moment;
 
 import { ITournamentParticipant } from '../model/ITournamentParticipant';
-import { ConfigurationService } from "app/services/api";
-import { ITournament } from "app/services/model/ITournament";
+import { ConfigurationService } from 'app/services/api';
+import { ITournament } from 'app/services/model/ITournament';
 
 @Injectable()
 export class ScheduleService {

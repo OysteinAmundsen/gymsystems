@@ -7,7 +7,7 @@ import { ConfigureRoutes } from './configure.routes';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { TournamentModule } from './tournament/tournament.module';
-import { UsersModule } from 'app/views/configure/users/users.module';
+import { UsersModule } from './users/users.module';
 
 import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';

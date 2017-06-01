@@ -1,10 +1,10 @@
 import { Component, HostListener, OnDestroy, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { DragulaService } from 'ng2-dragula';
 
-import { TournamentService, DisciplineService, ScoreGroupService, ConfigurationService } from 'app/services/api';
+import { DisciplineService, ScoreGroupService, ConfigurationService, TournamentService } from 'app/services/api';
 import { IScoreGroup } from 'app/services/model/IScoreGroup';
 import { IDiscipline } from 'app/services/model/IDiscipline';
+import { ITournament } from 'app/services/model/ITournament';
 
 @Component({
   selector: 'app-disciplines',
@@ -12,13 +12,13 @@ import { IDiscipline } from 'app/services/model/IDiscipline';
   styleUrls: ['./disciplines.component.scss']
 })
 export class DisciplinesComponent implements OnInit, OnDestroy {
-  get tournament() { return this.tournamentService.selected; };
-  get tournamentId() { return this.tournamentService.selectedId; }
   @Input() standalone = false;
   @Input() disciplineList: IDiscipline[] = [];
   @Output() disciplineListchanged = new EventEmitter<IDiscipline[]>();
   defaultScoreGroups: IScoreGroup[];
   defaultDisciplines: IDiscipline[];
+
+  get tournament() { return this.tournamentService.selected; };
 
   _selected: IDiscipline;
   get selected() { return this._selected; }
@@ -28,8 +28,6 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
   dragulaSubscription;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private tournamentService: TournamentService,
     private disciplineService: DisciplineService,
     private scoreService: ScoreGroupService,
@@ -59,8 +57,8 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
   }
 
   loadDisciplines() {
-    if (this.tournamentId) {
-      this.disciplineService.getByTournament(this.tournamentId).subscribe(disciplines => {
+    if (this.tournament) {
+      this.disciplineService.getByTournament(this.tournament.id).subscribe(disciplines => {
         disciplines.forEach(d => d.tournament = this.tournament);
         this.disciplineList = disciplines;
       });
@@ -69,7 +67,7 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
   }
 
   saveDisciplines() {
-    if (this.tournamentId) {
+    if (this.tournament) {
       this.disciplineService.saveAll(this.disciplineList).subscribe(() => this.loadDisciplines());
     }
     this.disciplineListchanged.emit(this.disciplineList);
@@ -87,7 +85,7 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
    * Only available when editing tournaments. Not Advanced settings.
    */
   addDefaults() {
-    if (this.tournamentId && this.defaultDisciplines) {
+    if (this.tournament && this.defaultDisciplines) {
       const disciplineList = this.findMissingDefaults().map(group => {
         group.tournament = this.tournament;
         return group;
@@ -108,7 +106,7 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
   }
 
   findMissingDefaults() {
-    if (this.tournamentId && this.defaultDisciplines && this.defaultDisciplines.length) {
+    if (this.tournament && this.defaultDisciplines && this.defaultDisciplines.length) {
       return this.defaultDisciplines.filter(def => this.disciplineList.findIndex(d => d.name === def.name) < 0);
     }
     return [];

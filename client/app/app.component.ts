@@ -2,7 +2,7 @@ import { IUser } from './services/model/IUser';
 import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
-import { TournamentService, UserService } from 'app/services/api';
+import { UserService } from 'app/services/api';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
@@ -14,8 +14,6 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   navState = false;
-
-  get tournament() { return this.tournamentService.selected; }
 
   userSubscription: Subscription;
   user: IUser;
@@ -31,7 +29,6 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private element: ElementRef,
     private userService: UserService,
-    private tournamentService: TournamentService,
     private translate: TranslateService,
     private errorHandler: ErrorHandlerService,
     private angulartics: Angulartics2GoogleAnalytics
@@ -58,11 +55,6 @@ export class AppComponent implements OnInit, OnDestroy {
       return this.toggleNav(evt);
     }
   }
-
-  hasTournament() {
-    return this.tournament != null;
-  }
-
   toggleNav(evt: MouseEvent): void {
     this.navState = !this.navState;
     evt.preventDefault();

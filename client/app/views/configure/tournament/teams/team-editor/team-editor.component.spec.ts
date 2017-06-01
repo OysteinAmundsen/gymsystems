@@ -18,13 +18,15 @@ import { IClub } from 'app/services/model/IClub';
 import { IUser, Role } from 'app/services/model/IUser';
 import { Observable } from 'rxjs/Observable';
 import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
-import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
 import { ClubServiceStub } from 'app/services/api/club.service.stub';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
+import { ReplaySubject } from 'rxjs/Rx';
 
 const club: IClub = <IClub>{
   id          : 0,
@@ -37,6 +39,12 @@ const user: IUser = <IUser>{
   role  : Role.Admin,
   club  : club
 };
+class DummyParent {
+  tournamentSubject = new ReplaySubject<ITournament>(1);
+  constructor() {
+    this.tournamentSubject.next(dummyTournament);
+  }
+}
 @Component({
  selector  : 'app-cmp',
  template  : `<app-team-editor [team]='selected' (teamChanged)='onChange($event)'></app-team-editor>`
@@ -74,6 +82,7 @@ describe('TeamEditorComponent', () => {
         MediaService,
         ErrorHandlerService,
         { provide: Http, useClass: HttpInterceptor },
+        { provide: TournamentEditorComponent, useClass: DummyParent },
         { provide: TeamsService, useClass: TeamsServiceStub },
         { provide: TournamentService, useClass: TournamentServiceStub },
         { provide: ClubService, useClass: ClubServiceStub },

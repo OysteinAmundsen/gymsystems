@@ -1,8 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { DragulaService } from 'ng2-dragula';
 
-import { TournamentService, DivisionService, ConfigurationService } from 'app/services/api';
+import { DivisionService, ConfigurationService, TournamentService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 import { IDivision } from 'app/services/model/IDivision';
 import { DivisionType } from 'app/services/model/DivisionType';
@@ -15,6 +14,8 @@ import { DivisionType } from 'app/services/model/DivisionType';
 export class DivisionsComponent implements OnInit, OnDestroy {
   @Input() standalone = false;
   @Input() divisions: IDivision[] = [];
+  get tournament() { return this.tournamentService.selected; };
+
 
   @Output() divisionsChanged = new EventEmitter<IDivision[]>();
   ageDivisions: IDivision[];
@@ -23,15 +24,11 @@ export class DivisionsComponent implements OnInit, OnDestroy {
   selected: IDivision;
   isAdding = false;
 
-  get tournament() { return this.tournamentService.selected; };
-  get tournamentId() { return this.tournamentService.selectedId; };
   get canAddDefaults() { return this.findMissingDefaults().length; }
 
   dragulaSubscription;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private tournamentService: TournamentService,
     private divisionService: DivisionService,
     private configService: ConfigurationService,
@@ -57,7 +54,7 @@ export class DivisionsComponent implements OnInit, OnDestroy {
       }
       setTimeout(() => { // Sometimes dragula is not finished syncing model
         divisions.forEach((div, idx) => div.sortOrder = idx);
-        if (me.tournamentId) {
+        if (me.tournament && me.tournament.id) {
           me.divisionService.saveAll(divisions).subscribe(() => me.loadDivisions());
         }
         me.divisionsChanged.emit(me.genderDivisions.concat(me.ageDivisions));
@@ -70,8 +67,8 @@ export class DivisionsComponent implements OnInit, OnDestroy {
   }
 
   loadDivisions() {
-    if (this.tournamentId) {
-      this.divisionService.getByTournament(this.tournamentId).subscribe(divisions => this.divisionReceived(divisions));
+    if (this.tournament && this.tournament.id) {
+      this.divisionService.getByTournament(this.tournament.id).subscribe(divisions => this.divisionReceived(divisions));
     } else if (this.divisions) {
       this.divisionReceived(this.divisions);
     }

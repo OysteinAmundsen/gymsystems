@@ -14,8 +14,8 @@ import { DisciplineEditorComponent } from './discipline-editor.component';
 import { TournamentService, DisciplineService } from 'app/services/api';
 import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
 
 describe('DisciplineEditorComponent', () => {
   let component: DisciplineEditorComponent;

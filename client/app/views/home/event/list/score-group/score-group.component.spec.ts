@@ -8,8 +8,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
 
 import { ScoreGroupComponent } from './score-group.component';
-import { ScoreComponent } from 'app/views/home/list/score/score.component';
-import { IScoreContainer } from 'app/views/home/list/IScoreContainer';
+import { ScoreComponent } from '../score/score.component';
+import { IScoreContainer } from '../IScoreContainer';
 import { IScoreGroup } from 'app/services/model/IScoreGroup';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { Operation } from 'app/services/model/Operation';

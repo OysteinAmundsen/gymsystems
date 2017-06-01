@@ -9,7 +9,9 @@ import { ITournament } from 'app/services/model/ITournament';
 import { IUser, Role } from 'app/services/model/IUser';
 import { Moment } from 'moment';
 import { TranslateService } from '@ngx-translate/core';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { ReplaySubject } from 'rxjs/Rx';
+
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 import * as moment from 'moment';
 const Moment: any = (<any>moment).default || moment;
@@ -20,7 +22,8 @@ const Moment: any = (<any>moment).default || moment;
   styleUrls: ['./tournament-editor.component.scss']
 })
 export class TournamentEditorComponent implements OnInit, OnDestroy {
-  @Input() tournament: ITournament = <ITournament>{};
+  tournamentSubject = new ReplaySubject<ITournament>(1);
+  tournament: ITournament = <ITournament>{};
   tournamentForm: FormGroup;
   user: IUser;
   roles = Role;
@@ -63,7 +66,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
     this.route.params.subscribe((params: any) => {
       if (params.id) {
-        this.tournamentService.selectedId = +params.id;
         this.tournamentService.getById(+params.id).subscribe(tournament => this.tournamentReceived(tournament));
       } else {
         this.isAdding = true;
@@ -95,6 +97,8 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
   tournamentReceived(tournament) {
     this.tournament = tournament;
+    this.tournamentService.selected = tournament;
+    this.tournamentSubject.next(tournament);
     this.tournament.description_no = this.tournament.description_no || '';
     this.tournament.description_en = this.tournament.description_en || '';
     this.title.setTitle(`Configure tournament: ${tournament.name} | GymSystems`);
@@ -115,13 +119,11 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       createdBy: this.tournament.createdBy,
       times: this.tournament.times || null
     });
-    this.tournamentService.selected = this.tournament;
   }
 
   ngOnDestroy() {
-    this.tournamentService.selectedId = null;
-    this.tournamentService.selected = null;
     this.userSubscription.unsubscribe();
+    this.tournamentService.selected = null;
   }
 
   timeRangeChange(event, obj) {

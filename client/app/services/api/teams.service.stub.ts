@@ -11,8 +11,8 @@ import { DivisionType } from '../model/DivisionType';
 import { ITournament } from 'app/services/model/ITournament';
 import { IClub } from 'app/services/model/IClub';
 
-import { TeamsService } from "app/services/api";
-import { IDiscipline } from "app/services/model/IDiscipline";
+import { TeamsService } from 'app/services/api';
+import { IDiscipline } from 'app/services/model/IDiscipline';
 
 import { dummyTournament } from 'app/services/api/tournament.service.stub';
 

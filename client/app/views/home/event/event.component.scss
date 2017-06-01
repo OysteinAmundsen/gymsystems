@@ -1,0 +1,16 @@
+@import "~styles/variables";
+header {
+  padding-bottom: 4rem;
+  padding-top: 1rem;
+  line-height: 3em;
+  small {
+    font-size: 0.8em;
+    line-height: normal;
+    font-weight: normal;
+    display: block;
+  }
+
+  button.active {
+    display: none;
+  }
+}

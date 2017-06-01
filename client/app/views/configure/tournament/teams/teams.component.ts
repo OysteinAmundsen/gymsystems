@@ -7,7 +7,9 @@ import { Subscription } from 'rxjs';
 import { DivisionType } from 'app/services/model/DivisionType';
 import { ITeam } from 'app/services/model/ITeam';
 import { IUser, Role } from 'app/services/model/IUser';
-import { Classes } from "app/services/model/Classes";
+import { Classes } from 'app/services/model/Classes';
+import { ITournament } from 'app/services/model/ITournament';
+import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
 @Component({
   selector: 'app-teams',
@@ -17,6 +19,7 @@ import { Classes } from "app/services/model/Classes";
 export class TeamsComponent implements OnInit, OnDestroy {
   currentUser: IUser;
   userSubscription: Subscription;
+  tournament: ITournament;
   teamList: ITeam[] = [];
 
   _selected: ITeam;
@@ -28,6 +31,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private parent: TournamentEditorComponent,
     private userService: UserService,
     private tournamentService: TournamentService,
     private teamService: TeamsService) {
@@ -35,7 +39,10 @@ export class TeamsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
-    this.loadTeams();
+    this.parent.tournamentSubject.subscribe(tournament => {
+      this.tournament = tournament;
+      this.loadTeams();
+    });
   }
 
   ngOnDestroy() {
@@ -44,10 +51,10 @@ export class TeamsComponent implements OnInit, OnDestroy {
 
   loadTeams() {
     if (this.currentUser.role >= Role.Organizer) {
-      this.teamService.getByTournament(this.tournamentService.selectedId).subscribe(teams => this.teamList = teams);
+      this.teamService.getByTournament(this.tournament.id).subscribe(teams => this.teamList = teams);
     }
     else {
-      this.teamService.getMyTeamsByTournament(this.tournamentService.selectedId).subscribe(teams => this.teamList = teams);
+      this.teamService.getMyTeamsByTournament(this.tournament.id).subscribe(teams => this.teamList = teams);
     }
   }
 
@@ -70,7 +77,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
       divisions   : [],
       disciplines : [],
       club        : this.currentUser.club,
-      tournament  : this.tournamentService.selected
+      tournament  : this.tournament
     };
     this.teamList.push(team);
     this.selected = team;
@@ -84,7 +91,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
   select(team: ITeam) {
     if (team) {
       if (!team.tournament) {
-        team.tournament = this.tournamentService.selected;
+        team.tournament = this.tournament;
       }
       if (this.currentUser.role >= Role.Admin || team.club.id === this.currentUser.club.id) {
         this.selected = team;

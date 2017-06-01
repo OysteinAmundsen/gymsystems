@@ -7,8 +7,8 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { ITournamentParticipantScore } from '../model/ITournamentParticipantScore';
-import { ScoreService } from "app/services/api";
-import { ITournamentParticipant } from "app/services/model/ITournamentParticipant";
+import { ScoreService } from 'app/services/api';
+import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 
 @Injectable()
 export class ScoreServiceStub {

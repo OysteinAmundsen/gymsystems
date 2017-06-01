@@ -13,10 +13,7 @@ import { ITournament } from '../model/ITournament';
 @Injectable()
 export class TournamentService {
   private url = '/api/tournaments';
-  private _selectedTournament: ITournament;
-  get selected(): ITournament { return this._selectedTournament; }
-  set selected(tournament: ITournament) { this._selectedTournament = tournament; }
-  selectedId: number;
+  selected: ITournament;
 
   constructor(private http: Http) {  }
 

@@ -1,30 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TournamentEditorComponent } from './tournament-editor.component';
+import { EventComponent } from './event.component';
 import { SharedModule } from 'app/shared/shared.module';
-import { UserService, TournamentService } from 'app/services/api';
+import { TournamentService, UserService } from 'app/services/api';
 import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
 
-describe('TournamentEditorComponent', () => {
-  let component: TournamentEditorComponent;
-  let fixture: ComponentFixture<TournamentEditorComponent>;
+describe('EventComponent', () => {
+  let component: EventComponent;
+  let fixture: ComponentFixture<EventComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        ReactiveFormsModule,
+        RouterTestingModule,
         HttpModule,
         SharedModule,
-        RouterTestingModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -33,24 +28,22 @@ describe('TournamentEditorComponent', () => {
           }
         }),
       ],
-      declarations: [ TournamentEditorComponent ],
+      declarations: [ EventComponent ],
       providers: [
-        ErrorHandlerService,
-        { provide: Http, useClass: HttpInterceptor },
-        { provide: UserService, useClass: UserServiceStub },
-        { provide: TournamentService, useClass: TournamentServiceStub },
+        {provide: TournamentService, useClass: TournamentServiceStub},
+        {provide: UserService, useClass: UserServiceStub},
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TournamentEditorComponent);
+    fixture = TestBed.createComponent(EventComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -14,14 +14,14 @@ import { IDiscipline } from '../model/IDiscipline';
 import { ITeam } from '../model/ITeam';
 import { ITournament } from '../model/ITournament';
 import { IClub } from '../model/IClub';
-import { IScoreGroup } from "app/services/model/IScoreGroup";
-import { ScheduleService, ConfigurationService } from "app/services/api";
+import { IScoreGroup } from 'app/services/model/IScoreGroup';
+import { ScheduleService, ConfigurationService } from 'app/services/api';
 
 // Dummy data
 import { scoreGroups } from 'app/services/api/scoregroup.service.stub';
 import { dummyTournament } from 'app/services/api/tournament.service.stub';
 import { dummyTeam } from 'app/services/api/teams.service.stub';
-import { ParticipationType } from "app/services/model/ParticipationType";
+import { ParticipationType } from 'app/services/model/ParticipationType';
 
 function generateParticipants(amount: number): ITournamentParticipant[] {
   return Array(amount).fill(0).map((s, i) => {

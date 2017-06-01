@@ -2,8 +2,8 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 
 import { ScheduleService } from './schedule.service';
-import { ConfigurationService } from "app/services/api";
-import { ConfigurationServiceStub } from "app/services/api/configuration.service.stub";
+import { ConfigurationService } from 'app/services/api';
+import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
 
 describe('ScheduleService', () => {
   beforeEach(() => {

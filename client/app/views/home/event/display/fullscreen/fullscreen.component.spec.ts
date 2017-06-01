@@ -1,33 +1,39 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
+import { ReplaySubject } from 'rxjs/Rx';
 
 import { SharedModule } from 'app/shared/shared.module';
-import { ResultsComponent } from './results.component';
-import { ScheduleService, TeamsService, TournamentService, EventService, UserService, ConfigurationService, ScoreService } from 'app/services/api';
-import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { EventServiceStub } from 'app/services/api/event.service.stub';
-import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
-import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
-import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
-import { ConfigurationServiceStub } from "app/services/api/configuration.service.stub";
-import { ScoreServiceStub } from "app/services/api/score.service.stub";
 
-describe('ResultsComponent', () => {
-  let component: ResultsComponent;
-  let fixture: ComponentFixture<ResultsComponent>;
+import { FullscreenComponent } from './fullscreen.component';
+import { ConfigurationService, ScheduleService, TournamentService, DisplayService, EventService } from 'app/services/api';
+import { ITournament } from 'app/services/model/ITournament';
+
+import { EventServiceStub } from 'app/services/api/event.service.stub';
+import { DisplayServiceStub } from 'app/services/api/display.service.stub';
+import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
+import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
+import { EventComponent } from '../../event.component';
+
+class DummyParent {
+  tournamentSubject = new ReplaySubject<ITournament>(1);
+  constructor() {
+    this.tournamentSubject.next(dummyTournament);
+  }
+}
+describe('FullscreenComponent', () => {
+  let component: FullscreenComponent;
+  let fixture: ComponentFixture<FullscreenComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        SharedModule,
         RouterTestingModule,
         HttpModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SharedModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -36,22 +42,21 @@ describe('ResultsComponent', () => {
           }
         }),
       ],
-      declarations: [ ResultsComponent ],
+      declarations: [ FullscreenComponent ],
       providers: [
-        {provide: ScheduleService, useClass: ScheduleServiceStub},
-        {provide: TeamsService, useClass: TeamsServiceStub},
-        {provide: TournamentService, useClass: TournamentServiceStub},
-        {provide: EventService, useClass: EventServiceStub},
-        {provide: UserService, useClass: UserServiceStub},
-        {provide: ScoreService, useClass: ScoreServiceStub},
+        {provide: EventComponent, useClass: DummyParent},
         {provide: ConfigurationService, useClass: ConfigurationServiceStub},
+        {provide: ScheduleService, useClass: ScheduleServiceStub},
+        {provide: TournamentService, useClass: TournamentServiceStub},
+        {provide: DisplayService, useClass: DisplayServiceStub},
+        {provide: EventService, useClass: EventServiceStub},
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ResultsComponent);
+    fixture = TestBed.createComponent(FullscreenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

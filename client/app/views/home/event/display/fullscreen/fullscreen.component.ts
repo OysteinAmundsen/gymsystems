@@ -1,9 +1,11 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 import { EventService } from 'app/services/api/event.service';
 import { DisplayService } from 'app/services/api';
+import { EventComponent } from '../../event.component';
+import { ITournament } from 'app/services/model/ITournament';
 
 @Component({
   selector: 'app-fullscreen',
@@ -13,12 +15,14 @@ import { DisplayService } from 'app/services/api';
 export class FullscreenComponent implements OnInit, OnDestroy {
   eventSubscription: Subscription;
   paramSubscription: Subscription;
-  tournamentId: number;
+  tournamentSubscription: Subscription;
+  tournament: ITournament;
   displayId: number;
   displayHtml;
 
   constructor(
     private elRef: ElementRef,
+    private parent: EventComponent,
     private route: ActivatedRoute,
     private router: Router,
     private displayService: DisplayService,
@@ -26,34 +30,32 @@ export class FullscreenComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.paramSubscription = this.route.params.subscribe((params: any) => {
-      this.tournamentId = +params.id;
       this.displayId = +params.displayId;
-      this.loadDisplay();
-    });
-    this.eventSubscription = this.eventService.connect().subscribe(message => {
-      this.loadDisplay();
+      this.tournamentSubscription = this.parent.tournamentSubject.subscribe(tournament => {
+        if (tournament && tournament.id) {
+          this.tournament = tournament;
+          this.eventSubscription = this.eventService.connect().subscribe(message => this.loadDisplay());
+          this.loadDisplay();
+        }
+      });
     });
 
     // Go fullscreen
     const elm = this.elRef.nativeElement;
-    if (elm.requestFullscreen) {
-      elm.requestFullscreen();
-    } else if (elm.msRequestFullscreen) {
-      elm.msRequestFullscreen();
-    } else if (elm.mozRequestFullScreen) {
-      elm.mozRequestFullScreen();
-    } else if (elm.webkitRequestFullscreen) {
-      elm.webkitRequestFullscreen();
-    }
+    if (elm.requestFullscreen)            { elm.requestFullscreen(); }
+    else if (elm.msRequestFullscreen)     { elm.msRequestFullscreen(); }
+    else if (elm.mozRequestFullScreen)    { elm.mozRequestFullScreen(); }
+    else if (elm.webkitRequestFullscreen) { elm.webkitRequestFullscreen(); }
   }
 
   loadDisplay() {
-    this.displayService.getDisplay(this.tournamentId, this.displayId).subscribe(res => this.displayHtml = res);
+    this.displayService.getDisplay(this.tournament.id, this.displayId).subscribe(res => this.displayHtml = res);
   }
 
   ngOnDestroy() {
     this.eventSubscription.unsubscribe();
-    if (this.paramSubscription) { this.paramSubscription.unsubscribe(); }
+    this.paramSubscription.unsubscribe();
+    if (this.tournamentSubscription) { this.tournamentSubscription.unsubscribe(); }
   }
 
   @HostListener('window:keydown', ['$event'])

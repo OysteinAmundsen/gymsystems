@@ -6,8 +6,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
 import { ITournamentParticipantScore } from '../model/ITournamentParticipantScore';
-import { ITournamentParticipant } from "../model/ITournamentParticipant";
-import { Classes } from "../model/Classes";
+import { ITournamentParticipant } from '../model/ITournamentParticipant';
+import { Classes } from '../model/Classes';
 
 @Injectable()
 export class ScoreService {

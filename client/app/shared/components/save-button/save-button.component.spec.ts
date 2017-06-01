@@ -6,10 +6,10 @@ import { HttpLoaderFactory } from 'app';
 import { HttpModule, Http } from '@angular/http';
 
 import { SaveButtonComponent } from './save-button.component';
-import { FaComponent } from "app/shared/components/fontawesome/fa.component";
-import { FaStackComponent } from "app/shared/components/fontawesome/fa-stack.component";
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { FaComponent } from 'app/shared/components/fontawesome/fa.component';
+import { FaStackComponent } from 'app/shared/components/fontawesome/fa-stack.component';
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 describe('SaveButtonComponent', () => {
   let component: SaveButtonComponent;
