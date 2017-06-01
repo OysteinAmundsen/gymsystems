@@ -1,6 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
+
+import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -22,6 +24,7 @@ import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { HttpInterceptor } from "app/services/config/HttpInterceptor";
 
 const club: IClub = <IClub>{
   id          : 0,
@@ -55,6 +58,7 @@ describe('TeamEditorComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
+        RouterTestingModule,
         HttpModule,
         SharedModule,
         TranslateModule.forRoot({
@@ -67,14 +71,15 @@ describe('TeamEditorComponent', () => {
       ],
       declarations: [ WrapperComponent, TeamEditorComponent ],
       providers: [
-        {provide: TeamsService, useClass: TeamsServiceStub},
-        {provide: TournamentService, useClass: TournamentServiceStub},
-        {provide: ClubService, useClass: ClubServiceStub},
-        {provide: UserService, useClass: UserServiceStub},
-        {provide: DivisionService, useClass: DivisionServiceStub},
-        {provide: DisciplineService, useClass: DisciplineServiceStub},
         MediaService,
         ErrorHandlerService,
+        { provide: Http, useClass: HttpInterceptor },
+        { provide: TeamsService, useClass: TeamsServiceStub },
+        { provide: TournamentService, useClass: TournamentServiceStub },
+        { provide: ClubService, useClass: ClubServiceStub },
+        { provide: UserService, useClass: UserServiceStub },
+        { provide: DivisionService, useClass: DivisionServiceStub },
+        { provide: DisciplineService, useClass: DisciplineServiceStub },
       ]
     })
     .overrideComponent(TeamEditorComponent, {

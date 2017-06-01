@@ -21,6 +21,8 @@ import { Operation } from 'app/services/model/Operation';
 
 import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { ScoreServiceStub } from 'app/services/api/score.service.stub';
+import { HttpInterceptor } from "app/services/config/HttpInterceptor";
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 
 @Component({
  selector  : 'app-cmp',
@@ -64,8 +66,10 @@ describe('ScoreboardComponent', () => {
         ScoreComponent
       ],
       providers: [
-        {provide: ScoreService, useClass: ScoreServiceStub},
-        {provide: UserService, useClass: UserServiceStub},
+        ErrorHandlerService,
+        { provide: Http, useClass: HttpInterceptor },
+        { provide: ScoreService, useClass: ScoreServiceStub },
+        { provide: UserService, useClass: UserServiceStub },
       ]
     })
     .compileComponents();

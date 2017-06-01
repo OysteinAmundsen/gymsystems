@@ -13,6 +13,8 @@ import { HttpLoaderFactory } from 'app';
 import { ConfigurationService, TournamentService } from 'app/services/api';
 import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
 import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { HttpInterceptor } from "app/services/config/HttpInterceptor";
 
 describe('InfoComponent', () => {
   let component: InfoComponent;
@@ -38,6 +40,8 @@ describe('InfoComponent', () => {
       ],
       declarations: [ InfoComponent ],
       providers: [
+        ErrorHandlerService,
+        { provide: Http, useClass: HttpInterceptor },
         {provide: ConfigurationService, useClass: ConfigurationServiceStub},
         {provide: TournamentService, useClass: TournamentServiceStub},
         {

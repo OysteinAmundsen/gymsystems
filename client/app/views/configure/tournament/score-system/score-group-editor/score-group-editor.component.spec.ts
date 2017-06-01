@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+
+import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -11,6 +11,8 @@ import { ScoreGroupEditorComponent } from './score-group-editor.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { ScoreGroupService } from 'app/services/api';
 import { ScoreGroupServiceStub } from 'app/services/api/scoregroup.service.stub';
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { HttpInterceptor } from "app/services/config/HttpInterceptor";
 
 describe('ScoreGroupEditorComponent', () => {
   let component: ScoreGroupEditorComponent;
@@ -21,6 +23,7 @@ describe('ScoreGroupEditorComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
+        RouterTestingModule,
         HttpModule,
         SharedModule,
         TranslateModule.forRoot({
@@ -33,7 +36,9 @@ describe('ScoreGroupEditorComponent', () => {
       ],
       declarations: [ ScoreGroupEditorComponent ],
       providers: [
-        {provide: ScoreGroupService, useClass: ScoreGroupServiceStub},
+        ErrorHandlerService,
+        { provide: Http, useClass: HttpInterceptor },
+        { provide: ScoreGroupService, useClass: ScoreGroupServiceStub },
       ]
     })
     .compileComponents();

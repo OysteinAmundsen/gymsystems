@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
@@ -13,6 +14,8 @@ import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub'
 import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
 import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
 import { ConfigurationServiceStub } from "app/services/api/configuration.service.stub";
+import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { HttpInterceptor } from "app/services/config/HttpInterceptor";
 
 describe('ScheduleComponent', () => {
   let component: ScheduleComponent;
@@ -24,6 +27,7 @@ describe('ScheduleComponent', () => {
         SharedModule,
         DragulaModule,
         HttpModule,
+        RouterTestingModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -34,12 +38,14 @@ describe('ScheduleComponent', () => {
       ],
       declarations: [ ScheduleComponent ],
       providers: [
-        {provide: TournamentService, useClass: TournamentServiceStub},
-        {provide: DivisionService, useClass: DivisionServiceStub},
-        {provide: DisciplineService, useClass: DisciplineServiceStub},
-        {provide: TeamsService, useClass: TeamsServiceStub},
-        {provide: ScheduleService, useClass: ScheduleServiceStub},
-        {provide: ConfigurationService, useClass: ConfigurationServiceStub},
+        ErrorHandlerService,
+        { provide: Http, useClass: HttpInterceptor },
+        { provide: TournamentService, useClass: TournamentServiceStub },
+        { provide: DivisionService, useClass: DivisionServiceStub },
+        { provide: DisciplineService, useClass: DisciplineServiceStub },
+        { provide: TeamsService, useClass: TeamsServiceStub },
+        { provide: ScheduleService, useClass: ScheduleServiceStub },
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub },
       ]
     })
     .compileComponents();
