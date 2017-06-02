@@ -15,6 +15,7 @@ import { IMedia } from 'app/services/model/IMedia';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { ParticipationType } from 'app/services/model/ParticipationType';
 import { EventComponent } from '../event.component';
+import { IDiscipline } from "app/services/model/IDiscipline";
 
 @Component({
   selector: 'app-list',
@@ -26,6 +27,13 @@ export class ListComponent implements OnInit, OnDestroy {
   tournament: ITournament;
   schedule: ITournamentParticipant[] = [];
   selected: ITournamentParticipant;
+  selectedDiscipline = null;
+  get disciplines() {
+    return this.schedule.reduce((p: IDiscipline[], c) => {
+      if (p.findIndex(d => d.id === c.discipline.id) < 0) { p.push(c.discipline); }
+      return p;
+    }, []);
+  }
 
   roles = Role;
   participationTypes = ParticipationType;
