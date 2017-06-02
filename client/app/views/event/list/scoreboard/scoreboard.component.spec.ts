@@ -12,7 +12,7 @@ import { ScoreGroupComponent } from '../score-group/score-group.component';
 import { ScoreComponent } from '../score/score.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { ScoreService, UserService } from 'app/services/api';
-import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
+import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { ITeam } from 'app/services/model/ITeam';
 import { ITournament } from 'app/services/model/ITournament';
@@ -29,7 +29,7 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
  template  : `<app-scoreboard [participant]="item" (onClose)="closeEditor()"></app-scoreboard>`
 })
 class WrapperComponent {
-  item: ITournamentParticipant = <ITournamentParticipant>{
+  item: ITeamInDiscipline = <ITeamInDiscipline>{
     id: 0, startNumber: 0, team: <ITeam>{}, tournament: <ITournament>{}, scores: [], discipline: <IDiscipline>{
       id: 0, name: '', sortOrder: 0, tournament: <ITournament>{}, scoreGroups: [
         <IScoreGroup>{ id: 0, name: '', type: 'C', judges: 2, max: 5, min: 0, discipline: <IDiscipline>{ }, operation: Operation.Addition }

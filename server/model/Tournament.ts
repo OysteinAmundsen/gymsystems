@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'ty
 import { Discipline } from './Discipline';
 import { Division } from './Division';
 import { Team } from './Team';
-import { TournamentParticipant } from './TournamentParticipant';
+import { TeamInDiscipline } from './TeamInDiscipline';
 import { User, CreatedBy } from './User';
 import { Media } from './Media';
 
@@ -36,8 +36,8 @@ export class Tournament implements CreatedBy {
   @Column()
   location: string;
 
-  @OneToMany(type => TournamentParticipant, schedule => schedule.tournament)
-  schedule: TournamentParticipant[];
+  @OneToMany(type => TeamInDiscipline, schedule => schedule.tournament)
+  schedule: TeamInDiscipline[];
 
   @OneToMany(type => Discipline, disciplines => disciplines.tournament, { cascadeInsert: true })
   disciplines: Discipline[];

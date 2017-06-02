@@ -7,7 +7,7 @@ import { TeamsService, ScheduleService } from 'app/services/api';
 import { ITeam } from 'app/services/model/ITeam';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IDivision } from 'app/services/model/IDivision';
-import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
+import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
 import { DivisionType } from 'app/services/model/DivisionType';
 import { Classes } from 'app/services/model/Classes';
 import { ParticipationType } from 'app/services/model/ParticipationType';
@@ -21,7 +21,7 @@ import { TournamentEditorComponent } from '../tournament-editor/tournament-edito
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
   tournament: ITournament;
-  schedule: ITournamentParticipant[] = [];
+  schedule: ITeamInDiscipline[] = [];
   teams: ITeam[] = [];
   disciplines: IDiscipline[];
   classes = Classes;
@@ -69,7 +69,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteParticipant(participant: ITournamentParticipant) {
+  deleteParticipant(participant: ITeamInDiscipline) {
     if (participant.id) {
       this.scheduleService.delete(participant).subscribe(result => this.loadSchedule());
     } else {
@@ -87,13 +87,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     }
   }
 
-  startTime(participant: ITournamentParticipant) {
+  startTime(participant: ITeamInDiscipline) {
     let time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
     if (time) { return time.format('HH:mm'); }
     return '<span class="warning">ERR</span>';
   }
 
-  isNewDay(participant: ITournamentParticipant) {
+  isNewDay(participant: ITeamInDiscipline) {
     const nextParticipant = this.schedule.find(s => s.startNumber === participant.startNumber + 1);
     if (nextParticipant) {
       const thisTime = this.scheduleService.calculateStartTime(this.tournament, participant);
@@ -108,7 +108,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   division(team: ITeam) { return this.teamService.getDivisionName(team); }
 
-  stringHash(participant: ITournamentParticipant): string {
+  stringHash(participant: ITeamInDiscipline): string {
     return (participant.team.name + this.division(participant.team) + participant.discipline.name).replace(' ', '_');
   }
 
@@ -137,7 +137,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   calculateMissing() {
     const divisions = this.calculateDivisions();
     const disciplines: IDiscipline[] = [];
-    const schedule: ITournamentParticipant[] = [];
+    const schedule: ITeamInDiscipline[] = [];
     const tournament = this.tournament;
     divisions.forEach(div => {            // For each division...
       const teamsInDivision = this.teams.filter(t => this.division(t) === div);
@@ -145,7 +145,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         team.disciplines.forEach(dis => { // ...and each discipline, create a participant object
           if (disciplines.findIndex(d => d.id === dis.id) < 0) { disciplines.push(dis); }
 
-          const participant = <ITournamentParticipant>{ discipline: dis, team: team, tournament: tournament, type: ParticipationType.Live };
+          const participant = <ITeamInDiscipline>{ discipline: dis, team: team, tournament: tournament, type: ParticipationType.Live };
           if (this.schedule.findIndex(s => this.stringHash(s) === this.stringHash(participant)) < 0) {
             // Only push if participant is not allready registerred
             schedule.push(participant);
@@ -166,13 +166,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    *
    * http://stackoverflow.com/questions/43627465/javascript-sorting-algorithm
    */
-  sortSchedule(schedule: ITournamentParticipant[]) {
+  sortSchedule(schedule: ITeamInDiscipline[]) {
     const ageDivision = (team): IDivision => team.divisions.find(d => d.type === DivisionType.Age);
     const genderDivision = (team): IDivision => team.divisions.find(d => d.type === DivisionType.Gender);
 
     // Provide initial sort
     schedule = schedule
-      .sort((a: ITournamentParticipant, b: ITournamentParticipant) => {
+      .sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => {
         // Sort by class first
         if (a.team.class != b.team.class) { return a.team.class > b.team.class ? -1 : 1; }
 

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/share';
 
 import * as moment from 'moment';
 
-import { ITournamentParticipant } from '../model/ITournamentParticipant';
+import { ITeamInDiscipline } from '../model/ITeamInDiscipline';
 import { ConfigurationService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 
@@ -21,40 +21,40 @@ export class ScheduleService {
     this.configService.getByname('scheduleExecutionTime').subscribe(exec => this.executionTime = +exec.value);
   }
 
-  all(): Observable<ITournamentParticipant[]> {
+  all(): Observable<ITeamInDiscipline[]> {
     return this.http.get(this.url).map((res: Response) => res.json()).share();
   }
 
-  getByTournament(id: number): Observable<ITournamentParticipant[]> {
+  getByTournament(id: number): Observable<ITeamInDiscipline[]> {
     return this.http.get(`${this.url}/tournament/${id}`).share().map((res: Response) => res.json());
   }
 
-  getById(id: number): Observable<ITournamentParticipant> {
+  getById(id: number): Observable<ITeamInDiscipline> {
     return this.http.get(`${this.url}/${id}`).share().map((res: Response) => res.json());
   }
 
-  save(participant: ITournamentParticipant) {
+  save(participant: ITeamInDiscipline) {
     const call = (participant.id) ? this.http.put(`${this.url}/${participant.id}`, participant) : this.http.post(this.url, participant);
     return call.map((res: Response) => res.json());
   }
 
-  start(participant: ITournamentParticipant) {
+  start(participant: ITeamInDiscipline) {
     return this.http.post(`${this.url}/${participant.id}/start`, {}).map((res: Response) => res.json());
   }
 
-  stop(participant: ITournamentParticipant) {
+  stop(participant: ITeamInDiscipline) {
     return this.http.post(`${this.url}/${participant.id}/stop`, {}).map((res: Response) => res.json());
   }
 
-  publish(participant: ITournamentParticipant) {
+  publish(participant: ITeamInDiscipline) {
     return this.http.post(`${this.url}/${participant.id}/publish`, {}).map((res: Response) => res.json());
   }
 
-  saveAll(participants: ITournamentParticipant[]) {
+  saveAll(participants: ITeamInDiscipline[]) {
     return this.http.post(this.url, participants).map((res: Response) => res.json());
   }
 
-  delete(participant: ITournamentParticipant) {
+  delete(participant: ITeamInDiscipline) {
     return this.http.delete(`${this.url}/${participant.id}`);
   }
 
@@ -62,7 +62,7 @@ export class ScheduleService {
     return this.http.delete(`${this.url}/tournament/${id}`);
   }
 
-  calculateStartTime(tournament: ITournament, participant: ITournamentParticipant): moment.Moment {
+  calculateStartTime(tournament: ITournament, participant: ITeamInDiscipline): moment.Moment {
     let time: moment.Moment;
     let day = 0;
     let participantsPast = 0;

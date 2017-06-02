@@ -20,7 +20,7 @@ import { Tournament } from '../model/Tournament';
 import { Division } from '../model/Division';
 import { Discipline } from '../model/Discipline';
 import { ScoreGroup } from '../model/ScoreGroup';
-import { TournamentParticipant } from '../model/TournamentParticipant';
+import { TeamInDiscipline } from '../model/TeamInDiscipline';
 import { UserController } from './UserController';
 
 import { isCreatedByMe } from '../validators/CreatedByValidator';
@@ -167,7 +167,7 @@ export class TournamentController {
     await Container.get(MediaController).removeArchive(tournamentId);
 
     // Remove participants
-    const participantRepository = this.conn.getRepository(TournamentParticipant);
+    const participantRepository = this.conn.getRepository(TeamInDiscipline);
     const participants = await participantRepository.find({ tournament: tournament.id });
     await participantRepository.remove(participants);
 

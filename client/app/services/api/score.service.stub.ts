@@ -6,9 +6,9 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { ITournamentParticipantScore } from '../model/ITournamentParticipantScore';
+import { ITeamInDisciplineScore } from '../model/ITeamInDisciplineScore';
 import { ScoreService } from 'app/services/api';
-import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
+import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
 
 @Injectable()
 export class ScoreServiceStub {
@@ -21,7 +21,7 @@ export class ScoreServiceStub {
     return Observable.of(null);
   }
 
-  saveFromParticipant(participantId: number, scores: ITournamentParticipantScore[]) {
+  saveFromParticipant(participantId: number, scores: ITeamInDisciplineScore[]) {
     return Observable.of(null);
   }
 
@@ -29,11 +29,11 @@ export class ScoreServiceStub {
     return Observable.of(null);
   }
 
-  calculateTeamTotal(participants: ITournamentParticipant[]) {
+  calculateTeamTotal(participants: ITeamInDiscipline[]) {
     return this.original.calculateTeamTotal(participants);
   }
 
-  calculateTotal(participant: ITournamentParticipant) {
+  calculateTotal(participant: ITeamInDiscipline) {
     return this.original.calculateTotal(participant);
   }
 }

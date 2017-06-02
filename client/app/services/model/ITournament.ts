@@ -5,7 +5,7 @@ import { IUser } from './IUser';
 import { IMedia } from './IMedia';
 import { IDivision } from './IDivision';
 import { IDiscipline } from './IDiscipline';
-import { ITournamentParticipant } from './ITournamentParticipant';
+import { ITeamInDiscipline } from './ITeamInDiscipline';
 
 export interface ITournament {
   id: number;
@@ -17,7 +17,7 @@ export interface ITournament {
   endDate: Date | moment.Moment | string;
   times: {day: Date | moment.Moment, time: string}[];
   location: string;
-  schedule: ITournamentParticipant[];
+  schedule: ITeamInDiscipline[];
   disciplines: IDiscipline[];
   divisions: IDivision[];
   media: IMedia[];

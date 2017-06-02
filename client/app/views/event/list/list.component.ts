@@ -8,7 +8,7 @@ import { ScheduleService, TeamsService, EventService, UserService, ScoreService 
 import { MediaService } from 'app/services/media.service';
 
 import { ITournament } from 'app/services/model/ITournament';
-import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
+import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
 import { ITeam } from 'app/services/model/ITeam';
 import { Role, IUser } from 'app/services/model/IUser';
 import { IMedia } from 'app/services/model/IMedia';
@@ -25,8 +25,9 @@ import { IDiscipline } from "app/services/model/IDiscipline";
 export class ListComponent implements OnInit, OnDestroy {
   user: IUser;
   tournament: ITournament;
-  schedule: ITournamentParticipant[] = [];
-  selected: ITournamentParticipant;
+  schedule: ITeamInDiscipline[] = [];
+  selected: ITeamInDiscipline;
+
   selectedDiscipline = null;
   get disciplines() {
     return this.schedule.reduce((p: IDiscipline[], c) => {
@@ -80,18 +81,18 @@ export class ListComponent implements OnInit, OnDestroy {
     this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => this.schedule = schedule);
   }
 
-  startTime(participant: ITournamentParticipant) {
+  startTime(participant: ITeamInDiscipline) {
     let time: moment.Moment;
     time = participant.startTime != null ? moment(participant.startTime) : this.scheduleService.calculateStartTime(this.tournament, participant);
     if (time) { return time.format('HH:mm'); }
     return '<span class="warning">ERR</span>';
   }
-  startDate(participant: ITournamentParticipant) {
+  startDate(participant: ITeamInDiscipline) {
     let time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
     if (time) { return time.format('ddd'); }
     return '';
   }
-  isNewDay(participant: ITournamentParticipant) {
+  isNewDay(participant: ITeamInDiscipline) {
     const nextParticipant = this.schedule.find(s => s.startNumber === participant.startNumber + 1);
     if (nextParticipant) {
       const thisTime = this.scheduleService.calculateStartTime(this.tournament, participant);
@@ -106,14 +107,14 @@ export class ListComponent implements OnInit, OnDestroy {
 
   division(team: ITeam) { return this.teamService.getDivisionName(team); }
 
-  score(participant: ITournamentParticipant) {
+  score(participant: ITeamInDiscipline) {
     const score = this.scoreService.calculateTotal(participant);
 
     // Only show score if score is published, OR logged in user is part of the secretariat
     return (participant.publishTime || (this.user && this.user.role >= Role.Secretariat)) ? score : 0;
   }
 
-  select(participant: ITournamentParticipant) {
+  select(participant: ITeamInDiscipline) {
     if (this.user && (this.user.role >= Role.Admin || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.createdBy.club.id))) {
       if (participant != null && participant.startTime == null) {
         this.errorHandler.error = this.translate.instant(`Cannot edit score. This participant hasn't started yet.`);
@@ -123,16 +124,16 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
-  canStart(participant: ITournamentParticipant, index: number) {
+  canStart(participant: ITeamInDiscipline, index: number) {
     const previousStarted = (index > 0 ? this.schedule[index - 1].startTime != null : true);
     return participant.startTime == null && previousStarted;
   }
 
-  getMedia(participant: ITournamentParticipant): IMedia {
+  getMedia(participant: ITeamInDiscipline): IMedia {
     return participant.team.media ? participant.team.media.find(m => m.discipline.id === participant.discipline.id) : null;
   }
 
-  start(participant: ITournamentParticipant, evt: Event) {
+  start(participant: ITeamInDiscipline, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.startTime != null) {
         this.errorHandler.error = this.translate.instant('This participant has allready started.');
@@ -154,7 +155,7 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
-  stop(participant: ITournamentParticipant, evt: Event) {
+  stop(participant: ITeamInDiscipline, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.startTime == null) {
         this.errorHandler.error = this.translate.instant(`Cannot stop. This participant hasn't started yet.`);
@@ -170,7 +171,7 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
-  publish(participant: ITournamentParticipant, evt: Event) {
+  publish(participant: ITeamInDiscipline, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.publishTime != null) {
         this.errorHandler.error = this.translate.instant(`This participant's score is allready published.`);

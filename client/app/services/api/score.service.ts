@@ -4,8 +4,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { ITournamentParticipantScore } from '../model/ITournamentParticipantScore';
-import { ITournamentParticipant } from '../model/ITournamentParticipant';
+import { ITeamInDisciplineScore } from '../model/ITeamInDisciplineScore';
+import { ITeamInDiscipline } from '../model/ITeamInDiscipline';
 
 @Injectable()
 export class ScoreService {
@@ -17,7 +17,7 @@ export class ScoreService {
     return this.http.get(`${this.url}/${participantId}`).map((res: Response) => res.json()).share();
   }
 
-  saveFromParticipant(participantId: number, scores: ITournamentParticipantScore[]) {
+  saveFromParticipant(participantId: number, scores: ITeamInDisciplineScore[]) {
     return this.http.post(`${this.url}/${participantId}`, scores).map((res: Response) => res.json()).share();
   }
 
@@ -25,12 +25,12 @@ export class ScoreService {
     return this.http.delete(`${this.url}/${participantId}`).map((res: Response) => res.json()).share();
   }
 
-  calculateTeamTotal(participants: ITournamentParticipant[]) {
+  calculateTeamTotal(participants: ITeamInDiscipline[]) {
     if (!participants || !participants.length) { return 0; }
     return participants.reduce((prev, curr) => prev += this.calculateTotal(curr), 0) / participants.length;
   }
 
-  calculateTotal(participant: ITournamentParticipant) {
+  calculateTotal(participant: ITeamInDiscipline) {
     // Calculate final score
     return participant.discipline.scoreGroups.reduce((prev, curr) => {
       const scores = participant.scores.filter(s => s.scoreGroup.id === curr.id);

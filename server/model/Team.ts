@@ -4,12 +4,14 @@ import { Discipline } from './Discipline';
 import { Media } from './Media';
 import { Division, DivisionType } from './Division';
 import { Club, BelongsToClub } from './Club';
+import { ClubContestant } from "./ClubContestant";
 
 export enum Classes {
   TeamGym = 1, National = 2
 }
 /**
- *
+ * A Team is a group of contestants in a club belonging to
+ * the same type of age division.
  *
  * @export
  * @class Team
@@ -30,6 +32,10 @@ export class Team implements BelongsToClub {
   @ManyToMany(type => Discipline, discipline => discipline.teams, { cascadeInsert: false, cascadeUpdate: false })
   @JoinTable()
   disciplines: Discipline[] = [];
+
+  @ManyToMany(type => Discipline, discipline => discipline.teams, { cascadeInsert: false, cascadeUpdate: false })
+  @JoinTable()
+  contesters: ClubContestant[];
 
   @ManyToOne(type => Tournament, tournament => tournament.teams, { nullable: false, onDelete: 'CASCADE' })
   tournament: Tournament;

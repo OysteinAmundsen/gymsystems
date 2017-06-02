@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn
 import { Tournament } from './Tournament';
 import { Team, Classes } from './Team';
 import { Discipline } from './Discipline';
-import { TournamentParticipantScore } from './TournamentParticipantScore';
+import { TeamInDisciplineScore } from './TeamInDisciplineScore';
 import { Division, DivisionType } from './Division';
 
 export enum ParticipationType {
@@ -12,10 +12,10 @@ export enum ParticipationType {
  * Marks one entry in the tournaments schedule
  *
  * @export
- * @class TournamentParticipant
+ * @class TeamInDiscipline
  */
 @Entity()
-export class TournamentParticipant {
+export class TeamInDiscipline {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -45,8 +45,8 @@ export class TournamentParticipant {
   @JoinColumn()
   team: Team;
 
-  @OneToMany(type => TournamentParticipantScore, score => score.participant, { cascadeInsert: true, cascadeUpdate: true })
-  scores: TournamentParticipantScore[];
+  @OneToMany(type => TeamInDisciplineScore, score => score.participant, { cascadeInsert: true, cascadeUpdate: true })
+  scores: TeamInDisciplineScore[];
 
   get disciplineName(): string {
     return (this.team.class === Classes.TeamGym ? 'TG: ' : '') + this.discipline.name;

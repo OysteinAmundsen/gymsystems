@@ -15,8 +15,8 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { ScoreService, UserService } from 'app/services/api';
 import { Operation } from 'app/services/model/Operation';
-import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
-import { ITournamentParticipantScore } from 'app/services/model/ITournamentParticipantScore';
+import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
+import { ITeamInDisciplineScore } from 'app/services/model/ITeamInDisciplineScore';
 import { IUser, Role } from 'app/services/model/IUser';
 
 import { IScoreContainer } from '../IScoreContainer';
@@ -33,7 +33,7 @@ import { ScoreGroupComponent } from '../score-group/score-group.component';
 export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
   grandTotal = 0;
   scoreForm: FormGroup;
-  scores: ITournamentParticipantScore[];
+  scores: ITeamInDisciplineScore[];
   roles = Role;
   currentUser: IUser;
   userSubscription: Subscription;
@@ -57,7 +57,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
     return this._groupedScores;
   };
 
-  @Input() participant: ITournamentParticipant;
+  @Input() participant: ITeamInDiscipline;
   @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChildren(ScoreGroupComponent) groups: ScoreGroupComponent[];
 
@@ -74,13 +74,13 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
       // Empty score array. Create one score, per judge, per scoregroup
       this.participant.discipline.scoreGroups.forEach(group => {
         for (let j = 0; j < group.judges; j++) {
-          this.participant.scores.push(<ITournamentParticipantScore>{ scoreGroup: group, value: 0, judgeIndex: j+1 });
+          this.participant.scores.push(<ITeamInDisciplineScore>{ scoreGroup: group, value: 0, judgeIndex: j+1 });
         }
       });
     }
 
     this.scoreForm = this.fb.group(this.groupedScores.reduce((previous, current) => {
-      return Object.assign(previous, current.scores.reduce((prev: any, curr: ITournamentParticipantScore, index: number) => {
+      return Object.assign(previous, current.scores.reduce((prev: any, curr: ITeamInDisciplineScore, index: number) => {
         if (!curr.judgeIndex) {curr.judgeIndex = index + 1;}
         prev[`field_${curr.scoreGroup.type}_${curr.judgeIndex}`] = [
           curr.value,
@@ -133,7 +133,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
     Object.keys(values).forEach(k => {
       const field = k.split('_');
       const group = this.groupedScores.find(g => g.group.type === field[1]);
-      const score: ITournamentParticipantScore = group.scores[+field[2] - 1];
+      const score: ITeamInDisciplineScore = group.scores[+field[2] - 1];
       score.value = values[k];
       scores.push(score);
     });

@@ -14,7 +14,7 @@ import { isSameClubAsMe, isAllSameClubAsMe } from '../validators/CreatedByValida
 import { SSEService } from '../services/SSEService';
 import { UserController } from '../controllers/UserController';
 
-import { TournamentParticipant } from '../model/TournamentParticipant';
+import { TeamInDiscipline } from '../model/TeamInDiscipline';
 import { Role } from '../model/User';
 
 /**
@@ -23,10 +23,10 @@ import { Role } from '../model/User';
 @Service()
 @JsonController('/schedule')
 export class ScheduleController {
-  public repository: Repository<TournamentParticipant>;
+  public repository: Repository<TeamInDiscipline>;
 
   constructor() {
-    this.repository = getConnectionManager().get().getRepository(TournamentParticipant);
+    this.repository = getConnectionManager().get().getRepository(TeamInDiscipline);
   }
 
   @Get()
@@ -36,7 +36,7 @@ export class ScheduleController {
 
   @Get('/tournament/:id')
   @EmptyResultCode(404)
-  getByTournament( @Param('id') id: number): Promise<TournamentParticipant[]> {
+  getByTournament( @Param('id') id: number): Promise<TeamInDiscipline[]> {
     return this.repository.createQueryBuilder('tournament_participant')
       .where('tournament_participant.tournament=:id', { id: id })
       .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
@@ -57,7 +57,7 @@ export class ScheduleController {
 
   @Get('/:id')
   @EmptyResultCode(404)
-  get( @Param('id') id: number): Promise<TournamentParticipant> {
+  get( @Param('id') id: number): Promise<TeamInDiscipline> {
     return this.repository.createQueryBuilder('tournament_participant')
       .where('tournament_participant.id=:id', { id: id })
       .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
@@ -95,7 +95,7 @@ export class ScheduleController {
     return this.update(id, participant, res, req);
   }
 
-  getParticipantPlain(id: number): Promise<TournamentParticipant> {
+  getParticipantPlain(id: number): Promise<TeamInDiscipline> {
     return this.repository.createQueryBuilder('tournament_participant')
       .where('tournament_participant.id=:id', { id: id })
       .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
@@ -106,7 +106,7 @@ export class ScheduleController {
 
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
-  async create( @Body() participant: TournamentParticipant | TournamentParticipant[], @Res() res: Response, @Req() req: Request) {
+  async create( @Body() participant: TeamInDiscipline | TeamInDiscipline[], @Res() res: Response, @Req() req: Request) {
     const participants = Array.isArray(participant) ? participant : [participant];
     const sameClub = await isAllSameClubAsMe(participants.map(p => p.tournament), req);
     if (!sameClub) {
@@ -123,7 +123,7 @@ export class ScheduleController {
 
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
-  async update( @Param('id') id: number, @Body() participant: TournamentParticipant, @Res() res: Response, @Req() req: Request) {
+  async update( @Param('id') id: number, @Body() participant: TeamInDiscipline, @Res() res: Response, @Req() req: Request) {
     const sseService = Container.get(SSEService);
     const sameClub = await isSameClubAsMe(participant.tournament, req);
     if (!sameClub) {
@@ -161,7 +161,7 @@ export class ScheduleController {
     return this.removeMany(participants, res, req);
   }
 
-  async removeMany(participants: TournamentParticipant[], res: Response, req: Request) {
+  async removeMany(participants: TeamInDiscipline[], res: Response, req: Request) {
     const sameClub = await isAllSameClubAsMe(participants.map(p => p.tournament), req);
     if (!sameClub) {
       res.status(403);

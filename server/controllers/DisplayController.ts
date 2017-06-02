@@ -7,7 +7,7 @@ import { ConfigurationController } from './ConfigurationController';
 import { ScheduleController } from './ScheduleController';
 
 import { Tournament } from '../model/Tournament';
-import { TournamentParticipant } from '../model/TournamentParticipant';
+import { TeamInDiscipline } from '../model/TeamInDiscipline';
 
 /**
  *
@@ -69,7 +69,7 @@ export class DisplayController {
 
     // Parse template
     const template = displayConfig.value[`display${id}`];
-    const sorter = (a: TournamentParticipant, b: TournamentParticipant) => a.startNumber < b.startNumber ? -1 : 1;
+    const sorter = (a: TeamInDiscipline, b: TeamInDiscipline) => a.startNumber < b.startNumber ? -1 : 1;
     return Handlebars.compile(template, {noEscape: true})({
       tournament: tournament,
       // Get current participant from schedule

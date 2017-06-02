@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Rx';
 
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
-import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
+import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
 import { IUser } from 'app/services/model/IUser';
 import { Classes } from 'app/services/model/Classes';
 import { EventComponent } from '../event.component';
@@ -16,7 +16,7 @@ import { EventComponent } from '../event.component';
 export class ResultsComponent implements OnInit, OnDestroy {
   user: IUser;
   tournament: ITournament;
-  schedule: ITournamentParticipant[] = [];
+  schedule: ITeamInDiscipline[] = [];
   userSubscription: Subscription;
   eventSubscription: Subscription;
   tournamentSubscription: Subscription;
@@ -69,7 +69,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => this.schedule = schedule);
   }
 
-  getDivisionNames(participants: ITournamentParticipant[]) {
+  getDivisionNames(participants: ITeamInDiscipline[]) {
     return participants.reduce((p, c) => {
       const t = this.teamService.getDivisionName(c.team);
       if (p.indexOf(t) < 0) { p.push(t); }
@@ -77,7 +77,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }, []);
   }
 
-  score(participant: ITournamentParticipant) {
+  score(participant: ITeamInDiscipline) {
     if (!this.isPublished(participant)) { return 0; }
 
     return (participant.team.class === Classes.National)
@@ -98,7 +98,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  scoresByGroup(participant: ITournamentParticipant): {type: string, value: number}[] {
+  scoresByGroup(participant: ITeamInDiscipline): {type: string, value: number}[] {
     return participant.discipline.scoreGroups.reduce((scores, g) => {
       if (participant.scores.length) {
         participant.scores
@@ -118,24 +118,24 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }, []);
   }
 
-  isPublished(item: ITournamentParticipant) {
+  isPublished(item: ITeamInDiscipline) {
     return (item.team.class === Classes.TeamGym)
       ? this.schedule.filter(s => s.team.id === item.team.id).every(t => t.publishTime != null)
       : item.publishTime != null;
   }
 
-  getByDivision(name: string, filtered?: ITournamentParticipant[]) {
+  getByDivision(name: string, filtered?: ITeamInDiscipline[]) {
     const schedule = filtered || this.schedule;
     return schedule.filter(s => this.teamService.getDivisionName(s.team) === name)
-      .sort((a: ITournamentParticipant, b: ITournamentParticipant) => { // Sort by total score
+      .sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => { // Sort by total score
         return this.score(a) > this.score(b) ? -1 : 1;
       });
   }
 
-  getByDiscipline(name: string, filtered?: ITournamentParticipant[]) {
+  getByDiscipline(name: string, filtered?: ITeamInDiscipline[]) {
     const schedule = filtered || this.schedule;
     return schedule.filter(s => s.discipline.name === name && s.team.class !== Classes.TeamGym)
-      .sort((a: ITournamentParticipant, b: ITournamentParticipant) => { // Sort by total score
+      .sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => { // Sort by total score
         return this.score(a) > this.score(b) ? -1 : 1;
       });
   }
@@ -146,7 +146,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       return s.discipline.name === me.disciplines[0]  // Only one entry per team.
           && s.team.class === Classes.TeamGym
           && divisionName === me.teamService.getDivisionName(s.team);
-    }).sort((a: ITournamentParticipant, b: ITournamentParticipant) => { // Sort by total score
+    }).sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => { // Sort by total score
       return this.score(a) > this.score(b) ? -1 : 1;
     });
   }

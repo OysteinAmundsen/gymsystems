@@ -8,7 +8,7 @@ import 'rxjs/add/observable/of';
 
 import * as moment from 'moment';
 
-import { ITournamentParticipant } from '../model/ITournamentParticipant';
+import { ITeamInDiscipline } from '../model/ITeamInDiscipline';
 import { IDiscipline } from '../model/IDiscipline';
 import { ITournament } from '../model/ITournament';
 import { ScheduleService, ConfigurationService } from 'app/services/api';
@@ -19,9 +19,9 @@ import { dummyTournament } from 'app/services/api/tournament.service.stub';
 import { dummyTeam } from 'app/services/api/teams.service.stub';
 import { ParticipationType } from 'app/services/model/ParticipationType';
 
-function generateParticipants(amount: number): ITournamentParticipant[] {
+function generateParticipants(amount: number): ITeamInDiscipline[] {
   return Array(amount).fill(0).map((s, i) => {
-    return <ITournamentParticipant>{
+    return <ITeamInDiscipline>{
       id: i,
       startNumber: i,
       type: ParticipationType.Live,
@@ -38,53 +38,53 @@ function generateParticipants(amount: number): ITournamentParticipant[] {
 @Injectable()
 export class ScheduleServiceStub {
   original: ScheduleService;
-  participant: ITournamentParticipant = generateParticipants(1)[0];
-  schedule: ITournamentParticipant[] = generateParticipants(10);
+  participant: ITeamInDiscipline = generateParticipants(1)[0];
+  schedule: ITeamInDiscipline[] = generateParticipants(10);
   constructor(private http: Http, private configService: ConfigurationService) {
     this.original = new ScheduleService(http, configService);
   }
 
-  all(): Observable<ITournamentParticipant[]> {
+  all(): Observable<ITeamInDiscipline[]> {
     return Observable.of(this.schedule);
   }
 
-  getByTournament(id: number): Observable<ITournamentParticipant[]> {
+  getByTournament(id: number): Observable<ITeamInDiscipline[]> {
     return Observable.of(this.schedule);
   }
 
-  getById(id: number): Observable<ITournamentParticipant> {
+  getById(id: number): Observable<ITeamInDiscipline> {
     return Observable.of(this.participant);
   }
 
-  save(participant: ITournamentParticipant) {
+  save(participant: ITeamInDiscipline) {
     return Observable.of(this.participant);
   }
 
-  start(participant: ITournamentParticipant) {
+  start(participant: ITeamInDiscipline) {
     return Observable.of(this.participant);
   }
 
-  stop(participant: ITournamentParticipant) {
+  stop(participant: ITeamInDiscipline) {
     return Observable.of(this.participant);
   }
 
-  publish(participant: ITournamentParticipant) {
+  publish(participant: ITeamInDiscipline) {
     return Observable.of(this.participant);
   }
 
-  saveAll(participants: ITournamentParticipant[]) {
+  saveAll(participants: ITeamInDiscipline[]) {
     return Observable.of(this.schedule);
   }
 
-  delete(participant: ITournamentParticipant) {
+  delete(participant: ITeamInDiscipline) {
     return Observable.of(null);
   }
 
-  deleteAll(participants: ITournamentParticipant[]) {
+  deleteAll(participants: ITeamInDiscipline[]) {
     return Observable.of(null);
   }
 
-  calculateStartTime(tournament: ITournament, participant: ITournamentParticipant): moment.Moment {
+  calculateStartTime(tournament: ITournament, participant: ITeamInDiscipline): moment.Moment {
     return this.original.calculateStartTime(tournament, participant);
   }
 }

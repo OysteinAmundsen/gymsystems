@@ -9,8 +9,8 @@ import { ScoreComponent } from './score.component';
 import { IScoreGroup } from 'app/services/model/IScoreGroup';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { Operation } from 'app/services/model/Operation';
-import { ITournamentParticipantScore } from 'app/services/model/ITournamentParticipantScore';
-import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
+import { ITeamInDisciplineScore } from 'app/services/model/ITeamInDisciplineScore';
+import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
 
 @Component({
  selector  : 'app-cmp',
@@ -18,8 +18,8 @@ import { ITournamentParticipant } from 'app/services/model/ITournamentParticipan
 })
 class WrapperComponent {
   form;
-  score: ITournamentParticipantScore = <ITournamentParticipantScore>{
-    id: 0, value: 0, participant: <ITournamentParticipant>{ }, judgeIndex: 1,
+  score: ITeamInDisciplineScore = <ITeamInDisciplineScore>{
+    id: 0, value: 0, participant: <ITeamInDiscipline>{ }, judgeIndex: 1,
     scoreGroup: <IScoreGroup>{
       id: 0, name: '', type: 'C', judges: 2, max: 5, min: 0, discipline: <IDiscipline>{ }, operation: Operation.Addition
     },
