@@ -18,6 +18,9 @@ export class ClubServiceStub {
   findByName(name: string): Observable<IClub[]> {
     return Observable.of(null);
   }
+  getById(id: number): Observable<IClub> {
+    return Observable.of(null);
+  }
 
   saveClub(name: string) {
     return Observable.of(null);

@@ -1,6 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpModule, Http } from '@angular/http';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpLoaderFactory } from 'app';
+import { SharedModule } from 'app/shared/shared.module';
+
 import { ClubComponent } from './club.component';
+import { ClubService, UserService } from "app/services/api";
+import { ClubServiceStub } from "app/services/api/club.service.stub";
+import { UserServiceStub } from "app/services/api/user.service.stub";
 
 describe('ClubComponent', () => {
   let component: ClubComponent;
@@ -8,7 +18,24 @@ describe('ClubComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClubComponent ]
+      imports: [
+        SharedModule,
+        HttpModule,
+        FormsModule,
+        RouterTestingModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [Http]
+          }
+        }),
+      ],
+      declarations: [ ClubComponent ],
+      providers: [
+        { provide: ClubService, useClass: ClubServiceStub },
+        { provide: UserService, useClass: UserServiceStub },
+      ]
     })
     .compileComponents();
   }));
