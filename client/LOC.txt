@@ -1,16 +1,16 @@
-     100 files     200 files     269 text files.
-classified 269 filesDuplicate file check 269 files (248 known unique)Unique:      100 files                                          Unique:      200 files                                               269 unique files.                              
-Counting:  100Counting:  200      72 files ignored.
+     100 files     200 files     279 text files.
+classified 279 filesDuplicate file check 279 files (263 known unique)Unique:      100 files                                          Unique:      200 files                                               279 unique files.                              
+Counting:  100Counting:  200      74 files ignored.
 
-github.com/AlDanial/cloc v 1.72  T=0.49 s (539.8 files/s, 25387.1 lines/s)
+github.com/AlDanial/cloc v 1.72  T=0.43 s (634.4 files/s, 30252.5 lines/s)
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-TypeScript                     177           1128            279           7086
-Sass                            43             97             24           2038
-HTML                            37             74              9           1266
-JSON                             6              0              0            407
+TypeScript                     183           1197            291           7542
+Sass                            45            109             24           2107
+HTML                            39             75              9           1260
+JSON                             6              0              0            443
 XML                              1              0              0              9
 -------------------------------------------------------------------------------
-SUM:                           264           1299            312          10806
+SUM:                           274           1381            324          11361
 -------------------------------------------------------------------------------
