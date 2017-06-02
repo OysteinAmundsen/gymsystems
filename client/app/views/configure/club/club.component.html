@@ -1,0 +1,24 @@
+<h1>
+  <app-fa name="university" fw="true"></app-fa>
+  <span translate>Clubs</span>
+</h1>
+
+<div class="table-responsive">
+  <table role="list" class="editable">
+    <thead>
+      <tr>
+        <th translate>Name</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let club of clubList">
+      <tr [routerLink]="['.', club.id]" role="listitem">
+        <td class="club">{{ club.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<button type="button" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Admin'">
+  <app-fa name="plus" fw="true"></app-fa>
+  <span translate>Add club</span>
+</button>

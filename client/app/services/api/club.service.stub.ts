@@ -12,6 +12,9 @@ export class ClubServiceStub {
 
   constructor(private http: Http) { }
 
+  all(): Observable<IClub[]> {
+    return Observable.of(null);
+  }
   findByName(name: string): Observable<IClub[]> {
     return Observable.of(null);
   }

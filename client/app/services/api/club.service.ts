@@ -9,19 +9,23 @@ import { IBelongsToClub } from '../model/IBelongsToClub';
 
 @Injectable()
 export class ClubService {
-
+  url = '/api/clubs';
   constructor(private http: Http) { }
 
-  findByName(name: string): Observable<IClub[]> {
-    return this.http.get(`/api/clubs?name=${name}`).map((res: Response) => res.json()).share();
+  all(): Observable<IClub[]> {
+    return this.http.get(this.url).map((res: Response) => res.json()).share();
   }
 
-  getClub(name: string): Observable<IClub[]> {
-    return this.findByName(name);
+  findByName(name: string): Observable<IClub[]> {
+    return this.http.get(`${this.url}?name=${name}`).map((res: Response) => res.json()).share();
+  }
+
+  getById(id: number): Observable<IClub> {
+    return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share();
   }
 
   saveClub(name: string) {
-    return this.http.post('/api/clubs/', { name: name}).map((res: Response) => res.json());
+    return this.http.post(`${this.url}/`, { name: name}).map((res: Response) => res.json());
   }
 
   async validateClub(obj: IBelongsToClub) {
