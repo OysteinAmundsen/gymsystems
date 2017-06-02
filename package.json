@@ -107,7 +107,7 @@
     "@types/express": "~4.0.35",
     "@types/express-session": "1.15.0",
     "@types/handlebars": "^4.0.32",
-    "@types/jasmine": "2.5.48",
+    "@types/jasmine": "2.5.49",
     "@types/lodash": "^4.14.64",
     "@types/mkdirp": "~0.3.29",
     "@types/morgan": "~1.7.32",
