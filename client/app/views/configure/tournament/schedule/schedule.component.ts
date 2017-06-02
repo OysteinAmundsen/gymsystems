@@ -2,9 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 
 import * as moment from 'moment';
-const Moment: any = (<any>moment).default || moment;
 
-import { TournamentService, TeamsService, ScheduleService } from 'app/services/api';
+import { TeamsService, ScheduleService } from 'app/services/api';
 import { ITeam } from 'app/services/model/ITeam';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IDivision } from 'app/services/model/IDivision';
@@ -34,7 +33,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     private parent: TournamentEditorComponent,
     private teamService: TeamsService,
     private scheduleService: ScheduleService,
-    private tournamentService: TournamentService,
     private dragulaService: DragulaService) { }
 
   ngOnInit() {

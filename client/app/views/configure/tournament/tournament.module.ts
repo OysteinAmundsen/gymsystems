@@ -9,8 +9,6 @@ import { SharedModule } from 'app/shared/shared.module';
 import { DisciplinesModule } from './disciplines/disciplines.module';
 import { DivisionsModule } from './divisions/divisions.module';
 
-import { TournamentRoutes } from './tournament.routes';
-
 import { TournamentComponent } from './tournament.component';
 import { TournamentEditorComponent } from './tournament-editor/tournament-editor.component';
 

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 
@@ -15,12 +14,12 @@ interface TournamentType {name: string, tournaments: ITournament[]}
 })
 export class HomeComponent implements OnInit, OnDestroy {
   _types: TournamentType[] = [];
-  get types() { return this._types.sort((a: TournamentType, b: TournamentType) => (a.name === 'Future') ? -1 : 1); } // Future first, allways
   current = [];
   isLoading = true;
-  get hasTournaments() {
-    return this.types.filter(t => t.tournaments.length > 0).length > 0;
-  }
+
+  get types() { return this._types.sort((a: TournamentType, b: TournamentType) => (a.name === 'Future') ? -1 : 1); } // Future first, allways
+
+  get hasTournaments() { return this.types.filter(t => t.tournaments.length > 0).length > 0; }
   get hasFuture() {
     const future = this.types.find(t => t.name === 'Future');
     return future && future.tournaments && future.tournaments.length;

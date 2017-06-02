@@ -8,9 +8,9 @@ import { ReplaySubject } from 'rxjs/Rx';
 
 import { ScheduleComponent } from './schedule.component';
 import { SharedModule } from 'app/shared/shared.module';
-import { ScheduleService, TournamentService, DivisionService, DisciplineService, TeamsService, ConfigurationService } from 'app/services/api';
+import { ScheduleService, DivisionService, DisciplineService, TeamsService, ConfigurationService } from 'app/services/api';
 
-import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
+import { dummyTournament } from 'app/services/api/tournament.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
 import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
@@ -51,7 +51,6 @@ describe('ScheduleComponent', () => {
         ErrorHandlerService,
         { provide: Http, useClass: HttpInterceptor },
         { provide: TournamentEditorComponent, useClass: DummyParent },
-        { provide: TournamentService, useClass: TournamentServiceStub },
         { provide: DivisionService, useClass: DivisionServiceStub },
         { provide: DisciplineService, useClass: DisciplineServiceStub },
         { provide: TeamsService, useClass: TeamsServiceStub },

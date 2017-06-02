@@ -12,7 +12,6 @@ import { LoginComponent } from './login/login.component';
 
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
-import { EventModule } from './event/event.module';
 
 @NgModule({
   imports: [
@@ -23,7 +22,6 @@ import { EventModule } from './event/event.module';
     RouterModule.forChild([...HomeRoutes]),
 
     SharedModule,
-    EventModule,
   ],
   declarations: [
     HomeComponent,

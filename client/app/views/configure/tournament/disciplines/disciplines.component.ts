@@ -4,7 +4,6 @@ import { DragulaService } from 'ng2-dragula';
 import { DisciplineService, ScoreGroupService, ConfigurationService, TournamentService } from 'app/services/api';
 import { IScoreGroup } from 'app/services/model/IScoreGroup';
 import { IDiscipline } from 'app/services/model/IDiscipline';
-import { ITournament } from 'app/services/model/ITournament';
 
 @Component({
   selector: 'app-disciplines',

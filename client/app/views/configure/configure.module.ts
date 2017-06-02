@@ -12,7 +12,6 @@ import { UsersModule } from './users/users.module';
 import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
 import { MacroDialogComponent } from './display/macro-dialog/macro-dialog.component';
-import { AdvancedComponent } from './advanced/advanced.component';
 import { AdvancedModule } from './advanced/advanced.module';
 
 @NgModule({

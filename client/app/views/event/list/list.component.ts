@@ -3,17 +3,14 @@ import { Subscription } from 'rxjs/Rx';
 import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
-const Moment: any = (<any>moment).default || moment;
 
-import { TournamentService, ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
+import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 
 import { ITournament } from 'app/services/model/ITournament';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 import { ITeam } from 'app/services/model/ITeam';
-import { DivisionType } from 'app/services/model/DivisionType';
 import { Role, IUser } from 'app/services/model/IUser';
-import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IMedia } from 'app/services/model/IMedia';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { ParticipationType } from 'app/services/model/ParticipationType';
@@ -26,26 +23,24 @@ import { EventComponent } from '../event.component';
 })
 export class ListComponent implements OnInit, OnDestroy {
   user: IUser;
-  roles = Role;
-  participationTypes = ParticipationType;
   tournament: ITournament;
   schedule: ITournamentParticipant[] = [];
   selected: ITournamentParticipant;
 
-  get description() {
-    return (this.tournament ? this.tournament['description_' + this.translate.currentLang] : '');
-  }
+  roles = Role;
+  participationTypes = ParticipationType;
+
   userSubscription: Subscription;
   eventSubscription: Subscription;
   tournamentSubscription: Subscription;
 
+  get description() { return (this.tournament ? this.tournament['description_' + this.translate.currentLang] : ''); }
 
   constructor(
     private parent: EventComponent,
     private translate: TranslateService,
     private scheduleService: ScheduleService,
     private teamService: TeamsService,
-    private tournamentService: TournamentService,
     private scoreService: ScoreService,
     private eventService: EventService,
     private userService: UserService,

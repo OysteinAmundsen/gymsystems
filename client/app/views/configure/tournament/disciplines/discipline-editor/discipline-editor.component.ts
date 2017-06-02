@@ -1,12 +1,9 @@
 import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
 
-import { TournamentService, DisciplineService } from 'app/services/api';
+import { DisciplineService } from 'app/services/api';
 import { IDiscipline } from 'app/services/model/IDiscipline';
-import { ITournament } from 'app/services/model/ITournament';
 
-import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 
 @Component({
   selector: 'app-discipline-editor',
@@ -23,9 +20,6 @@ export class DisciplineEditorComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
-    private tournamentService: TournamentService,
     private disciplineService: DisciplineService
   ) { }
 

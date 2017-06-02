@@ -1,6 +1,5 @@
 
 import * as moment from 'moment';
-import Moment = moment.Moment;
 
 import { IUser } from './IUser';
 import { IMedia } from './IMedia';
@@ -14,9 +13,9 @@ export interface ITournament {
   name: string;
   description_no: string;
   description_en: string;
-  startDate: Date | Moment | string;
-  endDate: Date | Moment | string;
-  times: {day: Date | Moment, time: string}[];
+  startDate: Date | moment.Moment | string;
+  endDate: Date | moment.Moment | string;
+  times: {day: Date | moment.Moment, time: string}[];
   location: string;
   schedule: ITournamentParticipant[];
   disciplines: IDiscipline[];

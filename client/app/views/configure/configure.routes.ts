@@ -8,8 +8,6 @@ import { Role } from 'app/services/model/IUser';
 
 import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
-import { UsersComponent } from './users/users.component';
-import { AdvancedComponent } from './advanced/advanced.component';
 
 export const ConfigureRoutes: Routes = [
   {

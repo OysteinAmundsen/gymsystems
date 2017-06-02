@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -7,14 +7,10 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import * as moment from 'moment';
-const Moment: any = (<any>moment).default || moment;
 
 import { ITournamentParticipant } from '../model/ITournamentParticipant';
 import { IDiscipline } from '../model/IDiscipline';
-import { ITeam } from '../model/ITeam';
 import { ITournament } from '../model/ITournament';
-import { IClub } from '../model/IClub';
-import { IScoreGroup } from 'app/services/model/IScoreGroup';
 import { ScheduleService, ConfigurationService } from 'app/services/api';
 
 // Dummy data

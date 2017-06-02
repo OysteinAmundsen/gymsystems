@@ -1,12 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { HttpInterceptor, HttpAction } from 'app/services/config/HttpInterceptor';
 import { RequestMethod, Http } from '@angular/http';
 
 import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
-const Moment: any = (<any>moment).default || moment;
 
 @Component({
   selector: 'app-save-button',

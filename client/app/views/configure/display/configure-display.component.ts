@@ -18,10 +18,6 @@ export class ConfigureDisplayComponent implements OnInit {
     this.config.getByname('display').subscribe((res: any) => this.configReceived(res));
   }
 
-  openDialog() {
-
-  }
-
   configReceived(res: any) {
     this.templates = [
       { id: 'display1', title: 'Display 1', content: res.value.display1 },

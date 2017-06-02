@@ -1,5 +1,5 @@
-import { Injectable, ComponentFactoryResolver } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { UserService } from 'app/services/api';
 import { Role } from 'app/services/model/IUser';
 import { Subscription } from 'rxjs/Subscription';

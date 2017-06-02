@@ -1,10 +1,8 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Rx';
 
-import { TournamentService, TeamsService, UserService } from 'app/services/api';
-import { Subscription } from 'rxjs';
+import { TeamsService, UserService } from 'app/services/api';
 
-import { DivisionType } from 'app/services/model/DivisionType';
 import { ITeam } from 'app/services/model/ITeam';
 import { IUser, Role } from 'app/services/model/IUser';
 import { Classes } from 'app/services/model/Classes';
@@ -29,11 +27,8 @@ export class TeamsComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private parent: TournamentEditorComponent,
     private userService: UserService,
-    private tournamentService: TournamentService,
     private teamService: TeamsService) {
   }
 

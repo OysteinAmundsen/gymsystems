@@ -27,10 +27,12 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   @Input() team: ITeam = <ITeam>{};
   @Input() tournament: ITournament;
   @Output() teamChanged: EventEmitter<any> = new EventEmitter<any>();
+
   @ViewChildren('selectedDisciplines') disciplineCheckboxes;
   teamForm: FormGroup;
   disciplines: IDiscipline[];
   divisions: IDivision[] = [];
+
   _currentUser: IUser;
   get currentUser() { return this._currentUser; }
   set currentUser(value) {
@@ -40,8 +42,10 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   clubs = [];
   selectedClub: IClub;
+
   get ageDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Age); }
   get genderDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Gender); }
+
   get allChecked() {
     if (this.disciplineCheckboxes && this.disciplineCheckboxes.length) {
       const team = this.teamForm.value;

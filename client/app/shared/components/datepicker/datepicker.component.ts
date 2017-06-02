@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, forwardRef, Input, Output, EventEmitter, Provider, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, forwardRef, Input, Output, EventEmitter, HostListener, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import * as moment from 'moment';
 

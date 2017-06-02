@@ -9,7 +9,6 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
 import { IUser } from '../model/IUser';
-import { IDiscipline } from '../model/IDiscipline';
 
 @Injectable()
 export class UserService {

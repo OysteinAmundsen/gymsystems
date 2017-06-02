@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 
 import { ScoreComponent } from '../score/score.component';
 import { IScoreContainer } from '../IScoreContainer';
-import { ITournamentParticipantScore } from 'app/services/model/ITournamentParticipantScore';
 
 @Component({
   selector: 'app-score-group',

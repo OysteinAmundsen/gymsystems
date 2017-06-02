@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
 
 import { ScoreComponent } from './score.component';
-import { IScoreContainer } from '../IScoreContainer';
 import { IScoreGroup } from 'app/services/model/IScoreGroup';
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { Operation } from 'app/services/model/Operation';

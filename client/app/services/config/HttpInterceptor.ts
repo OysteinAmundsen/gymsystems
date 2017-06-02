@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Request, Response, RequestOptionsArgs, RequestOptions, XHRBackend, RequestMethod } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 
-import { UserService } from 'app/services/api';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { Subject } from 'rxjs/Subject';
 

@@ -1,18 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
-import {
-  EventService,
-  TournamentService,
-  ScheduleService,
-  TeamsService,
-  UserService,
-  ConfigurationService,
-  DisplayService
-} from 'app/services/api';
+import { EventService, DisplayService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
-import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
-import { IUser } from 'app/services/model/IUser';
 import { EventComponent } from '../event.component';
 
 @Component({
@@ -29,7 +19,6 @@ export class DisplayComponent implements OnInit, OnDestroy {
 
   constructor(
     private parent: EventComponent,
-    private tournamentService: TournamentService,
     private displayService: DisplayService,
     private eventService: EventService) {
   }

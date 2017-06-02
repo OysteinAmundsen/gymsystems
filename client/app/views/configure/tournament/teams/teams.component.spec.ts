@@ -53,8 +53,7 @@ describe('TeamsComponent', () => {
       providers: [
         {provide: TournamentEditorComponent, useClass: DummyParent},
         {provide: TeamsService, useClass: TeamsServiceStub},
-        {provide: UserService, useClass: UserServiceStub},
-        {provide: TournamentService, useClass: TournamentServiceStub},
+        {provide: UserService, useClass: UserServiceStub}
       ]
     })
     .overrideComponent(TeamsComponent, {

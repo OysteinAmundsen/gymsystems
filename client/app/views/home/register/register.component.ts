@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { UserService, ClubService } from 'app/services/api';

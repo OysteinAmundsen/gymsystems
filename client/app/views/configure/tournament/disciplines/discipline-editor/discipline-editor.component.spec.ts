@@ -44,7 +44,6 @@ describe('DisciplineEditorComponent', () => {
       providers: [
         ErrorHandlerService,
         { provide: Http, useClass: HttpInterceptor },
-        { provide: TournamentService, useClass: TournamentServiceStub },
         { provide: DisciplineService, useClass: DisciplineServiceStub },
       ]
     })

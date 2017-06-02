@@ -9,8 +9,7 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChange,
-  HostListener
+  SimpleChange
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 

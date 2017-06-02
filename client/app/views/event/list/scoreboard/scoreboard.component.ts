@@ -14,7 +14,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ScoreService, UserService } from 'app/services/api';
-import { IScoreGroup } from 'app/services/model/IScoreGroup';
 import { Operation } from 'app/services/model/Operation';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
 import { ITournamentParticipantScore } from 'app/services/model/ITournamentParticipantScore';

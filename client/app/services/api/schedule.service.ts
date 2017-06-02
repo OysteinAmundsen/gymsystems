@@ -6,7 +6,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
 import * as moment from 'moment';
-const Moment: any = (<any>moment).default || moment;
 
 import { ITournamentParticipant } from '../model/ITournamentParticipant';
 import { ConfigurationService } from 'app/services/api';

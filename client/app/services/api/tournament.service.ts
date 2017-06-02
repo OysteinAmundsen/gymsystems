@@ -5,9 +5,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import * as moment from 'moment';
-import Moment = moment.Moment;
-
 import { ITournament } from '../model/ITournament';
 
 @Injectable()

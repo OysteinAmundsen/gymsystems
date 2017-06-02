@@ -1,24 +1,32 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
+import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { ReplaySubject } from 'rxjs/Rx';
 
 import { SharedModule } from 'app/shared/shared.module';
+import { ListComponent } from './list.component';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { ScoreGroupComponent } from './score-group/score-group.component';
+import { ScoreComponent } from './score/score.component';
+import { EventComponent } from '../event.component';
 
-import { DisplayComponent } from './display.component';
-import { ConfigurationService, ScheduleService, TournamentService, DisplayService, EventService, UserService } from 'app/services/api';
+import { UserService, ScheduleService, TeamsService, EventService, ConfigurationService, ScoreService } from 'app/services/api';
+import { MediaService } from 'app/services/media.service';
+import { ITournament } from 'app/services/model/ITournament';
 
 import { EventServiceStub } from 'app/services/api/event.service.stub';
-import { DisplayServiceStub } from 'app/services/api/display.service.stub';
+import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
 import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
-import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
-import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { EventComponent } from '../event.component';
-import { ITournament } from 'app/services/model/ITournament';
+import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
+import { ScoreServiceStub } from 'app/services/api/score.service.stub';
 
 class DummyParent {
   tournamentSubject = new ReplaySubject<ITournament>(1);
@@ -26,9 +34,9 @@ class DummyParent {
     this.tournamentSubject.next(dummyTournament);
   }
 }
-describe('DisplayComponent', () => {
-  let component: DisplayComponent;
-  let fixture: ComponentFixture<DisplayComponent>;
+describe('ListComponent', () => {
+  let component: ListComponent;
+  let fixture: ComponentFixture<ListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -36,6 +44,9 @@ describe('DisplayComponent', () => {
         SharedModule,
         RouterTestingModule,
         HttpModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MarkdownToHtmlModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -44,22 +55,29 @@ describe('DisplayComponent', () => {
           }
         }),
       ],
-      declarations: [ DisplayComponent ],
+      declarations: [
+        ListComponent ,
+        ScoreboardComponent,
+        ScoreGroupComponent,
+        ScoreComponent
+      ],
       providers: [
         {provide: EventComponent, useClass: DummyParent},
-        {provide: UserService, useClass: UserServiceStub},
-        {provide: ConfigurationService, useClass: ConfigurationServiceStub},
         {provide: ScheduleService, useClass: ScheduleServiceStub},
-        {provide: TournamentService, useClass: TournamentServiceStub},
-        {provide: DisplayService, useClass: DisplayServiceStub},
+        {provide: UserService, useClass: UserServiceStub},
+        {provide: TeamsService, useClass: TeamsServiceStub},
         {provide: EventService, useClass: EventServiceStub},
+        {provide: ScoreService, useClass: ScoreServiceStub},
+        {provide: ConfigurationService, useClass: ConfigurationServiceStub},
+        ErrorHandlerService,
+        MediaService
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DisplayComponent);
+    fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

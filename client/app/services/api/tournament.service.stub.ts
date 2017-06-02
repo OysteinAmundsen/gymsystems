@@ -6,9 +6,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import * as moment from 'moment';
-import Moment = moment.Moment;
-
 import { ITournament } from '../model/ITournament';
 import { IUser } from 'app/services/model/IUser';
 

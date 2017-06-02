@@ -10,11 +10,11 @@ export class DisplayService {
 
   constructor(private http: Http) { }
 
-  getAll(tournamentId: number) {
+  getAll(tournamentId: number): Observable<any> {
     return this.http.get(`/api/display/${tournamentId}`).map((res: Response) => res.json()).share();
   }
 
-  getDisplay(tournamentId: number, displayId: number) {
+  getDisplay(tournamentId: number, displayId: number): Observable<any> {
     return this.http.get(`/api/display/${tournamentId}/${displayId}`).map((res: Response) => res.text()).share();
   }
 }

@@ -1,4 +1,4 @@
-import { AfterViewChecked, Directive, ElementRef, OnInit, Renderer, ViewChild } from '@angular/core';
+import { AfterViewChecked, Directive, ElementRef, OnInit, Renderer } from '@angular/core';
 
 @Directive({
   selector: '[appFloatingLabelContainer]'

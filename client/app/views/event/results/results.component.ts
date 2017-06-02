@@ -4,12 +4,8 @@ import { Subscription } from 'rxjs/Rx';
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 import { ITournamentParticipant } from 'app/services/model/ITournamentParticipant';
-import { ITournamentParticipantScore } from 'app/services/model/ITournamentParticipantScore';
-import { ITeam } from 'app/services/model/ITeam';
-import { DivisionType } from 'app/services/model/DivisionType';
-import { Role, IUser } from 'app/services/model/IUser';
+import { IUser } from 'app/services/model/IUser';
 import { Classes } from 'app/services/model/Classes';
-import { IDiscipline } from 'app/services/model/IDiscipline';
 import { EventComponent } from '../event.component';
 
 @Component({
