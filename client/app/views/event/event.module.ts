@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { EventRoutes } from './event.routes';
+import { EventRoutingModule } from "app/views/event/event-routing.module";
 import { EventComponent } from './event.component';
 
 import { ListComponent } from './list/list.component';
@@ -25,7 +25,7 @@ import { ResultsComponent } from './results/results.component';
     FormsModule,
     ReactiveFormsModule,
     MarkdownToHtmlModule,
-    RouterModule.forChild([...EventRoutes]),
+    EventRoutingModule,
   ],
   declarations: [
     EventComponent,

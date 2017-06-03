@@ -1,4 +1,5 @@
-import { Route } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 import { ListComponent } from './list/list.component';
 import { ResultsComponent } from './results/results.component';
@@ -9,7 +10,7 @@ import { EventComponent } from './event.component';
 import { RoleGuard } from 'app/shared/guards/role-guard';
 import { Role } from 'app/services/model/IUser';
 
-export const EventRoutes: Route[] = [
+const routes: Routes = [
   { path: 'event/:id',          component: EventComponent, children: [
     { path: '', pathMatch: 'full', redirectTo: 'list'},
     { path: 'list',               component: ListComponent },
@@ -18,3 +19,9 @@ export const EventRoutes: Route[] = [
     { path: 'display/:displayId', component: FullscreenComponent, canActivate: [RoleGuard], data: { role: Role.Secretariat} },
   ]},
 ];
+
+@NgModule({
+  imports: [ RouterModule.forChild(routes), ],
+  exports: [ RouterModule ]
+})
+export class EventRoutingModule { }

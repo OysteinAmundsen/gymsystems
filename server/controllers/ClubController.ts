@@ -11,6 +11,7 @@ import { Logger } from '../utils/Logger';
 
 import { Club } from '../model/Club';
 import { Role } from '../model/User';
+import { ClubContestant } from "../model/ClubContestant";
 
 /**
  *
@@ -36,9 +37,9 @@ export class ClubController {
     return query.getMany();
   }
 
-  @Get('/:id')
+  @Get('/:clubId')
   @EmptyResultCode(404)
-  get( @Param('id') clubId: number): Promise<Club> {
+  get( @Param('clubId') clubId: number): Promise<Club> {
     return this.repository.findOneById(clubId);
   }
 
@@ -51,11 +52,46 @@ export class ClubController {
       });
   }
 
-  @Delete('/:id')
+  @Put('/:clubId')
+  update( @Param('clubId') clubId: number, @Body() club: Club, @Res() res: Response): Promise<Club> {
+    return this.repository.persist(club)
+      .catch(err => {
+        Logger.log.error(err);
+        return { code: err.code, message: err.message };
+      });
+  }
+
+  @Delete('/:clubId')
   @UseBefore(RequireRole.get(Role.Admin))
-  async remove( @Param('id') clubId: number, @Res() res: Response) {
+  async remove( @Param('clubId') clubId: number, @Res() res: Response) {
     const club = await this.repository.findOneById(clubId);
     return this.repository.remove(club)
+      .catch(err => Logger.log.error(err));
+  }
+
+
+  // Club members
+  @Get('/:clubId/members')
+  getMembers(@Param('clubId') clubId: number): Promise<ClubContestant[]> {
+    return this.conn.getRepository(ClubContestant)
+      .createQueryBuilder('contestant')
+      .where('contestant.club = :id', {id: clubId})
+      .getMany();
+  }
+
+  @Post('/:clubId/members')
+  addMember(@Param('clubId') clubId: number, @Body() member: ClubContestant): Promise<ClubContestant> {
+    return this.conn.getRepository(ClubContestant)
+      .persist(member)
+      .catch(err => Logger.log.error(err));
+  }
+
+  @Delete('/:clubId/members/:id')
+  async removeMember(@Param('clubId') clubId: number, @Param('id') memberId: number) {
+    const memberRepository = this.conn.getRepository(ClubContestant);
+    const member = await memberRepository.findOneById(memberId);
+    return memberRepository
+      .remove(member)
       .catch(err => Logger.log.error(err));
   }
 }

@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HttpModule, Http } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,17 +6,15 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { ClubEditorComponent } from './club-editor.component';
-import { ClubService, UserService } from "app/services/api";
-
-import { ClubServiceStub } from "app/services/api/club.service.stub";
-import { UserServiceStub } from "app/services/api/user.service.stub";
+import { MemberEditorComponent } from './member-editor.component';
 import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
 import { HttpInterceptor } from "app/services/config/HttpInterceptor";
+import { ConfigurationService } from "app/services/api";
+import { ConfigurationServiceStub } from "app/services/api/configuration.service.stub";
 
-describe('ClubEditorComponent', () => {
-  let component: ClubEditorComponent;
-  let fixture: ComponentFixture<ClubEditorComponent>;
+describe('MemberEditorComponent', () => {
+  let component: MemberEditorComponent;
+  let fixture: ComponentFixture<MemberEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,19 +32,18 @@ describe('ClubEditorComponent', () => {
           }
         }),
       ],
-      declarations: [ ClubEditorComponent ],
+      declarations: [ MemberEditorComponent ],
       providers: [
         ErrorHandlerService,
         { provide: Http, useClass: HttpInterceptor },
-        { provide: ClubService, useClass: ClubServiceStub },
-        { provide: UserService, useClass: UserServiceStub },
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub },
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClubEditorComponent);
+    fixture = TestBed.createComponent(MemberEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

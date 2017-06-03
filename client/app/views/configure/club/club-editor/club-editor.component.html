@@ -1,4 +1,57 @@
-<h1 *ngIf="club">
-  <app-fa name="university" fw="true"></app-fa>
-  <span>{{ clubName }}</span>
-</h1>
+<header>
+  <h1>
+    <app-fa name="university" fw="true"></app-fa>
+    <span>{{ clubName }}</span>
+  </h1>
+  <!--<div class="pull-right buttons">
+    <button type="button" class="pull-right primary raised">
+      <app-fa name="tv" fw="true"></app-fa>
+      <span translate>Display </span>
+    </button>
+  </div>-->
+</header>
+
+<!-- View data -->
+<div class="table-responsive">
+  <table *ngIf="!isEdit" [title]="'Click to edit' | translate" (click)="edit()">
+    <tr>
+      <th translate>Name</th>
+      <td>{{ club.name }}</td>
+    </tr>
+  </table>
+</div>
+
+<!-- Edit data -->
+<form class="panel" [formGroup]="clubForm" (submit)="save()" *ngIf="isEdit">
+  <fieldset>
+    <div class="row">
+      <div class="col-12" appFloatingLabelContainer>
+        <label translate>Name</label>
+        <input type="text" formControlName="name" appAutofocus>
+      </div>
+    </div>
+  </fieldset>
+  <footer>
+    <app-save-button buttonType="submit" [disabled]="clubForm.invalid || clubForm.pristine"></app-save-button>
+    <button type="button" [title]="'Cancel' | translate" (click)="cancel()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
+    <button type="button" *ngIf="clubForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
+  </footer>
+</form>
+
+<!-- Tab list -->
+<menu *ngIf="clubForm.value.id" role="tablist">
+  <ul>
+    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
+      <a routerLink="./members">
+        <app-fa name="id-card-o" fw="true"></app-fa> <span translate>Members</span> </a>
+    </li>
+    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
+      <a routerLink="./teams">
+        <app-fa name="group" fw="true"></app-fa> <span translate>Teams</span> </a>
+    </li>
+  </ul>
+</menu>
+
+<div class="sub-routes">
+  <router-outlet></router-outlet>
+</div>

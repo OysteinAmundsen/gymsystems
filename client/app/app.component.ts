@@ -6,6 +6,7 @@ import { UserService } from 'app/services/api';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private translate: TranslateService,
     private errorHandler: ErrorHandlerService,
+    private router: Router,
     private angulartics: Angulartics2GoogleAnalytics
   ) {
     this.translate.addLangs(['en', 'no']);
@@ -38,6 +40,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const browserLang: string = this.translate.getBrowserLang();
     this.translate.use(browserLang.match(/en|no/) ? browserLang : 'en');
+
+    this.router.events.subscribe(event => {
+      console.log(event);
+      if(event instanceof NavigationStart) {
+      }
+      // NavigationEnd
+      // NavigationCancel
+      // NavigationError
+      // RoutesRecognized
+    });
   }
 
   ngOnInit(): void {

@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HttpModule, Http } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,17 +6,11 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { ClubEditorComponent } from './club-editor.component';
-import { ClubService, UserService } from "app/services/api";
+import { TeamEditorComponent } from './team-editor.component';
 
-import { ClubServiceStub } from "app/services/api/club.service.stub";
-import { UserServiceStub } from "app/services/api/user.service.stub";
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
-
-describe('ClubEditorComponent', () => {
-  let component: ClubEditorComponent;
-  let fixture: ComponentFixture<ClubEditorComponent>;
+describe('TeamEditorComponent', () => {
+  let component: TeamEditorComponent;
+  let fixture: ComponentFixture<TeamEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,19 +28,13 @@ describe('ClubEditorComponent', () => {
           }
         }),
       ],
-      declarations: [ ClubEditorComponent ],
-      providers: [
-        ErrorHandlerService,
-        { provide: Http, useClass: HttpInterceptor },
-        { provide: ClubService, useClass: ClubServiceStub },
-        { provide: UserService, useClass: UserServiceStub },
-      ]
+      declarations: [ TeamEditorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClubEditorComponent);
+    fixture = TestBed.createComponent(TeamEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

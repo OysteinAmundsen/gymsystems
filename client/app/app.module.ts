@@ -9,6 +9,9 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 // Modules
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
+import { HomeModule } from './views/home/home.module';
+import { ConfigureModule } from './views/configure/configure.module';
+import { EventModule } from "./views/event/event.module";
 
 // Services
 import {
@@ -23,9 +26,8 @@ import {
   ScheduleService,
   EventService,
   DisplayService,
-  ClubService,
+  ClubService
 } from './services/api';
-// import { RoleService } from './api';
 
 // Components
 import { AppComponent } from './app.component';
@@ -56,8 +58,14 @@ export function HttpLoaderFactory(http: Http) {
     }),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
 
+    // Packaged modules (Not lazy loaded)
+    SharedModule,
+    HomeModule,
+    EventModule,
+    ConfigureModule,
+
+    // Routes last (!important)
     AppRoutingModule,
-    SharedModule
   ],
   exports: [ TranslateModule ],
   providers: [

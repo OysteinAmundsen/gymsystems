@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HttpModule, Http } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,17 +6,16 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { ClubEditorComponent } from './club-editor.component';
-import { ClubService, UserService } from "app/services/api";
+import { MembersComponent } from './members.component';
+import { MemberEditorComponent } from './member-editor/member-editor.component';
+import { ClubEditorComponent } from '../club-editor/club-editor.component';
+import { ClubService, UserService } from 'app/services/api';
+import { ClubServiceStub } from 'app/services/api/club.service.stub';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
 
-import { ClubServiceStub } from "app/services/api/club.service.stub";
-import { UserServiceStub } from "app/services/api/user.service.stub";
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
-
-describe('ClubEditorComponent', () => {
-  let component: ClubEditorComponent;
-  let fixture: ComponentFixture<ClubEditorComponent>;
+describe('MembersComponent', () => {
+  let component: MembersComponent;
+  let fixture: ComponentFixture<MembersComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,10 +33,9 @@ describe('ClubEditorComponent', () => {
           }
         }),
       ],
-      declarations: [ ClubEditorComponent ],
+      declarations: [ MembersComponent, MemberEditorComponent ],
       providers: [
-        ErrorHandlerService,
-        { provide: Http, useClass: HttpInterceptor },
+        ClubEditorComponent,
         { provide: ClubService, useClass: ClubServiceStub },
         { provide: UserService, useClass: UserServiceStub },
       ]
@@ -47,7 +44,7 @@ describe('ClubEditorComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClubEditorComponent);
+    fixture = TestBed.createComponent(MembersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

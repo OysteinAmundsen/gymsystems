@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <table role="list" class="editable">
+    <thead>
+      <tr>
+        <th translate>Name</th>
+        <th translate>Age</th>
+        <th translate>Gender</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let member of memberList">
+      <tr *ngIf="member !== selected" (click)="select(member)" role="listitem">
+        <td>{{ member.name }}</td>
+        <td>{{ ageDivision(member) }}</td>
+        <td>{{ genderDivision(member) }}</td>
+      </tr>
+      <tr *ngIf="member === selected">
+        <td colspan="4">
+          <app-member-editor [club]="club" [member]="selected" (memberChanged)="onChange($event)"></app-member-editor>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()">
+  <app-fa name="plus" fw="true"></app-fa>
+  <span translate>Add Member</span>
+</button>

@@ -6,6 +6,7 @@ import 'rxjs/add/operator/share';
 
 import { IClub } from '../model/IClub';
 import { IBelongsToClub } from '../model/IBelongsToClub';
+import { IClubContestant } from "app/services/model/IClubContestant";
 
 @Injectable()
 export class ClubService {
@@ -24,8 +25,20 @@ export class ClubService {
     return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share();
   }
 
-  saveClub(name: string) {
+  createClubFromName(name: string) {
     return this.http.post(`${this.url}/`, { name: name}).map((res: Response) => res.json());
+  }
+  saveClub(club: IClub) {
+    return (club.id ? this.http.put(`${this.url}/${club.id}`, club) : this.http.post(`${this.url}/`, club))
+      .map((res: Response) => res.json());
+  }
+
+  getMembers(id: number): Observable<IClubContestant[]> {
+    return this.http.get(`${this.url}/${id}/members`).map((res: Response) => res.json());
+  }
+
+  saveMember(member: IClubContestant) {
+    return this.http.post(`${this.url}/${member.club.id}/members`, member).map((res: Response) => res.json());
   }
 
   async validateClub(obj: IBelongsToClub) {
@@ -35,7 +48,7 @@ export class ClubService {
       if (clubs && clubs.length) {
         club = clubs[0];
       } else {
-        club = await this.saveClub(obj.club).toPromise();
+        club = await this.createClubFromName(obj.club).toPromise();
       }
     }
     return club;

@@ -6,6 +6,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { IClub } from '../model/IClub';
+import { IClubContestant } from '../model/IClubContestant';
 
 @Injectable()
 export class ClubServiceStub {
@@ -21,8 +22,14 @@ export class ClubServiceStub {
   getById(id: number): Observable<IClub> {
     return Observable.of(null);
   }
+  createClubFromName(name: string) {
+    return Observable.of(null);
+  }
+  saveClub(club: IClub) {
+    return Observable.of(null);
+  }
 
-  saveClub(name: string) {
+  getMembers(id: number): Observable<IClubContestant[]> {
     return Observable.of(null);
   }
 }

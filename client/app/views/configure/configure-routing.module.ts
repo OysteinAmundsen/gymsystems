@@ -1,4 +1,5 @@
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 // Guards
 import { Role } from 'app/services/model/IUser';
@@ -14,15 +15,23 @@ import { ClubRoutes } from './club/club.routes';
 import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
 
-export const ConfigureRoutes: Routes = [
+const routes: Routes = [
   {
+    // Lazy loaded modules should have their path root set in the module responsible for loading it
+    // path: '', component: ConfigureComponent, children: [
     path: 'configure', component: ConfigureComponent, children: [
+      { path: '', redirectTo: 'tournament', pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club} },
       ...TournamentRoutes,
       ...ClubRoutes,
       ...UserRoutes,
       ...AdvancedRoutes,
       { path: 'display', component: ConfigureDisplayComponent, canActivate: [RoleGuard], data: { role: Role.Admin} },
-      { path: '', redirectTo: 'tournament', pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club} },
     ]
   }
 ];
+
+@NgModule({
+  imports: [ RouterModule.forChild(routes) ],
+  exports: [ RouterModule ]
+})
+export class ConfigureRoutingModule { }

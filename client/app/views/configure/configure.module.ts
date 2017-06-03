@@ -10,21 +10,20 @@ import { UsersModule } from './users/users.module';
 import { AdvancedModule } from './advanced/advanced.module';
 import { ClubModule } from './club/club.module';
 
-// Routes
-import { ConfigureRoutes } from './configure.routes';
-
 // Components
 import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
 import { MacroDialogComponent } from './display/macro-dialog/macro-dialog.component';
+import { ConfigureRoutingModule } from 'app/views/configure/configure-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild([...ConfigureRoutes]),
+    ConfigureRoutingModule,
 
+    // Packaged modules
     SharedModule,
     TournamentModule,
     ClubModule,

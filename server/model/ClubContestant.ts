@@ -1,7 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, Index, OneToMany } from 'typeorm';
 import { Club, BelongsToClub } from './Club';
 import { DivisionType } from './Division';
-import { Team } from "./Team";
+import { Team } from './Team';
+
+export enum Gender {
+  Male = 1, Female = 2
+}
 
 /**
  *
@@ -18,7 +22,7 @@ export class ClubContestant implements BelongsToClub {
   ageDivision: DivisionType;
 
   @Column()
-  genderDivision: DivisionType;
+  gender: Gender;
 
   @ManyToMany(type => Team, team => team.contesters)
   partof: Team[];

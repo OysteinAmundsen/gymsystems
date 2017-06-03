@@ -42,7 +42,7 @@ export class SlideToggleComponent implements OnInit, ControlValueAccessor {
 
   writeValue(value: any) {
     if (value !== undefined) {
-      this.state = value;
+      this.state = value || this.initState;
     }
   }
 

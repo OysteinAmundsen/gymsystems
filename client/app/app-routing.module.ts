@@ -1,24 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-import { SharedModule } from './shared/shared.module';
-import { HomeModule } from './views/home/home.module';
-import { ConfigureModule } from './views/configure/configure.module';
-import { EventModule } from "./views/event/event.module";
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
+
+  // Lazy loaded modules
+  // { path: 'configure', loadChildren: './views/configure/configure.module#ConfigureModule' }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes),
-    SharedModule,
-    HomeModule,
-    EventModule,
-    ConfigureModule
-  ],
-  exports: [RouterModule],
-  providers: []
+  imports: [ RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules}) ],
+  exports: [ RouterModule ]
 })
 export class AppRoutingModule { }

@@ -1,0 +1,26 @@
+<form class="panel" [formGroup]="memberForm" (submit)="save()">
+  <fieldset>
+    <div class="row">
+      <div class="col-6" appFloatingLabelContainer>
+        <label translate>Name</label>
+        <input type="text" formControlName="name" appAutofocus>
+      </div>
+      <div class="col-4" appFloatingLabelContainer>
+        <label translate>Age</label>
+        <select formControlName="ageDivision">
+          <option *ngFor="let division of ageDivisions" [ngValue]="division.id">{{division.name}}</option>
+        </select>
+      </div>
+      <div class="col-2">
+        <label translate>Gender</label>
+        <app-slide-toggle [onLabel]="Male" [offLabel]="Female" [onState]="gender.Male" [offState]="gender.Female" [initState]="gender.Male" formControlName="gender"></app-slide-toggle>
+      </div>
+    </div>
+  </fieldset>
+
+  <footer>
+    <app-save-button buttonType="submit" [disabled]="memberForm.invalid || memberForm.pristine"></app-save-button>
+    <button type="button" [title]="'Cancel' | translate" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
+    <button type="button" *ngIf="memberForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
+  </footer>
+</form>

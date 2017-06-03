@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 import * as _ from 'lodash';
 
 import { ClubService, UserService } from 'app/services/api';
 import { IUser, Role } from 'app/services/model/IUser';
 import { IClub } from 'app/services/model/IClub';
+import { UppercaseFormControl } from "app/shared/form/UppercaseFormControl";
+import { ReplaySubject } from "rxjs/Rx";
 
 @Component({
   selector: 'app-club-editor',
@@ -14,16 +17,21 @@ import { IClub } from 'app/services/model/IClub';
 })
 export class ClubEditorComponent implements OnInit {
   user: IUser;
-  club: IClub;
+  club: IClub = <IClub>{};
+  clubSubject = new ReplaySubject<IClub>(1);
+
+  clubForm: FormGroup;
+  roles = Role;
+
+  isAdding = false;
+  isEdit = false;
 
   get clubName() {
-    if (this.club) {
-      return _.startCase(_.lowerCase(this.club.name));
-    }
-    return '';
+    let clubName = this.clubForm && this.clubForm.value.name ? this.clubForm.value.name : this.club.name;
+    return _.startCase(_.lowerCase(clubName));
   }
 
-  constructor(private clubService: ClubService, private userService: UserService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private clubService: ClubService, private userService: UserService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -35,10 +43,57 @@ export class ClubEditorComponent implements OnInit {
           // placing you where you are supposed to be.
           this.router.navigate(['../'], {relativeTo: this.route});
         } else {
-          this.clubService.getById(+params.id).subscribe(club => this.club = club);
+          if (params.id) {
+            this.clubService.getById(+params.id).subscribe(club => this.clubReceived(club));
+          } else {
+            this.isAdding = true;
+            this.isEdit = true;
+          }
         }
       });
     });
+
+    // Setup form
+    this.clubForm = this.fb.group({
+      id: [this.club.id],
+      name: new UppercaseFormControl(this.club.name)
+    });
   }
 
+  clubReceived(club: IClub) {
+    this.club = club;
+    this.clubSubject.next(club);
+    this.clubForm.setValue({
+      id: club.id,
+      name: club.name
+    });
+  }
+
+  save() {
+    this.clubService.saveClub(this.clubForm.value).subscribe(club => {
+      this.clubReceived(club);
+      this.isEdit = false;
+    });
+  }
+
+  cancel() {
+    this.isEdit = false;
+    this.clubReceived(this.club);
+    if (this.isAdding) {
+      this.router.navigate(['../'], { relativeTo: this.route });
+    }
+  }
+
+  edit() {
+    if (this.user && (this.user.role >= Role.Admin || this.club.id === this.user.club.id)) {
+      this.isEdit = true;
+    }
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === 27) {
+      this.cancel();
+    }
+  }
 }

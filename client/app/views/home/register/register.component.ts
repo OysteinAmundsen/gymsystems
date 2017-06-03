@@ -23,7 +23,7 @@ enum Type {
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  user: IUser = <IUser>{};
+  user: IUser = <IUser>{role: Role.Club};
   clubs = [];
   selectedClub: IClub;
 
