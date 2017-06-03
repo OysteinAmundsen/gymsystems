@@ -1,7 +1,7 @@
 <header>
   <h1>
     <app-fa name="trophy" fw="true"></app-fa>
-    {{ tournamentForm.value.name || 'Tournament' }}
+    <span>{{ tournamentForm.value.name || 'Tournament' }}</span>
   </h1>
 
   <div *ngIf="tournament && tournament.id" class="pull-right buttons">

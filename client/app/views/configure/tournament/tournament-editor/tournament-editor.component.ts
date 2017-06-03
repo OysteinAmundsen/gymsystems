@@ -162,9 +162,9 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
   cancel() {
     this.isEdit = false;
-    // if (!this.tournamentForm.value.id) {
-    //   this.router.navigate(['../'], { relativeTo: this.route });
-    // }
+    if (this.isAdding) {
+      this.router.navigate(['../'], { relativeTo: this.route });
+    }
   }
 
   edit() {

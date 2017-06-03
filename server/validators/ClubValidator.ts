@@ -11,14 +11,14 @@ import { BelongsToClub, Club } from '../model/Club';
 import { ClubController } from '../controllers/ClubController';
 import { UserController } from '../controllers/UserController';
 
-export async function validateClub(body: BelongsToClub[]): Promise<boolean> {
+export async function validateClub(body: BelongsToClub[], req?: Request): Promise<boolean> {
   const clubRepository = Container.get(ClubController);
   for (let j = 0; j < body.length; j++) {
     const obj = body[j];
 
     // Auto convert string to object
     if (typeof obj.club === 'string') {
-      const club: Club[] = await clubRepository.all(obj.club);
+      const club: Club[] = await clubRepository.all(req, obj.club);
       if (club[0]) {
         obj.club = club[0];
       } else {

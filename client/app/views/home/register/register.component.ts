@@ -10,6 +10,7 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 import { IUser, Role } from 'app/services/model/IUser';
 import { IClub } from 'app/services/model/IClub';
+import { UppercaseFormControl } from "app/shared/form/UppercaseFormControl";
 
 enum Type {
   Organizer = 0 + Role.Organizer, Club = 0 + Role.Club
@@ -45,20 +46,12 @@ export class RegisterComponent implements OnInit {
       name: [this.user.name, [Validators.required]],
       email: [this.user.email, [Validators.required, ValidationService.emailValidator]],
       role: [this.user.role, [Validators.required]],
-      club: [this.user.club, [Validators.required]],
+      club: new UppercaseFormControl(this.user.club ? this.user.club.name : '', [Validators.required]),
       password: [this.user.password, [Validators.required]],
       repeatPassword: [this.user.password, [Validators.required]]
     }, {validator: (c: AbstractControl) => {
       return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false}};
     }});
-
-    // Clubs should be registerred in all upper case
-    this.registerForm.controls['club']
-      .valueChanges
-      .distinctUntilChanged()
-      .subscribe((t: string) => {
-        this.registerForm.controls['club'].setValue(t.toUpperCase());
-      });
   }
 
   getClubMatchesFn() {

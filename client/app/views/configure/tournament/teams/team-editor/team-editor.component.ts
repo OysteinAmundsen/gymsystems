@@ -17,6 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Classes } from 'app/services/model/Classes';
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 import { ITournament } from 'app/services/model/ITournament';
+import { UppercaseFormControl } from "app/shared/form/UppercaseFormControl";
 
 @Component({
   selector: 'app-team-editor',
@@ -96,21 +97,13 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       this.teamForm = this.fb.group({
         id: [this.team.id],
         name: [this.team.name, [Validators.required]],
-        club: [this.team.club ? this.team.club.name : '', [Validators.required]],
+        club: new UppercaseFormControl(this.team.club ? this.team.club.name : '', [Validators.required]),
         ageDivision: [ageDivision ? ageDivision.id : null, [Validators.required]],
         genderDivision: [genderDivision ? genderDivision.id : null, [Validators.required]],
         disciplines: [this.team.disciplines],
         tournament: [this.team.tournament],
         class: [this.team.class]
       });
-
-      // Clubs should be registerred in all upper case
-      this.teamForm.controls['club']
-        .valueChanges
-        .distinctUntilChanged()
-        .subscribe((t: string) => {
-          this.teamForm.controls['club'].setValue(t.toUpperCase());
-        });
 
       // Select all disciplines if TeamGym is chosen
       this.teamForm.controls['class']

@@ -99,7 +99,7 @@ export class TeamController {
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Club))
   async update( @Param('id') id: number, @Body() team: Team, @Req() req: Request, @Res() res: Response) {
-    const hasClub = await validateClub([team]);
+    const hasClub = await validateClub([team], req);
     const isSameClub = await isMyClub([team], req);
     if (!hasClub)  {
       res.status(400);
@@ -129,7 +129,7 @@ export class TeamController {
   async create( @Body() team: Team | Team[], @Req() req: Request, @Res() res: Response) {
     const teams = Array.isArray(team) ? team : [team];
 
-    const hasClub = await validateClub(teams);
+    const hasClub = await validateClub(teams, req);
     const isSameClub = await isMyClub(teams, req);
     if (!hasClub)  {
       res.status(400);

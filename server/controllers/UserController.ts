@@ -125,12 +125,20 @@ export class UserController {
 
   @Put('/:id')
   @UseBefore(RequireAuth)
-  async update( @Param('id') id: number, @Body() user: User, @Res() res: Response) {
+  async update( @Param('id') id: number, @Body() user: User, @Res() res: Response, @Req() req: Request) {
     // Make sure club is an object
-    const hasClub = await validateClub([<BelongsToClub>user]);
+    const hasClub = await validateClub([<BelongsToClub>user], req);
     if (!hasClub)  {
-      res.status(400);
-      return {code: 400, message: 'Club name given has no unique match'};
+      // Club name given is not registerred, try to create
+      if (typeof user.club === 'string') {
+        const clubRepository = Container.get(ClubController);
+        user.club = await clubRepository.create(<Club>{id: null, name: user.club, teams: null, users: null}, res);
+      } 
+      // If still no club, we should fail
+      if (!user.club || !user.club.id) {
+        res.status(400);
+        return {code: 400, message: 'Club name given has no unique match'};
+      }
     }
 
     if (user.password) {
@@ -181,11 +189,11 @@ export class UserController {
       return { code: 403, message: 'Your are not authorized to create users with higher privileges than your own.'}
     }
 
-    return this.createUser(user, res);
+    return this.createUser(user, res, req);
   }
 
   @Post('/register')
-  async selfService(@Body() user: User, @Res() res: Response) {
+  async selfService(@Body() user: User, @Res() res: Response, @Req() req: Request) {
     // Only clubs and Organizers are allowed to use this
     // and we are in a context where we do not have a logged in user.
     // We will therefore assume lowest role `Club` if none is given.
@@ -193,14 +201,22 @@ export class UserController {
       user.role = Role.Club;
     }
 
-    return this.createUser(user, res);
+    return this.createUser(user, res, req);
   }
 
-  private async createUser(user: User, res: Response) {
-    const hasClub = await validateClub([<BelongsToClub>user]);
+  private async createUser(user: User, res: Response, req: Request) {
+    const hasClub = await validateClub([<BelongsToClub>user], req);
     if (!hasClub)  {
-      res.status(400);
-      return {code: 400, message: 'No Club name given, or Club name has no unique match'};
+      // Club name given is not registerred, try to create
+      if (typeof user.club === 'string') {
+        const clubRepository = Container.get(ClubController);
+        user.club = await clubRepository.create(<Club>{id: null, name: user.club, teams: null, users: null}, res);
+      } 
+      // If still no club, we should fail
+      if (!user.club || !user.club.id) {
+        res.status(400);
+        return {code: 400, message: 'No Club name given, or Club name has no unique match'};
+      }
     }
 
     const origPass = user.password;
