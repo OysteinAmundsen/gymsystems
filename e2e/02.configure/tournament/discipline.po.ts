@@ -1,20 +1,22 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
-import { ConnectionOptions, createConnection, getConnectionManager } from 'typeorm';
+import { ConnectionOptions, createConnection, getConnectionManager, QueryRunner } from 'typeorm';
 import { AppRootPage } from "../../app.po";
 import { Configure } from "../configure.po";
 
 export class DisciplineEditor extends AppRootPage {
 
-  setUp() {
+  setUp(queryRunner?: QueryRunner) {
+    if (queryRunner) { this._queryRunner = queryRunner; }
     return new Promise((resolve, reject) => {
-      getConnectionManager().get().driver.createQueryRunner().then(queryRunner => {
+      this.queryRunner.then(queryRunner => {
       });
     });
   }
 
-  tearDown() {
+  tearDown(queryRunner?: QueryRunner) {
+    if (queryRunner) { this._queryRunner = queryRunner; }
     return new Promise((resolve, reject) => {
-      getConnectionManager().get().driver.createQueryRunner().then(queryRunner => {
+      this.queryRunner.then(queryRunner => {
       });
     });
   }

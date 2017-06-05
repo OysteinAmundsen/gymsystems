@@ -16,12 +16,22 @@ describe('GYMSYSTEMS: Configure users', function() {
     login = new LoginPage();
     register = new RegisterPage();
 
-    users.setUp().then(() => done()).catch(err => done(err));
-    browser.ignoreSynchronization = true;
+    // console.log('** Starting "users.e2e" setup...');
+    const callback = (err?: any) => {
+      if (!err) { browser.ignoreSynchronization = true; }
+      // console.log('** Setup "users.e2e" complete!');
+      done(err);
+    }
+    users.setUp().then(callback).catch(callback);
   });
   afterAll((done: any) => {
-    users.tearDown().then(() => done()).catch(err => done(err));
-    browser.ignoreSynchronization = false;
+    // console.log('** Starting "users.e2e" teardown...');
+    const callback = (err?: any) => {
+      browser.ignoreSynchronization = false;
+      // console.log('** Teardown "users.e2e" complete!');
+      done(err);
+    }
+    users.tearDown().then(callback).catch(callback);
   });
 
 

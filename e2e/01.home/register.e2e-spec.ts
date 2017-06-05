@@ -39,7 +39,7 @@ describe('GYMSYSTEMS: Register', function() {
 
     it('when user allready exists', () => {
       register.enterData('admin', false, 'test@test.no', 'Turn', 'test', 'test');
-      expect(register.registerButton.isEnabled()).toBeTruthy();
+      expect(register.registerButton.isEnabled()).toBeTruthy('Registration button is not enabled');
 
       register.registerButton.click();
       browser.wait(ExpectedConditions.visibilityOf(register.error), 1000);
@@ -51,7 +51,13 @@ describe('GYMSYSTEMS: Register', function() {
 
   describe('allow registration', () => {
     afterAll((done: any) => {
-      users.tearDown().then(() => done()).catch(err => done(err));
+      // console.log('** Starting "register.e2e" teardown...');
+      const callback = (err?: any) => {
+        browser.ignoreSynchronization = false;
+        // console.log('** Teardown "register.e2e" complete!');
+        done(err);
+      }
+      users.tearDown().then(callback).catch(callback);
     });
     it('when all is correct', () => {
       register.createOrganizer();

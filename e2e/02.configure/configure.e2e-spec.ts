@@ -18,13 +18,23 @@ describe('gymsystems: Configure', function() {
     users = new ConfigureUsers();
     configure = new Configure();
 
-    users.setUp().then(() => done()).catch(err => done(err));
-    browser.ignoreSynchronization = true;
-    login.browserLoad();
+    // console.log('** Starting "configure.e2e" setup...');
+    const callback = (err?: any) => {
+      if (!err) { browser.ignoreSynchronization = true; }
+      login.browserLoad();
+      // console.log('** Setup "configure.e2e" complete!');
+      done(err);
+    }
+    users.setUp().then(callback).catch(callback);
   });
   afterAll((done: any) => {
-    users.tearDown().then(() => done()).catch(err => done(err));
-    browser.ignoreSynchronization = false
+    // console.log('** Starting "configure.e2e" teardown...');
+    const callback = (err?: any) => {
+      browser.ignoreSynchronization = false;
+      // console.log('** Teardown "configure.e2e" complete!');
+      done(err);
+    }
+    users.tearDown().then(callback).catch(callback);
   });
 
 

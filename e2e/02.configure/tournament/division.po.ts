@@ -1,14 +1,15 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
-import { ConnectionOptions, createConnection, getConnectionManager } from 'typeorm';
+import { ConnectionOptions, createConnection, getConnectionManager, QueryRunner } from 'typeorm';
 import { AppRootPage } from "../../app.po";
 import { Configure } from "../configure.po";
 import { DivisionType } from "../../../server/model/Division";
 
 export class DivisionEditor extends AppRootPage {
 
-  setUp() {
+  setUp(queryRunner?: QueryRunner) {
+    if (queryRunner) { this._queryRunner = queryRunner; }
     return new Promise((resolve, reject) => {
-      getConnectionManager().get().driver.createQueryRunner().then(queryRunner => {
+      this.queryRunner.then(queryRunner => {
         [
           { type: DivisionType.Gender, name: 'Kvinner', sortOrder: 1 },
           { type: DivisionType.Gender, name: 'Herrer',  sortOrder: 2 },
@@ -21,9 +22,10 @@ export class DivisionEditor extends AppRootPage {
     });
   }
 
-  tearDown() {
+  tearDown(queryRunner?: QueryRunner) {
+    if (queryRunner) { this._queryRunner = queryRunner; }
     return new Promise((resolve, reject) => {
-      getConnectionManager().get().driver.createQueryRunner().then(queryRunner => {
+      this.queryRunner.then(queryRunner => {
       });
     });
   }

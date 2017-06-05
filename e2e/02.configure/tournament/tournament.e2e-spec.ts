@@ -21,12 +21,22 @@ describe('GYMSYSTEMS: Configure Tournaments', function() {
     tournaments = new ConfigureTournaments();
     configure = new Configure();
 
-    users.setUp().then(() => done()).catch(err => done(err));
-    browser.ignoreSynchronization = true;
+    // console.log('** Setup "tournament.e2e"...');
+    const callback = (err?: any) => {
+      if (!err) { browser.ignoreSynchronization = true; }
+      // console.log('** Setup "tournament.e2e" complete!');
+      done(err);
+    }
+    users.setUp().then(callback).catch(callback);
   });
   afterAll((done: any) => {
-    users.tearDown().then(() => done()).catch(err => done(err));
-    browser.ignoreSynchronization = false;
+    // console.log('** Teardown "tournament.e2e"...');
+    const callback = (err?: any) => {
+      browser.ignoreSynchronization = false;
+      // console.log('** Teardown "tournament.e2e" complete!');
+      done(err);
+    }
+    users.tearDown().then(callback).catch(callback);
   });
 
 

@@ -1,7 +1,27 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
+import { QueryRunner, getConnectionManager } from "typeorm";
+import * as chalk from 'chalk';
 
 export class AppRootPage {
   url = '/';
+
+  _queryRunner: QueryRunner;
+  get queryRunner(): Promise<QueryRunner> {
+    return new Promise((resolve, reject) => {
+      if (!this._queryRunner) {
+        // console.log(chalk.yellow.bold('  -- Create queryRunner'));
+        getConnectionManager().get().driver.createQueryRunner()
+          .then(queryRunner => {
+            // console.log(chalk.yellow.bold('  -- QueryRunner created'));
+            this._queryRunner = queryRunner;
+            resolve(this._queryRunner);
+          })
+          .catch(err => reject(err));
+      } else {
+        resolve(this._queryRunner);
+      }
+    });
+  }
 
   // Menu
   get nav() { return element(by.css('app-root nav ul li')); }

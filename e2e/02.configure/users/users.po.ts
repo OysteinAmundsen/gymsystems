@@ -1,6 +1,7 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
-import { ConnectionOptions, createConnection, getConnectionManager } from 'typeorm';
+import { ConnectionOptions, createConnection, getConnectionManager, QueryRunner } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import * as chalk from 'chalk';
 
 import { AppRootPage } from '../../app.po';
 import { LoginPage } from '../../01.home/login.po';
@@ -46,14 +47,16 @@ export class ConfigureUsers extends AppRootPage {
     browser.wait(ExpectedConditions.visibilityOf(this.dataRows), 1000);
   }
 
-  setUp() {
+  setUp(queryRunner?: QueryRunner) {
     const clubs = new ConfigureClubs();
+    if (queryRunner) { this._queryRunner = queryRunner; }
     return new Promise((resolve, reject) => {
-      getConnectionManager().get().driver.createQueryRunner().then(queryRunner => {
+      this.queryRunner.then(queryRunner => {
         const pass = bcrypt.hashSync('test', bcrypt.genSaltSync(8));
 
         // Persist users in clubs
-        clubs.setUp().then(() => {
+        clubs.setUp(queryRunner).then(() => {
+          // console.log(chalk.yellow('  - users.po: Create users'));
           Promise.all([
             queryRunner.insert('user', { name: 'organizer',   email: 'organizer@bla.no', password: pass, role: Role.Organizer,   club: 1 }),
             queryRunner.insert('user', { name: 'secretariat', email: 'secretar@bla.no',  password: pass, role: Role.Secretariat, club: 1 }),
@@ -61,17 +64,18 @@ export class ConfigureUsers extends AppRootPage {
             queryRunner.insert('user', { name: 'club2',       email: 'club2@bla.no',     password: pass, role: Role.Club,        club: 2 }),
             queryRunner.insert('user', { name: 'club3',       email: 'club3@bla.no',     password: pass, role: Role.Club,        club: 3 })
           ]).then(() => resolve())
-            .catch(err => { console.log(err); reject(); });
-        }).catch(err => reject(err));
-      });
+            .catch(err => { console.log(err); reject(err); });
+        }).catch(err => reject(err))
+      }).catch(err => { console.log(err); reject(err); });
     });
   }
 
   tearDown() {
     const clubs = new ConfigureClubs();
     return new Promise((resolve, reject) => {
-      getConnectionManager().get().driver.createQueryRunner().then(queryRunner => {
+      this.queryRunner.then(queryRunner => {
         // Remove users
+        // console.log(chalk.yellow('  - users.po: Remove users'));
         Promise.all([
           queryRunner.delete('user', {name: 'organizer'}),
           queryRunner.delete('user', {name: 'secretariat'}),
@@ -79,11 +83,11 @@ export class ConfigureUsers extends AppRootPage {
           queryRunner.delete('user', {name: 'club2'}),
           queryRunner.delete('user', {name: 'club3'}),
         ]).then(() => {
-          clubs.tearDown()
+          clubs.tearDown(queryRunner)
             .then(() => resolve())
             .catch(err => { console.log(err); reject(err); });
         }).catch(err => reject(err))
-      });
+      }).catch(err => { console.log(err); reject(err); });
     });
   }
 }
