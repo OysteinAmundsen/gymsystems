@@ -32,42 +32,31 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
       name: 'display',
       value: JSON.stringify({
         display1:
-`<header>
-  {{tournament.name}}<br>
-    ----------------------------------
-</header>
-
-{{#list current len=1}}
-  {{#size 1}}
-    <em>{{team.name}}</em>
+`{{~#list current len=1 ~}}
+  {{~#size 3}}<b>{{team.name}}</b>{{/size~}}
+  {{#center ~}}{{~#size 2 ~}}
     {{division}} {{discipline.name}}
-  {{/size}}
-{{/list}}
-
-<br>
-{{#list next len=2}}
-  {{#size 0}}
-    <em>{{team.name}}</em>
+  {{~/size}}{{/center~}}
+{{~/list~}}
+{{#center ~}}-----------------------------{{~/center~}}
+{{#list next len=2 ~}}{{~#size 1~}}
+  <b>{{team.name}}</b>
     {{division}} {{disciplineName}}
-  {{/size}}
-{{/list}}`,
+{{~/size~}}{{~/list}}`,
         display2:
-`{{#list published len=1}}
-  <header>
-    {{team.name}}  {{division}}<br>
-      ----------------------------------
-  </header>
+`{{~#list published len=1 ~}}
+  {{~#size 3 ~}}<b>{{team.name}}</b>{{~/size~}}
+  {{~#center ~}}{{~#size 2 ~}}
+    {{division}} {{disciplineName}}
+  {{~/size~}}{{~/center~}}
+  {{#center ~}}-----------------------------
+  {{~/center~}}
+  {{#center ~}}
 
-  {{#center}}
-    {{#size 1}}
-      {{disciplineName}}
-    {{/size}}
-
-    <br><br>
-    {{#size 5}}
+    {{#size 5 ~}}
       {{#fix total len=3}}{{/fix}}
-    {{/size}}
-  {{/center}}
+    {{~/size ~}}
+  {{~/center}}
 {{/list}}`
       })
     });

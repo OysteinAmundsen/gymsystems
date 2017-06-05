@@ -1,25 +1,30 @@
 .display {
   padding: 1%;
+  [class*="size-"] {
+    display: inline-block;
+  }
   .size-0 {
     font-size: 70%;
+    line-height: 80%;
   }
   .size-1 {
     font-size: 85%;
-    margin-bottom: 1em;
+    line-height: 100%;
+    padding-bottom: 2%;
   }
-  header, .size-2 {
-    text-align: center;
+  .size-2 {
     font-size: 120%;
-    margin-bottom: 0.2em;
+    line-height: 100%;
   }
   .size-3 {
     font-size: 150%;
+    line-height: 110%;
   }
   .size-4 {
     font-size: 180%;
   }
   .size-5 {
-    font-size: 200%;
+    font-size: 250%;
   }
   .center {
     text-align: center;
@@ -30,5 +35,9 @@
     min-width: 28%;
     display: inline-block;
     text-align: right;
+  }
+  p {
+    margin: 0;
+    padding: 0;
   }
 }
