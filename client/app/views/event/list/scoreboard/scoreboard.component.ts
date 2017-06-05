@@ -38,13 +38,17 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
   currentUser: IUser;
   userSubscription: Subscription;
 
+  @Input() participant: ITeamInDiscipline;
+  @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @ViewChildren(ScoreGroupComponent) groups: ScoreGroupComponent[];
+
   _groupedScores;
   get groupedScores(): IScoreContainer[] {
     if (!this._groupedScores) {
       this._groupedScores = this.participant.discipline.scoreGroups.map(group => {
         const container = <IScoreContainer>{
           group: group,
-          scores: this.participant.scores.filter(s => s.scoreGroup.id === group.id),
+          scores: this.participant.scores.filter(s => s.scoreGroup.id === group.id).sort((a, b) => a.judgeIndex < b.judgeIndex ? -1 : 1),
           total: 0,
           avg: 0
         };
@@ -57,9 +61,6 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
     return this._groupedScores;
   };
 
-  @Input() participant: ITeamInDiscipline;
-  @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @ViewChildren(ScoreGroupComponent) groups: ScoreGroupComponent[];
 
   constructor(
     private scoreService: ScoreService,

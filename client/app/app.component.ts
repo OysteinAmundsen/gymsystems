@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { Router, NavigationStart } from '@angular/router';
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -41,15 +42,12 @@ export class AppComponent implements OnInit, OnDestroy {
     const browserLang: string = this.translate.getBrowserLang();
     this.translate.use(browserLang.match(/en|no/) ? browserLang : 'en');
 
-    this.router.events.subscribe(event => {
-      console.log(event);
-      if(event instanceof NavigationStart) {
-      }
-      // NavigationEnd
-      // NavigationCancel
-      // NavigationError
-      // RoutesRecognized
-    });
+    // For debugging routes
+    if (!environment.production) {
+      this.router.events.subscribe(event => {
+        console.log(event);
+      });
+    }
   }
 
   ngOnInit(): void {
