@@ -66,16 +66,22 @@ export class DisplayController {
     const displayConfig = await Container.get(ConfigurationController).get('display');
     const tournament = await this.tournamentRepository.get(tournamentId);
     let schedule = await this.scheduleRepository.getByTournament(tournamentId);
-
-    // Parse template
     const template = displayConfig.value[`display${id}`];
-    const sorter = (a: TeamInDiscipline, b: TeamInDiscipline) => a.startNumber < b.startNumber ? -1 : 1;
+
+    // Get current participant from schedule
+    const current = schedule.filter(s => s.startTime != null && !s.publishTime).sort((a, b) => a.startTime > b.startTime ? -1 : 1);
+
+    // Filtered from schedule by not yet started participants
+    const next = schedule.filter(s => !s.startTime).sort((a, b) => a.startNumber < b.startNumber ? -1 : 1);
+
+    // Filtered from schedule by allready published participants
+    const published = schedule.filter(s => s.publishTime != null).sort((a, b) => a.publishTime > b.publishTime ? -1 : 1);
+
     return Handlebars.compile(template, {noEscape: true})({
       tournament: tournament,
-      // Get current participant from schedule
-      current: schedule.filter(s => s.startTime != null && !s.endTime && !s.publishTime),
-      next: schedule.filter(s => !s.startTime).sort(sorter),                  // Filtered from schedule by not yet started participants
-      published: schedule.filter(s => s.publishTime != null).sort(sorter)     // Filtered from schedule by allready published participants
+      current: current,
+      next: next,
+      published: published
     });
   }
 }
