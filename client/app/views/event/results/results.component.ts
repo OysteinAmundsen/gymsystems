@@ -87,6 +87,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
         );
   }
 
+  getMaxColspan() {
+    return this.disciplines.length + 2;
+  }
+
   scoreHeadByDiscipline(discipline: string): {type: string}[] {
     const d = this.schedule.find(s => s.discipline.name === discipline);
     if (d) {

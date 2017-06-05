@@ -73,7 +73,6 @@ table {
     }
     td {
       opacity: 0.5;
-      min-width: 6rem;
       &.print-only {
         min-width: 4rem;
       }
@@ -84,4 +83,8 @@ table {
       }
     }
   }
+}
+
+.score {
+  text-align: right;
 }
