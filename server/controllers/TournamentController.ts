@@ -1,10 +1,7 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
 import { Delete, EmptyResultCode, Get, JsonController, Body, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
 import { Service, Container } from 'typedi';
-
-import e = require('express');
-import Request = e.Request;
-import Response = e.Response;
+import { Request, Response } from 'express';
 
 import { Logger } from '../utils/Logger';
 import moment = require('moment');

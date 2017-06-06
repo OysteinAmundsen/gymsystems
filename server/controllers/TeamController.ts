@@ -1,10 +1,7 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
 import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
 import { Container, Service } from 'typedi';
-
-import e = require('express');
-import Request = e.Request;
-import Response = e.Response;
+import { Request, Response } from 'express';
 
 import { Logger } from '../utils/Logger';
 import { RequireRole } from '../middlewares/RequireAuth';

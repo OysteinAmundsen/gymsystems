@@ -1,17 +1,15 @@
 import { getConnectionManager, Repository } from 'typeorm';
 import { Body, Delete, Get, JsonController, Param, Post, Put, UseBefore, Res, Req } from 'routing-controllers';
 import { Container, Service } from 'typedi';
-
-import e = require('express');
-import Request = e.Request;
-import Response = e.Response;
+import { Request, Response } from 'express';
 
 import { Logger } from '../utils/Logger';
 
 import { RequireRole } from '../middlewares/RequireAuth';
 import { isSameClubAsMe } from '../validators/CreatedByValidator';
 
-import { SSEService } from '../services/SSEService';
+// import { SSEController } from './SSEController';
+import { SSEController } from '../services/SSEController';
 import { ScheduleController } from './ScheduleController';
 import { UserController } from '../controllers/UserController';
 
@@ -45,7 +43,7 @@ export class ScoreController {
   @UseBefore(RequireRole.get(Role.Secretariat))
   async createFromParticipant( @Param('id') participantId: number, @Body() scores: TeamInDisciplineScore[], @Res() res: Response, @Req() req: Request) {
     const scheduleRepository = Container.get(ScheduleController);
-    const sseService = Container.get(SSEService);
+    const sseService = Container.get(SSEController);
     const p = await scheduleRepository.getParticipantPlain(participantId);
 
     if (p.endTime == null) {
@@ -73,7 +71,7 @@ export class ScoreController {
   @UseBefore(RequireRole.get(Role.Secretariat))
   async removeFromParticipant( @Param('id') participantId: number, @Res() res: Response, @Req() req: Request) {
     const scheduleRepository = Container.get(ScheduleController);
-    const sseService = Container.get(SSEService);
+    const sseService = Container.get(SSEController);
     const userService = Container.get(UserController);
     const me = await userService.me(req);
     const p = await scheduleRepository.getParticipantPlain(participantId);

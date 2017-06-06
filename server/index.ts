@@ -28,7 +28,7 @@ const rc = require('routing-controllers');
 
 // Other
 import { setupAuthentication } from './config/AuthenticationConfig';
-import { SSEService } from './services/SSEService';
+import { SSEController } from './services/SSEController';
 import { Logger } from './utils/Logger';
 import { ERROR_MESSAGES } from './messages';
 import { NextFunction, ErrorRequestHandler } from 'express-serve-static-core';
@@ -171,7 +171,7 @@ export class GymServer {
     this.app.use(this.globalErrorHandler);
 
     // Registerring custom services
-    new SSEService();
+    new SSEController();
 
     // Setup base route to everything else
     if (!this.isTest) {

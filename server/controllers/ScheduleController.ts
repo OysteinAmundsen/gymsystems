@@ -1,17 +1,15 @@
 import { getConnectionManager, Repository } from 'typeorm';
 import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
 import { Service, Container } from 'typedi';
-
-import e = require('express');
-import Request = e.Request;
-import Response = e.Response;
+import { Request, Response } from 'express';
 
 import { Logger } from '../utils/Logger';
 
 import { RequireRole } from '../middlewares/RequireAuth';
 import { isSameClubAsMe, isAllSameClubAsMe } from '../validators/CreatedByValidator';
 
-import { SSEService } from '../services/SSEService';
+import { SSEController } from '../services/SSEController';
+// import { SSEController } from '../controllers/SSEController';
 import { UserController } from '../controllers/UserController';
 
 import { TeamInDiscipline } from '../model/TeamInDiscipline';
@@ -124,7 +122,7 @@ export class ScheduleController {
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async update( @Param('id') id: number, @Body() participant: TeamInDiscipline, @Res() res: Response, @Req() req: Request) {
-    const sseService = Container.get(SSEService);
+    const sseService = Container.get(SSEController);
     const sameClub = await isSameClubAsMe(participant.tournament, req);
     if (!sameClub) {
       res.status(403);

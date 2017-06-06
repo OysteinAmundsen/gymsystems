@@ -1,6 +1,8 @@
 import { Get, Param, Controller, JsonResponse, TextResponse, Post, Req, UseBefore, Res, Delete, JsonController, UseAfter } from 'routing-controllers';
 import { Repository, getConnectionManager } from 'typeorm';
 import { Service, Container } from 'typedi';
+import { Request, Response } from 'express';
+
 import * as mkdirp from 'mkdirp';
 import * as rimraf from 'rimraf';
 import * as fs from 'fs';
@@ -9,10 +11,6 @@ import * as _ from 'lodash';
 import * as multer from 'multer';
 import * as schedule from 'node-schedule';
 import moment = require('moment');
-
-import e = require('express');
-import Request = e.Request;
-import Response = e.Response;
 
 import { TeamController } from '../controllers/TeamController';
 import { DisciplineController } from '../controllers/DisciplineController';
