@@ -2,8 +2,6 @@ import { Component, ElementRef, Inject, OnInit, forwardRef, Input, Output, Event
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import * as moment from 'moment';
 
-const Moment: any = (<any>moment).default || moment;
-
 export interface CalendarDate {
   day: number;
   month: number;
@@ -115,7 +113,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
 
   constructor( @Inject(ElementRef) public el: ElementRef) {
     this.opened = false;
-    this.currentDate = Moment();
+    this.currentDate = moment();
     this.options = this.options || {};
     this.days = [];
     this.years = [];
@@ -161,7 +159,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   }
 
   modelChanged(value) {
-    const date: moment.Moment = Moment(value, this.options.format);
+    const date: moment.Moment = moment(value, this.options.format);
 
     if (this.value && date.isValid) {
       this.value.minute = date.format('mm');
@@ -204,7 +202,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
           if (!(e.data instanceof Date)) {
             throw new Error(`Input data must be an instance of Date!`);
           }
-          const date: moment.Moment = Moment(e.data);
+          const date: moment.Moment = moment.utc(e.data);
           if (!date) {
             throw new Error(`Invalid date: ${e.data}`);
           }
@@ -219,7 +217,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
 
     if (!this.date.formatted) {
       if (this.options.initialDate instanceof Date) {
-        this.currentDate = Moment(this.options.initialDate);
+        this.currentDate = moment.utc(this.options.initialDate);
         this.selectDate(null, this.currentDate);
       } else if (this.options.initialDate && (<IDateModel>this.options.initialDate).momentObj) {
         this.currentDate = (<IDateModel>this.options.initialDate).momentObj.clone();
@@ -228,7 +226,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     }
 
     if (this.options.minDate instanceof Date) {
-      this.minDate = Moment(this.options.minDate);
+      this.minDate = moment.utc(this.options.minDate);
     } else if (this.options.minDate && (<IDateModel>this.options.minDate).momentObj) {
       this.minDate = (<IDateModel>this.options.minDate).momentObj.clone();
     } else {
@@ -236,7 +234,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     }
 
     if (this.options.maxDate instanceof Date) {
-      this.maxDate = Moment(this.options.maxDate);
+      this.maxDate = moment.utc(this.options.maxDate);
     } else if (this.options.maxDate && (<IDateModel>this.options.maxDate).momentObj) {
       this.maxDate = (<IDateModel>this.options.maxDate).momentObj.clone();
     } else {
@@ -247,7 +245,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   }
 
   generateCalendar() {
-    const date: moment.Moment = Moment(this.currentDate);
+    const date: moment.Moment = moment.utc(this.currentDate);
     const month = date.month();
     const year = date.year();
     let n = 1;
@@ -260,8 +258,8 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     this.days = [];
     const selectedDate: moment.Moment = this.date.momentObj ? this.date.momentObj.clone() : null;
     for (let i = n; i <= date.endOf('month').date(); i += 1) {
-      const currentDate: moment.Moment = Moment().year(year).month(month).date(i);
-      const today: boolean = (Moment().isSame(currentDate, 'day') && Moment().isSame(currentDate, 'month'));
+      const currentDate: moment.Moment = moment().year(year).month(month).date(i);
+      const today: boolean = (moment().isSame(currentDate, 'day') && moment().isSame(currentDate, 'month'));
       const selected: boolean = (selectedDate && selectedDate.isSame(currentDate, 'day'));
       let betweenMinMax = true;
 
@@ -294,7 +292,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
       day: date.format('DD'),
       month: date.format('MM'),
       year: date.format('YYYY'),
-      formatted: date.format(this.options.format),
+      formatted: date.utc().format(this.options.format),
       momentObj: date.clone()
     };
   }
@@ -328,8 +326,8 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   }
 
   generateYears() {
-    const date: moment.Moment = this.options.minDate || Moment().year(Moment().year() - 40);
-    const toDate: moment.Moment = this.options.maxDate || Moment().year(Moment().year() + 40);
+    const date: moment.Moment = this.options.minDate ? moment(this.options.minDate) : moment(moment().year() - 40);
+    const toDate: moment.Moment = this.options.maxDate ? moment(this.options.maxDate) : moment(moment().year() + 40);
     const years = toDate.year() - date.year();
 
     for (let i = 0; i < years; i++) {
@@ -338,10 +336,14 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  writeValue(date: DateModel) {
+  writeValue(date: DateModel | Date) {
     if (!date) { return; }
-    this.date = date;
-    this.currentDate = this.date.momentObj ? this.date.momentObj.clone() : Moment(this.date);
+    if (date instanceof DateModel) {
+      this.date = date;
+    } else if (date instanceof Date) {
+      this.date = this.modelFromDate(moment(date));
+    }
+    this.currentDate = this.date.momentObj.clone();
     this.selectDate(null, this.currentDate);
   }
 
@@ -364,7 +366,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
   }
 
   today() {
-    const currentDate = Moment();
+    const currentDate = moment();
     if ((!this.minDate || currentDate.isAfter(this.minDate)) && (!this.maxDate || currentDate.isBefore(this.maxDate))) {
       this.currentDate = currentDate;
       this.selectDate(null, this.currentDate);

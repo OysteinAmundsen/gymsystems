@@ -69,7 +69,8 @@ export class DisplayController {
     const template = displayConfig.value[`display${id}`];
 
     // Get current participant from schedule
-    const current = schedule.filter(s => s.startTime != null && !s.publishTime).sort((a, b) => a.startTime > b.startTime ? -1 : 1);
+    let current = schedule.filter(s => s.startTime != null && !s.publishTime).sort((a, b) => a.startTime > b.startTime ? -1 : 1);
+    if (!current.length) { current = [schedule[0]]; } // No items found. Assuming this is the start of the tournament. Give in the first participant.
 
     // Filtered from schedule by not yet started participants
     const next = schedule.filter(s => !s.startTime).sort((a, b) => a.startNumber < b.startNumber ? -1 : 1);

@@ -83,7 +83,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   startTime(participant: ITeamInDiscipline) {
     let time: moment.Moment;
-    time = participant.startTime != null ? moment(participant.startTime) : this.scheduleService.calculateStartTime(this.tournament, participant);
+    time = participant.startTime != null ? moment.utc(participant.startTime) : this.scheduleService.calculateStartTime(this.tournament, participant);
     if (time) { return time.format('HH:mm'); }
     return '<span class="warning">ERR</span>';
   }

@@ -22,6 +22,7 @@ import { TypeaheadComponent } from './components/typeahead/typeahead.component';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { MultirangeComponent } from './components/multirange/multirange.component';
 import { SaveButtonComponent } from './components/save-button/save-button.component';
+import { UtcDatePipe } from './pipes/utc-date.pipe';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import { SaveButtonComponent } from './components/save-button/save-button.compon
 
     ToUpperPipe,
     OrderByPipe,
+    UtcDatePipe,
   ],
   exports: [
     // Export common modules
@@ -70,6 +72,7 @@ import { SaveButtonComponent } from './components/save-button/save-button.compon
 
     ToUpperPipe,
     OrderByPipe,
+    UtcDatePipe,
   ]
 })
 export class SharedModule { }

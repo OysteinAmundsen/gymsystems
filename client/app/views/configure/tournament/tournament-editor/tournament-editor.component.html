@@ -25,11 +25,11 @@
     </tr>
     <tr>
       <th translate>Start date</th>
-      <td>{{ tournament.startDate | date }}</td>
+      <td>{{ tournament.startDate | utcDate }}</td>
     </tr>
     <tr>
       <th translate>End date</th>
-      <td>{{ tournament.endDate | date }}</td>
+      <td>{{ tournament.endDate | utcDate }}</td>
     </tr>
     <tr>
       <th translate>Location</th>

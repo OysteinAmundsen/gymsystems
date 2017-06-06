@@ -165,52 +165,39 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    *  3) Must not have the same team in two consequative rows.
    *
    * http://stackoverflow.com/questions/43627465/javascript-sorting-algorithm
+   * Manually reorder (using answer in http://stackoverflow.com/questions/43627465/javascript-sorting-algorithm#answer-43629921)
    */
   sortSchedule(schedule: ITeamInDiscipline[]) {
-    const ageDivision = (team): IDivision => team.divisions.find(d => d.type === DivisionType.Age);
-    const genderDivision = (team): IDivision => team.divisions.find(d => d.type === DivisionType.Gender);
-
-    // Provide initial sort
-    schedule = schedule
-      .sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => {
-        // Sort by class first
-        if (a.team.class != b.team.class) { return a.team.class > b.team.class ? -1 : 1; }
-
-        // Sort by age division
-        const aAgeDiv = ageDivision(a.team).sortOrder;
-        const bAgeDiv = ageDivision(b.team).sortOrder;
-        if (aAgeDiv != bAgeDiv) { return (aAgeDiv < bAgeDiv) ? -1 : 1; }
-
-        // Sort by gender division
-        const aGenDiv = genderDivision(a.team).sortOrder;
-        const bGenDiv = genderDivision(b.team).sortOrder;
-        if (aGenDiv != bGenDiv) { return (aGenDiv < bGenDiv) ? -1 : 1; }
-
-        return 0;
-      });
-
-    // Manually reorder (using answer in http://stackoverflow.com/questions/43627465/javascript-sorting-algorithm#answer-43629921)
     const result = [];
+
     while (schedule.length) {
-      const currDivision = this.division(schedule[0].team);
-      const scheduleByDivision = schedule.filter(s => this.division(s.team) === currDivision); // Find all in the same division
-      schedule = schedule.filter(s => !scheduleByDivision.includes(s));                        // Remove from original array
+      // Filter by classes first
+      let scheduleByClass = schedule.filter(s => s.team.class === Classes.National);
+      if (!scheduleByClass.length) { scheduleByClass = schedule.filter(s => s.team.class === Classes.TeamGym); }
+      schedule = schedule.filter(s => !scheduleByClass.includes(s)); // Remove from original array
 
-      let index = 0;
-      let entry = scheduleByDivision[0];
-      while (scheduleByDivision.length) {     // Loop over division schedule
-        result.push(entry);                   // Push previous entry
-        scheduleByDivision.splice(index, 1);  // Remove previous entry from original data
+      while(scheduleByClass.length) {
+        const currDivision = this.division(scheduleByClass[0].team);
 
-        // Get next entry
-        index = scheduleByDivision.findIndex(e => {
-          const hasNextDiscipline = e.discipline.sortOrder == ((entry.discipline.sortOrder + 1) % 3);
-          return e.team.id != entry.team.id && hasNextDiscipline;
-        });
+        // Then find all in the same division
+        const scheduleByDivision = scheduleByClass.filter(s => this.division(s.team) === currDivision);
+        scheduleByClass = scheduleByClass.filter(s => !scheduleByDivision.includes(s)); // Remove from class filtered array
 
-        // Check if index of next entry is found. If not, default to first remaining entry.
-        index = index == -1 ? 0 : index;
-        entry = scheduleByDivision[index];
+        let index = 0;
+        let entry = scheduleByDivision[0];
+        while (scheduleByDivision.length) {     // Loop over division schedule
+          result.push(entry);                   // Push previous entry
+          scheduleByDivision.splice(index, 1);  // Remove previous entry from original data
+
+          // Get next entry which is not the same team, and has the next discipline in the sortorder index
+          index = scheduleByDivision.findIndex(e => {
+            return e.team.id != entry.team.id && e.discipline.sortOrder == ((entry.discipline.sortOrder + 1) % 3);
+          });
+          index = index == -1 ? 0 : index;
+
+          // Check if index of next entry is found. If not, default to first remaining entry.
+          entry = scheduleByDivision[index];
+        }
       }
     }
 
