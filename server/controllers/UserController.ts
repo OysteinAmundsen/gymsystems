@@ -133,7 +133,7 @@ export class UserController {
       if (typeof user.club === 'string') {
         const clubRepository = Container.get(ClubController);
         user.club = await clubRepository.create(<Club>{id: null, name: user.club, teams: null, users: null}, res);
-      } 
+      }
       // If still no club, we should fail
       if (!user.club || !user.club.id) {
         res.status(400);
@@ -211,7 +211,7 @@ export class UserController {
       if (typeof user.club === 'string') {
         const clubRepository = Container.get(ClubController);
         user.club = await clubRepository.create(<Club>{id: null, name: user.club, teams: null, users: null}, res);
-      } 
+      }
       // If still no club, we should fail
       if (!user.club || !user.club.id) {
         res.status(400);

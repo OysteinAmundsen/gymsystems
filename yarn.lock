@@ -158,9 +158,9 @@
     "@types/express" "*"
     "@types/node" "*"
 
-"@types/bunyan@^0.0.36":
-  version "0.0.36"
-  resolved "https://registry.yarnpkg.com/@types/bunyan/-/bunyan-0.0.36.tgz#fdd865c58e8eaaf0ad401cd032dc861f5c57342a"
+"@types/bunyan@^0.0.37":
+  version "0.0.37"
+  resolved "https://registry.yarnpkg.com/@types/bunyan/-/bunyan-0.0.37.tgz#6624c8759e7bf2c2e35d16019f0c218982888248"
   dependencies:
     "@types/node" "*"
 
@@ -236,17 +236,13 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*":
-  version "7.0.22"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.22.tgz#4593f4d828bdd612929478ea40c67b4f403ca255"
+"@types/node@*", "@types/node@~7.0.27":
+  version "7.0.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.27.tgz#ba5e1a87aca2b4f5817289615ffe56472927687e"
 
 "@types/node@^6.0.46":
   version "6.0.66"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.66.tgz#5680b74a6135d33d4c00447e7c3dc691a4601625"
-
-"@types/node@~7.0.27":
-  version "7.0.27"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.27.tgz#ba5e1a87aca2b4f5817289615ffe56472927687e"
 
 "@types/passport-local@~1.0.30":
   version "1.0.30"
@@ -1007,15 +1003,9 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-class-transformer@~0.1.3:
+class-transformer@~0.1.0-beta.3:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/class-transformer/-/class-transformer-0.1.6.tgz#1139c149311c0c84ded3c00e2a879e3479f60fa0"
-
-class-validator@^0.6.8:
-  version "0.6.8"
-  resolved "https://registry.yarnpkg.com/class-validator/-/class-validator-0.6.8.tgz#af34fa10f99ecb86679d291d73ef8076d9ab8b95"
-  dependencies:
-    validator ">=5.0.0"
 
 clean-css@4.0.x:
   version "4.0.10"
@@ -5003,12 +4993,11 @@ ripemd160@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ripemd160/-/ripemd160-1.0.1.tgz#93a4bbd4942bc574b69a8fa57c71de10ecca7d6e"
 
-routing-controllers@~0.6.12:
-  version "0.6.12"
-  resolved "https://registry.yarnpkg.com/routing-controllers/-/routing-controllers-0.6.12.tgz#1889165903e70e406dbf11e2268a8684f8da8def"
+routing-controllers@0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/routing-controllers/-/routing-controllers-0.6.2.tgz#1c7fa2f50eca655634639e10060816b0f66b08db"
   dependencies:
-    class-transformer "~0.1.3"
-    class-validator "^0.6.8"
+    class-transformer "~0.1.0-beta.3"
     cookie "^0.3.1"
     glob "^7.0.5"
     reflect-metadata "^0.1.3"
@@ -5963,10 +5952,6 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
-
-validator@>=5.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-7.0.0.tgz#c74deb8063512fac35547938e6f0b1504a282fd2"
 
 vary@~1.1.0, vary@~1.1.1:
   version "1.1.1"
