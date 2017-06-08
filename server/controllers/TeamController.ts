@@ -1,5 +1,5 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
+import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
 import { Container, Service } from 'typedi';
 import { Request, Response } from 'express';
 
@@ -43,14 +43,14 @@ export class TeamController {
   }
 
   @Get('/tournament/:id')
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   getByTournament( @Param('id') id: number, @Res() res: Response): Promise<Team[]> {
     return this.getTournament(id, null);
   }
 
   @Get('/my/tournament/:id')
   @UseBefore(RequireRole.get(Role.Club))
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   async getByMyTournament( @Param('id') id: number, @Req() req: Request, @Res() res: Response): Promise<Team[]> {
     const userRepository = Container.get(UserController);
     const user: User = await userRepository.me(req);
@@ -79,7 +79,7 @@ export class TeamController {
   }
 
   @Get('/:id')
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   get( @Param('id') teamId: number): Promise<Team> {
     return this.repository.createQueryBuilder('team')
       .where('team.id=:id', {id: teamId})

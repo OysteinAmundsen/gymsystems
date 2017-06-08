@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
+import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
@@ -33,7 +33,7 @@ export class ScheduleController {
   }
 
   @Get('/tournament/:id')
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   getByTournament( @Param('id') id: number): Promise<TeamInDiscipline[]> {
     return this.repository.createQueryBuilder('tournament_participant')
       .where('tournament_participant.tournament=:id', { id: id })
@@ -54,7 +54,7 @@ export class ScheduleController {
   }
 
   @Get('/:id')
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   get( @Param('id') id: number): Promise<TeamInDiscipline> {
     return this.repository.createQueryBuilder('tournament_participant')
       .where('tournament_participant.id=:id', { id: id })
@@ -147,7 +147,7 @@ export class ScheduleController {
   }
 
   @Delete('/tournament/:id')
-  @EmptyResultCode(200)
+  @OnUndefined(200)
   @UseBefore(RequireRole.get(Role.Organizer))
   async removeAllFromTournament( @Param('id') tournamentId: number, @Res() res: Response, @Req() req: Request) {
     const participants = await this.repository.createQueryBuilder('tournament_participant')

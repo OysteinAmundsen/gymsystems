@@ -1,5 +1,5 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Res, UseBefore, Req, QueryParam } from 'routing-controllers';
+import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req, QueryParam } from 'routing-controllers';
 import { Service } from 'typedi';
 import { Request, Response } from 'express';
 
@@ -35,7 +35,7 @@ export class ClubController {
   }
 
   @Get('/:clubId')
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   get( @Param('clubId') clubId: number): Promise<Club> {
     return this.repository.findOneById(clubId);
   }

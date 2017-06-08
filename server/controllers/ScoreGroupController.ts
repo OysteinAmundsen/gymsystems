@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
+import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
 import { Service } from 'typedi';
 import { Request, Response } from 'express';
 
@@ -26,13 +26,13 @@ export class ScoreGroupController {
   }
 
   @Get('/discipline/:id')
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   getByDiscipline( @Param('id') id: number): Promise<ScoreGroup[]> {
     return this.repository.find({ discipline: id });
   }
 
   @Get('/:id')
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   get( @Param('id') scoreGroupId: number): Promise<ScoreGroup> {
     return this.repository.findOneById(scoreGroupId);
   }

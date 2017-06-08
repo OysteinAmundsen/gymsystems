@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
+import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, UseBefore, Res } from 'routing-controllers';
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
@@ -34,7 +34,7 @@ export class DisciplineController {
   }
 
   @Get('/tournament/:id')
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   getByTournament( @Param('id') id: number): Promise<Discipline[]> {
     return this.repository.createQueryBuilder('discipline')
       .where('discipline.tournament=:id', { id: id })
@@ -45,7 +45,7 @@ export class DisciplineController {
   }
 
   @Get('/:id')
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   get( @Param('id') id: number): Promise<Discipline> {
     return this.repository.createQueryBuilder('discipline')
       .where('discipline.id=:id', { id: id })

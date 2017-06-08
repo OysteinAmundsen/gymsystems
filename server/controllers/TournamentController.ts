@@ -1,5 +1,5 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { Delete, EmptyResultCode, Get, JsonController, Body, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
+import { Delete, OnUndefined, Get, JsonController, Body, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
@@ -105,7 +105,7 @@ export class TournamentController {
   }
 
   @Get('/:id')
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   get( @Param('id') id: number): Promise<Tournament> {
     if (isNaN(id)) { return Promise.reject(null); }
     return this.repository.createQueryBuilder('tournament')

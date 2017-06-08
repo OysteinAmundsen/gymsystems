@@ -1,5 +1,5 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { Body, Delete, EmptyResultCode, Get, JsonController, Param, Post, Put, Req, Res, UseBefore } from 'routing-controllers';
+import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Req, Res, UseBefore } from 'routing-controllers';
 import { Container, Service } from 'typedi';
 import { Request, Response } from 'express';
 import * as auth from 'passport';
@@ -89,7 +89,7 @@ export class UserController {
       .getMany();
   }
 
-  @EmptyResultCode(204)
+  @OnUndefined(204)
   @Get('/me')
   me( @Req() req: any): Promise<User> {
     if (req.session && req.session.passport && req.session.passport.user) {
@@ -110,7 +110,7 @@ export class UserController {
   }
 
   @UseBefore(RequireAuth)
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   @Get('/get/:id')
   async get( @Param('id') userId: number, @Req() req: Request): Promise<User> {
     const me = await this.me(req);

@@ -1,5 +1,5 @@
 import { getConnectionManager, Repository } from 'typeorm';
-import { Delete, EmptyResultCode, Get, JsonController, Body, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
+import { Delete, OnUndefined, Get, JsonController, Body, Param, Post, Put, Res, UseBefore } from 'routing-controllers';
 import { Request, Response } from 'express';
 
 import { RequireRole } from '../middlewares/RequireAuth';
@@ -27,7 +27,7 @@ export class ConfigurationController {
   }
 
   @Get('/:id')
-  @EmptyResultCode(404)
+  @OnUndefined(404)
   get( @Param('id') id: string): Promise<Configuration> {
     return this.repository.findOne({ name: id });
   }

@@ -1,4 +1,4 @@
-import { Get, Param, Controller, JsonResponse, TextResponse, Post, Req, UseBefore, Res, Delete, JsonController, UseAfter } from 'routing-controllers';
+import { Get, Param, Controller, Post, Req, UseBefore, Res, Delete, JsonController, UseAfter } from 'routing-controllers';
 import { Repository, getConnectionManager } from 'typeorm';
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
@@ -26,11 +26,6 @@ import { Discipline } from '../model/Discipline';
 import { Division } from '../model/Division';
 import { isMyClub } from '../validators/ClubValidator';
 
-type jobType = {
-  id: number,
-  job: schedule.Job
-}
-
 /**
  *
  */
@@ -39,10 +34,6 @@ type jobType = {
 export class MediaController {
 
   private repository: Repository<Media>;
-
-  constructor() {
-    this.repository = getConnectionManager().get().getRepository(Media);
-  }
 
   private static async calculateFileName(teamId: number, disciplineId: number) {
     const team = await Container.get(TeamController).get(teamId);
@@ -57,13 +48,16 @@ export class MediaController {
     }
   }
 
-
+  constructor() {
+    this.repository = getConnectionManager().get().getRepository(Media);
+  }
 
   @Post('/upload/:teamId/:disciplineId')
-  @JsonResponse()
   @UseBefore(RequireRole.get(Role.Club))
   @UseBefore(multer({dest: 'media'}).single('media'))
-  async uploadMediaForTeamInDiscipline(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Req() req: Request, @Res() res: Response) {
+  async uploadMediaForTeamInDiscipline(
+    @Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Req() req: Request, @Res() res: Response
+  ) {
     const metaData = await MediaController.calculateFileName(teamId, disciplineId);
 
     // Validate club
@@ -96,11 +90,10 @@ export class MediaController {
 
     return new Promise((resolve, reject) => {
       const extension = file.originalname.substring(file.originalname.lastIndexOf('.') + 1);
-      const fileName = `${newPath}.${extension}` ;
-      Logger.log.info(`Storing '${fileName}'`);
-      fs.rename(file.path, `${fileName}`, (err) => {
-        if (err) { reject(err); }
-        else { resolve(fileName); }
+      const name = `${newPath}.${extension}` ;
+      Logger.log.info(`Storing '${name}'`);
+      fs.rename(file.path, `${name}`, (err) => {
+        (err ? reject(err) : resolve(name));
       });
     });
   }
@@ -117,7 +110,9 @@ export class MediaController {
 
   @Delete('/:teamId/:disciplineId')
   @UseBefore(RequireRole.get(Role.Club))
-  async removeMedia(@Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response, @Req() req: Request) {
+  async removeMedia(
+    @Param('teamId') teamId: number, @Param('disciplineId') disciplineId: number, @Res() res: Response, @Req() req: Request
+  ) {
     // Validate club
     const team = await Container.get(TeamController).get(teamId);
     const myClub = await isMyClub([team], req);
@@ -155,7 +150,7 @@ export class MediaController {
     }
 
     const media = medias[0];
-    var stat = fs.statSync(media.filename);
+    let stat = fs.statSync(media.filename);
     if (!stat.isFile()) {
       return controller.repository.remove(media).then(() => {
         res.status(404).send('No media found!');
