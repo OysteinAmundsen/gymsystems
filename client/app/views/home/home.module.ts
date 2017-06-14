@@ -2,14 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'app/shared/shared.module';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
-import { HomeRoutes } from './home.routes';
+import { SharedModule } from 'app/shared/shared.module';
+import { HomeRoutingModule } from './home-routing.module';
+
 import { HomeComponent } from './home.component';
 import { LoginComponent } from './login/login.component';
-
-
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
 
@@ -19,7 +18,7 @@ import { RegisterComponent } from './register/register.component';
     FormsModule,
     ReactiveFormsModule,
     MarkdownToHtmlModule,
-    RouterModule.forChild([...HomeRoutes]),
+    HomeRoutingModule,
 
     SharedModule,
   ],
