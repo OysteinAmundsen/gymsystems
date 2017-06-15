@@ -51,12 +51,12 @@ export class DivisionController {
 
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
-  create( @Body() division: Division | Division[], @Res() res: Response): Promise<Division[]> {
+  create( @Body() division: Division | Division[], @Res() res: Response): Promise<Division[] | any> {
     const divisions = Array.isArray(division) ? division : [division];
     return this.repository.persist(divisions)
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return Promise.resolve({ code: err.code, message: err.message });
       });
   }
 
@@ -66,7 +66,7 @@ export class DivisionController {
     return this.repository.persist(division)
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return Promise.resolve({ code: err.code, message: err.message });
       });
   }
 
@@ -77,13 +77,13 @@ export class DivisionController {
     return this.removeMany([division])
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return Promise.resolve({ code: err.code, message: err.message });
       });
   }
 
   removeMany(divisions: Division[]) {
     const mediaRepository = Container.get(MediaController);
-    var promises = [];
+    const promises = [];
     for (let d = 0; d < divisions.length; d++) {
       for (let t = 0; t < divisions[d].teams.length; t++) {
         promises.push(mediaRepository.removeMediaInternal(divisions[d].teams[t].id));

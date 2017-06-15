@@ -16,10 +16,7 @@ import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
 
 const routes: Routes = [
-  {
-    // Lazy loaded modules should have their path root set in the module responsible for loading it
-    // path: '', component: ConfigureComponent, children: [
-    path: 'configure', component: ConfigureComponent, children: [
+  { path: '', component: ConfigureComponent, children: [
       { path: '', redirectTo: 'tournament', pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club} },
       ...TournamentRoutes,
       ...ClubRoutes,
@@ -31,7 +28,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forChild(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class ConfigureRoutingModule { }

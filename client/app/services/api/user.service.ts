@@ -14,7 +14,7 @@ import { IUser } from '../model/IUser';
 export class UserService {
 
   _isLoadingMe = false;
-  _meObservable = new ReplaySubject(1);
+  _meObservable = new ReplaySubject<IUser>(1);
   _currentUser: IUser;
   _recheck;
   private get currentUser(): IUser { return this._currentUser; }
@@ -53,7 +53,7 @@ export class UserService {
       this._isLoadingMe = true; // Prevent loading if load allready initiated
       this._loadMeInternal().subscribe();
     }
-    return this._meObservable;
+    return this._meObservable.asObservable();
   }
 
   // Standard REST api functions

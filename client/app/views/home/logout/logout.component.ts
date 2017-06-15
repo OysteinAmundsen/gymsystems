@@ -13,7 +13,13 @@ import { Title } from '@angular/platform-browser';
 })
 export class LogoutComponent {
 
-  constructor(private router: Router, userService: UserService, private errorHandler: ErrorHandlerService, private translate: TranslateService, private title: Title) {
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private errorHandler: ErrorHandlerService,
+    private translate: TranslateService,
+    private title: Title
+  ) {
     title.setTitle('Logout | GymSystems');
     userService.logout().subscribe(() => this.reroute(), (err) => this.reroute(err));
   }

@@ -39,12 +39,12 @@ export class ScoreGroupController {
 
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
-  create( @Body() scoreGroup: ScoreGroup | ScoreGroup[], @Res() res: Response): Promise<ScoreGroup[]> {
+  create( @Body() scoreGroup: ScoreGroup | ScoreGroup[], @Res() res: Response): Promise<ScoreGroup[] | any> {
     const scoreGroups = Array.isArray(scoreGroup) ? scoreGroup : [scoreGroup];
     return this.repository.persist(scoreGroups)
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return Promise.resolve({ code: err.code, message: err.message });
       });
   }
 

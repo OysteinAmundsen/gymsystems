@@ -3,7 +3,7 @@
   "project": {
     "name": "gymsystems"
   },
-  "apps": [ {
+  "apps": [{
     "root": "client",
     "outDir": "dist/public",
     "assets": [
@@ -23,7 +23,7 @@
     "prefix": "app",
     "styles": [
       "styles.scss",
-      "../node_modules/font-awesome/scss/font-awesome.scss"
+    "../node_modules/font-awesome/scss/font-awesome.scss"
     ],
     "scripts": [],
     "environmentSource": "environments/environment.ts",
@@ -31,30 +31,19 @@
       "dev": "environments/environment.ts",
       "prod": "environments/environment.prod.ts"
     }
-  } ],
-  "addons": [
-    "../node_modules/font-awesome/fonts/*.+(otf|eot|svg|ttf|woff|woff2)"
-  ],
+  }],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"
     }
   },
   "lint": [
-    {
-      "project": "client/tsconfig.app.json"
-    },
-    {
-      "project": "client/tsconfig.spec.json"
-    },
-    {
-      "project": "e2e/tsconfig.e2e.json"
-    }
+    { "project": "client/tsconfig.app.json" },
+    { "project": "client/tsconfig.spec.json" },
+    { "project": "e2e/tsconfig.e2e.json" }
   ],
   "test": {
-    "karma": {
-      "config": "./karma.conf.js"
-    }
+    "karma": { "config": "./karma.conf.js" }
   },
   "defaults": {
     "styleExt": "scss",

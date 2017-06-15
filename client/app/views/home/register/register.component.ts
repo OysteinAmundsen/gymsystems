@@ -10,7 +10,7 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 import { IUser, Role } from 'app/services/model/IUser';
 import { IClub } from 'app/services/model/IClub';
-import { UppercaseFormControl } from "app/shared/form/UppercaseFormControl";
+import { UppercaseFormControl } from 'app/shared/form/UppercaseFormControl';
 
 enum Type {
   Organizer = 0 + Role.Organizer, Club = 0 + Role.Club
@@ -81,7 +81,9 @@ export class RegisterComponent implements OnInit {
   }
 
   registrationComplete(res) {
-    this.errorHandler.error = (res && res.id ? this.translate.instant(`You are registerred! We've sent you an email with your credentials.`) : JSON.stringify(res));
+    this.errorHandler.error = (res && res.id
+      ? this.translate.instant(`You are registerred! We've sent you an email with your credentials.`)
+      : JSON.stringify(res));
     this.router.navigate(['/']);
   }
 }

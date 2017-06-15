@@ -56,22 +56,22 @@ export class DisciplineController {
 
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
-  create( @Body() discipline: Discipline | Discipline[], @Res() res: Response): Promise<Discipline[]> {
+  create( @Body() discipline: Discipline | Discipline[], @Res() res: Response): Promise<Discipline[] | any> {
     const disciplines = Array.isArray(discipline) ? discipline : [discipline];
     return this.repository.persist(disciplines)
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return Promise.resolve({ code: err.code, message: err.message });
       });
   }
 
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
-  update( @Param('id') id: number, @Body() discipline: Discipline): Promise<Discipline> {
+  update( @Param('id') id: number, @Body() discipline: Discipline): Promise<Discipline | any> {
     return this.repository.persist(discipline)
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return Promise.resolve({ code: err.code, message: err.message });
       });
   }
 
@@ -82,14 +82,14 @@ export class DisciplineController {
     return this.removeMany([discipline])
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return Promise.resolve({ code: err.code, message: err.message });
       });
   }
 
   async removeMany(disciplines: Discipline[]) {
     const scoreGroupRepository = Container.get(ScoreGroupController);
     const mediaRepository = Container.get(MediaController);
-    var promises = [];
+    const promises = [];
     for (let d = 0; d < disciplines.length; d++) {
       const scoreGroups = await scoreGroupRepository.getByDiscipline(disciplines[d].id);
       promises.push(scoreGroupRepository.removeMany(scoreGroups));
@@ -106,7 +106,7 @@ export class DisciplineController {
     })));
   }
 
-  createDefaults(tournament: Tournament, res: Response): Promise<Discipline[]> {
+  createDefaults(tournament: Tournament, res: Response): Promise<Discipline[] | any> {
     Logger.log.debug('Creating default discipline values');
     const configRepository = Container.get(ConfigurationController);
     const scoreGroupRepository = Container.get(ScoreGroupController);
@@ -124,8 +124,14 @@ export class DisciplineController {
             scoreGroupRepository.create(scoreGroups, res);
             return disciplines;
           })
-          .catch(err => Logger.log.error(err));
+          .catch(err => {
+            Logger.log.error(err);
+            return Promise.resolve({ code: err.code, message: err.message });
+          });
       })
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve({ code: err.code, message: err.message });
+      });
   }
 }

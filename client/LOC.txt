@@ -1,16 +1,16 @@
-     100 files     200 files     279 text files.
-classified 279 filesDuplicate file check 279 files (263 known unique)Unique:      100 files                                          Unique:      200 files                                               279 unique files.                              
-Counting:  100Counting:  200      74 files ignored.
+     100 files     200 files     300 files     302 text files.
+classified 302 filesDuplicate file check 302 files (279 known unique)Unique:      100 files                                          Unique:      200 files                                               302 unique files.                              
+Counting:  100Counting:  200Counting:  300      86 files ignored.
 
-github.com/AlDanial/cloc v 1.72  T=0.43 s (634.4 files/s, 30252.5 lines/s)
+github.com/AlDanial/cloc v 1.72  T=0.46 s (652.2 files/s, 30719.0 lines/s)
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-TypeScript                     183           1197            291           7542
-Sass                            45            109             24           2107
-HTML                            39             75              9           1260
-JSON                             6              0              0            443
+TypeScript                     198           1292            255           8132
+Sass                            47            113             24           2165
+HTML                            45             88             26           1413
+JSON                             6              0              0            472
 XML                              1              0              0              9
 -------------------------------------------------------------------------------
-SUM:                           274           1381            324          11361
+SUM:                           297           1493            305          12191
 -------------------------------------------------------------------------------

@@ -1,19 +1,18 @@
+// Framework & libs
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
-// Modules
+// Module dependencies
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
-import { HomeModule } from './views/home/home.module';
-import { ConfigureModule } from './views/configure/configure.module';
-import { EventModule } from "./views/event/event.module";
 
-// Services
+// Module API services
 import {
   UserService,
   ScoreService,
@@ -28,13 +27,19 @@ import {
   DisplayService,
   ClubService
 } from './services/api';
+import { ErrorHandlerService } from './services/config/ErrorHandler.service';
+import { MediaService } from './services/media.service';
 
-// Components
-import { AppComponent } from './app.component';
-import { HttpInterceptor } from './services/config/HttpInterceptor';
+// Other services
 import { RoleGuard } from './shared/guards/role-guard';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { MediaService } from 'app/services/media.service';
+import { HttpInterceptor } from './services/config/HttpInterceptor';
+
+// Module components
+import { AppComponent } from './app.component';
+import { HomeComponent } from './views/home/home.component';
+import { LoginComponent } from './views/home/login/login.component';
+import { LogoutComponent } from './views/home/logout/logout.component';
+import { RegisterComponent } from './views/home/register/register.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
@@ -43,11 +48,17 @@ export function HttpLoaderFactory(http: Http) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    LogoutComponent,
+    RegisterComponent
   ],
   imports: [
+    // Framework modules
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     TranslateModule.forRoot({
       loader: {
@@ -56,13 +67,11 @@ export function HttpLoaderFactory(http: Http) {
         deps: [Http]
       }
     }),
+    MarkdownToHtmlModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
 
-    // Packaged modules (Not lazy loaded)
+    // Application modules
     SharedModule,
-    HomeModule,
-    EventModule,
-    ConfigureModule,
 
     // Routes last (!important)
     AppRoutingModule,

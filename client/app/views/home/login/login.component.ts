@@ -21,7 +21,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   queryParamsSubscription: Subscription;
 
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private userService: UserService, private title: Title, private errorHandler: ErrorHandlerService) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private title: Title,
+    private errorHandler: ErrorHandlerService
+  ) {
     title.setTitle('Login | GymSystems');
   }
 

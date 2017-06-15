@@ -17,7 +17,6 @@ exports.config = {
     // './e2e/**/users.e2e-spec.ts',
     // './e2e/**/tournament.e2e-spec.ts'
   ],
-  // multiCapabilities: [
   capabilities:
     { 'browserName': 'chrome', chromeOptions: {
         prefs: {
@@ -45,12 +44,10 @@ exports.config = {
     defaultTimeoutInterval: 30000,
     print: function() {}
   },
-  beforeLaunch: function() {
+  onPrepare() {
     require('ts-node').register({
       project: 'e2e/tsconfig.e2e.json'
     });
-  },
-  onPrepare() {
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
 
     // Setup database connection for setUp and tearDown tasks

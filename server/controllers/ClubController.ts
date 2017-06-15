@@ -8,7 +8,7 @@ import { Logger } from '../utils/Logger';
 
 import { Club } from '../model/Club';
 import { Role } from '../model/User';
-import { ClubContestant } from "../model/ClubContestant";
+import { ClubContestant } from '../model/ClubContestant';
 
 /**
  *
@@ -41,20 +41,20 @@ export class ClubController {
   }
 
   @Post()
-  create( @Body() club: Club, @Res() res: Response): Promise<Club> {
+  create( @Body() club: Club, @Res() res: Response): Promise<Club | any> {
     return this.repository.persist(club)
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return Promise.resolve({ code: err.code, message: err.message });
       });
   }
 
   @Put('/:clubId')
-  update( @Param('clubId') clubId: number, @Body() club: Club, @Res() res: Response): Promise<Club> {
+  update( @Param('clubId') clubId: number, @Body() club: Club, @Res() res: Response): Promise<Club | any> {
     return this.repository.persist(club)
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return Promise.resolve({ code: err.code, message: err.message });
       });
   }
 
@@ -77,10 +77,13 @@ export class ClubController {
   }
 
   @Post('/:clubId/members')
-  addMember(@Param('clubId') clubId: number, @Body() member: ClubContestant): Promise<ClubContestant> {
+  addMember(@Param('clubId') clubId: number, @Body() member: ClubContestant): Promise<ClubContestant | any> {
     return this.conn.getRepository(ClubContestant)
       .persist(member)
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve({code: err.code, message: err.message});
+      });
   }
 
   @Delete('/:clubId/members/:id')

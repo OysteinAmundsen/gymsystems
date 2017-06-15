@@ -69,7 +69,7 @@ export class TournamentController {
   }
 
   @Get('/past')
-  past(): Promise<Tournament[]> {
+  past(): Promise<Tournament[] | any> {
     const date = moment().utc().startOf('day').toDate();
     return this.repository
       .createQueryBuilder('tournament')
@@ -77,11 +77,14 @@ export class TournamentController {
       .orderBy('tournament.startDate', 'DESC')
       .setLimit(10)
       .getMany()
-      .catch(() => Logger.log.debug(`Query for past tournament was rejected before it was fulfilled`));
+      .catch(() => {
+        Logger.log.debug(`Query for past tournament was rejected before it was fulfilled`);
+        return Promise.resolve();
+      });
   }
 
   @Get('/current')
-  current(): Promise<Tournament[]> {
+  current(): Promise<Tournament[] | any> {
     const now = moment().utc().toDate();
     return this.repository
       .createQueryBuilder('tournament')
@@ -89,11 +92,14 @@ export class TournamentController {
       .orderBy('tournament.startDate', 'DESC')
       .setLimit(10)
       .getMany()
-      .catch(() => Logger.log.debug(`Query for current tournaments was rejected before it was fulfilled`));
+      .catch(() => {
+        Logger.log.debug(`Query for current tournaments was rejected before it was fulfilled`);
+        return Promise.resolve();
+      });
   }
 
   @Get('/future')
-  future(): Promise<Tournament[]> {
+  future(): Promise<Tournament[] | any> {
     const date = moment().utc().endOf('day').toDate();
     return this.repository
       .createQueryBuilder('tournament')
@@ -101,19 +107,25 @@ export class TournamentController {
       .orderBy('tournament.startDate', 'DESC')
       .setLimit(10)
       .getMany()
-      .catch(() => Logger.log.debug(`Query for future tournaments was rejected before it was fulfilled`));
+      .catch(() => {
+        Logger.log.debug(`Query for future tournaments was rejected before it was fulfilled`);
+        return Promise.resolve();
+      });
   }
 
   @Get('/:id')
   @OnUndefined(404)
-  get( @Param('id') id: number): Promise<Tournament> {
+  get( @Param('id') id: number): Promise<Tournament | any> {
     if (isNaN(id)) { return Promise.reject(null); }
     return this.repository.createQueryBuilder('tournament')
       .where('tournament.id=:id', { id: id })
       .innerJoinAndSelect('tournament.createdBy', 'user')
       .leftJoinAndSelect('user.club', 'club')
       .getOne()
-      .catch(() => Logger.log.debug(`Query for tournament id ${id} was rejected before it was fulfilled`));
+      .catch(() => {
+        Logger.log.debug(`Query for tournament id ${id} was rejected before it was fulfilled`);
+        return Promise.resolve();
+      });
   }
 
   @Post()
@@ -139,14 +151,17 @@ export class TournamentController {
 
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
-  update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament> {
+  update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament | any> {
     if (isNaN(id)) { return Promise.reject(null); }
     return this.repository.persist(tournament)
       .then(persisted => {
         Container.get(MediaController).expireArchive(persisted.id, persisted.endDate)
         return persisted;
       })
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve();
+      });
   }
 
   @Delete('/:id')
@@ -183,7 +198,7 @@ export class TournamentController {
       .catch(err => Logger.log.error(err));
   }
 
-  createDefaults(tournament: Tournament, res: Response): Promise<Tournament> {
+  createDefaults(tournament: Tournament, res: Response): Promise<Tournament | any> {
     const configRepository = Container.get(ConfigurationController);
     const disciplineRepository = Container.get(DisciplineController);
     const divisionRepository = Container.get(DivisionController);
@@ -197,7 +212,10 @@ export class TournamentController {
             disciplineRepository.createDefaults(tournament, res).then(disciplines => tournament.disciplines = disciplines)
           ])
             .then(() => tournament)
-            .catch(err => Logger.log.error(err));
+            .catch(err => {
+              Logger.log.error(err);
+              return Promise.reject(err);
+            });
         }
         return tournament;
       })

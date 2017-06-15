@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   current = [];
   isLoading = true;
 
-  get types() { return this._types.sort((a: TournamentType, b: TournamentType) => (a.name === 'Future') ? -1 : 1); } // Future first, allways
+  // Future first, allways
+  get types() { return this._types.sort((a: TournamentType, b: TournamentType) => (a.name === 'Future') ? -1 : 1); }
 
   get hasTournaments() { return this.types.filter(t => t.tournaments.length > 0).length > 0; }
   get hasFuture() {

@@ -11,7 +11,7 @@ import { RoleGuard } from 'app/shared/guards/role-guard';
 import { Role } from 'app/services/model/IUser';
 
 const routes: Routes = [
-  { path: 'event/:id',          component: EventComponent, children: [
+  { path: ':id',          component: EventComponent, children: [
     { path: '', pathMatch: 'full', redirectTo: 'list'},
     { path: 'list',               component: ListComponent },
     { path: 'results',            component: ResultsComponent },
@@ -21,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forChild(routes), ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class EventRoutingModule { }
