@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app';
+import { HttpLoaderFactory } from 'app/app.module';
 
 import { TeamEditorComponent } from './team-editor.component';
 import { TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService } from 'app/services/api';

@@ -3,14 +3,14 @@ import { HttpModule, Http } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app';
+import { HttpLoaderFactory } from 'app/app.module';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { MemberEditorComponent } from './member-editor.component';
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
-import { ConfigurationService } from "app/services/api";
-import { ConfigurationServiceStub } from "app/services/api/configuration.service.stub";
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { ConfigurationService } from 'app/services/api';
+import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
 
 describe('MemberEditorComponent', () => {
   let component: MemberEditorComponent;

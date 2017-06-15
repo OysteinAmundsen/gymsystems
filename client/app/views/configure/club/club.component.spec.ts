@@ -4,13 +4,13 @@ import { HttpModule, Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app';
+import { HttpLoaderFactory } from 'app/app.module';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { ClubComponent } from './club.component';
-import { ClubService, UserService } from "app/services/api";
-import { ClubServiceStub } from "app/services/api/club.service.stub";
-import { UserServiceStub } from "app/services/api/user.service.stub";
+import { ClubService, UserService } from 'app/services/api';
+import { ClubServiceStub } from 'app/services/api/club.service.stub';
+import { UserServiceStub } from 'app/services/api/user.service.stub';
 
 describe('ClubComponent', () => {
   let component: ClubComponent;

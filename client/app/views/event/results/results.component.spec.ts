@@ -3,13 +3,20 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app';
+import { HttpLoaderFactory } from 'app/app.module';
 import { ReplaySubject } from 'rxjs/Rx';
 
 import { SharedModule } from 'app/shared/shared.module';
 
 import { ResultsComponent } from './results.component';
-import { ScheduleService, TeamsService, TournamentService, EventService, UserService, ConfigurationService, ScoreService } from 'app/services/api';
+import {
+  ScheduleService,
+  TeamsService,
+  TournamentService,
+  EventService,
+  UserService,
+  ConfigurationService,
+  ScoreService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
 
 import { UserServiceStub } from 'app/services/api/user.service.stub';

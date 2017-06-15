@@ -2,7 +2,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Http, HttpModule } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app';
+import { HttpLoaderFactory } from 'app/app.module';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { MacroDialogComponent } from './macro-dialog.component';

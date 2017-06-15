@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app';
+import { HttpLoaderFactory } from 'app/app.module';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { ScoreSystemModule } from '../../score-system/score-system.module';

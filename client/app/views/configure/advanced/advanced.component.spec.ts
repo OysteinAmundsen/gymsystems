@@ -1,15 +1,15 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, Http } from '@angular/http';
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app';
+import { HttpLoaderFactory } from 'app/app.module';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { DisciplinesModule } from '../tournament/disciplines/disciplines.module';
 import { DivisionsModule } from '../tournament/divisions/divisions.module';
-import { ScoreSystemModule } from "../tournament/score-system/score-system.module";
+import { ScoreSystemModule } from '../tournament/score-system/score-system.module';
 
 import { AdvancedComponent } from './advanced.component';
 
@@ -17,8 +17,8 @@ import { ConfigurationService, TournamentService, DivisionService } from 'app/se
 import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
 import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division.service.stub';
-import { HttpInterceptor } from "app/services/config/HttpInterceptor";
-import { ErrorHandlerService } from "app/services/config/ErrorHandler.service";
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 describe('AdvancedComponent', () => {
   let component: AdvancedComponent;
@@ -26,7 +26,7 @@ describe('AdvancedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports:[
+      imports: [
         SharedModule,
         HttpModule,
         FormsModule,

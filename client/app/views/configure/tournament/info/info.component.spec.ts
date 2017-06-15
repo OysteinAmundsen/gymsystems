@@ -9,7 +9,7 @@ import { InfoComponent } from './info.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app';
+import { HttpLoaderFactory } from 'app/app.module';
 import { ConfigurationService, TournamentService } from 'app/services/api';
 import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
 import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';

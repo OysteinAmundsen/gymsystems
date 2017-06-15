@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app';
+import { HttpLoaderFactory } from 'app/app.module';
 
 import { ScoreGroupComponent } from './score-group.component';
 import { ScoreComponent } from '../score/score.component';
