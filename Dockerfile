@@ -7,7 +7,7 @@ ENV HOME=/usr/src/app
 RUN mkdir -p $HOME
 
 # In order to build bcrypt library
-RUN apt-get install -y make automake gcc g++
+RUN apt-get install -y make automake python gcc g++
 
 # Create app user
 # RUN useradd --user-group --create-home --shell /bin/bash app
@@ -16,7 +16,7 @@ WORKDIR $HOME
 
 # Install app dependencies
 ADD package.json $HOME/package.json
-RUN npm install --production
+RUN npm install node-gyp -g && npm install --production
 
 # Bundle pre-built app
 ADD ormconfig.prod.json $HOME/ormconfig.json
