@@ -16,7 +16,7 @@ WORKDIR $HOME
 
 # Install app dependencies
 ADD package.json $HOME/package.json
-RUN npm install node-gyp -g && npm install --production
+RUN npm i -g yarn node-gyp && yarn install --production
 
 # Bundle pre-built app
 ADD ormconfig.prod.json $HOME/ormconfig.json
@@ -24,4 +24,4 @@ COPY dist $HOME/dist
 # RUN chown -R app:app $HOME/*
 
 EXPOSE 3000
-ENTRYPOINT npm start
+ENTRYPOINT yarn start
