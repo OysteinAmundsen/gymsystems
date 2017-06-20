@@ -26,7 +26,7 @@ before_script:
 script:
   - yarn run build
   - yarn run test:once
-  - yarn run e2e
+  # - yarn run e2e
 after_success:
 #  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 #  - docker push oysteinamundsen/gymsystems:master
