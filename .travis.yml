@@ -1,5 +1,6 @@
 sudo: required
 dist: trusty
+group: edge  # Because Travis CI told me to
 addons:
   apt:
     sources:
