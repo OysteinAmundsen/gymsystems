@@ -21,10 +21,11 @@ before_install:
   - sh -e /etc/init.d/xvfb start
   - "npm config set spin false"
 install:
-  - npm install
+  - yarn install
 script:
-  - npm run build
-  - npm run test -- --single-run=true
-#after_success:
+  - yarn run build
+  - yarn run test -- --single-run=true
+  - yarn run e2e
+after_success:
 #  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 #  - docker push oysteinamundsen/gymsystems:master
