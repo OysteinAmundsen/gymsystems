@@ -96,7 +96,7 @@
     "zone.js": "^0.8.12"
   },
   "devDependencies": {
-    "@angular/cli": "~1.1.2",
+    "@angular/cli": "~1.2.0",
     "@angular/compiler-cli": "^4.2.3",
     "@biesbjerg/ngx-translate-extract": "^2.3.1",
     "@types/bcrypt": "^1.0.0",
