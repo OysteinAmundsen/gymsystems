@@ -256,17 +256,13 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.1.tgz#89c271e0c3b9ebb6a3756dd601336970b6228b77"
+"@types/node@*", "@types/node@~8.0.13":
+  version "8.0.13"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.13.tgz#530f0f9254209b0335bf5cc6387822594ef47093"
 
 "@types/node@^6.0.46":
   version "6.0.78"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.78.tgz#5d4a3f579c1524e01ee21bf474e6fba09198f470"
-
-"@types/node@~8.0.13":
-  version "8.0.13"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.13.tgz#530f0f9254209b0335bf5cc6387822594ef47093"
 
 "@types/passport-local@~1.0.30":
   version "1.0.30"
@@ -6546,6 +6542,10 @@ yn@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
 
-zone.js@^0.8.13, zone.js@^0.8.4:
+zone.js@0.8.12:
+  version "0.8.12"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.12.tgz#86ff5053c98aec291a0bf4bbac501d694a05cfbb"
+
+zone.js@^0.8.4:
   version "0.8.13"
   resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.13.tgz#f0822525fad941582a03bbfe71eb21740315ddd0"

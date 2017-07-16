@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { IClub } from 'app/services/model/IClub';
 import { IClubContestant } from 'app/services/model/IClubContestant';
 import { Gender } from 'app/services/model/Gender';
-import { IDivision } from "app/services/model/IDivision";
-import { DivisionType } from "app/services/model/DivisionType";
-import { ConfigurationService } from "app/services/api";
-import { TranslateService } from "@ngx-translate/core";
+import { IDivision } from 'app/services/model/IDivision';
+import { DivisionType } from 'app/services/model/DivisionType';
+import { ConfigurationService } from 'app/services/api';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-member-editor',
@@ -29,7 +29,11 @@ export class MemberEditorComponent implements OnInit {
 
   get ageDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Age); }
 
-  constructor(private fb: FormBuilder, private router: Router, private configService: ConfigurationService, private translate: TranslateService) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private configService: ConfigurationService,
+    private translate: TranslateService) { }
 
   ngOnInit() {
     this.configService.getByname('defaultValues').subscribe(configuration => this.divisions = configuration.value.division);
@@ -44,6 +48,9 @@ export class MemberEditorComponent implements OnInit {
 
   }
 
+  delete() {
+
+  }
   close() {
     this.memberChanged.emit(this.member);
   }
