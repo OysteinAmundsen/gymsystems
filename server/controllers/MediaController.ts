@@ -99,7 +99,7 @@ export class MediaController {
   }
   createArchive(id: number, expire: Date) {
     mkdirp(`./media/${id}`, (err) => {
-      if (err) { Logger.log.error(err); }
+      if (err) { Logger.log.error('', err); }
       this.expireArchive(id, expire); // Register for expiration
       Logger.log.info(`Created tournament media folder at: './media/${id}'`);
     });

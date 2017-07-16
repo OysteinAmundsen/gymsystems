@@ -6,7 +6,7 @@ import * as mkdirp from 'mkdirp';
 
 if (!fs.existsSync('./log')) {
   mkdirp('./log', (err, made) => {
-    if (err) { throw new Error(err); }
+    if (err) { throw new Error(JSON.stringify(err)); }
     console.log('Created log dir!');
   });
 }

@@ -40,9 +40,9 @@ import { NextFunction, ErrorRequestHandler } from 'express-serve-static-core';
  */
 export class GymServer {
   public app: e.Express;
-  private port: number = process.env.PORT || 3000;
+  private port: number = +process.env.PORT || 3000;
   private clientPath = path.join(__dirname, './public');
-  public isTest: boolean = process.env.PRODUCTION; // false;
+  public isTest: boolean = !!process.env.PRODUCTION; // false;
 
   /**
    * Bootstrap the application.
