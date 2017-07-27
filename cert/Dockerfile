@@ -1,5 +1,5 @@
 FROM umputun/nginx-le:latest
 
-COPY ./conf/nginx.conf /etc/nginx/conf.d/service.conf
+COPY ./conf/nginx.conf /etc/nginx/service.conf
 
 CMD ["/entrypoint.sh"]

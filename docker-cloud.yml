@@ -1,7 +1,7 @@
 nginx:
   autodestroy: on-success
   autoredeploy: true
-  image: 'oysteinamundsen/nginx:latest'
+  image: 'oysteinamundsen/gymsystems:nginx'
   restart: on-failure
   ports:
     - "80:80"
