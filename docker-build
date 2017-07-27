@@ -6,13 +6,13 @@ sudo chown -R $USER data
 # docker-compose down --rmi all
 
 # Build new image from compose
-docker-compose -f docker-compose.yml -f docker-client.yml build
+docker-compose -f docker-compose.yml -f docker-compose.client.yml build
 
 # Stop service
-docker-compose -f docker-compose.yml -f docker-client.yml kill
+docker-compose -f docker-compose.yml -f docker-compose.client.yml kill
 
 # Remove container
-docker-compose -f docker-compose.yml -f docker-client.yml rm -f --all
+docker-compose -f docker-compose.yml -f docker-compose.client.yml rm -f
 
 # Start a new container with the built image
-docker-compose -f docker-compose.yml -f docker-client.yml up -d
+docker-compose -f docker-compose.yml -f docker-compose.client.yml up -d

@@ -16,7 +16,7 @@ WORKDIR $HOME
 
 # Install app dependencies
 ADD package.json $HOME/package.json
-RUN npm i -g yarn node-gyp && yarn install --production
+RUN yarn global add node-gyp && yarn install --production
 
 # Bundle pre-built app
 ADD ormconfig.prod.json $HOME/ormconfig.json

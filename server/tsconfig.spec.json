@@ -1,19 +1,12 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "",
-    "declaration": false,
     "noLib": false,
     "rootDir": "./",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "outDir": "../dist/",
-    "sourceMap": true,
-    "target": "es6",
-
-
-
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "outDir": "../out-tsc/spec",
+    "target": "es5",
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "noImplicitAny": true,
@@ -21,7 +14,11 @@
     "noImplicitUseStrict": false,
     "noFallthroughCasesInSwitch": true
   },
-  "exclude": [
-    "node_modules"
+  "files": [
+    "test.ts"
+  ],
+  "include": [
+    "**/*.spec.ts",
+    "**/*.d.ts"
   ]
 }

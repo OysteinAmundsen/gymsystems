@@ -1,5 +1,25 @@
+nginx:
+  autodestroy: on-success
+  autoredeploy: true
+  image: umputun/nginx-le:latest
+  restart: on-failure
+  ports:
+    - "80:80"
+    - "443:443"
+  links:
+    - client
+  volumes:
+    - /usr/src/app/cert/ssl:/etc/nginx/ssl
+    - /usr/src/app/cert/nginx.conf:/etc/nginx/service.conf
+  environment:
+    - TZ=UTC
+    - LETSENCRYPT=true
+    - LE_EMAIL=oystein.amundsen@gmail.com
+    - LE_FQDN=www.gymsystems.org
+
 client:
   autodestroy: on-success
+  restart: on-failure
   autoredeploy: true
   environment:
     - DATABASE_HOST=db
@@ -7,19 +27,17 @@ client:
   image: 'oysteinamundsen/gymsystems:latest'
   links:
     - db
-  ports:
-    - '80:3000'
-  restart: on-failure
   volumes:
     - '/usr/src/app/log:/usr/src/app/log'
     - '/usr/src/app/media:/usr/src/app/media'
+
 db:
+  restart: on-failure
   environment:
     - MYSQL_DATABASE=gymsystem
     - MYSQL_PASSWORD=admin
     - MYSQL_ROOT_PASSWORD=root
     - MYSQL_USER=system
   image: 'mysql:latest'
-  restart: on-failure
   volumes:
     - '/usr/src/app/data:/var/lib/mysql'

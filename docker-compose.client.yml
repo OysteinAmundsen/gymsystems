@@ -1,0 +1,40 @@
+version: '2.1'
+
+services:
+  nginx:
+    image: umputun/nginx-le:latest
+    hostname: nginx
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - client
+    links:
+      - client
+    volumes:
+      - ./cert/ssl:/etc/nginx/ssl
+      - ./cert/nginx.conf:/etc/nginx/service.conf
+    environment:
+      - TZ=UTC
+      - LETSENCRYPT=true
+      - LE_EMAIL=oystein.amundsen@gmail.com
+      - LE_FQDN=www.gymsystems.org
+
+  client:
+    build: .
+    image: gymsystems/client
+    container_name: gymsystems
+    restart: unless-stopped
+    depends_on:
+      - db
+    links:
+      - db:db
+    environment:
+      - DATABASE_HOST=db
+      - NODE_ENV=production
+    volumes:
+      - /usr/src/app/node_modules
+      - ./log:/usr/src/app/log
+      - ./media:/usr/src/app/media
