@@ -1,7 +1,7 @@
 nginx:
   autodestroy: on-success
   autoredeploy: true
-  image: umputun/nginx-le:latest
+  image: 'oysteinamundsen/nginx:latest'
   restart: on-failure
   ports:
     - "80:80"
@@ -10,7 +10,6 @@ nginx:
     - client
   volumes:
     - /usr/src/app/cert/ssl:/etc/nginx/ssl
-    - /usr/src/app/cert/conf:/etc/nginx/conf.d
   environment:
     - TZ=UTC
     - LETSENCRYPT=true

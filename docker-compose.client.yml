@@ -2,7 +2,8 @@ version: '2.1'
 
 services:
   nginx:
-    image: umputun/nginx-le:latest
+    build: ./cert
+    image: gymsystems/nginx
     hostname: nginx
     container_name: nginx
     restart: unless-stopped
