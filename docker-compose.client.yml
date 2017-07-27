@@ -15,7 +15,7 @@ services:
       - client
     volumes:
       - ./cert/ssl:/etc/nginx/ssl
-      - ./cert/nginx.conf:/etc/nginx/service.conf
+      - ./cert/conf:/etc/nginx/conf.d
     environment:
       - TZ=UTC
       - LETSENCRYPT=true

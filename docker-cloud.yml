@@ -10,7 +10,7 @@ nginx:
     - client
   volumes:
     - /usr/src/app/cert/ssl:/etc/nginx/ssl
-    - /usr/src/app/cert/nginx.conf:/etc/nginx/service.conf
+    - /usr/src/app/cert/conf:/etc/nginx/conf.d
   environment:
     - TZ=UTC
     - LETSENCRYPT=true
