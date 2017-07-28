@@ -122,7 +122,7 @@
     "cloc": "^2.2.0",
     "codelyzer": "~3.1.2",
     "concurrently": "~3.5.0",
-    "jasmine-core": "~2.6.4",
+    "jasmine-core": "~2.7.0",
     "jasmine-spec-reporter": "~4.1.1",
     "karma": "~1.7.0",
     "karma-chrome-launcher": "~2.2.0",
