@@ -1,6 +1,7 @@
 import { Observer } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Logger } from '../Logger';
 
 type Callback = (data: any) => void;
 
@@ -26,10 +27,10 @@ export class EventService {
     this.observable = Observable.create((observer: Observer<any>) => {
       this.observer = observer;
       this.eventSource = this.createConnection();
-      console.log('Connection established!');
+      Logger.log('Connection established!');
 
       return () => {
-        console.log('Closing connection!');
+        Logger.log('Closing connection!');
         this.eventSource.close();
       };
     });
@@ -44,12 +45,12 @@ export class EventService {
     this.reconnectCount++;
     if (this.timer) { clearTimeout(this.timer); }
     if (this.reconnectCount < 5) { // Give up after 5 tries
-      console.log('EventService errored. Reconnecting...', err);
+      Logger.log('EventService errored. Reconnecting...', err);
       this.timer = setTimeout(() => this.reconnectCount = 0, 10000);
       this.eventSource.close();
       this.eventSource = this.createConnection();
     } else {
-      console.log('EventService errored. Max retries exceeded.', err);
+      Logger.log('EventService errored. Max retries exceeded.', err);
       this.reconnectCount = 0;
       this.observer.error(err);
     }

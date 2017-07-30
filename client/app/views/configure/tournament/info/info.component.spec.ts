@@ -8,7 +8,9 @@ import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { InfoComponent } from './info.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+
 import { HttpLoaderFactory } from 'app/app.module';
 import { ConfigurationService, TournamentService } from 'app/services/api';
 import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
@@ -38,14 +40,14 @@ describe('InfoComponent', () => {
         RouterTestingModule,
         HttpModule,
         MarkdownToHtmlModule,
+        HttpClientModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
-            deps: [Http]
+            deps: [HttpClient]
           }
         }),
-
       ],
       declarations: [ InfoComponent ],
       providers: [

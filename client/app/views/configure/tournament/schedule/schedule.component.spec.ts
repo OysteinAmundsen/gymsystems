@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app/app.module';
 import { DragulaModule } from 'ng2-dragula';
@@ -38,11 +39,12 @@ describe('ScheduleComponent', () => {
         DragulaModule,
         HttpModule,
         RouterTestingModule,
+        HttpClientModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
-            deps: [Http]
+            deps: [HttpClient]
           }
         }),
       ],

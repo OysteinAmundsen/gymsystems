@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { TeamsService, DisciplineService, DivisionService, ClubService, UserService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
+import { Logger } from 'app/services/Logger';
 
 import { IDiscipline } from 'app/services/model/IDiscipline';
 import { IDivision } from 'app/services/model/IDivision';
@@ -17,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Classes } from 'app/services/model/Classes';
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 import { ITournament } from 'app/services/model/ITournament';
-import { UppercaseFormControl } from "app/shared/form/UppercaseFormControl";
+import { UppercaseFormControl } from 'app/shared/form/UppercaseFormControl';
 
 @Component({
   selector: 'app-team-editor',
@@ -85,7 +86,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
             .forEach((element: ElementRef) => {
               const el = <HTMLInputElement>element.nativeElement;
               const disciplineId = el.attributes.getNamedItem('data').nodeValue;
-              el.checked = this.team.disciplines.findIndex(d => d.id === +disciplineId) > -1;
+              el.checked = this.team.disciplines.findIndex(dis => dis.id === +disciplineId) > -1;
             });
         });
       });
@@ -129,7 +130,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const upload = () => {
       this.teamService.uploadMedia(fileList[0], this.teamForm.value, discipline).subscribe(
         data => this.reloadTeam(),
-        error => console.log(error)
+        error => Logger.error(error)
       )
     }
     if (fileList.length > 0) {

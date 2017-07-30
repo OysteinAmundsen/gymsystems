@@ -23,6 +23,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 import { MultirangeComponent } from './components/multirange/multirange.component';
 import { SaveButtonComponent } from './components/save-button/save-button.component';
 import { UtcDatePipe } from './pipes/utc-date.pipe';
+import { HelpBlockComponent } from './components/help-block/help-block.component';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { UtcDatePipe } from './pipes/utc-date.pipe';
     TypeaheadComponent,
     MultirangeComponent,
     SaveButtonComponent,
+    HelpBlockComponent,
 
     FloatingLabelContainerDirective,
     AutofocusDirective,
@@ -65,6 +67,7 @@ import { UtcDatePipe } from './pipes/utc-date.pipe';
     TypeaheadComponent,
     MultirangeComponent,
     SaveButtonComponent,
+    HelpBlockComponent,
 
     FloatingLabelContainerDirective,
     AutofocusDirective,

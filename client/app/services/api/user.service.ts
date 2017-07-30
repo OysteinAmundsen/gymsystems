@@ -7,19 +7,20 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
+import { Logger } from 'app/services/Logger';
 
 import { IUser } from '../model/IUser';
 
 @Injectable()
 export class UserService {
-
-  _isLoadingMe = false;
+  _isLoadingUser = false;
   _meObservable = new ReplaySubject<IUser>(1);
   _currentUser: IUser;
   _recheck;
   private get currentUser(): IUser { return this._currentUser; }
   private set currentUser(user: IUser) {
-    if (this._currentUser !== user) {
+    if (JSON.stringify(this._currentUser) !== JSON.stringify(user)) {
+      Logger.debug('%c** Changing user to', 'font-size: 1.1em; font-weight: bold; color: green', user);
       this._currentUser = user;
       this._meObservable.next(user);
     }
@@ -34,7 +35,7 @@ export class UserService {
 
   // AUTH functions
   private userReceived(res: Response) {
-    this._isLoadingMe = false;
+    this._isLoadingUser = false;
     this.currentUser = res instanceof Response ? res.json() : res;
     return this.currentUser;
   }
@@ -49,8 +50,8 @@ export class UserService {
   }
 
   getMe(): Observable<IUser> {
-    if (this.currentUser === undefined && !this._isLoadingMe) {
-      this._isLoadingMe = true; // Prevent loading if load allready initiated
+    if (this.currentUser === undefined && !this._isLoadingUser) {
+      this._isLoadingUser = true; // Prevent loading if load allready initiated
       this._loadMeInternal().subscribe();
     }
     return this._meObservable.asObservable();

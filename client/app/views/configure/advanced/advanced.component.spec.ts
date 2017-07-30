@@ -19,6 +19,7 @@ import { TournamentServiceStub } from 'app/services/api/tournament.service.stub'
 import { DivisionServiceStub } from 'app/services/api/division.service.stub';
 import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 describe('AdvancedComponent', () => {
   let component: AdvancedComponent;
@@ -32,11 +33,12 @@ describe('AdvancedComponent', () => {
         FormsModule,
         RouterTestingModule,
         ScoreSystemModule,
+        HttpClientModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
-            deps: [Http]
+            deps: [HttpClient]
           }
         }),
         DisciplinesModule,

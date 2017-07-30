@@ -1,6 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, forwardRef, Input, Output, EventEmitter, HostListener, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import * as moment from 'moment';
+import { Logger } from 'app/services/Logger';
 
 export interface CalendarDate {
   day: number;
@@ -170,7 +171,7 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
       this.value.momentObj = date;
       this.currentDate = date;
     } else {
-      console.log('No value object created!');
+      Logger.log('No value object created!');
     }
   }
 
@@ -264,9 +265,9 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
       let betweenMinMax = true;
 
       if (this.minDate != null && this.maxDate != null) {
-        betweenMinMax = currentDate.isBetween(this.minDate.clone().subtract(1,'day'), this.maxDate, 'day', '[]');
+        betweenMinMax = currentDate.isBetween(this.minDate.clone().subtract(1, 'day'), this.maxDate, 'day', '[]');
       } else if (this.minDate != null) {
-        betweenMinMax = currentDate.isAfter(this.minDate.clone().subtract(1,'day'), 'day');
+        betweenMinMax = currentDate.isAfter(this.minDate.clone().subtract(1, 'day'), 'day');
       } else if (this.maxDate != null) {
         betweenMinMax = currentDate.isBefore(this.maxDate, 'day');
       }

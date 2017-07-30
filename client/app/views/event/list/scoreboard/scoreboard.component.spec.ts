@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app/app.module';
@@ -26,7 +27,7 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 @Component({
  selector  : 'app-cmp',
- template  : `<app-scoreboard [participant]="item" (onClose)="closeEditor()"></app-scoreboard>`
+ template  : `<app-scoreboard [participant]="item"></app-scoreboard>`
 })
 class WrapperComponent {
   item: ITeamInDiscipline = <ITeamInDiscipline>{
@@ -51,11 +52,12 @@ describe('ScoreboardComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         SharedModule,
+        HttpClientModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
-            deps: [Http]
+            deps: [HttpClient]
           }
         }),
       ],

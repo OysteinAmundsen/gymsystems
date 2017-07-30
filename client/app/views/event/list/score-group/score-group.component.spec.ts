@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app/app.module';
 
@@ -41,11 +42,12 @@ describe('ScoreGroupComponent', () => {
         HttpModule,
         FormsModule,
         ReactiveFormsModule,
+        HttpClientModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
-            deps: [Http]
+            deps: [HttpClient]
           }
         }),
       ],

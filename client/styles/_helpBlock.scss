@@ -1,0 +1,10 @@
+.view-help app-help-block, *:hover > app-help-block {
+  display: inline-block;
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+}
+
+.help-available {
+  position: relative;
+}

@@ -2,6 +2,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -42,7 +44,7 @@ import { LogoutComponent } from './views/home/logout/logout.component';
 import { RegisterComponent } from './views/home/register/register.component';
 
 // AoT requires an exported function for factories
-export function HttpLoaderFactory(http: Http) {
+export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './i18n/', '.json');
 }
 
@@ -60,11 +62,12 @@ export function HttpLoaderFactory(http: Http) {
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    HttpClientModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [Http]
+        deps: [HttpClient]
       }
     }),
     MarkdownToHtmlModule,

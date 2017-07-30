@@ -6,42 +6,58 @@
   </header>
   <fieldset class="col-12">
     <div class="row">
-      <div class="col-7" appFloatingLabelContainer>
+      <div class="col-7 help-available" appFloatingLabelContainer>
         <label for="name" translate>Username</label>
         <input type="text" formControlName="name" appAutofocus/>
+        <app-help-block>
+          <p translate>The name you want to use for logging in to your account</p>
+        </app-help-block>
       </div>
       <div class="col-5 lowered">
         <label translate>Register as</label>
-        <div class="control">
+        <div class="control help-available">
           <app-slide-toggle [onLabel]="Organizer" [offLabel]="Club" [onState]="type.Organizer" [offState]="type.Club" [initState]="type.Club" formControlName="role"></app-slide-toggle>
-          <div class="help-block">
-            <app-fa name="question-circle" fw="true"></app-fa>
-            <div class="help">
-              <p translate>As a <b translate>Club</b> representative, you can enter teams to participate in the tournament.</p>
-              <p translate>As an <b translate>Organizer</b>, you can create tournaments.</p>
-            </div>
-          </div>
+          <app-help-block>
+            <p translate>As a <b translate>Club</b> representative, you can enter teams to participate in a tournament.</p>
+            <p translate>As an <b translate>Organizer</b>, you can create tournaments.</p>
+            <hr>
+            <i><p translate>If you plan on creating tournaments in the future, we suggest you register as organizer. You will have the same privileges as a club representative for tournaments your club does not organize.</p></i>
+          </app-help-block>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-7" appFloatingLabelContainer>
+      <div class="col-7 help-available" appFloatingLabelContainer>
         <label translate>Email</label>
         <input type="email" formControlName="email">
+        <app-help-block>
+          <p translate>The email address you provide for us will be used to contact you in regards to activity on your account.</p>
+          <p translate>We may also contact you if a tournament opens up for registration, so you can enter your club to join</p>
+        </app-help-block>
       </div>
-      <div class="col-5" appFloatingLabelContainer>
+      <div class="col-5 help-available" appFloatingLabelContainer>
         <label translate>Club</label>
         <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
+        <app-help-block>
+          <p translate>We need to know which club you represent in order to provide you with the appropriate privileges.</p>
+        </app-help-block>
       </div>
     </div>
     <div class="row">
-      <div class="col-6" appFloatingLabelContainer>
+      <div class="col-6 help-available" appFloatingLabelContainer>
         <label translate>Password</label>
         <input type="password" formControlName="password">
+        <app-help-block>
+          <p translate>Any password will do. We do not set restrictions. But please make sure it is not too easy.</p>
+          <p translate>We suggest using a password generator for this: <a href="https://xkpasswd.net/s/" target="_blank">https://xkpasswd.net/s/</a></p>
+        </app-help-block>
       </div>
-      <div class="col-6" appFloatingLabelContainer>
+      <div class="col-6 help-available" appFloatingLabelContainer>
         <label translate>Repeat password</label>
         <input type="password" formControlName="repeatPassword">
+        <app-help-block>
+          <p translate>This needs to be exactly the same text as entered in the password field. Just to make sure you did not make any typos. :-)</p>
+        </app-help-block>
       </div>
     </div>
   </fieldset>

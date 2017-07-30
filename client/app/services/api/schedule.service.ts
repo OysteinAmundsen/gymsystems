@@ -7,6 +7,8 @@ import 'rxjs/add/operator/share';
 
 import * as moment from 'moment';
 
+import { Logger } from '../Logger';
+
 import { ITeamInDiscipline } from '../model/ITeamInDiscipline';
 import { ConfigurationService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
@@ -66,17 +68,17 @@ export class ScheduleService {
     let time: moment.Moment;
     let day = 0;
     let participantsPast = 0;
-    for (let day = 0; day < tournament.times.length; day++) {
-      let timesForDay = tournament.times[day];
-      let startHour   = moment(timesForDay.day).hour(+timesForDay.time.split(',')[0]);
-      let endHour     = moment(timesForDay.day).hour(+timesForDay.time.split(',')[1]);
+    for (day = 0; day < tournament.times.length; day++) {
+      const timesForDay = tournament.times[day];
+      const startHour   = moment(timesForDay.day).hour(+timesForDay.time.split(',')[0]);
+      const endHour     = moment(timesForDay.day).hour(+timesForDay.time.split(',')[1]);
       time = startHour.clone().add(this.executionTime * (participant.startNumber - participantsPast), 'minutes');
       if (time.isBefore(endHour)) {
         return time;
       }
       participantsPast += moment.duration(endHour.diff(startHour)).asMinutes() / this.executionTime;
     }
-    console.error(`No timeslots left in tournament for participant with start number ${participant.startNumber}`);
+    Logger.error(`No timeslots left in tournament for participant with start number ${participant.startNumber}`);
     return null;
   }
 }

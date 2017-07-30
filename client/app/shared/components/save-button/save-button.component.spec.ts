@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app/app.module';
 import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { SaveButtonComponent } from './save-button.component';
 import { FaComponent } from 'app/shared/components/fontawesome/fa.component';
@@ -20,11 +21,12 @@ describe('SaveButtonComponent', () => {
       imports: [
         HttpModule,
         RouterTestingModule,
+        HttpClientModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
-            deps: [Http]
+            deps: [HttpClient]
           }
         }),
       ],

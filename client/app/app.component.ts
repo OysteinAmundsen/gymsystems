@@ -1,22 +1,24 @@
 import { IUser } from './services/model/IUser';
-import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, AfterContentChecked } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { TranslateService } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
-import { environment } from 'environments/environment';
 
 import { UserService } from './services/api';
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
+import { Logger } from './services/Logger';
+import { HelpBlockComponent } from 'app/shared/components/help-block/help-block.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
   navState = false;
+  currentHelpBlocks;
 
   userSubscription: Subscription;
   user: IUser;
@@ -25,6 +27,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   get currentLang() { return this.translate.currentLang; }
+
+  get hasHelp() {
+    return this.currentHelpBlocks > 0;
+  }
+
+  showHelp = false;
 
   get error() { return this.errorHandler.error; }
   set error(value) { this.errorHandler.error = value; }
@@ -41,18 +49,21 @@ export class AppComponent implements OnInit, OnDestroy {
     this.translate.setDefaultLang('en');
 
     const browserLang: string = this.translate.getBrowserLang();
-    this.translate.use(browserLang.match(/en|no/) ? browserLang : 'en');
+    this.changeLang(browserLang.match(/en|no/) ? browserLang : 'en');
 
     // For debugging routes
-    if (!environment.production) {
-      this.router.events.subscribe(event => {
-        console.log(event);
-      });
-    }
+    this.router.events.subscribe(event => Logger.debug(event));
   }
 
   ngOnInit(): void {
     this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
+  }
+
+  ngAfterContentChecked() {
+    const helpBlocks = document.querySelectorAll('app-help-block');
+    if (this.currentHelpBlocks !== helpBlocks.length) {
+      this.currentHelpBlocks = helpBlocks.length;
+    }
   }
 
   ngOnDestroy() {
@@ -72,7 +83,12 @@ export class AppComponent implements OnInit, OnDestroy {
     evt.stopPropagation();
   }
 
+  toggleHelp() {
+    this.showHelp = !this.showHelp;
+  }
+
   changeLang(lang) {
     this.translate.use(lang);
+    Logger.debug('** Changing language: ', this.currentLang, lang);
   }
 }

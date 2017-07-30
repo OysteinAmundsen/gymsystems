@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Logger } from 'app/services/Logger';
 
 import { DialogComponent } from 'app/shared/components/dialog/dialog.component';
 
@@ -51,7 +52,7 @@ export class MacroDialogComponent extends DialogComponent implements OnInit {
   }
 
   insert(macro: any) {
-    console.log(macro.name);
+    Logger.log(macro.name);
     super.closeDialog();
   }
 }

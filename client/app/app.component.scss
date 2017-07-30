@@ -18,6 +18,20 @@
   }
 }
 
+.show-help {
+  a {
+    transform-origin: center;
+    transition: 0.2s transform ease-in-out;
+  }
+  &.active {
+    background: transparent;
+    box-shadow: none;
+    a {
+      transform: scale(1.2);
+    }
+  }
+}
+
 
 footer {
   @media print {

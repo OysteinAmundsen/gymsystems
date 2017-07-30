@@ -5,28 +5,32 @@ import { Component } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/Rx';
+
+import { SharedModule } from 'app/shared/shared.module';
 import { HttpLoaderFactory } from 'app/app.module';
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
 
 import { TeamEditorComponent } from './team-editor.component';
+import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
+
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
-import { SharedModule } from 'app/shared/shared.module';
-import { ITeam } from 'app/services/model/ITeam';
-import { ITournament } from 'app/services/model/ITournament';
-import { IClub } from 'app/services/model/IClub';
-import { IUser, Role } from 'app/services/model/IUser';
-import { Observable } from 'rxjs/Observable';
 import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
 import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
 import { ClubServiceStub } from 'app/services/api/club.service.stub';
 import { UserServiceStub } from 'app/services/api/user.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
-import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
-import { ReplaySubject } from 'rxjs/Rx';
+
+import { ITeam } from 'app/services/model/ITeam';
+import { ITournament } from 'app/services/model/ITournament';
+import { IClub } from 'app/services/model/IClub';
+import { IUser, Role } from 'app/services/model/IUser';
 
 const club: IClub = <IClub>{
   id          : 0,
@@ -69,11 +73,12 @@ describe('TeamEditorComponent', () => {
         RouterTestingModule,
         HttpModule,
         SharedModule,
+        HttpClientModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
-            deps: [Http]
+            deps: [HttpClient]
           }
         }),
       ],
