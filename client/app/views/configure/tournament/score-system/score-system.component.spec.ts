@@ -11,8 +11,8 @@ import { ScoreSystemComponent } from './score-system.component';
 import { ScoreGroupEditorComponent } from './score-group-editor/score-group-editor.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { ScoreGroupService, ConfigurationService } from 'app/services/api';
-import { ScoreGroupServiceStub } from 'app/services/api/scoregroup.service.stub';
-import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
+import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
 describe('ScoreComponent', () => {
   let component: ScoreSystemComponent;

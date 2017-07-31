@@ -5,7 +5,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from 'app/services/api';
 import { Subscription } from 'rxjs/Subscription';
 import { Title } from '@angular/platform-browser';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ErrorHandlerService } from 'app/services/config';
 
 @Component({
   selector: 'app-login',

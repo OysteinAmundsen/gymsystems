@@ -3,9 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ScoreGroupService } from 'app/services/api';
-import { IDiscipline } from 'app/services/model/IDiscipline';
-import { IScoreGroup } from 'app/services/model/IScoreGroup';
-import { Operation } from 'app/services/model/Operation';
+import { IDiscipline, IScoreGroup, Operation } from 'app/services/model';
 
 @Component({
   selector: 'app-score-group-editor',

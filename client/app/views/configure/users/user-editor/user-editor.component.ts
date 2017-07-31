@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { Observable } from 'rxjs/Rx';
 
 import { UserService, ClubService } from 'app/services/api';
-import { IUser, RoleNames, Role } from 'app/services/model/IUser';
-import { ValidationService } from 'app/services/validation/validation.service';
-import { IClub } from 'app/services/model/IClub';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { UppercaseFormControl } from "app/shared/form/UppercaseFormControl";
-import { Observable } from "rxjs/Rx";
+import { IUser, RoleNames, Role, IClub } from 'app/services/model';
+import { ValidationService } from 'app/services/validation';
+import { ErrorHandlerService } from 'app/services/config';
+import { UppercaseFormControl } from 'app/shared/form';
 
 @Component({
   selector: 'app-user-editor',
@@ -91,7 +90,7 @@ export class UserEditorComponent implements OnInit {
     const formVal = this.userForm.value;
 
     // Cleanup password
-    if (this.user.password == formVal.password) {
+    if (this.user.password === formVal.password) {
       delete formVal.password;
     }
     delete formVal.repeatPassword;

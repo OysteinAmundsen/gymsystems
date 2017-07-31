@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Classes } from 'app/services/model/Classes';
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 import { ITournament } from 'app/services/model/ITournament';
-import { UppercaseFormControl } from 'app/shared/form/UppercaseFormControl';
+import { UppercaseFormControl } from 'app/shared/form';
 
 @Component({
   selector: 'app-team-editor',

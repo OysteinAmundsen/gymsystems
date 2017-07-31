@@ -1,10 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { IClub } from "app/services/model/IClub";
-import { ClubEditorComponent } from "app/views/configure/club/club-editor/club-editor.component";
-import { IClubContestant } from "app/services/model/IClubContestant";
-import { DivisionType } from "app/services/model/DivisionType";
-import { ClubService } from "app/services/api";
-import { Gender } from "app/services/model/Gender";
+import { ClubService } from 'app/services/api';
+import { IClub, IClubContestant, DivisionType, Gender } from 'app/services/model';
+import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 
 @Component({
   selector: 'app-members',

@@ -10,9 +10,9 @@ import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { SharedModule } from 'app/shared/shared.module';
 import { HomeComponent } from './home.component';
 import { ScheduleService, UserService, TournamentService } from 'app/services/api';
-import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
-import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
+import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;

@@ -20,17 +20,14 @@ import { TournamentEditorComponent } from '../../tournament-editor/tournament-ed
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
-import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
-import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
-import { ClubServiceStub } from 'app/services/api/club.service.stub';
-import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { DivisionServiceStub } from 'app/services/api/division.service.stub';
-import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
+import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
+import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
+import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
+import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.service.stub';
 
-import { ITeam } from 'app/services/model/ITeam';
-import { ITournament } from 'app/services/model/ITournament';
-import { IClub } from 'app/services/model/IClub';
-import { IUser, Role } from 'app/services/model/IUser';
+import { ITeam, ITournament, IClub, IUser, Role } from 'app/services/model';
 
 const club: IClub = <IClub>{
   id          : 0,

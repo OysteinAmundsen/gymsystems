@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ClubService, UserService } from 'app/services/api';
-import { IClub } from 'app/services/model/IClub';
-import { IUser, Role } from 'app/services/model/IUser';
+import { IClub, IUser, Role } from 'app/services/model';
 
 @Component({
   selector: 'app-club',

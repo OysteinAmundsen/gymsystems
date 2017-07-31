@@ -8,11 +8,10 @@ import { HttpLoaderFactory } from 'app/app.module';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { UserEditorComponent } from './user-editor.component';
+import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 import { UserService, ClubService } from 'app/services/api';
-import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { ClubServiceStub } from 'app/services/api/club.service.stub';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 
 describe('UserEditorComponent', () => {
   let component: UserEditorComponent;

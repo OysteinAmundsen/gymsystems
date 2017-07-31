@@ -9,7 +9,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { UserService } from './services/api';
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
 import { Logger } from './services/Logger';
-import { HelpBlockComponent } from 'app/shared/components/help-block/help-block.component';
+import { HelpBlockComponent } from 'app/shared/components';
 
 @Component({
   selector: 'app-root',

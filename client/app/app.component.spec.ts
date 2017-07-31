@@ -7,8 +7,8 @@ import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2/di
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from './app.module';
 
-import { UserServiceStub } from './services/api/user.service.stub';
-import { TournamentServiceStub } from './services/api/tournament.service.stub';
+import { UserServiceStub } from './services/api/user/user.service.stub';
+import { TournamentServiceStub } from './services/api/tournament/tournament.service.stub';
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
 import { TournamentService, UserService } from './services/api';
 

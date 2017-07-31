@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { TournamentService } from 'app/services/api';
-import { ITournament } from 'app/services/model/ITournament';
 import { TranslateService } from '@ngx-translate/core';
+
+import { TournamentService } from 'app/services/api';
+import { ITournament } from 'app/services/model';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
 @Component({

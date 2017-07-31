@@ -8,10 +8,9 @@ import { HttpLoaderFactory } from 'app/app.module';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { MemberEditorComponent } from './member-editor.component';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 import { ConfigurationService } from 'app/services/api';
-import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
 describe('MemberEditorComponent', () => {
   // let component: MemberEditorComponent;

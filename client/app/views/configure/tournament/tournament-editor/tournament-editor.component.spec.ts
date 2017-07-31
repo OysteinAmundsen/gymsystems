@@ -8,11 +8,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { TournamentEditorComponent } from './tournament-editor.component';
 import { SharedModule } from 'app/shared/shared.module';
+import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 import { UserService, TournamentService } from 'app/services/api';
-import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
-import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
 describe('TournamentEditorComponent', () => {
   let component: TournamentEditorComponent;

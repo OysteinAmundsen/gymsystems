@@ -11,12 +11,12 @@ import { ScheduleComponent } from './schedule.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { ScheduleService, DivisionService, DisciplineService, TeamsService, ConfigurationService } from 'app/services/api';
 
-import { dummyTournament } from 'app/services/api/tournament.service.stub';
-import { DivisionServiceStub } from 'app/services/api/division.service.stub';
-import { DisciplineServiceStub } from 'app/services/api/discipline.service.stub';
-import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
-import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
-import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
+import { dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
+import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
+import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.service.stub';
+import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
+import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';

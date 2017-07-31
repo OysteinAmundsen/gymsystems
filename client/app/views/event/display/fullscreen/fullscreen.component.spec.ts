@@ -10,13 +10,13 @@ import { SharedModule } from 'app/shared/shared.module';
 
 import { FullscreenComponent } from './fullscreen.component';
 import { ConfigurationService, ScheduleService, TournamentService, DisplayService, EventService } from 'app/services/api';
-import { ITournament } from 'app/services/model/ITournament';
+import { ITournament } from 'app/services/model';
 
-import { EventServiceStub } from 'app/services/api/event.service.stub';
-import { DisplayServiceStub } from 'app/services/api/display.service.stub';
-import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
-import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
-import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
+import { EventServiceStub } from 'app/services/api/event/event.service.stub';
+import { DisplayServiceStub } from 'app/services/api/display/display.service.stub';
+import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
+import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 import { EventComponent } from '../../event.component';
 
 class DummyParent {

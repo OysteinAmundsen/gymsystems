@@ -1,25 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable, ReplaySubject } from 'rxjs/Rx';
+
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
 import { InfoComponent } from './info.component';
 import { SharedModule } from 'app/shared/shared.module';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { HttpLoaderFactory } from 'app/app.module';
 import { ConfigurationService, TournamentService } from 'app/services/api';
-import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
-import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
+import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
-import { ReplaySubject } from 'rxjs/Rx';
-import { ITournament } from 'app/services/model/ITournament';
+import { ITournament } from 'app/services/model';
 
 class DummyParent {
   tournamentSubject = new ReplaySubject<ITournament>(1);

@@ -2,10 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
-import { ITournament } from 'app/services/model/ITournament';
-import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
-import { IUser } from 'app/services/model/IUser';
-import { Classes } from 'app/services/model/Classes';
+import { ITournament, ITeamInDiscipline, IUser, Classes } from 'app/services/model';
 import { EventComponent } from '../event.component';
 
 @Component({
@@ -36,9 +33,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }, []);
   }
 
-  get teamgym() { return this.schedule.filter(s => s.team.class == Classes.TeamGym); }
+  get teamgym() { return this.schedule.filter(s => s.team.class === Classes.TeamGym); }
 
-  get national() { return this.schedule.filter(s => s.team.class == Classes.National); }
+  get national() { return this.schedule.filter(s => s.team.class === Classes.National); }
 
   constructor(
     private parent: EventComponent,
@@ -95,7 +92,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     const d = this.schedule.find(s => s.discipline.name === discipline);
     if (d) {
       return d.discipline.scoreGroups.reduce((prev, curr) => {
-        for (let j = 0; j < curr.judges; j++) { prev.push({type: curr.type + (j+1)}); }
+        for (let j = 0; j < curr.judges; j++) { prev.push({type: curr.type + (j + 1)}); }
         return prev;
       }, []);
     }
@@ -106,10 +103,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
     return participant.discipline.scoreGroups.reduce((scores, g) => {
       if (participant.scores.length) {
         participant.scores
-          .filter(s => s.scoreGroup.id === g.id).sort((a, b) => a.judgeIndex < b.judgeIndex ? -1: 1)
+          .filter(s => s.scoreGroup.id === g.id).sort((a, b) => a.judgeIndex < b.judgeIndex ? -1 : 1)
           .forEach(s => scores.push({type: s.scoreGroup.type + (s.judgeIndex ? s.judgeIndex : ''), value: s.value}) );
       } else {
-        for (let j = 0; j < g.judges; j++) { scores.push({type: g.type + (j+1), value: 0}); }
+        for (let j = 0; j < g.judges; j++) { scores.push({type: g.type + (j + 1), value: 0}); }
       }
       return scores;
     }, []);

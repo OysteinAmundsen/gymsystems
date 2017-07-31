@@ -6,11 +6,7 @@ import { Component } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
 
 import { ScoreComponent } from './score.component';
-import { IScoreGroup } from 'app/services/model/IScoreGroup';
-import { IDiscipline } from 'app/services/model/IDiscipline';
-import { Operation } from 'app/services/model/Operation';
-import { ITeamInDisciplineScore } from 'app/services/model/ITeamInDisciplineScore';
-import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
+import { IScoreGroup, IDiscipline, Operation, ITeamInDisciplineScore, ITeamInDiscipline } from 'app/services/model';
 
 @Component({
  selector  : 'app-cmp',

@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 
-import { RoleGuard } from 'app/shared/guards/role-guard';
-import { Role } from 'app/services/model/IUser';
+import { RoleGuard } from 'app/shared/guards';
+import { Role } from 'app/services/model';
 
 import { ClubComponent } from './club.component';
 import { ClubEditorComponent } from './club-editor/club-editor.component';
-import { MembersComponent } from "./members/members.component";
-import { TeamsComponent } from "./teams/teams.component";
+import { MembersComponent } from './members/members.component';
+import { TeamsComponent } from './teams/teams.component';
 
 
 export const ClubRoutes: Routes = [

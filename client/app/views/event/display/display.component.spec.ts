@@ -12,14 +12,14 @@ import { SharedModule } from 'app/shared/shared.module';
 import { DisplayComponent } from './display.component';
 import { ConfigurationService, ScheduleService, TournamentService, DisplayService, EventService, UserService } from 'app/services/api';
 
-import { EventServiceStub } from 'app/services/api/event.service.stub';
-import { DisplayServiceStub } from 'app/services/api/display.service.stub';
-import { dummyTournament } from 'app/services/api/tournament.service.stub';
-import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
-import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
-import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { EventServiceStub } from 'app/services/api/event/event.service.stub';
+import { DisplayServiceStub } from 'app/services/api/display/display.service.stub';
+import { dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
+import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { EventComponent } from '../event.component';
-import { ITournament } from 'app/services/model/ITournament';
+import { ITournament } from 'app/services/model';
 
 class DummyParent {
   tournamentSubject = new ReplaySubject<ITournament>(1);

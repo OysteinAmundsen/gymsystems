@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { TournamentService } from 'app/services/api';
-import { ITournament } from 'app/services/model/ITournament';
 import { Title } from '@angular/platform-browser';
-
+import { ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject } from 'rxjs/Rx';
+import { TournamentService } from 'app/services/api';
+import { ITournament } from 'app/services/model';
+
 
 @Component({
   selector: 'app-event',

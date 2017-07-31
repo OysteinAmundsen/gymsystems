@@ -2,11 +2,8 @@ import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
 import { TeamsService, UserService } from 'app/services/api';
+import { ITeam, IUser, Role, Classes, ITournament } from 'app/services/model';
 
-import { ITeam } from 'app/services/model/ITeam';
-import { IUser, Role } from 'app/services/model/IUser';
-import { Classes } from 'app/services/model/Classes';
-import { ITournament } from 'app/services/model/ITournament';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
 @Component({

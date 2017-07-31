@@ -11,8 +11,8 @@ import { MembersComponent } from './members.component';
 import { MemberEditorComponent } from './member-editor/member-editor.component';
 import { ClubEditorComponent } from '../club-editor/club-editor.component';
 import { ClubService, UserService } from 'app/services/api';
-import { ClubServiceStub } from 'app/services/api/club.service.stub';
-import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
 describe('MembersComponent', () => {
   let component: MembersComponent;

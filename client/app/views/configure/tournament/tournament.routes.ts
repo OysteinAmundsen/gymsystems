@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { RoleGuard } from 'app/shared/guards/role-guard';
-import { Role } from 'app/services/model/IUser';
+import { RoleGuard } from 'app/shared/guards';
+import { Role } from 'app/services/model';
 
 import { TournamentComponent } from './tournament.component';
 import { TournamentEditorComponent } from './tournament-editor/tournament-editor.component';

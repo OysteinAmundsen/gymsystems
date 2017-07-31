@@ -2,8 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit, Input, EventEmitter, Output
 import { DragulaService } from 'ng2-dragula';
 
 import { DivisionService, ConfigurationService, TournamentService } from 'app/services/api';
-import { IDivision } from 'app/services/model/IDivision';
-import { DivisionType } from 'app/services/model/DivisionType';
+import { IDivision, DivisionType } from 'app/services/model';
 
 @Component({
   selector: 'app-divisions',

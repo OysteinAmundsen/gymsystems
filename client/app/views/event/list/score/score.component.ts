@@ -1,7 +1,7 @@
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 
-import { ITeamInDisciplineScore } from 'app/services/model/ITeamInDisciplineScore';
+import { ITeamInDisciplineScore } from 'app/services/model';
 
 @Component({
   selector: 'app-score',

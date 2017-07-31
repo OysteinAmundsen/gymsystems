@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 
 import { UserService, ClubService } from 'app/services/api';
-import { ValidationService } from 'app/services/validation/validation.service';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ValidationService } from 'app/services/validation';
+import { ErrorHandlerService } from 'app/services/config';
 
 import { IUser, Role } from 'app/services/model/IUser';
 import { IClub } from 'app/services/model/IClub';
-import { UppercaseFormControl } from 'app/shared/form/UppercaseFormControl';
+import { UppercaseFormControl } from 'app/shared/form';
 
 enum Type {
   Organizer = 0 + Role.Organizer, Club = 0 + Role.Club

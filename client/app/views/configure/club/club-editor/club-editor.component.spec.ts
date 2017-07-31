@@ -11,10 +11,9 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ClubEditorComponent } from './club-editor.component';
 import { ClubService, UserService } from 'app/services/api';
 
-import { ClubServiceStub } from 'app/services/api/club.service.stub';
-import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 
 describe('ClubEditorComponent', () => {
   let component: ClubEditorComponent;

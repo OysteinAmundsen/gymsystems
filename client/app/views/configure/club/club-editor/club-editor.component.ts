@@ -1,14 +1,13 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ReplaySubject } from 'rxjs/Rx';
 
 import * as _ from 'lodash';
 
 import { ClubService, UserService } from 'app/services/api';
-import { IUser, Role } from 'app/services/model/IUser';
-import { IClub } from 'app/services/model/IClub';
-import { UppercaseFormControl } from "app/shared/form/UppercaseFormControl";
-import { ReplaySubject } from "rxjs/Rx";
+import { IUser, Role, IClub } from 'app/services/model';
+import { UppercaseFormControl } from 'app/shared/form';
 
 @Component({
   selector: 'app-club-editor',
@@ -27,7 +26,7 @@ export class ClubEditorComponent implements OnInit {
   isEdit = false;
 
   get clubName() {
-    let clubName = this.clubForm && this.clubForm.value.name ? this.clubForm.value.name : this.club.name;
+    const clubName = this.clubForm && this.clubForm.value.name ? this.clubForm.value.name : this.club.name;
     return _.startCase(_.lowerCase(clubName));
   }
 

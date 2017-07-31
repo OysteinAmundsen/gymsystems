@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Guards
 import { Role } from 'app/services/model/IUser';
-import { RoleGuard } from 'app/shared/guards/role-guard';
+import { RoleGuard } from 'app/shared/guards';
 
 // Child routes
 import { TournamentRoutes } from './tournament/tournament.routes';

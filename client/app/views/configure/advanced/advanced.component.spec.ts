@@ -1,6 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -14,12 +15,11 @@ import { ScoreSystemModule } from '../tournament/score-system/score-system.modul
 import { AdvancedComponent } from './advanced.component';
 
 import { ConfigurationService, TournamentService, DivisionService } from 'app/services/api';
-import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
-import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
-import { DivisionServiceStub } from 'app/services/api/division.service.stub';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpInterceptor, ErrorHandlerService } from 'app/services/config';
+
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
+import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
 
 describe('AdvancedComponent', () => {
   let component: AdvancedComponent;

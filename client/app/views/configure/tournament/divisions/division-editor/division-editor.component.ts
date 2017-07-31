@@ -1,9 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { DivisionService } from 'app/services/api/division.service';
-import { IDivision } from 'app/services/model/IDivision';
-import { DivisionType } from 'app/services/model/DivisionType';
+import { DivisionService } from 'app/services/api';
+import { IDivision, DivisionType } from 'app/services/model';
 
 @Component({
   selector: 'app-division-editor',

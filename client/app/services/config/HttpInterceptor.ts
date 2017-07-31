@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ErrorHandlerService } from 'app/services/config';
 import { Subject } from 'rxjs/Subject';
 
 export interface HttpAction {

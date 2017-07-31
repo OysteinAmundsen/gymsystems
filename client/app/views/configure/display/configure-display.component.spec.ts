@@ -12,9 +12,8 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ConfigureDisplayComponent } from './configure-display.component';
 import { MacroDialogComponent } from './macro-dialog/macro-dialog.component';
 import { ConfigurationService } from 'app/services/api';
-import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+import { HttpInterceptor, ErrorHandlerService } from 'app/services/config';
 
 describe('ConfigureDisplayComponent', () => {
   let component: ConfigureDisplayComponent;

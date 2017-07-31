@@ -10,8 +10,8 @@ import { SharedModule } from 'app/shared/shared.module';
 
 import { ClubComponent } from './club.component';
 import { ClubService, UserService } from 'app/services/api';
-import { ClubServiceStub } from 'app/services/api/club.service.stub';
-import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
 describe('ClubComponent', () => {
   let component: ClubComponent;

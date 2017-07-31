@@ -18,15 +18,15 @@ import {
   UserService,
   ConfigurationService,
   ScoreService } from 'app/services/api';
-import { ITournament } from 'app/services/model/ITournament';
+import { ITournament } from 'app/services/model';
 
-import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { EventServiceStub } from 'app/services/api/event.service.stub';
-import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament.service.stub';
-import { TeamsServiceStub } from 'app/services/api/teams.service.stub';
-import { ScheduleServiceStub } from 'app/services/api/schedule.service.stub';
-import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
-import { ScoreServiceStub } from 'app/services/api/score.service.stub';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+import { EventServiceStub } from 'app/services/api/event/event.service.stub';
+import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
+import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
+import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 import { EventComponent } from '../event.component';
 
 class DummyParent {

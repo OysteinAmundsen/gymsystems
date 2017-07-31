@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 
-import { TournamentService } from 'app/services/api/tournament.service';
-import { ITournament } from 'app/services/model/ITournament';
+import { TournamentService } from 'app/services/api';
+import { ITournament } from 'app/services/model';
 
 interface TournamentType {name: string, tournaments: ITournament[]}
 

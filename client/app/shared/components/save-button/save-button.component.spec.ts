@@ -7,10 +7,8 @@ import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { SaveButtonComponent } from './save-button.component';
-import { FaComponent } from 'app/shared/components/fontawesome/fa.component';
-import { FaStackComponent } from 'app/shared/components/fontawesome/fa-stack.component';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { FaComponent, FaStackComponent } from 'app/shared/components';
+import { HttpInterceptor, ErrorHandlerService } from 'app/services/config';
 
 describe('SaveButtonComponent', () => {
   let component: SaveButtonComponent;

@@ -10,7 +10,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { UsersComponent } from './users.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
 import { UserService } from 'app/services/api';
-import { UserServiceStub } from 'app/services/api/user.service.stub';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;

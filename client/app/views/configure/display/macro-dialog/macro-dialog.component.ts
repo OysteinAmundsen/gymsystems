@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Logger } from 'app/services/Logger';
+import { Logger } from 'app/services';
 
-import { DialogComponent } from 'app/shared/components/dialog/dialog.component';
+import { DialogComponent } from 'app/shared/components';
 
 @Component({
   selector: 'app-macro-dialog',

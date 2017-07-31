@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { UserService } from 'app/services/api';
-import { IUser, RoleNames } from 'app/services/model/IUser';
+import { IUser, RoleNames } from 'app/services/model';
 
 @Component({
   selector: 'app-users',

@@ -1,14 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
-import { IClub } from 'app/services/model/IClub';
-import { IClubContestant } from 'app/services/model/IClubContestant';
-import { Gender } from 'app/services/model/Gender';
-import { IDivision } from 'app/services/model/IDivision';
-import { DivisionType } from 'app/services/model/DivisionType';
-import { ConfigurationService } from 'app/services/api';
 import { TranslateService } from '@ngx-translate/core';
+
+import { IClub, IClubContestant, Gender, IDivision, DivisionType } from 'app/services/model';
+import { ConfigurationService } from 'app/services/api';
 
 @Component({
   selector: 'app-member-editor',

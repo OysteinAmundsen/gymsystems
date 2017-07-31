@@ -11,9 +11,9 @@ import { DivisionsComponent } from './divisions.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { DivisionEditorComponent } from '../divisions';
 import { TournamentService, DivisionService, ConfigurationService } from 'app/services/api';
-import { TournamentServiceStub } from 'app/services/api/tournament.service.stub';
-import { DivisionServiceStub } from 'app/services/api/division.service.stub';
-import { ConfigurationServiceStub } from 'app/services/api/configuration.service.stub';
+import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
+import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
 describe('DivisionsComponent', () => {
   let component: DivisionsComponent;

@@ -14,10 +14,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ScoreService, UserService } from 'app/services/api';
-import { Operation } from 'app/services/model/Operation';
-import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
-import { ITeamInDisciplineScore } from 'app/services/model/ITeamInDisciplineScore';
-import { IUser, Role } from 'app/services/model/IUser';
+import { Operation, ITeamInDiscipline, ITeamInDisciplineScore, IUser, Role } from 'app/services/model';
 
 import { IScoreContainer } from '../IScoreContainer';
 import { ScoreGroupComponent } from '../score-group/score-group.component';

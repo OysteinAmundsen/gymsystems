@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 import { UserService } from 'app/services/api';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { Title } from '@angular/platform-browser';
+import { ErrorHandlerService } from 'app/services/config';
 
 @Component({
   selector: 'app-logout',

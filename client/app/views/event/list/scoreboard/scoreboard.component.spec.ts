@@ -20,8 +20,8 @@ import { ITournament } from 'app/services/model/ITournament';
 import { IScoreGroup } from 'app/services/model/IScoreGroup';
 import { Operation } from 'app/services/model/Operation';
 
-import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { ScoreServiceStub } from 'app/services/api/score.service.stub';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 

@@ -1,7 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, forwardRef, Input, Output, EventEmitter, HostListener, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import * as moment from 'moment';
-import { Logger } from 'app/services/Logger';
+import { Logger } from 'app/services';
 
 export interface CalendarDate {
   day: number;

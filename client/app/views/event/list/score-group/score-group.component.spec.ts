@@ -11,9 +11,7 @@ import { HttpLoaderFactory } from 'app/app.module';
 import { ScoreGroupComponent } from './score-group.component';
 import { ScoreComponent } from '../score/score.component';
 import { IScoreContainer } from '../IScoreContainer';
-import { IScoreGroup } from 'app/services/model/IScoreGroup';
-import { IDiscipline } from 'app/services/model/IDiscipline';
-import { Operation } from 'app/services/model/Operation';
+import { IScoreGroup, IDiscipline, Operation } from 'app/services/model';
 
 @Component({
  selector  : 'app-cmp',

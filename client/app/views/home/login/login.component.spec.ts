@@ -10,8 +10,8 @@ import { HttpLoaderFactory } from 'app/app.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { LoginComponent } from './login.component';
 import { UserService } from 'app/services/api';
-import { UserServiceStub } from 'app/services/api/user.service.stub';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+import { ErrorHandlerService } from 'app/services/config';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

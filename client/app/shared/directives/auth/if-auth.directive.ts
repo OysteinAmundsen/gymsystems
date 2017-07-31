@@ -1,7 +1,8 @@
 import { Directive, Input, TemplateRef, ViewContainerRef, OnDestroy } from '@angular/core';
-import { UserService } from 'app/services/api';
-import { Role } from 'app/services/model/IUser';
 import { Subscription } from 'rxjs/Subscription';
+
+import { UserService } from 'app/services/api';
+import { Role } from 'app/services/model';
 
 @Directive({
   selector: '[appIfAuth]'
