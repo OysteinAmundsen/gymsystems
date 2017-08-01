@@ -69,13 +69,13 @@
   optionalDependencies:
     node-sass "^4.3.0"
 
-"@angular/common@^4.3.2":
+"@angular/common@^4.2.6":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-4.3.2.tgz#2fbd97b39e845399c3457e1d55abc6b1f60e09b8"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/compiler-cli@^4.3.2":
+"@angular/compiler-cli@^4.2.6":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-4.3.2.tgz#a9c4b94590c82d0e3f28b1de497be636e21c3cc6"
   dependencies:
@@ -83,43 +83,43 @@
     minimist "^1.2.0"
     reflect-metadata "^0.1.2"
 
-"@angular/compiler@^4.3.2":
+"@angular/compiler@^4.2.6":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-4.3.2.tgz#b7922d0b2087a82e7b516a1c111a5993054f68b3"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/core@^4.3.2":
+"@angular/core@^4.2.6":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-4.3.2.tgz#ea78341c3501ad8f43b51ffb183e200dc19844c3"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/forms@^4.3.2":
+"@angular/forms@^4.2.6":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-4.3.2.tgz#6e7c363ed994927dcefd1a191899cdb7be02cec6"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/http@^4.3.2":
+"@angular/http@^4.2.6":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.3.2.tgz#851a56b700e6cfde669776883d32b0481e0d5307"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/platform-browser-dynamic@^4.3.2":
+"@angular/platform-browser-dynamic@^4.2.6":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.3.2.tgz#f434f1a2e70f53803f19f8fd4f466516fc34eed5"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/platform-browser@^4.3.2":
+"@angular/platform-browser@^4.2.6":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-4.3.2.tgz#7ff0f6a5c29f138faeeb7ab808eb7ab202a08594"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/router@^4.3.2":
+"@angular/router@^4.2.6":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@angular/router/-/router-4.3.2.tgz#71edc8fe7fe4638a66d1554d5785451dcad24284"
   dependencies:
