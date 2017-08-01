@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, ReplaySubject } from 'rxjs/Rx';
 import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+// import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app/app.module';
 
@@ -39,12 +39,12 @@ describe('TeamsComponent', () => {
         HttpModule,
         SharedModule,
         RouterTestingModule,
-        HttpClientModule,
+        // HttpClientModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
+            deps: [Http]
           }
         }),
       ],

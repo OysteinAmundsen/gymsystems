@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+// import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app/app.module';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -21,12 +21,12 @@ describe('EventComponent', () => {
         RouterTestingModule,
         HttpModule,
         SharedModule,
-        HttpClientModule,
+        // HttpClientModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
+            deps: [Http]
           }
         }),
       ],
