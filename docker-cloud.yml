@@ -16,7 +16,7 @@ nginx:
     - LE_EMAIL=oystein.amundsen@gmail.com
     - LE_FQDN=www.gymsystems.org
 
-client:
+gymsystems:
   autodestroy: on-success
   restart: on-failure
   autoredeploy: true
