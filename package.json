@@ -58,7 +58,7 @@
     "@angular/http": "4.2.6",
     "@angular/platform-browser": "4.2.6",
     "@angular/platform-browser-dynamic": "4.2.6",
-    "@angular/router": "4.2.6",
+    "@angular/router": "4.3.3",
     "@ngx-translate/core": "^7.1.0",
     "@ngx-translate/http-loader": "0.1.0",
     "angulartics2": "^2.2.2",
