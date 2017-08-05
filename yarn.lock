@@ -3096,10 +3096,6 @@ items@2.x.x:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/items/-/items-2.1.1.tgz#8bd16d9c83b19529de5aea321acaada78364a198"
 
-jasmine-core@~2.6.0:
-  version "2.6.4"
-  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.6.4.tgz#dec926cd0a9fa287fb6db5c755fa487e74cecac5"
-
 jasmine-core@~2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.7.0.tgz#50ff8c4f92d8ef5c0b2c1b846dd263ed85152091"
@@ -3110,13 +3106,22 @@ jasmine-spec-reporter@~4.1.1:
   dependencies:
     colors "1.1.2"
 
-jasmine@^2.5.3:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/jasmine/-/jasmine-2.6.0.tgz#6b22e70883e8e589d456346153b4d206ddbe217f"
+jasmine-ts@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/jasmine-ts/-/jasmine-ts-0.2.0.tgz#b7a4d40e5ea2c829d10b1cbb45bea743e9475c6d"
+  dependencies:
+    jasmine "^2.6.0"
+    ts-node "^3.2.0"
+    typescript "^2.4.1"
+    yargs "^8.0.2"
+
+jasmine@^2.5.3, jasmine@^2.6.0, jasmine@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/jasmine/-/jasmine-2.7.0.tgz#5cf0bb4e594b4600bb4235560366212ac5aea1b2"
   dependencies:
     exit "^0.1.2"
     glob "^7.0.6"
-    jasmine-core "~2.6.0"
+    jasmine-core "~2.7.0"
 
 jasminewd2@^2.1.0:
   version "2.1.0"
@@ -5913,7 +5918,7 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
-ts-node@^3.3.0:
+ts-node@^3.2.0, ts-node@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-3.3.0.tgz#c13c6a3024e30be1180dd53038fc209289d4bf69"
   dependencies:
@@ -6012,7 +6017,7 @@ typeorm@^0.0.11:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 
-typescript@^2.4.2:
+typescript@^2.4.1, typescript@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.2.tgz#f8395f85d459276067c988aa41837a8f82870844"
 
@@ -6512,7 +6517,7 @@ yargs-parser@^7.0.0:
   dependencies:
     camelcase "^4.1.0"
 
-yargs@8.0.2:
+yargs@8.0.2, yargs@^8.0.2:
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-8.0.2.tgz#6299a9055b1cefc969ff7e79c1d918dceb22c360"
   dependencies:

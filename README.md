@@ -98,7 +98,7 @@ You can start the server bit of this project up in three ways:
 3. Build continously and **debug**
 
   ```bash
-  npm run server:build:watch
+  npm run server:buildw
   ```
   This command will continously build the backend while you develop. It will not start the server though. We like to use VSCode, and have included VSCode launch settings in this repository for you. Choose to debug `Server` in VSCode, and you are up. When you do changes to the code, the server will rebuild and your debugging session will restart automatically.
 

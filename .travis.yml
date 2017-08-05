@@ -10,6 +10,7 @@ addons:
 language: node_js
 node_js:
   - 7
+  - 8
 matrix:
   fast_finish: true
 services:
@@ -25,9 +26,7 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 script:
   - yarn run build
-  - yarn run client:test
-  # - yarn run server:test
-  # - yarn run e2e
+  - yarn run test
 after_success:
 #  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 #  - docker push oysteinamundsen/gymsystems:master
