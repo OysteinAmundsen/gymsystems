@@ -125,7 +125,7 @@
     "codelyzer": "~3.1.2",
     "concurrently": "~3.5.0",
     "jasmine": "^2.7.0",
-    "jasmine-spec-reporter": "~4.1.1",
+    "jasmine-spec-reporter": "~4.2.0",
     "jasmine-ts": "^0.2.0",
     "karma": "~1.7.0",
     "karma-chrome-launcher": "~2.2.0",
