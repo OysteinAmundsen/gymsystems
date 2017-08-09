@@ -118,7 +118,7 @@
     "@types/node-schedule": "^1.2.0",
     "@types/passport": "~0.3.3",
     "@types/passport-local": "~1.0.30",
-    "@types/rimraf": "^0.0.28",
+    "@types/rimraf": "^2.0.0",
     "@types/serve-favicon": "~2.2.28",
     "@types/winston": "~2.3.4",
     "cloc": "^2.2.0",
