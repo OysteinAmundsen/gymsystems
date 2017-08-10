@@ -1,4 +1,4 @@
-import { AfterViewChecked, Directive, ElementRef, OnInit, Renderer } from '@angular/core';
+import { AfterViewChecked, Directive, ElementRef, Renderer2, OnInit, AfterViewInit } from '@angular/core';
 
 @Directive({
   selector: '[appFloatingLabelContainer]'
@@ -6,7 +6,7 @@ import { AfterViewChecked, Directive, ElementRef, OnInit, Renderer } from '@angu
 export class FloatingLabelContainerDirective implements OnInit, AfterViewChecked {
   inputElm: HTMLInputElement;
   labelElm: HTMLLabelElement;
-  constructor(private host: ElementRef, private renderer: Renderer) { }
+  constructor(private host: ElementRef, private renderer: Renderer2) { }
 
   ngOnInit() {
     this.inputElm = this.host.nativeElement.querySelector('input,textarea,select');
@@ -28,11 +28,19 @@ export class FloatingLabelContainerDirective implements OnInit, AfterViewChecked
   }
 
   onValueChanged() {
-    this.renderer.setElementClass(this.host.nativeElement, 'hasValue', this.inputElm.value.length > 0);
+    if (this.inputElm.value.length > 0) {
+      this.renderer.addClass(this.host.nativeElement, 'hasValue');
+    } else {
+      this.renderer.removeClass(this.host.nativeElement, 'hasValue');
+    }
   }
 
   onFocusChanged() {
-    this.renderer.setElementClass(this.host.nativeElement, 'hasFocus', document.activeElement === this.inputElm);
+    if (document.activeElement === this.inputElm) {
+      this.renderer.addClass(this.host.nativeElement, 'hasFocus');
+    } else {
+      this.renderer.removeClass(this.host.nativeElement, 'hasFocus');
+    }
     this.onValueChanged();
   }
 

@@ -38,8 +38,7 @@ export class DivisionEditorComponent implements OnInit {
         this.divisionChanged.emit(result);
         this.divisionForm.setValue(result);
       });
-    }
-    else {
+    } else {
       this.divisionChanged.emit(this.divisionForm.value);
     }
   }

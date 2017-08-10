@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ClubService } from 'app/services/api';
 import { IClub, IClubContestant, DivisionType, Gender } from 'app/services/model';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
@@ -8,7 +8,7 @@ import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-e
   templateUrl: './members.component.html',
   styleUrls: ['./members.component.scss']
 })
-export class MembersComponent implements OnInit {
+export class MembersComponent implements OnInit, OnDestroy {
   club: IClub;
   memberList: IClubContestant[] = [];
 
@@ -34,15 +34,13 @@ export class MembersComponent implements OnInit {
     this.clubService.getMembers(this.club.id).subscribe(members => this.memberList = members);
   }
 
-  ageDivision(member: IClubContestant) { return Object.keys(DivisionType).find(k => DivisionType[k] === member.ageDivision); }
-
   genderDivision(member: IClubContestant) { return Object.keys(Gender).find(k => Gender[k] === member.gender); }
 
   addMember() {
     const member = <IClubContestant>{
       id          : null,
       name        : null,
-      ageDivision : null,
+      birthYear   : null,
       gender      : null,
       partof      : null,
       club        : null

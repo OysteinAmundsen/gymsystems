@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef, Renderer, forwardRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, Renderer2, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -30,13 +30,13 @@ export class SlideToggleComponent implements OnInit, ControlValueAccessor {
     if (value != null && value !== this._state) {
       this._state = value;
       this.checked = value === this.onState;
-      this.renderer.setElementClass(this.elm.nativeElement, 'checked', this.checked);
+      if (this.checked) { this.renderer.addClass(this.elm.nativeElement, 'checked'); }
       this.propagateChange(this._state);
     }
   }
   propagateChange = (_: any) => { };
 
-  constructor(private elm: ElementRef, private renderer: Renderer) { }
+  constructor(private elm: ElementRef, private renderer: Renderer2) { }
 
   ngOnInit() { }
 

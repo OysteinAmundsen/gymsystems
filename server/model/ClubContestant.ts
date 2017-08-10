@@ -19,7 +19,7 @@ export class ClubContestant implements BelongsToClub {
   name: string;
 
   @Column()
-  ageDivision: DivisionType;
+  birthYear: number;
 
   @Column()
   gender: Gender;

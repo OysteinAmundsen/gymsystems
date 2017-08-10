@@ -6,10 +6,8 @@
         <input type="text" formControlName="name" appAutofocus>
       </div>
       <div class="col-4" appFloatingLabelContainer>
-        <label translate>Age</label>
-        <select formControlName="ageDivision">
-          <option *ngFor="let division of ageDivisions" [ngValue]="division.id">{{division.name}}</option>
-        </select>
+        <label translate>Birth year</label>
+        <input type="number" formControlName="birthYear" [min]="minYear" [max]="maxYear" minlength="4" maxlength="4">
       </div>
       <div class="col-2">
         <label translate>Gender</label>

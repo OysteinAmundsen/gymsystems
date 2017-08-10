@@ -1,5 +1,16 @@
+import 'reflect-metadata';
+import { QueryBuilder } from 'typeorm';
+import { Club } from '../model/Club';
+
 describe('ClubController', () => {
+  let queryBuilder: QueryBuilder<Club>;
+  // let dataprovider: EntityProvider;
+
   beforeEach(() => {
+    queryBuilder = new QueryBuilder<Club>(null);
+
+    // dataprovider = new EntityProvider(null);
+    // dataprovider.setQueryBuilder(queryBuilder);
   });
 
   it('can retreive all clubs', () => {

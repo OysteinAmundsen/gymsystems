@@ -9,7 +9,7 @@ import * as moment from 'moment';
 
 import { Logger } from 'app/services';
 
-import { ConfigurationService } from 'app/services/api';
+import { ConfigurationService } from 'app/services/api/configuration/configuration.service';
 import { ITeamInDiscipline, ITournament } from 'app/services/model';
 
 @Injectable()

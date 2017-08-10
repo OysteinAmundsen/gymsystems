@@ -10,7 +10,7 @@
     <tbody *ngFor="let member of memberList">
       <tr *ngIf="member !== selected" (click)="select(member)" role="listitem">
         <td>{{ member.name }}</td>
-        <td>{{ ageDivision(member) }}</td>
+        <td>{{ member.birthYear }}</td>
         <td>{{ genderDivision(member) }}</td>
       </tr>
       <tr *ngIf="member === selected">

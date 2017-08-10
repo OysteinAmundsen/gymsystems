@@ -3,8 +3,13 @@
   position: absolute;
   bottom: 5px;
   right: 0;
+  .help > * {
+    padding: $padding 0;
+    position: relative;
+  }
 }
 
 .help-available {
   position: relative;
 }
+

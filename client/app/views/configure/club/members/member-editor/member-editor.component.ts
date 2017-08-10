@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { IClub, IClubContestant, Gender, IDivision, DivisionType } from 'app/services/model';
-import { ConfigurationService } from 'app/services/api';
+import { ConfigurationService, ClubService } from 'app/services/api';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-member-editor',
@@ -17,36 +19,45 @@ export class MemberEditorComponent implements OnInit {
   @Output() memberChanged = new EventEmitter<IClubContestant>();
 
   gender = Gender;
-  divisions: IDivision[] = [];
   get Male(): string { return this.translate.instant('Male'); }
   get Female(): string { return this.translate.instant('Female'); }
 
-  memberForm: FormGroup;
+  minYear = moment().subtract(60, 'year').year();
+  maxYear = moment().subtract(8, 'year').year();
 
-  get ageDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Age); }
+  memberForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private configService: ConfigurationService,
+    private clubService: ClubService,
     private translate: TranslateService) { }
 
   ngOnInit() {
-    this.configService.getByname('defaultValues').subscribe(configuration => this.divisions = configuration.value.division);
     this.memberForm = this.fb.group({
       name: [this.member.name, [Validators.required]],
-      ageDivision: [this.member.ageDivision],
+      birthYear: [this.member.birthYear || this.maxYear, [
+        Validators.required,
+        Validators.min(this.minYear),
+        Validators.max(this.maxYear),
+        Validators.minLength(4),
+        Validators.maxLength(4)
+      ]],
       gender: [this.member.gender]
     });
   }
 
   save() {
+    const member = this.memberForm.value;
+    member.club = this.club;
+    this.clubService.saveMember(member).subscribe(response => {
 
+    });
   }
 
   delete() {
-
   }
+
   close() {
     this.memberChanged.emit(this.member);
   }

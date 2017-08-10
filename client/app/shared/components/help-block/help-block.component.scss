@@ -33,9 +33,6 @@
     &:hover {
       display: block;
     }
-    ::ng-deep p {
-      padding: $padding 0;
-    }
     &:before {
       content: '';
       display: block;
