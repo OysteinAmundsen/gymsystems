@@ -1,13 +1,13 @@
-      37 text files.
-classified 37 files      37 unique files.                              
+      40 text files.
+classified 40 files      40 unique files.                              
       10 files ignored.
 
-github.com/AlDanial/cloc v 1.72  T=0.09 s (429.5 files/s, 35275.3 lines/s)
+github.com/AlDanial/cloc v 1.72  T=0.59 s (68.0 files/s, 5293.6 lines/s)
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-TypeScript                      36            418            389           2205
-JSON                             1              3              0             24
+TypeScript                      38            433            392           2244
+JSON                             2              0              0             45
 -------------------------------------------------------------------------------
-SUM:                            37            421            389           2229
+SUM:                            40            433            392           2289
 -------------------------------------------------------------------------------

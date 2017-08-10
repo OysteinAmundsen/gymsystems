@@ -1,16 +1,16 @@
-     100 files     200 files     300 files     302 text files.
-classified 302 filesDuplicate file check 302 files (279 known unique)Unique:      100 files                                          Unique:      200 files                                               302 unique files.                              
-Counting:  100Counting:  200Counting:  300      86 files ignored.
+     100 files     200 files     300 files     317 text files.
+classified 317 filesDuplicate file check 317 files (296 known unique)Unique:      100 files                                          Unique:      200 files                                               317 unique files.                              
+Counting:  100Counting:  200Counting:  300      99 files ignored.
 
-github.com/AlDanial/cloc v 1.72  T=0.46 s (652.2 files/s, 30719.0 lines/s)
+github.com/AlDanial/cloc v 1.72  T=3.80 s (82.1 files/s, 3772.8 lines/s)
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-TypeScript                     198           1292            255           8132
-Sass                            47            113             24           2165
-HTML                            45             88             26           1413
-JSON                             6              0              0            472
+TypeScript                     210           1322            262           8286
+Sass                            49            116             24           2194
+HTML                            46             94             31           1468
+JSON                             6              0              0            524
 XML                              1              0              0              9
 -------------------------------------------------------------------------------
-SUM:                           297           1493            305          12191
+SUM:                           312           1532            317          12481
 -------------------------------------------------------------------------------
