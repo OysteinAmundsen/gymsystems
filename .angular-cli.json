@@ -24,8 +24,7 @@
     "prefix": "app",
     "styles": [
       "styles.scss",
-      "../node_modules/font-awesome/scss/font-awesome.scss",
-      "../node_modules/flag-icon-css/sass/_flag-icon.scss"
+      "../node_modules/font-awesome/scss/font-awesome.scss"
     ],
     "scripts": [],
     "environmentSource": "environments/environment.ts",
