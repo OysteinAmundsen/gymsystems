@@ -12,7 +12,7 @@
       "i18n",
       "icons",
       "favicon.ico",
-      "manifest.json",
+      "manifest.webapp",
       "browserconfig.xml",
       "service-worker.js"
     ],
