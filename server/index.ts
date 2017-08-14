@@ -133,14 +133,14 @@ export class GymServer {
       // Setup static resources
       this.app.use(serveStatic(this.clientPath));
 
-      // Apply gzip
-      this.app.use(compression());
-
       // Favicon service
       const faviconPath = path.join(this.clientPath, 'favicon.ico');
       if (fs.existsSync(path.resolve(faviconPath))) {
         this.app.use(favicon(faviconPath));
       }
+
+      // Apply gzip
+      this.app.use(compression());
     }
 
     // Configure authentication services

@@ -6,6 +6,7 @@
   "apps": [{
     "root": "client",
     "outDir": "dist/public",
+    "serviceWorker": true,
     "assets": [
       "assets",
       "i18n",
