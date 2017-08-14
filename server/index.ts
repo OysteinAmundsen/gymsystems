@@ -15,6 +15,7 @@ import * as morgan from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as session from 'express-session';
+import * as compression from 'compression';
 
 // Authentication
 import * as auth from 'passport';
@@ -131,6 +132,9 @@ export class GymServer {
 
       // Setup static resources
       this.app.use(serveStatic(this.clientPath));
+
+      // Apply gzip
+      this.app.use(compression());
 
       // Favicon service
       const faviconPath = path.join(this.clientPath, 'favicon.ico');

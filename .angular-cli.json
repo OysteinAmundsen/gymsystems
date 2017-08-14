@@ -12,7 +12,8 @@
       "icons",
       "favicon.ico",
       "manifest.json",
-      "browserconfig.xml"
+      "browserconfig.xml",
+      "service-worker.js"
     ],
     "index": "index.html",
     "main": "main.ts",
@@ -23,7 +24,8 @@
     "prefix": "app",
     "styles": [
       "styles.scss",
-    "../node_modules/font-awesome/scss/font-awesome.scss"
+      "../node_modules/font-awesome/scss/font-awesome.scss",
+      "../node_modules/flag-icon-css/sass/_flag-icon.scss"
     ],
     "scripts": [],
     "environmentSource": "environments/environment.ts",
