@@ -140,7 +140,7 @@ export class GymServer {
       }
 
       // Apply gzip
-      this.app.use(compression());
+      // this.app.use(compression());
     }
 
     // Configure authentication services
