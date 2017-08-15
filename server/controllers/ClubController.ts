@@ -73,6 +73,7 @@ export class ClubController {
     return this.conn.getRepository(ClubContestant)
       .createQueryBuilder('contestant')
       .where('contestant.club = :id', {id: clubId})
+      .innerJoinAndSelect('contestant.club', 'club')
       .getMany();
   }
 
@@ -87,11 +88,12 @@ export class ClubController {
   }
 
   @Delete('/:clubId/members/:id')
-  async removeMember(@Param('clubId') clubId: number, @Param('id') memberId: number) {
-    const memberRepository = this.conn.getRepository(ClubContestant);
-    const member = await memberRepository.findOneById(memberId);
-    return memberRepository
-      .remove(member)
+  async removeMember(@Param('clubId') clubId: number, @Param('id') id: number) {
+    return this.conn.getRepository(ClubContestant)
+      .createQueryBuilder('contestant')
+      .where('id = :id', {id: id})
+      .delete()
+      .execute()
       .catch(err => Logger.log.error(err));
   }
 }

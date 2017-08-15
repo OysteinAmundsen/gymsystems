@@ -39,6 +39,10 @@ export class ClubService {
     return this.http.post(`${this.url}/${member.club.id}/members`, member).map((res: Response) => res.json());
   }
 
+  deleteMember(member: IClubContestant): any {
+    return this.http.delete(`${this.url}/${member.club.id}/members/${member.id}`).map((res: Response) => res.json());
+  }
+
   async validateClub(obj: IBelongsToClub) {
     let club;
     if (typeof obj.club === 'string') {

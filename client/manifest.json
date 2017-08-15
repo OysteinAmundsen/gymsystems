@@ -1,6 +1,13 @@
 {
   "name": "GymSystems",
   "short_name": "GymSystems",
+  "author": "Øystein Amundsen",
+  "description": "Web system for competitive teamgym scoreboarding",
+  "theme_color": "#69f",
+  "background_color": "#69f",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "/icons/android-chrome-192x192.png",
@@ -12,10 +19,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "theme_color": "#69f",
-  "background_color": "#69f",
-  "start_url": "/index.html",
-  "display": "standalone",
-  "orientation": "portrait"
+  ]
 }

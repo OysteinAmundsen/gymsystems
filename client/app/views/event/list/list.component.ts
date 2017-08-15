@@ -15,7 +15,7 @@ import { IMedia } from 'app/services/model/IMedia';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { ParticipationType } from 'app/services/model/ParticipationType';
 import { EventComponent } from '../event.component';
-import { IDiscipline } from "app/services/model/IDiscipline";
+import { IDiscipline } from 'app/services/model/IDiscipline';
 
 @Component({
   selector: 'app-list',
@@ -88,7 +88,7 @@ export class ListComponent implements OnInit, OnDestroy {
     return '<span class="warning">ERR</span>';
   }
   startDate(participant: ITeamInDiscipline) {
-    let time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
+    const time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
     if (time) { return time.format('ddd'); }
     return '';
   }

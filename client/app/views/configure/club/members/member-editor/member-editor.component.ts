@@ -7,6 +7,7 @@ import { IClub, IClubContestant, Gender, IDivision, DivisionType } from 'app/ser
 import { ConfigurationService, ClubService } from 'app/services/api';
 
 import * as moment from 'moment';
+import { ErrorHandlerService } from 'app/services/config';
 
 @Component({
   selector: 'app-member-editor',
@@ -31,11 +32,14 @@ export class MemberEditorComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private clubService: ClubService,
+    private errorHandler: ErrorHandlerService,
     private translate: TranslateService) { }
 
   ngOnInit() {
     this.memberForm = this.fb.group({
+      id: [this.member.id],
       name: [this.member.name, [Validators.required]],
+      club: [this.club],
       birthYear: [this.member.birthYear || this.maxYear, [
         Validators.required,
         Validators.min(this.minYear),
@@ -43,19 +47,29 @@ export class MemberEditorComponent implements OnInit {
         Validators.minLength(4),
         Validators.maxLength(4)
       ]],
-      gender: [this.member.gender]
+      gender: [this.member.gender || Gender.Male]
     });
   }
 
   save() {
     const member = this.memberForm.value;
-    member.club = this.club;
     this.clubService.saveMember(member).subscribe(response => {
-
+      if (response && response.message) {
+        this.errorHandler.error = response.message;
+      } else {
+        this.close();
+      }
     });
   }
 
   delete() {
+    this.clubService.deleteMember(this.member).subscribe(response => {
+      if (response && response.message) {
+        this.errorHandler.error = response.message;
+      } else {
+        this.close();
+      }
+    })
   }
 
   close() {
