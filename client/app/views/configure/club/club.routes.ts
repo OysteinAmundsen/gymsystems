@@ -7,6 +7,7 @@ import { ClubComponent } from './club.component';
 import { ClubEditorComponent } from './club-editor/club-editor.component';
 import { MembersComponent } from './members/members.component';
 import { TeamsComponent } from './teams/teams.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 export const ClubRoutes: Routes = [
@@ -18,6 +19,7 @@ export const ClubRoutes: Routes = [
         { path: '', redirectTo: 'members', pathMatch: 'full' },
         { path: 'members', component: MembersComponent, canActivate: [RoleGuard], data: { role: Role.Club} },
         { path: 'teams', component: TeamsComponent, canActivate: [RoleGuard], data: { role: Role.Club} },
+        { path: 'statistics', component: StatisticsComponent, canActivate: [RoleGuard], data: { role: Role.Club} },
       ] },
     ]
   }

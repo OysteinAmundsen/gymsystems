@@ -1,3 +1,18 @@
-<p>
-  teams works!
-</p>
+<div class="table-responsive">
+  <table role="list">
+    <thead>
+      <tr>
+        <th translate>Name</th>
+        <th translate>Age Division</th>
+        <th translate>Members</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let team of teamList">
+      <tr role="listitem">
+        <td>{{ team.name }}</td>
+        <td>{{ ageDivision(team) }}</td>
+        <td>{{ members(team) }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

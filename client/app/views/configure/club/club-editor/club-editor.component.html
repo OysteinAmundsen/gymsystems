@@ -49,6 +49,10 @@
       <a routerLink="./teams">
         <app-fa name="group" fw="true"></app-fa> <span translate>Teams</span> </a>
     </li>
+    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
+      <a routerLink="./statistics">
+        <app-fa name="line-chart" fw="true"></app-fa> <span translate>Statistics</span> </a>
+    </li>
   </ul>
 </menu>
 
