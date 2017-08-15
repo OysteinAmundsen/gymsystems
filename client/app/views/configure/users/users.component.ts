@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 import { UserService } from 'app/services/api';
 import { IUser, RoleNames } from 'app/services/model';
@@ -13,8 +13,10 @@ export class UsersComponent implements OnInit {
 
   userList: IUser[];
 
-  constructor(private userService: UserService, private title: Title) {
+  constructor(private userService: UserService, private title: Title, private meta: Meta) {
     title.setTitle('Configure users | GymSystems');
+    this.meta.updateTag({property: 'og:title', content: `Configure users | GymSystems`});
+    this.meta.updateTag({property: 'og:description', content: `List all users by club`});
   }
 
   ngOnInit() {

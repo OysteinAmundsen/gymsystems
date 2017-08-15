@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 import { TournamentService } from 'app/services/api';
 import { ITournament } from 'app/services/model';
@@ -17,9 +17,12 @@ export class TournamentComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private tournamentService: TournamentService,
-    private title: Title
+    private title: Title,
+    private meta: Meta
   ) {
     title.setTitle('Configure tournaments | GymSystems');
+    this.meta.updateTag({property: 'og:title', content: `Configure tournaments | GymSystems`});
+    this.meta.updateTag({property: 'og:description', content: `List all tournaments registerred`});
   }
 
   ngOnInit() {

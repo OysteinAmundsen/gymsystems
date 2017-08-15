@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 import { ConfigurationService } from 'app/services/api';
 
@@ -29,15 +29,18 @@ export class AdvancedComponent implements OnInit {
   }
   set executionTime(value) {
     const execIndex = this.configuration.findIndex(c => c.name === 'scheduleExecutionTime');
-    if (execIndex == -1) {
+    if (execIndex === -1) {
       this.configuration.push({name: 'scheduleExecutionTime', value: value});
     } else {
       this.configuration[execIndex].value = value;
     }
   }
 
-  constructor(private config: ConfigurationService, private title: Title) {
+  constructor(private config: ConfigurationService, private title: Title, private meta: Meta) {
+    // SEO
     title.setTitle('Advanced configuration | GymSystems');
+    meta.updateTag({property: 'og:title', content: 'Advanced configuration | GymSystems'});
+    meta.updateTag({property: 'og:description', content: 'Configuring advanced system properties'});
   }
 
   ngOnInit() {

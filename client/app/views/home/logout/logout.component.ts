@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 import { UserService } from 'app/services/api';
 import { ErrorHandlerService } from 'app/services/config';
@@ -18,9 +18,12 @@ export class LogoutComponent {
     private userService: UserService,
     private errorHandler: ErrorHandlerService,
     private translate: TranslateService,
-    private title: Title
+    private title: Title,
+    private meta: Meta
   ) {
     title.setTitle('Logout | GymSystems');
+    this.meta.updateTag({property: 'og:title', content: `Logout | GymSystems`});
+    this.meta.updateTag({property: 'og:description', content: `Loging out of GymSystems`});
     userService.logout().subscribe(() => this.reroute(), (err) => this.reroute(err));
   }
 

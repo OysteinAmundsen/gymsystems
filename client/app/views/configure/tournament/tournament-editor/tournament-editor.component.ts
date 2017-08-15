@@ -2,7 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 import { TournamentService, UserService } from 'app/services/api';
 import { ITournament } from 'app/services/model/ITournament';
@@ -45,7 +45,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     if (!this.tournamentForm.value.times && this.startDate && this.endDate) {
       this.tournamentForm.value.times = [];
       for (let j = 0; j < moment.duration(this.endDate.diff(this.startDate)).asDays(); j++) {
-        this.tournamentForm.value.times.push({day: moment.utc(this.startDate.clone().utc().startOf('day').add(j, 'day')), time: "12,18"});
+        this.tournamentForm.value.times.push({day: moment.utc(this.startDate.clone().utc().startOf('day').add(j, 'day')), time: '12,18'});
       }
     }
     return this.tournamentForm.value.times;
@@ -59,7 +59,8 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     private tournamentService: TournamentService,
     private error: ErrorHandlerService,
     private translate: TranslateService,
-    private title: Title
+    private title: Title,
+    private meta: Meta
   ) {  }
 
   ngOnInit() {
@@ -102,6 +103,9 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.tournament.description_no = this.tournament.description_no || '';
     this.tournament.description_en = this.tournament.description_en || '';
     this.title.setTitle(`Configure tournament: ${tournament.name} | GymSystems`);
+    this.meta.updateTag({property: 'og:title', content: `Configure tournament: ${tournament.name} | GymSystems`});
+    this.meta.updateTag({property: 'og:description', content: `Configure tournament settings and contenders for ${tournament.name}`});
+
     if (this.tournament.times) {
       this.tournament.times = this.tournament.times.map(t => {
         t.day = moment.utc(t.day).startOf('day');

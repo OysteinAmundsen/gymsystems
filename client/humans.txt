@@ -1,0 +1,16 @@
+
+/* TEAM */
+Developer and architect: Øystein Amundsen
+Site: oystein.amundsen@gmail.com
+Twitter: @OysteinAmundsen
+Location: Haugesund, Norway.
+
+/* THANKS */
+- To Bouvet for allowing me to host this on their Azure subscription.
+- To Docker team for making great VM technology
+- To Angular team for being awesome
+
+/* SITE */
+Standards: HTML5, CSS3, Javascript
+Components: Angular, Typescript
+GitHub: https://github.com/OysteinAmundsen/gymsystems

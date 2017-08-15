@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { ClubService, UserService } from 'app/services/api';
 import { IClub, IUser, Role } from 'app/services/model';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-club',
@@ -12,9 +13,19 @@ import { IClub, IUser, Role } from 'app/services/model';
 export class ClubComponent implements OnInit {
   clubList: IClub[];
   user: IUser;
-  constructor(private clubService: ClubService, private userService: UserService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private clubService: ClubService,
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private title: Title,
+    private meta: Meta
+  ) { }
 
   ngOnInit() {
+    this.title.setTitle('Configure clubs | GymSystems');
+    this.meta.updateTag({property: 'og:title', content: `Configure clubs | GymSystems`});
+    this.meta.updateTag({property: 'og:description', content: `List out all clubs registerred in the system`});
     this.userService.getMe().subscribe(user => {
       this.user = user;
       if (this.user.role >= Role.Admin) {

@@ -4,7 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { UserService } from 'app/services/api';
 import { Subscription } from 'rxjs/Subscription';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { ErrorHandlerService } from 'app/services/config';
 
 @Component({
@@ -27,9 +27,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private userService: UserService,
     private title: Title,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private meta: Meta
   ) {
     title.setTitle('Login | GymSystems');
+    this.meta.updateTag({property: 'og:title', content: `Login | GymSystems`});
+    this.meta.updateTag({property: 'og:description', content: `Login to increase your privileges in the system`});
   }
 
   ngOnInit() {

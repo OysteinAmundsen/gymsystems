@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 import { ConfigurationService } from 'app/services/api';
 
@@ -10,8 +10,10 @@ import { ConfigurationService } from 'app/services/api';
 })
 export class ConfigureDisplayComponent implements OnInit {
   templates: any = [];
-  constructor(private config: ConfigurationService, private title: Title) {
+  constructor(private config: ConfigurationService, private title: Title, private meta: Meta) {
     title.setTitle('Configure display | GymSystems');
+    meta.updateTag({property: 'og:title', content: 'Configure display | GymSystems'});
+    meta.updateTag({property: 'og:description', content: 'Configuring global display settings'});
   }
 
   ngOnInit() {

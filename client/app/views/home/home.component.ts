@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 import { TournamentService } from 'app/services/api';
 import { ITournament } from 'app/services/model';
@@ -30,8 +30,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     return past && past.tournaments && past.tournaments.length;
   }
 
-  constructor(private tournamentService: TournamentService, private translate: TranslateService, private title: Title) {
+  constructor(private tournamentService: TournamentService, private translate: TranslateService, private title: Title, private meta: Meta) {
     title.setTitle('GymSystems');
+    this.meta.updateTag({property: 'og:title', content: `GymSystems`});
+    this.meta.updateTag({property: 'og:description', content: `Web system for competitive teamgym scoreboarding`});
     this.translate.get(['Future', 'Past']).subscribe(); // Make sure texts exists and are translated
     tournamentService.upcoming().subscribe(tournaments => this._types.push({ name: 'Future', tournaments: tournaments }));
     tournamentService.past().subscribe(tournaments => this._types.push({ name: 'Past', tournaments: tournaments }));

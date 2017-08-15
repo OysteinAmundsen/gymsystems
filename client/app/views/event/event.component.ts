@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject } from 'rxjs/Rx';
 import { TournamentService } from 'app/services/api';
@@ -19,7 +19,7 @@ export class EventComponent implements OnInit, OnDestroy {
   tournamentSubject = new ReplaySubject<ITournament>(1);
   paramSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private tournamentService: TournamentService, private title: Title) { }
+  constructor(private route: ActivatedRoute, private tournamentService: TournamentService, private title: Title, private meta: Meta) { }
 
   ngOnInit() {
     this.paramSubscription = this.route.params.subscribe((params: any) => {
@@ -28,6 +28,8 @@ export class EventComponent implements OnInit, OnDestroy {
         this.tournament = tournament;
         this.tournamentSubject.next(this.tournament);
         this.title.setTitle(`${this.tournament.name} | GymSystems`);
+        this.meta.updateTag({property: 'og:title', content: `${this.tournament.name} | GymSystems`});
+        this.meta.updateTag({property: 'og:description', content: `${this.tournament.description_en}`});
       });
     });
   }

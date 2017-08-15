@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Rx';
 
 import { UserService, ClubService } from 'app/services/api';
@@ -35,6 +35,7 @@ export class UserEditorComponent implements OnInit {
     private userService: UserService,
     private clubService: ClubService,
     private title: Title,
+    private meta: Meta,
     private errorHandler: ErrorHandlerService) { }
 
   ngOnInit() {
@@ -46,6 +47,8 @@ export class UserEditorComponent implements OnInit {
         this.userService.getById(params.id).subscribe(user => this.userReceived(user));
       } else {
         this.title.setTitle(`Add user | GymSystems`);
+        this.meta.updateTag({property: 'og:title', content: `Add user | GymSystems`});
+        this.meta.updateTag({property: 'og:description', content: `Creating a new user in the system`});
       }
     });
 
@@ -66,6 +69,8 @@ export class UserEditorComponent implements OnInit {
   userReceived(user: IUser) {
     this.user = JSON.parse(JSON.stringify(user)); // Clone user object
     this.title.setTitle(`Configure user: ${this.user.name} | GymSystems`);
+    this.meta.updateTag({property: 'og:title', content: `Configure user: ${this.user.name} | GymSystems`});
+    this.meta.updateTag({property: 'og:description', content: `Editing user`});
     this.userForm.setValue({
       id: this.user.id,
       name: this.user.name,

@@ -12,6 +12,8 @@
       "i18n",
       "icons",
       "favicon.ico",
+      "robots.txt",
+      "humans.txt",
       "manifest.json",
       "browserconfig.xml",
       "service-worker.js"
