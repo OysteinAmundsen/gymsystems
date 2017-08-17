@@ -64,12 +64,12 @@ export class RegisterComponent implements OnInit {
 
   async register() {
     const user = this.registerForm.value;
-    if (!this.selectedClub && user.club) {
-      user.club = await this.clubService.validateClub(user);
-    } else if (this.selectedClub && this.selectedClub.id) {
-      delete this.selectedClub.teams;
-      user.club = this.selectedClub;
-    } else {
+    if (!user.club) {
+    //   user.club = await this.clubService.validateClub(user);
+    // } else if (this.selectedClub && this.selectedClub.id) {
+    //   delete this.selectedClub.teams;
+    //   user.club = this.selectedClub;
+    // } else {
       this.errorHandler.error = 'No club set. Cannot register!';
       return;
     }

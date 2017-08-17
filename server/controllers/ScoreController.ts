@@ -87,7 +87,7 @@ export class ScoreController {
       p.startTime = null;
       p.publishTime = null;
       scheduleRepository.update(p.id, p, res, req);
-      return this.repository.find({ participant: participantId })
+      return this.repository.find({ participant: participantId }) // Next-gen TypeORM: .find({ participant: {id: participantId} })
         .then(scores => this.repository.remove(scores).then(s => {
           sseService.publish('Scores updated');
           return s;

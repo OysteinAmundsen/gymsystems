@@ -198,12 +198,12 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     delete team.genderDivision;
 
     // Get club
-    if (!this.selectedClub && team.club) {
-      team.club = await this.clubService.validateClub(team);
-    } else if (this.selectedClub && this.selectedClub.id) {
-      delete this.selectedClub.teams;
-      team.club = this.selectedClub;
-    } else {
+    if (!team.club) {
+    //   team.club = await this.clubService.validateClub(team);
+    // } else if (this.selectedClub && this.selectedClub.id) {
+    //   delete this.selectedClub.teams;
+    //   team.club = this.selectedClub;
+    // } else {
       this.errorHandler.error = 'No club set. Cannot register!';
       return;
     }

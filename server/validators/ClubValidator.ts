@@ -19,7 +19,7 @@ export async function validateClub(body: BelongsToClub[], req?: Request): Promis
     // Auto convert string to object
     if (typeof obj.club === 'string') {
       const club: Club[] = await clubRepository.all(req, obj.club);
-      if (club[0]) {
+      if (club[0] && club[0].id) {
         obj.club = club[0];
       } else {
         Logger.log.error(`No club with name "${obj.club}" found`);

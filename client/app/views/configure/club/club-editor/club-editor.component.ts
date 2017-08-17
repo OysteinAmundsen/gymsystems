@@ -16,6 +16,8 @@ import { UppercaseFormControl } from 'app/shared/form';
 })
 export class ClubEditorComponent implements OnInit {
   user: IUser;
+  clubs = []; // Typeahead values
+
   club: IClub = <IClub>{};
   clubSubject = new ReplaySubject<IClub>(1);
 
@@ -59,6 +61,14 @@ export class ClubEditorComponent implements OnInit {
     });
   }
 
+  getClubMatchesFn() {
+    const me = this;
+    return function (items, currentValue: string, matchText: string) {
+      if (!currentValue) { return items; }
+      return me.clubService.findByName(currentValue);
+    }
+  }
+
   clubReceived(club: IClub) {
     this.club = club;
     this.clubSubject.next(club);
@@ -71,6 +81,12 @@ export class ClubEditorComponent implements OnInit {
   save() {
     this.clubService.saveClub(this.clubForm.value).subscribe(club => {
       this.clubReceived(club);
+      this.isEdit = false;
+    });
+  }
+
+  delete() {
+    this.clubService.deleteClub(this.club).subscribe(resp => {
       this.isEdit = false;
     });
   }

@@ -2,6 +2,7 @@ import { getConnectionManager, Connection, Repository } from 'typeorm';
 import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req, QueryParam } from 'routing-controllers';
 import { Service } from 'typedi';
 import { Request, Response } from 'express';
+import * as request from 'request';
 
 import { RequireRole } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';
@@ -25,17 +26,46 @@ export class ClubController {
   }
 
   @Get()
-  all(@Req() req: Request, name?: string) {
+  all(@Req() req: Request, name?: string): Promise<Club[]> {
     const n = name || req.query['name'];
-    // Integrate with Brønnøysund registeret in order to retreive only registerred clubs
-    // This will prevent people from registerring bullshit
-
-    // http://data.brreg.no/enhetsregisteret/enhet.json?page=0&size=30&$filter=startswith(navn,'navn') and startswith(naeringskode/kode,'93.120')
     const query = this.repository.createQueryBuilder('club');
-    if (n) {
-      query.where('club.name like :name', {name: `%${n}%`});
-    }
-    return query.getMany();
+    if (n) { query.where('club.name like :name', {name: `%${n}%`}); }
+    return Promise.all([ query.getMany(), this.brregLookup(n) ]).then(result => {
+      // Map and merge results from both DB and Brønnøysund
+      let [dbResult, brregResult] = result;
+      brregResult = brregResult.reduce((prev: Club[], curr: Club) => {
+        if (dbResult.findIndex(d => d.name === curr.name) < 0) {
+          prev.push(curr);
+        }
+        return prev;
+      }, []);
+      return dbResult.concat(brregResult);
+    });
+  }
+
+  serializeQueryParams(obj: any): string {
+    const params: any = [];
+    Object.keys(obj).forEach(key => params.push(`${key}=${obj[key]}`));
+    return params.join('&');
+  }
+
+  brregLookup(name: string): Promise<Club[]> {
+    return new Promise((resolve, reject) => {
+      if (!name || name.length < 2) { return resolve([]); } // Fail fast
+
+      const url = `http://data.brreg.no/enhetsregisteret/enhet.json`;
+      const query = this.serializeQueryParams({
+        page: 0, size: 10, $filter: encodeURIComponent(`startswith(navn,'${name}') and startswith(naeringskode/kode,'93.120')`)
+      });
+      Logger.log.debug(`Requesting: ${url}?${query}`);
+      request(`${url}?${query}`, (error, response, body) => {
+        if (error) { Logger.log.error(error); return reject(error); }
+        if (body) {
+          const json = JSON.parse(body);
+          resolve(json.data ? <Club[]>json.data.map((r: any) => <Club> { name: r.navn }) : []);
+        }
+      });
+    });
   }
 
   @Get('/:clubId')
