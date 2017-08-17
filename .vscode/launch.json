@@ -1,31 +1,23 @@
 {
+  // Use IntelliSense to learn about possible Node.js debug attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
       "type": "node",
       "request": "launch",
       "name": "Server",
-      "preLaunchTask": "server:build",
-      "runtimeExecutable": "nodemon",
-      "runtimeArgs": [
-        "--debug=5858"
-      ],
-      "sourceMaps": true,
       "outFiles": [ "${workspaceRoot}/dist/**/*.js" ],
-      "program": "${workspaceRoot}/server/index.ts",
-      "restart": true,
-      "port": 5858,
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "program": "${workspaceRoot}\\server\\index.ts",
+      "console": "integratedTerminal"
     },
     {
       "type": "chrome",
       "request": "launch",
       "name": "Client",
-      "url": "http://localhost:4200/",
-      "sourceMaps": true,
+      "url": "http://localhost:4200",
       "webRoot": "${workspaceRoot}/client",
-      "port": 9223,
       "userDataDir": "${workspaceRoot}/out/chrome",
       "sourceMapPathOverrides": {
         "webpack:///./*": "${workspaceRoot}/*"

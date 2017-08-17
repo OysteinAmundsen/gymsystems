@@ -23,9 +23,9 @@ export class Club {
   @Column({ unique: true, length: 100 })
   name: string;
 
-  @OneToMany(type => Team, teams => teams.club)
+  @OneToMany(type => Team, teams => teams.club, { cascadeInsert: false, cascadeUpdate: false })
   teams: Team[] = [];
 
-  @OneToMany(type => User, users => users.club)
+  @OneToMany(type => User, users => users.club, { cascadeInsert: false, cascadeUpdate: false })
   users: User[];
 }

@@ -36,7 +36,7 @@ export class Tournament implements CreatedBy {
   @Column()
   location: string;
 
-  @OneToMany(type => TeamInDiscipline, schedule => schedule.tournament)
+  @OneToMany(type => TeamInDiscipline, schedule => schedule.tournament, { cascadeInsert: false, cascadeUpdate: false })
   schedule: TeamInDiscipline[];
 
   @OneToMany(type => Discipline, disciplines => disciplines.tournament, { cascadeInsert: true })
@@ -45,9 +45,9 @@ export class Tournament implements CreatedBy {
   @OneToMany(type => Division, divisions => divisions.tournament, { cascadeInsert: true })
   divisions: Division[];
 
-  @OneToMany(type => Team, teams => teams.tournament)
+  @OneToMany(type => Team, teams => teams.tournament, { cascadeInsert: false, cascadeUpdate: false })
   teams: Team[];
 
-  @OneToMany(type => Media, media => media.tournament)
+  @OneToMany(type => Media, media => media.tournament, { cascadeInsert: false, cascadeUpdate: false })
   media: Media[];
 }

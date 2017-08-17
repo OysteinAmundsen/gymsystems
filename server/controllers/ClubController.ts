@@ -27,6 +27,10 @@ export class ClubController {
   @Get()
   all(@Req() req: Request, name?: string) {
     const n = name || req.query['name'];
+    // Integrate with Brønnøysund registeret in order to retreive only registerred clubs
+    // This will prevent people from registerring bullshit
+
+    // http://data.brreg.no/enhetsregisteret/enhet.json?page=0&size=30&$filter=startswith(navn,'navn') and startswith(naeringskode/kode,'93.120')
     const query = this.repository.createQueryBuilder('club');
     if (n) {
       query.where('club.name like :name', {name: `%${n}%`});

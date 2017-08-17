@@ -39,6 +39,6 @@ export class User implements BelongsToClub {
   @ManyToOne(type => Club, club => club.users, { nullable: true })
   club: Club;
 
-  @OneToMany(type => Tournament, tournaments => tournaments.createdBy)
+  @OneToMany(type => Tournament, tournaments => tournaments.createdBy, { cascadeInsert: false, cascadeUpdate: false })
   tournaments: Tournament[];
 }
