@@ -17,6 +17,7 @@ import { TeamInDiscipline } from '../model/TeamInDiscipline';
 import { TeamInDisciplineScore } from '../model/TeamInDisciplineScore';
 import { Role } from '../model/User';
 import { ErrorResponse } from '../utils/ErrorResponse';
+import { OkResponse } from '../utils/OkResponse';
 
 /**
  *
@@ -84,8 +85,6 @@ export class ScoreController {
     }
 
     if (me.role >= Role.Organizer || p.publishTime == null) { // Cannot delete if allready published, unless you're the Organizer
-      p.endTime = null;
-      p.startTime = null;
       p.publishTime = null;
       scheduleRepository.update(p.id, p, res, req);
       return this.repository.find({ participant: participantId }) // Next-gen TypeORM: .find({ participant: {id: participantId} })
@@ -98,5 +97,37 @@ export class ScoreController {
 
     res.status(400);
     return new ErrorResponse(400, 'Scores are allready published.');
+  }
+
+  @Get('/:id/rollback')
+  @UseBefore(RequireRole.get(Role.Organizer))
+  async rollbackToParticipant( @Param('id') participantId: number, @Res() res: Response, @Req() req: Request) {
+    const scheduleRepository = Container.get(ScheduleController);
+    const sseService = Container.get(SSEController);
+    const userService = Container.get(UserController);
+    const me = await userService.me(req);
+    const p = await scheduleRepository.getParticipantPlain(participantId);
+
+    const sameClub = await isSameClubAsMe(p.tournament, req);
+    if (!sameClub) {
+      res.status(403);
+      return new ErrorResponse(403, 'You are not authorized to remove scores in a tournament not run by your club.');
+    }
+
+    const schedule = await scheduleRepository.getByTournament(p.tournament.id);
+    const idx = schedule.findIndex(i => i.id === p.id);
+    const itemsToRollback = schedule.slice(idx).filter(i => i.startTime != null);
+    return Promise.all(itemsToRollback.map(i => {
+      i.endTime = null;
+      i.startTime = null;
+      i.publishTime = null;
+      return this.repository.remove(i.scores).then(s => {
+        i.scores = [];
+        return scheduleRepository.repository.persist(i);
+      })
+    })).then(() => {
+      sseService.publish('Scores updated');
+      return new OkResponse();
+    });
   }
 }

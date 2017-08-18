@@ -64,7 +64,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.tournamentSubscription = this.parent.tournamentSubject.subscribe(tournament => {
       if (tournament && tournament.id) {
         this.tournament = tournament;
-        this.eventSubscription = this.eventService.connect().subscribe(message => this.loadSchedule());
+        this.eventSubscription = this.eventService.connect().debounceTime(100).subscribe(message => this.loadSchedule());
         this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
         this.loadSchedule();
       }

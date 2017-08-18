@@ -18,6 +18,7 @@ import { Operation, ITeamInDiscipline, ITeamInDisciplineScore, IUser, Role } fro
 
 import { IScoreContainer } from '../IScoreContainer';
 import { ScoreGroupComponent } from '../score-group/score-group.component';
+import { ListComponent } from 'app/views/event/list/list.component';
 
 /**
  *
@@ -63,7 +64,8 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
     private scoreService: ScoreService,
     private element: ElementRef,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private container: ListComponent
   ) { }
 
   ngOnInit() {
@@ -72,14 +74,14 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
       // Empty score array. Create one score, per judge, per scoregroup
       this.participant.discipline.scoreGroups.forEach(group => {
         for (let j = 0; j < group.judges; j++) {
-          this.participant.scores.push(<ITeamInDisciplineScore>{ scoreGroup: group, value: 0, judgeIndex: j+1 });
+          this.participant.scores.push(<ITeamInDisciplineScore>{ scoreGroup: group, value: 0, judgeIndex: j + 1 });
         }
       });
     }
 
     this.scoreForm = this.fb.group(this.groupedScores.reduce((previous, current) => {
       return Object.assign(previous, current.scores.reduce((prev: any, curr: ITeamInDisciplineScore, index: number) => {
-        if (!curr.judgeIndex) {curr.judgeIndex = index + 1;}
+        if (!curr.judgeIndex) {curr.judgeIndex = index + 1; }
         prev[`field_${curr.scoreGroup.type}_${curr.judgeIndex}`] = [
           curr.value,
           Validators.compose([
@@ -149,6 +151,12 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.currentUser.role >= Role.Organizer || this.participant.publishTime == null) {
       this.participant.scores = [];
       this.scoreService.removeFromParticipant(this.participant.id).subscribe(() => this.onClose.emit(true));
+    }
+  }
+
+  rollback() {
+    if (this.currentUser.role >= Role.Organizer) {
+      this.scoreService.rollbackToParticipant(this.participant.id).subscribe(() => this.onClose.emit(true));
     }
   }
 

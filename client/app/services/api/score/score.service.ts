@@ -24,6 +24,10 @@ export class ScoreService {
     return this.http.delete(`${this.url}/${participantId}`).map((res: Response) => res.json()).share();
   }
 
+  rollbackToParticipant(participantId: number) {
+    return this.http.get(`${this.url}/${participantId}/rollback`).map((res: Response) => res.json()).share();
+  }
+
   calculateTeamTotal(participants: ITeamInDiscipline[]) {
     if (!participants || !participants.length) { return 0; }
     return participants.reduce((prev, curr) => prev += this.calculateTotal(curr), 0) / participants.length;
