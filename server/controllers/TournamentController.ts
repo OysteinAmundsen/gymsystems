@@ -68,14 +68,17 @@ export class TournamentController {
       .getMany();
   }
 
-  @Get('/past')
-  past(): Promise<Tournament[] | any> {
+  @Get('/list/past')
+  past(@Req() req: Request): Promise<Tournament[] | any> {
+    let limit: number = req.query['limit'] || 10;
+    if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
+
     const date = moment().utc().startOf('day').toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .where('tournament.endDate < :date', { date: date })
       .orderBy('tournament.startDate', 'DESC')
-      .setLimit(10) // Next-gen Typeorm: .limit(10)
+      .setLimit(limit) // Next-gen Typeorm: .limit(10)
       .getMany()
       .catch(() => {
         Logger.log.debug(`Query for past tournament was rejected before it was fulfilled`);
@@ -83,14 +86,17 @@ export class TournamentController {
       });
   }
 
-  @Get('/current')
-  current(): Promise<Tournament[] | any> {
+  @Get('/list/current')
+  current(@Req() req: Request): Promise<Tournament[] | any> {
+    let limit: number = req.query['limit'] || 10;
+    if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
+
     const now = moment().utc().toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .where(':now between tournament.startDate and tournament.endDate', { now: now })
       .orderBy('tournament.startDate', 'DESC')
-      .setLimit(10) // Next-gen Typeorm: .limit(10)
+      .setLimit(limit) // Next-gen Typeorm: .limit(10)
       .getMany()
       .catch(() => {
         Logger.log.debug(`Query for current tournaments was rejected before it was fulfilled`);
@@ -98,14 +104,17 @@ export class TournamentController {
       });
   }
 
-  @Get('/future')
-  future(): Promise<Tournament[] | any> {
+  @Get('/list/future')
+  future(@Req() req: Request): Promise<Tournament[] | any> {
+    let limit: number = req.query['limit'] || 10;
+    if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
+
     const date = moment().utc().endOf('day').toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .where('tournament.startDate > :date', { date: date })
       .orderBy('tournament.startDate', 'DESC')
-      .setLimit(10) // Next-gen Typeorm: .limit(10)
+      .setLimit(limit) // Next-gen Typeorm: .limit(10)
       .getMany()
       .catch(() => {
         Logger.log.debug(`Query for future tournaments was rejected before it was fulfilled`);

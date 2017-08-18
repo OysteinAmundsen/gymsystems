@@ -18,13 +18,13 @@ export class TournamentService {
     return this.http.get(this.url).map((res: Response) => this.mapDates(res.json())).share();
   }
   past(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/past`).map((res: Response) => this.mapDates(res.json())).share();
+    return this.http.get(`${this.url}/list/past`).map((res: Response) => this.mapDates(res.json())).share();
   }
   current(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/current`).map((res: Response) => this.mapDates(res.json())).share();
+    return this.http.get(`${this.url}/list/current`).map((res: Response) => this.mapDates(res.json())).share();
   }
   upcoming(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/future`).map((res: Response) => this.mapDates(res.json())).share();
+    return this.http.get(`${this.url}/list/future`).map((res: Response) => this.mapDates(res.json())).share();
   }
   getById(id: number): Observable<ITournament> {
     return this.http.get(`${this.url}/${id}`).map((res: Response) => this.mapDate(res.json())).share();
