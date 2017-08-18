@@ -1,7 +1,7 @@
 
 /* TEAM */
 Developer and architect: Øystein Amundsen
-Site: oystein.amundsen@gmail.com
+Contact: oystein.amundsen@gmail.com
 Twitter: @OysteinAmundsen
 Location: Haugesund, Norway.
 
@@ -11,6 +11,6 @@ Location: Haugesund, Norway.
 - To Angular team for being awesome
 
 /* SITE */
-Standards: HTML5, CSS3, Javascript
+Standards: HTML, CSS, Javascript
 Components: Angular, Typescript
 GitHub: https://github.com/OysteinAmundsen/gymsystems

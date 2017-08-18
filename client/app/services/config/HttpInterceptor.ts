@@ -42,8 +42,9 @@ export class HttpInterceptor extends Http {
       }
       return res;
     })
-    .catch((err: any) => {
+    .catch((err: Response) => {
       if (err.status === 401) {
+        this.error.error = err.statusText + ' - ' + err.json().message;
         me.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
       } else {
         let body: any;
