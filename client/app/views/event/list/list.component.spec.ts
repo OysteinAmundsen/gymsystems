@@ -29,7 +29,7 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 
-class DummyParent {
+export class DummyParent {
   tournamentSubject = new ReplaySubject<ITournament>(1);
   constructor() {
     this.tournamentSubject.next(dummyTournament);

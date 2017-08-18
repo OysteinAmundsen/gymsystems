@@ -11,19 +11,26 @@ import { HttpLoaderFactory } from 'app/app.module';
 import { ScoreboardComponent } from './scoreboard.component';
 import { ScoreGroupComponent } from '../score-group/score-group.component';
 import { ScoreComponent } from '../score/score.component';
+import { ListComponent } from 'app/views/event/list/list.component';
+import { EventComponent } from 'app/views/event/event.component';
+
+import { DummyParent } from 'app/views/event/list/list.component.spec';
+
 import { SharedModule } from 'app/shared/shared.module';
-import { ScoreService, UserService } from 'app/services/api';
-import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
-import { IDiscipline } from 'app/services/model/IDiscipline';
-import { ITeam } from 'app/services/model/ITeam';
-import { ITournament } from 'app/services/model/ITournament';
-import { IScoreGroup } from 'app/services/model/IScoreGroup';
-import { Operation } from 'app/services/model/Operation';
+
+import { ScoreService, UserService, ScheduleService, TeamsService, EventService, ConfigurationService } from 'app/services/api';
+import { ITeamInDiscipline, IDiscipline, ITeam, ITournament, IScoreGroup, Operation } from 'app/services/model';
+
+import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { MediaService } from 'app/services';
 
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
+import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
+import { EventServiceStub } from 'app/services/api/event/event.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
 @Component({
  selector  : 'app-cmp',
@@ -68,10 +75,17 @@ describe('ScoreboardComponent', () => {
         ScoreComponent
       ],
       providers: [
+        ListComponent,
         ErrorHandlerService,
+        MediaService,
+        { provide: EventComponent, useClass: DummyParent},
         { provide: Http, useClass: HttpInterceptor },
         { provide: ScoreService, useClass: ScoreServiceStub },
         { provide: UserService, useClass: UserServiceStub },
+        { provide: ScheduleService, useClass: ScheduleServiceStub},
+        { provide: TeamsService, useClass: TeamsServiceStub},
+        { provide: EventService, useClass: EventServiceStub},
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub},
       ]
     })
     .compileComponents();
