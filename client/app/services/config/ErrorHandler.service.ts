@@ -11,7 +11,11 @@ export class ErrorHandlerService {
   set error(value: string) {
     if (this._errorTimeout) { clearTimeout(this._errorTimeout); }
     if (value) {
-      this._error = value.replace(/^"|"$/g, '');
+      if (typeof value === 'string') {
+        this._error = value.replace(/^"|"$/g, '');
+      } else if (typeof value === 'object') {
+        this._error = value['message'] ? value['message'] : value[0];
+      }
       this._errorTimeout = setTimeout(() => this._error = null, 10 * 1000);
     } else {
       this._error = null;

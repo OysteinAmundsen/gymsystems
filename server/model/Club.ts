@@ -24,7 +24,7 @@ export class Club {
   name: string;
 
   @OneToMany(type => Team, teams => teams.club, { cascadeInsert: false, cascadeUpdate: false })
-  teams: Team[] = [];
+  teams: Team[];
 
   @OneToMany(type => User, users => users.club, { cascadeInsert: false, cascadeUpdate: false })
   users: User[];

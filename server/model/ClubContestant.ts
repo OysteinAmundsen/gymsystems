@@ -27,7 +27,7 @@ export class ClubContestant implements BelongsToClub {
   @ManyToMany(type => Team, team => team.contesters)
   partof: Team[];
 
-  @ManyToOne(type => Club, club => club.teams, { nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(type => Club, club => club.teams, { nullable: false })
   club: Club;
 
 }

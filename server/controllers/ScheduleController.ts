@@ -14,6 +14,7 @@ import { UserController } from '../controllers/UserController';
 
 import { TeamInDiscipline } from '../model/TeamInDiscipline';
 import { Role } from '../model/User';
+import { TournamentController } from './TournamentController';
 
 /**
  *
@@ -106,7 +107,9 @@ export class ScheduleController {
   @UseBefore(RequireRole.get(Role.Organizer))
   async create( @Body() participant: TeamInDiscipline | TeamInDiscipline[], @Res() res: Response, @Req() req: Request) {
     const participants = Array.isArray(participant) ? participant : [participant];
-    const sameClub = await isAllSameClubAsMe(participants.map(p => p.tournament), req);
+    const tournamentRepository = Container.get(TournamentController);
+    const tournament = await tournamentRepository.get(participants[0].tournament.id);
+    const sameClub = await isSameClubAsMe(tournament, req);
     if (!sameClub) {
       res.status(403);
       return {code: 403, message: 'You are not authorized to create participants in a tournament not run by your club.'};
