@@ -14,6 +14,7 @@ import { ClubController } from './ClubController';
 import { Club, BelongsToClub } from '../model/Club';
 import { isMyClub, validateClub } from '../validators/ClubValidator';
 import { GymServer } from '../index';
+import { ErrorResponse } from '../utils/ErrorResponse';
 
 const messages = {
   created: `
@@ -134,7 +135,7 @@ export class UserController {
       // If still no club, we should fail
       if (!user.club || !user.club.id) {
         res.status(400);
-        return {code: 400, message: 'Club name given has no unique match'};
+        return new ErrorResponse(400, 'Club name given has no unique match');
       }
     }
 
@@ -176,7 +177,7 @@ export class UserController {
     const hasClub = await validateClub([<BelongsToClub>user], req);
     if (!hasClub) {
       res.status(400);
-      return {code: 400, message: 'No Club name given, or Club name has no unique match'};
+      return new ErrorResponse(400, 'No Club name given, or Club name has no unique match');
     }
 
     const me = await this.me(req);
@@ -185,11 +186,11 @@ export class UserController {
     const isSameClub = await isMyClub([user], req);
     if (!isSameClub) {
       res.status(403);
-      return {code: 403, message: 'You are not authorized to create teams for other clubs than your own.'};
+      return new ErrorResponse(403, 'You are not authorized to create teams for other clubs than your own.');
     }
     if (user.role > me.role && me.role < Role.Admin) {
       res.status(403);
-      return { code: 403, message: 'Your are not authorized to create users with higher privileges than your own.'}
+      return new ErrorResponse(403, 'Your are not authorized to create users with higher privileges than your own.');
     }
 
     return this.createUser(user, res, req);
@@ -218,7 +219,7 @@ export class UserController {
       // If still no club, we should fail
       if (!user.club || !user.club.id) {
         res.status(400);
-        return {code: 400, message: 'No Club name given, or Club name has no unique match'};
+        return new ErrorResponse(400, 'No Club name given, or Club name has no unique match');
       }
     }
 
@@ -243,12 +244,12 @@ export class UserController {
       .catch(err => {
         if (err.code === 'ER_DUP_ENTRY') {
           res.status(403);
-          return { code: 403, message: 'A user with this name allready exists'};
+          return new ErrorResponse(403, 'A user with this name allready exists');
         }
         // Default response
         Logger.log.error(err);
         res.status(400);
-        return { code: err.code, message: err.message };
+        return new ErrorResponse(err.code, err.message);
       });
   }
 
@@ -258,7 +259,10 @@ export class UserController {
     const user = await this.getUser(userId);
     const isSameClub = await isMyClub([<BelongsToClub>user], req);
 
-    if (!isSameClub) { res.status(403); return {code: 403, message: 'You are not authorized to remove users from other clubs than your own.'}; }
+    if (!isSameClub) {
+      res.status(403);
+      return new ErrorResponse(403, 'You are not authorized to remove users from other clubs than your own.');
+    }
 
     return this.repository.remove(user)
       .catch(err => Logger.log.error(err));

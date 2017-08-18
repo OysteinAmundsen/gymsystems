@@ -15,6 +15,7 @@ import { Team } from '../model/Team';
 import { User, Role } from '../model/User';
 import { Club, BelongsToClub } from '../model/Club';
 import { MediaController } from './MediaController';
+import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  *
@@ -100,11 +101,11 @@ export class TeamController {
     const isSameClub = await isMyClub([team], req);
     if (!hasClub)  {
       res.status(400);
-      return {code: 400, message: 'Club name given has no unique match'};
+      return new ErrorResponse(400, 'Club name given has no unique match');
     }
     if (!isSameClub) {
       res.status(403);
-      return {code: 403, message: 'Cannot update teams for other clubs than your own'};
+      return new ErrorResponse(403, 'Cannot update teams for other clubs than your own');
     }
 
     const mediaController = Container.get(MediaController);
@@ -130,17 +131,17 @@ export class TeamController {
     const isSameClub = await isMyClub(teams, req);
     if (!hasClub)  {
       res.status(400);
-      return {code: 400, message: 'Club name given has no unique match'};
+      return new ErrorResponse(400, 'Club name given has no unique match');
     }
     if (!isSameClub) {
       res.status(403);
-      return {code: 403, message: 'Cannot create teams for other clubs than your own'};
+      return new ErrorResponse(403, 'Cannot create teams for other clubs than your own');
     }
 
     return this.repository.persist(teams)
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return new ErrorResponse(err.code, err.message);
       });
   }
 
@@ -152,7 +153,7 @@ export class TeamController {
 
     if (!isSameClub) {
       res.status(403);
-      return {code: 403, message: 'You are not authorized to remove teams from other clubs than your own.'};
+      return new ErrorResponse(403, 'You are not authorized to remove teams from other clubs than your own.');
     }
 
     // Remove media setup by this team

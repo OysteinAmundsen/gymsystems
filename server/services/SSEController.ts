@@ -6,6 +6,7 @@ import { EventEmitter } from 'events';
 import { PassThrough } from 'stream';
 
 import { Logger } from '../utils/Logger';
+import { OkResponse } from '../utils/OkResponse';
 const dispatcher = new EventEmitter();
 
 /**
@@ -34,7 +35,7 @@ export class SSEController {
   public publish(message: string) {
     Logger.log.debug(`SSE Publishing ${message} to ${dispatcher.listenerCount('message')} clients!`);
     dispatcher.emit('message', message);
-    return {result: 'ok'};
+    return new OkResponse();
   }
 
   /**

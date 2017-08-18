@@ -15,6 +15,7 @@ import { UserController } from '../controllers/UserController';
 import { TeamInDiscipline } from '../model/TeamInDiscipline';
 import { Role } from '../model/User';
 import { TournamentController } from './TournamentController';
+import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  *
@@ -112,13 +113,13 @@ export class ScheduleController {
     const sameClub = await isSameClubAsMe(tournament, req);
     if (!sameClub) {
       res.status(403);
-      return {code: 403, message: 'You are not authorized to create participants in a tournament not run by your club.'};
+      return new ErrorResponse(403, 'You are not authorized to create participants in a tournament not run by your club.');
     }
 
     return this.repository.persist(participants)
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return new ErrorResponse(err.code, err.message);
       });
   }
 
@@ -129,7 +130,7 @@ export class ScheduleController {
     const sameClub = await isSameClubAsMe(participant.tournament, req);
     if (!sameClub) {
       res.status(403);
-      return {code: 403, message: 'You are not authorized to update participants in a tournament not run by your club.'};
+      return new ErrorResponse(403, 'You are not authorized to update participants in a tournament not run by your club.');
     }
     return this.repository.persist(participant)
       .then(() => {
@@ -138,7 +139,7 @@ export class ScheduleController {
       })
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return new ErrorResponse(err.code, err.message);
       });
   }
 
@@ -166,12 +167,12 @@ export class ScheduleController {
     const sameClub = await isAllSameClubAsMe(participants.map(p => p.tournament), req);
     if (!sameClub) {
       res.status(403);
-      return {code: 403, message: 'You are not authorized to remove participants from a tournament not run by your club.'};
+      return new ErrorResponse(403, 'You are not authorized to remove participants from a tournament not run by your club.');
     }
     return this.repository.remove(participants)
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return new ErrorResponse(err.code, err.message);
       });
   }
 }

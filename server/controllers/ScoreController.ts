@@ -16,6 +16,7 @@ import { UserController } from '../controllers/UserController';
 import { TeamInDiscipline } from '../model/TeamInDiscipline';
 import { TeamInDisciplineScore } from '../model/TeamInDisciplineScore';
 import { Role } from '../model/User';
+import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  *
@@ -55,7 +56,7 @@ export class ScoreController {
     const sameClub = await isSameClubAsMe(p.tournament, req);
     if (!sameClub) {
       res.status(403);
-      return {code: 403, message: 'You are not authorized to add scores in a tournament not run by your club.'};
+      return new ErrorResponse(403, 'You are not authorized to add scores in a tournament not run by your club.');
     }
 
     scores = scores.map(s => { s.participant = p; return s; });
@@ -79,7 +80,7 @@ export class ScoreController {
     const sameClub = await isSameClubAsMe(p.tournament, req);
     if (!sameClub) {
       res.status(403);
-      return {code: 403, message: 'You are not authorized to remove scores in a tournament not run by your club.'};
+      return new ErrorResponse(403, 'You are not authorized to remove scores in a tournament not run by your club.');
     }
 
     if (me.role >= Role.Organizer || p.publishTime == null) { // Cannot delete if allready published, unless you're the Organizer
@@ -96,6 +97,6 @@ export class ScoreController {
     }
 
     res.status(400);
-    return {code: 400, message: 'Scores are allready published.'};
+    return new ErrorResponse(400, 'Scores are allready published.');
   }
 }

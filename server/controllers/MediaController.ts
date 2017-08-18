@@ -25,6 +25,7 @@ import { Team } from '../model/Team';
 import { Discipline } from '../model/Discipline';
 import { Division } from '../model/Division';
 import { isMyClub } from '../validators/ClubValidator';
+import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  *
@@ -64,7 +65,7 @@ export class MediaController {
     const myClub = await isMyClub([metaData.team], req);
     if (!myClub) {
       res.status(403);
-      return {httpCode: 403, message: 'Cannot add media for a team belonging to different club than yours'};
+      return new ErrorResponse(403, 'Cannot add media for a team belonging to different club than yours');
     }
 
     // Make sure media folder exists. This should be created when tournament is created,
@@ -118,7 +119,7 @@ export class MediaController {
     const myClub = await isMyClub([team], req);
     if (!myClub) {
       res.status(403);
-      return {httpCode: 403, message: 'Cannot remove media for a team belonging to different club than yours'};
+      return new ErrorResponse(403, 'Cannot add media for a team belonging to different club than yours');
     }
 
     // Remove media

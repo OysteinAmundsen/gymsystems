@@ -8,6 +8,7 @@ import { Logger } from '../utils/Logger';
 import { Configuration } from '../model/Configuration';
 import { Service } from 'typedi';
 import { Role } from '../model/User';
+import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  *
@@ -39,7 +40,7 @@ export class ConfigurationController {
       .then(persisted => res.send(persisted))
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return new ErrorResponse(err.code, err.message);
       });
   }
 
@@ -50,7 +51,7 @@ export class ConfigurationController {
       .then(persisted => res.send(persisted))
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return new ErrorResponse(err.code, err.message);
       });
   }
 
@@ -62,7 +63,7 @@ export class ConfigurationController {
       .then(result => res.send(result))
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return new ErrorResponse(err.code, err.message);
       });
   }
 }

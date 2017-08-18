@@ -4,7 +4,7 @@ import { Discipline } from './Discipline';
 import { Media } from './Media';
 import { Division, DivisionType } from './Division';
 import { Club, BelongsToClub } from './Club';
-import { ClubContestant } from "./ClubContestant";
+import { ClubContestant } from './ClubContestant';
 
 export enum Classes {
   TeamGym = 1, National = 2

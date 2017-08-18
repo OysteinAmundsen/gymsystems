@@ -22,7 +22,7 @@
 //   public publish(message: string) {
 //     Logger.log.debug(`SSE Publishing ${message} to ${dispatcher.listenerCount('message')} clients!`);
 //     dispatcher.emit('message', message);
-//     return {result: 'ok'};
+//     return new OkResponse();
 //   }
 
 //   /**

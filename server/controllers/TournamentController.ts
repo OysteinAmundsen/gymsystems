@@ -23,6 +23,7 @@ import { UserController } from './UserController';
 import { isCreatedByMe } from '../validators/CreatedByValidator';
 import { Role } from '../model/User';
 import { MediaController } from './MediaController';
+import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  *
@@ -154,7 +155,7 @@ export class TournamentController {
       })
       .catch(err => {
         Logger.log.error(err);
-        return { code: err.code, message: err.message };
+        return new ErrorResponse(err.code, err.message);
       });
   }
 
@@ -181,7 +182,7 @@ export class TournamentController {
     const isMe = await isCreatedByMe(tournament, req);
     if (!isMe) {
       res.status(403);
-      return { code: 403, message: 'Only the creator of a tournament can remove.'};
+      return new ErrorResponse(403, 'Only the creator of a tournament can remove.');
     }
 
     // Remove media
