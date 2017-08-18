@@ -60,7 +60,7 @@ export class UserController {
         req.logIn(user, async (err: any) => {
           if (err) { return reject({httpCode: 401, message: err}); }
 
-          let returnedUser = await this.me(req);
+          const returnedUser = await this.me(req);
           return resolve(returnedUser || user);
         });
       })(req, res, req.next);
@@ -116,7 +116,7 @@ export class UserController {
     const me = await this.me(req);
 
     // Limit to show users in my own club only
-    let clubId = (me.role < Role.Admin) ? me.club.id : null;
+    const clubId = (me.role < Role.Admin) ? me.club.id : null;
     return this.getUser(userId, clubId);
   }
 
@@ -173,6 +173,12 @@ export class UserController {
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
   async create( @Body() user: User, @Req() req: Request, @Res() res: Response): Promise<User[] | any> {
+    const hasClub = await validateClub([<BelongsToClub>user], req);
+    if (!hasClub) {
+      res.status(400);
+      return {code: 400, message: 'No Club name given, or Club name has no unique match'};
+    }
+
     const me = await this.me(req);
 
     // Make sure club is an object

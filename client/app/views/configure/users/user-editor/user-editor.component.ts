@@ -26,6 +26,13 @@ export class UserEditorComponent implements OnInit {
   get roleNames() {
     return RoleNames.filter(r => r.id <= this.currentUser.role);
   };
+
+  get clubName() {
+    let clubName = '';
+    if (this.user.club && this.user.club.name) { clubName = this.user.club.name; }
+    else if (this.currentUser && this.currentUser.club) { clubName = this.currentUser.club.name; }
+    return clubName;
+  }
   roles = Role;
 
   constructor(
@@ -58,7 +65,7 @@ export class UserEditorComponent implements OnInit {
       name: [this.user.name, [Validators.required]],
       role: [this.user.role, [Validators.required]],
       email: [this.user.email, [Validators.required, ValidationService.emailValidator]],
-      club: new UppercaseFormControl(this.user.club ? this.user.club.name : '', [Validators.required]),
+      club: new UppercaseFormControl(this.clubName, [Validators.required]),
       password: [this.user.password, [Validators.required]],
       repeatPassword: [this.user.password, [Validators.required]]
     }, {validator: (c: AbstractControl) => {
@@ -76,7 +83,7 @@ export class UserEditorComponent implements OnInit {
       name: this.user.name,
       role: this.user.role,
       email: this.user.email || '',
-      club: this.user.club ? this.user.club.name : '',
+      club: this.clubName,
       password: this.user.password,
       repeatPassword: this.user.password
     });
