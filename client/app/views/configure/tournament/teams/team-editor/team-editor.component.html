@@ -56,7 +56,13 @@
         <table role="list">
           <tr role="listitem">
             <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()" [disabled]="teamForm.value.class === classes.TeamGym"> <span translate>All</span></label></td>
-            <td class="media-head"><app-fa name="music" fw="true"></app-fa></td>
+            <td class="media-head help-available">
+              <app-fa name="music" fw="true"></app-fa>
+              <span translate>Upload media</span>
+              <app-help-block>
+                <p translate>The <app-fa name="upload"></app-fa> buttons below will allow you to upload media for your teams performance in that discipline</p>
+              </app-help-block>
+            </td>
           </tr>
           <tbody *ngFor="let discipline of disciplines">
             <tr role="listitem">
