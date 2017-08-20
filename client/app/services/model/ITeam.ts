@@ -5,6 +5,7 @@ import { IClub } from './IClub';
 import { IMedia } from './IMedia';
 import { IBelongsToClub } from './IBelongsToClub';
 import { Classes } from './Classes';
+import { IGymnast } from './IGymnast';
 
 export interface ITeam extends IBelongsToClub {
   id: number;
@@ -15,4 +16,5 @@ export interface ITeam extends IBelongsToClub {
   club: IClub;
   media: IMedia[];
   class: Classes;
+  contestants: IGymnast[];
 }

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { IClub, IClubContestant } from 'app/services/model';
+import { IClub, IGymnast } from 'app/services/model';
 
 @Injectable()
 export class ClubServiceStub {
@@ -28,7 +28,7 @@ export class ClubServiceStub {
     return Observable.of(null);
   }
 
-  getMembers(id: number): Observable<IClubContestant[]> {
+  getMembers(id: number): Observable<IGymnast[]> {
     return Observable.of(null);
   }
 }

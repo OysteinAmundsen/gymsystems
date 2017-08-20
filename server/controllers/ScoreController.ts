@@ -14,7 +14,7 @@ import { ScheduleController } from './ScheduleController';
 import { UserController } from '../controllers/UserController';
 
 import { TeamInDiscipline } from '../model/TeamInDiscipline';
-import { TeamInDisciplineScore } from '../model/TeamInDisciplineScore';
+import { Score } from '../model/Score';
 import { Role } from '../model/User';
 import { ErrorResponse } from '../utils/ErrorResponse';
 import { OkResponse } from '../utils/OkResponse';
@@ -25,10 +25,10 @@ import { OkResponse } from '../utils/OkResponse';
 @Service()
 @JsonController('/score/participant')
 export class ScoreController {
-  private repository: Repository<TeamInDisciplineScore>;
+  private repository: Repository<Score>;
 
   constructor() {
-    this.repository = getConnectionManager().get().getRepository(TeamInDisciplineScore);
+    this.repository = getConnectionManager().get().getRepository(Score);
   }
 
   @Get('/:id')
@@ -43,7 +43,7 @@ export class ScoreController {
 
   @Post('/:id')
   @UseBefore(RequireRole.get(Role.Secretariat))
-  async createFromParticipant( @Param('id') participantId: number, @Body() scores: TeamInDisciplineScore[], @Res() res: Response, @Req() req: Request) {
+  async createFromParticipant( @Param('id') participantId: number, @Body() scores: Score[], @Res() res: Response, @Req() req: Request) {
     const scheduleRepository = Container.get(ScheduleController);
     const sseService = Container.get(SSEController);
     const p = await scheduleRepository.getParticipantPlain(participantId);

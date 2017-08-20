@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ClubService } from 'app/services/api';
-import { IClub, IClubContestant, DivisionType, Gender } from 'app/services/model';
+import { IClub, IGymnast, DivisionType, Gender } from 'app/services/model';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 
 @Component({
@@ -10,11 +10,11 @@ import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-e
 })
 export class MembersComponent implements OnInit, OnDestroy {
   club: IClub;
-  memberList: IClubContestant[] = [];
+  memberList: IGymnast[] = [];
 
-  _selected: IClubContestant;
+  _selected: IGymnast;
   get selected() { return this._selected; }
-  set selected(member: IClubContestant) {
+  set selected(member: IGymnast) {
     this._selected = member;
   }
 
@@ -34,10 +34,10 @@ export class MembersComponent implements OnInit, OnDestroy {
     this.clubService.getMembers(this.club.id).subscribe(members => this.memberList = members);
   }
 
-  genderDivision(member: IClubContestant) { return Object.keys(Gender).find(k => Gender[k] === member.gender); }
+  genderDivision(member: IGymnast) { return Object.keys(Gender).find(k => Gender[k] === member.gender); }
 
   addMember() {
-    const member = <IClubContestant>{
+    const member = <IGymnast>{
       id          : null,
       name        : null,
       birthYear   : null,
@@ -54,7 +54,7 @@ export class MembersComponent implements OnInit, OnDestroy {
     this.loadMembers();
   }
 
-  select(member: IClubContestant) {
+  select(member: IGymnast) {
     this.selected = member ? member : null;
   }
 

@@ -1,7 +1,7 @@
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 
-import { ITeamInDisciplineScore } from 'app/services/model';
+import { IScore } from 'app/services/model';
 
 @Component({
   selector: 'app-score',
@@ -17,7 +17,7 @@ export class ScoreComponent implements OnInit {
   get score(): number { return this.ct.value; }
   set score(value: number) { (<FormControl>this.ct).setValue(value); }
 
-  @Input() model: ITeamInDisciplineScore; // JSON
+  @Input() model: IScore; // JSON
   @Input() form: FormGroup;
   @Input() index: number;
 

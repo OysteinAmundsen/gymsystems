@@ -9,7 +9,8 @@ import { Logger } from '../utils/Logger';
 
 import { Club } from '../model/Club';
 import { Role } from '../model/User';
-import { ClubContestant } from '../model/ClubContestant';
+import { Gymnast } from '../model/Gymnast';
+import { Team } from '../model/Team';
 
 /**
  *
@@ -71,7 +72,9 @@ export class ClubController {
   @Get('/:clubId')
   @OnUndefined(404)
   get( @Param('clubId') clubId: number): Promise<Club> {
-    return this.repository.findOneById(clubId);
+    return this.repository.createQueryBuilder('club')
+      .where('club.id=:id', {id: clubId})
+      .getOne();
   }
 
   @Post()
@@ -103,17 +106,18 @@ export class ClubController {
 
   // Club members
   @Get('/:clubId/members')
-  getMembers(@Param('clubId') clubId: number): Promise<ClubContestant[]> {
-    return this.conn.getRepository(ClubContestant)
+  getMembers(@Param('clubId') clubId: number): Promise<Gymnast[]> {
+    return this.conn.getRepository(Gymnast)
       .createQueryBuilder('contestant')
-      .where('contestant.club = :id', {id: clubId})
       .innerJoinAndSelect('contestant.club', 'club')
+      // .leftJoinAndSelect('contestant.partof', 'team')
+      .where('contestant.club = :id', {id: clubId})
       .getMany();
   }
 
   @Post('/:clubId/members')
-  addMember(@Param('clubId') clubId: number, @Body() member: ClubContestant): Promise<ClubContestant | any> {
-    return this.conn.getRepository(ClubContestant)
+  addMember(@Param('clubId') clubId: number, @Body() member: Gymnast): Promise<Gymnast | any> {
+    return this.conn.getRepository(Gymnast)
       .persist(member)
       .catch(err => {
         Logger.log.error(err);
@@ -123,11 +127,22 @@ export class ClubController {
 
   @Delete('/:clubId/members/:id')
   async removeMember(@Param('clubId') clubId: number, @Param('id') id: number) {
-    return this.conn.getRepository(ClubContestant)
+    return this.conn.getRepository(Gymnast)
       .createQueryBuilder('contestant')
       .where('id = :id', {id: id})
       .delete()
       .execute()
       .catch(err => Logger.log.error(err));
+  }
+
+  // Club teams
+  @Get('/:clubId/teams')
+  getTeams(@Param('clubId') clubId: number): Promise<Team[]> {
+    return this.conn.getRepository(Team)
+      .createQueryBuilder('team')
+      .innerJoinAndSelect('team.club', 'club')
+      .innerJoinAndSelect('team.partof', 'team')
+      .where('team.club = :id', {id: clubId})
+      .getMany();
   }
 }

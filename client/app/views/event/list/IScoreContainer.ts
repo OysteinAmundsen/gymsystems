@@ -1,8 +1,8 @@
-import { IScoreGroup, ITeamInDisciplineScore } from 'app/services/model';
+import { IScoreGroup, IScore } from 'app/services/model';
 
 export interface IScoreContainer {
   group: IScoreGroup;
-  scores: ITeamInDisciplineScore[];
+  scores: IScore[];
   avg?: number;
   total?: number;
 }

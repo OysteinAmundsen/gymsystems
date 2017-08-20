@@ -1,7 +1,7 @@
 import { ITeamInDiscipline } from './ITeamInDiscipline';
 import { IScoreGroup } from './IScoreGroup';
 
-export interface ITeamInDisciplineScore {
+export interface IScore {
   id: number;
   value: number;
   scoreGroup: IScoreGroup;

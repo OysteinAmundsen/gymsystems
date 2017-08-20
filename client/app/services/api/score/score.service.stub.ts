@@ -7,7 +7,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { ScoreService } from 'app/services/api';
-import { ITeamInDisciplineScore, ITeamInDiscipline } from 'app/services/model';
+import { IScore, ITeamInDiscipline } from 'app/services/model';
 
 @Injectable()
 export class ScoreServiceStub {
@@ -20,7 +20,7 @@ export class ScoreServiceStub {
     return Observable.of(null);
   }
 
-  saveFromParticipant(participantId: number, scores: ITeamInDisciplineScore[]) {
+  saveFromParticipant(participantId: number, scores: IScore[]) {
     return Observable.of(null);
   }
 

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { IClub, IClubContestant, Gender, IDivision, DivisionType } from 'app/services/model';
+import { IClub, IGymnast, Gender, IDivision, DivisionType } from 'app/services/model';
 import { ConfigurationService, ClubService } from 'app/services/api';
 
 import * as moment from 'moment';
@@ -16,8 +16,8 @@ import { ErrorHandlerService } from 'app/services/config';
 })
 export class MemberEditorComponent implements OnInit {
   @Input() club: IClub;
-  @Input() member: IClubContestant = <IClubContestant>{};
-  @Output() memberChanged = new EventEmitter<IClubContestant>();
+  @Input() member: IGymnast = <IGymnast>{};
+  @Output() memberChanged = new EventEmitter<IGymnast>();
 
   gender = Gender;
   get Male(): string { return this.translate.instant('Male'); }

@@ -9,7 +9,7 @@ import { ScoreGroup } from './ScoreGroup';
  * For each participant a sum total of all score values from every scoregroup should be calculated.
  */
 @Entity()
-export class TeamInDisciplineScore {
+export class Score {
   @PrimaryGeneratedColumn()
   id: number;
 

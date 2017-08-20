@@ -11,7 +11,7 @@ export enum Gender {
  *
  */
 @Entity()
-export class ClubContestant implements BelongsToClub {
+export class Gymnast implements BelongsToClub {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,8 +24,9 @@ export class ClubContestant implements BelongsToClub {
   @Column()
   gender: Gender;
 
-  @ManyToMany(type => Team, team => team.contesters)
-  partof: Team[];
+  @ManyToMany(type => Team, team => team.gymnasts, { cascadeInsert: false, cascadeUpdate: false })
+  @JoinTable()
+  team: Team[];
 
   @ManyToOne(type => Club, club => club.teams, { nullable: false })
   club: Club;

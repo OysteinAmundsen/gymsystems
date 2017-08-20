@@ -14,7 +14,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ScoreService, UserService } from 'app/services/api';
-import { Operation, ITeamInDiscipline, ITeamInDisciplineScore, IUser, Role } from 'app/services/model';
+import { Operation, ITeamInDiscipline, IScore, IUser, Role } from 'app/services/model';
 
 import { IScoreContainer } from '../IScoreContainer';
 import { ScoreGroupComponent } from '../score-group/score-group.component';
@@ -31,7 +31,7 @@ import { ListComponent } from 'app/views/event/list/list.component';
 export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
   grandTotal = 0;
   scoreForm: FormGroup;
-  scores: ITeamInDisciplineScore[];
+  scores: IScore[];
   roles = Role;
   currentUser: IUser;
   userSubscription: Subscription;
@@ -74,13 +74,13 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
       // Empty score array. Create one score, per judge, per scoregroup
       this.participant.discipline.scoreGroups.forEach(group => {
         for (let j = 0; j < group.judges; j++) {
-          this.participant.scores.push(<ITeamInDisciplineScore>{ scoreGroup: group, value: 0, judgeIndex: j + 1 });
+          this.participant.scores.push(<IScore>{ scoreGroup: group, value: 0, judgeIndex: j + 1 });
         }
       });
     }
 
     this.scoreForm = this.fb.group(this.groupedScores.reduce((previous, current) => {
-      return Object.assign(previous, current.scores.reduce((prev: any, curr: ITeamInDisciplineScore, index: number) => {
+      return Object.assign(previous, current.scores.reduce((prev: any, curr: IScore, index: number) => {
         if (!curr.judgeIndex) {curr.judgeIndex = index + 1; }
         prev[`field_${curr.scoreGroup.type}_${curr.judgeIndex}`] = [
           curr.value,
@@ -133,7 +133,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
     Object.keys(values).forEach(k => {
       const field = k.split('_');
       const group = this.groupedScores.find(g => g.group.type === field[1]);
-      const score: ITeamInDisciplineScore = group.scores[+field[2] - 1];
+      const score: IScore = group.scores[+field[2] - 1];
       score.value = values[k];
       scores.push(score);
     });

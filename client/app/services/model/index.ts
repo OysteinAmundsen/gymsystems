@@ -6,7 +6,7 @@ export * from './ParticipationType';
 
 export * from './IBelongsToClub';
 export * from './IClub';
-export * from './IClubContestant';
+export * from './IGymnast';
 export * from './IConfiguration';
 export * from './IDiscipline';
 export * from './IDivision';
@@ -14,6 +14,6 @@ export * from './IMedia';
 export * from './IScoreGroup';
 export * from './ITeam';
 export * from './ITeamInDiscipline';
-export * from './ITeamInDisciplineScore';
+export * from './IScore';
 export * from './ITournament';
 export * from './IUser';

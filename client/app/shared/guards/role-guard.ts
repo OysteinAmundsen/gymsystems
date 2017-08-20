@@ -11,10 +11,14 @@ export class RoleGuard implements CanActivate {
   constructor(protected router: Router, protected userService: UserService) {
     this.userService.getMe().subscribe(user => {
       if (this.currentUser && !user) { // User was present, but no more
-        this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
+        this.login();
       }
       this.currentUser = user;
     });
+  }
+
+  private login() {
+    this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> | Observable<boolean> {
@@ -24,7 +28,9 @@ export class RoleGuard implements CanActivate {
       if (this.currentUser !== undefined) {
         resolve(this.currentUser != null && this.currentUser.role >= role);
 
-        if (this.currentUser && this.currentUser.role < role) { this.router.navigate(['/']); }
+        if (!this.currentUser || (this.currentUser && this.currentUser.role < role)) {
+          this.login();
+        }
       }
     });
   }

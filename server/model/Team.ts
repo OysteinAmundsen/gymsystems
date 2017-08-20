@@ -4,7 +4,7 @@ import { Discipline } from './Discipline';
 import { Media } from './Media';
 import { Division, DivisionType } from './Division';
 import { Club, BelongsToClub } from './Club';
-import { ClubContestant } from './ClubContestant';
+import { Gymnast } from './Gymnast';
 
 export enum Classes {
   TeamGym = 1, National = 2
@@ -33,9 +33,8 @@ export class Team implements BelongsToClub {
   @JoinTable()
   disciplines: Discipline[] = [];
 
-  @ManyToMany(type => Discipline, discipline => discipline.teams, { cascadeInsert: false, cascadeUpdate: false })
-  @JoinTable()
-  contesters: ClubContestant[];
+  @ManyToMany(type => Gymnast, gymnasts => gymnasts.team, { cascadeInsert: false, cascadeUpdate: false })
+  gymnasts: Gymnast[];
 
   @ManyToOne(type => Tournament, tournament => tournament.teams, { nullable: false })
   tournament: Tournament;

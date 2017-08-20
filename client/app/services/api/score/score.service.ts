@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { ITeamInDisciplineScore, ITeamInDiscipline } from 'app/services/model';
+import { IScore, ITeamInDiscipline } from 'app/services/model';
 
 @Injectable()
 export class ScoreService {
@@ -16,7 +16,7 @@ export class ScoreService {
     return this.http.get(`${this.url}/${participantId}`).map((res: Response) => res.json()).share();
   }
 
-  saveFromParticipant(participantId: number, scores: ITeamInDisciplineScore[]) {
+  saveFromParticipant(participantId: number, scores: IScore[]) {
     return this.http.post(`${this.url}/${participantId}`, scores).map((res: Response) => res.json()).share();
   }
 

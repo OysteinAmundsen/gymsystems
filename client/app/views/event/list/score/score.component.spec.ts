@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
 
 import { ScoreComponent } from './score.component';
-import { IScoreGroup, IDiscipline, Operation, ITeamInDisciplineScore, ITeamInDiscipline } from 'app/services/model';
+import { IScoreGroup, IDiscipline, Operation, IScore, ITeamInDiscipline } from 'app/services/model';
 
 @Component({
  selector  : 'app-cmp',
@@ -14,7 +14,7 @@ import { IScoreGroup, IDiscipline, Operation, ITeamInDisciplineScore, ITeamInDis
 })
 class WrapperComponent {
   form;
-  score: ITeamInDisciplineScore = <ITeamInDisciplineScore>{
+  score: IScore = <IScore>{
     id: 0, value: 0, participant: <ITeamInDiscipline>{ }, judgeIndex: 1,
     scoreGroup: <IScoreGroup>{
       id: 0, name: '', type: 'C', judges: 2, max: 5, min: 0, discipline: <IDiscipline>{ }, operation: Operation.Addition
