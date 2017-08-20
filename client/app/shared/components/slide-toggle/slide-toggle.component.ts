@@ -31,6 +31,7 @@ export class SlideToggleComponent implements OnInit, ControlValueAccessor {
       this._state = value;
       this.checked = value === this.onState;
       if (this.checked) { this.renderer.addClass(this.elm.nativeElement, 'checked'); }
+      else { this.renderer.removeClass(this.elm.nativeElement, 'checked'); }
       this.propagateChange(this._state);
     }
   }
