@@ -25,13 +25,6 @@ tbody {
   color: rgba($text-color, 0.5);
   font-style: italic;
   border-bottom: 1px solid rgba($primary, 0.1);
-  &:hover {
-    background-color: rgba($primary, 0.2);
-  }
-  // Resetting whats defined on hover for list-tables
-  tr:hover td {
-    background-color: transparent;
-  }
   .day-split {
     color: $text-color;
     border-bottom: 2px solid $text-color;

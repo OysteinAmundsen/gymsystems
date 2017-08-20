@@ -82,10 +82,10 @@ describe('ScoreboardComponent', () => {
         { provide: Http, useClass: HttpInterceptor },
         { provide: ScoreService, useClass: ScoreServiceStub },
         { provide: UserService, useClass: UserServiceStub },
-        { provide: ScheduleService, useClass: ScheduleServiceStub},
-        { provide: TeamsService, useClass: TeamsServiceStub},
-        { provide: EventService, useClass: EventServiceStub},
-        { provide: ConfigurationService, useClass: ConfigurationServiceStub},
+        { provide: ScheduleService, useClass: ScheduleServiceStub },
+        { provide: TeamsService, useClass: TeamsServiceStub },
+        { provide: EventService, useClass: EventServiceStub },
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub },
       ]
     })
     .compileComponents();

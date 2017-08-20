@@ -14,7 +14,7 @@ table[role="list"] {
   }
   tbody,
   tr {
-    &[ role="listitem"] {
+    &[role="listitem"] {
       cursor: pointer;
       &:hover td {
         background-color: rgba($primary, 0.2);

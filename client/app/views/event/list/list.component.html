@@ -19,10 +19,10 @@
         <th *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.createdBy.club.id))" class="actions"></th>
       </tr>
     </thead>
-    <tbody *ngFor="let item of schedule; let i = index;" [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime, isCurrent: item.startTime && !item.endTime && !item.publishTime}">
+    <tbody *ngFor="let item of schedule; let i = index;" [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime, isCurrent: item.startTime && !item.endTime && !item.publishTime}" role="listitem">
 
       <!-- View details wide screen -->
-      <tr *ngIf="selected !== item && (!selectedDiscipline || selectedDiscipline.id === item.discipline.id)" (click)="select(item)" role="listitem">
+      <tr *ngIf="selected !== item && (!selectedDiscipline || selectedDiscipline.id === item.discipline.id)" (click)="select(item)">
         <td *ngIf="item.type === participationTypes.Training">Tr</td>
         <td *ngIf="item.type === participationTypes.Live">#{{ item.startNumber + 1 }}</td>
         <td class="visible-wide" [innerHtml]="startTime(item)"></td>
