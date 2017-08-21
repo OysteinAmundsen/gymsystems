@@ -5,8 +5,8 @@ import * as bcrypt from 'bcrypt';
 
 export class FirstReleaseChanges1487003618914 implements MigrationInterface {
 
-  async up(queryRunner: QueryRunner, connection: Connection, entityManager?: EntityManager): Promise<any> {
-    await queryRunner.insert('configuration', {
+  async up(queryRunner: QueryRunner): Promise<any> { // Next-gen Typeorm
+      await queryRunner.insert('configuration', {
       name: 'defaultValues',
       value: JSON.stringify({
         division: [
@@ -72,10 +72,12 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
 {{/list}}`
       })
     });
-    await queryRunner.insert('user', {name: 'admin', password: '$2a$08$1L59S.CUKs6Sq23eq8B4xup0QJZ31QLtdQyOyQsvlxf0PqfQeltw6', role: Role.Admin})
+    await queryRunner.insert('user', {
+      name: 'admin', password: '$2a$08$1L59S.CUKs6Sq23eq8B4xup0QJZ31QLtdQyOyQsvlxf0PqfQeltw6', role: Role.Admin
+    });
   }
 
-  async down(queryRunner: QueryRunner, connection: Connection, entityManager?: EntityManager): Promise<any> {
+  async down(queryRunner: QueryRunner): Promise<any> { // Next-gen Typeorm
     await queryRunner.delete('configuration', { 'name': 'defaultValues' });
     await queryRunner.delete('configuration', { 'name': 'display' });
     await queryRunner.delete('user', { 'name': 'admin' });

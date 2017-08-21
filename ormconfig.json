@@ -1,19 +1,13 @@
 [
   {
     "name": "default",
-    "driver": {
-      "type": "mysql",
-      "host": "localhost",
-      "port": 3306,
-      "username": "system",
-      "password": "admin",
-      "database": "gymsystem"
-    },
-    "logging": {
-      "logQueries": true,
-      "logOnlyFailedQueries": true,
-      "logFailedQueryError": true
-    },
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "system",
+    "password": "admin",
+    "database": "gymsystem",
+    "logging": "all",
     "entities": [
       "dist/model/*.js"
     ],
@@ -23,23 +17,17 @@
     "cli": {
       "migrationsDir": "server/migrations"
     },
-    "autoSchemaSync": true
+    "synchronize": true
   },
   {
     "name": "test",
-    "driver": {
-      "type": "mysql",
-      "host": "localhost",
-      "port": 3305,
-      "username": "system",
-      "password": "admin",
-      "database": "gymsystem_test"
-    },
-    "logging": {
-      "logQueries": false,
-      "logOnlyFailedQueries": true,
-      "logFailedQueryError": true
-    },
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3305,
+    "username": "system",
+    "password": "admin",
+    "database": "gymsystem_test",
+    "logging": "all",
     "entities": [
       "dist/model/*.js"
     ],
@@ -49,6 +37,6 @@
     "cli": {
       "migrationsDir": "server/migrations"
     },
-    "autoSchemaSync": true
+    "synchronize": true
   }
 ]

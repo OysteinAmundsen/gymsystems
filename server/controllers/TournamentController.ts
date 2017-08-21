@@ -79,7 +79,7 @@ export class TournamentController {
       .createQueryBuilder('tournament')
       .where('tournament.endDate < :date', { date: date })
       .orderBy('tournament.startDate', 'DESC')
-      .setLimit(limit) // Next-gen Typeorm: .limit(10)
+      .limit(10)
       .getMany()
       .catch(() => {
         Logger.log.debug(`Query for past tournament was rejected before it was fulfilled`);
@@ -97,7 +97,7 @@ export class TournamentController {
       .createQueryBuilder('tournament')
       .where(':now between tournament.startDate and tournament.endDate', { now: now })
       .orderBy('tournament.startDate', 'DESC')
-      .setLimit(limit) // Next-gen Typeorm: .limit(10)
+      .limit(10)
       .getMany()
       .catch(() => {
         Logger.log.debug(`Query for current tournaments was rejected before it was fulfilled`);
@@ -115,7 +115,7 @@ export class TournamentController {
       .createQueryBuilder('tournament')
       .where('tournament.startDate > :date', { date: date })
       .orderBy('tournament.startDate', 'DESC')
-      .setLimit(limit) // Next-gen Typeorm: .limit(10)
+      .limit(10)
       .getMany()
       .catch(() => {
         Logger.log.debug(`Query for future tournaments was rejected before it was fulfilled`);
@@ -190,7 +190,7 @@ export class TournamentController {
 
     // Remove participants
     const participantRepository = this.conn.getRepository(TeamInDiscipline);
-    const participants = await participantRepository.find({ tournament: tournament.id }); // Next-gen TypeORM: .find({ tournament: {id: tournament.id} });
+    const participants = await participantRepository.find({ tournament: {id: tournament.id} });
     await participantRepository.remove(participants);
 
     // Remove divisions

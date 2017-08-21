@@ -28,7 +28,7 @@ export class ScoreGroupController {
   @Get('/discipline/:id')
   @OnUndefined(404)
   getByDiscipline( @Param('id') id: number): Promise<ScoreGroup[]> {
-    return this.repository.find({ discipline: id });  // Next-gen TypeORM: .find({ discipline: {id: id} });
+    return this.repository.find({ discipline: {id: id} });
   }
 
   @Get('/:id')

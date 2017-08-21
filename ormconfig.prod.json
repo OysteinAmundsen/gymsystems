@@ -2,19 +2,13 @@
   {
     "name": "default",
     "environment": "production",
-    "driver": {
-      "type": "mysql",
-      "host": "db",
-      "port": 3306,
-      "username": "system",
-      "password": "admin",
-      "database": "gymsystem"
-    },
-    "logging": {
-      "logQueries": false,
-      "logOnlyFailedQueries": true,
-      "logFailedQueryError": true
-    },
+    "type": "mysql",
+    "host": "db",
+    "port": 3306,
+    "username": "system",
+    "password": "admin",
+    "database": "gymsystem",
+    "logging": "error",
     "entities": [
       "dist/model/*.js"
     ],
@@ -24,6 +18,6 @@
     "cli": {
       "migrationsDir": "server/migrations"
     },
-    "autoSchemaSync": true
+    "synchronize": true
   }
 ]

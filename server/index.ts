@@ -91,12 +91,6 @@ export class GymServer {
     }
     const configuration = config[index];
 
-    // Apply logger system to typeorm config
-    configuration.logging.logger = (level: string, message: string) => {
-      if (level === 'log') { level = 'info'; }
-      (<any>Logger.log)[level](`${message}`);
-    };
-
     // Rename configuration to 'default' as typeorm requires a default config
     configuration.name = 'default';
 
