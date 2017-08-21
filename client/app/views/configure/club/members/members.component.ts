@@ -12,11 +12,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   club: IClub;
   memberList: IGymnast[] = [];
 
-  _selected: IGymnast;
-  get selected() { return this._selected; }
-  set selected(member: IGymnast) {
-    this._selected = member;
-  }
+  selected: IGymnast;
 
   constructor(private parent: ClubEditorComponent, private clubService: ClubService) { }
 

@@ -110,7 +110,7 @@ export class ClubController {
     return this.conn.getRepository(Gymnast)
       .createQueryBuilder('contestant')
       .innerJoinAndSelect('contestant.club', 'club')
-      // .leftJoinAndSelect('contestant.partof', 'team')
+      .leftJoinAndSelect('contestant.team', 'team')
       .where('contestant.club = :id', {id: clubId})
       .getMany();
   }
