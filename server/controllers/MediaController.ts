@@ -29,6 +29,11 @@ import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  *
+ * | Method | Url                                 | Auth        | Description |
+ * |-------:|:------------------------------------|:------------|:------------|
+ * | POST   | /media/upload/:teamId/:disciplineId | Club        |             |
+ * | DELETE | /media/:teamId/:disciplineId        | Club        |             |
+ * | GET    | /media/:teamId/:disciplineId        |             |             |
  */
 @Service()
 @JsonController('/media')

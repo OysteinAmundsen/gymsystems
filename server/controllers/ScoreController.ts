@@ -21,6 +21,12 @@ import { OkResponse } from '../utils/OkResponse';
 
 /**
  *
+ * | Method | Url                                 | Auth        | Description |
+ * |-------:|:------------------------------------|:------------|:------------|
+ * | GET    | /score/participant/:id              |             |             |
+ * | POST   | /score/participant/:id              | Secretariat |             |
+ * | DELETE | /score/participant/:id              | Secretariat |             |
+ * | GET    | /score/participant/:id/rollback     | Organizer   |             |
  */
 @Service()
 @JsonController('/score/participant')

@@ -153,3 +153,5 @@ We use [angular-cli](https://cli.angular.io/) for both scaffolding and building 
 `TypeORM` is inspired by large scale ORM solutions like `Hibernate`, which means it supports both schema synchronisation and migrations. This is great as we keep all our structure in code instead of relying on `sql` scripts for setup. 
 
 ![DB Model](docs/images/db_model.png)
+
+For a detailed explanation of the different models, please refer to JS Docs inline in the actual [server/model](./server/model) files.

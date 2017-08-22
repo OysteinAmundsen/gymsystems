@@ -19,6 +19,15 @@ import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  *
+ * | Method | Url                                 | Auth        | Description |
+ * |-------:|:------------------------------------|:------------|:------------|
+ * | GET    | /teams                              |             |             |
+ * | GET    | /teams/tournament/:id               |             |             |
+ * | GET    | /teams/my/tournament/:id            | Club        |             |
+ * | GET    | /teams/:id                          |             |             |
+ * | PUT    | /teams/:id                          | Club        |             |
+ * | POST   | /teams                              | Club        |             |
+ * | DELETE | /teams/:id                          | Club        |             |
  */
 @Service()
 @JsonController('/teams')

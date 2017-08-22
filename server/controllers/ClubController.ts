@@ -14,6 +14,17 @@ import { Team } from '../model/Team';
 
 /**
  *
+ * | Method | Url                                 | Auth        | Description |
+ * |-------:|:------------------------------------|:------------|:------------|
+ * | GET    | /clubs/                             |             |             |
+ * | GET    | /clubs/:clubId                      |             |             |
+ * | POST   | /clubs/                             |             |             |
+ * | PUT    | /clubs/:clubId                      |             |             |
+ * | DELETE | /clubs/:clubId                      | Admin       |             |
+ * | GET    | /clubs/:clubId/members              |             |             |
+ * | POST   | /clubs/:clubId/members              |             |             |
+ * | DELETE | /clubs/:clubId/members/:id          |             |             |
+ * | GET    | /clubs/:clubId/teams                |             |             |
  */
 @Service()
 @JsonController('/clubs')

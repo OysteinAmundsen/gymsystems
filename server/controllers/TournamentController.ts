@@ -27,6 +27,16 @@ import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  *
+ * | Method | Url                                 | Auth        | Description |
+ * |-------:|:------------------------------------|:------------|:------------|
+ * | GET    | /tournaments                        |             |             |
+ * | GET    | /tournaments/list/past              |             |             |
+ * | GET    | /tournaments/list/current           |             |             |
+ * | GET    | /tournaments/list/future            |             |             |
+ * | GET    | /tournaments/:id                    |             |             |
+ * | POST   | /tournaments                        | Organizer   |             |
+ * | PUT    | /tournaments/:id                    | Organizer   |             |
+ * | DELETE | /tournaments/:id                    | Organizer   |             |
  */
 @Service()
 @JsonController('/tournaments')

@@ -13,6 +13,10 @@ import { TeamInDiscipline } from '../model/TeamInDiscipline';
 
 /**
  *
+ * | Method | Url                                 | Auth        | Description |
+ * |-------:|:------------------------------------|:------------|:------------|
+ * | GET    | /display/:tournamentId              |             |             |
+ * | GET    | /display/:tournamentId/:id          |             |             |
  */
 @Service()
 @Controller('/display')

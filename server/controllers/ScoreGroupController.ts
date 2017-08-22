@@ -10,6 +10,14 @@ import { Role } from '../model/User';
 
 /**
  *
+ * | Method | Url                                 | Auth        | Description |
+ * |-------:|:------------------------------------|:------------|:------------|
+ * | GET    | /scoregroups                        |             |             |
+ * | GET    | /scoregroups/discipline/:id         |             |             |
+ * | GET    | /scoregroups/:id                    |             |             |
+ * | POST   | /scoregroups                        | Organizer   |             |
+ * | PUT    | /scoregroups/:id                    | Organizer   |             |
+ * | DELETE | /scoregroups/:id                    | Organizer   |             |
  */
 @Service()
 @JsonController('/scoregroups')

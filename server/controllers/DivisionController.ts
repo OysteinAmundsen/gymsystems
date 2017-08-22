@@ -14,6 +14,14 @@ import { MediaController } from './MediaController';
 
 /**
  *
+ * | Method | Url                                 | Auth        | Description |
+ * |-------:|:------------------------------------|:------------|:------------|
+ * | GET    | /divisions                          |             |             |
+ * | GET    | /divisions/tournament/:id           |             |             |
+ * | GET    | /divisions/:id                      |             |             |
+ * | POST   | /divisions                          | Organizer   |             |
+ * | PUT    | /divisions/:id                      | Organizer   |             |
+ * | DELETE | /divisions/:id                      | Organizer   |             |
  */
 @Service()
 @JsonController('/divisions')

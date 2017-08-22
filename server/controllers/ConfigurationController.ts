@@ -12,6 +12,13 @@ import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  *
+ * | Method | Url                                 | Auth        | Description |
+ * |-------:|:------------------------------------|:------------|:------------|
+ * | GET    | /configuration                      |             |             |
+ * | GET    | /configuration/:id                  |             |             |
+ * | POST   | /configuration                      | Admin       |             |
+ * | PUT    | /configuration/:id                  | Admin       |             |
+ * | DELETE | /configuration/:id                  | Admin       |             |
  */
 @Service()
 @JsonController('/configuration')

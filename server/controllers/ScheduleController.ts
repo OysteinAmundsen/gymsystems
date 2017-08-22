@@ -19,6 +19,18 @@ import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  *
+ * | Method | Url                                 | Auth        | Description |
+ * |-------:|:------------------------------------|:------------|:------------|
+ * | GET    | /schedule                           |             |             |
+ * | GET    | /schedule/tournament/:id            |             |             |
+ * | GET    | /schedule/:id                       |             |             |
+ * | POST   | /schedule/:id/start                 | Secretariat |             |
+ * | POST   | /schedule/:id/stop                  | Secretariat |             |
+ * | POST   | /schedule/:id/publish               | Secretariat |             |
+ * | POST   | /schedule                           | Organizer   |             |
+ * | PUT    | /schedule/:id                       | Organizer   |             |
+ * | DELETE | /schedule/:id                       | Organizer   |             |
+ * | DELETE | /schedule/tournament/:id            | Organizer   |             |
  */
 @Service()
 @JsonController('/schedule')

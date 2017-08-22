@@ -5,9 +5,19 @@ import { Discipline } from './Discipline';
 import { Score } from './Score';
 import { Division, DivisionType } from './Division';
 
+/**
+ * Defines if this entry should be a part of the competitive
+ * event, or if this entry is non-score giving training entry
+ * happening pre-event.
+ *
+ * @export
+ * @class ParticipationType
+ */
 export enum ParticipationType {
   Training = 1, Live = 2
 }
+
+
 /**
  * Marks one entry in the tournaments schedule
  *

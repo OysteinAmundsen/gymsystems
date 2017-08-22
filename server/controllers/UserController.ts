@@ -31,6 +31,17 @@ const emailFrom = 'no-reply@gymsystems.org';
 
 /**
  *
+ * | Method | Url                                 | Auth        | Description |
+ * |-------:|:------------------------------------|:------------|:------------|
+ * | POST   | /users/login                        |             |             |
+ * | POST   | /users/logou                        |             |             |
+ * | GET    | /users                              | Organizer   |             |
+ * | GET    | /users/me                           |             |             |
+ * | GET    | /users/get/:id                      | RequireAuth |             |
+ * | PUT    | /users:id                           | RequireAuth |             |
+ * | POST   | /users                              | Organizer   |             |
+ * | POST   | /users/register                     |             |             |
+ * | DELETE | /users:id                           | Organizer   |             |
  */
 @Service()
 @JsonController('/users')
@@ -130,7 +141,10 @@ export class UserController {
       // Club name given is not registerred, try to create
       if (typeof user.club === 'string') {
         const clubRepository = Container.get(ClubController);
-        user.club = await clubRepository.create(<Club>{id: null, name: user.club, teams: null, gymnasts: null, users: null}, res);
+        user.club = await clubRepository.create(
+          <Club>{id: null, name: user.club, troops: null, teams: null, gymnasts: null, users: null},
+          res
+        );
       }
       // If still no club, we should fail
       if (!user.club || !user.club.id) {
@@ -214,7 +228,10 @@ export class UserController {
       // Club name given is not registerred, try to create
       if (typeof user.club === 'string') {
         const clubRepository = Container.get(ClubController);
-        user.club = await clubRepository.create(<Club>{id: null, name: user.club, teams: null, gymnasts: null, users: null}, res);
+        user.club = await clubRepository.create(
+          <Club>{id: null, name: user.club, troops: null, teams: null, gymnasts: null, users: null},
+          res
+        );
       }
       // If still no club, we should fail
       if (!user.club || !user.club.id) {
