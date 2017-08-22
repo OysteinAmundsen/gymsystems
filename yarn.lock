@@ -186,9 +186,9 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/bcrypt/-/bcrypt-1.0.0.tgz#2c523da191db7d41c06d17de235335c985effe9b"
 
-"@types/body-parser@^1.16.4":
-  version "1.16.4"
-  resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.16.4.tgz#96f3660e6f88a677fee7250f5a5e6d6bda3c76bb"
+"@types/body-parser@^1.16.5":
+  version "1.16.5"
+  resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.16.5.tgz#d2b7daefab84e0afa9d3fae0935bc7355b6320af"
   dependencies:
     "@types/express" "*"
     "@types/node" "*"
@@ -203,15 +203,9 @@
   version "0.4.31"
   resolved "https://registry.yarnpkg.com/@types/chalk/-/chalk-0.4.31.tgz#a31d74241a6b1edbb973cf36d97a2896834a51f9"
 
-"@types/compression@^0.0.33":
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/@types/compression/-/compression-0.0.33.tgz#95dc733a2339aa846381d7f1377792d2553dc27d"
-  dependencies:
-    "@types/express" "*"
-
-"@types/cookie-parser@~1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@types/cookie-parser/-/cookie-parser-1.4.0.tgz#7020ea0de59b7aa038aa0cd6d76ceb40b61e7789"
+"@types/cookie-parser@~1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@types/cookie-parser/-/cookie-parser-1.4.1.tgz#e88a39c41960f31549b4c52dd8620aa4a2feb4bb"
   dependencies:
     "@types/express" "*"
 
@@ -221,16 +215,23 @@
   dependencies:
     "@types/node" "*"
 
-"@types/express-session@~1.15.2":
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/@types/express-session/-/express-session-1.15.2.tgz#3d936febc0252bea472557cdae1aa2e377ac5e10"
+"@types/express-session@~1.15.3":
+  version "1.15.3"
+  resolved "https://registry.yarnpkg.com/@types/express-session/-/express-session-1.15.3.tgz#39b6995393832284a1f368f4f1ae48acaab2aac9"
   dependencies:
     "@types/express" "*"
     "@types/node" "*"
 
-"@types/express@*", "@types/express@~4.0.36":
+"@types/express@*":
   version "4.0.36"
   resolved "https://registry.yarnpkg.com/@types/express/-/express-4.0.36.tgz#14eb47de7ecb10319f0a2fb1cf971aa8680758c2"
+  dependencies:
+    "@types/express-serve-static-core" "*"
+    "@types/serve-static" "*"
+
+"@types/express@~4.0.37":
+  version "4.0.37"
+  resolved "https://registry.yarnpkg.com/@types/express/-/express-4.0.37.tgz#625ac3765169676e01897ca47011c26375784971"
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
@@ -248,17 +249,17 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/handlebars@^4.0.35":
-  version "4.0.35"
-  resolved "https://registry.yarnpkg.com/@types/handlebars/-/handlebars-4.0.35.tgz#409eb97a3ad6970daba4d586cb6afe3f5e082c01"
+"@types/handlebars@^4.0.36":
+  version "4.0.36"
+  resolved "https://registry.yarnpkg.com/@types/handlebars/-/handlebars-4.0.36.tgz#ff57c77fa1ab6713bb446534ddc4d979707a3a79"
 
-"@types/jasmine@~2.5.53":
-  version "2.5.53"
-  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.53.tgz#4e0cefad09df5ec48c8dd40433512f84b1568d61"
+"@types/jasmine@~2.5.54":
+  version "2.5.54"
+  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.54.tgz#a6b5f2ae2afb6e0307774e8c7c608e037d491c63"
 
-"@types/lodash@^4.14.73":
-  version "4.14.73"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.73.tgz#9837e47db8643ba5bcef2c7921f37d90f9c24213"
+"@types/lodash@^4.14.74":
+  version "4.14.74"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.74.tgz#ac3bd8db988e7f7038e5d22bd76a7ba13f876168"
 
 "@types/marked@^0.0.27":
   version "0.0.27"
@@ -272,9 +273,9 @@
   version "2.0.29"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-2.0.29.tgz#5002e14f75e2d71e564281df0431c8c1b4a2a36a"
 
-"@types/mkdirp@~0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@types/mkdirp/-/mkdirp-0.5.0.tgz#31fe3dbf963048a53fbc433bab9de376c276182e"
+"@types/mkdirp@~0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@types/mkdirp/-/mkdirp-0.5.1.tgz#ea887cd024f691c1ca67cce20b7606b053e43b0f"
   dependencies:
     "@types/node" "*"
 
@@ -296,17 +297,13 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*":
-  version "8.0.23"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.23.tgz#c746697004782346594a0d755c34425bbf3014d2"
+"@types/node@*", "@types/node@~8.0.24":
+  version "8.0.24"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.24.tgz#06c580084d9add1fb40c1510ef0b448961246fb1"
 
 "@types/node@^6.0.46":
   version "6.0.85"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.85.tgz#ec02bfe54a61044f2be44f13b389c6a0e8ee05ae"
-
-"@types/node@~8.0.24":
-  version "8.0.24"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.24.tgz#06c580084d9add1fb40c1510ef0b448961246fb1"
 
 "@types/passport-local@~1.0.30":
   version "1.0.30"
@@ -315,9 +312,15 @@
     "@types/express" "*"
     "@types/passport" "*"
 
-"@types/passport@*", "@types/passport@~0.3.3":
+"@types/passport@*":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@types/passport/-/passport-0.3.3.tgz#463455c4245ed232d6ce43615580c1001ade8234"
+  dependencies:
+    "@types/express" "*"
+
+"@types/passport@~0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@types/passport/-/passport-0.3.4.tgz#82929c7427091ba73273fcb963fdef8056bddbe7"
   dependencies:
     "@types/express" "*"
 
@@ -325,16 +328,16 @@
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-0.0.32.tgz#bd284e57c84f1325da702babfc82a5328190c0c5"
 
-"@types/request@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@types/request/-/request-2.0.1.tgz#5fb3b273a19a67a698abfd38ece5cd8ef946bc6d"
+"@types/request@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/request/-/request-2.0.2.tgz#d2cb5684e994e744afbc2c90df989b904133ff65"
   dependencies:
     "@types/form-data" "*"
     "@types/node" "*"
 
-"@types/rimraf@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@types/rimraf/-/rimraf-2.0.1.tgz#e3326c0e67d324f65fb5e1adf62d12478fa166fb"
+"@types/rimraf@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/rimraf/-/rimraf-2.0.2.tgz#7f0fc3cf0ff0ad2a99bb723ae1764f30acaf8b6e"
   dependencies:
     "@types/glob" "*"
     "@types/node" "*"
@@ -343,9 +346,9 @@
   version "2.53.42"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.42.tgz#74cb77fb6052edaff2a8984ddafd88d419f25cac"
 
-"@types/serve-favicon@~2.2.28":
-  version "2.2.28"
-  resolved "https://registry.yarnpkg.com/@types/serve-favicon/-/serve-favicon-2.2.28.tgz#f5aae24eafeeb202dfb7983e27c152a8810eaab5"
+"@types/serve-favicon@~2.2.29":
+  version "2.2.29"
+  resolved "https://registry.yarnpkg.com/@types/serve-favicon/-/serve-favicon-2.2.29.tgz#879296aa0a65fe0d9832abbaee5a24bbb862e4c8"
   dependencies:
     "@types/express" "*"
 
@@ -356,9 +359,9 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
-"@types/winston@~2.3.4":
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/@types/winston/-/winston-2.3.4.tgz#5bf6a5fb859f9b71b8509ab747f1eadb3a1cb1a2"
+"@types/winston@~2.3.5":
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/@types/winston/-/winston-2.3.5.tgz#d8063460a7881e55a9dbfc41fcdfb5063312f3fb"
   dependencies:
     "@types/node" "*"
 
@@ -1302,7 +1305,7 @@ compressible@~2.0.10:
   dependencies:
     mime-db ">= 1.29.0 < 2"
 
-compression@^1.5.2, compression@^1.7.0:
+compression@^1.5.2:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/compression/-/compression-1.7.0.tgz#030c9f198f1643a057d776a738e922da4373012d"
   dependencies:
@@ -2898,11 +2901,11 @@ iconv-lite@0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
 
-iconv-lite@0.4.15, iconv-lite@~0.4.13:
+iconv-lite@0.4.15:
   version "0.4.15"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
 
-iconv-lite@^0.4.17:
+iconv-lite@^0.4.17, iconv-lite@~0.4.13:
   version "0.4.18"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.18.tgz#23d8656b16aae6742ac29732ea8f0336a4789cf2"
 
@@ -6289,9 +6292,13 @@ typeorm@^0.0.11:
     yargonaut "^1.1.2"
     yargs "^6.6.0"
 
-"typescript@>=2.0.0 <2.5.0", typescript@^2.3.3, typescript@^2.4.1, typescript@^2.4.2:
+"typescript@>=2.0.0 <2.5.0", typescript@^2.3.3, typescript@^2.4.1:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.2.tgz#f8395f85d459276067c988aa41837a8f82870844"
+
+typescript@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.1.tgz#ce7cc93ada3de19475cc9d17e3adea7aee1832aa"
 
 uglify-js@3.0.x:
   version "3.0.27"
