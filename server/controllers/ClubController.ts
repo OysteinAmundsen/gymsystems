@@ -11,20 +11,20 @@ import { Club } from '../model/Club';
 import { Role } from '../model/User';
 import { Gymnast } from '../model/Gymnast';
 import { Team } from '../model/Team';
+import { Troop } from '../model/Troop';
 
 /**
+ * RESTful controller for all things related to `Club`s.
  *
- * | Method | Url                                 | Auth        | Description |
- * |-------:|:------------------------------------|:------------|:------------|
- * | GET    | /clubs/                             |             |             |
- * | GET    | /clubs/:clubId                      |             |             |
- * | POST   | /clubs/                             |             |             |
- * | PUT    | /clubs/:clubId                      |             |             |
- * | DELETE | /clubs/:clubId                      | Admin       |             |
- * | GET    | /clubs/:clubId/members              |             |             |
- * | POST   | /clubs/:clubId/members              |             |             |
- * | DELETE | /clubs/:clubId/members/:id          |             |             |
- * | GET    | /clubs/:clubId/teams                |             |             |
+ * This controller is also a service, which means you can inject it
+ * anywhere in your code:
+ *
+ * ```
+ * import { Container } from 'typedi';
+ * import { ClubController } from '/controllers/Clubcontroller';
+ *
+ * var clubController = Container.get(ClubController);
+ * ```
  */
 @Service()
 @JsonController('/clubs')
@@ -37,6 +37,22 @@ export class ClubController {
     this.repository = this.conn.getRepository(Club);
   }
 
+  /**
+   * Fetch all clubs.
+   *
+   * This will also perform a lookup in https://www.brreg.no
+   * to fetch all organizations with a industry code specifying
+   * sports clubs.
+   *
+   * The returned results from both brreg and db lookup will be merged
+   * with a priority on db results.
+   *
+   * **USAGE:**
+   * GET /clubs
+   *
+   * @param {Request} req
+   * @param {string} name if provided, clubs will be filtered according to names containing this string
+   */
   @Get()
   all(@Req() req: Request, name?: string): Promise<Club[]> {
     const n = name || req.query['name'];
@@ -55,13 +71,13 @@ export class ClubController {
     });
   }
 
-  serializeQueryParams(obj: any): string {
+  private serializeQueryParams(obj: any): string {
     const params: any = [];
     Object.keys(obj).forEach(key => params.push(`${key}=${obj[key]}`));
     return params.join('&');
   }
 
-  brregLookup(name: string): Promise<Club[]> {
+  private brregLookup(name: string): Promise<Club[]> {
     return new Promise((resolve, reject) => {
       if (!name || name.length < 2) { return resolve([]); } // Fail fast
 
@@ -80,6 +96,14 @@ export class ClubController {
     });
   }
 
+  /**
+   * Endpoint for retreiving one club based on id
+   *
+   * **USAGE:**
+   * GET /clubs/:clubId
+   *
+   * @param {number} clubId
+   */
   @Get('/:clubId')
   @OnUndefined(404)
   get( @Param('clubId') clubId: number): Promise<Club> {
@@ -88,6 +112,15 @@ export class ClubController {
       .getOne();
   }
 
+  /**
+   * Endpoint for creating a new club
+   *
+   * **USAGE:**
+   * POST /clubs
+   *
+   * @param {Club} club
+   * @param {Response} res
+   */
   @Post()
   create( @Body() club: Club, @Res() res: Response): Promise<Club | any> {
     return this.repository.persist(club)
@@ -97,7 +130,18 @@ export class ClubController {
       });
   }
 
+  /**
+   * Endpoint for updating a club
+   *
+   * **USAGE:** (Club only)
+   * PUT /clubs/:clubId
+   *
+   * @param {number} clubId
+   * @param {Club} club
+   * @param {Response} res
+   */
   @Put('/:clubId')
+  @UseBefore(RequireRole.get(Role.Club))
   update( @Param('clubId') clubId: number, @Body() club: Club, @Res() res: Response): Promise<Club | any> {
     return this.repository.persist(club)
       .catch(err => {
@@ -106,6 +150,15 @@ export class ClubController {
       });
   }
 
+  /**
+   * Endpoint for removing a club
+   *
+   * **USAGE:**  (Admin only)
+   * DELETE /clubs/:clubId
+   *
+   * @param {number} clubId
+   * @param {Response} res
+   */
   @Delete('/:clubId')
   @UseBefore(RequireRole.get(Role.Admin))
   async remove( @Param('clubId') clubId: number, @Res() res: Response) {
@@ -116,6 +169,14 @@ export class ClubController {
 
 
   // Club members
+  /**
+   * Endpoint for retreiving members from a club
+   *
+   * **USAGE:**
+   * GET /clubs/:clubId/members
+   *
+   * @param {number} clubId
+   */
   @Get('/:clubId/members')
   getMembers(@Param('clubId') clubId: number): Promise<Gymnast[]> {
     return this.conn.getRepository(Gymnast)
@@ -126,7 +187,17 @@ export class ClubController {
       .getMany();
   }
 
+  /**
+   * Endpoint for adding/updating one member to a club
+   *
+   * **USAGE:** (Club only)
+   * POST /clubs/:clubId/members
+   *
+   * @param {number} clubId
+   * @param member
+   */
   @Post('/:clubId/members')
+  @UseBefore(RequireRole.get(Role.Club))
   addMember(@Param('clubId') clubId: number, @Body() member: Gymnast): Promise<Gymnast | any> {
     return this.conn.getRepository(Gymnast)
       .persist(member)
@@ -136,7 +207,17 @@ export class ClubController {
       });
   }
 
+  /**
+   * Endpoint for removing a member from a club
+   *
+   * **USAGE:** (Club only)
+   * DELETE /clubs/:clubId/members/:id
+   *
+   * @param {number} clubId
+   * @param {number} id
+   */
   @Delete('/:clubId/members/:id')
+  @UseBefore(RequireRole.get(Role.Club))
   async removeMember(@Param('clubId') clubId: number, @Param('id') id: number) {
     return this.conn.getRepository(Gymnast)
       .createQueryBuilder('contestant')
@@ -146,14 +227,21 @@ export class ClubController {
       .catch(err => Logger.log.error(err));
   }
 
-  // Club teams
-  @Get('/:clubId/teams')
-  getTeams(@Param('clubId') clubId: number): Promise<Team[]> {
-    return this.conn.getRepository(Team)
-      .createQueryBuilder('team')
-      .innerJoinAndSelect('team.club', 'club')
-      .innerJoinAndSelect('team.partof', 'team')
-      .where('team.club = :id', {id: clubId})
+  // Club troops
+  /**
+   * Endpoint for retreiving a clubs troops
+   *
+   * **USAGE:**
+   * GET /clubs/:clubId/troop
+   *
+   * @param {number} clubId
+   */
+  @Get('/:clubId/troop')
+  getTeams(@Param('clubId') clubId: number): Promise<Troop[]> {
+    return this.conn.getRepository(Troop)
+      .createQueryBuilder('troop')
+      .innerJoinAndSelect('troop.club', 'club')
+      .where('troop.club = :id', {id: clubId})
       .getMany();
   }
 }

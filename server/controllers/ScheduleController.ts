@@ -18,19 +18,18 @@ import { TournamentController } from './TournamentController';
 import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
+ * RESTful controller for all things related to `TeamInDiscipline`, which effectively
+ * is a schedule entry.
  *
- * | Method | Url                                 | Auth        | Description |
- * |-------:|:------------------------------------|:------------|:------------|
- * | GET    | /schedule                           |             |             |
- * | GET    | /schedule/tournament/:id            |             |             |
- * | GET    | /schedule/:id                       |             |             |
- * | POST   | /schedule/:id/start                 | Secretariat |             |
- * | POST   | /schedule/:id/stop                  | Secretariat |             |
- * | POST   | /schedule/:id/publish               | Secretariat |             |
- * | POST   | /schedule                           | Organizer   |             |
- * | PUT    | /schedule/:id                       | Organizer   |             |
- * | DELETE | /schedule/:id                       | Organizer   |             |
- * | DELETE | /schedule/tournament/:id            | Organizer   |             |
+ * This controller is also a service, which means you can inject it
+ * anywhere in your code:
+ *
+ * ```
+ * import { Container } from 'typedi';
+ * import { ScheduleController } from '/controllers/Schedulecontroller';
+ *
+ * var scheduleController = Container.get(ScheduleController);
+ * ```
  */
 @Service()
 @JsonController('/schedule')
@@ -41,11 +40,29 @@ export class ScheduleController {
     this.repository = getConnectionManager().get().getRepository(TeamInDiscipline);
   }
 
+  /**
+   * Endpoint for retreiving all schedules.
+   *
+   * This is actually not very useful. It is more useful
+   * to filter the schedule based on tournament, so we recommend to use
+   * `GET /schedule/tournament/:id` instead
+   *
+   * **USAGE:**
+   * GET /schedule
+   */
   @Get()
   all() {
     return this.repository.find();
   }
 
+  /**
+   * Endpoint for retreiving the schedule for a tournament
+   *
+   * **USAGE:**
+   * GET /schedule/tournament/:id
+   *
+   * @param id
+   */
   @Get('/tournament/:id')
   @OnUndefined(404)
   getByTournament( @Param('id') id: number): Promise<TeamInDiscipline[]> {
@@ -67,6 +84,12 @@ export class ScheduleController {
       .getMany();
   }
 
+  /**
+   * Endpoint for retreiving one entry in the schedule
+   *
+   * **USAGE:**
+   * GET /schedule/:id
+   */
   @Get('/:id')
   @OnUndefined(404)
   get( @Param('id') id: number): Promise<TeamInDiscipline> {
@@ -83,6 +106,16 @@ export class ScheduleController {
       .getOne();
   }
 
+  /**
+   * Endpoint for starting the execution of a team in the schedule
+   *
+   * **USAGE:** (Secretariat only)
+   * POST /schedule/:id/start
+   *
+   * @param id
+   * @param res
+   * @param req
+   */
   @Post('/:id/start')
   @UseBefore(RequireRole.get(Role.Secretariat))
   async start(@Param('id') id: number, @Res() res: Response, @Req() req: Request) {
@@ -91,6 +124,16 @@ export class ScheduleController {
     return this.update(id, participant, res, req);
   }
 
+  /**
+   * Endpoint for stopping the execution of a team in the schedule
+   *
+   * **USAGE:** (Secretariat only)
+   * POST /schedule/:id/stop
+   *
+   * @param id
+   * @param res
+   * @param req
+   */
   @Post('/:id/stop')
   @UseBefore(RequireRole.get(Role.Secretariat))
   async stop(@Param('id') id: number, @Res() res: Response, @Req() req: Request) {
@@ -99,6 +142,16 @@ export class ScheduleController {
     return this.update(id, participant, res, req);
   }
 
+  /**
+   * Endpoint for publishing scores
+   *
+   * **USAGE:** (Secretariat only)
+   * POST /schedule/:id/publish
+   *
+   * @param id
+   * @param res
+   * @param req
+   */
   @Post('/:id/publish')
   @UseBefore(RequireRole.get(Role.Secretariat))
   async publish(@Param('id') id: number, @Res() res: Response, @Req() req: Request) {
@@ -107,6 +160,11 @@ export class ScheduleController {
     return this.update(id, participant, res, req);
   }
 
+  /**
+   *
+   *
+   * @param id
+   */
   getParticipantPlain(id: number): Promise<TeamInDiscipline> {
     return this.repository.createQueryBuilder('tournament_participant')
       .where('tournament_participant.id=:id', { id: id })
@@ -116,6 +174,16 @@ export class ScheduleController {
       .getOne();
   }
 
+  /**
+   * Endpoint for creating entries in the schedule
+   *
+   * **USAGE:** (Organizer only)
+   * POST /schedule
+   *
+   * @param participant
+   * @param res
+   * @param req
+   */
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
   async create( @Body() participant: TeamInDiscipline | TeamInDiscipline[], @Res() res: Response, @Req() req: Request) {
@@ -135,6 +203,17 @@ export class ScheduleController {
       });
   }
 
+  /**
+   * Endpoint for updating one entry in the schedule
+   *
+   * **USAGE:** (Organizer only)
+   * PUT /schedule/:id
+   *
+   * @param id
+   * @param participant
+   * @param res
+   * @param req
+   */
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async update( @Param('id') id: number, @Body() participant: TeamInDiscipline, @Res() res: Response, @Req() req: Request) {
@@ -155,6 +234,16 @@ export class ScheduleController {
       });
   }
 
+  /**
+   * Endpoint for removing one entry in the schedule
+   *
+   * **USAGE:** (Organizer only)
+   * DELETE /schedule/:id
+   *
+   * @param participantId
+   * @param res
+   * @param req
+   */
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') participantId: number, @Res() res: Response, @Req() req: Request) {
@@ -162,6 +251,16 @@ export class ScheduleController {
     return this.removeMany([participant], res, req);
   }
 
+  /**
+   * Endpoint for erasing the entire schedule for a tournament
+   *
+   * **USAGE:** (Organizer only)
+   * DELETE /schedule/tournament/:id
+   *
+   * @param tournamentId
+   * @param res
+   * @param req
+   */
   @Delete('/tournament/:id')
   @OnUndefined(200)
   @UseBefore(RequireRole.get(Role.Organizer))
