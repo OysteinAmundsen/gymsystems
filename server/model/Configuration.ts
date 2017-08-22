@@ -4,13 +4,24 @@ import { Team } from './Team';
 import { PrimaryColumn, Column, Entity } from 'typeorm';
 
 /**
- * Describes the available disciplines in this sport.
+ * System Configuration described via key/value objects
+ * where the value is usually some json object containing
+ * even more configuration.
+ *
+ * @export
+ * @class Configuration
  */
 @Entity()
 export class Configuration {
+  /**
+   * The key
+   */
   @PrimaryColumn()
   name: string;
 
+  /**
+   * The value
+   */
   @Column({ type: 'json', nullable: true })
   value: any;
 }
