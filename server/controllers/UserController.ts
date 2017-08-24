@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 
 import { ClubController } from './ClubController';
 import { Club, BelongsToClub } from '../model/Club';
-import { isMyClub, validateClub } from '../validators/ClubValidator';
+import { isMyClub, validateClub, lookupOrFakeClub } from '../validators/ClubValidator';
 import { GymServer } from '../index';
 import { ErrorResponse } from '../utils/ErrorResponse';
 
@@ -254,25 +254,31 @@ export class UserController {
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
   async create( @Body() user: User, @Req() req: Request, @Res() res: Response): Promise<User[] | any> {
-    const hasClub = await validateClub([<BelongsToClub>user], req);
-    if (!hasClub) {
+    // Clone user object
+    const userCopy = JSON.parse(JSON.stringify(user));
+
+    // Make sure club is an object
+    userCopy.club = await lookupOrFakeClub(user, req);
+    if (!userCopy.club) {
       res.status(400);
       return new ErrorResponse(400, 'No Club name given, or Club name has no unique match');
     }
 
+    // Validate club privilege on current user
     const me = await this.me(req);
-
-    // Make sure club is an object
-    const isSameClub = await isMyClub([user], req);
+    const isSameClub = await isMyClub([userCopy], req);
     if (!isSameClub) {
       res.status(403);
-      return new ErrorResponse(403, 'You are not authorized to create teams for other clubs than your own.');
+      return new ErrorResponse(403, 'You are not authorized to create users for other clubs than your own.');
     }
+
+    // Validate user role
     if (user.role > me.role && me.role < Role.Admin) {
       res.status(403);
       return new ErrorResponse(403, 'Your are not authorized to create users with higher privileges than your own.');
     }
 
+    // Actually create the user
     return this.createUser(user, res, req);
   }
 
