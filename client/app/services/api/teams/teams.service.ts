@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
 import { ITeam, IDiscipline, DivisionType } from 'app/services/model';
+import { Helper } from '../Helper';
 
 @Injectable()
 export class TeamsService {
@@ -30,7 +31,9 @@ export class TeamsService {
   }
 
   save(team: ITeam) {
-    const call = (team.id) ? this.http.put(`${this.url}/${team.id}`, team) : this.http.post(this.url, team);
+    const call = (team.id)
+      ? this.http.put(`${this.url}/${team.id}`, Helper.reduceLevels(team))
+      : this.http.post(this.url, Helper.reduceLevels(team));
     return call.map((res: Response) => res.json());
   }
 

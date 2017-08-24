@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
 import { ITournament } from 'app/services/model';
+import { Helper } from '../Helper';
 
 @Injectable()
 export class TournamentService {
@@ -31,7 +32,9 @@ export class TournamentService {
   }
 
   save(tournament: ITournament) {
-    const call = (tournament.id) ? this.http.put(`${this.url}/${tournament.id}`, tournament) : this.http.post(this.url, tournament);
+    const call = (tournament.id)
+      ? this.http.put(`${this.url}/${tournament.id}`, Helper.reduceLevels(tournament))
+      : this.http.post(this.url, tournament);
     return call.map((res: Response) => res.json());
   }
 

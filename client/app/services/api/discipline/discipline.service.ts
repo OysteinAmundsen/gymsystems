@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
 import { IDiscipline } from 'app/services/model';
+import { Helper } from '../Helper';
 
 @Injectable()
 export class DisciplineService {
@@ -26,12 +27,14 @@ export class DisciplineService {
   }
 
   save(discipline: IDiscipline) {
-    const call = (discipline.id) ? this.http.put(`${this.url}/${discipline.id}`, discipline) : this.http.post(this.url, discipline);
+    const call = (discipline.id)
+      ? this.http.put(`${this.url}/${discipline.id}`, Helper.reduceLevels(discipline))
+      : this.http.post(this.url, Helper.reduceLevels(discipline));
     return call.map((res: Response) => res.json());
   }
 
   saveAll(disciplines: IDiscipline[]) {
-    return this.http.post(this.url, disciplines).map((res: Response) => res.json());
+    return this.http.post(this.url, Helper.reduceLevels(disciplines)).map((res: Response) => res.json());
   }
 
   delete(discipline: IDiscipline) {

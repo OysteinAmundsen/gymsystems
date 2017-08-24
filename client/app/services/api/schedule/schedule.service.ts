@@ -11,6 +11,7 @@ import { Logger } from 'app/services';
 
 import { ConfigurationService } from 'app/services/api/configuration/configuration.service';
 import { ITeamInDiscipline, ITournament } from 'app/services/model';
+import { Helper } from '../Helper';
 
 @Injectable()
 export class ScheduleService {
@@ -35,7 +36,9 @@ export class ScheduleService {
   }
 
   save(participant: ITeamInDiscipline) {
-    const call = (participant.id) ? this.http.put(`${this.url}/${participant.id}`, participant) : this.http.post(this.url, participant);
+    const call = (participant.id)
+      ? this.http.put(`${this.url}/${participant.id}`, Helper.reduceLevels(participant))
+      : this.http.post(this.url, Helper.reduceLevels(participant));
     return call.map((res: Response) => res.json());
   }
 
@@ -52,7 +55,7 @@ export class ScheduleService {
   }
 
   saveAll(participants: ITeamInDiscipline[]) {
-    return this.http.post(this.url, participants).map((res: Response) => res.json());
+    return this.http.post(this.url, Helper.reduceLevels(participants)).map((res: Response) => res.json());
   }
 
   delete(participant: ITeamInDiscipline) {

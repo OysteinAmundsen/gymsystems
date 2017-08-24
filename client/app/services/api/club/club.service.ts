@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 
 import { IClub, IBelongsToClub, IGymnast, ITeam } from 'app/services/model';
+import { Helper } from '../Helper';
 
 @Injectable()
 export class ClubService {
@@ -24,7 +25,9 @@ export class ClubService {
   }
 
   saveClub(club: IClub) {
-    return (club.id ? this.http.put(`${this.url}/${club.id}`, club) : this.http.post(`${this.url}/`, club))
+    return (club.id
+      ? this.http.put(`${this.url}/${club.id}`, Helper.reduceLevels(club))
+      : this.http.post(`${this.url}/`, club))
       .map((res: Response) => res.json());
   }
 

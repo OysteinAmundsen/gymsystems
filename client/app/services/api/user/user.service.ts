@@ -10,6 +10,7 @@ import 'rxjs/add/observable/throw';
 
 import { Logger } from 'app/services';
 import { IUser } from 'app/services/model';
+import { Helper } from '../Helper';
 
 @Injectable()
 export class UserService {
@@ -67,12 +68,14 @@ export class UserService {
   }
 
   save(user: IUser): Observable<IUser> {
-    return (user.id ? this.http.put(`/api/users/${user.id}`, user) : this.http.post('/api/users/', user))
+    return (user.id
+      ? this.http.put(`/api/users/${user.id}`, Helper.reduceLevels(user))
+      : this.http.post('/api/users/', user))
       .map((res: Response) => res.json());
   }
 
   register(user: IUser): Observable<IUser> {
-    return this.http.post('/api/users/register', user).map((res: Response) => res.json());
+    return this.http.post('/api/users/register', Helper.reduceLevels(user)).map((res: Response) => res.json());
   }
 
   delete(user: IUser) {

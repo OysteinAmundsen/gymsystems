@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
 import { IScoreGroup } from 'app/services/model';
+import { Helper } from '../Helper';
 
 @Injectable()
 export class ScoreGroupService {
@@ -26,12 +27,14 @@ export class ScoreGroupService {
   }
 
   save(scoreGroup: IScoreGroup) {
-    const call = (scoreGroup.id) ? this.http.put(`${this.url}/${scoreGroup.id}`, scoreGroup) : this.http.post(this.url, scoreGroup);
+    const call = (scoreGroup.id)
+      ? this.http.put(`${this.url}/${scoreGroup.id}`, Helper.reduceLevels(scoreGroup))
+      : this.http.post(this.url, Helper.reduceLevels(scoreGroup));
     return call.map((res: Response) => res.json());
   }
 
   saveAll(scoreGroups: IScoreGroup[]) {
-    return this.http.post(this.url, scoreGroups).map((res: Response) => res.json());
+    return this.http.post(this.url, Helper.reduceLevels(scoreGroups)).map((res: Response) => res.json());
   }
 
   delete(scoreGroup: IScoreGroup) {
