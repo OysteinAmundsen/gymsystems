@@ -18,6 +18,7 @@ const routes: Routes = [
     { path: 'display',            component: DisplayComponent,    canActivate: [RoleGuard], data: { role: Role.Secretariat} },
     { path: 'display/:displayId', component: FullscreenComponent, canActivate: [RoleGuard], data: { role: Role.Secretariat} },
   ]},
+  { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({

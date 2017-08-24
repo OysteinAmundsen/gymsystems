@@ -1,16 +1,16 @@
-     100 files     200 files     300 files     317 text files.
-classified 317 filesDuplicate file check 317 files (296 known unique)Unique:      100 files                                          Unique:      200 files                                               317 unique files.                              
-Counting:  100Counting:  200Counting:  300      99 files ignored.
+     100 files     200 files     300 files     325 text files.
+classified 325 filesDuplicate file check 325 files (302 known unique)Unique:      100 files                                          Unique:      200 files                                          Unique:      300 files                                               325 unique files.                              
+Counting:  100Counting:  200Counting:  300     102 files ignored.
 
-github.com/AlDanial/cloc v 1.72  T=3.80 s (82.1 files/s, 3772.8 lines/s)
+github.com/AlDanial/cloc v 1.72  T=0.45 s (706.9 files/s, 32499.6 lines/s)
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-TypeScript                     210           1322            262           8286
-Sass                            49            116             24           2194
-HTML                            46             94             31           1468
-JSON                             6              0              0            524
+TypeScript                     212           1353            272           8453
+Sass                            51            120             23           2201
+HTML                            48             95             31           1516
+JSON                             6              0              0            548
 XML                              1              0              0              9
 -------------------------------------------------------------------------------
-SUM:                           312           1532            317          12481
+SUM:                           318           1568            326          12727
 -------------------------------------------------------------------------------
