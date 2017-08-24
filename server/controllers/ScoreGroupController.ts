@@ -9,7 +9,17 @@ import { ScoreGroup } from '../model/ScoreGroup';
 import { Role } from '../model/User';
 
 /**
+ * RESTful controller for all things related to `ScoreGroup`s.
  *
+ * This controller is also a service, which means you can inject it
+ * anywhere in your code:
+ *
+ * ```
+ * import { Container } from 'typedi';
+ * import { ScoreGroupController } from '/controllers/ScoreGroupcontroller';
+ *
+ * var scoreGroupController = Container.get(ScoreGroupController);
+ * ```
  */
 @Service()
 @JsonController('/scoregroups')
@@ -20,23 +30,53 @@ export class ScoreGroupController {
     this.repository = getConnectionManager().get().getRepository(ScoreGroup);
   }
 
+  /**
+   * Endpoint for fetching all scoregroups
+   *
+   * **USAGE:**
+   * GET    | /scoregroups
+   */
   @Get()
   all() {
     return this.repository.find();
   }
 
+  /**
+   * Endpoint for fetching all scoregroups for a specific discipline
+   * **USAGE:**
+   * GET    | /scoregroups/discipline/:id
+   *
+   * @param id
+   */
   @Get('/discipline/:id')
   @OnUndefined(404)
   getByDiscipline( @Param('id') id: number): Promise<ScoreGroup[]> {
     return this.repository.find({ discipline: {id: id} });
   }
 
+  /**
+   * Endpoint for fetching one specific scoregroup
+   *
+   * **USAGE:**
+   * GET    | /scoregroups/:id
+   *
+   * @param scoreGroupId
+   */
   @Get('/:id')
   @OnUndefined(404)
   get( @Param('id') scoreGroupId: number): Promise<ScoreGroup> {
     return this.repository.findOneById(scoreGroupId);
   }
 
+  /**
+   * Endpoint for creating a new scoregroup
+   *
+   * **USAGE:** (Organizer only)
+   * POST   | /scoregroups
+   *
+   * @param scoreGroup
+   * @param res
+   */
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
   create( @Body() scoreGroup: ScoreGroup | ScoreGroup[], @Res() res: Response): Promise<ScoreGroup[] | any> {
@@ -48,12 +88,29 @@ export class ScoreGroupController {
       });
   }
 
+  /**
+   * Endpoint for updating a scoregroup
+   *
+   * **USAGE:** (Organizer only)
+   * PUT    | /scoregroups/:id
+   *
+   * @param id
+   * @param scoreGroup
+   */
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   update( @Param('id') id: number, @Body() scoreGroup: ScoreGroup) {
     return this.repository.persist(scoreGroup).catch(err => Logger.log.error(err));
   }
 
+  /**
+   * Endpoint for removing one scoregroup
+   *
+   * **USAGE:** (Organizer only)
+   * DELETE | /scoregroups/:id
+   *
+   * @param scoreGroupId
+   */
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') scoreGroupId: number) {

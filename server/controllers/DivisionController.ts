@@ -13,7 +13,17 @@ import { Role } from '../model/User';
 import { MediaController } from './MediaController';
 
 /**
+ * RESTful controller for all things related to `Display`s.
  *
+ * This controller is also a service, which means you can inject it
+ * anywhere in your code:
+ *
+ * ```
+ * import { Container } from 'typedi';
+ * import { DisplayController } from '/controllers/Displaycontroller';
+ *
+ * var displayController = Container.get(DisplayController);
+ * ```
  */
 @Service()
 @JsonController('/divisions')
@@ -24,11 +34,30 @@ export class DivisionController {
     this.repository = getConnectionManager().get().getRepository(Division);
   }
 
+  /**
+   * Retreive all divisions registerred in the system.
+   *
+   * This is actually not very useful. It is more useful
+   * to filter the divisions based on tournament, so we recommend to use
+   * `GET /divisions/tournament/:id` instead
+   *
+   * **USAGE:**
+   * GET /divisions
+   */
   @Get()
   all() {
     return this.repository.find();
   }
 
+  /**
+   * Endpoint for retreiving all divisions bound to a given
+   * tournament object
+   *
+   * **USAGE:**
+   * GET /divisions/tournament/:id
+   *
+   * @param {number} id
+   */
   @Get('/tournament/:id')
   @OnUndefined(404)
   getByTournament( @Param('id') id: number): Promise<Division[]> {
@@ -40,6 +69,14 @@ export class DivisionController {
       .getMany();
   }
 
+  /**
+   * Endpoint for retreiving one division
+   *
+   * **USAGE:**
+   * GET /divisions/:id
+   *
+   * @param {number} id
+   */
   @Get('/:id')
   @OnUndefined(404)
   get( @Param('id') id: number): Promise<Division> {
@@ -49,6 +86,15 @@ export class DivisionController {
       .getOne();
   }
 
+  /**
+   * Endpoint for creating one division
+   *
+   * **USAGE:** (Organizer only)
+   * POST /divisions
+   *
+   * @param {Division} division
+   * @param {Response} res
+   */
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
   create( @Body() division: Division | Division[], @Res() res: Response): Promise<Division[] | any> {
@@ -60,6 +106,16 @@ export class DivisionController {
       });
   }
 
+  /**
+   * Endpoint for updating a division
+   *
+   * **USAGE:** (Organizer only)
+   * PUT /divisions/:id
+   *
+   * @param {number} id
+   * @param {Division} division
+   * @param {Response} res
+   */
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   update( @Param('id') id: number, @Body() division: Division, @Res() res: Response) {
@@ -70,6 +126,14 @@ export class DivisionController {
       });
   }
 
+  /**
+   * Endpoint for removing one division
+   *
+   * **USAGE:** (Organizer only)
+   * DELETE /divisions/:id
+   *
+   * @param {number} divisionId
+   */
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') divisionId: number) {
@@ -81,6 +145,14 @@ export class DivisionController {
       });
   }
 
+  /**
+   * Service method for removing a bulk of divisions.
+   *
+   * This is mainly useful when removing a container for divisions, for
+   * instance a Tournament.
+   *
+   * @param {Division[]} divisions
+   */
   removeMany(divisions: Division[]) {
     const mediaRepository = Container.get(MediaController);
     const promises = [];
@@ -97,6 +169,14 @@ export class DivisionController {
     })));
   }
 
+  /**
+   * Service method for creating default divisions
+   *
+   * This is only useful when creating tournaments.
+   *
+   * @param {Tournament} tournament the newly created tournament object
+   * @param {Response} res
+   */
   createDefaults(tournament: Tournament, res: Response): Promise<Division[]> {
     const configRepository = Container.get(ConfigurationController);
     return configRepository.get('defaultValues')

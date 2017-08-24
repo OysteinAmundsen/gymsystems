@@ -20,7 +20,17 @@ import { ErrorResponse } from '../utils/ErrorResponse';
 import { OkResponse } from '../utils/OkResponse';
 
 /**
+ * RESTful controller for all things related to `Score`s.
  *
+ * This controller is also a service, which means you can inject it
+ * anywhere in your code:
+ *
+ * ```
+ * import { Container } from 'typedi';
+ * import { ScoreController } from '/controllers/Scorecontroller';
+ *
+ * var scoreController = Container.get(ScoreController);
+ * ```
  */
 @Service()
 @JsonController('/score/participant')
@@ -31,6 +41,13 @@ export class ScoreController {
     this.repository = getConnectionManager().get().getRepository(Score);
   }
 
+  /**
+   * Endpoint for fetching the scores for a team in a discipline
+   * **USAGE:**
+   * GET /score/participant/:id
+   *
+   * @param participantId
+   */
   @Get('/:id')
   getByParticipant( @Param('id') participantId: number) {
     return this.repository.createQueryBuilder('tournament_participant_score')
@@ -41,6 +58,17 @@ export class ScoreController {
       .getMany();
   }
 
+  /**
+   * Endpoint for setting points for a team in a discipline
+   *
+   * **USAGE:** (Secretariat only)
+   * POST /score/participant/:id
+   *
+   * @param participantId
+   * @param scores
+   * @param res
+   * @param req
+   */
   @Post('/:id')
   @UseBefore(RequireRole.get(Role.Secretariat))
   async createFromParticipant( @Param('id') participantId: number, @Body() scores: Score[], @Res() res: Response, @Req() req: Request) {
@@ -69,6 +97,16 @@ export class ScoreController {
       .catch(err => Logger.log.error(err));
   }
 
+  /**
+   * Endpoint for removing scores from a team in a discipline
+   *
+   * **USAGE:** (Secretariat only)
+   * DELETE /score/participant/:id
+   *
+   * @param participantId
+   * @param res
+   * @param req
+   */
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Secretariat))
   async removeFromParticipant( @Param('id') participantId: number, @Res() res: Response, @Req() req: Request) {
@@ -99,6 +137,16 @@ export class ScoreController {
     return new ErrorResponse(400, 'Scores are allready published.');
   }
 
+  /**
+   * Endpoint for rolling back tournament execution to a specific point in the schedule
+   *
+   * **USAGE:** (Organizer only)
+   * GET /score/participant/:id/rollback
+   *
+   * @param participantId
+   * @param res
+   * @param req
+   */
   @Get('/:id/rollback')
   @UseBefore(RequireRole.get(Role.Organizer))
   async rollbackToParticipant( @Param('id') participantId: number, @Res() res: Response, @Req() req: Request) {

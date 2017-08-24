@@ -12,7 +12,17 @@ import { Tournament } from '../model/Tournament';
 import { TeamInDiscipline } from '../model/TeamInDiscipline';
 
 /**
+ * RESTful controller for all things related to `Display`s.
  *
+ * This controller is also a service, which means you can inject it
+ * anywhere in your code:
+ *
+ * ```
+ * import { Container } from 'typedi';
+ * import { DisplayController } from '/controllers/Displaycontroller';
+ *
+ * var displayController = Container.get(DisplayController);
+ * ```
  */
 @Service()
 @Controller('/display')
@@ -51,6 +61,18 @@ export class DisplayController {
     });
   }
 
+  /**
+   * Endpoint to get the rendered display results for all monitors in the given tournament.
+   *
+   * This will render both monitors at the same time, and is only useful
+   * when displaying the monitor overview.
+   *
+   * **USAGE:**
+   * GET /display/:tournamentId
+   *
+   * @param tournamentId
+   * @param res
+   */
   @Get('/:tournamentId')
   all(@Param('tournamentId') tournamentId: number, @Res() res: Response) {
     res.contentType('application/json');
@@ -62,6 +84,16 @@ export class DisplayController {
     });
   }
 
+  /**
+   * Endpoint to get the rendered display results for one of the monitors
+   * in the given tournament.
+   *
+   * **USAGE:**
+   * GET /display/:tournamentId/:id
+   *
+   * @param tournamentId
+   * @param id
+   */
   @Get('/:tournamentId/:id')
   async display(@Param('tournamentId') tournamentId: number, @Param('id') id: number): Promise<string> {
     // Load data

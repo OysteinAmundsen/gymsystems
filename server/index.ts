@@ -15,7 +15,6 @@ import * as morgan from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as session from 'express-session';
-import * as compression from 'compression';
 
 // Authentication
 import * as auth from 'passport';
@@ -132,9 +131,6 @@ export class GymServer {
       if (fs.existsSync(path.resolve(faviconPath))) {
         this.app.use(favicon(faviconPath));
       }
-
-      // Apply gzip
-      // this.app.use(compression());
     }
 
     // Configure authentication services

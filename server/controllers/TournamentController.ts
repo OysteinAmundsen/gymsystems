@@ -26,7 +26,17 @@ import { MediaController } from './MediaController';
 import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
+ * RESTful controller for all things related to `Tournament`s.
  *
+ * This controller is also a service, which means you can inject it
+ * anywhere in your code:
+ *
+ * ```
+ * import { Container } from 'typedi';
+ * import { TournamentController } from '/controllers/Tournamentcontroller';
+ *
+ * var tournamentController = Container.get(TournamentController);
+ * ```
  */
 @Service()
 @JsonController('/tournaments')
@@ -59,6 +69,12 @@ export class TournamentController {
     })
   }
 
+  /**
+   * Endpoint for retreiving all tournaments
+   *
+   * **USAGE:**
+   * GET /tournaments
+   */
   @Get()
   all(): Promise<Tournament[]> {
     return this.repository
@@ -69,6 +85,14 @@ export class TournamentController {
       .getMany();
   }
 
+  /**
+   * Endpoint for retreiving all tournaments past
+   *
+   * **USAGE:**
+   * GET /tournaments/list/past
+   *
+   * @param req
+   */
   @Get('/list/past')
   past(@Req() req: Request): Promise<Tournament[] | any> {
     let limit: number = req.query['limit'] || 10;
@@ -87,6 +111,14 @@ export class TournamentController {
       });
   }
 
+  /**
+   * Endpoint for retreiving all current tournaments
+   *
+   * **USAGE:**
+   * GET /tournaments/list/current
+   *
+   * @param req
+   */
   @Get('/list/current')
   current(@Req() req: Request): Promise<Tournament[] | any> {
     let limit: number = req.query['limit'] || 10;
@@ -105,6 +137,14 @@ export class TournamentController {
       });
   }
 
+  /**
+   * Endpoint for retreiving all future tournaments
+   *
+   * **USAGE:**
+   * GET /tournaments/list/future
+   *
+   * @param req
+   */
   @Get('/list/future')
   future(@Req() req: Request): Promise<Tournament[] | any> {
     let limit: number = req.query['limit'] || 10;
@@ -123,6 +163,14 @@ export class TournamentController {
       });
   }
 
+  /**
+   * Endpoint for fetching one specific tournament
+   *
+   * **USAGE:**
+   * GET /tournaments/:id
+   *
+   * @param id
+   */
   @Get('/:id')
   @OnUndefined(404)
   get( @Param('id') id: number): Promise<Tournament | any> {
@@ -138,6 +186,16 @@ export class TournamentController {
       });
   }
 
+  /**
+   * Endpoint for creating one tournament
+   *
+   * **USAGE:** (Organizer only)
+   * POST /tournaments
+   *
+   * @param tournament
+   * @param req
+   * @param res
+   */
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
   async create( @Body() tournament: Tournament, @Req() req: Request, @Res() res: Response) {
@@ -159,6 +217,16 @@ export class TournamentController {
       });
   }
 
+  /**
+   * Endpoint for updating a tournament
+   *
+   * **USAGE:** (Organizer only)
+   * PUT /tournaments/:id
+   *
+   * @param id
+   * @param tournament
+   * @param res
+   */
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament | any> {
@@ -174,6 +242,16 @@ export class TournamentController {
       });
   }
 
+  /**
+   * Endpoint for removing a tournament
+   *
+   * **USAGE:** (Organizer only)
+   * DELETE /tournaments/:id
+   *
+   * @param tournamentId
+   * @param req
+   * @param res
+   */
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') tournamentId: number, @Req() req: Request, @Res() res: Response) {
@@ -208,6 +286,11 @@ export class TournamentController {
       .catch(err => Logger.log.error(err));
   }
 
+  /**
+   *
+   * @param tournament
+   * @param res
+   */
   createDefaults(tournament: Tournament, res: Response): Promise<Tournament | any> {
     const configRepository = Container.get(ConfigurationController);
     const disciplineRepository = Container.get(DisciplineController);

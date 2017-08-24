@@ -7,6 +7,7 @@ import { ITeam } from 'app/services/model';
   styleUrls: ['./teams.component.scss']
 })
 export class TeamsComponent implements OnInit {
+  selected: ITeam;
   teamList: ITeam[] = [];
 
   constructor() { }
@@ -19,5 +20,13 @@ export class TeamsComponent implements OnInit {
   }
 
   members(team: ITeam) {
+  }
+
+  addTeam() {
+
+  }
+
+  generateTeams() {
+
   }
 }

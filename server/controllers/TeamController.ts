@@ -18,7 +18,17 @@ import { MediaController } from './MediaController';
 import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
+ * RESTful controller for all things related to `Team`s.
  *
+ * This controller is also a service, which means you can inject it
+ * anywhere in your code:
+ *
+ * ```
+ * import { Container } from 'typedi';
+ * import { TeamController } from '/controllers/Teamcontroller';
+ *
+ * var teamController = Container.get(TeamController);
+ * ```
  */
 @Service()
 @JsonController('/teams')
@@ -31,6 +41,12 @@ export class TeamController {
     this.repository = this.conn.getRepository(Team);
   }
 
+  /**
+   * Endpoint for retreiving all teams
+   *
+   * **USAGE:**
+   * GET /teams
+   */
   @Get()
   all() {
     return this.repository.createQueryBuilder('team')
@@ -43,12 +59,31 @@ export class TeamController {
       .getMany();
   }
 
+  /**
+   * Endpoint for retreiving all teams registerred to a tournament
+   *
+   * **USAGE:**
+   * GET /teams/tournament/:id
+   *
+   * @param id
+   * @param res
+   */
   @Get('/tournament/:id')
   @OnUndefined(404)
   getByTournament( @Param('id') id: number, @Res() res: Response): Promise<Team[]> {
     return this.getTournament(id, null);
   }
 
+  /**
+   * Endpoint for retreiving all teams belonging to my club
+   *
+   * **USAGE:** (Club only)
+   * GET /teams/my/tournament/:id
+   *
+   * @param id
+   * @param req
+   * @param res
+   */
   @Get('/my/tournament/:id')
   @UseBefore(RequireRole.get(Role.Club))
   @OnUndefined(404)
@@ -79,6 +114,14 @@ export class TeamController {
       .getMany();
   }
 
+  /**
+   * Endpoint for retreiving one team
+   *
+   * **USAGE:**
+   * GET /teams/:id
+   *
+   * @param teamId
+   */
   @Get('/:id')
   @OnUndefined(404)
   get( @Param('id') teamId: number): Promise<Team> {
@@ -94,6 +137,17 @@ export class TeamController {
       .getOne();
   }
 
+  /**
+   * Endpoint for updating one team
+   *
+   * **USAGE:** (Club only)
+   * PUT /teams/:id
+   *
+   * @param id
+   * @param team
+   * @param req
+   * @param res
+   */
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Club))
   async update( @Param('id') id: number, @Body() team: Team, @Req() req: Request, @Res() res: Response) {
@@ -122,6 +176,16 @@ export class TeamController {
     });
   }
 
+  /**
+   * Endpoint for creating one team
+   *
+   * **USAGE:** (Club only)
+   * POST /teams
+   *
+   * @param team
+   * @param req
+   * @param res
+   */
   @Post()
   @UseBefore(RequireRole.get(Role.Club))
   async create( @Body() team: Team | Team[], @Req() req: Request, @Res() res: Response) {
@@ -145,6 +209,16 @@ export class TeamController {
       });
   }
 
+  /**
+   * Endpoint for removing one team
+   *
+   * **USAGE:** (Club only)
+   * DELETE /teams/:id
+   *
+   * @param teamId
+   * @param req
+   * @param res
+   */
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Club))
   async remove( @Param('id') teamId: number, @Req() req: Request, @Res() res: Response) {

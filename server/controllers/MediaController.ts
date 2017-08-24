@@ -28,7 +28,17 @@ import { isMyClub } from '../validators/ClubValidator';
 import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
+ * RESTful controller for all things related to `Media`s.
  *
+ * This controller is also a service, which means you can inject it
+ * anywhere in your code:
+ *
+ * ```
+ * import { Container } from 'typedi';
+ * import { MediaController } from '/controllers/Mediacontroller';
+ *
+ * var mediaController = Container.get(MediaController);
+ * ```
  */
 @Service()
 @JsonController('/media')
@@ -53,6 +63,17 @@ export class MediaController {
     this.repository = getConnectionManager().get().getRepository(Media);
   }
 
+  /**
+   * Endpoint for uploading media for a team in a discipline
+   *
+   * **USAGE:** (Club only)
+   * POST /media/upload/:teamId/:disciplineId
+   *
+   * @param teamId
+   * @param disciplineId
+   * @param req
+   * @param res
+   */
   @Post('/upload/:teamId/:disciplineId')
   @UseBefore(RequireRole.get(Role.Club))
   @UseBefore(multer({dest: 'media'}).single('media'))
@@ -108,7 +129,17 @@ export class MediaController {
 
 
 
-
+  /**
+   * Endpoint for removing media for a team in a discipline
+   *
+   * **USAGE:** (Club only)
+   * DELETE /media/:teamId/:disciplineId
+   *
+   * @param teamId
+   * @param disciplineId
+   * @param res
+   * @param req
+   */
   @Delete('/:teamId/:disciplineId')
   @UseBefore(RequireRole.get(Role.Club))
   async removeMedia(
@@ -142,6 +173,18 @@ export class MediaController {
 
 
 
+  /**
+   * Endpoint for retreiving media for a team in a discipline
+   *
+   * This will return an audio stream, or HTTP 404
+   *
+   * **USAGE:**
+   * GET /media/:teamId/:disciplineId
+   *
+   * @param teamId
+   * @param disciplineId
+   * @param res
+   */
   @Get('/:teamId/:disciplineId')
   @UseAfter(async (req: any, res: any, next?: (err?: any) => any) => {
     const controller = Container.get(MediaController);

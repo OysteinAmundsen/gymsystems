@@ -30,7 +30,17 @@ const messages = {
 const emailFrom = 'no-reply@gymsystems.org';
 
 /**
+ * RESTful controller for all things related to `User`s.
  *
+ * This controller is also a service, which means you can inject it
+ * anywhere in your code:
+ *
+ * ```
+ * import { Container } from 'typedi';
+ * import { UserController } from '/controllers/Usercontroller';
+ *
+ * var userController = Container.get(UserController);
+ * ```
  */
 @Service()
 @JsonController('/users')
@@ -49,7 +59,16 @@ export class UserController {
 
   }
 
-  // Setup REST endpoint for login
+  /**
+   * Endpoint for login
+   *
+   * **USAGE:**
+   * POST /users/login
+   *
+   * @param req
+   * @param res
+   * @param user
+   */
   @Post('/login')
   login(@Req() req: any, @Res() res: Response, @Body() user: any) {
     const passport = Container.get(auth.Passport);
@@ -68,6 +87,15 @@ export class UserController {
     });
   }
 
+  /**
+   * Endpoint for logout
+   *
+   * **USAGE:**
+   * POST /users/logout
+   *
+   * @param req
+   * @param res
+   */
   @Post('/logout')
   logout(@Req() req: Request, @Res() res: Response): null {
     const passport = Container.get(auth.Passport);
@@ -75,6 +103,17 @@ export class UserController {
     return null;
   }
 
+  /**
+   * Endpoint for retreiving all users
+   *
+   * This will only return users in your club, if you are not an Admin.
+   * If you are an Admin, it will return all users.
+   *
+   * **USAGE:** (Organizer only)
+   * GET /users
+   *
+   * @param req
+   */
   @Get()
   @UseBefore(RequireRole.get(Role.Organizer))
   async all(@Req() req: Request): Promise<User[]> {
@@ -90,8 +129,16 @@ export class UserController {
       .getMany();
   }
 
-  @OnUndefined(204)
+  /**
+   * Endpoint for retreiving data for currently logged in user
+   *
+   * **USAGE:**
+   * GET /users/me
+   *
+   * @param req
+   */
   @Get('/me')
+  @OnUndefined(204)
   me( @Req() req: any): Promise<User> {
     if (req.session && req.session.passport && req.session.passport.user) {
       return this.getUser(req.session.passport.user.id);
@@ -110,9 +157,18 @@ export class UserController {
       .getOne();
   }
 
+  /**
+   * Endpoint for retreiving a specific user
+   *
+   * **USAGE:** (Any Login)
+   * GET /users/get/:id
+   *
+   * @param userId
+   * @param req
+   */
+  @Get('/get/:id')
   @UseBefore(RequireAuth)
   @OnUndefined(404)
-  @Get('/get/:id')
   async get( @Param('id') userId: number, @Req() req: Request): Promise<User> {
     const me = await this.me(req);
 
@@ -121,6 +177,17 @@ export class UserController {
     return this.getUser(userId, clubId);
   }
 
+  /**
+   * Endpoint for updating a user
+   *
+   * **USAGE:** (Any Login)
+   * PUT /users:id
+   *
+   * @param id
+   * @param user
+   * @param res
+   * @param req
+   */
   @Put('/:id')
   @UseBefore(RequireAuth)
   async update( @Param('id') id: number, @Body() user: User, @Res() res: Response, @Req() req: Request) {
@@ -130,7 +197,10 @@ export class UserController {
       // Club name given is not registerred, try to create
       if (typeof user.club === 'string') {
         const clubRepository = Container.get(ClubController);
-        user.club = await clubRepository.create(<Club>{id: null, name: user.club, teams: null, gymnasts: null, users: null}, res);
+        user.club = await clubRepository.create(
+          <Club>{id: null, name: user.club, troops: null, teams: null, gymnasts: null, users: null},
+          res
+        );
       }
       // If still no club, we should fail
       if (!user.club || !user.club.id) {
@@ -171,6 +241,16 @@ export class UserController {
     });
   }
 
+  /**
+   * Endpoint for creating a user (from the users panel)
+   *
+   * **USAGE:** (Organizer only)
+   * POST /users
+   *
+   * @param user
+   * @param req
+   * @param res
+   */
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
   async create( @Body() user: User, @Req() req: Request, @Res() res: Response): Promise<User[] | any> {
@@ -196,6 +276,16 @@ export class UserController {
     return this.createUser(user, res, req);
   }
 
+  /**
+   * Endpoint for registering a new user (from the registration panel)
+   *
+   * **USAGE:**
+   * POST /users/register
+   *
+   * @param user
+   * @param res
+   * @param req
+   */
   @Post('/register')
   async selfService(@Body() user: User, @Res() res: Response, @Req() req: Request) {
     // Only clubs and Organizers are allowed to use this
@@ -214,7 +304,10 @@ export class UserController {
       // Club name given is not registerred, try to create
       if (typeof user.club === 'string') {
         const clubRepository = Container.get(ClubController);
-        user.club = await clubRepository.create(<Club>{id: null, name: user.club, teams: null, gymnasts: null, users: null}, res);
+        user.club = await clubRepository.create(
+          <Club>{id: null, name: user.club, troops: null, teams: null, gymnasts: null, users: null},
+          res
+        );
       }
       // If still no club, we should fail
       if (!user.club || !user.club.id) {
@@ -253,6 +346,16 @@ export class UserController {
       });
   }
 
+  /**
+   * Endpoint for removing a user
+   *
+   * **USAGE:** (Organizer only)
+   * DELETE /users:id
+   *
+   * @param userId
+   * @param req
+   * @param res
+   */
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') userId: number, @Req() req: Request, @Res() res: Response) {

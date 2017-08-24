@@ -17,7 +17,17 @@ import { Role } from '../model/User';
 import { MediaController } from './MediaController';
 
 /**
+ * RESTful controller for all things related to `Discipline`s.
  *
+ * This controller is also a service, which means you can inject it
+ * anywhere in your code:
+ *
+ * ```
+ * import { Container } from 'typedi';
+ * import { DisciplineController } from '/controllers/Disciplinecontroller';
+ *
+ * var disciplineController = Container.get(DisciplineController);
+ * ```
  */
 @Service()
 @JsonController('/disciplines')
@@ -28,11 +38,28 @@ export class DisciplineController {
     this.repository = getConnectionManager().get().getRepository(Discipline);
   }
 
+  /**
+   * Endpoint for fetching all disciplines
+   *
+   * This is actually not very useful. It is more useful
+   * to filter the disciplines based on tournament, so we recommend to use
+   * `GET /disciplines/tournament/:id` instead
+   *
+   * **USAGE:**
+   * GET /disciplines
+   */
   @Get()
   all() {
     return this.repository.find();
   }
 
+  /**
+   * Endpoint for fetching all disciplines registerred to a given
+   * tournament
+   *
+   * **USAGE:**
+   * GET /disciplines/tournament/:id
+   */
   @Get('/tournament/:id')
   @OnUndefined(404)
   getByTournament( @Param('id') id: number): Promise<Discipline[]> {
@@ -44,6 +71,14 @@ export class DisciplineController {
       .getMany();
   }
 
+  /**
+   * Endpoint for fetching one discipline based on a given id
+   *
+   * **USAGE:**
+   * GET /disciplines/:id
+   *
+   * @param id
+   */
   @Get('/:id')
   @OnUndefined(404)
   get( @Param('id') id: number): Promise<Discipline> {
@@ -54,6 +89,15 @@ export class DisciplineController {
       .getOne();
   }
 
+  /**
+   * Endpoint for creating a discipline
+   *
+   * **USAGE:** (Organizer only)
+   * POST /disciplines
+   *
+   * @param discipline
+   * @param res
+   */
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
   create( @Body() discipline: Discipline | Discipline[], @Res() res: Response): Promise<Discipline[] | any> {
@@ -65,6 +109,15 @@ export class DisciplineController {
       });
   }
 
+  /**
+   * Endpoint for updating a discipline
+   *
+   * **USAGE:** (Organizer only)
+   * PUT /disciplines/:id
+   *
+   * @param id
+   * @param discipline
+   */
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   update( @Param('id') id: number, @Body() discipline: Discipline): Promise<Discipline | any> {
@@ -75,6 +128,14 @@ export class DisciplineController {
       });
   }
 
+  /**
+   * Endpoint for removing a discipline
+   *
+   * **USAGE:** (Organizer only)
+   * DELETE /disciplines/:id
+   *
+   * @param disciplineId
+   */
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') disciplineId: number) {
@@ -86,6 +147,14 @@ export class DisciplineController {
       });
   }
 
+  /**
+   * Service method for removing a bulk of disciplines at once.
+   *
+   * This is mainly useful when removing a container for disciplines, for
+   * instance a Tournament.
+   *
+   * @param {Discipline[]} disciplines
+   */
   async removeMany(disciplines: Discipline[]) {
     const scoreGroupRepository = Container.get(ScoreGroupController);
     const mediaRepository = Container.get(MediaController);
@@ -106,6 +175,14 @@ export class DisciplineController {
     })));
   }
 
+  /**
+   * Service method for creating default disciplines
+   *
+   * This is only useful when creating tournaments.
+   *
+   * @param {Tournament} tournament the newly created tournament object
+   * @param {Response} res
+   */
   createDefaults(tournament: Tournament, res: Response): Promise<Discipline[] | any> {
     Logger.log.debug('Creating default discipline values');
     const configRepository = Container.get(ConfigurationController);
