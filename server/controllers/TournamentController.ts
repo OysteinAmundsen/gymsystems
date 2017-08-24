@@ -24,6 +24,7 @@ import { isCreatedByMe } from '../validators/CreatedByValidator';
 import { Role } from '../model/User';
 import { MediaController } from './MediaController';
 import { ErrorResponse } from '../utils/ErrorResponse';
+import { lookupOrCreateClub } from '../validators/ClubValidator';
 
 /**
  * RESTful controller for all things related to `Tournament`s.
@@ -80,7 +81,7 @@ export class TournamentController {
     return this.repository
       .createQueryBuilder('tournament')
       .innerJoinAndSelect('tournament.createdBy', 'user')
-      .leftJoinAndSelect('user.club', 'club')
+      .innerJoinAndSelect('tournament.club', 'club')
       .orderBy('tournament.startDate', 'DESC')
       .getMany();
   }
@@ -178,7 +179,7 @@ export class TournamentController {
     return this.repository.createQueryBuilder('tournament')
       .where('tournament.id=:id', { id: id })
       .innerJoinAndSelect('tournament.createdBy', 'user')
-      .leftJoinAndSelect('user.club', 'club')
+      .innerJoinAndSelect('tournament.club', 'club')
       .getOne()
       .catch(() => {
         Logger.log.debug(`Query for tournament id ${id} was rejected before it was fulfilled`);
@@ -202,6 +203,12 @@ export class TournamentController {
     const userRepository = Container.get(UserController);
     const me = await userRepository.me(req);
     tournament.createdBy = me;
+    tournament.club = await lookupOrCreateClub(tournament);
+    // If still no club, we should fail
+    if (!tournament.club || !tournament.club.id) {
+      res.status(400);
+      return new ErrorResponse(400, 'No Club name given, or Club name has no unique match');
+    }
 
     return this.repository.persist(tournament)
       .then(persisted => {
@@ -229,8 +236,9 @@ export class TournamentController {
    */
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
-  update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament | any> {
+  async update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response): Promise<Tournament | any> {
     if (isNaN(id)) { return Promise.reject(null); }
+    tournament.club = await lookupOrCreateClub(tournament);
     return this.repository.persist(tournament)
       .then(persisted => {
         Container.get(MediaController).expireArchive(persisted.id, persisted.endDate)

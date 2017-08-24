@@ -122,7 +122,7 @@ export class ClubController {
    * @param {Response} res
    */
   @Post()
-  create( @Body() club: Club, @Res() res: Response): Promise<Club | any> {
+  create( @Body() club: Club, @Res() res?: Response): Promise<Club | any> {
     return this.repository.persist(club)
       .catch(err => {
         Logger.log.error(err);

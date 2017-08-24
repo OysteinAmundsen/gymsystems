@@ -6,11 +6,12 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { ITournament, IUser } from 'app/services/model';
+import { ITournament, IUser, IClub } from 'app/services/model';
 
 export const dummyTournament = <ITournament>{
   id: 1,
   createdBy: <IUser>{},
+  club: <IClub>{},
   name: '',
   description_no: '',
   description_en: '',
@@ -28,6 +29,7 @@ export class TournamentServiceStub {
   previous: ITournament = <ITournament>{
     id: 0,
     createdBy: <IUser>{},
+    club: <IClub>{},
     name: '',
     description_no: '',
     description_en: '',
@@ -43,6 +45,7 @@ export class TournamentServiceStub {
   future: ITournament = <ITournament>{
     id: 2,
     createdBy: <IUser>{},
+    club: <IClub>{},
     name: '',
     description_no: '',
     description_en: '',

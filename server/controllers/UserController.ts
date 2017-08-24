@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 
 import { ClubController } from './ClubController';
 import { Club, BelongsToClub } from '../model/Club';
-import { isMyClub, validateClub, lookupOrFakeClub } from '../validators/ClubValidator';
+import { isMyClub, validateClub, lookupOrFakeClub, lookupOrCreateClub } from '../validators/ClubValidator';
 import { GymServer } from '../index';
 import { ErrorResponse } from '../utils/ErrorResponse';
 
@@ -198,7 +198,7 @@ export class UserController {
       if (typeof user.club === 'string') {
         const clubRepository = Container.get(ClubController);
         user.club = await clubRepository.create(
-          <Club>{id: null, name: user.club, troops: null, teams: null, gymnasts: null, users: null},
+          <Club>{id: null, name: user.club, troops: null, teams: null, tournaments: null, gymnasts: null, users: null},
           res
         );
       }
@@ -305,21 +305,13 @@ export class UserController {
   }
 
   private async createUser(user: User, res: Response, req: Request) {
-    const hasClub = await validateClub([<BelongsToClub>user], req);
-    if (!hasClub)  {
-      // Club name given is not registerred, try to create
-      if (typeof user.club === 'string') {
-        const clubRepository = Container.get(ClubController);
-        user.club = await clubRepository.create(
-          <Club>{id: null, name: user.club, troops: null, teams: null, gymnasts: null, users: null},
-          res
-        );
-      }
-      // If still no club, we should fail
-      if (!user.club || !user.club.id) {
-        res.status(400);
-        return new ErrorResponse(400, 'No Club name given, or Club name has no unique match');
-      }
+    // Lookup or Create the club if string is provided
+    user.club = await lookupOrCreateClub(user);
+
+    // If still no club, we should fail
+    if (!user.club || !user.club.id) {
+      res.status(400);
+      return new ErrorResponse(400, 'No Club name given, or Club name has no unique match');
     }
 
     const origPass = user.password;

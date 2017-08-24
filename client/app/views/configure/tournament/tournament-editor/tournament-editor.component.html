@@ -41,9 +41,17 @@
 <form class="panel" [formGroup]="tournamentForm" (submit)="save()" *ngIf="isEdit">
   <fieldset>
     <div class="row">
-      <div class="col-12" appFloatingLabelContainer>
+      <div [ngClass]="(tournamentForm.value.id !== user.id && user.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12')" appFloatingLabelContainer>
         <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
+      </div>
+      <div class="col-5 help-available" appFloatingLabelContainer *appIfAuth="'Admin'">
+        <label translate>Club</label>
+        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
+        <app-help-block>
+          <p translate>Admins do not belong to any club. We need to know which club you are creating this tournament for.</p>
+        </app-help-block>
+        <!--<input type="text" formControlName="club">-->
       </div>
     </div>
 
@@ -89,11 +97,11 @@
 
 <menu *ngIf="tournamentForm.value.id" role="tablist">
   <ul>
-    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || (user.role >= roles.Organizer && tournament.createdBy.id === user.id)">
+    <li [routerLinkActive]="['active']" *ngIf="canEdit">
       <a routerLink="./divisions">
         <app-fa name="cubes" fw="true"></app-fa> <span translate>Divisions</span> </a>
     </li>
-    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || (user.role >= roles.Organizer && tournament.createdBy.id === user.id)">
+    <li [routerLinkActive]="['active']" *ngIf="canEdit">
       <a routerLink="./disciplines">
         <app-fa name="heartbeat" fw="true"></app-fa> <span translate>Disciplines</span> </a>
     </li>
@@ -101,11 +109,11 @@
       <a routerLink="./teams">
         <app-fa name="users" fw="true"></app-fa> <span translate>Teams</span></a>
     </li>
-    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || (user.role >= roles.Organizer && tournament.createdBy.id === user.id)">
+    <li [routerLinkActive]="['active']" *ngIf="canEdit">
       <a routerLink="./schedule">
         <app-fa name="sort-numeric-asc" fw="true"></app-fa> <span translate>Schedule</span></a>
     </li>
-    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || (user.role >= roles.Organizer && tournament.createdBy.id === user.id)">
+    <li [routerLinkActive]="['active']" *ngIf="canEdit">
       <a routerLink="./info">
         <app-fa name="info" fw="true"></app-fa> <span translate>Info</span></a>
     </li>

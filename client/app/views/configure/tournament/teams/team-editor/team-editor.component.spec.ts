@@ -53,7 +53,7 @@ class DummyParent {
 class WrapperComponent {
   selected: ITeam = <ITeam>{
     id: 0, name: 'Haugesund-1', divisions: [], disciplines: [], club: club, tournament: <ITournament>{
-      id: 0, createdBy: user, name: 'Landsturnstevnet 2017', description_no: 'Test tekst', description_en: 'Test text',
+      id: 0, createdBy: user, club: user.club, name: 'Landsturnstevnet 2017', description_no: 'Test tekst', description_en: 'Test text',
       location: 'Haugesund', schedule: [], disciplines: [], divisions: []
     },
   }
