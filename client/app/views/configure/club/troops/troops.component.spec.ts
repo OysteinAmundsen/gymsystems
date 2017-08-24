@@ -7,11 +7,11 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app/app.module';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { TeamEditorComponent } from './team-editor.component';
+import { TroopsComponent } from './troops.component';
 
-describe('TeamEditorComponent', () => {
-  let component: TeamEditorComponent;
-  let fixture: ComponentFixture<TeamEditorComponent>;
+describe('TroopsComponent', () => {
+  let component: TroopsComponent;
+  let fixture: ComponentFixture<TroopsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,7 +19,6 @@ describe('TeamEditorComponent', () => {
         SharedModule,
         HttpModule,
         FormsModule,
-        ReactiveFormsModule,
         RouterTestingModule,
         HttpClientModule,
         TranslateModule.forRoot({
@@ -30,13 +29,13 @@ describe('TeamEditorComponent', () => {
           }
         }),
       ],
-      declarations: [ TeamEditorComponent ]
+      declarations: [ TroopsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TeamEditorComponent);
+    fixture = TestBed.createComponent(TroopsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

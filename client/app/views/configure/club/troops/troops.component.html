@@ -8,10 +8,15 @@
       </tr>
     </thead>
     <tbody *ngFor="let team of teamList">
-      <tr role="listitem">
+      <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
         <td>{{ team.name }}</td>
         <td>{{ ageDivision(team) }}</td>
         <td>{{ members(team) }}</td>
+      </tr>
+      <tr *ngIf="team === selected">
+        <td colspan="4">
+          <app-troop-editor [troop]="selected" (teamChanged)="onChange($event)"></app-troop-editor>
+        </td>
       </tr>
     </tbody>
   </table>

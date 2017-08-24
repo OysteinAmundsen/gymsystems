@@ -4,6 +4,7 @@ export * from './display/display.service';
 export * from './score/score.service';
 export * from './scoregroup/scoregroup.service';
 export * from './teams/teams.service';
+export * from './teams/troop.service';
 export * from './tournament/tournament.service';
 export * from './user/user.service';
 export * from './configuration/configuration.service';

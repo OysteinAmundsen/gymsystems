@@ -1,23 +1,15 @@
 import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { TranslateService } from '@ngx-translate/core';
 
+import { IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament } from 'app/services/model';
 import { TeamsService, DisciplineService, DivisionService, ClubService, UserService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { Logger } from 'app/services/Logger';
 
-import { IDiscipline } from 'app/services/model/IDiscipline';
-import { IDivision } from 'app/services/model/IDivision';
-import { DivisionType } from 'app/services/model/DivisionType';
-import { ITeam } from 'app/services/model/ITeam';
-import { IClub } from 'app/services/model/IClub';
-import { IUser } from 'app/services/model/IUser';
-import { IMedia } from 'app/services/model/IMedia';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Classes } from 'app/services/model/Classes';
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
-import { ITournament } from 'app/services/model/ITournament';
 import { UppercaseFormControl } from 'app/shared/form';
 
 @Component({

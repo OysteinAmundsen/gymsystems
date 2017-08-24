@@ -8,10 +8,10 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ClubComponent } from './club.component';
 import { ClubEditorComponent } from './club-editor/club-editor.component';
 import { MembersComponent } from './members/members.component';
-import { TeamsComponent } from './teams/teams.component';
-import { TeamEditorComponent } from './teams/team-editor/team-editor.component';
 import { MemberEditorComponent } from './members/member-editor/member-editor.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { TroopsComponent } from './troops/troops.component';
+import { TroopEditorComponent } from './troops/troop-editor/troop-editor.component';
 
 @NgModule({
   imports: [
@@ -25,10 +25,10 @@ import { StatisticsComponent } from './statistics/statistics.component';
     ClubComponent,
     ClubEditorComponent,
     MembersComponent,
-    TeamsComponent,
-    TeamEditorComponent,
     MemberEditorComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    TroopsComponent,
+    TroopEditorComponent
   ]
 })
 export class ClubModule { }

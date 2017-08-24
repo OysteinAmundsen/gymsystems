@@ -179,7 +179,7 @@ export class TournamentController {
     return this.repository.createQueryBuilder('tournament')
       .where('tournament.id=:id', { id: id })
       .innerJoinAndSelect('tournament.createdBy', 'user')
-      .innerJoinAndSelect('tournament.club', 'club')
+      .leftJoinAndSelect('tournament.club', 'club')
       .getOne()
       .catch(() => {
         Logger.log.debug(`Query for tournament id ${id} was rejected before it was fulfilled`);

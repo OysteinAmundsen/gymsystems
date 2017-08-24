@@ -12,6 +12,7 @@ export * from './IDiscipline';
 export * from './IDivision';
 export * from './IMedia';
 export * from './IScoreGroup';
+export * from './ITroop';
 export * from './ITeam';
 export * from './ITeamInDiscipline';
 export * from './IScore';

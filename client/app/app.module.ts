@@ -27,7 +27,8 @@ import {
   ScheduleService,
   EventService,
   DisplayService,
-  ClubService
+  ClubService,
+  TroopService
 } from './services/api';
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
 import { MediaService } from './services/media.service';
@@ -90,6 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DisciplineService,
     DivisionService,
     TeamsService,
+    TroopService,
     ConfigurationService,
     ScheduleService,
     DisplayService,

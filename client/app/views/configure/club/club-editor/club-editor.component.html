@@ -46,7 +46,7 @@
         <app-fa name="id-card-o" fw="true"></app-fa> <span translate>Members</span> </a>
     </li>
     <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
-      <a routerLink="./teams">
+      <a routerLink="./troops">
         <app-fa name="group" fw="true"></app-fa> <span translate>Teams</span> </a>
     </li>
     <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">

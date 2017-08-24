@@ -1,0 +1,20 @@
+<form class="panel" [formGroup]="troopForm" (submit)="save()">
+  <fieldset>
+    <div class="row">
+      <div [ngClass]="{'col-7': !currentUser.club, 'col-12': currentUser.club}" appFloatingLabelContainer>
+        <label translate>Name</label>
+        <input type="text" formControlName="name" appAutofocus>
+      </div>
+      <div class="col-5" appFloatingLabelContainer *ngIf="!currentUser.club">
+        <label translate>Club</label>
+        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
+      </div>
+    </div>
+  </fieldset>
+
+  <footer>
+    <app-save-button buttonType="submit" [disabled]="troopForm.invalid || troopForm.pristine"></app-save-button>
+    <button type="button" [title]="'Cancel' | translate" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
+    <button type="button" *ngIf="troopForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
+  </footer>
+</form>
