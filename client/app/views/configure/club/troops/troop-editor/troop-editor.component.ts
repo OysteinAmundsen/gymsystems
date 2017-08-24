@@ -38,8 +38,7 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
     private clubService: ClubService,
     private userService: UserService,
     private errorHandler: ErrorHandlerService,
-    private translate: TranslateService,
-    private mediaService: MediaService) { }
+    private translate: TranslateService) { }
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);

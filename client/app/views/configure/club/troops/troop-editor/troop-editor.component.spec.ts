@@ -8,6 +8,11 @@ import { HttpLoaderFactory } from 'app/app.module';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { TroopEditorComponent } from './troop-editor.component';
+import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
+import { TournamentEditorComponent } from 'app/views/configure/tournament/tournament-editor/tournament-editor.component';
+import { ClubService, UserService, TroopService } from 'app/services/api';
+import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
 describe('TroopEditorComponent', () => {
   let component: TroopEditorComponent;
@@ -30,7 +35,14 @@ describe('TroopEditorComponent', () => {
           }
         }),
       ],
-      declarations: [ TroopEditorComponent ]
+      declarations: [ TroopEditorComponent ],
+      providers: [
+        ErrorHandlerService,
+        TroopService,
+        { provide: Http, useClass: HttpInterceptor },
+        { provide: ClubService, useClass: ClubServiceStub },
+        { provide: UserService, useClass: UserServiceStub },
+      ]
     })
     .compileComponents();
   }));

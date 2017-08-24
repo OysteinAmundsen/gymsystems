@@ -8,6 +8,9 @@ import { HttpLoaderFactory } from 'app/app.module';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { TroopsComponent } from './troops.component';
+import { UserService } from 'app/services/api';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+import { TroopEditorComponent } from './troop-editor/troop-editor.component';
 
 describe('TroopsComponent', () => {
   let component: TroopsComponent;
@@ -19,6 +22,7 @@ describe('TroopsComponent', () => {
         SharedModule,
         HttpModule,
         FormsModule,
+        ReactiveFormsModule,
         RouterTestingModule,
         HttpClientModule,
         TranslateModule.forRoot({
@@ -29,7 +33,13 @@ describe('TroopsComponent', () => {
           }
         }),
       ],
-      declarations: [ TroopsComponent ]
+      declarations: [
+        TroopsComponent,
+        TroopEditorComponent
+      ],
+      providers: [
+        { provide: UserService, useClass: UserServiceStub },
+      ]
     })
     .compileComponents();
   }));
