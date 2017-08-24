@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
 import { ITroop, IUser, Role } from 'app/services/model';
-import { UserService } from 'app/services/api';
+import { UserService, ClubService } from 'app/services/api';
+import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 
 @Component({
   selector: 'app-troops',
@@ -16,13 +17,17 @@ export class TroopsComponent implements OnInit {
   teamList: ITroop[] = [];
 
   constructor(
-    private userService: UserService) { }
+    private userService: UserService,
+    private clubService: ClubService,
+    private clubComponent: ClubEditorComponent) { }
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
+    this.clubComponent.clubSubject.subscribe(club => this.loadTeams());
   }
 
   loadTeams() {
+    this.clubService.getTeams(this.clubComponent.club.id).subscribe(teams => this.teamList = teams);
   }
 
   ageDivision(team: ITroop) {
@@ -36,7 +41,8 @@ export class TroopsComponent implements OnInit {
     const team = <ITroop>{
       id          : null,
       name        : null,
-      club        : this.currentUser.club
+      club        : this.currentUser.club,
+      gymnasts    : []
     };
     this.teamList.push(team);
     this.selected = team;

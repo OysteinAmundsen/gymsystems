@@ -2,14 +2,20 @@ import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRe
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
+import { DragulaService } from 'ng2-dragula';
 
-import { ITroop, IClub, IUser, IMedia, ITournament } from 'app/services/model';
-import { TroopService, ClubService, UserService } from 'app/services/api';
+import * as _ from 'lodash';
+import * as moment from 'moment';
+
+import { ITroop, IClub, IUser, IMedia, ITournament, IGymnast } from 'app/services/model';
+import { ClubService, UserService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { Logger } from 'app/services/Logger';
 
 import { UppercaseFormControl } from 'app/shared/form';
+import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
+import { TroopsComponent } from 'app/views/configure/club/troops/troops.component';
 
 @Component({
   selector: 'app-troop-editor',
@@ -26,47 +32,78 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
   get currentUser() { return this._currentUser; }
   set currentUser(value) {
     this._currentUser = value;
-    this.selectedClub = value.club;
   }
   userSubscription: Subscription;
-  clubs = [];
-  selectedClub: IClub;
+  memberList: IGymnast[];
+
+  dragSubscription;
+  dropSubscription;
+  availableMembers: IGymnast[];
+
+  get club() {
+    return this.clubComponent.club;
+  }
+
+  get clubName() {
+    return _.upperCase(this.troop.club ? this.troop.club.name : this.clubComponent.clubName);
+  }
+
+  get troopSuggestion() {
+    setTimeout(() => this.troopForm.markAsDirty());
+    return this.clubName.split(' ')[0].toLowerCase() + '-' + this.troopsComponent.teamList.length;
+  }
 
   constructor(
     private fb: FormBuilder,
-    private troopService: TroopService,
     private clubService: ClubService,
     private userService: UserService,
     private errorHandler: ErrorHandlerService,
+    private clubComponent: ClubEditorComponent,
+    private troopsComponent: TroopsComponent,
+    private drag: DragulaService,
     private translate: TranslateService) { }
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
 
+    this.clubService.getMembers(this.club.id).subscribe(members => {
+      this.memberList = members;
+      this.availableMembers = this.getAvailableMembers();
+    });
+
     this.troopForm = this.fb.group({
       id: [this.troop.id],
-      name: [this.troop.name, [Validators.required]],
-      club: new UppercaseFormControl(this.troop.club ? this.troop.club.name : '', [Validators.required])
+      name: [this.troop.name || this.troopSuggestion, [Validators.required]],
+      club: [this.club],
+      gymnasts: [this.troop.gymnasts || []]
+    });
+
+    // Dragula workaround (for not recognizing two different models in one bag)
+    let dragIndex: number, dropIndex: number, sourceModel: IGymnast[], targetModel: IGymnast[];
+    this.dragSubscription = this.drag.drag.subscribe((value) => {
+      const [bag, dragElm, source] = value;
+      dragIndex = Array.prototype.indexOf.call((<Element>source).children, dragElm);
+      sourceModel = (<Element>source).classList.contains('available') ? this.availableMembers : this.troopForm.value.gymnasts;
+    });
+    this.dropSubscription = this.drag.drop.subscribe((value) => {
+      const [bag, dropElm, target, source] = value;
+      dropIndex = Array.prototype.indexOf.call(target.children, dropElm);
+      targetModel = (<Element>target).classList.contains('available') ? this.availableMembers : this.troopForm.value.gymnasts;
+      if (target === source) {
+        sourceModel.splice(dropIndex, 0, sourceModel.splice(dragIndex, 1)[0]);
+      } else {
+        const dropElmModel = sourceModel[dragIndex];
+        sourceModel.splice(dragIndex, 1);
+        targetModel.splice(dropIndex, 0, dropElmModel);
+      }
+      this.troopForm.markAsDirty();
     });
   }
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
-  }
-
-  fileAdded($event) {
-    const fileList: FileList = (<HTMLInputElement>event.target).files;
-    const upload = () => {
-      this.troopService.uploadMedia(fileList[0], this.troopForm.value).subscribe(
-        data => this.reloadtroop(),
-        error => Logger.error(error)
-      )
-    }
-    if (fileList.length > 0) {
-      if (this.troopForm.dirty) {
-        this.save(true).then(upload);
-      } else { upload(); }
-    }
+    this.dragSubscription.unsubscribe();
+    this.dropSubscription.unsubscribe();
   }
 
   troopReceived(troop: ITroop) {
@@ -74,44 +111,55 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
     this.troopForm.setValue({
       id: this.troop.id,
       name: this.troop.name,
-      club: this.troop.club ? this.troop.club.name : ''
+      club: this.club,
+      gymnasts: this.troop.gymnasts || []
     });
+    this.availableMembers = this.getAvailableMembers();
+  }
+
+  getAvailableMembers(): IGymnast[] {
+    if (!this.memberList) { return this.memberList; } // Not loaded yet.
+    const troops = this.troopsComponent.teamList;
+
+    // Reduce memberlist to those gymnasts not yet in a troop
+    return this.memberList.reduce((prev: IGymnast[], curr: IGymnast) => {
+      if (!troops) {
+        // No troops registered yet. Return all registerred members
+        return this.memberList;
+      }
+
+      // Troops found. Make sure the gymnast is not present in other lists
+      const idx = troops.findIndex(t => {
+        return (t.gymnasts ? t.gymnasts.findIndex(g => g.id === curr.id) > -1 : false);
+      });
+      if (idx <= -1) {
+        // Gymnast is not present in other lists.
+        prev.push(curr);
+      }
+      return prev;
+    }, <IGymnast[]>[]);
   }
 
   async save(keepOpen?: boolean) {
-    const troop = this.troopForm.value;
+    const troop = <ITroop> this.troopForm.value;
 
     // Save team
     return new Promise((resolve, reject) => {
-      this.troopService.save(troop).subscribe(result => {
+      this.clubService.saveTeam(troop).subscribe(result => {
         const t: ITroop = Array.isArray(result) ? result[0] : result;
         this.troopReceived(t);
-        if (!keepOpen) {
-          this.troopChanged.emit(t);
-        }
+        this.troopChanged.emit(t);
         resolve(t);
       });
     });
   }
 
-  reloadtroop() {
-    this.troopService.getById(this.troop.id).subscribe(troop => this.troopReceived(troop));
+  age(birthYear) {
+    return moment().diff(moment(birthYear, 'YYYY'), 'years');
   }
-
-  disciplinesChanged() {
-    this.troopForm.markAsDirty();
-  }
-  getClubMatchesFn() {
-    const me = this;
-    return function (items, currentValue: string, matchText: string) {
-      if (!currentValue) { return items; }
-      return me.clubService.findByName(currentValue);
-    }
-  }
-
 
   delete() {
-    this.troopService.delete(this.troopForm.value).subscribe(result => {
+    this.clubService.deleteTeam(this.troopForm.value).subscribe(result => {
       this.troopChanged.emit(result);
     })
   }

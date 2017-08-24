@@ -12,6 +12,7 @@ import { Role } from '../model/User';
 import { Gymnast } from '../model/Gymnast';
 import { Team } from '../model/Team';
 import { Troop } from '../model/Troop';
+import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  * RESTful controller for all things related to `Club`s.
@@ -126,7 +127,7 @@ export class ClubController {
     return this.repository.persist(club)
       .catch(err => {
         Logger.log.error(err);
-        return Promise.resolve({ code: err.code, message: err.message });
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
 
@@ -146,7 +147,7 @@ export class ClubController {
     return this.repository.persist(club)
       .catch(err => {
         Logger.log.error(err);
-        return Promise.resolve({ code: err.code, message: err.message });
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
 
@@ -198,12 +199,12 @@ export class ClubController {
    */
   @Post('/:clubId/members')
   @UseBefore(RequireRole.get(Role.Club))
-  addMember(@Param('clubId') clubId: number, @Body() member: Gymnast): Promise<Gymnast | any> {
+  addMember(@Param('clubId') clubId: number, @Body() member: Gymnast): Promise<Gymnast | ErrorResponse> {
     return this.conn.getRepository(Gymnast)
       .persist(member)
       .catch(err => {
         Logger.log.error(err);
-        return Promise.resolve({code: err.code, message: err.message});
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
 
@@ -241,7 +242,27 @@ export class ClubController {
     return this.conn.getRepository(Troop)
       .createQueryBuilder('troop')
       .innerJoinAndSelect('troop.club', 'club')
+      .leftJoinAndSelect('troop.gymnasts', 'gymnasts')
       .where('troop.club = :id', {id: clubId})
       .getMany();
+  }
+
+  /**
+   * Endpoint for storing clubs troops
+   *
+   * **USAGE:**
+   * POST /clubs/:clubId/troop
+   *
+   * @param {number} clubId
+   */
+  @Post('/:clubId/troop')
+  @UseBefore(RequireRole.get(Role.Club))
+  saveTeams(@Param('clubId') clubId: number, @Body() troop: Troop): Promise<Troop | ErrorResponse> {
+    return this.conn.getRepository(Troop)
+      .persist(troop)
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
   }
 }

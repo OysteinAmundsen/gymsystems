@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragulaModule } from 'ng2-dragula';
 
 import { SharedModule } from 'app/shared/shared.module';
 
@@ -20,6 +21,7 @@ import { TroopEditorComponent } from './troops/troop-editor/troop-editor.compone
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    DragulaModule
   ],
   declarations: [
     ClubComponent,

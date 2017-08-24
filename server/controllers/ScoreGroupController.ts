@@ -7,6 +7,7 @@ import { Logger } from '../utils/Logger';
 import { RequireRole } from '../middlewares/RequireAuth';
 import { ScoreGroup } from '../model/ScoreGroup';
 import { Role } from '../model/User';
+import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  * RESTful controller for all things related to `ScoreGroup`s.
@@ -79,12 +80,12 @@ export class ScoreGroupController {
    */
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
-  create( @Body() scoreGroup: ScoreGroup | ScoreGroup[], @Res() res: Response): Promise<ScoreGroup[] | any> {
+  create( @Body() scoreGroup: ScoreGroup | ScoreGroup[], @Res() res: Response): Promise<ScoreGroup[] | ErrorResponse> {
     const scoreGroups = Array.isArray(scoreGroup) ? scoreGroup : [scoreGroup];
     return this.repository.persist(scoreGroups)
       .catch(err => {
         Logger.log.error(err);
-        return Promise.resolve({ code: err.code, message: err.message });
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
 

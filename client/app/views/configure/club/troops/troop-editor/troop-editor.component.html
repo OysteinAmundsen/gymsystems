@@ -1,13 +1,37 @@
 <form class="panel" [formGroup]="troopForm" (submit)="save()">
   <fieldset>
     <div class="row">
-      <div [ngClass]="{'col-7': !currentUser.club, 'col-12': currentUser.club}" appFloatingLabelContainer>
+      <div class="col-12" appFloatingLabelContainer>
         <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
       </div>
-      <div class="col-5" appFloatingLabelContainer *ngIf="!currentUser.club">
-        <label translate>Club</label>
-        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
+    </div>
+
+    <br/>
+    <div class="row">
+      <div class="flex-col">
+        <h3>
+          <app-fa name="address-book" fw="true"></app-fa>
+          <span translate>Available</span>
+        </h3>
+        <ul [dragula]="'member-bag'" class="available">
+          <li class="memberBox" *ngFor="let member of availableMembers">
+            <span>{{ member.name }}</span>
+            <small>{{ age(member.birthYear) }}</small>
+          </li>
+        </ul>
+      </div>
+      <div class="flex-col">
+        <h3>
+          <app-fa name="group" fw="true"></app-fa>
+          <span translate>Gymnasts in {{ troopForm.value.name }}</span>
+        </h3>
+        <ul [dragula]="'member-bag'" class="added">
+          <li class="memberBox" *ngFor="let member of troopForm.value.gymnasts">
+            <span>{{ member.name }}</span>
+            <small>{{ age(member.birthYear) }}</small>
+          </li>
+        </ul>
       </div>
     </div>
   </fieldset>

@@ -11,6 +11,7 @@ import { ConfigurationController } from './ConfigurationController';
 import { Division } from '../model/Division';
 import { Role } from '../model/User';
 import { MediaController } from './MediaController';
+import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  * RESTful controller for all things related to `Display`s.
@@ -102,7 +103,7 @@ export class DivisionController {
     return this.repository.persist(divisions)
       .catch(err => {
         Logger.log.error(err);
-        return Promise.resolve({ code: err.code, message: err.message });
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
 
@@ -122,7 +123,7 @@ export class DivisionController {
     return this.repository.persist(division)
       .catch(err => {
         Logger.log.error(err);
-        return Promise.resolve({ code: err.code, message: err.message });
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
 
@@ -141,7 +142,7 @@ export class DivisionController {
     return this.removeMany([division])
       .catch(err => {
         Logger.log.error(err);
-        return Promise.resolve({ code: err.code, message: err.message });
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
 

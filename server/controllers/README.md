@@ -17,6 +17,7 @@ Every url should be prefixed `https://www.gymsystems.org/api`
 | POST   | /clubs/:clubId/members              | Club        | adding/updating one member to your club |
 | DELETE | /clubs/:clubId/members/:id          | Club        | removing a member from your club  |
 | GET    | /clubs/:clubId/troop                |             | retreiving a clubs troops |
+| POST   | /clubs/:clubId/troop                | Club        | storing clubs troops |
 
 ## ConfigurationController
 
