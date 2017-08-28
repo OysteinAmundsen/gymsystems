@@ -5,8 +5,20 @@
 .row {
   display: flex;
 }
+h3 {
+  min-height: 25px;
+  span {
+    line-height: 25px;
+  }
+}
 .flex-col {
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: flex 0.2s ease-in-out;
+  &.hidden {
+    flex: 0;
+  }
 }
 ul {
   display: flex;
@@ -19,6 +31,7 @@ ul {
   padding: 12px;
   border: 1px solid #eee;
   margin: 2px;
+  max-height: 3em;
   small {
     float: right;
   }

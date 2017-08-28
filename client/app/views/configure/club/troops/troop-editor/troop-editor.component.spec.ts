@@ -1,4 +1,3 @@
-/*
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -42,11 +41,11 @@ describe('TroopEditorComponent', () => {
       ],
       declarations: [
         TroopEditorComponent,
-        TroopsComponent,
-        ClubEditorComponent
       ],
       providers: [
         ErrorHandlerService,
+        ClubEditorComponent,
+        TroopsComponent,
         { provide: Http, useClass: HttpInterceptor },
         { provide: ClubService, useClass: ClubServiceStub },
         { provide: UserService, useClass: UserServiceStub },
@@ -65,4 +64,3 @@ describe('TroopEditorComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-*/

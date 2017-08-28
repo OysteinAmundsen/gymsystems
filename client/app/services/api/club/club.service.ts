@@ -36,8 +36,12 @@ export class ClubService {
   }
 
   // MEMBER API
-  getMembers(id: number): Observable<IGymnast[]> {
-    return this.http.get(`${this.url}/${id}/members`).map((res: Response) => res.json());
+  getMembers(club: IClub): Observable<IGymnast[]> {
+    return this.http.get(`${this.url}/${club.id}/members`).map((res: Response) => res.json());
+  }
+
+  getAvailableMembers(club: IClub): Observable<IGymnast[]> {
+    return this.http.get(`${this.url}/${club.id}/available-members`).map((res: Response) => res.json());
   }
 
   saveMember(member: IGymnast) {

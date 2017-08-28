@@ -1,4 +1,4 @@
-/*import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -40,9 +40,9 @@ describe('TroopsComponent', () => {
       declarations: [
         TroopsComponent,
         TroopEditorComponent,
-        ClubEditorComponent
       ],
       providers: [
+        ClubEditorComponent,
         { provide: UserService, useClass: UserServiceStub },
         { provide: ClubService, useClass: ClubServiceStub },
       ]
@@ -60,4 +60,3 @@ describe('TroopsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-*/

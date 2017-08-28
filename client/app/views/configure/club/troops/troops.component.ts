@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
-import { ITroop, IUser, Role } from 'app/services/model';
+import * as moment from 'moment';
+
+import { ITroop, IUser, Role, IGymnast } from 'app/services/model';
 import { UserService, ClubService } from 'app/services/api';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 
@@ -16,6 +18,10 @@ export class TroopsComponent implements OnInit {
   selected: ITroop;
   teamList: ITroop[] = [];
 
+  get club() {
+    return this.clubComponent.club;
+  }
+
   constructor(
     private userService: UserService,
     private clubService: ClubService,
@@ -27,14 +33,19 @@ export class TroopsComponent implements OnInit {
   }
 
   loadTeams() {
-    this.clubService.getTeams(this.clubComponent.club.id).subscribe(teams => this.teamList = teams);
+    this.clubService.getTeams(this.club.id).subscribe(teams => this.teamList = teams);
   }
 
   ageDivision(team: ITroop) {
-
+    const age = (birthYear) => moment().diff(moment(birthYear, 'YYYY'), 'years');
+    const ages: number[] = team.gymnasts.map(g => <number> age(g.birthYear));
+    const minAge: number = Math.min(...ages);
+    const maxAge: number = Math.max(...ages);
+    return `${minAge} - ${maxAge}`
   }
 
   members(team: ITroop) {
+    return team.gymnasts ? team.gymnasts.length : 0;
   }
 
   addTeam() {
@@ -64,6 +75,31 @@ export class TroopsComponent implements OnInit {
   }
 
   generateTeams() {
+    this.clubService.getAvailableMembers(this.club).subscribe(available => {
+      let teamCounter = this.teamList ? this.teamList.length : 0;
+      const createTroop = (gymnasts: IGymnast[]) => {
+        const troop = <ITroop>{
+          name: this.club.name.split(' ')[0].toLowerCase() + '-' + ++teamCounter,
+          gymnasts: gymnasts,
+          club: this.club
+        };
+        this.clubService.saveTeam(troop).subscribe(result => {
+          console.log(result);
+          this.onChange(null);
+        });
+        return [];
+      }
 
+      // Split up in teams of 6
+      let added = [];
+      for (let j = 0; j < available.length; j++) {
+        if (added.length === 6) {
+          added = createTroop(added);
+        }
+        added.push(available[j]);
+      }
+      // Make sure last troop is added
+      if (added.length) { createTroop(added); }
+    });
   }
 }

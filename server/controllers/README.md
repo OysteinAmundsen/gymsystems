@@ -14,10 +14,12 @@ Every url should be prefixed `https://www.gymsystems.org/api`
 | PUT    | /clubs/:clubId                      |             | updating a club |
 | DELETE | /clubs/:clubId                      | Admin       | removing a club |
 | GET    | /clubs/:clubId/members              |             | retreiving members from a club |
+| GET    | /clubs/:clubId/available-members    | Club        | retreiving members in a club not yet assigned to troops |
 | POST   | /clubs/:clubId/members              | Club        | adding/updating one member to your club |
 | DELETE | /clubs/:clubId/members/:id          | Club        | removing a member from your club  |
 | GET    | /clubs/:clubId/troop                |             | retreiving a clubs troops |
 | POST   | /clubs/:clubId/troop                | Club        | storing clubs troops |
+| DELETE | /clubs/:clubId/troop/:id            | Club        | removing a troop |
 
 ## ConfigurationController
 

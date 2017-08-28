@@ -35,10 +35,17 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
   }
   userSubscription: Subscription;
   memberList: IGymnast[];
+  memberListHidden = true;
 
   dragSubscription;
   dropSubscription;
   availableMembers: IGymnast[];
+
+  get toggleTitle() {
+    return this.memberListHidden
+      ? this.translate.instant('Show available members')
+      : this.translate.instant('Hide available members');
+  }
 
   get club() {
     return this.clubComponent.club;
@@ -66,10 +73,10 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
 
-    this.clubService.getMembers(this.club.id).subscribe(members => {
-      this.memberList = members;
-      this.availableMembers = this.getAvailableMembers();
-    });
+    this.clubService.getMembers(this.club).subscribe(members => this.memberList = members);
+    this.clubService.getAvailableMembers(this.club).subscribe(available => this.availableMembers = available);
+
+    this.memberListHidden = this.troop.gymnasts && this.troop.gymnasts.length > 0;
 
     this.troopForm = this.fb.group({
       id: [this.troop.id],
@@ -114,30 +121,12 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
       club: this.club,
       gymnasts: this.troop.gymnasts || []
     });
-    this.availableMembers = this.getAvailableMembers();
+    this.memberListHidden = this.troop.gymnasts && this.troop.gymnasts.length > 0;
+    this.clubService.getAvailableMembers(this.club).subscribe(available => this.availableMembers = available);
   }
 
-  getAvailableMembers(): IGymnast[] {
-    if (!this.memberList) { return this.memberList; } // Not loaded yet.
-    const troops = this.troopsComponent.teamList;
-
-    // Reduce memberlist to those gymnasts not yet in a troop
-    return this.memberList.reduce((prev: IGymnast[], curr: IGymnast) => {
-      if (!troops) {
-        // No troops registered yet. Return all registerred members
-        return this.memberList;
-      }
-
-      // Troops found. Make sure the gymnast is not present in other lists
-      const idx = troops.findIndex(t => {
-        return (t.gymnasts ? t.gymnasts.findIndex(g => g.id === curr.id) > -1 : false);
-      });
-      if (idx <= -1) {
-        // Gymnast is not present in other lists.
-        prev.push(curr);
-      }
-      return prev;
-    }, <IGymnast[]>[]);
+  toggleMembers() {
+    this.memberListHidden = !this.memberListHidden;
   }
 
   async save(keepOpen?: boolean) {

@@ -276,7 +276,7 @@ export class TournamentController {
 
     // Remove participants
     const participantRepository = this.conn.getRepository(TeamInDiscipline);
-    const participants = await participantRepository.find({ tournament: tournament.id }); // Next-gen TypeORM: .find({ tournament: {id: tournament.id} });
+    const participants = await participantRepository.find({ tournament: tournament.id });
     await participantRepository.remove(participants);
 
     // Remove divisions
@@ -310,7 +310,13 @@ export class TournamentController {
           const defaultValues = values.value;
           return Promise.all([
             divisionRepository.createDefaults(tournament, res).then(divisions => tournament.divisions = divisions),
-            disciplineRepository.createDefaults(tournament, res).then(disciplines => tournament.disciplines = disciplines)
+            disciplineRepository.createDefaults(tournament, res).then(disciplines => {
+              if (!(disciplines instanceof ErrorResponse)) {
+                tournament.disciplines = disciplines;
+              } else {
+                Promise.reject(disciplines);
+              }
+            })
           ])
             .then(() => tournament)
             .catch(err => {
