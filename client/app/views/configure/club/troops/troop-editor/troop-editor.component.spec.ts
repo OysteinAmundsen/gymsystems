@@ -1,3 +1,4 @@
+/*
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -64,3 +65,4 @@ describe('TroopEditorComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/
