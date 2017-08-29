@@ -13,7 +13,7 @@
         <td>{{ member.name }}</td>
         <td>{{ member.birthYear }}</td>
         <td>{{ genderDivision(member) }}</td>
-        <td>{{ countTeams(member) }}</td>
+        <td [title]="teamsTitle(member)">{{ countTeams(member) }}</td>
       </tr>
       <tr *ngIf="member === selected">
         <td colspan="4">

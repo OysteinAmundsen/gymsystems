@@ -337,6 +337,12 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     }
   }
 
+  /**
+   * The method that writes a new value from the form model into the view or (if needed) DOM property.
+   * This is where we want to update our model, as that’s the thing that is used in the view.
+   *
+   * @param date
+   */
   writeValue(date: DateModel | Date) {
     if (!date) { return; }
     if (date instanceof DateModel) {
@@ -348,10 +354,23 @@ export class DatepickerComponent implements ControlValueAccessor, OnInit {
     this.selectDate(null, this.currentDate);
   }
 
+  /**
+   * a method that registers a handler that should be called when something in the view has changed.
+   * It gets a function that tells other form directives and form controls to update their values.
+   * In other words, that’s the handler function we want to call whenever our value changes through the view.
+   *
+   * @param fn
+   */
   registerOnChange(fn: any) {
     this.onChangeCallback = fn;
   }
 
+  /**
+   * Similiar to registerOnChange(), this registers a handler specifically for when a control
+   * receives a touch event.
+   *
+   * @param fn
+   */
   registerOnTouched(fn: any) {
     this.onTouchedCallback = fn;
   }

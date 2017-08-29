@@ -290,17 +290,13 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*":
-  version "8.0.24"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.24.tgz#06c580084d9add1fb40c1510ef0b448961246fb1"
+"@types/node@*", "@types/node@~8.0.25":
+  version "8.0.25"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.25.tgz#66ecaf4df93f5281b48427ee96fbcdfc4f0cdce1"
 
 "@types/node@^6.0.46":
   version "6.0.85"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.85.tgz#ec02bfe54a61044f2be44f13b389c6a0e8ee05ae"
-
-"@types/node@~8.0.25":
-  version "8.0.25"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.25.tgz#66ecaf4df93f5281b48427ee96fbcdfc4f0cdce1"
 
 "@types/passport-local@~1.0.30":
   version "1.0.30"
@@ -3293,10 +3289,6 @@ items@2.x.x:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/items/-/items-2.1.1.tgz#8bd16d9c83b19529de5aea321acaada78364a198"
 
-jasmine-core@~2.7.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.7.0.tgz#50ff8c4f92d8ef5c0b2c1b846dd263ed85152091"
-
 jasmine-core@~2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.8.0.tgz#bcc979ae1f9fd05701e45e52e65d3a5d63f1a24e"
@@ -3316,15 +3308,7 @@ jasmine-ts@^0.2.1:
     typescript "^2.4.1"
     yargs "^8.0.2"
 
-jasmine@^2.5.3, jasmine@^2.6.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/jasmine/-/jasmine-2.7.0.tgz#5cf0bb4e594b4600bb4235560366212ac5aea1b2"
-  dependencies:
-    exit "^0.1.2"
-    glob "^7.0.6"
-    jasmine-core "~2.7.0"
-
-jasmine@^2.8.0:
+jasmine@^2.5.3, jasmine@^2.6.0, jasmine@^2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/jasmine/-/jasmine-2.8.0.tgz#6b089c0a11576b1f16df11b80146d91d4e8b8a3e"
   dependencies:

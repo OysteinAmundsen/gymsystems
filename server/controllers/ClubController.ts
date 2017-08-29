@@ -263,13 +263,16 @@ export class ClubController {
    * @param {number} clubId
    */
   @Get('/:clubId/troop')
-  getTeams(@Param('clubId') clubId: number): Promise<Troop[]> {
-    return this.conn.getRepository(Troop)
+  getTeams(@Param('clubId') clubId: number, @QueryParam('name') name?: string): Promise<Troop[]> {
+    const query = this.conn.getRepository(Troop)
       .createQueryBuilder('troop')
       .innerJoinAndSelect('troop.club', 'club')
       .leftJoinAndSelect('troop.gymnasts', 'gymnasts')
       .where('troop.club = :id', {id: clubId})
-      .getMany();
+    if (name) {
+      query.andWhere('lower(troop.name) LIKE lower(:name)', {name: `%${name}%`});
+    }
+    return query.getMany();
   }
 
   /**

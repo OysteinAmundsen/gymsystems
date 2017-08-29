@@ -48,6 +48,8 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     this._selectedIndex = value;
   }
 
+  disabled = false;
+
   _value: string;
   @Input()
   get value(): any { return this._value; };
@@ -133,14 +135,36 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     }
   }
 
+  /**
+   * a method that registers a handler that should be called when something in the view has changed.
+   * It gets a function that tells other form directives and form controls to update their values.
+   * In other words, that’s the handler function we want to call whenever our value changes through the view.
+   */
   registerOnChange(fn: any) {
     this._onChangeCallback = fn;
   }
+
+  /**
+   * Similiar to registerOnChange(), this registers a handler specifically for when a control
+   * receives a touch event.
+   *
+   * @param fn
+   */
   registerOnTouched(fn: any) {
     this._onTouchedCallback = fn;
   }
 
+  /**
+   * The method that writes a new value from the form model into the view or (if needed) DOM property.
+   * This is where we want to update our model, as that’s the thing that is used in the view.
+   *
+   * @param value
+   */
   writeValue(value: any) {
     this._value = value;
+  }
+
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
   }
 }

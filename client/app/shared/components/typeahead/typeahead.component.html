@@ -1,4 +1,4 @@
-<input type="search" (focus)="onEnter()" (blur)="onLeave()" (keydown)="onKeyPress($event)" [(value)]="value" required="{{required}}" autocomplete="off">
+<input type="search" (focus)="onEnter()" (blur)="onLeave()" (keydown)="onKeyPress($event)" [(value)]="value" required="{{required}}" autocomplete="off" [disabled]="disabled">
 <ng-content></ng-content>
 <div *ngIf="popupVisible" class="panel">
   <ul>
