@@ -48,7 +48,7 @@ export class Troop implements BelongsToClub {
    * out from the initial `Troop` setup, but can be changed by the
    * club at will in order to finetune the team for this event.
    */
-  @ManyToMany(type => Gymnast, gymnasts => gymnasts.team, { cascadeInsert: false, cascadeUpdate: false })
+  @ManyToMany(type => Gymnast, gymnasts => gymnasts.troop, { cascadeInsert: false, cascadeUpdate: false })
   gymnasts: Gymnast[];
 
   /**
