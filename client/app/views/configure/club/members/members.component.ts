@@ -36,6 +36,10 @@ export class MembersComponent implements OnInit, OnDestroy {
     return `${member.troop.length}`;
   }
 
+  teamsTitle(member: IGymnast) {
+    return member.troop.map(t => t.name).join(', ');
+  }
+
   addMember() {
     const member = <IGymnast>{
       id          : null,

@@ -59,8 +59,12 @@ export class ClubService {
   }
 
   // TROOPS API
-  getTeams(id: number): Observable<ITroop[]> {
-    return this.http.get(`${this.url}/${id}/troop`).map((res: Response) => res.json());
+  getTeams(club: IClub): Observable<ITroop[]> {
+    return this.http.get(`${this.url}/${club.id}/troop`).map((res: Response) => res.json());
+  }
+
+  findTroopByName(club: IClub, name: string): Observable<ITroop[]> {
+    return this.http.get(`${this.url}/${club.id}/troop?name=${name}`).map((res: Response) => res.json());
   }
 
   saveTeam(team: ITroop) {

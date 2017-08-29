@@ -41,16 +41,34 @@ export class SlideToggleComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit() { }
 
+  /**
+   * The method that writes a new value from the form model into the view or (if needed) DOM property.
+   * This is where we want to update our model, as that’s the thing that is used in the view.
+   *
+   * @param value
+   */
   writeValue(value: any) {
     if (value !== undefined) {
       this.state = value || this.initState;
     }
   }
 
+  /**
+   * a method that registers a handler that should be called when something in the view has changed.
+   * It gets a function that tells other form directives and form controls to update their values.
+   * In other words, that’s the handler function we want to call whenever our value changes through the view.
+   *
+   * @param fn
+   */
   registerOnChange(fn) {
     this.propagateChange = fn;
   }
 
+  /**
+   * Similiar to registerOnChange(), this registers a handler specifically for when a control
+   * receives a touch event.
+   *
+   */
   registerOnTouched() { }
 
   onStateChange($event: Event) {

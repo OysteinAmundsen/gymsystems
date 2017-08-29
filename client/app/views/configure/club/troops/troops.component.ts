@@ -35,7 +35,7 @@ export class TroopsComponent implements OnInit {
   }
 
   loadTeams() {
-    this.clubService.getTeams(this.club.id).subscribe(teams => this.teamList = teams);
+    this.clubService.getTeams(this.club).subscribe(teams => this.teamList = teams);
   }
 
   ageDivision(team: ITroop) {
