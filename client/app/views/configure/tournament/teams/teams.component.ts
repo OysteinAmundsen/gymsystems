@@ -69,7 +69,8 @@ export class TeamsComponent implements OnInit, OnDestroy {
       divisions   : [],
       disciplines : [],
       club        : this.currentUser.club,
-      tournament  : this.tournament
+      tournament  : this.tournament,
+      class       : Classes.TeamGym
     };
     this.teamList.push(team);
     this.selected = team;
