@@ -27,7 +27,7 @@ import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.service.stub';
 
-import { ITeam, ITournament, IClub, IUser, Role } from 'app/services/model';
+import { ITeam, ITournament, IClub, IUser, Role, Classes } from 'app/services/model';
 
 const club: IClub = <IClub>{
   id          : 0,
@@ -48,12 +48,12 @@ class DummyParent {
 }
 @Component({
  selector  : 'app-cmp',
- template  : `<app-team-editor [team]='selected' (teamChanged)='onChange($event)'></app-team-editor>`
+ template  : `<app-team-editor [team]='selected'></app-team-editor>`
 })
 class WrapperComponent {
   selected: ITeam = <ITeam>{
-    id: 0, name: 'Haugesund-1', divisions: [], disciplines: [], club: club, tournament: <ITournament>{
-      id: 0, createdBy: user, name: 'Landsturnstevnet 2017', description_no: 'Test tekst', description_en: 'Test text',
+    id: 0, class: Classes.TeamGym, name: 'Haugesund-1', divisions: [], disciplines: [], club: club, tournament: <ITournament>{
+      id: 0, createdBy: user, club: user.club, name: 'Landsturnstevnet 2017', description_no: 'Test tekst', description_en: 'Test text',
       location: 'Haugesund', schedule: [], disciplines: [], divisions: []
     },
   }

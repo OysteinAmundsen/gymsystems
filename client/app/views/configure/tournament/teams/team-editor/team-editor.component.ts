@@ -1,23 +1,15 @@
 import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { TranslateService } from '@ngx-translate/core';
 
+import { IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament } from 'app/services/model';
 import { TeamsService, DisciplineService, DivisionService, ClubService, UserService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { Logger } from 'app/services/Logger';
 
-import { IDiscipline } from 'app/services/model/IDiscipline';
-import { IDivision } from 'app/services/model/IDivision';
-import { DivisionType } from 'app/services/model/DivisionType';
-import { ITeam } from 'app/services/model/ITeam';
-import { IClub } from 'app/services/model/IClub';
-import { IUser } from 'app/services/model/IUser';
-import { IMedia } from 'app/services/model/IMedia';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Classes } from 'app/services/model/Classes';
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
-import { ITournament } from 'app/services/model/ITournament';
 import { UppercaseFormControl } from 'app/shared/form';
 
 @Component({
@@ -88,36 +80,28 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
               const disciplineId = el.attributes.getNamedItem('data').nodeValue;
               el.checked = this.team.disciplines.findIndex(dis => dis.id === +disciplineId) > -1;
             });
+          this.teamReceived(this.team);
         });
       });
 
 
       // Group divisions by type
-      const ageDivision = this.team.divisions.find(d => d.type === DivisionType.Age);
-      const genderDivision = this.team.divisions.find(d => d.type === DivisionType.Gender);
       this.teamForm = this.fb.group({
         id: [this.team.id],
         name: [this.team.name, [Validators.required]],
         club: new UppercaseFormControl(this.team.club ? this.team.club.name : '', [Validators.required]),
-        ageDivision: [ageDivision ? ageDivision.id : null, [Validators.required]],
-        genderDivision: [genderDivision ? genderDivision.id : null, [Validators.required]],
+        ageDivision: [null, [Validators.required]],
+        genderDivision: [null, [Validators.required]],
         disciplines: [this.team.disciplines],
         tournament: [this.team.tournament],
-        class: [this.team.class]
+        class: [this.team.class || Classes.TeamGym]
       });
 
       // Select all disciplines if TeamGym is chosen
       this.teamForm.controls['class']
         .valueChanges
         .distinctUntilChanged()
-        .subscribe((c: Classes) => {
-          if (c === Classes.TeamGym) {
-            this.disciplineCheckboxes.forEach((element: ElementRef) => {
-              const el = <HTMLInputElement>element.nativeElement;
-              el.checked = true;
-            });
-          }
-        });
+        .subscribe((c: Classes) => this.classChanged());
     });
   }
 
@@ -154,6 +138,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       tournament: this.team.tournament,
       class: this.team.class
     });
+    this.classChanged();
   }
 
   reloadTeam() {
@@ -199,11 +184,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
     // Get club
     if (!team.club) {
-    //   team.club = await this.clubService.validateClub(team);
-    // } else if (this.selectedClub && this.selectedClub.id) {
-    //   delete this.selectedClub.teams;
-    //   team.club = this.selectedClub;
-    // } else {
       this.errorHandler.error = 'No club set. Cannot register!';
       return;
     }
@@ -252,6 +232,15 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   close() {
     this.teamChanged.emit(this.team);
+  }
+
+  classChanged() {
+    if (this.teamForm.value.class === Classes.TeamGym) {
+      this.disciplineCheckboxes.forEach((element: ElementRef) => {
+        const el = <HTMLInputElement>element.nativeElement;
+        el.checked = true;
+      });
+    }
   }
 
   toggleChecked() {

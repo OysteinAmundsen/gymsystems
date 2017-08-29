@@ -3,15 +3,22 @@
     <thead>
       <tr>
         <th translate>Name</th>
-        <th translate>Age Division</th>
+        <th translate>Age group</th>
+        <th translate>Gender group</th>
         <th translate>Members</th>
       </tr>
     </thead>
     <tbody *ngFor="let team of teamList">
-      <tr role="listitem">
+      <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
         <td>{{ team.name }}</td>
         <td>{{ ageDivision(team) }}</td>
+        <td>{{ genderDivision(team) }}</td>
         <td>{{ members(team) }}</td>
+      </tr>
+      <tr *ngIf="team === selected">
+        <td colspan="4">
+          <app-troop-editor [troop]="selected" (troopChanged)="onChange($event)"></app-troop-editor>
+        </td>
       </tr>
     </tbody>
   </table>

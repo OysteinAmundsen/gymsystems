@@ -7,11 +7,17 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app/app.module';
 import { SharedModule } from 'app/shared/shared.module';
 
-import { TeamsComponent } from './teams.component';
+import { TroopsComponent } from './troops.component';
+import { UserService, ClubService } from 'app/services/api';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+import { TroopEditorComponent } from './troop-editor/troop-editor.component';
+import { DragulaModule } from 'ng2-dragula';
+import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
+import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 
-describe('TeamsComponent', () => {
-  let component: TeamsComponent;
-  let fixture: ComponentFixture<TeamsComponent>;
+describe('TroopsComponent', () => {
+  let component: TroopsComponent;
+  let fixture: ComponentFixture<TroopsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,8 +25,10 @@ describe('TeamsComponent', () => {
         SharedModule,
         HttpModule,
         FormsModule,
+        ReactiveFormsModule,
         RouterTestingModule,
         HttpClientModule,
+        DragulaModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -29,13 +37,21 @@ describe('TeamsComponent', () => {
           }
         }),
       ],
-      declarations: [ TeamsComponent ]
+      declarations: [
+        TroopsComponent,
+        TroopEditorComponent,
+      ],
+      providers: [
+        ClubEditorComponent,
+        { provide: UserService, useClass: UserServiceStub },
+        { provide: ClubService, useClass: ClubServiceStub },
+      ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TeamsComponent);
+    fixture = TestBed.createComponent(TroopsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

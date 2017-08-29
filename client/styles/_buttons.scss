@@ -65,4 +65,7 @@ button,
   &[disabled] {
     color: lighten($text-color, 30%);
   }
+  &.small {
+    padding: 4px;
+  }
 }

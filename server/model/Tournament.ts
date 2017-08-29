@@ -6,6 +6,7 @@ import { Team } from './Team';
 import { TeamInDiscipline } from './TeamInDiscipline';
 import { User, CreatedBy } from './User';
 import { Media } from './Media';
+import { BelongsToClub, Club } from './Club';
 
 /**
  * A Tournament describes a copetitive event created and arranged by
@@ -19,7 +20,7 @@ import { Media } from './Media';
  * @class Tournament
  */
 @Entity()
-export class Tournament implements CreatedBy {
+export class Tournament implements CreatedBy, BelongsToClub {
   /**
    * The tournament primary key
    */
@@ -32,6 +33,9 @@ export class Tournament implements CreatedBy {
    */
   @ManyToOne(type => User, user => user.tournaments, {nullable: false})
   createdBy: User;
+
+  @ManyToOne(type => Club, club => club.tournaments, {nullable: true})
+  club: Club;
 
   /**
    * The tournaments unique string identifier. Also the header everywhere

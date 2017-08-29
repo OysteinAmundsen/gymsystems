@@ -32,7 +32,12 @@ export class ClubEditorComponent implements OnInit {
     return _.startCase(_.lowerCase(clubName));
   }
 
-  constructor(private fb: FormBuilder, private clubService: ClubService, private userService: UserService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private fb: FormBuilder,
+    private clubService: ClubService,
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {

@@ -15,6 +15,7 @@ import { Tournament } from '../model/Tournament';
 import { ScoreGroup } from '../model/ScoreGroup';
 import { Role } from '../model/User';
 import { MediaController } from './MediaController';
+import { ErrorResponse } from '../utils/ErrorResponse';
 
 /**
  * RESTful controller for all things related to `Discipline`s.
@@ -100,12 +101,12 @@ export class DisciplineController {
    */
   @Post()
   @UseBefore(RequireRole.get(Role.Organizer))
-  create( @Body() discipline: Discipline | Discipline[], @Res() res: Response): Promise<Discipline[] | any> {
+  create( @Body() discipline: Discipline | Discipline[], @Res() res: Response): Promise<Discipline[] | ErrorResponse> {
     const disciplines = Array.isArray(discipline) ? discipline : [discipline];
     return this.repository.persist(disciplines)
       .catch(err => {
         Logger.log.error(err);
-        return Promise.resolve({ code: err.code, message: err.message });
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
 
@@ -120,11 +121,11 @@ export class DisciplineController {
    */
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
-  update( @Param('id') id: number, @Body() discipline: Discipline): Promise<Discipline | any> {
+  update( @Param('id') id: number, @Body() discipline: Discipline): Promise<Discipline | ErrorResponse> {
     return this.repository.persist(discipline)
       .catch(err => {
         Logger.log.error(err);
-        return Promise.resolve({ code: err.code, message: err.message });
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
 
@@ -143,7 +144,7 @@ export class DisciplineController {
     return this.removeMany([discipline])
       .catch(err => {
         Logger.log.error(err);
-        return Promise.resolve({ code: err.code, message: err.message });
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
 
@@ -183,7 +184,7 @@ export class DisciplineController {
    * @param {Tournament} tournament the newly created tournament object
    * @param {Response} res
    */
-  createDefaults(tournament: Tournament, res: Response): Promise<Discipline[] | any> {
+  createDefaults(tournament: Tournament, res: Response): Promise<Discipline[] | ErrorResponse> {
     Logger.log.debug('Creating default discipline values');
     const configRepository = Container.get(ConfigurationController);
     const scoreGroupRepository = Container.get(ScoreGroupController);
@@ -203,12 +204,12 @@ export class DisciplineController {
           })
           .catch(err => {
             Logger.log.error(err);
-            return Promise.resolve({ code: err.code, message: err.message });
+            return Promise.resolve(new ErrorResponse(err.code, err.message));
           });
       })
       .catch(err => {
         Logger.log.error(err);
-        return Promise.resolve({ code: err.code, message: err.message });
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
 }

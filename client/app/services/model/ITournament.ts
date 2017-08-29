@@ -6,10 +6,12 @@ import { IMedia } from './IMedia';
 import { IDivision } from './IDivision';
 import { IDiscipline } from './IDiscipline';
 import { ITeamInDiscipline } from './ITeamInDiscipline';
+import { IClub } from './IClub';
 
 export interface ITournament {
   id: number;
   createdBy: IUser;
+  club: IClub;
   name: string;
   description_no: string;
   description_en: string;

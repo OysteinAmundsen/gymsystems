@@ -27,10 +27,14 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   loadMembers() {
-    this.clubService.getMembers(this.club.id).subscribe(members => this.memberList = members);
+    this.clubService.getMembers(this.club).subscribe(members => this.memberList = members);
   }
 
   genderDivision(member: IGymnast) { return Object.keys(Gender).find(k => Gender[k] === member.gender); }
+
+  countTeams(member: IGymnast) {
+    return `${member.troop.length}`;
+  }
 
   addMember() {
     const member = <IGymnast>{
@@ -38,7 +42,7 @@ export class MembersComponent implements OnInit, OnDestroy {
       name        : null,
       birthYear   : null,
       gender      : null,
-      partof      : null,
+      team      : null,
       club        : null
     };
     this.memberList.push(member);

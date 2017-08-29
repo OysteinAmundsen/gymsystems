@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 
-import { IClub, IBelongsToClub, IGymnast, ITeam } from 'app/services/model';
+import { IClub, IBelongsToClub, IGymnast, ITroop } from 'app/services/model';
+import { Helper } from '../Helper';
 
 @Injectable()
 export class ClubService {
@@ -24,7 +25,9 @@ export class ClubService {
   }
 
   saveClub(club: IClub) {
-    return (club.id ? this.http.put(`${this.url}/${club.id}`, club) : this.http.post(`${this.url}/`, club))
+    return (club.id
+      ? this.http.put(`${this.url}/${club.id}`, Helper.reduceLevels(club))
+      : this.http.post(`${this.url}/`, club))
       .map((res: Response) => res.json());
   }
 
@@ -32,8 +35,19 @@ export class ClubService {
     return this.http.delete(`${this.url}/${club.id}`).map((res: Response) => res.json());
   }
 
-  getMembers(id: number): Observable<IGymnast[]> {
-    return this.http.get(`${this.url}/${id}/members`).map((res: Response) => res.json());
+  // MEMBER API
+  getMembers(club: IClub): Observable<IGymnast[]> {
+    return this.http.get(`${this.url}/${club.id}/members`).map((res: Response) => res.json());
+  }
+
+  getMembersNotInTroop(club: IClub, currentTroop: ITroop): Observable<IGymnast[]> {
+    return this.getMembers(club).map((gymnasts: IGymnast[]) => {
+      return gymnasts.filter(g => currentTroop.gymnasts.findIndex(tg => tg.id === g.id) < 0);
+    });
+  }
+
+  getAvailableMembers(club: IClub): Observable<IGymnast[]> {
+    return this.http.get(`${this.url}/${club.id}/available-members`).map((res: Response) => res.json());
   }
 
   saveMember(member: IGymnast) {
@@ -44,15 +58,16 @@ export class ClubService {
     return this.http.delete(`${this.url}/${member.club.id}/members/${member.id}`).map((res: Response) => res.json());
   }
 
-  getTeams(id: number): Observable<ITeam[]> {
-    return this.http.get(`${this.url}/${id}/teams`).map((res: Response) => res.json());
+  // TROOPS API
+  getTeams(id: number): Observable<ITroop[]> {
+    return this.http.get(`${this.url}/${id}/troop`).map((res: Response) => res.json());
   }
 
-  saveTeam(team: ITeam) {
-    return this.http.post(`${this.url}/${team.club.id}/teams`, team).map((res: Response) => res.json());
+  saveTeam(team: ITroop) {
+    return this.http.post(`${this.url}/${team.club.id}/troop`, team).map((res: Response) => res.json());
   }
 
-  deleteTeam(team: ITeam) {
-    return this.http.delete(`${this.url}/${team.club.id}/teams/${team.id}`).map((res: Response) => res.json());
+  deleteTeam(team: ITroop) {
+    return this.http.delete(`${this.url}/${team.club.id}/troop/${team.id}`).map((res: Response) => res.json());
   }
 }

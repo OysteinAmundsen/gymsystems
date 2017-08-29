@@ -5,6 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
 import { IScore, ITeamInDiscipline } from 'app/services/model';
+import { Helper } from '../Helper';
 
 @Injectable()
 export class ScoreService {
@@ -17,7 +18,7 @@ export class ScoreService {
   }
 
   saveFromParticipant(participantId: number, scores: IScore[]) {
-    return this.http.post(`${this.url}/${participantId}`, scores).map((res: Response) => res.json()).share();
+    return this.http.post(`${this.url}/${participantId}`, Helper.reduceLevels(scores)).map((res: Response) => res.json()).share();
   }
 
   removeFromParticipant(participantId: number) {

@@ -3,17 +3,19 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { Title, Meta } from '@angular/platform-browser';
-
-import { TournamentService, UserService } from 'app/services/api';
-import { ITournament } from 'app/services/model/ITournament';
-import { IUser, Role } from 'app/services/model/IUser';
-import { Moment } from 'moment';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/Rx';
 
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-
+import { Moment } from 'moment';
 import * as moment from 'moment';
+
+import { TournamentService, UserService, ClubService } from 'app/services/api';
+import { ITournament, IUser, Role, IClub } from 'app/services/model';
+
+import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { UppercaseFormControl } from 'app/shared/form';
+
 const Moment: any = (<any>moment).default || moment;
 
 @Component({
@@ -30,6 +32,17 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   isEdit = false;
   isAdding = false;
+
+  // Club typeahead
+  clubs = [];
+  selectedClub: IClub;
+  get clubName() {
+    let clubName = '';
+    if (this.tournament.club && this.tournament.club.name) { clubName = this.tournament.club.name; }
+    else if (this.user.club && this.user.club.name) { clubName = this.user.club.name; }
+    return clubName;
+  }
+
 
   private get startDate(): Moment {
     const startDate = this.tournamentForm.value.startDate;
@@ -51,12 +64,17 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     return this.tournamentForm.value.times;
   }
 
+  get canEdit() {
+    return this.user.role >= Role.Admin || (this.user.role >= Role.Organizer && this.tournament.club.id === this.user.club.id);
+  }
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
     private tournamentService: TournamentService,
+    private clubService: ClubService,
     private error: ErrorHandlerService,
     private translate: TranslateService,
     private title: Title,
@@ -81,6 +99,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.tournamentForm = this.fb.group({
       id: [this.tournament.id],
       name: [this.tournament.name, [Validators.required]],
+      club: new UppercaseFormControl(this.clubName, [Validators.required]),
       startDate: [this.tournament.startDate, [Validators.required]],
       endDate: [this.tournament.endDate, [Validators.required]],
       location: [this.tournament.location],
@@ -116,6 +135,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.tournamentForm.setValue({
       id: this.tournament.id,
       name: this.tournament.name,
+      club: this.clubName,
       startDate: this.tournament.startDate,
       endDate: this.tournament.endDate,
       location: this.tournament.location,
@@ -128,6 +148,14 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
     this.tournamentService.selected = null;
+  }
+
+  getClubMatchesFn() {
+    const me = this;
+    return function (items: any[], currentValue: string, matchText: string): Observable<IClub[]> {
+      if (!currentValue) { return Observable.of(items); }
+      return me.clubService.findByName(currentValue);
+    }
   }
 
   timeRangeChange(event, obj) {
@@ -143,6 +171,9 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     }
     if (formVal.endDate.hasOwnProperty('momentObj')) {
       formVal.endDate = formVal.endDate.momentObj.clone().utc().endOf('day').toISOString();
+    }
+    if (!formVal.club) {
+      formVal.club = this.user.club;
     }
     this.tournamentService.save(formVal).subscribe(tournament => {
       if (tournament.hasOwnProperty('code')) {
@@ -172,9 +203,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   }
 
   edit() {
-    if (this.user && (this.user.role >= Role.Admin || this.tournament.createdBy.id === this.user.id)) {
-      this.isEdit = true;
-    }
+    if (this.canEdit) { this.isEdit = true; }
   }
 
   @HostListener('window:keyup', ['$event'])

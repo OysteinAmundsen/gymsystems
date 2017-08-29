@@ -5,7 +5,7 @@ import { Division } from './Division';
 import { Team } from './Team';
 import { User } from './User';
 import { Gymnast } from './Gymnast';
-import { Troop } from "./Troop";
+import { Troop } from './Troop';
 
 
 /**
@@ -62,6 +62,12 @@ export class Club {
    */
   @OneToMany(type => Team, teams => teams.club, { cascadeInsert: false, cascadeUpdate: false })
   teams: Team[];
+
+  /**
+   * A list of tournaments this club has created.
+   */
+  @OneToMany(type => Tournament, tournaments => tournaments.club, { cascadeInsert: false, cascadeUpdate: false })
+  tournaments: Tournament[];
 
   /**
    * A list of users associated with this club. Users are usually
