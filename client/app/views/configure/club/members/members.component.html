@@ -5,6 +5,7 @@
         <th translate>Name</th>
         <th translate>Birth year</th>
         <th translate>Gender</th>
+        <th translate>Teams</th>
       </tr>
     </thead>
     <tbody *ngFor="let member of memberList">
@@ -12,6 +13,7 @@
         <td>{{ member.name }}</td>
         <td>{{ member.birthYear }}</td>
         <td>{{ genderDivision(member) }}</td>
+        <td>{{ countTeams(member) }}</td>
       </tr>
       <tr *ngIf="member === selected">
         <td colspan="4">

@@ -3,9 +3,10 @@ import { Subscription } from 'rxjs/Rx';
 
 import * as moment from 'moment';
 
-import { ITroop, IUser, Role, IGymnast } from 'app/services/model';
+import { ITroop, IUser, Role, IGymnast, Gender } from 'app/services/model';
 import { UserService, ClubService } from 'app/services/api';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-troops',
@@ -25,6 +26,7 @@ export class TroopsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private clubService: ClubService,
+    private translate: TranslateService,
     private clubComponent: ClubEditorComponent) { }
 
   ngOnInit() {
@@ -44,14 +46,22 @@ export class TroopsComponent implements OnInit {
     return `${minAge} - ${maxAge}`
   }
 
+  genderDivision(team: ITroop) {
+    if (team.gymnasts.every(g => g.gender === team.gymnasts[0].gender)) {
+      return team.gymnasts[0].gender === Gender.Female ? this.translate.instant('Female') : this.translate.instant('Male');
+    }
+    return this.translate.instant('Mix');
+  }
+
   members(team: ITroop) {
     return team.gymnasts ? team.gymnasts.length : 0;
   }
 
   addTeam() {
+    let teamCounter = this.teamList ? this.teamList.length : 0
     const team = <ITroop>{
       id          : null,
-      name        : null,
+      name        : this.club.name.split(' ')[0].toLowerCase() + '-' + ++teamCounter,
       club        : this.currentUser.club,
       gymnasts    : []
     };
@@ -75,31 +85,39 @@ export class TroopsComponent implements OnInit {
   }
 
   generateTeams() {
-    this.clubService.getAvailableMembers(this.club).subscribe(available => {
+    this.clubService.getAvailableMembers(this.club).subscribe(members => {
+      const troopSize = 12;
+      const promises = [];
+
       let teamCounter = this.teamList ? this.teamList.length : 0;
-      const createTroop = (gymnasts: IGymnast[]) => {
-        const troop = <ITroop>{
+      const saveTroop = (gymnasts: IGymnast[]) => {
+        return this.clubService.saveTeam(<ITroop>{
           name: this.club.name.split(' ')[0].toLowerCase() + '-' + ++teamCounter,
           gymnasts: gymnasts,
           club: this.club
-        };
-        this.clubService.saveTeam(troop).subscribe(result => {
-          console.log(result);
-          this.onChange(null);
-        });
-        return [];
+        }).toPromise();
+      }
+      const createTroop = (available: IGymnast[]) => {
+        let gymnasts = [];
+        for (let j = 0; j < available.length; j++) {
+          if (gymnasts.length === troopSize) {
+            promises.push(saveTroop(gymnasts));
+            gymnasts = [];
+          }
+          gymnasts.push(available[j]);
+        }
+        // Make sure last troop is added
+        if (gymnasts.length) { promises.push(saveTroop(gymnasts)); }
       }
 
-      // Split up in teams of 6
-      let added = [];
-      for (let j = 0; j < available.length; j++) {
-        if (added.length === 6) {
-          added = createTroop(added);
-        }
-        added.push(available[j]);
-      }
-      // Make sure last troop is added
-      if (added.length) { createTroop(added); }
+      // Generate gender troops, sorted by age
+      createTroop(members.filter(g => g.gender === Gender.Female));
+      createTroop(members.filter(g => g.gender === Gender.Male));
+      createTroop(members);
+      Promise.all(promises).then(result => {
+        console.log(result);
+        this.onChange(null);
+      });
     });
   }
 }

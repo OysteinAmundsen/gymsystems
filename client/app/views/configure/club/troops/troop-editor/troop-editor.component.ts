@@ -34,12 +34,12 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
     this._currentUser = value;
   }
   userSubscription: Subscription;
-  memberList: IGymnast[];
+  availableMembers: IGymnast[];
+  // memberList: IGymnast[];
   memberListHidden = true;
 
   dragSubscription;
   dropSubscription;
-  availableMembers: IGymnast[];
 
   get toggleTitle() {
     return this.memberListHidden
@@ -57,7 +57,8 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
 
   get troopSuggestion() {
     setTimeout(() => this.troopForm.markAsDirty());
-    return this.clubName.split(' ')[0].toLowerCase() + '-' + this.troopsComponent.teamList.length;
+    let teamCounter = this.troopsComponent.teamList ? this.troopsComponent.teamList.length : 0
+    return this.clubName.split(' ')[0].toLowerCase() + '-' + ++teamCounter;
   }
 
   constructor(
@@ -73,17 +74,14 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
 
-    this.clubService.getMembers(this.club).subscribe(members => this.memberList = members);
-    this.clubService.getAvailableMembers(this.club).subscribe(available => this.availableMembers = available);
-
-    this.memberListHidden = this.troop.gymnasts && this.troop.gymnasts.length > 0;
-
     this.troopForm = this.fb.group({
       id: [this.troop.id],
       name: [this.troop.name || this.troopSuggestion, [Validators.required]],
       club: [this.club],
       gymnasts: [this.troop.gymnasts || []]
     });
+
+    this.troopReceived(this.troop);
 
     // Dragula workaround (for not recognizing two different models in one bag)
     let dragIndex: number, dropIndex: number, sourceModel: IGymnast[], targetModel: IGymnast[];
@@ -122,7 +120,9 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
       gymnasts: this.troop.gymnasts || []
     });
     this.memberListHidden = this.troop.gymnasts && this.troop.gymnasts.length > 0;
-    this.clubService.getAvailableMembers(this.club).subscribe(available => this.availableMembers = available);
+    this.clubService.getMembersNotInTroop(this.club, this.troop).subscribe(available => {
+      this.availableMembers = available;
+    });
   }
 
   toggleMembers() {

@@ -32,6 +32,10 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   genderDivision(member: IGymnast) { return Object.keys(Gender).find(k => Gender[k] === member.gender); }
 
+  countTeams(member: IGymnast) {
+    return `${member.troop.length}`;
+  }
+
   addMember() {
     const member = <IGymnast>{
       id          : null,

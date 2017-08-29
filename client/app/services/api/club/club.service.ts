@@ -40,6 +40,12 @@ export class ClubService {
     return this.http.get(`${this.url}/${club.id}/members`).map((res: Response) => res.json());
   }
 
+  getMembersNotInTroop(club: IClub, currentTroop: ITroop): Observable<IGymnast[]> {
+    return this.getMembers(club).map((gymnasts: IGymnast[]) => {
+      return gymnasts.filter(g => currentTroop.gymnasts.findIndex(tg => tg.id === g.id) < 0);
+    });
+  }
+
   getAvailableMembers(club: IClub): Observable<IGymnast[]> {
     return this.http.get(`${this.url}/${club.id}/available-members`).map((res: Response) => res.json());
   }
