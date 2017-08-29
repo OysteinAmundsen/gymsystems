@@ -94,7 +94,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         genderDivision: [null, [Validators.required]],
         disciplines: [this.team.disciplines],
         tournament: [this.team.tournament],
-        class: [this.team.class]
+        class: [this.team.class || Classes.TeamGym]
       });
 
       // Select all disciplines if TeamGym is chosen

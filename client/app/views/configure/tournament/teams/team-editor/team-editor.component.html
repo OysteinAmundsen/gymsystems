@@ -61,6 +61,7 @@
               <span translate>Upload media</span>
               <app-help-block>
                 <p translate>The <app-fa name="upload"></app-fa> buttons below will allow you to upload media for your teams performance in that discipline</p>
+                <p *ngIf="teamForm.invalid"><b translate>You will not see any upload button until you have specified a team name, divisions and disciplines.</b></p>
               </app-help-block>
             </td>
           </tr>
