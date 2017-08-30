@@ -9,7 +9,7 @@ import { DatepickerComponent } from './datepicker.component';
 import { FaComponent } from '../fontawesome/fa.component';
 import { FaStackComponent } from '../fontawesome/fa-stack.component';
 
-describe('DatepickerComponent', () => {
+describe('shared.components:DatepickerComponent', () => {
   let component: DatepickerComponent;
   let fixture: ComponentFixture<DatepickerComponent>;
 

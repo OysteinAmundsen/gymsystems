@@ -14,7 +14,7 @@ import { ClubService, UserService } from 'app/services/api';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
-describe('MembersComponent', () => {
+describe('views.configure.club:MembersComponent', () => {
   let component: MembersComponent;
   let fixture: ComponentFixture<MembersComponent>;
 

@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MultirangeComponent } from './multirange.component';
 import { FormsModule } from '@angular/forms';
 
-describe('MultirangeComponent', () => {
+describe('shared.components:MultirangeComponent', () => {
   let component: MultirangeComponent;
   let fixture: ComponentFixture<MultirangeComponent>;
 

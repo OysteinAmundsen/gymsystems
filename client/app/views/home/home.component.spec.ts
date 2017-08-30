@@ -14,7 +14,7 @@ import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
 
-describe('HomeComponent', () => {
+describe('views.home:HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 

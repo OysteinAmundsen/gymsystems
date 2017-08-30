@@ -10,7 +10,7 @@ import { SaveButtonComponent } from './save-button.component';
 import { FaComponent, FaStackComponent } from 'app/shared/components';
 import { HttpInterceptor, ErrorHandlerService } from 'app/services/config';
 
-describe('SaveButtonComponent', () => {
+describe('shared.components:SaveButtonComponent', () => {
   let component: SaveButtonComponent;
   let fixture: ComponentFixture<SaveButtonComponent>;
 

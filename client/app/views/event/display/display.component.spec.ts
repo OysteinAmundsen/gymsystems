@@ -27,7 +27,7 @@ class DummyParent {
     this.tournamentSubject.next(dummyTournament);
   }
 }
-describe('DisplayComponent', () => {
+describe('views.event.display:DisplayComponent', () => {
   let component: DisplayComponent;
   let fixture: ComponentFixture<DisplayComponent>;
 

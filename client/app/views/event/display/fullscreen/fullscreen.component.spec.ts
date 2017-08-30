@@ -25,7 +25,7 @@ class DummyParent {
     this.tournamentSubject.next(dummyTournament);
   }
 }
-describe('FullscreenComponent', () => {
+describe('views.event.display:FullscreenComponent', () => {
   let component: FullscreenComponent;
   let fixture: ComponentFixture<FullscreenComponent>;
 

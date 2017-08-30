@@ -52,13 +52,13 @@ class DummyParent {
 })
 class WrapperComponent {
   selected: ITeam = <ITeam>{
-    id: 0, class: Classes.TeamGym, name: 'Haugesund-1', divisions: [], disciplines: [], club: club, tournament: <ITournament>{
+    id: 0, class: Classes.TeamGym, name: 'Haugesund-1', divisions: [], disciplines: [], gymnasts: [], club: club, tournament: <ITournament>{
       id: 0, createdBy: user, club: user.club, name: 'Landsturnstevnet 2017', description_no: 'Test tekst', description_en: 'Test text',
       location: 'Haugesund', schedule: [], disciplines: [], divisions: []
     },
   }
 }
-describe('TeamEditorComponent', () => {
+describe('views.configure.tournament:TeamEditorComponent', () => {
   let component: TeamEditorComponent;
   let fixture: ComponentFixture<WrapperComponent>;
 

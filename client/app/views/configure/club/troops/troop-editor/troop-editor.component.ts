@@ -114,8 +114,8 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
   troopReceived(troop: ITroop) {
     this.troop = troop;
     this.troopForm.setValue({
-      id: this.troop.id,
-      name: this.troop.name,
+      id: this.troop.id || null,
+      name: this.troop.name || '',
       club: this.club,
       gymnasts: this.troop.gymnasts || []
     });

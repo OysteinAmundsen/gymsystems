@@ -13,7 +13,7 @@ import { UserService, ClubService } from 'app/services/api';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 
-describe('UserEditorComponent', () => {
+describe('views.configure.users:UserEditorComponent', () => {
   let component: UserEditorComponent;
   let fixture: ComponentFixture<UserEditorComponent>;
 

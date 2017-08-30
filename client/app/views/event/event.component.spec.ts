@@ -11,7 +11,7 @@ import { TournamentService, UserService } from 'app/services/api';
 import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
-describe('EventComponent', () => {
+describe('views.event:EventComponent', () => {
   let component: EventComponent;
   let fixture: ComponentFixture<EventComponent>;
 

@@ -4,7 +4,7 @@ import { HelpBlockComponent } from './help-block.component';
 import { FaComponent } from '../fontawesome/fa.component';
 import { FaStackComponent } from '../fontawesome/fa-stack.component';
 
-describe('HelpBlockComponent', () => {
+describe('shared.components:HelpBlockComponent', () => {
   let component: HelpBlockComponent;
   let fixture: ComponentFixture<HelpBlockComponent>;
 

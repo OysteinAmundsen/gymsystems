@@ -13,7 +13,7 @@ import { UserService } from 'app/services/api';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { ErrorHandlerService } from 'app/services/config';
 
-describe('LoginComponent', () => {
+describe('views.home:LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 

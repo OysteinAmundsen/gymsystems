@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { IClub, IGymnast } from 'app/services/model';
+import { IClub, IGymnast, ITroop } from 'app/services/model';
 
 @Injectable()
 export class ClubServiceStub {
@@ -18,6 +18,7 @@ export class ClubServiceStub {
   findByName(name: string): Observable<IClub[]> {
     return Observable.of(null);
   }
+
   getById(id: number): Observable<IClub> {
     return Observable.of(null);
   }
@@ -29,6 +30,10 @@ export class ClubServiceStub {
   }
 
   getMembers(id: number): Observable<IGymnast[]> {
+    return Observable.of(null);
+  }
+
+  findTroopByName(name: string): Observable<ITroop[]> {
     return Observable.of(null);
   }
 }

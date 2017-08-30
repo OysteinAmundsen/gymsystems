@@ -29,7 +29,7 @@ class WrapperComponent {
     this.scoreForm = fb.group({ 'field_C_0': [''], 'field_C_1': [''] });
   }
 }
-describe('ScoreGroupComponent', () => {
+describe('views.event.list:ScoreGroupComponent', () => {
   let component: ScoreGroupComponent;
   let fixture: ComponentFixture<WrapperComponent>;
 

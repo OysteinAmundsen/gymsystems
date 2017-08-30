@@ -5,7 +5,7 @@ import { ScheduleService } from './schedule.service';
 import { ConfigurationService } from 'app/services/api';
 import { ConfigurationServiceStub } from '../configuration/configuration.service.stub';
 
-describe('ScheduleService', () => {
+describe('services.api:ScheduleService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],

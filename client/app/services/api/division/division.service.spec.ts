@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 
 import { DivisionService } from './division.service';
 
-describe('DivisionService', () => {
+describe('services.api:DivisionService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],

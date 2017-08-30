@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 
 import { UserService } from './user.service';
 
-describe('UserService', () => {
+describe('services.api:UserService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],

@@ -12,7 +12,7 @@ import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 import { ConfigurationService } from 'app/services/api';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
-describe('MemberEditorComponent', () => {
+describe('views.configure.club:MemberEditorComponent', () => {
   // let component: MemberEditorComponent;
   // let fixture: ComponentFixture<MemberEditorComponent>;
 

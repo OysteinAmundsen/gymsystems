@@ -35,7 +35,7 @@ class DummyParent {
     this.tournamentSubject.next(dummyTournament);
   }
 }
-describe('ResultsComponent', () => {
+describe('views.event.results:ResultsComponent', () => {
   let component: ResultsComponent;
   let fixture: ComponentFixture<ResultsComponent>;
 

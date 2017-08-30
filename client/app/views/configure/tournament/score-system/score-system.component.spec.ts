@@ -14,7 +14,7 @@ import { ScoreGroupService, ConfigurationService } from 'app/services/api';
 import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
-describe('ScoreComponent', () => {
+describe('views.configure.tournament:ScoreSystemComponent', () => {
   let component: ScoreSystemComponent;
   let fixture: ComponentFixture<ScoreSystemComponent>;
 

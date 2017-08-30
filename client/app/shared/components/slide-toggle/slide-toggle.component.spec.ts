@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SlideToggleComponent } from './slide-toggle.component';
 
-describe('SlideToggleComponent', () => {
+describe('shared.components:SlideToggleComponent', () => {
   let component: SlideToggleComponent;
   let fixture: ComponentFixture<SlideToggleComponent>;
 

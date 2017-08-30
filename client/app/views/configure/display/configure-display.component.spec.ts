@@ -15,7 +15,7 @@ import { ConfigurationService } from 'app/services/api';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 import { HttpInterceptor, ErrorHandlerService } from 'app/services/config';
 
-describe('ConfigureDisplayComponent', () => {
+describe('views.configure.display:ConfigureDisplayComponent', () => {
   let component: ConfigureDisplayComponent;
   let fixture: ComponentFixture<ConfigureDisplayComponent>;
 

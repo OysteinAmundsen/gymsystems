@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 
 import { TournamentService } from './tournament.service';
 
-describe('TournamentService', () => {
+describe('services.api:TournamentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],

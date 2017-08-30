@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 
 import { TeamsService } from './teams.service';
 
-describe('TeamsService', () => {
+describe('services.api:TeamsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],

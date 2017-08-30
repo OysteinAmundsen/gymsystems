@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 
 import { DisciplineService } from './discipline.service';
 
-describe('DisciplineService', () => {
+describe('services.api:DisciplineService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],

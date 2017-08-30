@@ -5,7 +5,9 @@ import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
 
-import { IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender } from 'app/services/model';
+import {
+  IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender
+} from 'app/services/model';
 import { TeamsService, DisciplineService, DivisionService, ClubService, UserService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
@@ -114,16 +116,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       this.divisionService.getByTournament(this.tournament.id).subscribe(d => this.divisions = d);
       this.disciplineService.getByTournament(this.tournament.id).subscribe(d => {
         this.disciplines = d;
-        setTimeout(() => {
-          // Set selected disciplines
-          this.disciplineCheckboxes
-            .forEach((element: ElementRef) => {
-              const el = <HTMLInputElement>element.nativeElement;
-              const disciplineId = el.attributes.getNamedItem('data').nodeValue;
-              el.checked = this.team.disciplines.findIndex(dis => dis.id === +disciplineId) > -1;
-            });
-          this.teamReceived(this.team);
-        });
+        setTimeout(() => this.teamReceived(this.team));
       });
 
 
@@ -296,9 +289,17 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   classChanged() {
     if (this.teamForm.value.class === Classes.TeamGym) {
+      // Force all checked for TeamGym
       this.disciplineCheckboxes.forEach((element: ElementRef) => {
         const el = <HTMLInputElement>element.nativeElement;
         el.checked = true;
+      });
+    } else {
+      // Reflect model in view
+      this.disciplineCheckboxes.forEach((element: ElementRef) => {
+        const el = <HTMLInputElement>element.nativeElement;
+        const disciplineId = el.attributes.getNamedItem('data').nodeValue;
+        el.checked = this.team.disciplines.findIndex(dis => dis.id === +disciplineId) > -1;
       });
     }
   }

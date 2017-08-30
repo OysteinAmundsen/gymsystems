@@ -8,7 +8,7 @@ import { HttpLoaderFactory } from 'app/app.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { MacroDialogComponent } from './macro-dialog.component';
 
-describe('MacroDialogComponent', () => {
+describe('views.configure.display:MacroDialogComponent', () => {
   let component: MacroDialogComponent;
   let fixture: ComponentFixture<MacroDialogComponent>;
 

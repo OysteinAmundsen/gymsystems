@@ -47,7 +47,7 @@ class WrapperComponent {
   constructor() {
   }
 }
-describe('ScoreboardComponent', () => {
+describe('views.event.list:ScoreboardComponent', () => {
   let component: ScoreboardComponent;
   let fixture: ComponentFixture<WrapperComponent>;
 

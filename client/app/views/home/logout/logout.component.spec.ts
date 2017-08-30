@@ -12,7 +12,7 @@ import { ErrorHandlerService } from 'app/services/config';
 import { UserService } from 'app/services/api';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
-describe('LogoutComponent', () => {
+describe('views.home:LogoutComponent', () => {
   let component: LogoutComponent;
   let fixture: ComponentFixture<LogoutComponent>;
 

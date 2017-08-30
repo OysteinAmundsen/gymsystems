@@ -15,7 +15,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 
-describe('TroopsComponent', () => {
+describe('views.configure.club:TroopsComponent', () => {
   let component: TroopsComponent;
   let fixture: ComponentFixture<TroopsComponent>;
 

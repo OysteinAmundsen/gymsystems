@@ -15,7 +15,7 @@ import { TournamentServiceStub } from 'app/services/api/tournament/tournament.se
 import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
-describe('DivisionsComponent', () => {
+describe('views.configure.tournament:DivisionsComponent', () => {
   let component: DivisionsComponent;
   let fixture: ComponentFixture<DivisionsComponent>;
 
