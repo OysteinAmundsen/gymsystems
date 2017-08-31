@@ -47,10 +47,14 @@ export class ClubEditorComponent implements OnInit {
           // If you are not admin, and this is not your club, you will be
           // auto-redirected one url-level up to let the ClubComponent handle
           // placing you where you are supposed to be.
-          this.router.navigate(['../'], {relativeTo: this.route});
+          this.goBack();
         } else {
           if (params.id) {
-            this.clubService.getById(+params.id).subscribe(club => this.clubReceived(club));
+            this.clubService.getById(+params.id)
+              .subscribe(
+                club => this.clubReceived(club),
+                err => this.goBack()
+              )
           } else {
             this.isAdding = true;
             this.isEdit = true;
@@ -93,6 +97,7 @@ export class ClubEditorComponent implements OnInit {
   delete() {
     this.clubService.deleteClub(this.club).subscribe(resp => {
       this.isEdit = false;
+      this.goBack();
     });
   }
 
@@ -100,8 +105,12 @@ export class ClubEditorComponent implements OnInit {
     this.isEdit = false;
     this.clubReceived(this.club);
     if (this.isAdding) {
-      this.router.navigate(['../'], { relativeTo: this.route });
+      this.goBack();
     }
+  }
+
+  goBack() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   edit() {

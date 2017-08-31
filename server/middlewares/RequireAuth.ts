@@ -3,6 +3,26 @@ import { Request, Response, NextFunction } from 'express';
 
 import { Role, User } from '../model/User';
 
+/**
+ * Prevent access of not logged user to the routes guarded by this middleware.
+ */
+export class RequireAuth implements ExpressMiddlewareInterface {
+  public use(req: any, res: any, next?: (err?: any) => any): any {
+    if (isLoggedIn(req, res, next) && next) { next(); }
+  }
+}
+
+/**
+ * Validate current users privileges in the system.
+ */
+export class RequireRole {
+  static get(role: Role) {
+    return (req: any, res: any, next?: (err?: any) => any): any => {
+      if (hasRole(req, res, role, next) && next) { next(); }
+    }
+  }
+}
+
 /*
  * Checks if we have an authorized user in session
  * If not, returns HTTP 401
@@ -28,24 +48,4 @@ function hasRole(req: any, res: any, role: Role, next?: (err?: any) => any): any
     }
   }
   return false; // Not even logged in
-}
-
-/**
- * Prevent access of not logged user to the routes guarded by this middleware.
- */
-export class RequireAuth implements ExpressMiddlewareInterface {
-  public use(req: any, res: any, next?: (err?: any) => any): any {
-    if (isLoggedIn(req, res, next) && next) { next(); }
-  }
-}
-
-/**
- * Validate current users privileges in the system.
- */
-export class RequireRole {
-  static get(role: Role) {
-    return (req: any, res: any, next?: (err?: any) => any): any => {
-      if (hasRole(req, res, role, next) && next) { next(); }
-    }
-  }
 }
