@@ -151,8 +151,7 @@ export class TeamController {
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Club))
   async update( @Param('id') id: number, @Body() team: Team, @Req() req: Request, @Res() res: Response) {
-    const oldTeam = await this.get(id);
-    const msg = await validateClub(team, oldTeam, req);
+    const msg = await validateClub(team, null, req, true);
     if (msg) { res.status(403); return new ErrorResponse(403, 'Cannot update teams for other clubs than your own'); }
 
     const mediaController = Container.get(MediaController);
@@ -185,7 +184,7 @@ export class TeamController {
     const teams = Array.isArray(team) ? team : [team];
 
     for (let j = 0; j < teams.length; j++) {
-      const msg = await validateClub(teams[j], null, req);
+      const msg = await validateClub(teams[j], null, req, true);
       if (msg) { res.status(403); return new ErrorResponse(403, 'Cannot update teams for other clubs than your own'); }
     }
 
@@ -211,7 +210,7 @@ export class TeamController {
   async remove( @Param('id') teamId: number, @Req() req: Request, @Res() res: Response) {
     const team = await this.get(teamId);
 
-    const msg = await validateClub(team, null, req);
+    const msg = await validateClub(team, null, req, true);
     if (msg) { res.status(403); return new ErrorResponse(403, 'You are not authorized to remove teams from other clubs than your own.'); }
 
     // Remove media setup by this team

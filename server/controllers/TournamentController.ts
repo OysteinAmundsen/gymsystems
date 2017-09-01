@@ -234,8 +234,8 @@ export class TournamentController {
   @UseBefore(RequireRole.get(Role.Organizer))
   async update( @Param('id') id: number, @Body() tournament: Tournament, @Res() res: Response, @Req() req: Request) {
     if (isNaN(id)) { return Promise.reject(null); }
-    const oldTournament = await this.get(id);
-    const msg = await validateClub(tournament, oldTournament, req);
+
+    const msg = await validateClub(tournament, null, req);
     if (msg) { res.status(403); return new ErrorResponse(403, msg); }
 
     return this.repository.persist(tournament)

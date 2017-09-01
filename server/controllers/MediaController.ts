@@ -83,7 +83,7 @@ export class MediaController {
     const metaData = await MediaController.calculateFileName(teamId, disciplineId);
 
     // Validate club
-    const err = await validateClub(metaData.team, null, req);
+    const err = await validateClub(metaData.team, null, req, true);
     if (err) {
       res.status(403);
       return new ErrorResponse(403, 'Cannot add media for a team belonging to different club than yours');
@@ -147,7 +147,7 @@ export class MediaController {
   ) {
     // Validate club
     const team = await Container.get(TeamController).get(teamId);
-    const err = await validateClub(team, null, req);
+    const err = await validateClub(team, null, req, true);
     if (err) {
       res.status(403);
       return new ErrorResponse(403, 'Cannot add media for a team belonging to different club than yours');
