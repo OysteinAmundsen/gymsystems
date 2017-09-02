@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DragulaModule } from 'ng2-dragula';
 
 import { SharedModule } from 'app/shared/shared.module';
+import { ConfigureSharedModule } from '../_shared/_shared.module';
 
 import { ClubComponent } from './club.component';
 import { ClubEditorComponent } from './club-editor/club-editor.component';
@@ -18,10 +18,10 @@ import { TroopEditorComponent } from './troops/troop-editor/troop-editor.compone
   imports: [
     CommonModule,
     SharedModule,
+    ConfigureSharedModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    DragulaModule
   ],
   declarations: [
     ClubComponent,
