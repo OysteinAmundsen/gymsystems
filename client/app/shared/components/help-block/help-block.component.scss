@@ -19,17 +19,12 @@
     position: absolute;
     right: -25%;
     display: none;
-    background: $helpColor;
-    border-radius: $rounded;
-    border: 1px solid $helpBorder;
     padding: 0 $padding;
     margin: 0 10px;
     z-index: 5;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.4);
     margin-left: -38px;
     min-width: 200px;
     top: 1.5rem;
-    color: white;
     &:hover {
       display: block;
     }

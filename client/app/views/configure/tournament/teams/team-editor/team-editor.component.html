@@ -16,6 +16,8 @@
     </div>
   </fieldset>
   <div class="row">
+
+    <!-- Divisions -->
     <div class="col-6">
       <header>
         <h2>
@@ -48,6 +50,7 @@
       </fieldset>
     </div>
 
+    <!-- Disciplines -->
     <div class="col-6">
       <header>
         <h2>
@@ -91,8 +94,14 @@
         </table>
       </div>
     </div>
-
   </div>
+
+  <div class="row">
+
+    <!-- Members -->
+    <app-member-selector [club]="team.club" [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()" [troopName]="teamForm.value.name" [memberListHidden]="memberListHidden"></app-member-selector>
+  </div>
+
   <footer>
     <app-save-button buttonType="submit" [disabled]="teamForm.invalid || teamForm.pristine"></app-save-button>
     <button type="button" [title]="'Cancel' | translate" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>

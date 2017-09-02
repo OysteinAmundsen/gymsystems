@@ -7,6 +7,7 @@ import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app/app.module';
+import { DragulaModule } from 'ng2-dragula';
 
 import { SharedModule } from 'app/shared/shared.module';
 
@@ -20,6 +21,7 @@ import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
 
 import { IClub, IUser, Role, ITournament } from 'app/services/model';
+import { MemberSelectorComponent } from '../../_shared/member-selector/member-selector.component';
 
 class DummyParent {
   tournamentSubject = new ReplaySubject<ITournament>(1);
@@ -40,6 +42,7 @@ describe('views.configure.tournament:TeamsComponent', () => {
         SharedModule,
         RouterTestingModule,
         HttpClientModule,
+        DragulaModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -50,7 +53,8 @@ describe('views.configure.tournament:TeamsComponent', () => {
       ],
       declarations: [
         TeamsComponent,
-        TeamEditorComponent
+        TeamEditorComponent,
+        MemberSelectorComponent
       ],
       providers: [
         {provide: TournamentEditorComponent, useClass: DummyParent},

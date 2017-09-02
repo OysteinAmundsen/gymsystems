@@ -49,12 +49,16 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   }
 
   disabled = false;
+  changed = false;
 
   _value: string;
   @Input()
   get value(): any { return this._value; };
   set value(v: any) {
     if (v !== this._value) {
+      if (this._value != null && v != null) {
+        this.changed = true;
+      }
       this._value = v;
       this._onChangeCallback(v);
     }
@@ -87,6 +91,11 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   onLeave() {
     this.hasFocus = false;
     this.popupVisible = false;
+    const match = this.matches.find(i => i[this.itemText] === this.value);
+    if (match && this.changed) {
+      this.select(match);
+      this.changed = false;
+    }
   }
 
   // [(value)] is buggy and does not propagate changes on the md-input so we can get the value correctly

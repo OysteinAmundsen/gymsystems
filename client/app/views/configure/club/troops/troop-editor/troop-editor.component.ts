@@ -5,7 +5,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { DragulaService } from 'ng2-dragula';
 
 import * as _ from 'lodash';
-import * as moment from 'moment';
 
 import { ITroop, IClub, IUser, IMedia, ITournament, IGymnast } from 'app/services/model';
 import { ClubService, UserService } from 'app/services/api';
@@ -34,18 +33,8 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
     this._currentUser = value;
   }
   userSubscription: Subscription;
-  availableMembers: IGymnast[];
-  // memberList: IGymnast[];
+
   memberListHidden = true;
-
-  dragSubscription;
-  dropSubscription;
-
-  get toggleTitle() {
-    return this.memberListHidden
-      ? this.translate.instant('Show available members')
-      : this.translate.instant('Hide available members');
-  }
 
   get club() {
     return this.clubComponent.club;
@@ -65,11 +54,8 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private clubService: ClubService,
     private userService: UserService,
-    private errorHandler: ErrorHandlerService,
     private clubComponent: ClubEditorComponent,
-    private troopsComponent: TroopsComponent,
-    private drag: DragulaService,
-    private translate: TranslateService) { }
+    private troopsComponent: TroopsComponent) { }
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
@@ -82,33 +68,10 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
     });
 
     this.troopReceived(this.troop);
-
-    // Dragula workaround (for not recognizing two different models in one bag)
-    let dragIndex: number, dropIndex: number, sourceModel: IGymnast[], targetModel: IGymnast[];
-    this.dragSubscription = this.drag.drag.subscribe((value) => {
-      const [bag, dragElm, source] = value;
-      dragIndex = Array.prototype.indexOf.call((<Element>source).children, dragElm);
-      sourceModel = (<Element>source).classList.contains('available') ? this.availableMembers : this.troopForm.value.gymnasts;
-    });
-    this.dropSubscription = this.drag.drop.subscribe((value) => {
-      const [bag, dropElm, target, source] = value;
-      dropIndex = Array.prototype.indexOf.call(target.children, dropElm);
-      targetModel = (<Element>target).classList.contains('available') ? this.availableMembers : this.troopForm.value.gymnasts;
-      if (target === source) {
-        sourceModel.splice(dropIndex, 0, sourceModel.splice(dragIndex, 1)[0]);
-      } else {
-        const dropElmModel = sourceModel[dragIndex];
-        sourceModel.splice(dragIndex, 1);
-        targetModel.splice(dropIndex, 0, dropElmModel);
-      }
-      this.troopForm.markAsDirty();
-    });
   }
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
-    this.dragSubscription.unsubscribe();
-    this.dropSubscription.unsubscribe();
   }
 
   troopReceived(troop: ITroop) {
@@ -119,14 +82,6 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
       club: this.club,
       gymnasts: this.troop.gymnasts || []
     });
-    this.memberListHidden = this.troop.gymnasts && this.troop.gymnasts.length > 0;
-    this.clubService.getMembersNotInTroop(this.club, this.troop).subscribe(available => {
-      this.availableMembers = available;
-    });
-  }
-
-  toggleMembers() {
-    this.memberListHidden = !this.memberListHidden;
   }
 
   async save(keepOpen?: boolean) {
@@ -141,10 +96,6 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
         resolve(t);
       });
     });
-  }
-
-  age(birthYear) {
-    return moment().diff(moment(birthYear, 'YYYY'), 'years');
   }
 
   delete() {

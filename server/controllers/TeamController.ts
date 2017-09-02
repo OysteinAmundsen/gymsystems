@@ -104,6 +104,7 @@ export class TeamController {
     return query
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('team.disciplines', 'discipline')
+      .leftJoinAndSelect('team.gymnasts', 'gymnasts')
       .leftJoinAndSelect('team.club', 'club')
       .leftJoinAndSelect('team.media', 'media')
       .leftJoinAndSelect('media.discipline', 'media_dicsipline')
@@ -151,7 +152,7 @@ export class TeamController {
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Club))
   async update( @Param('id') id: number, @Body() team: Team, @Req() req: Request, @Res() res: Response) {
-    const msg = await validateClub(team, null, req, true);
+    const msg = await validateClub(team, null, req);
     if (msg) { res.status(403); return new ErrorResponse(403, 'Cannot update teams for other clubs than your own'); }
 
     const mediaController = Container.get(MediaController);
@@ -184,7 +185,7 @@ export class TeamController {
     const teams = Array.isArray(team) ? team : [team];
 
     for (let j = 0; j < teams.length; j++) {
-      const msg = await validateClub(teams[j], null, req, true);
+      const msg = await validateClub(teams[j], null, req);
       if (msg) { res.status(403); return new ErrorResponse(403, 'Cannot update teams for other clubs than your own'); }
     }
 

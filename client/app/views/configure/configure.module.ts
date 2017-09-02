@@ -15,6 +15,9 @@ import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
 import { MacroDialogComponent } from './display/macro-dialog/macro-dialog.component';
 
+// Shared components
+import { MemberSelectorComponent } from './_shared/member-selector/member-selector.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -32,7 +35,9 @@ import { MacroDialogComponent } from './display/macro-dialog/macro-dialog.compon
   declarations: [
     ConfigureComponent,
     ConfigureDisplayComponent,
-    MacroDialogComponent
+    MacroDialogComponent,
+
+    MemberSelectorComponent
   ]
 })
 export class ConfigureModule { }

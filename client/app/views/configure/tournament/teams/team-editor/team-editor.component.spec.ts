@@ -9,6 +9,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/Rx';
+import { DragulaModule } from 'ng2-dragula';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { HttpLoaderFactory } from 'app/app.module';
@@ -16,6 +17,7 @@ import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
 
 import { TeamEditorComponent } from './team-editor.component';
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
+import { MemberSelectorComponent } from '../../../_shared/member-selector/member-selector.component';
 
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService } from 'app/services/api';
@@ -71,6 +73,7 @@ describe('views.configure.tournament:TeamEditorComponent', () => {
         HttpModule,
         SharedModule,
         HttpClientModule,
+        DragulaModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -79,7 +82,7 @@ describe('views.configure.tournament:TeamEditorComponent', () => {
           }
         }),
       ],
-      declarations: [ WrapperComponent, TeamEditorComponent ],
+      declarations: [ WrapperComponent, TeamEditorComponent, MemberSelectorComponent ],
       providers: [
         MediaService,
         ErrorHandlerService,

@@ -78,6 +78,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     this.teamForm.controls['ageDivision'].setValue(division ? division.id : null);
 
     // Set gymnasts
+    this.team.gymnasts = v.gymnasts;
     this.teamForm.controls['gymnasts'].setValue(v.gymnasts);
   }
 
@@ -96,6 +97,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   classes = Classes;
   get TeamGym(): string { return this.translate.instant('TeamGym'); }
   get National(): string { return this.translate.instant('National classes'); }
+
+  memberListHidden = true;
 
   constructor(
     private fb: FormBuilder,
@@ -141,11 +144,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
       // Disable 'name' control if club is empty (only applicable for Admins)
       this.teamForm.controls.club.valueChanges.subscribe(v => {
-        if (v.length <= 0) {
-          this.teamForm.controls.name.disable();
-        } else {
-          this.teamForm.controls.name.enable();
-        }
+        const ctrl = this.teamForm.controls.name;
+        (v.length <= 0) ? ctrl.disable() : ctrl.enable();
       });
     });
   }
@@ -273,7 +273,11 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const me = this;
     return function (items, currentValue: string, matchText: string) {
       if (!currentValue) { return items; }
-      return me.clubService.findTroopByName(me.team.club || me.selectedClub, currentValue);
+
+      const club = me.team.club || me.selectedClub;
+      if (!club.id) { return items; }
+
+      return me.clubService.findTroopByName(club, currentValue);
     }
   }
 
