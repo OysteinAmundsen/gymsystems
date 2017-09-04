@@ -102,6 +102,7 @@ export class TeamController {
       query.andWhere('team.club=:clubId', {clubId: user.club.id});
     }
     return query
+      .leftJoinAndSelect('team.tournament', 'tournament')
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('team.disciplines', 'discipline')
       .leftJoinAndSelect('team.gymnasts', 'gymnasts')
@@ -128,13 +129,14 @@ export class TeamController {
   get( @Param('id') teamId: number): Promise<Team> {
     return this.repository.createQueryBuilder('team')
       .where('team.id=:id', {id: teamId})
-      .leftJoinAndSelect('team.club', 'club')
-      .leftJoinAndSelect('team.disciplines', 'disciplines')
-      .leftJoinAndSelect('team.divisions', 'divisions')
       .leftJoinAndSelect('team.tournament', 'tournament')
+      .leftJoinAndSelect('team.divisions', 'division')
+      .leftJoinAndSelect('team.disciplines', 'discipline')
+      .leftJoinAndSelect('team.gymnasts', 'gymnasts')
+      .leftJoinAndSelect('team.club', 'club')
       .leftJoinAndSelect('team.media', 'media')
-      .leftJoinAndSelect('media.team', 'media_team')
       .leftJoinAndSelect('media.discipline', 'media_dicsipline')
+      .leftJoinAndSelect('media.team', 'media_team')
       .getOne();
   }
 
