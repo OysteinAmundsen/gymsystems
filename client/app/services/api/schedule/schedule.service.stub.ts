@@ -33,12 +33,11 @@ function generateParticipants(amount: number): ITeamInDiscipline[] {
 }
 
 @Injectable()
-export class ScheduleServiceStub {
-  original: ScheduleService;
+export class ScheduleServiceStub extends ScheduleService {
   participant: ITeamInDiscipline = generateParticipants(1)[0];
   schedule: ITeamInDiscipline[] = generateParticipants(10);
-  constructor(private http: Http, private configService: ConfigurationService) {
-    this.original = new ScheduleService(http, configService);
+  constructor(http: Http, configService: ConfigurationService) {
+    super(http, configService);
   }
 
   all(): Observable<ITeamInDiscipline[]> {
@@ -77,11 +76,7 @@ export class ScheduleServiceStub {
     return Observable.of(null);
   }
 
-  deleteAll(participants: ITeamInDiscipline[]) {
+  deleteAll(id: number) {
     return Observable.of(null);
-  }
-
-  calculateStartTime(tournament: ITournament, participant: ITeamInDiscipline): moment.Moment {
-    return this.original.calculateStartTime(tournament, participant);
   }
 }

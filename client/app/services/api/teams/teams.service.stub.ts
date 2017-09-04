@@ -21,14 +21,13 @@ export const dummyTeam = <ITeam>{
 };
 
 @Injectable()
-export class TeamsServiceStub {
-  original: TeamsService;
+export class TeamsServiceStub extends TeamsService {
   team: ITeam = dummyTeam;
   teams: ITeam[] = [
     this.team
   ];
-  constructor(private http: Http) {
-    this.original = new TeamsService(http);
+  constructor(http: Http) {
+    super(http);
   }
 
   all(): Observable<ITeam[]> {
@@ -55,13 +54,11 @@ export class TeamsServiceStub {
     return Observable.of(null);
   }
 
-  getDivisionName(team: ITeam) {
-    return this.original.getDivisionName(team);
-  }
-
   uploadMedia(file: File, team: ITeam, discipline: IDiscipline) {
+    return Observable.of(null);
   }
 
   removeMedia(team: ITeam, discipline: IDiscipline) {
+    return Observable.of(null);
   }
 }

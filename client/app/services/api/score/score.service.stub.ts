@@ -10,10 +10,9 @@ import { ScoreService } from 'app/services/api';
 import { IScore, ITeamInDiscipline } from 'app/services/model';
 
 @Injectable()
-export class ScoreServiceStub {
-  original: ScoreService;
-  constructor(private http: Http) {
-    this.original = new ScoreService(http);
+export class ScoreServiceStub extends ScoreService {
+  constructor(http: Http) {
+    super(http);
   }
 
   getByParticipant(participantId: number) {
@@ -28,11 +27,7 @@ export class ScoreServiceStub {
     return Observable.of(null);
   }
 
-  calculateTeamTotal(participants: ITeamInDiscipline[]) {
-    return this.original.calculateTeamTotal(participants);
-  }
-
-  calculateTotal(participant: ITeamInDiscipline) {
-    return this.original.calculateTotal(participant);
+  rollbackToParticipant(participantId: number) {
+    return Observable.of(null);
   }
 }
