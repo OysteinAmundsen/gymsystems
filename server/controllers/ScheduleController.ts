@@ -170,7 +170,7 @@ export class ScheduleController {
       .where('tournament_participant.id=:id', { id: id })
       .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
       .leftJoinAndSelect('tournament.createdBy', 'user')
-      .leftJoinAndSelect('user.club', 'club')
+      .leftJoinAndSelect('tournament.club', 'club')
       .getOne();
   }
 

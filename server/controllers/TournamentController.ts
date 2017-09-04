@@ -180,6 +180,8 @@ export class TournamentController {
       .where('tournament.id=:id', { id: id })
       .innerJoinAndSelect('tournament.createdBy', 'user')
       .leftJoinAndSelect('tournament.club', 'club')
+      .leftJoinAndSelect('tournament.disciplines', 'disciplines')
+      .leftJoinAndSelect('disciplines.scoreGroups', 'scoreGroups')
       .getOne()
       .catch(() => {
         Logger.log.debug(`Query for tournament id ${id} was rejected before it was fulfilled`);

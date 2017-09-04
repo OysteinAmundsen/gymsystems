@@ -17,6 +17,7 @@ import { ScoreboardComponent } from './list/scoreboard/scoreboard.component';
 import { DisplayComponent } from './display/display.component';
 import { FullscreenComponent } from './display/fullscreen/fullscreen.component';
 import { ResultsComponent } from './results/results.component';
+import { SignoffReportComponent } from './signoff-report/signoff-report.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,9 @@ import { ResultsComponent } from './results/results.component';
     DisplayComponent,
     FullscreenComponent,
 
-    ResultsComponent
+    ResultsComponent,
+
+    SignoffReportComponent
   ]
 })
 export class EventModule { }
