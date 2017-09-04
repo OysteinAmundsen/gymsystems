@@ -80,7 +80,7 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
   loadAvailableMembers() {
     if (this.club) {
       this.clubService.getMembers(this.club).distinctUntilChanged().debounceTime(200).subscribe((members: IGymnast[]) => {
-        this.availableMembers = members && members.length
+        this.availableMembers = members && members.length && this.gymnasts && this.gymnasts.length
           ? members.filter(g => this.gymnasts.findIndex(tg => tg.id === g.id) < 0)
           : members;
       });

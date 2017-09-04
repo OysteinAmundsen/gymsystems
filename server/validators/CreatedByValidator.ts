@@ -6,6 +6,7 @@ import Response = e.Response;
 
 import { UserController } from '../controllers/UserController';
 import { CreatedBy, Role } from '../model/User';
+import { BelongsToClub } from '../model/Club';
 
 export async function isCreatedByMe(obj: CreatedBy, req: Request): Promise<boolean> {
   const userRepository = Container.get(UserController);
@@ -14,11 +15,11 @@ export async function isCreatedByMe(obj: CreatedBy, req: Request): Promise<boole
   return  (me.role >= Role.Admin || obj.createdBy.id === me.id);
 }
 
-export async function isSameClubAsMe(obj: CreatedBy, req: Request): Promise<boolean> {
+export async function isSameClubAsMe(obj: BelongsToClub, req: Request): Promise<boolean> {
   const userRepository = Container.get(UserController);
   const me = await userRepository.me(req);
 
-  return (me.role >= Role.Admin || obj.createdBy.club.id === me.club.id);
+  return (me.role >= Role.Admin || obj.club.id === me.club.id);
 }
 
 export async function isAllSameClubAsMe(obj: CreatedBy[], req: Request): Promise<boolean> {

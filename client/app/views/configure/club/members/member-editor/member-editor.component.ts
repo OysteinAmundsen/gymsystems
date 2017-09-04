@@ -8,6 +8,7 @@ import { ConfigurationService, ClubService } from 'app/services/api';
 
 import * as moment from 'moment';
 import { ErrorHandlerService } from 'app/services/config';
+import { MembersComponent } from 'app/views/configure/club/members/members.component';
 
 @Component({
   selector: 'app-member-editor',
@@ -33,21 +34,28 @@ export class MemberEditorComponent implements OnInit {
     private router: Router,
     private clubService: ClubService,
     private errorHandler: ErrorHandlerService,
+    private parent: MembersComponent,
     private translate: TranslateService) { }
 
   ngOnInit() {
+    let lastBirthYear = this.maxYear, lastGender = Gender.Male;
+    if (this.parent.memberList.length > 1) {
+      const lastMember = this.parent.memberList[this.parent.memberList.length - 2];
+      lastBirthYear = lastMember.birthYear;
+      lastGender = lastMember.gender;
+    }
     this.memberForm = this.fb.group({
       id: [this.member.id],
       name: [this.member.name, [Validators.required]],
       club: [this.club],
-      birthYear: [this.member.birthYear || this.maxYear, [
+      birthYear: [this.member.birthYear || lastBirthYear, [
         Validators.required,
         Validators.min(this.minYear),
         Validators.max(this.maxYear),
         Validators.minLength(4),
         Validators.maxLength(4)
       ]],
-      gender: [this.member.gender || Gender.Male]
+      gender: [this.member.gender || lastGender]
     });
   }
 

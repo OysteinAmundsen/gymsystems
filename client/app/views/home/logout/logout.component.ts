@@ -29,6 +29,9 @@ export class LogoutComponent {
 
   reroute(err?: string) {
     this.errorHandler.error = err ? err : this.translate.instant('Logged out');
+    if (err) {
+      window.location.reload(true);
+    }
     this.router.navigate(['/']);
   }
 }

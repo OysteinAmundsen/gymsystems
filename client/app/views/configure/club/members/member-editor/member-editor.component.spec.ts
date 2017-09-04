@@ -11,6 +11,7 @@ import { MemberEditorComponent } from './member-editor.component';
 import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 import { ConfigurationService } from 'app/services/api';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+import { MembersComponent } from "app/views/configure/club/members/members.component";
 
 describe('views.configure.club:MemberEditorComponent', () => {
   // let component: MemberEditorComponent;
@@ -36,6 +37,7 @@ describe('views.configure.club:MemberEditorComponent', () => {
       declarations: [ MemberEditorComponent ],
       providers: [
         ErrorHandlerService,
+        MembersComponent,
         { provide: Http, useClass: HttpInterceptor },
         { provide: ConfigurationService, useClass: ConfigurationServiceStub },
       ]

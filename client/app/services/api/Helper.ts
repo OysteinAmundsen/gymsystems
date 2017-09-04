@@ -9,7 +9,7 @@ export class Helper {
    * @param {number} level [default = 2] specification of how many levels to retain
    */
   static reduceLevels(obj: any, level: number = 3): any {
-    if (obj && level > 0) {
+    if (obj != null && level > 0) {
       if (Array.isArray(obj)) {
         return obj.reduce((prev, current) => {
           const o = Helper.reduceLevels(current, level);

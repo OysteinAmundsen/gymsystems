@@ -33,11 +33,11 @@ export class MembersComponent implements OnInit, OnDestroy {
   genderDivision(member: IGymnast) { return Object.keys(Gender).find(k => Gender[k] === member.gender); }
 
   countTeams(member: IGymnast) {
-    return `${member.troop.length}`;
+    return member && member.troop && member.troop.length ? `${member.troop.length}` : '';
   }
 
   teamsTitle(member: IGymnast) {
-    return member.troop.map(t => t.name).join(', ');
+    return member && member.troop && member.troop.length ? member.troop.map(t => t.name).join(', ') : '';
   }
 
   addMember() {
