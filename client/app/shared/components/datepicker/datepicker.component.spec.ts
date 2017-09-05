@@ -1,13 +1,8 @@
-/*
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { DatepickerComponent } from './datepicker.component';
-import { FaComponent } from '../fontawesome/fa.component';
-import { FaStackComponent } from '../fontawesome/fa-stack.component';
+import { SharedModule } from 'app/shared/shared.module';
 
 describe('shared.components:DatepickerComponent', () => {
   let component: DatepickerComponent;
@@ -17,13 +12,7 @@ describe('shared.components:DatepickerComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        TranslateModule
-      ],
-      declarations: [
-        DatepickerComponent,
-        FaComponent
+        SharedModule
       ]
     })
     .compileComponents();
@@ -39,4 +28,3 @@ describe('shared.components:DatepickerComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-*/

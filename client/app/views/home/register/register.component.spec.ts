@@ -1,13 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app/app.module';
 
-import { SharedModule } from 'app/shared/shared.module';
+import { AppModule } from 'app/app.module';
 import { RegisterComponent } from './register.component';
+
 import { UserService, ClubService } from 'app/services/api';
 import { ErrorHandlerService } from 'app/services/config';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
@@ -20,21 +16,9 @@ describe('views.home:RegisterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        AppModule,
         RouterTestingModule,
-        HttpModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SharedModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
       ],
-      declarations: [ RegisterComponent ],
       providers: [
         {provide: UserService, useClass: UserServiceStub},
         {provide: ClubService, useClass: ClubServiceStub},

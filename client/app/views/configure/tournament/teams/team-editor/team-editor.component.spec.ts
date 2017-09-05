@@ -3,33 +3,27 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/Rx';
-import { DragulaModule } from 'ng2-dragula';
 
-import { SharedModule } from 'app/shared/shared.module';
-import { HttpLoaderFactory } from 'app/app.module';
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
-
+import { AppModule } from 'app/app.module';
+import { TournamentModule } from '../../tournament.module';
 import { TeamEditorComponent } from './team-editor.component';
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
-import { MemberSelectorComponent } from '../../../_shared/member-selector/member-selector.component';
 
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService, ConfigurationService } from 'app/services/api';
+import { ITeam, ITournament, IClub, IUser, Role, Classes } from 'app/services/model';
+import {
+  TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService, ConfigurationService
+} from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
+
 import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
 import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.service.stub';
-
-import { ITeam, ITournament, IClub, IUser, Role, Classes } from 'app/services/model';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
 const club: IClub = <IClub>{
@@ -68,26 +62,16 @@ describe('views.configure.tournament:TeamEditorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        ReactiveFormsModule,
+        AppModule,
+        TournamentModule,
         RouterTestingModule,
-        HttpModule,
-        SharedModule,
-        HttpClientModule,
-        DragulaModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
       ],
-      declarations: [ WrapperComponent, TeamEditorComponent, MemberSelectorComponent ],
+      declarations: [
+        WrapperComponent
+      ],
       providers: [
         MediaService,
         ErrorHandlerService,
-        { provide: Http, useClass: HttpInterceptor },
         { provide: TournamentEditorComponent, useClass: DummyParent },
         { provide: ConfigurationService, useClass: ConfigurationServiceStub },
         { provide: TeamsService, useClass: TeamsServiceStub },
@@ -98,15 +82,10 @@ describe('views.configure.tournament:TeamEditorComponent', () => {
         { provide: DisciplineService, useClass: DisciplineServiceStub },
       ]
     })
-    .overrideComponent(TeamEditorComponent, {
+    .overrideModule(TournamentModule, {
       set: {
-        providers: [
-          { provide: UserService, useClass: class DataStub {
-              public getMe(): Observable<IUser> {
-                return Observable.of(user);
-              }
-            }
-          },
+        exports: [
+          TeamEditorComponent
         ]
       }
     })

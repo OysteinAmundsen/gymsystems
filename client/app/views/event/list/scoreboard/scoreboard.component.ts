@@ -56,8 +56,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
     private scoreService: ScoreService,
     private element: ElementRef,
     private fb: FormBuilder,
-    private userService: UserService,
-    private container: ListComponent
+    private userService: UserService
   ) { }
 
   ngOnInit() {

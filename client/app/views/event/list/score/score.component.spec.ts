@@ -1,10 +1,11 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
-import { HttpModule, Http } from '@angular/http';
 
+import { AppModule } from 'app/app.module';
+import { EventModule } from '../../event.module';
 import { ScoreComponent } from './score.component';
 import { IScoreGroup, IDiscipline, Operation, IScore, ITeamInDiscipline } from 'app/services/model';
 
@@ -33,12 +34,16 @@ describe('views.event.list:ScoreComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        AppModule,
+        EventModule,
         RouterTestingModule,
-        HttpModule,
-        FormsModule,
-        ReactiveFormsModule
       ],
-      declarations: [ WrapperComponent, ScoreComponent ]
+      declarations: [ WrapperComponent ]
+    })
+    .overrideModule(EventModule, {
+      set: {
+        exports: [ ScoreComponent ]
+      }
     })
     .compileComponents();
   }));

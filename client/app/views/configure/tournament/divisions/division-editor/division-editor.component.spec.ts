@@ -1,15 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app/app.module';
 
+import { AppModule } from 'app/app.module';
+import { DivisionsModule } from '../divisions.module';
 import { DivisionEditorComponent } from './division-editor.component';
-import { SharedModule } from 'app/shared/shared.module';
+
 import { DivisionService } from 'app/services/api';
-import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
 
 describe('views.configure.tournament:DivisionEditorComponent', () => {
@@ -19,24 +15,11 @@ describe('views.configure.tournament:DivisionEditorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        ReactiveFormsModule,
+        AppModule,
+        DivisionsModule,
         RouterTestingModule,
-        SharedModule,
-        HttpModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
       ],
-      declarations: [ DivisionEditorComponent ],
       providers: [
-        ErrorHandlerService,
-        { provide: Http, useClass: HttpInterceptor },
         { provide: DivisionService, useClass: DivisionServiceStub },
       ]
     })

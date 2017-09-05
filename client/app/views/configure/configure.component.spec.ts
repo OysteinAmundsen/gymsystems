@@ -1,11 +1,12 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AppModule } from 'app/app.module';
+import { ConfigureModule } from './configure.module';
 
 import { ConfigureComponent } from './configure.component';
-import { SharedModule } from 'app/shared/shared.module';
+
 import { UserService } from 'app/services/api';
-import { HttpModule } from '@angular/http';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
 describe('views.configure:ConfigureComponent', () => {
@@ -13,13 +14,10 @@ describe('views.configure:ConfigureComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        ReactiveFormsModule,
+        AppModule,
+        ConfigureModule,
         RouterTestingModule,
-        SharedModule,
-        HttpModule,
       ],
-      declarations: [ ConfigureComponent ],
       providers: [
         {provide: UserService, useClass: UserServiceStub},
       ]

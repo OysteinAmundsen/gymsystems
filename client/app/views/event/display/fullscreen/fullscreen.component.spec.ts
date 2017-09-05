@@ -1,14 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app/app.module';
 import { ReplaySubject } from 'rxjs/Rx';
 
-import { SharedModule } from 'app/shared/shared.module';
-
+import { AppModule } from 'app/app.module';
+import { EventModule } from '../../event.module';
 import { FullscreenComponent } from './fullscreen.component';
+import { EventComponent } from '../../event.component';
+
 import { ConfigurationService, ScheduleService, TournamentService, DisplayService, EventService } from 'app/services/api';
 import { ITournament } from 'app/services/model';
 
@@ -17,7 +15,6 @@ import { DisplayServiceStub } from 'app/services/api/display/display.service.stu
 import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
 import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
-import { EventComponent } from '../../event.component';
 
 class DummyParent {
   tournamentSubject = new ReplaySubject<ITournament>(1);
@@ -32,19 +29,10 @@ describe('views.event.display:FullscreenComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
+        AppModule,
+        EventModule,
         RouterTestingModule,
-        HttpModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
       ],
-      declarations: [ FullscreenComponent ],
       providers: [
         {provide: EventComponent, useClass: DummyParent},
         {provide: ConfigurationService, useClass: ConfigurationServiceStub},

@@ -1,13 +1,9 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app/app.module';
-import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
-import { SharedModule } from 'app/shared/shared.module';
+import { AppModule } from 'app/app.module';
+
 import { HomeComponent } from './home.component';
 import { ScheduleService, UserService, TournamentService } from 'app/services/api';
 import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
@@ -21,20 +17,9 @@ describe('views.home:HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
-        RouterTestingModule,
-        HttpModule,
-        MarkdownToHtmlModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
+        AppModule,
+        RouterTestingModule
       ],
-      declarations: [ HomeComponent ],
       providers: [
         {provide: TournamentService, useClass: TournamentServiceStub},
         {provide: UserService, useClass: UserServiceStub},
