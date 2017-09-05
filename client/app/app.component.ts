@@ -50,13 +50,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
     // Identify dev mode
     this.angulartics2.developerMode(!environment.production);
 
+    // Set translation defaults
     this.translate.addLangs(['en', 'no']);
     this.translate.setDefaultLang('en');
-
     const browserLang: string = this.translate.getBrowserLang();
     this.changeLang(browserLang.match(/en|no/) ? browserLang : 'en');
 
-    // For debugging routes
+    // For debugging routes (only visible in dev mode)
     this.router.events.subscribe(event => Logger.debug(event));
   }
 

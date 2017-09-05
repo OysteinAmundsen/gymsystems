@@ -20,7 +20,7 @@ import { TournamentEditorComponent } from '../../tournament-editor/tournament-ed
 import { MemberSelectorComponent } from '../../../_shared/member-selector/member-selector.component';
 
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService } from 'app/services/api';
+import { TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService, ConfigurationService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
 import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
@@ -30,6 +30,7 @@ import { DivisionServiceStub } from 'app/services/api/division/division.service.
 import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.service.stub';
 
 import { ITeam, ITournament, IClub, IUser, Role, Classes } from 'app/services/model';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
 const club: IClub = <IClub>{
   id          : 0,
@@ -88,6 +89,7 @@ describe('views.configure.tournament:TeamEditorComponent', () => {
         ErrorHandlerService,
         { provide: Http, useClass: HttpInterceptor },
         { provide: TournamentEditorComponent, useClass: DummyParent },
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub },
         { provide: TeamsService, useClass: TeamsServiceStub },
         { provide: TournamentService, useClass: TournamentServiceStub },
         { provide: ClubService, useClass: ClubServiceStub },

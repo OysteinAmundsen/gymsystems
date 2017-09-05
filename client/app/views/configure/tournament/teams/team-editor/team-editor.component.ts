@@ -4,11 +4,12 @@ import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
 import {
   IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender
 } from 'app/services/model';
-import { TeamsService, DisciplineService, DivisionService, ClubService, UserService } from 'app/services/api';
+import { TeamsService, DisciplineService, DivisionService, ClubService, UserService, ConfigurationService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { Logger } from 'app/services/Logger';
@@ -31,6 +32,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   teamForm: FormGroup;
   disciplines: IDiscipline[];
   divisions: IDivision[] = [];
+  ageLimits: {[type: string]: {min: number, max: number}};
 
   _currentUser: IUser;
   get currentUser() { return this._currentUser; }
@@ -61,20 +63,16 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     }
     this.teamForm.controls['genderDivision'].setValue(division ? division.id : null);
 
-    // Apply age division (TODO: Need a more flexible way of fetching these)
+    // Apply age division
     const age = (birthYear) => moment().diff(moment(birthYear, 'YYYY'), 'years');
     const ages: number[] = v.gymnasts.map(g => <number> age(g.birthYear));
     const minAge: number = Math.min(...ages);
     const maxAge: number = Math.max(...ages);
-    division = null;
-    if (maxAge < 13) {
-      division = this.ageDivisions.find(d => d.name === 'Rekrutt');
-    } else if (minAge > 12 && maxAge < 18) {
-      division = this.ageDivisions.find(d => d.name === 'Junior');
-    } else if (minAge > 17) {
-      division = this.ageDivisions.find(d => d.name === 'Senior');
+    const divisionMatch = Object.keys(this.ageLimits).find(k => maxAge <= this.ageLimits[k].max && minAge >= this.ageLimits[k].min);
+    if (divisionMatch) {
+      division = this.ageDivisions.find(d => d.name === _.startCase(divisionMatch));
+      this.teamForm.controls['ageDivision'].setValue(division ? division.id : null);
     }
-    this.teamForm.controls['ageDivision'].setValue(division ? division.id : null);
 
     // Set gymnasts
     this.team.gymnasts = v.gymnasts;
@@ -102,6 +100,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private parent: TournamentEditorComponent,
+    private configuration: ConfigurationService,
     private teamService: TeamsService,
     private clubService: ClubService,
     private userService: UserService,
@@ -113,6 +112,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
+    this.configuration.getByname('ageLimits').subscribe(ageLimits => this.ageLimits = ageLimits.value);
     this.parent.tournamentSubject.subscribe(tournament => {
       this.tournament = tournament;
       this.divisionService.getByTournament(this.tournament.id).subscribe(d => this.divisions = d);
