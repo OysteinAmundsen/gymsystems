@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { ScoreGroupService } from 'app/services/api';
 import { IDiscipline, IScoreGroup, Operation } from 'app/services/model';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-score-group-editor',
@@ -21,7 +22,10 @@ export class ScoreGroupEditorComponent implements OnInit {
   get Adds(): string { return this.translate.instant('Adds'); }
   get Subtracts(): string { return this.translate.instant('Subtracts'); }
 
-  constructor(private fb: FormBuilder, private scoreService: ScoreGroupService, private translate: TranslateService) { }
+  constructor(
+    private fb: FormBuilder,
+    private scoreService: ScoreGroupService,
+    private translate: TranslateService) { }
 
   ngOnInit() {
     // Create form
@@ -64,7 +68,7 @@ export class ScoreGroupEditorComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
       this.close();
     }
   }

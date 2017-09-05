@@ -15,6 +15,7 @@ import { ITournament, IUser, Role, IClub } from 'app/services/model';
 
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { UppercaseFormControl } from 'app/shared/form';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 const Moment: any = (<any>moment).default || moment;
 
@@ -208,7 +209,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
       this.cancel();
     }
   }

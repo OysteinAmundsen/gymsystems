@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { DivisionService } from 'app/services/api';
 import { IDivision, DivisionType } from 'app/services/model';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-division-editor',
@@ -59,7 +60,7 @@ export class DivisionEditorComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
       this.close();
     }
   }

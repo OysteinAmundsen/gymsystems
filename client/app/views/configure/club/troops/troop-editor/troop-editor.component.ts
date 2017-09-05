@@ -15,6 +15,7 @@ import { Logger } from 'app/services/Logger';
 import { UppercaseFormControl } from 'app/shared/form';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { TroopsComponent } from 'app/views/configure/club/troops/troops.component';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-troop-editor',
@@ -110,7 +111,7 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
       this.close();
     }
   }

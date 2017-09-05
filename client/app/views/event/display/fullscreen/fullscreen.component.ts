@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Rx';
 import { EventService, DisplayService } from 'app/services/api';
 import { ITournament } from 'app/services/model';
 import { EventComponent } from '../../event.component';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-fullscreen',
@@ -59,7 +60,7 @@ export class FullscreenComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keydown', ['$event'])
   onKeydown(evt: KeyboardEvent) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
       this.router.navigate(['../'], { relativeTo: this.route });
     }
   }

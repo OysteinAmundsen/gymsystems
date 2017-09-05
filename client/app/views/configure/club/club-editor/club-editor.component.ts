@@ -5,6 +5,7 @@ import { ReplaySubject } from 'rxjs/Rx';
 
 import * as _ from 'lodash';
 
+import { KeyCode } from 'app/shared/KeyCodes';
 import { ClubService, UserService } from 'app/services/api';
 import { IUser, Role, IClub } from 'app/services/model';
 import { UppercaseFormControl } from 'app/shared/form';
@@ -121,7 +122,7 @@ export class ClubEditorComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
       this.cancel();
     }
   }

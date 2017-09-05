@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ClubService } from 'app/services/api';
 import { IClub, IGymnast, DivisionType, Gender } from 'app/services/model';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-members',
@@ -64,7 +65,7 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 187 || evt.keyCode === 107) {
+    if (evt.keyCode === KeyCode.PLUS || evt.keyCode === KeyCode.NUMPAD_PLUS) {
       this.addMember();
     }
   }

@@ -15,6 +15,7 @@ import { Logger } from 'app/services/Logger';
 
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 import { UppercaseFormControl } from 'app/shared/form';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-team-editor',
@@ -47,8 +48,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     this._selectedTroop = v;
 
     // Copy all values over from troop blueprint
-    // this.teamForm.value.name = v.name;
-
     // Apply gender division (TODO: Need a more flexible way of fetching these)
     let division = null;
     if (v.gymnasts.every(g => g.gender === v.gymnasts[0].gender)) {
@@ -315,7 +314,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
       this.close();
     }
   }

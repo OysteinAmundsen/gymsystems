@@ -5,6 +5,7 @@ import { TeamsService, UserService } from 'app/services/api';
 import { ITeam, IUser, Role, Classes, ITournament } from 'app/services/model';
 
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-teams',
@@ -100,7 +101,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 187 || evt.keyCode === 107) {
+    if (evt.keyCode === KeyCode.PLUS || evt.keyCode === KeyCode.NUMPAD_PLUS) {
       this.addTeam();
     }
   }
