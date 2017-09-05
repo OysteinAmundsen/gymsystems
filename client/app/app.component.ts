@@ -4,7 +4,8 @@ import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { TranslateService } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2GoogleAnalytics, Angulartics2 } from 'angulartics2';
+import { environment } from 'environments/environment';
 
 import { UserService } from './services/api';
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
@@ -43,8 +44,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
     private translate: TranslateService,
     private errorHandler: ErrorHandlerService,
     private router: Router,
+    private angulartics2: Angulartics2,
     private angulartics: Angulartics2GoogleAnalytics
   ) {
+    // Identify dev mode
+    this.angulartics2.developerMode(!environment.production);
+
     this.translate.addLangs(['en', 'no']);
     this.translate.setDefaultLang('en');
 
