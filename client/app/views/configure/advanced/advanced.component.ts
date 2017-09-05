@@ -32,6 +32,20 @@ export class AdvancedComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
+    this.configForm = this.fb.group({
+      'executionTime'        : [0],
+
+      // Age limits
+      'agelimit.aspirant.min': [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
+      'agelimit.aspirant.max': [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
+      'agelimit.rekrutt.min' : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
+      'agelimit.rekrutt.max' : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
+      'agelimit.junior.min'  : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
+      'agelimit.junior.max'  : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
+      'agelimit.senior.min'  : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
+      'agelimit.senior.max'  : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]]
+    });
+
     this.config.all().subscribe(res => {
       this.configuration = res;
       this.selected = this.defaultValueKeys[0];
@@ -53,19 +67,6 @@ export class AdvancedComponent implements OnInit {
         'agelimit.senior.min'  : ageLimits ? ageLimits.value.senior.min   : 0,
         'agelimit.senior.max'  : ageLimits ? ageLimits.value.senior.max   : 0
       });
-    });
-    this.configForm = this.fb.group({
-      'executionTime'        : [0],
-
-      // Age limits
-      'agelimit.aspirant.min': [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
-      'agelimit.aspirant.max': [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
-      'agelimit.rekrutt.min' : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
-      'agelimit.rekrutt.max' : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
-      'agelimit.junior.min'  : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
-      'agelimit.junior.max'  : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
-      'agelimit.senior.min'  : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
-      'agelimit.senior.max'  : [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]]
     });
   }
 

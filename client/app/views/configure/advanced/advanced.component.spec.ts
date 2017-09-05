@@ -2,7 +2,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpLoaderFactory } from 'app/app.module';
@@ -31,6 +31,7 @@ describe('views.configure:AdvancedComponent', () => {
         SharedModule,
         HttpModule,
         FormsModule,
+        ReactiveFormsModule,
         RouterTestingModule,
         ScoreSystemModule,
         HttpClientModule,
