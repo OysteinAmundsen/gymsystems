@@ -8,13 +8,14 @@ import { HttpLoaderFactory } from 'app/app.module';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { TroopsComponent } from './troops.component';
-import { UserService, ClubService } from 'app/services/api';
+import { UserService, ClubService, ConfigurationService } from 'app/services/api';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { TroopEditorComponent } from './troop-editor/troop-editor.component';
 import { DragulaModule } from 'ng2-dragula';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { MemberSelectorComponent } from '../../_shared/member-selector/member-selector.component';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
 describe('views.configure.club:TroopsComponent', () => {
   let component: TroopsComponent;
@@ -45,6 +46,7 @@ describe('views.configure.club:TroopsComponent', () => {
       ],
       providers: [
         ClubEditorComponent,
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub },
         { provide: UserService, useClass: UserServiceStub },
         { provide: ClubService, useClass: ClubServiceStub },
       ]

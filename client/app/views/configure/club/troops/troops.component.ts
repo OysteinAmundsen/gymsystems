@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
 import { ITroop, IUser, Role, IGymnast, Gender } from 'app/services/model';
-import { UserService, ClubService } from 'app/services/api';
+import { UserService, ClubService, ConfigurationService } from 'app/services/api';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -18,6 +19,7 @@ export class TroopsComponent implements OnInit {
   userSubscription: Subscription;
   selected: ITroop;
   teamList: ITroop[] = [];
+  ageLimits: {[type: string]: {min: number, max: number}};
 
   get club() {
     return this.clubComponent.club;
@@ -26,11 +28,13 @@ export class TroopsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private clubService: ClubService,
+    private configuration: ConfigurationService,
     private translate: TranslateService,
     private clubComponent: ClubEditorComponent) { }
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
+    this.configuration.getByname('ageLimits').subscribe(ageLimits => this.ageLimits = ageLimits.value);
     this.clubComponent.clubSubject.subscribe(club => this.loadTeams());
   }
 
@@ -43,7 +47,8 @@ export class TroopsComponent implements OnInit {
     const ages: number[] = team.gymnasts.map(g => <number> age(g.birthYear));
     const minAge: number = Math.min(...ages);
     const maxAge: number = Math.max(...ages);
-    return `${minAge} - ${maxAge}`
+    const divisionMatch = Object.keys(this.ageLimits).find(k => maxAge <= this.ageLimits[k].max && minAge >= this.ageLimits[k].min);
+    return divisionMatch ? _.startCase(divisionMatch) : `${minAge} - ${maxAge}`;
   }
 
   genderDivision(team: ITroop) {
