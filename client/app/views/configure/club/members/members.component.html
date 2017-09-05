@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody *ngFor="let member of memberList">
-      <tr *ngIf="member !== selected" (click)="select(member)" role="listitem">
+      <tr *ngIf="member !== selected" (click)="select(member)" role="listitem" [ngClass]="{'male': member.gender == genders.Male, 'female': member.gender == genders.Female}">
         <td>{{ member.name }}</td>
         <td>{{ member.birthYear }}</td>
         <td>{{ genderDivision(member) }}</td>

@@ -12,6 +12,7 @@ import { KeyCode } from 'app/shared/KeyCodes';
 export class MembersComponent implements OnInit, OnDestroy {
   club: IClub;
   memberList: IGymnast[] = [];
+  genders = Gender;
 
   selected: IGymnast;
 

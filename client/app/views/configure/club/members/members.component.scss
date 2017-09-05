@@ -1,3 +1,14 @@
+@import "~styles/variables";
+
 .table-responsive {
   padding-bottom: 2rem; // To make room for save button feedback
+}
+
+tr[role="listitem"] {
+  &.male {
+    background: rgba($primary, 0.05);
+  }
+  &.female {
+    background: rgba($warning, 0.05);
+  }
 }
