@@ -28,12 +28,12 @@ export class ConfigureDisplayComponent implements OnInit {
   }
 
   save() {
-    this.config.save({
+    this.config.save([{
       name: 'display',
       value: {
         display1: this.templates[0].content,
         display2: this.templates[1].content
       }
-    }).subscribe(res => this.configReceived(res));
+    }]).subscribe(res => this.configReceived(res));
   }
 }

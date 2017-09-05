@@ -17,7 +17,7 @@ import { TournamentService, DisciplineService } from 'app/services/api';
 import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.service.stub';
 
-describe('DisciplineEditorComponent', () => {
+describe('views.configure.tournament:DisciplineEditorComponent', () => {
   let component: DisciplineEditorComponent;
   let fixture: ComponentFixture<DisciplineEditorComponent>;
 

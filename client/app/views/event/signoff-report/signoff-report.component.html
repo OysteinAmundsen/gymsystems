@@ -1,0 +1,41 @@
+<div *ngFor="let division of divisions">
+  <section *ngFor="let discipline of disciplines">
+    <header class="center">
+      <h2>{{ tournament.name }}</h2>
+      <h3>{{ dateSpan }}</h3>
+      <h4>{{ tournament.location }}</h4>
+      <hr />
+      <h1>{{ division }}</h1>
+    </header>
+
+    <div class="table-responsive">
+      <table role="list">
+        <thead>
+          <tr>
+            <td colspan="30"><h3 class="center">{{ discipline }}</h3></td>
+          </tr>
+          <tr>
+            <td>#</td>
+            <td translate>Name</td>
+            <td *ngFor="let col of colsFilteredByDivisionAndDiscipline(division, discipline)" [ngClass]="{'group': isGroup(col)}">{{ col }}</td>
+            <td translate class="group">Score</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of filterByDivisionAndDiscipline(division, discipline)">
+            <td>{{ item.startNumber }}</td>
+            <td>{{ item.team.name }}</td>
+            <td *ngFor="let col of colsFilteredByDivisionAndDiscipline(division, discipline)" [ngClass]="{'group': isGroup(col)}">{{ scoreFromGroupName(item, col) }}</td>
+            <td class="group">{{ score(item) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="signatures">
+      <div *ngFor="let judge of judgesForDivisionAndDiscipline(division, discipline)">
+        <span>{{ judge }}</span>
+      </div>
+    </div>
+  </section>
+</div>

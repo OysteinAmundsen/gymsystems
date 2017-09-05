@@ -2,6 +2,7 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 
 import { IScore } from 'app/services/model';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-score',
@@ -46,10 +47,26 @@ export class ScoreComponent implements OnInit {
   @HostListener('window:keydown', ['$event'])
   onKey(event: KeyboardEvent) {
     if (event.srcElement === this.input.nativeElement) {
-      if (event.code === 'PageDown' && this.ct.value > this.model.scoreGroup.min) {
-        this.score -= 1;
-      } else if (event.code === 'PageUp' && this.ct.value < this.model.scoreGroup.max) {
-        this.score += 1;
+      switch (event.keyCode) {
+        case KeyCode.PAGE_DOWN:
+          event.preventDefault();
+          event.stopPropagation();
+          if (this.ct.value > this.model.scoreGroup.min) {
+            this.score -= 1;
+          }
+          break;
+        case KeyCode.PAGE_UP:
+          event.preventDefault();
+          event.stopPropagation();
+          if (this.ct.value < this.model.scoreGroup.max) {
+            this.score += 1;
+          }
+          break;
+
+        case KeyCode.HOME:
+          this.score = this.model.scoreGroup.min; break;
+        case KeyCode.END:
+          this.score = this.model.scoreGroup.max; break;
       }
       // if(event.key === ','){
       //   this.input.nativeElement.value = this.score.toFixed(1);

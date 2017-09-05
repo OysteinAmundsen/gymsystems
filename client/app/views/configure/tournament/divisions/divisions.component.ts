@@ -3,6 +3,7 @@ import { DragulaService } from 'ng2-dragula';
 
 import { DivisionService, ConfigurationService, TournamentService } from 'app/services/api';
 import { IDivision, DivisionType } from 'app/services/model';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-divisions',
@@ -137,7 +138,7 @@ export class DivisionsComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 187 || evt.keyCode === 107) {
+    if (evt.keyCode === KeyCode.PLUS || evt.keyCode === KeyCode.NUMPAD_PLUS) {
       this.addDivision();
     }
   }

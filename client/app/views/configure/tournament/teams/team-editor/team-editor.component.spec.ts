@@ -9,6 +9,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/Rx';
+import { DragulaModule } from 'ng2-dragula';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { HttpLoaderFactory } from 'app/app.module';
@@ -16,9 +17,10 @@ import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
 
 import { TeamEditorComponent } from './team-editor.component';
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
+import { MemberSelectorComponent } from '../../../_shared/member-selector/member-selector.component';
 
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService } from 'app/services/api';
+import { TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService, ConfigurationService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
 import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
@@ -28,6 +30,7 @@ import { DivisionServiceStub } from 'app/services/api/division/division.service.
 import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.service.stub';
 
 import { ITeam, ITournament, IClub, IUser, Role, Classes } from 'app/services/model';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
 const club: IClub = <IClub>{
   id          : 0,
@@ -52,13 +55,13 @@ class DummyParent {
 })
 class WrapperComponent {
   selected: ITeam = <ITeam>{
-    id: 0, class: Classes.TeamGym, name: 'Haugesund-1', divisions: [], disciplines: [], club: club, tournament: <ITournament>{
+    id: 0, class: Classes.TeamGym, name: 'Haugesund-1', divisions: [], disciplines: [], gymnasts: [], club: club, tournament: <ITournament>{
       id: 0, createdBy: user, club: user.club, name: 'Landsturnstevnet 2017', description_no: 'Test tekst', description_en: 'Test text',
       location: 'Haugesund', schedule: [], disciplines: [], divisions: []
     },
   }
 }
-describe('TeamEditorComponent', () => {
+describe('views.configure.tournament:TeamEditorComponent', () => {
   let component: TeamEditorComponent;
   let fixture: ComponentFixture<WrapperComponent>;
 
@@ -71,6 +74,7 @@ describe('TeamEditorComponent', () => {
         HttpModule,
         SharedModule,
         HttpClientModule,
+        DragulaModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -79,12 +83,13 @@ describe('TeamEditorComponent', () => {
           }
         }),
       ],
-      declarations: [ WrapperComponent, TeamEditorComponent ],
+      declarations: [ WrapperComponent, TeamEditorComponent, MemberSelectorComponent ],
       providers: [
         MediaService,
         ErrorHandlerService,
         { provide: Http, useClass: HttpInterceptor },
         { provide: TournamentEditorComponent, useClass: DummyParent },
+        { provide: ConfigurationService, useClass: ConfigurationServiceStub },
         { provide: TeamsService, useClass: TeamsServiceStub },
         { provide: TournamentService, useClass: TournamentServiceStub },
         { provide: ClubService, useClass: ClubServiceStub },

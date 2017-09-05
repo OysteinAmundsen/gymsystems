@@ -3,6 +3,9 @@ header {
   padding-bottom: 4rem;
   padding-top: 1rem;
   line-height: 3em;
+  &.hidden {
+    display: none;
+  }
   small {
     font-size: 0.8em;
     line-height: normal;

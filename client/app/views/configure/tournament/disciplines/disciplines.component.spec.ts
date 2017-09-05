@@ -20,7 +20,7 @@ import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.se
 import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
-describe('ConfigureDisciplinesComponent', () => {
+describe('views.configure.tournament:DisciplinesComponent', () => {
   let component: DisciplinesComponent;
   let fixture: ComponentFixture<DisciplinesComponent>;
 

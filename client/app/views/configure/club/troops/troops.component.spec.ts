@@ -14,8 +14,9 @@ import { TroopEditorComponent } from './troop-editor/troop-editor.component';
 import { DragulaModule } from 'ng2-dragula';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
+import { MemberSelectorComponent } from '../../_shared/member-selector/member-selector.component';
 
-describe('TroopsComponent', () => {
+describe('views.configure.club:TroopsComponent', () => {
   let component: TroopsComponent;
   let fixture: ComponentFixture<TroopsComponent>;
 
@@ -40,6 +41,7 @@ describe('TroopsComponent', () => {
       declarations: [
         TroopsComponent,
         TroopEditorComponent,
+        MemberSelectorComponent
       ],
       providers: [
         ClubEditorComponent,

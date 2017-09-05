@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { MediaService } from './media.service';
 
-describe('MediaService', () => {
+describe('services.validation:MediaService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [MediaService]

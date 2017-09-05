@@ -34,11 +34,13 @@ export class ScoreService {
     return participants.reduce((prev, curr) => prev += this.calculateTotal(curr), 0) / participants.length;
   }
 
+  calculateScoreGroupTotal(participant: ITeamInDiscipline, type: string) {
+    const scores = participant.scores.filter(s => type.indexOf(s.scoreGroup.type) > -1);
+    return scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
+  }
+
+  // Calculate final score
   calculateTotal(participant: ITeamInDiscipline) {
-    // Calculate final score
-    return participant.discipline.scoreGroups.reduce((prev, curr) => {
-      const scores = participant.scores.filter(s => s.scoreGroup.id === curr.id);
-      return prev += scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
-    }, 0);
+    return participant.discipline.scoreGroups.reduce((prev, curr) => prev += this.calculateScoreGroupTotal(participant, curr.type), 0);
   }
 }

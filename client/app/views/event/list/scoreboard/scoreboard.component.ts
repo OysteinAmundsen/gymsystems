@@ -1,14 +1,5 @@
 import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  Output,
-  ViewChildren,
-  EventEmitter,
-  HostListener,
-  OnDestroy
+  AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChildren, EventEmitter, HostListener, OnDestroy
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
@@ -19,6 +10,7 @@ import { Operation, ITeamInDiscipline, IScore, IUser, Role } from 'app/services/
 import { IScoreContainer } from '../IScoreContainer';
 import { ScoreGroupComponent } from '../score-group/score-group.component';
 import { ListComponent } from 'app/views/event/list/list.component';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 /**
  *
@@ -162,7 +154,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @HostListener('window:keydown', ['$event'])
   onKeydown(evt: KeyboardEvent) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
       this.close();
     }
   }

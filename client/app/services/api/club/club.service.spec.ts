@@ -6,7 +6,7 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 import { ClubService } from 'app/services/api';
 import { IClub } from 'app/services/model';
 
-describe('ClubService', () => {
+describe('services.api:ClubService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [

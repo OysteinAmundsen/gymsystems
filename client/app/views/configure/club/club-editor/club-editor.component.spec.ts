@@ -15,7 +15,7 @@ import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 
-describe('ClubEditorComponent', () => {
+describe('views.configure.club:ClubEditorComponent', () => {
   let component: ClubEditorComponent;
   let fixture: ComponentFixture<ClubEditorComponent>;
 

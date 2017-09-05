@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { FaComponent } from '../fontawesome/fa.component';
 import { TypeaheadComponent } from './typeahead.component';
 
-describe('PagerComponent', () => {
+describe('shared.components:PagerComponent', () => {
   let component: TypeaheadComponent;
   let fixture: ComponentFixture<TypeaheadComponent>;
 

@@ -12,7 +12,7 @@ import { UserEditorComponent } from './user-editor/user-editor.component';
 import { UserService } from 'app/services/api';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
-describe('UsersComponent', () => {
+describe('views.configure.users:UsersComponent', () => {
   let component: UsersComponent;
   let fixture: ComponentFixture<UsersComponent>;
 

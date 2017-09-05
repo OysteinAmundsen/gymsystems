@@ -84,6 +84,6 @@ export class RegisterComponent implements OnInit {
     this.errorHandler.error = (res && res.id
       ? this.translate.instant(`You are registerred! We've sent you an email with your credentials.`)
       : JSON.stringify(res));
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 }

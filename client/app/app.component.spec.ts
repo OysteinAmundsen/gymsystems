@@ -15,7 +15,7 @@ import { TournamentService, UserService } from './services/api';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 
-describe('AppComponent', () => {
+describe('views:AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
 

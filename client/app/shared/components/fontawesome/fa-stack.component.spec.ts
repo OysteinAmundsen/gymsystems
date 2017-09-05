@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FaStackComponent } from './fa-stack.component';
 
-describe('FaStackComponent', () => {
+describe('shared.components:FaStackComponent', () => {
   let component: FaStackComponent;
   let fixture: ComponentFixture<FaStackComponent>;
 

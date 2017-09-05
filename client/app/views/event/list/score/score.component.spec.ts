@@ -26,7 +26,7 @@ class WrapperComponent {
   }
 }
 
-describe('ScoreComponent', () => {
+describe('views.event.list:ScoreComponent', () => {
   let component: ScoreComponent;
   let fixture: ComponentFixture<WrapperComponent>;
 

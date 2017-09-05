@@ -4,6 +4,7 @@ import { Title, Meta } from '@angular/platform-browser';
 
 import { TournamentService } from 'app/services/api';
 import { ITournament } from 'app/services/model';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-tournament',
@@ -31,7 +32,7 @@ export class TournamentComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 187 || evt.keyCode === 107) {
+    if (evt.keyCode === KeyCode.PLUS || evt.keyCode === KeyCode.NUMPAD_PLUS) {
       this.router.navigate(['./add'], { relativeTo: this.route });
     }
   }

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { DisciplineService } from 'app/services/api';
 import { IDiscipline } from 'app/services/model';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 
 @Component({
@@ -60,7 +61,7 @@ export class DisciplineEditorComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (!this.editingScore && evt.keyCode === 27) {
+    if (!this.editingScore && evt.keyCode === KeyCode.ESCAPE) {
       this.cancel();
     }
   }

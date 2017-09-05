@@ -3,6 +3,7 @@ import { DragulaService } from 'ng2-dragula';
 
 import { DisciplineService, ScoreGroupService, ConfigurationService, TournamentService } from 'app/services/api';
 import { IScoreGroup, IDiscipline } from 'app/services/model';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-disciplines',
@@ -126,7 +127,7 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 187 || evt.keyCode === 107) {
+    if (evt.keyCode === KeyCode.PLUS || evt.keyCode === KeyCode.NUMPAD_PLUS) {
       this.addDiscipline();
     }
   }

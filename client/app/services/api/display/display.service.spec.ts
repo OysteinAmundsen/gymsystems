@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 
 import { DisplayService } from './display.service';
 
-describe('DisplayService', () => {
+describe('services.api:DisplayService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],

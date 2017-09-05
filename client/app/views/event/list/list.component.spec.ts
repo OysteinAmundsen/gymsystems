@@ -35,7 +35,7 @@ export class DummyParent {
     this.tournamentSubject.next(dummyTournament);
   }
 }
-describe('ListComponent', () => {
+describe('views.event.list:ListComponent', () => {
   let component: ListComponent;
   let fixture: ComponentFixture<ListComponent>;
 

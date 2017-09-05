@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@a
 
 import { ScoreGroupService, ConfigurationService } from 'app/services/api';
 import { IDiscipline, IScoreGroup, Operation } from 'app/services/model';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-score-system',
@@ -43,9 +44,10 @@ export class ScoreSystemComponent implements OnInit {
   }
 
   addScoreGroup() {
-    const scoreGroup = <IScoreGroup>(this.standalone ? { name: null, type: null, judges: 1, max: 5, min: 0, operation: Operation.Addition } : {
-      id: null, name: null, type: null, judges: 1, max: 5, min: 0, operation: Operation.Addition, discipline: this.discipline
-    });
+    const scoreGroup = <IScoreGroup>(this.standalone
+      ? { name: null, type: null, judges: 1, max: 5, min: 0, operation: Operation.Addition }
+      : { id: null, name: null, type: null, judges: 1, max: 5, min: 0, operation: Operation.Addition, discipline: this.discipline}
+    );
     this.scoreGroupList.push(scoreGroup);
     this.selected = scoreGroup;
     this.scoreGroupListChanged.emit(this.scoreGroupList);
@@ -84,7 +86,7 @@ export class ScoreSystemComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 187 || evt.keyCode === 107) {
+    if (evt.keyCode === KeyCode.PLUS || evt.keyCode === KeyCode.NUMPAD_PLUS) {
       this.addScoreGroup();
     }
   }

@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 
 import { Logger } from '../utils/Logger';
 import { RequireRole } from '../middlewares/RequireAuth';
-import { validateClub, isMyClub } from '../validators/ClubValidator';
+import { validateClub } from '../validators/ClubValidator';
 
 import { UserController } from './UserController';
 import { ClubController } from './ClubController';
@@ -102,8 +102,10 @@ export class TeamController {
       query.andWhere('team.club=:clubId', {clubId: user.club.id});
     }
     return query
+      .leftJoinAndSelect('team.tournament', 'tournament')
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('team.disciplines', 'discipline')
+      .leftJoinAndSelect('team.gymnasts', 'gymnasts')
       .leftJoinAndSelect('team.club', 'club')
       .leftJoinAndSelect('team.media', 'media')
       .leftJoinAndSelect('media.discipline', 'media_dicsipline')
@@ -127,13 +129,14 @@ export class TeamController {
   get( @Param('id') teamId: number): Promise<Team> {
     return this.repository.createQueryBuilder('team')
       .where('team.id=:id', {id: teamId})
-      .leftJoinAndSelect('team.club', 'club')
-      .leftJoinAndSelect('team.disciplines', 'disciplines')
-      .leftJoinAndSelect('team.divisions', 'divisions')
       .leftJoinAndSelect('team.tournament', 'tournament')
+      .leftJoinAndSelect('team.divisions', 'division')
+      .leftJoinAndSelect('team.disciplines', 'discipline')
+      .leftJoinAndSelect('team.gymnasts', 'gymnasts')
+      .leftJoinAndSelect('team.club', 'club')
       .leftJoinAndSelect('team.media', 'media')
-      .leftJoinAndSelect('media.team', 'media_team')
       .leftJoinAndSelect('media.discipline', 'media_dicsipline')
+      .leftJoinAndSelect('media.team', 'media_team')
       .getOne();
   }
 
@@ -151,16 +154,8 @@ export class TeamController {
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Club))
   async update( @Param('id') id: number, @Body() team: Team, @Req() req: Request, @Res() res: Response) {
-    const hasClub = await validateClub([team], req);
-    const isSameClub = await isMyClub([team], req);
-    if (!hasClub)  {
-      res.status(400);
-      return new ErrorResponse(400, 'Club name given has no unique match');
-    }
-    if (!isSameClub) {
-      res.status(403);
-      return new ErrorResponse(403, 'Cannot update teams for other clubs than your own');
-    }
+    const msg = await validateClub(team, null, req);
+    if (msg) { res.status(403); return new ErrorResponse(403, 'Cannot update teams for other clubs than your own'); }
 
     const mediaController = Container.get(MediaController);
     return Promise.all(team.media.map(async m => {
@@ -191,15 +186,9 @@ export class TeamController {
   async create( @Body() team: Team | Team[], @Req() req: Request, @Res() res: Response) {
     const teams = Array.isArray(team) ? team : [team];
 
-    const hasClub = await validateClub(teams, req);
-    const isSameClub = await isMyClub(teams, req);
-    if (!hasClub)  {
-      res.status(400);
-      return new ErrorResponse(400, 'Club name given has no unique match');
-    }
-    if (!isSameClub) {
-      res.status(403);
-      return new ErrorResponse(403, 'Cannot create teams for other clubs than your own');
+    for (let j = 0; j < teams.length; j++) {
+      const msg = await validateClub(teams[j], null, req);
+      if (msg) { res.status(403); return new ErrorResponse(403, 'Cannot update teams for other clubs than your own'); }
     }
 
     return this.repository.persist(teams)
@@ -223,12 +212,9 @@ export class TeamController {
   @UseBefore(RequireRole.get(Role.Club))
   async remove( @Param('id') teamId: number, @Req() req: Request, @Res() res: Response) {
     const team = await this.get(teamId);
-    const isSameClub = await isMyClub([team], req);
 
-    if (!isSameClub) {
-      res.status(403);
-      return new ErrorResponse(403, 'You are not authorized to remove teams from other clubs than your own.');
-    }
+    const msg = await validateClub(team, null, req, true);
+    if (msg) { res.status(403); return new ErrorResponse(403, 'You are not authorized to remove teams from other clubs than your own.'); }
 
     // Remove media setup by this team
     const mediaRepository = Container.get(MediaController);

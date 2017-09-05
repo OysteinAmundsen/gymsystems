@@ -41,7 +41,7 @@
 <form class="panel" [formGroup]="tournamentForm" (submit)="save()" *ngIf="isEdit">
   <fieldset>
     <div class="row">
-      <div [ngClass]="(tournamentForm.value.id !== user.id && user.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12')" appFloatingLabelContainer>
+      <div [ngClass]="(user.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12')" appFloatingLabelContainer>
         <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
       </div>

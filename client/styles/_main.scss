@@ -74,6 +74,15 @@ h2 {
 .pull-right {
   float: right;
 }
+
+.clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
 .center {
   text-align: center;
 }

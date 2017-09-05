@@ -21,7 +21,7 @@ import { ConfigurationServiceStub } from 'app/services/api/configuration/configu
 import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
 
-describe('AdvancedComponent', () => {
+describe('views.configure:AdvancedComponent', () => {
   let component: AdvancedComponent;
   let fixture: ComponentFixture<AdvancedComponent>;
 

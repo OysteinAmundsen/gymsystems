@@ -16,3 +16,17 @@ section {
 .tab-panel {
   margin-top: 1em;
 }
+
+.ageLimits {
+  > div {
+    padding: 0 1em;
+    > label {
+      display: block;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+  input {
+    width: 2.5rem;
+  }
+}

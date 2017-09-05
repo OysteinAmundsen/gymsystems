@@ -16,7 +16,10 @@ export class InfoComponent implements OnInit {
   preview = false;
   original: string;
   @ViewChild('infoText') infoText;
-  constructor(private parent: TournamentEditorComponent, private tournamentService: TournamentService, private translate: TranslateService) { }
+  constructor(
+    private parent: TournamentEditorComponent,
+    private tournamentService: TournamentService,
+    private translate: TranslateService) { }
 
   ngOnInit() {
     this.parent.tournamentSubject.subscribe(tournament => {
@@ -28,8 +31,12 @@ export class InfoComponent implements OnInit {
   }
 
   save() {
-    if (this.tournament.description_en && !this.tournament.description_no) { this.tournament.description_no = this.tournament.description_en; }
-    if (this.tournament.description_no && !this.tournament.description_en) { this.tournament.description_en = this.tournament.description_no; }
+    if (this.tournament.description_en && !this.tournament.description_no) {
+      this.tournament.description_no = this.tournament.description_en;
+    }
+    if (this.tournament.description_no && !this.tournament.description_en) {
+      this.tournament.description_en = this.tournament.description_no;
+    }
     this.tournamentService.save(this.tournament).subscribe(res => {
       this.tournament = res;
       this.original = JSON.stringify([this.tournament.description_en, this.tournament.description_no]);

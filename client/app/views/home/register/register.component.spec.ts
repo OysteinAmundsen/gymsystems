@@ -13,7 +13,7 @@ import { ErrorHandlerService } from 'app/services/config';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
-describe('RegisterComponent', () => {
+describe('views.home:RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
 

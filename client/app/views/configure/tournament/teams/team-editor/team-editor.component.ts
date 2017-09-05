@@ -4,15 +4,19 @@ import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
-import { IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender } from 'app/services/model';
-import { TeamsService, DisciplineService, DivisionService, ClubService, UserService } from 'app/services/api';
+import {
+  IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender
+} from 'app/services/model';
+import { TeamsService, DisciplineService, DivisionService, ClubService, UserService, ConfigurationService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { Logger } from 'app/services/Logger';
 
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 import { UppercaseFormControl } from 'app/shared/form';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-team-editor',
@@ -28,6 +32,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   teamForm: FormGroup;
   disciplines: IDiscipline[];
   divisions: IDivision[] = [];
+  ageLimits: {[type: string]: {min: number, max: number}};
 
   _currentUser: IUser;
   get currentUser() { return this._currentUser; }
@@ -45,8 +50,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     this._selectedTroop = v;
 
     // Copy all values over from troop blueprint
-    // this.teamForm.value.name = v.name;
-
     // Apply gender division (TODO: Need a more flexible way of fetching these)
     let division = null;
     if (v.gymnasts.every(g => g.gender === v.gymnasts[0].gender)) {
@@ -60,22 +63,19 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     }
     this.teamForm.controls['genderDivision'].setValue(division ? division.id : null);
 
-    // Apply age division (TODO: Need a more flexible way of fetching these)
+    // Apply age division
     const age = (birthYear) => moment().diff(moment(birthYear, 'YYYY'), 'years');
     const ages: number[] = v.gymnasts.map(g => <number> age(g.birthYear));
     const minAge: number = Math.min(...ages);
     const maxAge: number = Math.max(...ages);
-    division = null;
-    if (maxAge < 13) {
-      division = this.ageDivisions.find(d => d.name === 'Rekrutt');
-    } else if (minAge > 12 && maxAge < 18) {
-      division = this.ageDivisions.find(d => d.name === 'Junior');
-    } else if (minAge > 17) {
-      division = this.ageDivisions.find(d => d.name === 'Senior');
+    const divisionMatch = Object.keys(this.ageLimits).find(k => maxAge <= this.ageLimits[k].max && minAge >= this.ageLimits[k].min);
+    if (divisionMatch) {
+      division = this.ageDivisions.find(d => d.name === _.startCase(divisionMatch));
+      this.teamForm.controls['ageDivision'].setValue(division ? division.id : null);
     }
-    this.teamForm.controls['ageDivision'].setValue(division ? division.id : null);
 
     // Set gymnasts
+    this.team.gymnasts = v.gymnasts;
     this.teamForm.controls['gymnasts'].setValue(v.gymnasts);
   }
 
@@ -95,9 +95,12 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   get TeamGym(): string { return this.translate.instant('TeamGym'); }
   get National(): string { return this.translate.instant('National classes'); }
 
+  memberListHidden = true;
+
   constructor(
     private fb: FormBuilder,
     private parent: TournamentEditorComponent,
+    private configuration: ConfigurationService,
     private teamService: TeamsService,
     private clubService: ClubService,
     private userService: UserService,
@@ -109,21 +112,13 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
+    this.configuration.getByname('ageLimits').subscribe(ageLimits => this.ageLimits = ageLimits.value);
     this.parent.tournamentSubject.subscribe(tournament => {
       this.tournament = tournament;
       this.divisionService.getByTournament(this.tournament.id).subscribe(d => this.divisions = d);
       this.disciplineService.getByTournament(this.tournament.id).subscribe(d => {
         this.disciplines = d;
-        setTimeout(() => {
-          // Set selected disciplines
-          this.disciplineCheckboxes
-            .forEach((element: ElementRef) => {
-              const el = <HTMLInputElement>element.nativeElement;
-              const disciplineId = el.attributes.getNamedItem('data').nodeValue;
-              el.checked = this.team.disciplines.findIndex(dis => dis.id === +disciplineId) > -1;
-            });
-          this.teamReceived(this.team);
-        });
+        setTimeout(() => this.teamReceived(this.team));
       });
 
 
@@ -148,11 +143,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
       // Disable 'name' control if club is empty (only applicable for Admins)
       this.teamForm.controls.club.valueChanges.subscribe(v => {
-        if (v.length <= 0) {
-          this.teamForm.controls.name.disable();
-        } else {
-          this.teamForm.controls.name.enable();
-        }
+        const ctrl = this.teamForm.controls.name;
+        (v.length <= 0) ? ctrl.disable() : ctrl.enable();
       });
     });
   }
@@ -280,7 +272,11 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const me = this;
     return function (items, currentValue: string, matchText: string) {
       if (!currentValue) { return items; }
-      return me.clubService.findTroopByName(me.team.club || me.selectedClub, currentValue);
+
+      const club = me.team.club || me.selectedClub;
+      if (!club.id) { return items; }
+
+      return me.clubService.findTroopByName(club, currentValue);
     }
   }
 
@@ -296,9 +292,17 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   classChanged() {
     if (this.teamForm.value.class === Classes.TeamGym) {
+      // Force all checked for TeamGym
       this.disciplineCheckboxes.forEach((element: ElementRef) => {
         const el = <HTMLInputElement>element.nativeElement;
         el.checked = true;
+      });
+    } else {
+      // Reflect model in view
+      this.disciplineCheckboxes.forEach((element: ElementRef) => {
+        const el = <HTMLInputElement>element.nativeElement;
+        const disciplineId = el.attributes.getNamedItem('data').nodeValue;
+        el.checked = this.team.disciplines.findIndex(dis => dis.id === +disciplineId) > -1;
       });
     }
   }
@@ -310,7 +314,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
       this.close();
     }
   }

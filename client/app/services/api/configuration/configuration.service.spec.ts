@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 
 import { ConfigurationService } from './configuration.service';
 
-describe('ConfigurationService', () => {
+describe('services.api:ConfigurationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],

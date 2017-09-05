@@ -31,6 +31,15 @@ export class ConfigurationServiceStub  {
       ],
     }},
     { name: 'scheduleExecutionTime', value: '5' },
+    {
+      name: 'ageLimits',
+      value: {
+        aspirant: {min: 8, max: 11},
+        rekrutt: {min: 11, max: 13},
+        junior: {min: 13, max: 17},
+        senior: {min: 16, max: 99},
+      }
+    },
     {name: 'display', value: {
       display1: `<header>{{tournament.name}}</header>
 

@@ -13,7 +13,7 @@ import { ClubService, UserService } from 'app/services/api';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
-describe('ClubComponent', () => {
+describe('views.configure.club:ClubComponent', () => {
   let component: ClubComponent;
   let fixture: ComponentFixture<ClubComponent>;
 

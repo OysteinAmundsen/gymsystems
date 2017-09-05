@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ListComponent } from './list/list.component';
 import { ResultsComponent } from './results/results.component';
+import { SignoffReportComponent } from './signoff-report/signoff-report.component';
 import { DisplayComponent } from './display/display.component';
 import { FullscreenComponent } from './display/fullscreen/fullscreen.component';
 import { EventComponent } from './event.component';
@@ -15,8 +16,9 @@ const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'list'},
     { path: 'list',               component: ListComponent },
     { path: 'results',            component: ResultsComponent },
-    { path: 'display',            component: DisplayComponent,    canActivate: [RoleGuard], data: { role: Role.Secretariat} },
-    { path: 'display/:displayId', component: FullscreenComponent, canActivate: [RoleGuard], data: { role: Role.Secretariat} },
+    { path: 'signoff',            component: SignoffReportComponent, canActivate: [RoleGuard], data: { role: Role.Secretariat} },
+    { path: 'display',            component: DisplayComponent,       canActivate: [RoleGuard], data: { role: Role.Secretariat} },
+    { path: 'display/:displayId', component: FullscreenComponent,    canActivate: [RoleGuard], data: { role: Role.Secretariat} },
   ]},
   { path: '**', redirectTo: '/' },
 ];

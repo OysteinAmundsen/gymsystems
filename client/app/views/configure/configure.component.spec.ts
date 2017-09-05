@@ -8,7 +8,7 @@ import { UserService } from 'app/services/api';
 import { HttpModule } from '@angular/http';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
-describe('ConfigureComponent', () => {
+describe('views.configure:ConfigureComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

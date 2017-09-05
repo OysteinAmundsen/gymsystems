@@ -1,8 +1,5 @@
+import { Request, Response } from 'express';
 import { Container } from 'typedi';
-
-import e = require('express');
-import Request = e.Request;
-import Response = e.Response;
 
 import { Logger } from '../utils/Logger';
 
@@ -12,51 +9,58 @@ import { ClubController } from '../controllers/ClubController';
 import { UserController } from '../controllers/UserController';
 import { ErrorResponse } from '../utils/ErrorResponse';
 
-export async function lookupOrFakeClub(obj: BelongsToClub, req?: Request): Promise<Club> {
-  const clubRepository = Container.get(ClubController);
-  if (typeof obj.club === 'string') {
-    // Auto convert string to object
-    const club: Club[] = await clubRepository.all(req, obj.club);
-    return club[0];
-  }
-  return obj.club;
-}
+/**
+ * Turning club strings into persisted club objects
+ */
+export function validateClub(obj: BelongsToClub, oldObj?: BelongsToClub, req?: Request, noCreate = false): Promise<string> {
+  return new Promise(async (resolve, reject) => {
+    const clubRepository = Container.get(ClubController);
+    const me = await Container.get(UserController).me(req);
+    let clubChanged = false;
 
-export async function lookupOrCreateClub(body: BelongsToClub, req?: Request): Promise<Club> {
-  const hasClub = await validateClub([<BelongsToClub>body], req);
-  if (!hasClub)  {
-    // Club name given is not registerred, try to create
-    if (typeof body.club === 'string') {
-      const clubRepository = Container.get(ClubController);
-      const club = await clubRepository.create(
-        <Club>{id: null, name: body.club, troops: null, teams: null, tournaments: null, gymnasts: null, users: null}
-      );
-      return club;
+    if (!obj.club) {
+      return resolve('No club entered');
     }
-  }
-  return body.club;
-}
-export async function validateClub(body: BelongsToClub[], req?: Request): Promise<boolean> {
-  for (let j = 0; j < body.length; j++) {
-    const obj = body[j];
-    const club = await lookupOrFakeClub(obj, req);
-    if (club && club.id) {
-      obj.club = club;
-    } else {
-      Logger.log.error(`No club with name "${obj.club}" found`);
-      return false;
+
+    if (typeof obj.club === 'string') {
+      if (oldObj && oldObj.club && oldObj.club.id) {
+        // Allready has a club
+        if (oldObj.club.name !== obj.club) {
+          // Club name changed
+          oldObj.club.name = obj.club;
+          obj.club = oldObj.club;
+          clubChanged = true;
+        } else {
+          obj.club = oldObj.club;
+        }
+      } else {
+        // No previous club, and club given is string. Auto convert string to object
+        // Use only match if name is exactly equal
+        const clubs: Club[] = await clubRepository.all(req, obj.club);
+        const club = clubs[0];
+        obj.club = (!club || club.name !== obj.club
+          ? <Club>{id: null, name: obj.club, troops: null, teams: null, tournaments: null, gymnasts: null, users: null}
+          : club);
+      }
     }
-  }
-  Logger.log.debug(JSON.stringify(body));
-  return true;
-}
 
+    if (obj.club.id && me && !(me.role >= Role.Admin || obj.club.id === me.club.id)) {
+      return resolve(`You do not have the privileges to modify data for clubs that aren't your own.`);
+    } else if (!noCreate && (
+         (clubChanged && me && me.role >= Role.Admin)      // Club changed. We are logged in as Admin.
+      || (clubChanged && me && obj.club.id === me.club.id) // Club changed. We are logged in as club member
+      || (!obj.club.id && me && me.role >= Role.Admin)     // New club. We are logged in as Admin
+      || (!obj.club.id && !me))) {                         // New club. We are not logged in (assuming new user registration)
+      // New or updated club received. We need to persist it
+      const resp = await clubRepository.create(obj.club);
+      if (resp instanceof ErrorResponse) {
+        return resolve(`Club cannot be modified: ${resp.message}`);
+      }
+      obj.club = resp;
+    } else if (!obj.club.id) {
+      return resolve(`Club not found and could not be created.`);
+    }
 
-export async function isMyClub(body: BelongsToClub[], req: Request): Promise<boolean> {
-  const userRepository = Container.get(UserController);
-  const me = await userRepository.me(req);
-
-  return body.every(b => {
-    return me.role >= Role.Admin || (b.club && b.club.id === me.club.id);
+    resolve();
   });
 }

@@ -14,7 +14,7 @@ import { TournamentServiceStub } from 'app/services/api/tournament/tournament.se
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 
-describe('TournamentEditorComponent', () => {
+describe('views.configure.tournament:TournamentEditorComponent', () => {
   let component: TournamentEditorComponent;
   let fixture: ComponentFixture<TournamentEditorComponent>;
 

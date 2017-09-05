@@ -12,17 +12,17 @@ import * as _ from 'lodash';
 
 import { ClubController } from './ClubController';
 import { Club, BelongsToClub } from '../model/Club';
-import { isMyClub, validateClub, lookupOrFakeClub, lookupOrCreateClub } from '../validators/ClubValidator';
+import { validateClub } from '../validators/ClubValidator';
 import { GymServer } from '../index';
 import { ErrorResponse } from '../utils/ErrorResponse';
 
 const messages = {
-  created: `
-<h1>Welcome!</h1>
-<p>You are receiving this email because you have just been registerred as a user with role "<%=roleName %>", a representative of "<%=club %>", on <a href="www.gymsystems.org">GymSystems</a>.</p>
+  created: `<h1>Welcome!</h1>
+<p>You are receiving this email because you have just been registerred as a user with role "<%=roleName %>",
+a representative of "<%=club %>", on <a href="www.gymsystems.org">GymSystems</a>.</p>
 <p>You can <a href="www.gymsystems.org/login">log in</a> using <b><%=name %></b>/<b><%=password %></b>.`,
-  passwordUpdate: `
-<h1>Your password is updated</h1>
+
+  passwordUpdate: `<h1>Your password is updated</h1>
 <p>You are receiving this email because your password on <a href="www.gymsystems.org">GymSystems</a> has just changed.</p>
 <p>Your new credentials are <b><%=name %></b>/<b><%=password %></b>`
 }
@@ -67,18 +67,18 @@ export class UserController {
    *
    * @param req
    * @param res
-   * @param user
+   * @param credentials
    */
   @Post('/login')
-  login(@Req() req: any, @Res() res: Response, @Body() user: any) {
+  login(@Req() req: any, @Res() res: Response, @Body() credentials: any) {
     const passport = Container.get(auth.Passport);
     return new Promise((resolve, reject) => {
       passport.authenticate('local-login', { failWithError: true }, (err: any, user: User, info: any) => {
         if (err) { return reject({httpCode: 401, message: err}); }
         if (!user) { return reject({httpCode: 401, message: err || 'No user found'}); }
 
-        req.logIn(user, async (err: any) => {
-          if (err) { return reject({httpCode: 401, message: err}); }
+        req.logIn(user, async (error: any) => {
+          if (error) { return reject({httpCode: 401, message: error}); }
 
           const returnedUser = await this.me(req);
           return resolve(returnedUser || user);
@@ -191,23 +191,9 @@ export class UserController {
   @Put('/:id')
   @UseBefore(RequireAuth)
   async update( @Param('id') id: number, @Body() user: User, @Res() res: Response, @Req() req: Request) {
-    // Make sure club is an object
-    const hasClub = await validateClub([<BelongsToClub>user], req);
-    if (!hasClub)  {
-      // Club name given is not registerred, try to create
-      if (typeof user.club === 'string') {
-        const clubRepository = Container.get(ClubController);
-        user.club = await clubRepository.create(
-          <Club>{id: null, name: user.club, troops: null, teams: null, tournaments: null, gymnasts: null, users: null},
-          res
-        );
-      }
-      // If still no club, we should fail
-      if (!user.club || !user.club.id) {
-        res.status(400);
-        return new ErrorResponse(400, 'Club name given has no unique match');
-      }
-    }
+    const oldUser = await this.getUser(id);
+    const msg = await validateClub(user, oldUser, req);
+    if (msg) { res.status(403); return new ErrorResponse(403, msg); }
 
     if (user.password) {
       // Password is updated. Encrypt and store entire user object
@@ -257,22 +243,8 @@ export class UserController {
     // Clone user object
     const userCopy = JSON.parse(JSON.stringify(user));
 
-    // Make sure club is an object
-    userCopy.club = await lookupOrFakeClub(user, req);
-    if (!userCopy.club) {
-      res.status(400);
-      return new ErrorResponse(400, 'No Club name given, or Club name has no unique match');
-    }
-
-    // Validate club privilege on current user
-    const me = await this.me(req);
-    const isSameClub = await isMyClub([userCopy], req);
-    if (!isSameClub) {
-      res.status(403);
-      return new ErrorResponse(403, 'You are not authorized to create users for other clubs than your own.');
-    }
-
     // Validate user role
+    const me = await this.me(req);
     if (user.role > me.role && me.role < Role.Admin) {
       res.status(403);
       return new ErrorResponse(403, 'Your are not authorized to create users with higher privileges than your own.');
@@ -305,26 +277,26 @@ export class UserController {
   }
 
   private async createUser(user: User, res: Response, req: Request) {
-    // Lookup or Create the club if string is provided
-    user.club = await lookupOrCreateClub(user);
-
-    // If still no club, we should fail
-    if (!user.club || !user.club.id) {
-      res.status(400);
-      return new ErrorResponse(400, 'No Club name given, or Club name has no unique match');
-    }
-
     const origPass = user.password;
+
+    const msg = await validateClub(user, null, req);
+    if (msg) { res.status(403); return new ErrorResponse(403, msg); }
 
     // Hash up password
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8));
     return this.repository.persist(user)
       .then(persisted => {
-        if (!Container.get(GymServer).isTest) {
+        const server = Container.get(GymServer);
+        if (!server.isTest) {
           // We are not in test mode, send email confirmation on user creation and login details
           const roleName = RoleNames.find(r => r.id === user.role);
           this.sendmail({ from: emailFrom, to: user.email, subject: 'You are registerred',
-            html: _.template(messages.created)({name: user.name, password: origPass, roleName: roleName.name, club: user.club ? user.club.name : 'No club'}),
+            html: _.template(messages.created)({
+              name: user.name,
+              password: origPass,
+              roleName: roleName.name,
+              club: user.club ? user.club.name : 'No club'
+            }),
           }, (err: any, reply: any) => {
             Logger.log.debug(err && err.stack);
             Logger.log.debug(reply);
@@ -358,12 +330,9 @@ export class UserController {
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') userId: number, @Req() req: Request, @Res() res: Response) {
     const user = await this.getUser(userId);
-    const isSameClub = await isMyClub([<BelongsToClub>user], req);
 
-    if (!isSameClub) {
-      res.status(403);
-      return new ErrorResponse(403, 'You are not authorized to remove users from other clubs than your own.');
-    }
+    const msg = await validateClub(user, null, req);
+    if (msg) { res.status(403); return new ErrorResponse(403, msg); }
 
     return this.repository.remove(user)
       .catch(err => Logger.log.error(err));

@@ -21,9 +21,9 @@ export class ConfigurationService  {
     return this.http.get(`${this.url}/${name}`).map((res: Response) => res.json()).share();
   }
 
-  save(configuration: IConfiguration) {
-    const call = (configuration.name) ? this.http.put(`${this.url}/${configuration.name}`, configuration) : this.http.post(this.url, configuration);
-    return call.map((res: Response) => res.json());
+  save(configuration: IConfiguration[]) {
+    return this.http.post(this.url, configuration)
+      .map((res: Response) => res.json());
   }
 
   delete(configuration: IConfiguration) {

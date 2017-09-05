@@ -3,7 +3,7 @@ import { HttpModule } from '@angular/http';
 
 import { ScoreGroupService } from './scoregroup.service';
 
-describe('ScoreService', () => {
+describe('services.api:ScoreService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],

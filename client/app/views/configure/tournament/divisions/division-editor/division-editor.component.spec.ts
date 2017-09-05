@@ -12,7 +12,7 @@ import { DivisionService } from 'app/services/api';
 import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
 
-describe('DivisionEditorComponent', () => {
+describe('views.configure.tournament:DivisionEditorComponent', () => {
   let component: DivisionEditorComponent;
   let fixture: ComponentFixture<DivisionEditorComponent>;
 

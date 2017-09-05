@@ -14,7 +14,7 @@ import { ScoreGroupService } from 'app/services/api';
 import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
 import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 
-describe('ScoreGroupEditorComponent', () => {
+describe('views.configure.tournament:ScoreGroupEditorComponent', () => {
   let component: ScoreGroupEditorComponent;
   let fixture: ComponentFixture<ScoreGroupEditorComponent>;
 

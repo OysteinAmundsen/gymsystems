@@ -9,7 +9,7 @@ import { Media } from './Media';
 import { BelongsToClub, Club } from './Club';
 
 /**
- * A Tournament describes a copetitive event created and arranged by
+ * A Tournament describes a competitive event created and arranged by
  * a club, where the aim is for troops in the creators and other clubs
  * to compete against each other according to the rules specified by the NGTF.
  *

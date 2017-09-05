@@ -1,4 +1,4 @@
-<form appFloatingLabel>
+<form appFloatingLabel *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.club.id))">
   <label for="filter"><app-fa name="filter" fw="true"></app-fa><span translate>Filter by:</span></label>
   <select id="filter" name="filter" [(ngModel)]="selectedDiscipline">
     <option [ngValue]="null" translate>No filter</option>

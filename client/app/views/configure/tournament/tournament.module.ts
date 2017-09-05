@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DragulaModule } from 'ng2-dragula';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
+import { DragulaModule } from 'ng2-dragula';
 
 import { SharedModule } from 'app/shared/shared.module';
+import { ConfigureSharedModule } from '../_shared/_shared.module';
 import { DisciplinesModule } from './disciplines/disciplines.module';
 import { DivisionsModule } from './divisions/divisions.module';
 
@@ -22,12 +23,13 @@ import { InfoComponent } from './info/info.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    DragulaModule,
     MarkdownToHtmlModule,
+    DragulaModule,
 
     SharedModule,
     DisciplinesModule,
-    DivisionsModule
+    DivisionsModule,
+    ConfigureSharedModule
   ],
   declarations: [
     TournamentComponent, TournamentEditorComponent,

@@ -75,10 +75,10 @@ form {
     }
     input,
     textarea {
-      margin-top: $labelHeight + 10;
+      margin-top: $labelHeight;
     }
     select {
-      margin-top: $labelHeight + 9;
+      margin-top: $labelHeight - 1;
     }
     label {
       position: absolute;
@@ -86,7 +86,7 @@ form {
       top: 0;
       left: 0;
       color: rgba(black, 0.6);
-      transform: translate(5px, $labelHeight + 16) scale(1.2);
+      transform: translate(5px, $labelHeight + 10) scale(1.2);
     }
     &.hasValue,
     &.hasFocus {

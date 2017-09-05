@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { ValidationService } from './validation.service';
 
-describe('ValidationService', () => {
+describe('services.validation:ValidationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [ValidationService]

@@ -143,7 +143,7 @@ export class ClubController {
    */
   @Put('/:clubId')
   @UseBefore(RequireRole.get(Role.Club))
-  update( @Param('clubId') clubId: number, @Body() club: Club, @Res() res: Response): Promise<Club | any> {
+  update( @Param('clubId') clubId: number, @Body() club: Club): Promise<Club | any> {
     return this.repository.persist(club)
       .catch(err => {
         Logger.log.error(err);
@@ -158,14 +158,17 @@ export class ClubController {
    * DELETE /clubs/:clubId
    *
    * @param {number} clubId
-   * @param {Response} res
    */
   @Delete('/:clubId')
   @UseBefore(RequireRole.get(Role.Admin))
   async remove( @Param('clubId') clubId: number, @Res() res: Response) {
     const club = await this.repository.findOneById(clubId);
-    return this.repository.remove(club)
-      .catch(err => Logger.log.error(err));
+    if (club) {
+      return this.repository.remove(club)
+        .catch(err => Logger.log.error(err));
+    }
+    res.status(404);
+    return `Club not found`;
   }
 
 

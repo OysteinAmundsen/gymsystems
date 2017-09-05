@@ -9,45 +9,7 @@
 
     <br/>
     <div class="row">
-      <div class="action">
-        <button type="button" class="small" (click)="toggleMembers()" [title]="toggleTitle">
-          <app-fa *ngIf="!memberListHidden" name="minus" fw="true"></app-fa>
-          <app-fa *ngIf="memberListHidden" name="plus" fw="true"></app-fa>
-        </button>
-      </div>
-      <div [ngClass]="{'flex-col': true, hidden: memberListHidden}">
-        <h3>
-          <app-fa name="address-book" fw="true"></app-fa>
-          <span translate>Available</span>
-        </h3>
-        <ul [dragula]="'member-bag'" class="available">
-          <li class="memberBox" *ngFor="let member of availableMembers">
-            <span>{{ member.name }}</span>
-            <small>{{ age(member.birthYear) }}</small>
-          </li>
-        </ul>
-      </div>
-      <div class="flex-col">
-        <div class="help-available">
-          <h3>
-            <app-fa name="group" fw="true"></app-fa>
-            <span translate>Gymnasts in</span> <span>{{ troopForm.value.name }}</span>
-          </h3>
-          <app-help-block *ngIf="availableMembers && availableMembers.length > 0">
-            <p translate>Press the <app-fa name="plus"></app-fa> icon found to the left of this header to view available members.</p>
-            <p translate>You can then drag and drop members into the team.</p>
-          </app-help-block>
-          <app-help-block *ngIf="!availableMembers || availableMembers.length <= 0">
-            <p translate>You have assigned all your members into teams. If you want to re-assign members, you must drag them back to "Available", or recruit more members.</p>
-          </app-help-block>
-        </div>
-        <ul [dragula]="'member-bag'" class="added">
-          <li class="memberBox" *ngFor="let member of troopForm.value.gymnasts">
-            <span>{{ member.name }}</span>
-            <small>{{ age(member.birthYear) }}</small>
-          </li>
-        </ul>
-      </div>
+      <app-member-selector [club]="club" [gymnasts]="troopForm.value.gymnasts" (gymnastsChange)="troopForm.markAsDirty()" [troopName]="troopForm.value.name" [memberListHidden]="memberListHidden"></app-member-selector>
     </div>
   </fieldset>
 

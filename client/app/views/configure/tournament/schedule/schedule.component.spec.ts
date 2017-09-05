@@ -28,7 +28,7 @@ class DummyParent {
     this.tournamentSubject.next(dummyTournament);
   }
 }
-describe('ScheduleComponent', () => {
+describe('views.configure.tournament:ScheduleComponent', () => {
   let component: ScheduleComponent;
   let fixture: ComponentFixture<ScheduleComponent>;
 
