@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ClubService, UserService } from 'app/services/api';
 import { IClub, IUser, Role } from 'app/services/model';
 import { Title, Meta } from '@angular/platform-browser';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-club',
@@ -38,4 +39,14 @@ export class ClubComponent implements OnInit {
     });
   }
 
+  addClub() {
+    this.router.navigate(['./add'], {relativeTo: this.route});
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === KeyCode.PLUS || evt.keyCode === KeyCode.NUMPAD_PLUS) {
+      this.addClub();
+    }
+  }
 }

@@ -41,17 +41,16 @@
 <form class="panel" [formGroup]="tournamentForm" (submit)="save()" *ngIf="isEdit">
   <fieldset>
     <div class="row">
-      <div [ngClass]="(user.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12')" appFloatingLabelContainer>
-        <label translate>Name</label>
-        <input type="text" formControlName="name" appAutofocus>
-      </div>
       <div class="col-5 help-available" appFloatingLabelContainer *appIfAuth="'Admin'">
         <label translate>Club</label>
-        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
+        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub" appAutoFocus></app-typeahead>
         <app-help-block>
           <p translate>Admins do not belong to any club. We need to know which club you are creating this tournament for.</p>
         </app-help-block>
-        <!--<input type="text" formControlName="club">-->
+      </div>
+      <div [ngClass]="(user.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12')" appFloatingLabelContainer>
+        <label translate>Name</label>
+        <input type="text" formControlName="name" appAutofocus>
       </div>
     </div>
 
