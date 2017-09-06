@@ -191,9 +191,10 @@ export class UserController {
   @Put('/:id')
   @UseBefore(RequireAuth)
   async update( @Param('id') id: number, @Body() user: User, @Res() res: Response, @Req() req: Request) {
+    const me = await this.me(req);
     const oldUser = await this.getUser(id);
     const msg = await validateClub(user, oldUser, req);
-    if (msg) { res.status(403); return new ErrorResponse(403, msg); }
+    if (msg && me.role < Role.Admin) { res.status(403); return new ErrorResponse(403, msg); }
 
     if (user.password) {
       // Password is updated. Encrypt and store entire user object
