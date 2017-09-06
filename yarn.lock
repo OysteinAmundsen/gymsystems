@@ -3855,13 +3855,14 @@ map-stream@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
 
-markdown-to-html-pipe@1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/markdown-to-html-pipe/-/markdown-to-html-pipe-1.2.2.tgz#26c279d1ea1128bdd65816deaaf1b926e862b08c"
+markdown-to-html-pipe@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/markdown-to-html-pipe/-/markdown-to-html-pipe-1.2.3.tgz#2eca69901d8d584d68cdd545889c52bf343749b3"
   dependencies:
     "@types/marked" "^0.0.27"
+    marked "^0.x"
 
-marked@^0.3.6:
+marked@^0.3.6, marked@^0.x:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
 
