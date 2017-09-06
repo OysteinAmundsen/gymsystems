@@ -65,7 +65,7 @@ export class UserEditorComponent implements OnInit {
       name: [this.user.name, [Validators.required]],
       role: [this.user.role, [Validators.required]],
       email: [this.user.email, [Validators.required, ValidationService.emailValidator]],
-      club: new UppercaseFormControl(this.clubName, [Validators.required]),
+      club: new UppercaseFormControl(this.clubName, []),
       password: [this.user.password, [Validators.required]],
       repeatPassword: [this.user.password, [Validators.required]]
     }, {validator: (c: AbstractControl) => {
