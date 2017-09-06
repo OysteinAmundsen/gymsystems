@@ -5371,9 +5371,9 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
-routing-controllers@0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/routing-controllers/-/routing-controllers-0.7.1.tgz#4599a92bc800d27bdb86d61b6b6050ac0c88f923"
+routing-controllers@0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/routing-controllers/-/routing-controllers-0.7.2.tgz#ace1145013493cf14214fb130ec4f08866bccedb"
   dependencies:
     class-transformer "~0.1.6"
     class-validator "^0.7.0"
