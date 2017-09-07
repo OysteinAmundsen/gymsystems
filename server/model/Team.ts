@@ -37,7 +37,20 @@ export enum Classes {
  */
 @Entity()
 @Index('team_name_tournament', (team: Team) => [team.name, team.tournament], { unique: true})
-export class Team extends Troop {
+export class Team implements BelongsToClub {
+  /**
+   * The Troop/Team primary key
+   */
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  /**
+   * A unique name for this team.
+   * The name is inherited from the `Troop` which originally defined
+   * the team layout, but it can be changed.
+   */
+  @Column({ length: 100 })
+  name: string;
   /**
    * The team must be competing in either 'National classes' or 'Teamgym'.
    * Default is 'National classes'
@@ -52,6 +65,30 @@ export class Team extends Troop {
   @ManyToMany(type => Division, division => division.teams)
   @JoinTable()
   divisions: Division[] = [];
+
+  /**
+   * A list of gymnasts present in this team. This is also stamped
+   * out from the initial `Troop` setup, but can be changed by the
+   * club at will in order to finetune the team for this event.
+   */
+  @ManyToMany(type => Gymnast, gymnasts => gymnasts.team, { cascadeInsert: false, cascadeUpdate: false })
+  gymnasts: Gymnast[];
+
+  /**
+   * The `Club` which created and is responsible for this troop.
+   */
+  @ManyToOne(type => Club, club => club.teams, { nullable: false })
+  club: Club;
+
+  /**
+   * The media uploaded by this team. This is by default references to
+   * media from the `Troop` object, so one troop can have a default 'theme',
+   * but this can also be changed by the club for a given tournament.
+   *
+   * Media is presented as an array of files, one per discipline.
+   */
+  @OneToMany(type => Media, media => media.team, { cascadeInsert: false, cascadeUpdate: false })
+  media: Media[] = [];
 
   /**
    * The disciplines this team is to compete in in this tournament

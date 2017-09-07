@@ -30,23 +30,19 @@ import { Gymnast } from './Gymnast';
 @Entity()
 export class Troop implements BelongsToClub {
   /**
-   * The Troop/Team primary key
+   * The Troop primary key
    */
   @PrimaryGeneratedColumn()
   id: number;
 
   /**
    * A unique name for this troop.
-   * The name is inherited from the `Troop` which originally defined
-   * the team layout, but it can be changed.
    */
   @Column({ length: 100 })
   name: string;
 
   /**
-   * A list of gymnasts present in this troop. This is also stamped
-   * out from the initial `Troop` setup, but can be changed by the
-   * club at will in order to finetune the team for this event.
+   * A list of gymnasts present in this troop.
    */
   @ManyToMany(type => Gymnast, gymnasts => gymnasts.troop, { cascadeInsert: false, cascadeUpdate: false })
   gymnasts: Gymnast[];
