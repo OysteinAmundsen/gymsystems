@@ -260,10 +260,11 @@ export class ClubController {
       fs.createReadStream(req.file.path)
         .pipe(csv({ delimiter: ';', ignoreEmpty: true, trim: true, headers: true }))
         .on('data', (data: any) => {
+          const find = (key: string) => data[Object.keys(data).find((k: string) => k.toLowerCase().indexOf(key.toLowerCase()) > -1)];
           members.push(<Gymnast>{
-            name: data.name,
-            birthYear: data.birthYear,
-            gender: data.gender === 'M' ? 1 : 2,
+            name: find('name'),
+            birthYear: find('year'),
+            gender: ['m', 'male', 'herre', 'herrer', 'gutt', 'boy'].indexOf(find('gender').toLowerCase()) > -1 ? 1 : 2,
             club: club
           })
         })
