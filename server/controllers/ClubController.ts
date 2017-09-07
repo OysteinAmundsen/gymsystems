@@ -4,9 +4,9 @@ import { Service } from 'typedi';
 import { Request, Response } from 'express';
 
 import * as fs from 'fs';
-import * as csv from 'fast-csv';
 import * as request from 'request';
 import * as multer from 'multer';
+const csv: any = require('fast-csv');
 
 import { RequireRole } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';

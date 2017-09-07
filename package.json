@@ -39,7 +39,7 @@
     "client:test": "ng test --single-run=true --watch=false",
     "client:testw": "ng test",
     "pree2e": "yarn e2e:docker && wait-on tcp:3305 && yarn server:build && typeorm schema:sync -c test && typeorm migrations:run -c test",
-    "e2e": "concurrently -s first --kill-others \"yarn e2e:server\" \"yarn e2e:client\"",
+    "e2e": "concurrently -s first --kill-others --exitcrash -p \"[{name}]\" -n \"SERVER,CLIENT\" -c \"bgBlue.bold,bgYellow.bold\" \"yarn e2e:server\" \"yarn e2e:client\"",
     "e2e:server": "yarn server -- test",
     "e2e:client": "ng e2e --progress=false --proxy-config proxy.conf.json",
     "e2e:docker": "docker-compose -f docker-compose.e2e.yml build && docker-compose -f docker-compose.e2e.yml up -d",

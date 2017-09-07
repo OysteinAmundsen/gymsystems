@@ -4,18 +4,13 @@ import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
 
+import { EventComponent } from '../event.component';
+
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
-
-import { ITournament } from 'app/services/model/ITournament';
-import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
-import { ITeam } from 'app/services/model/ITeam';
-import { Role, IUser } from 'app/services/model/IUser';
-import { IMedia } from 'app/services/model/IMedia';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { ParticipationType } from 'app/services/model/ParticipationType';
-import { EventComponent } from '../event.component';
-import { IDiscipline } from 'app/services/model/IDiscipline';
+
+import { ITournament, ITeamInDiscipline, ITeam, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/services/model';
 
 @Component({
   selector: 'app-list',
@@ -27,6 +22,7 @@ export class ListComponent implements OnInit, OnDestroy {
   tournament: ITournament;
   schedule: ITeamInDiscipline[] = [];
   selected: ITeamInDiscipline;
+  classes = Classes;
 
   selectedDiscipline = null;
   get disciplines() {
