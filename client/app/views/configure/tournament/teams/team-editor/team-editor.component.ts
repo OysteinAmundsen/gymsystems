@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -17,6 +17,7 @@ import { Logger } from 'app/services/Logger';
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 import { UppercaseFormControl } from 'app/shared/form';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { TeamsComponent } from 'app/views/configure/tournament/teams/teams.component';
 
 @Component({
   selector: 'app-team-editor',
@@ -99,7 +100,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private parent: TournamentEditorComponent,
+    private tournamentEditor: TournamentEditorComponent,
+    private parent: TeamsComponent,
     private configuration: ConfigurationService,
     private teamService: TeamsService,
     private clubService: ClubService,
@@ -113,7 +115,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
     this.configuration.getByname('ageLimits').subscribe(ageLimits => this.ageLimits = ageLimits.value);
-    this.parent.tournamentSubject.subscribe(tournament => {
+    this.tournamentEditor.tournamentSubject.subscribe(tournament => {
       this.tournament = tournament;
       this.divisionService.getByTournament(this.tournament.id).subscribe(d => this.divisions = d);
       this.disciplineService.getByTournament(this.tournament.id).subscribe(d => {
@@ -125,7 +127,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       // Group divisions by type
       this.teamForm = this.fb.group({
         id: [this.team.id],
-        name: [this.team.name, [Validators.required]],
+        name: [this.team.name, [Validators.required, this.forbiddenNameValidator()]],
         club: new UppercaseFormControl(this.team.club ? this.team.club.name : '', [Validators.required]),
         ageDivision: [null, [Validators.required]],
         genderDivision: [null, [Validators.required]],
@@ -151,6 +153,16 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
+  }
+
+  forbiddenNameValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if (!this.teamForm) { return null; }
+      const check = this.parent.teamList
+        .filter(t => t.club && t.club.name === this.teamForm.value.club)
+        .findIndex(t => t.name === control.value) > -1;
+      return check ? { 'forbiddenName': {value: control.value} } : null;
+    };
   }
 
   fileAdded($event, discipline: IDiscipline) {
@@ -276,7 +288,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       const club = me.team.club || me.selectedClub;
       if (!club.id) { return items; }
 
-      return me.clubService.findTroopByName(club, currentValue);
+      return me.clubService.findTroopByName(club, currentValue).toPromise()
+        .then(troops => troops.filter(t => me.parent.teamList.findIndex(l => l.name === t.name) < 0));
     }
   }
 
