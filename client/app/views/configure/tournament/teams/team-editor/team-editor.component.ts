@@ -159,7 +159,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     return (control: AbstractControl): {[key: string]: any} => {
       if (!this.teamForm) { return null; }
       const check = this.parent.teamList
-        .filter(t => t.club && t.club.name === this.teamForm.value.club)
+        .filter(t => t.club && t.club.name === this.teamForm.value.club && (!t.id || t.id !== this.teamForm.value.id))
         .findIndex(t => t.name === control.value) > -1;
       return check ? { 'forbiddenName': {value: control.value} } : null;
     };

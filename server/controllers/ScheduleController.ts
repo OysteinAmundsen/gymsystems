@@ -247,7 +247,12 @@ export class ScheduleController {
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') participantId: number, @Res() res: Response, @Req() req: Request) {
-    const participant = await this.repository.findOneById(participantId);
+    const participant = await this.repository.createQueryBuilder('tournament_participant')
+      .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
+      .leftJoinAndSelect('tournament.createdBy', 'user')
+      .leftJoinAndSelect('tournament.club', 'club')
+      .where('tournament_participant.id=:id', {id: participantId})
+      .getOne();
     return this.removeMany([participant], res, req);
   }
 
@@ -268,7 +273,7 @@ export class ScheduleController {
     const participants = await this.repository.createQueryBuilder('tournament_participant')
       .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
       .leftJoinAndSelect('tournament.createdBy', 'user')
-      .leftJoinAndSelect('user.club', 'club')
+      .leftJoinAndSelect('tournament.club', 'club')
       .where('tournament_participant.tournament=:id', { id: tournamentId })
       .getMany();
     return this.removeMany(participants, res, req);

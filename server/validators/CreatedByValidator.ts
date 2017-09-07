@@ -22,9 +22,9 @@ export async function isSameClubAsMe(obj: BelongsToClub, req: Request): Promise<
   return (me.role >= Role.Admin || obj.club.id === me.club.id);
 }
 
-export async function isAllSameClubAsMe(obj: CreatedBy[], req: Request): Promise<boolean> {
+export async function isAllSameClubAsMe(obj: BelongsToClub[], req: Request): Promise<boolean> {
   const userRepository = Container.get(UserController);
   const me = await userRepository.me(req);
 
-  return (obj.every(p => (me.role >= Role.Admin || p.createdBy.club.id === me.club.id)));
+  return (obj.every(p => (me.role >= Role.Admin || p.club.id === me.club.id)));
 }

@@ -158,16 +158,23 @@ export class TeamController {
     if (msg) { res.status(403); return new ErrorResponse(403, 'Cannot update teams for other clubs than your own'); }
 
     const mediaController = Container.get(MediaController);
-    return Promise.all(team.media.map(async m => {
+    const oldTeam = await this.get(id);
+    return Promise.all(oldTeam.media.map(async m => {
       if (team.disciplines.findIndex(d => d.id === m.discipline.id) === -1) {
         // Discipline is removed. Remove media
         return mediaController.removeMedia(id, m.discipline.id, res, req);
       }
       return Promise.resolve();
     })).then(() => {
-      return this.repository.persist(team).catch(err => Logger.log.error(err));
+      return this.repository.persist(team)
+        .catch(err => {
+          Logger.log.error(err);
+          res.status(400);
+          return new ErrorResponse(400, err);
+        });
     }).catch(err => {
-      return err;
+      res.status(400);
+      return new ErrorResponse(400, err);
     });
   }
 
@@ -222,10 +229,11 @@ export class TeamController {
 
     // Remove participants setup by this team
     const scheduler = Container.get(ScheduleController);
-    const participants = await scheduler.repository.createQueryBuilder('participant')
-      .where('participant.team=:id', {id: team.id})
-      .innerJoinAndSelect('participant.tournament', 'tournament')
+    const participants = await scheduler.repository.createQueryBuilder('tournament_participant')
+      .where('tournament_participant.team=:id', {id: team.id})
+      .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
       .leftJoinAndSelect('tournament.createdBy', 'user')
+      .leftJoinAndSelect('tournament.club', 'club')
       .getMany();
     await scheduler.removeMany(participants, res, req);
 
