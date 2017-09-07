@@ -25,6 +25,7 @@ import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.service.stub';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+import { TeamsComponent } from "app/views/configure/tournament/teams";
 
 const club: IClub = <IClub>{
   id          : 0,
@@ -72,6 +73,7 @@ describe('views.configure.tournament:TeamEditorComponent', () => {
       providers: [
         MediaService,
         ErrorHandlerService,
+        TeamsComponent,
         { provide: TournamentEditorComponent, useClass: DummyParent },
         { provide: ConfigurationService, useClass: ConfigurationServiceStub },
         { provide: TeamsService, useClass: TeamsServiceStub },
