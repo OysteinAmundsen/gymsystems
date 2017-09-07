@@ -2,7 +2,11 @@ import { getConnectionManager, Connection, Repository } from 'typeorm';
 import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req, QueryParam } from 'routing-controllers';
 import { Service } from 'typedi';
 import { Request, Response } from 'express';
+
+import * as fs from 'fs';
+import * as csv from 'fast-csv';
 import * as request from 'request';
+import * as multer from 'multer';
 
 import { RequireRole } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';
@@ -237,6 +241,55 @@ export class ClubController {
   }
 
   /**
+   * Endpoint for importing members to a club
+   *
+   * **USAGE:** (Club only)
+   * POST /clubs/:clubId/import-members
+   *
+   * @param {number} clubId
+   * @param member
+   */
+  @Post('/:clubId/import-members')
+  @UseBefore(RequireRole.get(Role.Club))
+  @UseBefore(multer({dest: '/tmp'}).single('members'))
+  importMembers(@Param('clubId') clubId: number, @Req() req: Request): Promise<Gymnast[] | ErrorResponse> {
+    return new Promise(async (resolve, reject) => {
+      const members: Gymnast[] = [];
+      const club = await this.get(clubId);
+
+      fs.createReadStream(req.file.path)
+        .pipe(csv({ delimiter: ';', ignoreEmpty: true, trim: true, headers: true }))
+        .on('data', (data: any) => {
+          members.push(<Gymnast>{
+            name: data.name,
+            birthYear: data.birthYear,
+            gender: data.gender === 'M' ? 1 : 2,
+            club: club
+          })
+        })
+        .on('end', () => {
+          // Cleanup removing uploaded file
+          fs.unlink(req.file.path, (err: any) => {
+            if (err) { Logger.log.error(err); }
+          });
+
+          // Persist data
+          this.conn.getRepository(Gymnast)
+            .persist(members)
+            .then(persisted => resolve(persisted))
+            .catch(err => {
+              Logger.log.error(err);
+              resolve(new ErrorResponse(err.code, err.message));
+            })
+        })
+        .on('error', (err: any) => {
+          Logger.log.error(err);
+          reject(err);
+        });
+    });
+  }
+
+  /**
    * Endpoint for removing a member from a club
    *
    * **USAGE:** (Club only)
@@ -266,7 +319,7 @@ export class ClubController {
    * @param {number} clubId
    */
   @Get('/:clubId/troop')
-  getTeams(@Param('clubId') clubId: number, @QueryParam('name') name?: string): Promise<Troop[]> {
+  getTeams(@Param('clubId') clubId: number, @QueryParam('name') name?: string): Promise< Troop[] > {
     const query = this.conn.getRepository(Troop)
       .createQueryBuilder('troop')
       .innerJoinAndSelect('troop.club', 'club')
@@ -288,7 +341,7 @@ export class ClubController {
    */
   @Post('/:clubId/troop')
   @UseBefore(RequireRole.get(Role.Club))
-  saveTeams(@Param('clubId') clubId: number, @Body() troop: Troop): Promise<Troop | ErrorResponse> {
+  saveTeams(@Param('clubId') clubId: number, @Body() troop: Troop): Promise < Troop | ErrorResponse > {
     return this.conn.getRepository(Troop)
       .persist(troop)
       .catch(err => {
@@ -308,7 +361,7 @@ export class ClubController {
    */
   @Delete('/:clubId/troop/:id')
   @UseBefore(RequireRole.get(Role.Club))
-  async removeTeams(@Param('clubId') clubId: number, @Param('id') id: number) {
+  async removeTeams(@Param('clubId') clubId: number,  @Param('id') id: number) {
     const repo = this.conn.getRepository(Troop);
     const troop = await repo.findOneById(id);
     return repo.remove(troop)

@@ -44,6 +44,15 @@ export class ClubService {
     return this.http.get(`${this.url}/${club.id}/available-members`).map((res: Response) => res.json());
   }
 
+  importMembers(file: File, club: IClub) {
+    const formData = new FormData();
+    formData.append('members', file, file.name);
+
+    return this.http.post(`${this.url}/${club.id}/import-members`, formData)
+      .map(res => res.json())
+      .catch(error => Observable.throw(error));
+  }
+
   saveMember(member: IGymnast) {
     return this.http.post(`${this.url}/${member.club.id}/members`, member).map((res: Response) => res.json());
   }

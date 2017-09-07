@@ -25,6 +25,7 @@ export enum Gender {
  * @enum Gymnast
  */
 @Entity()
+@Index('gymnast_club_name', (gymnast: Gymnast) => [gymnast.name, gymnast.club], { unique: true })
 export class Gymnast implements BelongsToClub {
   /**
    * The Gymnast primary key

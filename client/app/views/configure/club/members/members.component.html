@@ -28,3 +28,8 @@
   <app-fa name="plus" fw="true"></app-fa>
   <span translate>Add Member</span>
 </button>
+<label class="file-upload btn" *ngIf="selected == null" [title]="'Import' | translate">
+  <input type="file" (change)="importMember($event)" accept=".csv">
+  <app-fa name="upload" fw="true"></app-fa>
+  <span translate>Import Members</span>
+</label>

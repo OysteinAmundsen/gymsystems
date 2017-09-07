@@ -12,3 +12,18 @@ tr[role="listitem"] {
     background: rgba($warning, 0.05);
   }
 }
+
+label.file-upload {
+  position: relative;
+  input[type="file"] {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    z-index: 999;
+    margin: 0;
+    padding: 0;
+  }
+}

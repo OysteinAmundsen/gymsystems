@@ -71,6 +71,7 @@
     "event-source-polyfill": "0.0.9",
     "express": "~4.15.4",
     "express-session": "^1.15.5",
+    "fast-csv": "^2.4.0",
     "flag-icon-css": "^2.8.0",
     "font-awesome": "~4.7.0",
     "handlebars": "^4.0.10",
