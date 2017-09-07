@@ -1,18 +1,14 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app/app.module';
 
+import { AppModule } from 'app/app.module';
+import { ScoreSystemModule } from '../score-system.module';
 import { ScoreGroupEditorComponent } from './score-group-editor.component';
-import { SharedModule } from 'app/shared/shared.module';
+
 import { ScoreGroupService } from 'app/services/api';
 import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
-import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/config';
 
 describe('views.configure.tournament:ScoreGroupEditorComponent', () => {
   let component: ScoreGroupEditorComponent;
@@ -21,24 +17,12 @@ describe('views.configure.tournament:ScoreGroupEditorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        ReactiveFormsModule,
+        AppModule,
+        ScoreSystemModule,
         RouterTestingModule,
-        HttpModule,
-        SharedModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
       ],
-      declarations: [ ScoreGroupEditorComponent ],
       providers: [
         ErrorHandlerService,
-        { provide: Http, useClass: HttpInterceptor },
         { provide: ScoreGroupService, useClass: ScoreGroupServiceStub },
       ]
     })

@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody *ngFor="let member of memberList">
-      <tr *ngIf="member !== selected" (click)="select(member)" role="listitem">
+      <tr *ngIf="member !== selected" (click)="select(member)" role="listitem" [ngClass]="{'male': member.gender == genders.Male, 'female': member.gender == genders.Female}">
         <td>{{ member.name }}</td>
         <td>{{ member.birthYear }}</td>
         <td>{{ genderDivision(member) }}</td>
@@ -28,3 +28,8 @@
   <app-fa name="plus" fw="true"></app-fa>
   <span translate>Add Member</span>
 </button>
+<label class="file-upload btn" *ngIf="selected == null" [title]="'Import' | translate">
+  <input type="file" (change)="importMember($event)" accept=".csv">
+  <app-fa name="upload" fw="true"></app-fa>
+  <span translate>Import Members</span>
+</label>

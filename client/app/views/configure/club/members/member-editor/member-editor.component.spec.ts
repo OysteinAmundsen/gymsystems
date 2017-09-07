@@ -1,44 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app/app.module';
-import { SharedModule } from 'app/shared/shared.module';
 
+import { AppModule } from 'app/app.module';
+import { ClubModule } from '../../club.module';
+import { ClubEditorComponent } from '../../club-editor/club-editor.component';
 import { MemberEditorComponent } from './member-editor.component';
-import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
+import { MembersComponent } from '../members.component';
+
 import { ConfigurationService } from 'app/services/api';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
-import { MembersComponent } from "app/views/configure/club/members/members.component";
 
 describe('views.configure.club:MemberEditorComponent', () => {
-  // let component: MemberEditorComponent;
-  // let fixture: ComponentFixture<MemberEditorComponent>;
+  let component: MemberEditorComponent;
+  let fixture: ComponentFixture<MemberEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
-        HttpModule,
-        FormsModule,
-        ReactiveFormsModule,
+        AppModule,
+        ClubModule,
         RouterTestingModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
       ],
-      declarations: [ MemberEditorComponent ],
       providers: [
-        ErrorHandlerService,
         MembersComponent,
-        { provide: Http, useClass: HttpInterceptor },
+        ClubEditorComponent,
         { provide: ConfigurationService, useClass: ConfigurationServiceStub },
       ]
     })
@@ -46,9 +31,9 @@ describe('views.configure.club:MemberEditorComponent', () => {
   }));
 
   beforeEach(() => {
-    // fixture = TestBed.createComponent(MemberEditorComponent);
-    // component = fixture.componentInstance;
-    // fixture.detectChanges();
+    fixture = TestBed.createComponent(MemberEditorComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should be created', () => {

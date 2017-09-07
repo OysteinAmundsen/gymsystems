@@ -1,28 +1,14 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app/app.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
+import { AppModule } from 'app/app.module';
+import { EventModule } from '../../event.module';
 import { ScoreboardComponent } from './scoreboard.component';
-import { ScoreGroupComponent } from '../score-group/score-group.component';
-import { ScoreComponent } from '../score/score.component';
-import { ListComponent } from 'app/views/event/list/list.component';
-import { EventComponent } from 'app/views/event/event.component';
 
-import { DummyParent } from 'app/views/event/list/list.component.spec';
-
-import { SharedModule } from 'app/shared/shared.module';
-
-import { ScoreService, UserService, ScheduleService, TeamsService, EventService, ConfigurationService } from 'app/services/api';
 import { ITeamInDiscipline, IDiscipline, ITeam, ITournament, IScoreGroup, Operation } from 'app/services/model';
-
-import { HttpInterceptor } from 'app/services/config/HttpInterceptor';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ScoreService, UserService, ScheduleService, TeamsService, EventService, ConfigurationService } from 'app/services/api';
 import { MediaService } from 'app/services';
 
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
@@ -54,32 +40,15 @@ describe('views.event.list:ScoreboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        AppModule,
+        EventModule,
         RouterTestingModule,
-        HttpModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SharedModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
       ],
       declarations: [
-        WrapperComponent,
-        ScoreboardComponent,
-        ScoreGroupComponent,
-        ScoreComponent
+        WrapperComponent
       ],
       providers: [
-        ListComponent,
-        ErrorHandlerService,
         MediaService,
-        { provide: EventComponent, useClass: DummyParent},
-        { provide: Http, useClass: HttpInterceptor },
         { provide: ScoreService, useClass: ScoreServiceStub },
         { provide: UserService, useClass: UserServiceStub },
         { provide: ScheduleService, useClass: ScheduleServiceStub },
@@ -87,6 +56,13 @@ describe('views.event.list:ScoreboardComponent', () => {
         { provide: EventService, useClass: EventServiceStub },
         { provide: ConfigurationService, useClass: ConfigurationServiceStub },
       ]
+    })
+    .overrideModule(EventModule, {
+      set: {
+        exports: [
+          ScoreboardComponent
+        ]
+      }
     })
     .compileComponents();
   }));

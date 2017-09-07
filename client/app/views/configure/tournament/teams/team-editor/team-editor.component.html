@@ -1,6 +1,10 @@
 <form class="panel" [formGroup]="teamForm" (submit)="save()">
   <fieldset>
     <div class="row">
+      <div class="col-5" appFloatingLabelContainer *ngIf="!currentUser.club">
+        <label translate>Club</label>
+        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub" appAutoFocus></app-typeahead>
+      </div>
       <div [ngClass]="{'col-7': !currentUser.club, 'col-12': currentUser.club, 'help-available': teamForm.value.club.length <= 0}" appFloatingLabelContainer>
         <label translate>Name</label>
         <app-typeahead appAutofocus itemText="name" [items]="troops" [getMatches]="getTroopMatchesFn()" formControlName="name" [(selectedItem)]="selectedTroop"></app-typeahead>
@@ -8,10 +12,6 @@
           <p translate>You cannot enter a team name before you've selected which club it belongs to</p>
           <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="['/configure/club']">Club</a> section</p>
         </app-help-block>
-      </div>
-      <div class="col-5" appFloatingLabelContainer *ngIf="!currentUser.club">
-        <label translate>Club</label>
-        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
       </div>
     </div>
   </fieldset>

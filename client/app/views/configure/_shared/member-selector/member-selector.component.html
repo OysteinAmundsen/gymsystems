@@ -1,8 +1,8 @@
 <section *ngIf="club">
   <div class="action">
     <button type="button" class="small" (click)="toggleMembers()" [title]="toggleTitle">
-      <app-fa *ngIf="!memberListHidden" name="minus" fw="true"></app-fa>
-      <app-fa *ngIf="memberListHidden" name="plus" fw="true"></app-fa>
+      <app-fa *ngIf="!memberListHidden" name="chevron-left" fw="true"></app-fa>
+      <app-fa *ngIf="memberListHidden" name="chevron-right" fw="true"></app-fa>
     </button>
   </div>
   <div [ngClass]="{'flex-col': true, hidden: memberListHidden}">
@@ -11,7 +11,7 @@
       <span translate>Available</span>
     </h3>
     <ul [dragula]="'member-bag'" class="available">
-      <li class="memberBox" *ngFor="let member of availableMembers">
+      <li [ngClass]="{'memberBox': true, 'male': member.gender == genders.Male, 'female': member.gender == genders.Female}" *ngFor="let member of availableMembers">
         <span>{{ member.name }}</span>
         <small>{{ age(member.birthYear) }}</small>
       </li>
@@ -32,7 +32,7 @@
       </app-help-block>
     </div>
     <ul [dragula]="'member-bag'" class="added">
-      <li class="memberBox" *ngFor="let member of gymnasts">
+      <li [ngClass]="{'memberBox': true, 'male': member.gender === genders.Male, 'female': member.gender === genders.Female}" *ngFor="let member of gymnasts">
         <span>{{ member.name }}</span>
         <small>{{ age(member.birthYear) }}</small>
       </li>

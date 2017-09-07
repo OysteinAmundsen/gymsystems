@@ -1,4 +1,4 @@
-import {Connection, EntityManager, MigrationInterface, QueryRunner} from 'typeorm';
+import { Connection, EntityManager, MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AgeLimits1504463498765 implements MigrationInterface {
 

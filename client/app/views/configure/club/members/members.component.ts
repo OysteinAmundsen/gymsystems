@@ -3,6 +3,7 @@ import { ClubService } from 'app/services/api';
 import { IClub, IGymnast, DivisionType, Gender } from 'app/services/model';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { Logger } from 'app/services/Logger';
 
 @Component({
   selector: 'app-members',
@@ -12,6 +13,7 @@ import { KeyCode } from 'app/shared/KeyCodes';
 export class MembersComponent implements OnInit, OnDestroy {
   club: IClub;
   memberList: IGymnast[] = [];
+  genders = Gender;
 
   selected: IGymnast;
 
@@ -61,6 +63,14 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   select(member: IGymnast) {
     this.selected = member ? member : null;
+  }
+
+  importMember($event) {
+    const fileList: FileList = (<HTMLInputElement>event.target).files;
+    this.clubService.importMembers(fileList[0], this.club).subscribe(
+      data => this.loadMembers(),
+      error => Logger.error(error)
+    )
   }
 
   @HostListener('window:keyup', ['$event'])

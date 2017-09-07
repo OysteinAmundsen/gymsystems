@@ -1,5 +1,6 @@
 @import "~styles/panel";
 @import "~styles/variables";
+
 :host {
   display: block;
   position: relative;
@@ -33,5 +34,9 @@
         background-color: rgba($primary, 0.3);
       }
     }
+  }
+
+  &.ng-invalid input {
+    border-color: red;
   }
 }

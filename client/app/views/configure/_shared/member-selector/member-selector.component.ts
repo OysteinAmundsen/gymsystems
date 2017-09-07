@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
 
-import { IGymnast, IClub } from 'app/services/model';
+import { IGymnast, IClub, Gender } from 'app/services/model';
 import { ClubService } from 'app/services/api';
 
 @Component({
@@ -29,6 +29,8 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
 
 
   availableMembers: IGymnast[];
+
+  genders = Gender;
 
   dragSubscription;
   dropSubscription;

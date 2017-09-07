@@ -1,15 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app/app.module';
 import { ReplaySubject } from 'rxjs/Rx';
 
-import { SharedModule } from 'app/shared/shared.module';
-
+import { AppModule } from 'app/app.module';
+import { EventModule } from '../event.module';
 import { ResultsComponent } from './results.component';
+import { EventComponent } from '../event.component';
+
 import {
   ScheduleService,
   TeamsService,
@@ -27,7 +24,6 @@ import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
 import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
-import { EventComponent } from '../event.component';
 
 class DummyParent {
   tournamentSubject = new ReplaySubject<ITournament>(1);
@@ -42,21 +38,10 @@ describe('views.event.results:ResultsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        AppModule,
+        EventModule,
         RouterTestingModule,
-        HttpModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SharedModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
       ],
-      declarations: [ ResultsComponent ],
       providers: [
         {provide: EventComponent, useClass: DummyParent},
         {provide: ScheduleService, useClass: ScheduleServiceStub},

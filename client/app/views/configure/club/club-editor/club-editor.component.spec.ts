@@ -1,19 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app/app.module';
-import { SharedModule } from 'app/shared/shared.module';
 
+import { AppModule } from 'app/app.module';
+import { ClubModule } from '../club.module';
 import { ClubEditorComponent } from './club-editor.component';
 import { ClubService, UserService } from 'app/services/api';
 
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
-import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
 
 describe('views.configure.club:ClubEditorComponent', () => {
   let component: ClubEditorComponent;
@@ -22,24 +17,11 @@ describe('views.configure.club:ClubEditorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
-        HttpModule,
-        FormsModule,
-        ReactiveFormsModule,
+        AppModule,
+        ClubModule,
         RouterTestingModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
       ],
-      declarations: [ ClubEditorComponent ],
       providers: [
-        ErrorHandlerService,
-        { provide: Http, useClass: HttpInterceptor },
         { provide: ClubService, useClass: ClubServiceStub },
         { provide: UserService, useClass: UserServiceStub },
       ]

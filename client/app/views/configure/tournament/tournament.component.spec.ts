@@ -1,14 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app/app.module';
 
-import { SharedModule } from 'app/shared/shared.module';
+import { AppModule } from 'app/app.module';
+import { TournamentModule } from './tournament.module';
 import { TournamentComponent } from './tournament.component';
-import { TournamentEditorComponent } from './tournament-editor/tournament-editor.component';
+
 import { TournamentService, UserService } from 'app/services/api';
 import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
@@ -20,23 +16,9 @@ describe('views.configure.tournament:TournamentComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        HttpModule,
-        SharedModule,
+        AppModule,
+        TournamentModule,
         RouterTestingModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
-      ],
-      declarations: [
-        TournamentComponent,
-        TournamentEditorComponent
       ],
       providers: [
         {provide: TournamentService, useClass: TournamentServiceStub},

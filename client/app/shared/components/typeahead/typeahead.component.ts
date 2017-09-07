@@ -125,19 +125,20 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
 
   private setMatches() {
     if (this.value) {
-      const m = this.getMatches(this.items, this.value, this.itemText);
-      if (m instanceof Observable) {
-        // Cancel last call
-        if (this.matcher !== this.value) {
-          if (this.matchSubscription) { this.matchSubscription.unsubscribe(); }
-          this.matchSubscription = m.subscribe(res => {
-            this.matches = res;
-            this.popupVisible = this.hasFocus && this.matches.length > 0;
-          });
+      if (this.matcher !== this.value) {
+        const m = this.getMatches(this.items, this.value, this.itemText);
+        const matchReceived = (res) => {
+          this.matches = res;
+          this.popupVisible = this.hasFocus && this.matches.length > 0;
         }
-      } else {
-        this.matches = m;
-        this.popupVisible = this.hasFocus && this.matches.length > 0;
+        if (m instanceof Observable) {
+          if (this.matchSubscription) { this.matchSubscription.unsubscribe(); }// Cancel last call
+          this.matchSubscription = m.subscribe(matchReceived);
+        } else if (m instanceof Promise) {
+          m.then(matchReceived);
+        } else {
+          matchReceived(m);
+        }
       }
     } else {
       this.matches = this.items;

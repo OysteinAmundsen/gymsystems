@@ -1,17 +1,16 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { HttpLoaderFactory } from 'app/app.module';
 
 import { ScoreGroupComponent } from './score-group.component';
 import { ScoreComponent } from '../score/score.component';
+
 import { IScoreContainer } from '../IScoreContainer';
 import { IScoreGroup, IDiscipline, Operation } from 'app/services/model';
+import { AppModule } from 'app/app.module';
+import { EventModule } from 'app/views/event/event.module';
 
 @Component({
  selector  : 'app-cmp',
@@ -36,24 +35,20 @@ describe('views.event.list:ScoreGroupComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        AppModule,
+        EventModule,
         RouterTestingModule,
-        HttpModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
       ],
       declarations: [
-        WrapperComponent,
-        ScoreGroupComponent,
-        ScoreComponent
+        WrapperComponent
       ]
+    })
+    .overrideModule(EventModule, {
+      set: {
+        exports: [
+          ScoreGroupComponent
+        ]
+      }
     })
       .compileComponents();
   }));

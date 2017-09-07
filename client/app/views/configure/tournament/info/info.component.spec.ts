@@ -1,24 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs/Rx';
 
-import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
-
+import { AppModule } from 'app/app.module';
+import { TournamentModule } from '../tournament.module';
 import { InfoComponent } from './info.component';
-import { SharedModule } from 'app/shared/shared.module';
+import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
-import { HttpLoaderFactory } from 'app/app.module';
+import { ITournament } from 'app/services/model';
 import { ConfigurationService, TournamentService } from 'app/services/api';
+
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
-import { ErrorHandlerService, HttpInterceptor } from 'app/services/config';
-import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
-import { ITournament } from 'app/services/model';
 
 class DummyParent {
   tournamentSubject = new ReplaySubject<ITournament>(1);
@@ -33,25 +27,11 @@ describe('views.configure.tournament:InfoComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        SharedModule,
+        AppModule,
+        TournamentModule,
         RouterTestingModule,
-        HttpModule,
-        MarkdownToHtmlModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
-        }),
       ],
-      declarations: [ InfoComponent ],
       providers: [
-        ErrorHandlerService,
-        { provide: Http, useClass: HttpInterceptor },
         { provide: TournamentEditorComponent, useClass: DummyParent },
         { provide: ConfigurationService, useClass: ConfigurationServiceStub },
         { provide: TournamentService, useClass: TournamentServiceStub },
