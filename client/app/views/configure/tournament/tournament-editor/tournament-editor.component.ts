@@ -55,11 +55,11 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     return endDate ? (endDate.hasOwnProperty('momentObj') ? endDate.momentObj : moment.utc(endDate)) : null;
   }
 
-  get selectedDays(): {day: Moment}[] {
+  get selectedDays(): {day: number, time: string}[] {
     if (!this.tournamentForm.value.times && this.startDate && this.endDate) {
       this.tournamentForm.value.times = [];
       for (let j = 0; j < moment.duration(this.endDate.diff(this.startDate)).asDays(); j++) {
-        this.tournamentForm.value.times.push({day: moment.utc(this.startDate.clone().utc().startOf('day').add(j, 'day')), time: '12,18'});
+        this.tournamentForm.value.times.push({day: j, time: '12,18'});
       }
     }
     return this.tournamentForm.value.times;
@@ -126,13 +126,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.meta.updateTag({property: 'og:title', content: `Configure tournament: ${tournament.name} | GymSystems`});
     this.meta.updateTag({property: 'og:description', content: `Configure tournament settings and contenders for ${tournament.name}`});
 
-    if (this.tournament.times) {
-      this.tournament.times = this.tournament.times.map(t => {
-        t.day = moment.utc(t.day).startOf('day');
-        return t;
-      });
-    }
-
     this.tournamentForm.setValue({
       id: this.tournament.id,
       name: this.tournament.name,
@@ -159,6 +152,16 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  getTimeRangeDay(day) {
+    let startDate = this.tournamentForm.value.startDate;
+    if (startDate instanceof Date) {
+      startDate = moment(startDate);
+    } else if (startDate.hasOwnProperty('momentObj')) {
+      startDate = startDate['momentObj']
+    }
+    return startDate.clone().startOf('day').utc().add(day, 'days').format('ddd');
+  }
+
   timeRangeChange(event, obj) {
     obj.time = event;
     const time = this.tournamentForm.value.times.find(t => t.day === obj.day);
@@ -166,12 +169,12 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    const formVal = this.tournamentForm.value;
+    const formVal: ITournament = this.tournamentForm.value;
     if (formVal.startDate.hasOwnProperty('momentObj')) {
-      formVal.startDate = formVal.startDate.momentObj.clone().utc().startOf('day').toISOString();
+      formVal.startDate = formVal.startDate['momentObj'].clone().utc().startOf('day').toISOString();
     }
     if (formVal.endDate.hasOwnProperty('momentObj')) {
-      formVal.endDate = formVal.endDate.momentObj.clone().utc().endOf('day').toISOString();
+      formVal.endDate = formVal.endDate['momentObj'].clone().utc().endOf('day').toISOString();
     }
     if (!formVal.club) {
       formVal.club = this.user.club;
@@ -181,12 +184,12 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
         this.error.error = `${tournament.message}`;
         return false;
       }
-      this.tournamentReceived(tournament);
       this.isEdit = false;
       if (this.isAdding) {
         this.isAdding = false;
         this.router.navigate(['../', tournament.id], { relativeTo: this.route });
       }
+      this.tournamentReceived(tournament);
     });
   }
 

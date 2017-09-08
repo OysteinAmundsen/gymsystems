@@ -17,7 +17,7 @@ export interface ITournament {
   description_en: string;
   startDate: Date | moment.Moment | string;
   endDate: Date | moment.Moment | string;
-  times: {day: Date | moment.Moment, time: string}[];
+  times: {day: number, time: string}[];
   location: string;
   schedule: ITeamInDiscipline[];
   disciplines: IDiscipline[];

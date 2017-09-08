@@ -73,7 +73,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * each day in the event.
    */
   @Column({type: 'json', nullable: true})
-  times: {day: Date, time: string}[];
+  times: {day: number, time: string}[];
 
   /**
    * A string hinting to the location of the event. This can be a city,

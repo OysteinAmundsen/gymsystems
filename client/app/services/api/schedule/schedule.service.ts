@@ -71,9 +71,10 @@ export class ScheduleService {
     let day = 0;
     let participantsPast = 0;
     for (day = 0; day < tournament.times.length; day++) {
-      const timesForDay = tournament.times[day];
-      const startHour   = moment(timesForDay.day).hour(+timesForDay.time.split(',')[0]);
-      const endHour     = moment(timesForDay.day).hour(+timesForDay.time.split(',')[1]);
+      const timesForDay = tournament.times.find(t => t.day === day);
+      const timesMoment = moment(tournament.startDate).startOf('day').utc().add(day, 'days');
+      const startHour   = timesMoment.clone().hour(+timesForDay.time.split(',')[0]);
+      const endHour     = timesMoment.clone().hour(+timesForDay.time.split(',')[1]);
       time = startHour.clone().add(this.executionTime * (participant.startNumber - participantsPast), 'minutes');
       if (time.isBefore(endHour)) {
         return time;

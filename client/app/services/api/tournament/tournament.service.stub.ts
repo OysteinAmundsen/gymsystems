@@ -22,7 +22,7 @@ export const dummyTournament = <ITournament>{
   schedule: [],
   disciplines: [],
   divisions: [],
-  times: [{day: new Date(), time: '12,18'}]
+  times: [{day: 0, time: '12,18'}]
 };
 
 @Injectable()
