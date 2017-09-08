@@ -36,7 +36,7 @@ export class Score {
   /**
    * The `ScoreGroup` this score affects.
    */
-  @ManyToOne(type => ScoreGroup, { nullable: false, cascadeRemove: false, onDelete: 'CASCADE' })
+  @ManyToOne(type => ScoreGroup, { nullable: false, cascadeRemove: false })
   scoreGroup: ScoreGroup;
 
   /**
@@ -55,7 +55,7 @@ export class Score {
    * in the given discipline.
    */
   @ManyToOne(type => TeamInDiscipline, participant => participant.scores, {
-    nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: false, onDelete: 'CASCADE'
+    nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: false
   })
   participant: TeamInDiscipline;
 }

@@ -40,7 +40,7 @@ export class Discipline {
    * The tournament where this discipline is to be competed in
    */
   @ManyToOne(type => Tournament, tournament => tournament.disciplines, {
-    nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: true, onDelete: 'CASCADE'
+    nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: true
   })
   tournament: Tournament;
 

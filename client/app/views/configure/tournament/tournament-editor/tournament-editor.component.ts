@@ -27,6 +27,8 @@ const Moment: any = (<any>moment).default || moment;
 export class TournamentEditorComponent implements OnInit, OnDestroy {
   tournamentSubject = new ReplaySubject<ITournament>(1);
   tournament: ITournament = <ITournament>{};
+  // get tournament() { return this._tournament; }
+  // set tournament(v) { this._tournament = v; this.tournamentSubject.next(v); }
   tournamentForm: FormGroup;
   user: IUser;
   roles = Role;
@@ -189,7 +191,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
         this.isAdding = false;
         this.router.navigate(['../', tournament.id], { relativeTo: this.route });
       }
-      this.tournamentReceived(tournament);
+      // this.tournamentReceived(tournament);
     });
   }
 

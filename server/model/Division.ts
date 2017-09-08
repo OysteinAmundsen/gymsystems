@@ -70,6 +70,6 @@ export class Division {
   /**
    * The tournament where this division is to be competed in
    */
-  @ManyToOne(type => Tournament, tournament => tournament.divisions, { nullable: false, cascadeRemove: true, onDelete: 'CASCADE' })
+  @ManyToOne(type => Tournament, tournament => tournament.divisions, { nullable: false, cascadeRemove: true })
   tournament: Tournament;
 }

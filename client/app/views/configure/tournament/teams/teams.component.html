@@ -24,7 +24,13 @@
   </table>
 </div>
 
-<button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addTeam()">
+<button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addTeam()" [disabled]="(availableSlots - freeSlots) < 2">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Team</span>
 </button>
+
+<span [title]="'positions taken / positions available' | translate" *ngIf="availableSlots > ( freeSlots - tournament.disciplines.length + 1)">{{ freeSlots }} / {{ availableSlots }}</span>
+<span *ngIf="availableSlots <= ( freeSlots - tournament.disciplines.length + 1)" class="warning" [title]="'We\'ve filled all available positions of this tournament.' | translate">
+  <fa name="warning" fw="true"></fa>
+  <span translate>We're very sorry, registration is closed!</span>
+</span>
