@@ -6,10 +6,14 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-@Injectable()
-export class DisplayServiceStub {
+import { DisplayService } from './display.service';
 
-  constructor(private http: Http) { }
+@Injectable()
+export class DisplayServiceStub extends DisplayService {
+
+  constructor(http: Http) {
+    super(http);
+  }
 
   getAll(tournamentId: number) {
     return Observable.of(null);

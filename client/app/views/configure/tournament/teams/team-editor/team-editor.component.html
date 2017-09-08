@@ -21,7 +21,7 @@
     <div class="col-6">
       <header>
         <h2>
-          <app-fa name="cubes" fw="true"></app-fa>
+          <fa name="cubes" fw="true"></fa>
           <span translate>Division</span>
         </h2>
       </header>
@@ -29,7 +29,7 @@
 
         <div appFloatingLabel>
           <label>
-            <app-fa name="venus-mars" fw="true"></app-fa>
+            <fa name="venus-mars" fw="true"></fa>
             <span translate>Gender group</span>
           </label>
           <select formControlName="genderDivision">
@@ -39,7 +39,7 @@
 
         <div appFloatingLabel>
           <label>
-            <app-fa name="child" fw="true"></app-fa>
+            <fa name="child" fw="true"></fa>
             <span translate>Age group</span>
           </label>
           <select formControlName="ageDivision">
@@ -54,7 +54,7 @@
     <div class="col-6">
       <header>
         <h2>
-          <app-fa name="heartbeat" fw="true"></app-fa>
+          <fa name="heartbeat" fw="true"></fa>
           <span translate>Disciplines</span>
           <app-slide-toggle [onLabel]="TeamGym" [offLabel]="National" [onState]="classes.TeamGym" [offState]="classes.National" [initState]="classes.National" formControlName="class"></app-slide-toggle>
         </h2>
@@ -64,10 +64,10 @@
           <tr role="listitem">
             <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()" [disabled]="teamForm.value.class === classes.TeamGym"> <span translate>All</span></label></td>
             <td class="media-head help-available">
-              <app-fa name="music" fw="true"></app-fa>
+              <fa name="music" fw="true"></fa>
               <span translate>Upload media</span>
               <app-help-block>
-                <p translate>The <app-fa name="upload"></app-fa> buttons below will allow you to upload media for your teams performance in that discipline</p>
+                <p translate>The <fa name="upload"></fa> buttons below will allow you to upload media for your teams performance in that discipline</p>
                 <p *ngIf="teamForm.invalid"><b translate>You will not see any upload button until you have specified a team name, divisions and disciplines.</b></p>
               </app-help-block>
             </td>
@@ -81,12 +81,12 @@
                 </label>
               </td>
               <td class="media">
-                <button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)" [title]="'Play media' | translate"><app-fa name="play" fw="true"></app-fa></button>
-                <button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" [title]="'Stop playing' | translate"><app-fa name="stop" fw="true"></app-fa></button>
-                <button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate"><app-fa name="trash" fw="true"></app-fa></button>
+                <button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)" [title]="'Play media' | translate"><fa name="play" fw="true"></fa></button>
+                <button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" [title]="'Stop playing' | translate"><fa name="stop" fw="true"></fa></button>
+                <button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate"><fa name="trash" fw="true"></fa></button>
                 <label class="file-upload btn" *ngIf="!hasMedia(discipline) && !teamForm.invalid && selectedDisciplines.checked" [title]="'Upload media' | translate">
                   <input type="file" (change)="fileAdded($event, discipline)" accept=".mp3,.wav">
-                  <app-fa name="upload" fw="true"></app-fa>
+                  <fa name="upload" fw="true"></fa>
                 </label>
               </td>
             </tr>
@@ -104,7 +104,7 @@
 
   <footer>
     <app-save-button buttonType="submit" [disabled]="teamForm.invalid || teamForm.pristine"></app-save-button>
-    <button type="button" [title]="'Cancel' | translate" (click)="close()"><app-fa name="ban" fw="true"></app-fa> <span translate>Cancel</span></button>
-    <button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><app-fa name="trash" fw="true"></app-fa> <span translate>Delete</span></button>
+    <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
+    <button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
   </footer>
 </form>

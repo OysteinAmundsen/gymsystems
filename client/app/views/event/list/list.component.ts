@@ -4,19 +4,19 @@ import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
 
+import { EventComponent } from '../event.component';
+
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
-
-import { ITournament } from 'app/services/model/ITournament';
-import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
-import { ITeam } from 'app/services/model/ITeam';
-import { Role, IUser } from 'app/services/model/IUser';
-import { IMedia } from 'app/services/model/IMedia';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { ParticipationType } from 'app/services/model/ParticipationType';
-import { EventComponent } from '../event.component';
-import { IDiscipline } from 'app/services/model/IDiscipline';
 
+import { ITournament, ITeamInDiscipline, ITeam, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/services/model';
+
+interface ParticipantCache {
+  time: string;
+  date: string;
+  isNewDay: boolean;
+}
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -27,6 +27,8 @@ export class ListComponent implements OnInit, OnDestroy {
   tournament: ITournament;
   schedule: ITeamInDiscipline[] = [];
   selected: ITeamInDiscipline;
+  classes = Classes;
+  _cache: {[key: string]: ParticipantCache} = {};
 
   selectedDiscipline = null;
   get disciplines() {
@@ -78,31 +80,70 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   loadSchedule() {
-    this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => this.schedule = schedule);
+    this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => {
+      this.schedule = schedule;
+      this.invalidateCache();
+    });
+  }
+
+  private getCacheKey(participant: ITeamInDiscipline) {
+    return participant.startNumber;
+  }
+
+  private invalidateCache(participant?: ITeamInDiscipline) {
+    if (participant) {
+      delete this._cache[this.getCacheKey(participant)];
+    } else {
+      this._cache = {};
+    }
+  }
+
+  private cache(participant: ITeamInDiscipline, cacheObj?: {}): ParticipantCache {
+    const key = this.getCacheKey(participant);
+    let cache = this._cache[key];
+    if (!cache) { cache = this._cache[key] = <ParticipantCache>{}; }
+
+    if (cacheObj) {
+      cache = this._cache[key] = Object.assign(cache, cacheObj);
+    }
+    return cache;
   }
 
   startTime(participant: ITeamInDiscipline) {
-    let time: moment.Moment;
-    time = participant.startTime != null ? moment.utc(participant.startTime) : this.scheduleService.calculateStartTime(this.tournament, participant);
-    if (time) { return time.format('HH:mm'); }
-    return '<span class="warning">ERR</span>';
+    let timeCache = this.cache(participant);
+    if (!timeCache.time) {
+      let time: moment.Moment;
+      time = participant.startTime != null
+        ? moment.utc(participant.startTime)
+        : this.scheduleService.calculateStartTime(this.tournament, participant);
+        timeCache = this.cache(participant, { time: (time ? time.format('HH:mm') : '<span class="warning">ERR</span>')});
+    }
+    return timeCache.time;
   }
   startDate(participant: ITeamInDiscipline) {
-    const time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
-    if (time) { return time.format('ddd'); }
-    return '';
+    let dateCache = this.cache(participant);
+    if (!dateCache.date) {
+      const time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
+      dateCache = this.cache(participant, { date: (time ? time.format('ddd') : '')});
+    }
+    return dateCache.date;
   }
   isNewDay(participant: ITeamInDiscipline) {
-    const nextParticipant = this.schedule.find(s => s.startNumber === participant.startNumber + 1);
-    if (nextParticipant) {
-      const thisTime = this.scheduleService.calculateStartTime(this.tournament, participant);
-      const nextTime = this.scheduleService.calculateStartTime(this.tournament, nextParticipant);
-      if (thisTime && nextTime) {
-        const difference = moment.duration(nextTime.startOf('day').diff(thisTime.startOf('day'))).asDays();
-        return (difference >= 1);
+    let dayCache = this.cache(participant);
+    if (dayCache.isNewDay == null) {
+      const nextParticipant = this.schedule.find(s => s.startNumber === participant.startNumber + 1);
+      if (nextParticipant) {
+        const thisTime = this.scheduleService.calculateStartTime(this.tournament, participant);
+        const nextTime = this.scheduleService.calculateStartTime(this.tournament, nextParticipant);
+        if (thisTime && nextTime) {
+          const difference = moment.duration(nextTime.startOf('day').diff(thisTime.startOf('day'))).asDays();
+          dayCache = this.cache(participant, { isNewDay: (difference >= 1) });
+        }
+      } else {
+        dayCache = this.cache(participant, { isNewDay: participant.startNumber === 0 });
       }
     }
-    return participant.startNumber === 0;
+    return dayCache.isNewDay;
   }
 
   division(team: ITeam) { return this.teamService.getDivisionName(team); }
@@ -115,7 +156,10 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   select(participant: ITeamInDiscipline) {
-    if (this.user && (this.user.role >= Role.Admin || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.club.id))) {
+    if (this.user && (
+      this.user.role >= Role.Admin
+      || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.club.id)
+    )) {
       if (participant != null && participant.startTime == null) {
         this.errorHandler.error = this.translate.instant(`Cannot edit score. This participant hasn't started yet.`);
         return;

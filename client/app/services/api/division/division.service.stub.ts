@@ -7,9 +7,10 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { IDivision, DivisionType, ITournament } from 'app/services/model';
+import { DivisionService } from './division.service';
 
 @Injectable()
-export class DivisionServiceStub {
+export class DivisionServiceStub extends DivisionService {
   ageDivision: IDivision = <IDivision>{
     id: 0,
     name: '',
@@ -29,7 +30,9 @@ export class DivisionServiceStub {
   divisions: IDivision[] = [
     this.ageDivision, this.genderDivision
   ];
-  constructor(private http: Http) {  }
+  constructor(http: Http) {
+    super(http);
+  }
 
   all(): Observable<IDivision[]> {
     return Observable.of(this.divisions);

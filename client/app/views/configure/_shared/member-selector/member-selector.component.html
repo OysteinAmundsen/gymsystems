@@ -1,13 +1,13 @@
 <section *ngIf="club">
   <div class="action">
     <button type="button" class="small" (click)="toggleMembers()" [title]="toggleTitle">
-      <app-fa *ngIf="!memberListHidden" name="chevron-left" fw="true"></app-fa>
-      <app-fa *ngIf="memberListHidden" name="chevron-right" fw="true"></app-fa>
+      <fa *ngIf="!memberListHidden" name="chevron-left" fw="true"></fa>
+      <fa *ngIf="memberListHidden" name="chevron-right" fw="true"></fa>
     </button>
   </div>
   <div [ngClass]="{'flex-col': true, hidden: memberListHidden}">
     <h3>
-      <app-fa name="address-book" fw="true"></app-fa>
+      <fa name="address-book" fw="true"></fa>
       <span translate>Available</span>
     </h3>
     <ul [dragula]="'member-bag'" class="available">
@@ -20,11 +20,11 @@
   <div class="flex-col">
     <div class="help-available">
       <h3>
-        <app-fa name="group" fw="true"></app-fa>
+        <fa name="group" fw="true"></fa>
         <span translate>Gymnasts in</span> <span>{{ troopName }}</span>
       </h3>
       <app-help-block *ngIf="availableMembers && availableMembers.length > 0">
-        <p translate>Press the <app-fa name="plus"></app-fa> icon found to the left of this header to view available members.</p>
+        <p translate>Press the <fa name="plus"></fa> icon found to the left of this header to view available members.</p>
         <p translate>You can then drag and drop members into the team.</p>
       </app-help-block>
       <app-help-block *ngIf="!availableMembers || availableMembers.length <= 0">

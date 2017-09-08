@@ -2,7 +2,7 @@
   <div class="datepicker-input-container">
     <input type="text" class="datepicker-input" [ngModel]="date.formatted" (ngModelChange)="modelChanged($event)" #dateInput/>
     <div class="datepicker-input-icon" (click)="toggle()">
-      <app-fa name="calendar"></app-fa>
+      <fa name="calendar"></fa>
     </div>
   </div>
 
@@ -10,19 +10,19 @@
     <header class="datepicker-calendar-top">
       <span class="year-title">{{ currentDate.format('YYYY') }}</span>
       <button type="button" (click)="openYearPicker()" *ngIf="show === 'date'">
-        <app-fa name="arrow-circle-right"></app-fa>
+        <fa name="arrow-circle-right"></fa>
         Select Year
       </button>
-      <app-fa name="times" class="close" (click)="close()"></app-fa>
+      <fa name="times" class="close" (click)="close()"></fa>
     </header>
     <div class="datepicker-calendar-container">
 
       <!-- Date picker -->
       <section *ngIf="show === 'date'">
         <div class="datepicker-calendar-month-section">
-          <app-fa name="backward" (click)="prevMonth()"></app-fa>
+          <fa name="backward" (click)="prevMonth()"></fa>
           <span class="month-title">{{ currentDate.format('MMMM') }}</span>
-          <app-fa name="forward" (click)="nextMonth()"></app-fa>
+          <fa name="forward" (click)="nextMonth()"></fa>
         </div>
         <div class="datepicker-calendar-day-names">
           <span>S</span>
@@ -42,7 +42,7 @@
           <button *ngIf="!options.autoApply" type="button" class="a-button u-is-secondary u-is-small" (click)="today()">Today</button>
           <button *ngIf="!options.autoApply" type="button" class="a-button u-is-primary u-is-small" (click)="close()">Apply</button>
           <button type="button" class="a-button u-is-primary u-is-small" (click)="openTimePicker()" *ngIf="setTime">
-            <app-fa name="clock-o" fw="true"></app-fa>Time
+            <fa name="clock-o" fw="true"></fa>Time
           </button>
         </footer>
       </section>
@@ -97,7 +97,7 @@
           <button *ngIf="!options.autoApply" type="button" class="a-button u-is-secondary u-is-small" (click)="today()">Today</button>
           <button *ngIf="!options.autoApply" type="button" class="a-button u-is-primary u-is-small" (click)="close()">Apply</button>
           <button type="button" class="a-button u-is-primary u-is-small" (click)="openDatePicker()">
-            <app-fa name="calendar" fw="true"></app-fa>Date
+            <fa name="calendar" fw="true"></fa>Date
           </button>
         </footer>
       </section>

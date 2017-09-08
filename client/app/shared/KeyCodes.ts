@@ -1,9 +1,12 @@
 export enum KeyCode {
   // Num pad
   NUMPAD_PLUS = 107,
+  NUMPAD_COMMA = 110,
 
   // Others
   PLUS = 187,
+
+  COMMA = 188,
 
   UP_ARROW = 38,
   DOWN_ARROW = 40,

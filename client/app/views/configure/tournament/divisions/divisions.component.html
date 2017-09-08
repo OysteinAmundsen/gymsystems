@@ -3,7 +3,7 @@
   <section class="col-6">
     <header>
       <h2>
-        <app-fa name="venus-mars" fw="true"></app-fa>
+        <fa name="venus-mars" fw="true"></fa>
         <span translate>Gender group</span>
       </h2>
     </header>
@@ -26,7 +26,7 @@
   <section class="col-6">
     <header>
       <h2>
-        <app-fa name="child" fw="true"></app-fa>
+        <fa name="child" fw="true"></fa>
         <span translate>Age group</span>
       </h2>
     </header>
@@ -51,10 +51,10 @@
   <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor>
 </div>
 <button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDivision()">
-  <app-fa name="plus" fw="true"></app-fa>
+  <fa name="plus" fw="true"></fa>
   <span translate>Add Divisions</span>
 </button>
 <button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
-  <app-fa name="plus-circle" fw="true"></app-fa>
+  <fa name="plus-circle" fw="true"></fa>
   <span translate>Add Default Divisions</span>
 </button>

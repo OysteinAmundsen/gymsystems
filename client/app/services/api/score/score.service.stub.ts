@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { ScoreService } from 'app/services/api';
+import { ScoreService } from './score.service';
 import { IScore, ITeamInDiscipline } from 'app/services/model';
 
 @Injectable()

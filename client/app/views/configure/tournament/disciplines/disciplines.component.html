@@ -13,10 +13,10 @@
   </table>
 </div>
 <button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDiscipline()">
-  <app-fa name="plus" fw="true"></app-fa>
+  <fa name="plus" fw="true"></fa>
   <span translate>Add Disciplines</span>
 </button>
 <button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
-  <app-fa name="plus-circle" fw="true"></app-fa>
+  <fa name="plus-circle" fw="true"></fa>
   <span translate>Add Default Disciplines</span>
 </button>

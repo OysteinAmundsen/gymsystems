@@ -9,7 +9,8 @@ import 'rxjs/add/observable/of';
 import * as moment from 'moment';
 
 import { ITeamInDiscipline, IDiscipline, ITournament, ParticipationType } from 'app/services/model';
-import { ScheduleService, ConfigurationService } from 'app/services/api';
+import { ScheduleService } from './schedule.service';
+import { ConfigurationService } from '../configuration/configuration.service';
 
 // Dummy data
 import { scoreGroups } from '../scoregroup/scoregroup.service.stub';

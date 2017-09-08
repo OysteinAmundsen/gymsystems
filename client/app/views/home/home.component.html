@@ -5,13 +5,13 @@
     <section *ngIf="current.length">
       <div *ngFor="let tournament of current">
         <header>
-          <small class="pull-right">{{tournament.startDate | date: 'dd.MM'}} - {{tournament.endDate | date: 'dd.MM'}}</small>
+          <small class="pull-right">{{ getDateSpan(tournament) }}</small>
           <h1>{{ tournament.name }}</h1>
         </header>
 
         <div><pre [innerHtml]="getDescription(tournament) | MarkdownToHtml"></pre></div>
         <a [routerLink]="['/event', tournament.id, 'list']" class="btn primary">
-          <app-fa name="arrow-right" fw="true"></app-fa>
+          <fa name="arrow-right" fw="true"></fa>
           <span translate>Go to scoreboard</span>
         </a>
       </div>

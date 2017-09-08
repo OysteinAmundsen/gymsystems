@@ -3,81 +3,9 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import * as moment from 'moment';
 import { Logger } from 'app/services';
 
-export interface CalendarDate {
-  day: number;
-  month: number;
-  year: number;
-  enabled: boolean;
-  today: boolean;
-  selected: boolean;
-  momentObj: moment.Moment;
-}
-
-export interface IDateModel {
-  hour: string;
-  minute: string;
-  day: string;
-  month: string;
-  year: string;
-  formatted: string;
-  momentObj: moment.Moment;
-}
-
-export class DateModel implements IDateModel{
-  hour: string;
-  minute: string;
-  day: string;
-  month: string;
-  year: string;
-  formatted: string;
-  momentObj: moment.Moment;
-
-  constructor(obj?: IDateModel) {
-    this.minute = obj && obj.minute ? obj.minute : null;
-    this.hour = obj && obj.hour ? obj.hour : null;
-    this.day = obj && obj.day ? obj.day : null;
-    this.month = obj && obj.month ? obj.month : null;
-    this.year = obj && obj.year ? obj.year : null;
-    this.formatted = obj && obj.formatted ? obj.formatted : null;
-    this.momentObj = obj && obj.momentObj ? obj.momentObj : null;
-  }
-}
-
-export interface IDatePickerOptions {
-  autoApply?: boolean;
-  setTime?: boolean;
-  style?: 'normal' | 'big' | 'bold';
-  locale?: string;
-  minDate?: Date;
-  maxDate?: Date;
-  initialDate?: Date;
-  firstWeekdaySunday?: boolean;
-  format?: string;
-}
-
-export class DatePickerOptions implements IDatePickerOptions {
-  autoApply?: boolean;
-  setTime?: boolean;
-  style?: 'normal' | 'big' | 'bold';
-  locale?: string;
-  minDate?: Date;
-  maxDate?: Date;
-  initialDate?: Date;
-  firstWeekdaySunday?: boolean;
-  format?: string;
-
-  constructor(obj?: IDatePickerOptions) {
-    this.autoApply = (obj && obj.autoApply === true) ? true : false;
-    this.setTime = (obj && obj.setTime === true) ? true : false;
-    this.style = obj && obj.style ? obj.style : 'normal';
-    this.locale = obj && obj.locale ? obj.locale : 'en';
-    this.minDate = obj && obj.minDate ? obj.minDate : null;
-    this.maxDate = obj && obj.maxDate ? obj.maxDate : null;
-    this.initialDate = obj && obj.initialDate ? obj.initialDate : null;
-    this.firstWeekdaySunday = obj && obj.firstWeekdaySunday ? obj.firstWeekdaySunday : false;
-    this.format = obj && obj.format ? obj.format : 'YYYY-MM-DD' + (this.setTime ? ' HH:mm' : '');
-  }
-}
+import { DateModel, IDateModel } from './DateModel';
+import { CalendarDate } from './CalendarDate';
+import { DatePickerOptions } from './DatePickerOptions';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

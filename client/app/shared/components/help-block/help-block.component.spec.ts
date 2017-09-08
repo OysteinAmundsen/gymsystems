@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { SharedModule } from 'app/shared/shared.module';
 import { HelpBlockComponent } from './help-block.component';
-import { FaComponent } from '../fontawesome/fa.component';
-import { FaStackComponent } from '../fontawesome/fa-stack.component';
 
 describe('shared.components:HelpBlockComponent', () => {
   let component: HelpBlockComponent;
@@ -10,10 +9,8 @@ describe('shared.components:HelpBlockComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        FaComponent,
-        FaStackComponent,
-        HelpBlockComponent
+      imports: [
+        SharedModule
       ]
     })
     .compileComponents();

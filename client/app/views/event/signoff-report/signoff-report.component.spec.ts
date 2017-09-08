@@ -30,6 +30,7 @@ describe('SignoffReportComponent', () => {
         {provide: EventComponent, useClass: DummyParent},
         {provide: ScheduleService, useClass: ScheduleServiceStub},
         {provide: ConfigurationService, useClass: ConfigurationServiceStub},
+        {provide: TournamentService, useClass: TournamentServiceStub},
         {provide: TeamsService, useClass: TeamsServiceStub},
         {provide: ScoreService, useClass: ScoreServiceStub},
       ]
