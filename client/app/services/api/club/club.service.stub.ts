@@ -6,11 +6,14 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { IClub, IGymnast, ITroop } from 'app/services/model';
+import { ClubService } from './club.service';
 
 @Injectable()
-export class ClubServiceStub {
+export class ClubServiceStub extends ClubService {
 
-  constructor(private http: Http) { }
+  constructor(http: Http) {
+    super(http);
+  }
 
   all(): Observable<IClub[]> {
     return Observable.of(null);
@@ -22,18 +25,43 @@ export class ClubServiceStub {
   getById(id: number): Observable<IClub> {
     return Observable.of(null);
   }
-  createClubFromName(name: string) {
-    return Observable.of(null);
-  }
   saveClub(club: IClub) {
     return Observable.of(null);
   }
-
-  getMembers(id: number): Observable<IGymnast[]> {
+  deleteClub(club: IClub) {
     return Observable.of(null);
   }
 
-  findTroopByName(name: string): Observable<ITroop[]> {
+  // MEMBER API
+  getMembers(club: IClub): Observable<IGymnast[]> {
+    return Observable.of(null);
+  }
+  getAvailableMembers(club: IClub): Observable<IGymnast[]> {
+    return Observable.of(null);
+  }
+
+  importMembers(file: File, club: IClub) {
+    return Observable.of(null);
+  }
+
+  saveMember(member: IGymnast) {
+    return Observable.of(null);
+  }
+  deleteMember(member: IGymnast): any {
+    return Observable.of(null);
+  }
+
+  // TROOPS API
+  getTeams(club: IClub): Observable<ITroop[]> {
+    return Observable.of(null);
+  }
+  findTroopByName(club: IClub, name: string): Observable<ITroop[]> {
+    return Observable.of(null);
+  }
+  saveTeam(team: ITroop) {
+    return Observable.of(null);
+  }
+  deleteTeam(team: ITroop) {
     return Observable.of(null);
   }
 }

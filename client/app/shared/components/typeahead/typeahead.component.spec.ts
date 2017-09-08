@@ -2,7 +2,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { FaComponent } from '../fontawesome/fa.component';
+import { SharedModule } from 'app/shared/shared.module';
 import { TypeaheadComponent } from './typeahead.component';
 
 describe('shared.components:PagerComponent', () => {
@@ -11,8 +11,7 @@ describe('shared.components:PagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule ],
-      declarations: [TypeaheadComponent, FaComponent]
+      imports: [ SharedModule ]
     })
       .compileComponents();
   }));

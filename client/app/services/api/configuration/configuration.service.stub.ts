@@ -7,9 +7,10 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { IConfiguration, DivisionType } from 'app/services/model';
+import { ConfigurationService } from './configuration.service';
 
 @Injectable()
-export class ConfigurationServiceStub  {
+export class ConfigurationServiceStub extends ConfigurationService {
   config: IConfiguration[] = [
     {name: 'defaultValues', value: {
       division: [
@@ -54,7 +55,9 @@ export class ConfigurationServiceStub  {
 {{/list}}`
     }}
   ];
-  constructor(private http: Http) {}
+  constructor(http: Http) {
+    super(http);
+  }
 
   all(): Observable<IConfiguration[]> {
     return Observable.of(this.config);
@@ -64,7 +67,7 @@ export class ConfigurationServiceStub  {
     return Observable.of(this.config.find(c => c.name === name));
   }
 
-  save(configuration: IConfiguration) {
+  save(configuration: IConfiguration[]) {
     return Observable.of(null);
   }
 

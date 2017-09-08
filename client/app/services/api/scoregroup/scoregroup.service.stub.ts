@@ -7,6 +7,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { IScoreGroup } from 'app/services/model';
+import { ScoreGroupService } from './scoregroup.service';
 
 export const scoreGroups = <IScoreGroup[]>[
   { id: 1, name: 'Composition', type: 'C',  operation: 1, judges: 2, max: 5,  min: 0, discipline: null },
@@ -16,8 +17,10 @@ export const scoreGroups = <IScoreGroup[]>[
 ];
 
 @Injectable()
-export class ScoreGroupServiceStub {
-  constructor(private http: Http) {  }
+export class ScoreGroupServiceStub extends ScoreGroupService {
+  constructor(http: Http) {
+    super(http);
+  }
 
   all(): Observable<IScoreGroup[]> {
     return Observable.of(scoreGroups);

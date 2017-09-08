@@ -61,6 +61,7 @@
     "@angular/service-worker": "^1.0.0-beta.16",
     "@ngx-translate/core": "^8.0.0",
     "@ngx-translate/http-loader": "1.0.2",
+    "angular2-fontawesome": "^0.9.3",
     "angulartics2": "^2.3.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.17.2",

@@ -7,6 +7,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { ITournament, IUser, IClub } from 'app/services/model';
+import { TournamentService } from './tournament.service';
 
 export const dummyTournament = <ITournament>{
   id: 1,
@@ -25,7 +26,7 @@ export const dummyTournament = <ITournament>{
 };
 
 @Injectable()
-export class TournamentServiceStub {
+export class TournamentServiceStub extends TournamentService {
   previous: ITournament = <ITournament>{
     id: 0,
     createdBy: <IUser>{},
@@ -63,7 +64,9 @@ export class TournamentServiceStub {
 
   selected = dummyTournament;
   selectedId = dummyTournament.id;
-  constructor(private http: Http) {  }
+  constructor(http: Http) {
+    super(http);
+  }
 
   all(): Observable<ITournament[]> {
     return Observable.of(this.tournaments);
@@ -87,9 +90,5 @@ export class TournamentServiceStub {
 
   delete(tournament: ITournament) {
     return Observable.of(null);
-  }
-
-  mapDate(tournament: ITournament) {
-    return Observable.of(this.present);
   }
 }

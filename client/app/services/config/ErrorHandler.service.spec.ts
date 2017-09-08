@@ -9,7 +9,15 @@ describe('services.config:ErrorHandlerService', () => {
     });
   });
 
-  it('should ...', inject([ErrorHandlerService], (service: ErrorHandlerService) => {
+  it('can be injected', inject([ErrorHandlerService], (service: ErrorHandlerService) => {
     expect(service).toBeTruthy();
+  }));
+
+  it('will display a temporary message', inject([ErrorHandlerService], async (service: ErrorHandlerService) => {
+    service.error = 'TEST';
+    expect(service.error).toBe('TEST');
+    await setTimeout(() => {
+      expect(service.error).toBeNull('Message did not clear out in time')
+    }, 10 * 1001);
   }));
 });

@@ -5,7 +5,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { ITournament } from 'app/services/model';
+import * as moment from 'moment';
+
+import { ITournament } from 'app/services/model/ITournament';
 import { Helper } from '../Helper';
 
 @Injectable()
@@ -51,4 +53,20 @@ export class TournamentService {
   private mapDates(tournaments: ITournament[]) {
     return tournaments.map(tournament => this.mapDate(tournament));
   }
+
+  dateSpan(tournament: ITournament): string {
+    const toDate = (date: moment.Moment) => moment(date).format('DD');
+    if (tournament && tournament.startDate && tournament.endDate) {
+      const start = moment(tournament.startDate);
+      const end   = moment(tournament.endDate);
+      const month = end.isSame(start, 'month') ? end.format('MMM') : start.format('MMM') + '/' + end.format('MMM');
+      const year = moment(tournament.endDate).format('YYYY');
+      if (end.diff(start, 'days') > 1) {
+        return `${toDate(start)}.-${toDate(end)}. ${month} ${year}`;
+      }
+      return `${toDate(start)}. ${month} ${year}`;
+    }
+    return '';
+  }
+
 }

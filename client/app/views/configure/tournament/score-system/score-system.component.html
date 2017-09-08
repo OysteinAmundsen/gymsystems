@@ -27,10 +27,10 @@
 </div>
 
 <button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addScoreGroup()">
-  <app-fa name="plus" fw="true"></app-fa>
+  <fa name="plus" fw="true"></fa>
   <span translate>Add ScoreGroup</span>
 </button>
 <button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
-  <app-fa name="plus-circle" fw="true"></app-fa>
+  <fa name="plus-circle" fw="true"></fa>
   <span translate>Add Default ScoreGroups</span>
 </button>

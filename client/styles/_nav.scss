@@ -23,12 +23,12 @@ nav {
     display: inline-block;
   }
   a,
-  app-fa {
+  fa {
     color: rgba(white, 0.8);
     text-decoration: none;
     height: 3.5rem;
   }
-  header+app-fa {
+  header+fa {
     float: right;
     cursor: pointer;
     border-radius: $rounded;

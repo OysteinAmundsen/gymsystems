@@ -4,13 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { DragulaModule } from 'ng2-dragula';
 import { RouterModule } from '@angular/router';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome';
 
 // Shared components
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { PanelComponent } from './components/panel/panel.component';
-import { FaComponent } from './components/fontawesome/fa.component';
-import { FaStackComponent } from './components/fontawesome/fa-stack.component';
 import { SlideToggleComponent } from './components/slide-toggle/slide-toggle.component';
 
 // Shared directives
@@ -34,14 +33,13 @@ import { HelpBlockComponent } from './components/help-block/help-block.component
     ReactiveFormsModule,
     TranslateModule,
     DragulaModule,
-    RouterModule
+    RouterModule,
+    Angular2FontawesomeModule
   ],
   declarations: [
     DatepickerComponent,
     DialogComponent,
     PanelComponent,
-    FaComponent,
-    FaStackComponent,
     SlideToggleComponent,
     TypeaheadComponent,
     MultirangeComponent,
@@ -60,13 +58,12 @@ import { HelpBlockComponent } from './components/help-block/help-block.component
     // Export common modules
     CommonModule,
     TranslateModule,
+    Angular2FontawesomeModule,
 
     // Export components
     DatepickerComponent,
     DialogComponent,
     PanelComponent,
-    FaComponent,
-    FaStackComponent,
     SlideToggleComponent,
     TypeaheadComponent,
     MultirangeComponent,

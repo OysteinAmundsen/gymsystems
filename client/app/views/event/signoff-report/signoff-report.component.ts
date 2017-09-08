@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
-import * as moment from 'moment';
-
 import { EventComponent } from '../event.component';
 
 import { ITeamInDiscipline, ITournament, IScoreGroup } from 'app/services/model';
-import { ScheduleService, TeamsService, ScoreService } from 'app/services/api';
+import { ScheduleService, TeamsService, ScoreService, TournamentService } from 'app/services/api';
 
 @Component({
   selector: 'app-signoff-report',
@@ -35,20 +33,13 @@ export class SignoffReportComponent implements OnInit {
   }
 
   get dateSpan() {
-    const toDate = (date: moment.Moment) => moment(date).format('DD');
-    if (this.tournament) {
-      const start = moment(this.tournament.startDate);
-      const end   = moment(this.tournament.endDate);
-      const month = end.isSame(start, 'month') ? end.format('MMM') : start.format('MMM') + '/' + end.format('MMM');
-      const year = moment(this.tournament.endDate).format('YYYY');
-      return `${toDate(start)}.-${toDate(end)} ${month} ${year}`;
-    }
-    return '';
+    return this.tournamentService.dateSpan(this.tournament);
   }
 
   constructor(
     private parent: EventComponent,
     private scheduleService: ScheduleService,
+    private tournamentService: TournamentService,
     private teamService: TeamsService,
     private scoreService: ScoreService,
     private router: Router,

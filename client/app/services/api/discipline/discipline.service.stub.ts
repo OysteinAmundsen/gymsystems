@@ -7,9 +7,10 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { IDiscipline, ITournament } from 'app/services/model';
+import { DisciplineService } from './discipline.service';
 
 @Injectable()
-export class DisciplineServiceStub {
+export class DisciplineServiceStub extends DisciplineService{
   discipline: IDiscipline = <IDiscipline>{
     id: 0,
     name: '',
@@ -20,7 +21,9 @@ export class DisciplineServiceStub {
   disciplines: IDiscipline[] = [
     this.discipline
   ];
-  constructor(private http: Http) {  }
+  constructor(http: Http) {
+    super(http);
+  }
 
   all(): Observable<IDiscipline[]> {
     return Observable.of(this.disciplines);

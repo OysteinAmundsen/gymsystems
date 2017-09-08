@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta } from '@angular/platform-browser';
 
-import { TournamentService } from 'app/services/api';
+import { TournamentService } from 'app/services/api/tournament/tournament.service';
 import { ITournament } from 'app/services/model';
 
 interface TournamentType {name: string, tournaments: ITournament[]}
@@ -46,5 +46,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getDescription(tournament: ITournament) {
     return (tournament ? tournament['description_' + this.translate.currentLang] : '');
+  }
+
+  getDateSpan(tournament: ITournament) {
+    return this.tournamentService.dateSpan(tournament);
   }
 }
