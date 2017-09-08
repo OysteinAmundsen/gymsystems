@@ -91,17 +91,19 @@ export class TeamsComponent implements OnInit, OnDestroy {
   }
 
   addTeam() {
-    const team = <ITeam>{
-      id          : null,
-      name        : null,
-      divisions   : [],
-      disciplines : [],
-      club        : this.currentUser.club,
-      tournament  : this.tournament,
-      class       : Classes.TeamGym
-    };
-    this.teamList.push(team);
-    this.selected = team;
+    if (this.availableSlots > ( this.freeSlots - this.tournament.disciplines.length + 1)) {
+      const team = <ITeam>{
+        id          : null,
+        name        : null,
+        divisions   : [],
+        disciplines : [],
+        club        : this.currentUser.club,
+        tournament  : this.tournament,
+        class       : Classes.TeamGym
+      };
+      this.teamList.push(team);
+      this.selected = team;
+    }
   }
 
   onChange() {
