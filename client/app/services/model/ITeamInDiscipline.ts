@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 import { ITournament } from './ITournament';
 import { IDiscipline } from './IDiscipline';
 import { IScore } from './IScore';
@@ -8,6 +10,7 @@ export interface ITeamInDiscipline {
   id: number;
   startNumber: number;
   startTime: Date;
+  calculatedStartTime?: moment.Moment; // Exists only on client side
   endTime: Date;
   publishTime: Date;
   type: ParticipationType;

@@ -28,6 +28,11 @@ export class ListComponent implements OnInit, OnDestroy {
   schedule: ITeamInDiscipline[] = [];
   selected: ITeamInDiscipline;
   classes = Classes;
+  types = ParticipationType;
+  showTraining = true;
+  get trainingVisibleLabel(): string { return this.translate.instant('Training visible'); }
+  get trainingHiddenLabel(): string { return this.translate.instant('Training hidden'); }
+
   _cache: {[key: string]: ParticipantCache} = {};
 
   selectedDiscipline = null;
@@ -85,6 +90,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   loadSchedule() {
     this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => {
+      schedule = this.scheduleService.recalculateStartTime(this.tournament, schedule, false);
       if (!this.selected) {
         this.schedule = schedule;
       } else {
@@ -124,18 +130,15 @@ export class ListComponent implements OnInit, OnDestroy {
     return cache;
   }
 
-  startTime(participant: ITeamInDiscipline) {
+  startTime(participant: ITeamInDiscipline): string {
     let timeCache = this.cache(participant);
     if (!timeCache.time) {
-      let time: moment.Moment;
-      time = participant.startTime != null
-        ? moment.utc(participant.startTime)
-        : this.scheduleService.calculateStartTime(this.tournament, participant);
-        timeCache = this.cache(participant, { time: (time ? time.format('HH:mm') : '<span class="warning">ERR</span>')});
+      timeCache = this.cache(participant, { time: this.scheduleService.startTime(this.tournament, participant)});
     }
     return timeCache.time;
   }
-  startDate(participant: ITeamInDiscipline) {
+
+  startDate(participant: ITeamInDiscipline): string {
     let dateCache = this.cache(participant);
     if (!dateCache.date) {
       const time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
@@ -143,20 +146,11 @@ export class ListComponent implements OnInit, OnDestroy {
     }
     return dateCache.date;
   }
-  isNewDay(participant: ITeamInDiscipline) {
+
+  isNewDay(participant: ITeamInDiscipline): boolean {
     let dayCache = this.cache(participant);
     if (dayCache.isNewDay == null) {
-      const nextParticipant = this.schedule.find(s => s.startNumber === participant.startNumber + 1);
-      if (nextParticipant) {
-        const thisTime = this.scheduleService.calculateStartTime(this.tournament, participant);
-        const nextTime = this.scheduleService.calculateStartTime(this.tournament, nextParticipant);
-        if (thisTime && nextTime) {
-          const difference = moment.duration(nextTime.startOf('day').diff(thisTime.startOf('day'))).asDays();
-          dayCache = this.cache(participant, { isNewDay: (difference >= 1) });
-        }
-      } else {
-        dayCache = this.cache(participant, { isNewDay: participant.startNumber === 0 });
-      }
+      dayCache = this.cache(participant, { isNewDay: this.scheduleService.isNewDay(this.tournament, this.schedule, participant) });
     }
     return dayCache.isNewDay;
   }
@@ -177,6 +171,9 @@ export class ListComponent implements OnInit, OnDestroy {
     )) {
       if (participant != null && participant.startTime == null) {
         this.errorHandler.error = this.translate.instant(`Cannot edit score. This participant hasn't started yet.`);
+        return;
+      }
+      if (participant && participant.type === ParticipationType.Training) {
         return;
       }
       this.selected = participant;

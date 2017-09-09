@@ -275,6 +275,9 @@ export class TeamController {
         sseService.publish('Teams updated')
         return result;
       })
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
   }
 }

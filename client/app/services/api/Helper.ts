@@ -9,7 +9,7 @@ export class Helper {
    * @param {number} level [default = 2] specification of how many levels to retain
    */
   static reduceLevels(obj: any, level: number = 3): any {
-    if (obj != null && level > 0) {
+    if (obj != null && level >= 0) {
       if (Array.isArray(obj)) {
         return obj.reduce((prev, current) => {
           const o = Helper.reduceLevels(current, level);
@@ -19,6 +19,8 @@ export class Helper {
           }
           return prev;
         }, undefined);
+      } else if (obj instanceof Date) {
+        return obj;
       } else if (typeof obj === 'object') {
         return Object.keys(obj).reduce((prev, current) => {
           const o = Helper.reduceLevels(obj[current], level - 1);

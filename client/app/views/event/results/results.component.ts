@@ -70,12 +70,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => this.schedule = schedule);
   }
 
-  getDivisionNames(participants: ITeamInDiscipline[]) {
-    return participants.reduce((p, c) => {
-      const t = this.teamService.getDivisionName(c.team);
-      if (p.indexOf(t) < 0) { p.push(t); }
-      return p;
-    }, []);
+  getDivisionNames(participants: ITeamInDiscipline[]): Set<string> {
+    return participants.reduce((p, c) => p.add(this.teamService.getDivisionName(c.team)), new Set<string>());
   }
 
   score(participant: ITeamInDiscipline) {

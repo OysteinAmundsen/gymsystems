@@ -17,7 +17,7 @@ table[role="list"] {
     &[role="listitem"] {
       cursor: pointer;
       &:hover td {
-        background-color: rgba($primary, 0.2);
+        background-color: rgba($primary, 0.2) !important;
       }
     }
   }

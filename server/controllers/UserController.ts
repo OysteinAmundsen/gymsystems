@@ -213,7 +213,10 @@ export class UserController {
           }
           return persisted;
         })
-        .catch(err => Logger.log.error(err));
+        .catch(err => {
+          Logger.log.error(err);
+          return Promise.resolve(new ErrorResponse(err.code, err.message));
+        });
     }
 
     // Fetch original user object, and ...
@@ -224,7 +227,11 @@ export class UserController {
           (<any>u)[k] = (<any>user)[k];
         }
       });
-      return this.repository.persist(u).catch(err => Logger.log.error(err));
+      return this.repository.persist(u)
+        .catch(err => {
+          Logger.log.error(err);
+          return Promise.resolve(new ErrorResponse(err.code, err.message));
+        });
     });
   }
 
@@ -336,6 +343,9 @@ export class UserController {
     if (msg) { res.status(403); return new ErrorResponse(403, msg); }
 
     return this.repository.remove(user)
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
   }
 }
