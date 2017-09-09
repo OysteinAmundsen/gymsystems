@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
-import { TeamsService, UserService, ConfigurationService } from 'app/services/api';
+import { TeamsService, UserService, ConfigurationService, EventService } from 'app/services/api';
 import { ITeam, IUser, Role, Classes, ITournament } from 'app/services/model';
 
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
@@ -20,6 +20,8 @@ export class TeamsComponent implements OnInit, OnDestroy {
 
   executionTime;
 
+  eventSubscription: Subscription;
+
   _selected: ITeam;
   get selected() { return this._selected; }
   set selected(team: ITeam) {
@@ -30,28 +32,28 @@ export class TeamsComponent implements OnInit, OnDestroy {
     if (this.tournament) {
       const hours = this.tournament.times.reduce((prev: number, curr: {day: number, time: string}) => {
         const [start, end] = curr.time.split(',');
-        prev += (+end - +start);
-        return prev;
+        return prev + (+end - +start);
       }, 0);
       return (hours * 60) / (this.executionTime + 1);
     }
     return 0;
   }
 
-  get freeSlots(): number {
-    if (this.teamList) {
-      const count = this.teamList.reduce((prev: number, curr: ITeam) => {
-        prev += curr.disciplines.length;
-        return prev;
-      }, 0);
-      return count;
-    }
-    return 0;
+  get takenSlots(): number {
+    return (this.teamList && this.teamList.length > 0)
+      ? this.teamList.reduce((prev: number, curr: ITeam) => prev + curr.disciplines.length, 0)
+      : 0;
+  }
+
+  get hasFreeSlots(): boolean {
+    if (!this.tournament || !this.teamList) { return true; }
+    return (this.availableSlots - this.takenSlots) >= this.tournament.disciplines.length;
   }
 
   constructor(
     private parent: TournamentEditorComponent,
     private userService: UserService,
+    private eventService: EventService,
     private configuration: ConfigurationService,
     private teamService: TeamsService) {
   }
@@ -59,9 +61,15 @@ export class TeamsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
     this.configuration.getByname('scheduleExecutionTime').subscribe(res => this.executionTime = res.value);
+
     this.parent.tournamentSubject.subscribe(tournament => {
       this.tournament = tournament;
       this.loadTeams();
+      this.eventSubscription = this.eventService.connect().debounceTime(100).subscribe(message => {
+        if (message.indexOf('Teams updated') > -1) {
+          this.loadTeams();
+        }
+      });
     });
   }
 
@@ -70,11 +78,24 @@ export class TeamsComponent implements OnInit, OnDestroy {
   }
 
   loadTeams() {
-    if (this.currentUser.role >= Role.Organizer) {
-      this.teamService.getByTournament(this.tournament.id).subscribe(teams => this.teamList = teams);
+    const onReceived = (teams) => {
+      if (!this.selected) {
+        this.teamList = teams;
+      } else {
+        teams.forEach(team => {
+          const idx = this.teamList.findIndex(t => t.id === team.id);
+          if (idx > -1 && this.teamList[idx] !== this.selected) {
+            this.teamList.splice(idx, 1, team);
+          } else {
+            this.teamList.push(team);
+          }
+        });
+      }
     }
-    else {
-      this.teamService.getMyTeamsByTournament(this.tournament.id).subscribe(teams => this.teamList = teams);
+    if (this.currentUser.role >= Role.Organizer) {
+      this.teamService.getByTournament(this.tournament.id).subscribe(onReceived);
+    } else {
+      this.teamService.getMyTeamsByTournament(this.tournament.id).subscribe(onReceived);
     }
   }
 
@@ -91,7 +112,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
   }
 
   addTeam() {
-    if (this.availableSlots > ( this.freeSlots - this.tournament.disciplines.length + 1)) {
+    if (this.availableSlots > ( this.takenSlots - this.tournament.disciplines.length + 1)) {
       const team = <ITeam>{
         id          : null,
         name        : null,

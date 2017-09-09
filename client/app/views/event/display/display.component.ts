@@ -27,7 +27,11 @@ export class DisplayComponent implements OnInit, OnDestroy {
     this.tournamentSubscription = this.parent.tournamentSubject.subscribe(tournament => {
       if (tournament && tournament.id) {
         this.tournament = tournament;
-        this.eventSubscription = this.eventService.connect().subscribe(message => this.renderDisplayTemplates());
+        this.eventSubscription = this.eventService.connect().subscribe(message => {
+          if (!message || message.indexOf('Scores') > -1 || message.indexOf('Participant') > -1) {
+            this.renderDisplayTemplates();
+          }
+        });
         this.renderDisplayTemplates();
       }
     });
