@@ -8,6 +8,6 @@ export interface IClub extends IBelongsToClub {
   name: string;
   teams: ITeam[];
   users: IUser[];
-  contestants: IGymnast[];
+  gymnasts: IGymnast[];
 }
 
