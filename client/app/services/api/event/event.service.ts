@@ -27,7 +27,7 @@ export class EventService {
     this.observable = Observable.create((observer: Observer<any>) => {
       this.observer = observer;
       this.eventSource = this.createConnection();
-      Logger.log('Connection established!');
+      Logger.log('%cConnection established!', 'color: blue');
 
       return () => {
         Logger.log('Closing connection!');

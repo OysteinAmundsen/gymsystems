@@ -48,7 +48,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
     private angulartics: Angulartics2GoogleAnalytics
   ) {
     // Identify dev mode
-    this.angulartics2.developerMode(!environment.production);
+    if (!environment.production) {
+      Logger.debug('%cSetting developerMode', 'color: blue');
+      this.angulartics2.developerMode(true);
+    }
 
     // Set translation defaults
     this.translate.addLangs(['en', 'no']);
@@ -97,6 +100,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
     if (lang === 'nb') { lang = 'no'; }
     this.translate.use(lang);
     localStorage.setItem('lang', lang);
-    Logger.debug('** Changing language: ', this.currentLang, lang);
+    Logger.debug('%c** Changing language: ', 'font-size: 1.1em; font-weight: bold; color: green', this.currentLang, lang);
   }
 }
