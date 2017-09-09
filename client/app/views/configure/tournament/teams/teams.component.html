@@ -32,5 +32,5 @@
 <span [title]="'positions taken / positions available' | translate" *ngIf="hasFreeSlots">{{ takenSlots }} / {{ availableSlots }}</span>
 <span *ngIf="!hasFreeSlots" class="warning" [title]="'We\'ve filled all available positions of this tournament.' | translate">
   <fa name="warning" fw="true"></fa>
-  <span translate>We're very sorry, registration is closed!</span>
+  <span translate>We're sorry, registration is closed!</span>
 </span>
