@@ -85,7 +85,18 @@ export class ListComponent implements OnInit, OnDestroy {
 
   loadSchedule() {
     this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => {
-      this.schedule = schedule;
+      if (!this.selected) {
+        this.schedule = schedule;
+      } else {
+        schedule.forEach(team => {
+          const idx = this.schedule.findIndex(t => t.id === team.id);
+          if (idx > -1 && this.schedule[idx] !== this.selected) {
+            this.schedule.splice(idx, 1, team);
+          } else {
+            this.schedule.push(team);
+          }
+        });
+      }
       this.invalidateCache();
     });
   }
