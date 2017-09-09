@@ -129,6 +129,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       this.divisionService.getByTournament(this.tournament.id).subscribe(d => this.divisions = d);
       this.disciplineService.getByTournament(this.tournament.id).subscribe(d => {
         this.disciplines = d;
+        setTimeout(() => this.classChanged());
       });
       if (this.team.id) { this.reloadTeam(); }
       else { setTimeout(() => this.teamReceived(this.team)); }
@@ -151,7 +152,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       this.teamForm.controls['class']
         .valueChanges
         .distinctUntilChanged()
-        .subscribe((c: Classes) => this.classChanged());
+        .subscribe((c: Classes) => setTimeout(() => this.classChanged()));
 
       // Disable 'name' control if club is empty (only applicable for Admins)
       this.teamForm.controls.club.valueChanges.subscribe(v => {
@@ -205,7 +206,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       gymnasts: this.team.gymnasts || [],
       class: this.team.class
     });
-    this.classChanged();
+    // this.classChanged();
   }
 
   reloadTeam() {
