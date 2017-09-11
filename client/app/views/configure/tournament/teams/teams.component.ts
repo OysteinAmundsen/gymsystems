@@ -112,7 +112,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
   }
 
   addTeam() {
-    if (this.availableSlots > ( this.takenSlots - this.tournament.disciplines.length + 1)) {
+    if (this.hasFreeSlots) {
       const team = <ITeam>{
         id          : null,
         name        : null,
