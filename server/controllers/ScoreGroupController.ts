@@ -101,7 +101,11 @@ export class ScoreGroupController {
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   update( @Param('id') id: number, @Body() scoreGroup: ScoreGroup) {
-    return this.repository.persist(scoreGroup).catch(err => Logger.log.error(err));
+    return this.repository.persist(scoreGroup)
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
   }
 
   /**
@@ -116,7 +120,11 @@ export class ScoreGroupController {
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') scoreGroupId: number) {
     const scoreGroup = await this.repository.findOneById(scoreGroupId);
-    return this.removeMany([scoreGroup]).catch(err => Logger.log.error(err));
+    return this.removeMany([scoreGroup])
+    .catch(err => {
+      Logger.log.error(err);
+      return Promise.resolve(new ErrorResponse(err.code, err.message));
+    });
   }
 
   removeMany(scoreGroups: ScoreGroup[]) {

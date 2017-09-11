@@ -8,12 +8,14 @@ import { TournamentModule } from '../tournament.module';
 import { TeamsComponent } from './teams.component';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
-import { TournamentService, UserService, TeamsService } from 'app/services/api';
+import { TournamentService, UserService, TeamsService, EventService, ConfigurationService } from 'app/services/api';
 import { IClub, IUser, Role, ITournament } from 'app/services/model';
 
 import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
+import { EventServiceStub } from 'app/services/api/event/event.service.stub';
+import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
 
 class DummyParent {
@@ -36,7 +38,9 @@ describe('views.configure.tournament:TeamsComponent', () => {
       providers: [
         {provide: TournamentEditorComponent, useClass: DummyParent},
         {provide: TeamsService, useClass: TeamsServiceStub},
-        {provide: UserService, useClass: UserServiceStub}
+        {provide: UserService, useClass: UserServiceStub},
+        {provide: ConfigurationService, useClass: ConfigurationServiceStub},
+        {provide: EventService, useClass: EventServiceStub }
       ]
     })
     .compileComponents();

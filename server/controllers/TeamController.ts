@@ -16,6 +16,9 @@ import { User, Role } from '../model/User';
 import { Club, BelongsToClub } from '../model/Club';
 import { MediaController } from './MediaController';
 import { ErrorResponse } from '../utils/ErrorResponse';
+import { SSEController } from '../services/SSEController';
+import { TournamentController } from './TournamentController';
+import { ConfigurationController } from './ConfigurationController';
 
 /**
  * RESTful controller for all things related to `Team`s.
@@ -157,6 +160,7 @@ export class TeamController {
     const msg = await validateClub(team, null, req);
     if (msg) { res.status(403); return new ErrorResponse(403, 'Cannot update teams for other clubs than your own'); }
 
+    const sseService = Container.get(SSEController);
     const mediaController = Container.get(MediaController);
     const oldTeam = await this.get(id);
     return Promise.all(oldTeam.media.map(async m => {
@@ -167,6 +171,10 @@ export class TeamController {
       return Promise.resolve();
     })).then(() => {
       return this.repository.persist(team)
+        .then(result => {
+          sseService.publish('Teams updated');
+          return result;
+        })
         .catch(err => {
           Logger.log.error(err);
           res.status(400);
@@ -198,11 +206,34 @@ export class TeamController {
       if (msg) { res.status(403); return new ErrorResponse(403, 'Cannot update teams for other clubs than your own'); }
     }
 
-    return this.repository.persist(teams)
-      .catch(err => {
-        Logger.log.error(err);
-        return new ErrorResponse(err.code, err.message);
-      });
+    // Calculate free slots
+    const execution = await Container.get(ConfigurationController).get('scheduleExecutionTime');
+    const executionTime = execution.value;
+    const tournament = await Container.get(TournamentController).get(teams[0].tournament.id);
+    const teamList = await this.getByTournament(tournament.id, res);
+
+    const hours = tournament.times.reduce((prev: number, curr: {day: number, time: string}) => {
+      const [start, end] = curr.time.split(',');
+      return prev + (+end - +start);
+    }, 0);
+    const availableSlots = (hours * 60) / (executionTime + 1);
+    const takenSlots = teamList.reduce((prev: number, curr: Team) => prev + curr.disciplines.length, 0);
+
+    if ((availableSlots - takenSlots) >= tournament.disciplines.length) {
+      // We have openings. Register team
+      return this.repository.persist(teams)
+        .then(result => {
+          Container.get(SSEController).publish('Teams updated');
+          return result;
+        })
+        .catch(err => {
+          Logger.log.error(err);
+          return new ErrorResponse(err.code, err.message);
+        });
+    } else {
+      // No free slots left. Report.
+      res.status(403); return new ErrorResponse(403, 'Tournament full');
+    }
   }
 
   /**
@@ -224,6 +255,7 @@ export class TeamController {
     if (msg) { res.status(403); return new ErrorResponse(403, 'You are not authorized to remove teams from other clubs than your own.'); }
 
     // Remove media setup by this team
+    const sseService = Container.get(SSEController);
     const mediaRepository = Container.get(MediaController);
     await mediaRepository.removeMediaInternal(teamId);
 
@@ -239,6 +271,13 @@ export class TeamController {
 
     // Then remove the team
     return this.repository.remove(team)
-      .catch(err => Logger.log.error(err));
+      .then(result => {
+        sseService.publish('Teams updated')
+        return result;
+      })
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
   }
 }

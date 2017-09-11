@@ -1,13 +1,21 @@
 @import "~styles/variables";
 
-form {
-  max-width: 300px;
+header {
+  max-width: 400px;
   display: flex;
+  div {
+    flex: 1;
+    &[appFloatingLabel] {
+      display: flex;
+      > * {
+        flex: 1;
+      }
+    }
+  }
   label {
     line-height: 32px;
   }
   select {
-    flex: 1;
     display: inline-block;
   }
 }
@@ -19,6 +27,7 @@ td.editor {
   padding: 0;
   max-width: 40px;
   width: 40px;
+  vertical-align: top;
 }
 
 tbody {
@@ -32,6 +41,20 @@ tbody {
   }
   td {
     border-bottom: 0;
+  }
+  &.isTraining {
+    td {
+      background: repeating-linear-gradient(54deg, transparent, rgba(#ddd,0.4) 2px, transparent 4px);
+      &:first-of-type {
+        background: linear-gradient(to right, white 0%, transparent 30%), repeating-linear-gradient(54deg, transparent, rgba(#ddd,0.4) 2px, transparent 4px);
+      }
+    }
+    > tr:first-of-type td {
+      &:last-of-type {
+        background: linear-gradient(to left, white 0%, transparent 70%), repeating-linear-gradient(54deg, transparent, rgba(#ddd,0.4) 2px, transparent 4px);
+      }
+
+    }
   }
   // End reset
   &.isPublished {

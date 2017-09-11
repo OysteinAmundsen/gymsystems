@@ -48,13 +48,17 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
     private angulartics: Angulartics2GoogleAnalytics
   ) {
     // Identify dev mode
-    this.angulartics2.developerMode(!environment.production);
+    if (!environment.production) {
+      Logger.debug('%cSetting developerMode', 'color: blue');
+      this.angulartics2.developerMode(true);
+    }
 
     // Set translation defaults
     this.translate.addLangs(['en', 'no']);
     this.translate.setDefaultLang('en');
     const browserLang: string = this.translate.getBrowserLang();
-    this.changeLang(browserLang.match(/en|no/) ? browserLang : 'en');
+    const newLang = localStorage.getItem('lang') || browserLang;
+    this.changeLang(newLang.match(/en|no|nb/) ? newLang : 'en');
 
     // For debugging routes (only visible in dev mode)
     this.router.events.subscribe(event => Logger.debug(event));
@@ -93,7 +97,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
   }
 
   changeLang(lang) {
+    if (lang === 'nb') { lang = 'no'; }
     this.translate.use(lang);
-    Logger.debug('** Changing language: ', this.currentLang, lang);
+    localStorage.setItem('lang', lang);
+    Logger.debug('%c** Changing language: ', 'font-size: 1.1em; font-weight: bold; color: green', this.currentLang, lang);
   }
 }

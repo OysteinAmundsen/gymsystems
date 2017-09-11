@@ -9,6 +9,6 @@ export class EventServiceStub {
   }
 
   connect(): Observable<any> {
-    return Observable.of(null);
+    return Observable.of('');
   }
 }

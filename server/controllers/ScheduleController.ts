@@ -66,19 +66,19 @@ export class ScheduleController {
   @Get('/tournament/:id')
   @OnUndefined(404)
   getByTournament( @Param('id') id: number): Promise<TeamInDiscipline[]> {
-    return this.repository.createQueryBuilder('tournament_participant')
-      .where('tournament_participant.tournament=:id', { id: id })
-      .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
-      .leftJoinAndSelect('tournament_participant.discipline', 'discipline')
-      .leftJoinAndSelect('tournament_participant.team', 'team')
-      .leftJoinAndSelect('tournament_participant.scores', 'scores')
+    return this.repository.createQueryBuilder('participant')
+      .where('participant.tournament=:id', { id: id })
+      .innerJoinAndSelect('participant.tournament', 'tournament')
+      .leftJoinAndSelect('participant.discipline', 'discipline')
+      .leftJoinAndSelect('participant.team', 'team')
+      .leftJoinAndSelect('participant.scores', 'scores')
       .leftJoinAndSelect('discipline.scoreGroups', 'scoreGroups')
       .leftJoinAndSelect('team.media', 'media')
       .leftJoinAndSelect('media.discipline', 'media_discipline')
       .leftJoinAndSelect('media.team', 'media_team')
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('scores.scoreGroup', 'scoresScoreGroup')
-      .orderBy('tournament_participant.startNumber', 'ASC')
+      .orderBy('participant.startNumber', 'ASC')
       .addOrderBy('scoreGroups.operation', 'ASC')
       .addOrderBy('scoreGroups.type', 'ASC')
       .getMany();
@@ -93,14 +93,14 @@ export class ScheduleController {
   @Get('/:id')
   @OnUndefined(404)
   get( @Param('id') id: number): Promise<TeamInDiscipline> {
-    return this.repository.createQueryBuilder('tournament_participant')
-      .where('tournament_participant.id=:id', { id: id })
-      .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
-      .leftJoinAndSelect('tournament_participant.discipline', 'discipline')
+    return this.repository.createQueryBuilder('participant')
+      .where('participant.id=:id', { id: id })
+      .innerJoinAndSelect('participant.tournament', 'tournament')
+      .leftJoinAndSelect('participant.discipline', 'discipline')
       .leftJoinAndSelect('discipline.scoreGroups', 'scoreGroups')
-      .innerJoinAndSelect('tournament_participant.team', 'team')
+      .innerJoinAndSelect('participant.team', 'team')
       .leftJoinAndSelect('team.divisions', 'division')
-      .leftJoinAndSelect('tournament_participant.scores', 'scores')
+      .leftJoinAndSelect('participant.scores', 'scores')
       .orderBy('scoreGroups.operation', 'ASC')
       .addOrderBy('scoreGroups.type', 'ASC')
       .getOne();
@@ -166,9 +166,9 @@ export class ScheduleController {
    * @param id
    */
   getParticipantPlain(id: number): Promise<TeamInDiscipline> {
-    return this.repository.createQueryBuilder('tournament_participant')
-      .where('tournament_participant.id=:id', { id: id })
-      .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
+    return this.repository.createQueryBuilder('participant')
+      .where('participant.id=:id', { id: id })
+      .innerJoinAndSelect('participant.tournament', 'tournament')
       .leftJoinAndSelect('tournament.createdBy', 'user')
       .leftJoinAndSelect('tournament.club', 'club')
       .getOne();
@@ -247,11 +247,11 @@ export class ScheduleController {
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') participantId: number, @Res() res: Response, @Req() req: Request) {
-    const participant = await this.repository.createQueryBuilder('tournament_participant')
-      .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
+    const participant = await this.repository.createQueryBuilder('participant')
+      .innerJoinAndSelect('participant.tournament', 'tournament')
       .leftJoinAndSelect('tournament.createdBy', 'user')
       .leftJoinAndSelect('tournament.club', 'club')
-      .where('tournament_participant.id=:id', {id: participantId})
+      .where('participant.id=:id', {id: participantId})
       .getOne();
     return this.removeMany([participant], res, req);
   }
@@ -270,11 +270,11 @@ export class ScheduleController {
   @OnUndefined(200)
   @UseBefore(RequireRole.get(Role.Organizer))
   async removeAllFromTournament( @Param('id') tournamentId: number, @Res() res: Response, @Req() req: Request) {
-    const participants = await this.repository.createQueryBuilder('tournament_participant')
-      .innerJoinAndSelect('tournament_participant.tournament', 'tournament')
+    const participants = await this.repository.createQueryBuilder('participant')
+      .innerJoinAndSelect('participant.tournament', 'tournament')
       .leftJoinAndSelect('tournament.createdBy', 'user')
       .leftJoinAndSelect('tournament.club', 'club')
-      .where('tournament_participant.tournament=:id', { id: tournamentId })
+      .where('participant.tournament=:id', { id: tournamentId })
       .getMany();
     return this.removeMany(participants, res, req);
   }

@@ -44,7 +44,18 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   clubs = [];
   troops = [];
-  selectedClub: IClub;
+  _selectedClub: IClub;
+  get selectedClub() { return this._selectedClub; }
+  set selectedClub(v) {
+    if (v !== this._selectedClub) {
+      this._selectedClub = v;
+      this.team.club = v;
+      this.team.gymnasts = null;
+      if (this.teamForm) {
+        this.teamForm.controls['gymnasts'].setValue(null);
+      }
+    }
+  }
   _selectedTroop: ITroop;
   get selectedTroop() { return this._selectedTroop; }
   set selectedTroop(v) {
@@ -96,8 +107,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   get TeamGym(): string { return this.translate.instant('TeamGym'); }
   get National(): string { return this.translate.instant('National classes'); }
 
-  memberListHidden = true;
-
   constructor(
     private fb: FormBuilder,
     private tournamentEditor: TournamentEditorComponent,
@@ -120,8 +129,10 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       this.divisionService.getByTournament(this.tournament.id).subscribe(d => this.divisions = d);
       this.disciplineService.getByTournament(this.tournament.id).subscribe(d => {
         this.disciplines = d;
-        setTimeout(() => this.teamReceived(this.team));
+        setTimeout(() => this.classChanged());
       });
+      if (this.team.id) { this.reloadTeam(); }
+      else { setTimeout(() => this.teamReceived(this.team)); }
 
 
       // Group divisions by type
@@ -141,7 +152,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       this.teamForm.controls['class']
         .valueChanges
         .distinctUntilChanged()
-        .subscribe((c: Classes) => this.classChanged());
+        .subscribe((c: Classes) => setTimeout(() => this.classChanged()));
 
       // Disable 'name' control if club is empty (only applicable for Admins)
       this.teamForm.controls.club.valueChanges.subscribe(v => {
@@ -195,7 +206,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       gymnasts: this.team.gymnasts || [],
       class: this.team.class
     });
-    this.classChanged();
+    // this.classChanged();
   }
 
   reloadTeam() {

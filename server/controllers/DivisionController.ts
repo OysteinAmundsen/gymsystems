@@ -182,6 +182,9 @@ export class DivisionController {
     const configRepository = Container.get(ConfigurationController);
     return configRepository.get('defaultValues')
       .then(values => this.create(values.value.division.map((d: Division) => { d.tournament = tournament; return d; }), res))
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
   }
 }

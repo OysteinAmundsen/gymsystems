@@ -94,7 +94,10 @@ export class ScoreController {
         sseService.publish('Scores updated');
         return s;
       })
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
   }
 
   /**
@@ -130,7 +133,10 @@ export class ScoreController {
           sseService.publish('Scores updated');
           return s;
         }))
-        .catch(err => Logger.log.error(err));
+        .catch(err => {
+          Logger.log.error(err);
+          return Promise.resolve(new ErrorResponse(err.code, err.message));
+        });
     }
 
     res.status(400);

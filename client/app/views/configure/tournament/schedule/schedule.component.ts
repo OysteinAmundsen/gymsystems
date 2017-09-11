@@ -44,7 +44,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       }
       this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
         setTimeout(() => { // Sometimes dragula is not finished syncing model
-          this.schedule.forEach((div, idx) => div.startNumber = idx);
+          this.scheduleService.recalculateStartTime(this.tournament, this.schedule);
           this.isDirty = true;
         });
       });
@@ -58,7 +58,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   loadSchedule() {
     this.teamService.getByTournament(this.tournament.id).subscribe(teams => this.teams = teams);
     this.scheduleService.getByTournament(this.tournament.id).subscribe(schedule => {
-      this.schedule = schedule;
+      this.schedule = this.scheduleService.recalculateStartTime(this.tournament, schedule);
     });
   }
 
@@ -75,6 +75,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     } else {
       const hash = this.stringHash(participant);
       this.schedule.splice(this.schedule.findIndex(s => this.stringHash(s) === hash), 1);
+      this.schedule = this.scheduleService.recalculateStartTime(this.tournament, this.schedule);
     }
   }
 
@@ -88,28 +89,17 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   startTime(participant: ITeamInDiscipline) {
-    let time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
-    if (time) { return time.format('HH:mm'); }
-    return '<span class="warning">ERR</span>';
+    return this.scheduleService.startTime(this.tournament, participant);
   }
 
   isNewDay(participant: ITeamInDiscipline) {
-    const nextParticipant = this.schedule.find(s => s.startNumber === participant.startNumber + 1);
-    if (nextParticipant) {
-      const thisTime = this.scheduleService.calculateStartTime(this.tournament, participant);
-      const nextTime = this.scheduleService.calculateStartTime(this.tournament, nextParticipant);
-      if (thisTime && nextTime) {
-        const difference = moment.duration(nextTime.startOf('day').diff(thisTime.startOf('day'))).asDays();
-        return (difference >= 1);
-      }
-    }
-    return false;
+    return this.scheduleService.isNewDay(this.tournament, this.schedule, participant);
   }
 
   division(team: ITeam) { return this.teamService.getDivisionName(team); }
 
   stringHash(participant: ITeamInDiscipline): string {
-    return (participant.team.name + this.division(participant.team) + participant.discipline.name).replace(' ', '_');
+    return this.scheduleService.stringHash(participant);
   }
 
   hasChanges() {
@@ -124,32 +114,28 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     return this.calculateMissing().length;
   }
 
-  // Get divisions being competed in
-  private calculateDivisions() {
-    const divisions = [];
-    this.teams.forEach(team => {
-      const divisionName = this.division(team);
-      if (divisions.indexOf(divisionName) < 0) { divisions.push(divisionName); }
-    });
-    return divisions;
-  }
-
-  calculateMissing() {
-    const divisions = this.calculateDivisions();
+  /**
+   * Will return only the `ItemInDiscipline`s missing from the
+   * current schedule. This will return an unordered array.
+   */
+  calculateMissing(): ITeamInDiscipline[] {
     const disciplines: IDiscipline[] = [];
     const schedule: ITeamInDiscipline[] = [];
     const tournament = this.tournament;
-    divisions.forEach(div => {            // For each division...
-      const teamsInDivision = this.teams.filter(t => this.division(t) === div);
-      teamsInDivision.forEach(team => {   // ...and each team in division
-        team.disciplines.forEach(dis => { // ...and each discipline, create a participant object
-          if (disciplines.findIndex(d => d.id === dis.id) < 0) { disciplines.push(dis); }
+    const divisions = this.teams.reduce((prev, team) => prev.add(this.teamService.getDivisionName(team)), new Set<string>());
+    [ParticipationType.Training, ParticipationType.Live].forEach(type => {
+      divisions.forEach(div => {            // For each division...
+        const teamsInDivision = this.teams.filter(t => this.division(t) === div);
+        teamsInDivision.forEach(team => {   // ...and each team in division
+          team.disciplines.forEach(dis => { // ...and each discipline, create a participant object
+            if (disciplines.findIndex(d => d.id === dis.id) < 0) { disciplines.push(dis); }
 
-          const participant = <ITeamInDiscipline>{ discipline: dis, team: team, tournament: tournament, type: ParticipationType.Live };
-          if (this.schedule.findIndex(s => this.stringHash(s) === this.stringHash(participant)) < 0) {
-            // Only push if participant is not allready registerred
-            schedule.push(participant);
-          }
+            const participant = <ITeamInDiscipline>{ discipline: dis, team: team, tournament: tournament, type: type };
+            if (this.schedule.findIndex(s => this.stringHash(s) === this.stringHash(participant)) < 0) {
+              // Only push if participant is not allready registerred
+              schedule.push(participant);
+            }
+          });
         });
       });
     });
@@ -158,7 +144,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sort `a` according to `b` in the schedule, by the following rules:
+   * Sort the schedule by the following rules:
    *
    *  1) Order by division first
    *  2) Must follow discipline areas in sequence. Each row must have the next sequence of discipline.
@@ -167,43 +153,46 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    * http://stackoverflow.com/questions/43627465/javascript-sorting-algorithm
    * Manually reorder (using answer in http://stackoverflow.com/questions/43627465/javascript-sorting-algorithm#answer-43629921)
    */
-  sortSchedule(schedule: ITeamInDiscipline[]) {
-    const result = [];
+  sortSchedule(schedule: ITeamInDiscipline[]): ITeamInDiscipline[] {
+    const result: ITeamInDiscipline[] = [];
 
-    while (schedule.length) {
-      // Filter by classes first
-      let scheduleByClass = schedule.filter(s => s.team.class === Classes.National);
-      if (!scheduleByClass.length) { scheduleByClass = schedule.filter(s => s.team.class === Classes.TeamGym); }
-      schedule = schedule.filter(s => !scheduleByClass.includes(s)); // Remove from original array
+    [ParticipationType.Training, ParticipationType.Live].forEach(type => {
+      let currentSchedule = schedule.filter(s => s.type === type);
+      while (currentSchedule.length) {
+        // Filter by classes first if we are in Live participation type
+        let scheduleByClass = [].concat(currentSchedule);
+        if (type === ParticipationType.Live) {
+          scheduleByClass = currentSchedule.filter(s => s.team.class === Classes.National);
+          if (!scheduleByClass.length) { scheduleByClass = currentSchedule.filter(s => s.team.class === Classes.TeamGym); }
+        }
+        currentSchedule = currentSchedule.filter(s => !scheduleByClass.includes(s)); // Remove from original array
 
-      while(scheduleByClass.length) {
-        const currDivision = this.division(scheduleByClass[0].team);
+        while (scheduleByClass.length) {
+          const currDivision = this.division(scheduleByClass[0].team);
 
-        // Then find all in the same division
-        const scheduleByDivision = scheduleByClass.filter(s => this.division(s.team) === currDivision);
-        scheduleByClass = scheduleByClass.filter(s => !scheduleByDivision.includes(s)); // Remove from class filtered array
+          // Then find all in the same division
+          const scheduleByDivision = scheduleByClass.filter(s => this.division(s.team) === currDivision);
+          scheduleByClass = scheduleByClass.filter(s => !scheduleByDivision.includes(s)); // Remove from class filtered array
 
-        let index = 0;
-        let entry = scheduleByDivision[0];
-        while (scheduleByDivision.length) {     // Loop over division schedule
-          result.push(entry);                   // Push previous entry
-          scheduleByDivision.splice(index, 1);  // Remove previous entry from original data
+          let index = 0;
+          let entry = scheduleByDivision[0];
+          while (scheduleByDivision.length) {     // Loop over division schedule
+            result.push(entry);                   // Push previous entry
+            scheduleByDivision.splice(index, 1);  // Remove previous entry from original data
 
-          // Get next entry which is not the same team, and has the next discipline in the sortorder index
-          index = scheduleByDivision.findIndex(e => {
-            return e.team.id != entry.team.id && e.discipline.sortOrder == ((entry.discipline.sortOrder + 1) % 3);
-          });
-          index = index == -1 ? 0 : index;
+            // Get next entry which is not the same team, and has the next discipline in the sortorder index
+            index = scheduleByDivision.findIndex(e => {
+              return e.team.id !== entry.team.id && e.discipline.sortOrder === ((entry.discipline.sortOrder + 1) % 3);
+            });
+            index = index === -1 ? 0 : index;
 
-          // Check if index of next entry is found. If not, default to first remaining entry.
-          entry = scheduleByDivision[index];
+            // Check if index of next entry is found. If not, default to first remaining entry.
+            entry = scheduleByDivision[index];
+          }
         }
       }
-    }
+    });
 
-    // Set start number
-    let startNo = 0;
-    result.forEach(s => s.startNumber = startNo++);
-    return result;
+    return this.scheduleService.recalculateStartTime(this.tournament, result);
   }
 }

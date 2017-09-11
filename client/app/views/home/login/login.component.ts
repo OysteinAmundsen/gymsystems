@@ -6,6 +6,8 @@ import { UserService } from 'app/services/api';
 import { Subscription } from 'rxjs/Subscription';
 import { Title, Meta } from '@angular/platform-browser';
 import { ErrorHandlerService } from 'app/services/config';
+import { Angulartics2 } from 'angulartics2';
+import { IUser } from 'app/services/model';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +30,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private title: Title,
     private errorHandler: ErrorHandlerService,
-    private meta: Meta
+    private meta: Meta,
+    private angulartics: Angulartics2
   ) {
     title.setTitle('Login | GymSystems');
     this.meta.updateTag({property: 'og:title', content: `Login | GymSystems`});
@@ -55,7 +58,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   login() {
     const me = this;
     me.userService.login(me.loginForm.value).subscribe(
-      result => {
+      (result: IUser) => {
+        this.angulartics.eventTrack.next({action: 'login', properties: {category: 'auth', label: 'login', value: result.name}});
         me.router.navigate([me.redirectTo]);
       },
       error => this.errorHandler.error = 'Wrong username or password'

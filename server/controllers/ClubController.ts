@@ -169,7 +169,10 @@ export class ClubController {
     const club = await this.repository.findOneById(clubId);
     if (club) {
       return this.repository.remove(club)
-        .catch(err => Logger.log.error(err));
+        .catch(err => {
+          Logger.log.error(err);
+          return Promise.resolve(new ErrorResponse(err.code, err.message));
+        });
     }
     res.status(404);
     return `Club not found`;
@@ -307,7 +310,10 @@ export class ClubController {
       .where('id = :id', {id: id})
       .delete()
       .execute()
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
   }
 
   // Club troops

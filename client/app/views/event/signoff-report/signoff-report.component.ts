@@ -18,18 +18,11 @@ export class SignoffReportComponent implements OnInit {
   schedule: ITeamInDiscipline[] = [];
 
   get divisions() {
-    return this.schedule.reduce((p, c) => {
-      const t = this.teamService.getDivisionName(c.team);
-      if (p.indexOf(t) < 0) { p.push(t); }
-      return p;
-    }, []);
+    return this.schedule.reduce((p, c) => p.add(this.teamService.getDivisionName(c.team)), new Set<string>());
   }
 
   get disciplines() {
-    return this.schedule.reduce((p, s) => {
-      if (p.indexOf(s.discipline.name) < 0) { p.push(s.discipline.name); }
-      return p;
-    }, []);
+    return this.schedule.reduce((p, s) => p.add(s.discipline.name), new Set<string>());
   }
 
   get dateSpan() {

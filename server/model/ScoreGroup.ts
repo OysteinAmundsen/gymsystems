@@ -99,7 +99,7 @@ export class ScoreGroup {
    * won't have to configure him-/herself to death.
    */
   @ManyToOne(type => Discipline, discipline => discipline.scoreGroups, {
-    nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: true, onDelete: 'CASCADE'
+    nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: true
   })
   discipline: Discipline;
 }

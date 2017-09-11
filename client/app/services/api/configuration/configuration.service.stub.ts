@@ -32,6 +32,7 @@ export class ConfigurationServiceStub extends ConfigurationService {
       ],
     }},
     { name: 'scheduleExecutionTime', value: '5' },
+    { name: 'scheduleTrainingTime', value: '3' },
     {
       name: 'ageLimits',
       value: {

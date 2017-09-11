@@ -34,6 +34,7 @@ export class AdvancedComponent implements OnInit {
     this.isLoading = true;
     this.configForm = this.fb.group({
       'executionTime'        : [0],
+      'trainingTime'         : [0],
 
       // Age limits
       'agelimit.aspirant.min': [0, [Validators.min(0), Validators.max(99), Validators.maxLength(2)]],
@@ -52,10 +53,12 @@ export class AdvancedComponent implements OnInit {
       setTimeout(() => this.isLoading = false);
 
       const executionTime = this.configuration.find(c => c.name === 'scheduleExecutionTime');
+      const trainingTime = this.configuration.find(c => c.name === 'scheduleTrainingTime');
       const ageLimits = this.configuration.find(c => c.name === 'ageLimits');
 
       this.configForm.setValue({
         'executionTime'        : executionTime ? executionTime.value : 0,
+        'trainingTime'         : trainingTime ? trainingTime.value : 0,
 
         // Age limits
         'agelimit.aspirant.min': ageLimits ? ageLimits.value.aspirant.min : 0,
@@ -85,6 +88,7 @@ export class AdvancedComponent implements OnInit {
   save() {
     const newConfig = <IConfiguration[]>[
       {name: 'scheduleExecutionTime', value: this.configForm.value.executionTime },
+      {name: 'scheduleTrainingTime', value: this.configForm.value.trainingTime },
       {name: 'ageLimits', value: {
         aspirant: {min: this.configForm.value['agelimit.aspirant.min'], max: this.configForm.value['agelimit.aspirant.max']},
         rekrutt: {min: this.configForm.value['agelimit.rekrutt.min'], max: this.configForm.value['agelimit.rekrutt.max']},

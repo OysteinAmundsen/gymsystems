@@ -56,7 +56,7 @@ export class Media {
   /**
    * The reference to the tournament this media is to be played under
    */
-  @ManyToOne(type => Tournament, tournament => tournament.media, { nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(type => Tournament, tournament => tournament.media, { nullable: false })
   tournament: Tournament;
 
   /**

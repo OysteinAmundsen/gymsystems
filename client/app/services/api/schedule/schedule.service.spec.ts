@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 
 import { ScheduleService } from './schedule.service';
-import { ConfigurationService } from 'app/services/api';
+import { ConfigurationService } from '../configuration/configuration.service';
 import { ConfigurationServiceStub } from '../configuration/configuration.service.stub';
 
 describe('services.api:ScheduleService', () => {

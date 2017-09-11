@@ -17,9 +17,17 @@ section {
   margin-top: 1em;
 }
 
+.floorTime {
+  [class^="col-"] {
+    width: 6rem;
+  }
+}
 .ageLimits {
   > div {
     padding: 0 1em;
+    &:first-of-type {
+      padding-left: 0;
+    }
     > label {
       display: block;
       text-align: center;

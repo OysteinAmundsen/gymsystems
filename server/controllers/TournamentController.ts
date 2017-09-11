@@ -292,7 +292,10 @@ export class TournamentController {
 
     // Lastly remove the tournament.
     return this.repository.remove(tournament)
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
   }
 
   /**
@@ -327,6 +330,9 @@ export class TournamentController {
         }
         return tournament;
       })
-      .catch(err => Logger.log.error(err));
+      .catch(err => {
+        Logger.log.error(err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
   }
 }

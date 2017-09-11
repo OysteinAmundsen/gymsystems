@@ -13,7 +13,14 @@ import { ClubService } from 'app/services/api';
   styleUrls: ['./member-selector.component.scss']
 })
 export class MemberSelectorComponent implements OnInit, OnDestroy {
-  @Input() club: IClub;
+  _club: IClub;
+  @Input() set club(v) {
+    if (v) {
+      this._club = v;
+      this.loadAvailableMembers();
+    }
+  }
+  get club() { return this._club; }
   @Input() troopName: string;
   @Input() memberListHidden = true;
   @Output() gymnastsChange = new EventEmitter<IGymnast[]>();
@@ -21,7 +28,6 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
   @Input() set gymnasts(v) {
     this._gymnasts = v;
     if (v) {
-      this.memberListHidden = this.gymnasts && this.gymnasts.length > 0;
       this.loadAvailableMembers();
     }
   }
@@ -85,6 +91,7 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
         this.availableMembers = members && members.length && this.gymnasts && this.gymnasts.length
           ? members.filter(g => this.gymnasts.findIndex(tg => tg.id === g.id) < 0)
           : members;
+        this.memberListHidden = this.gymnasts && this.gymnasts.length > 0;
       });
     }
   }

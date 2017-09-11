@@ -5,6 +5,8 @@ import { Title, Meta } from '@angular/platform-browser';
 
 import { UserService } from 'app/services/api';
 import { ErrorHandlerService } from 'app/services/config';
+import { Angulartics2 } from 'angulartics2';
+import { AppComponent } from 'app/app.component';
 
 @Component({
   selector: 'app-logout',
@@ -19,11 +21,15 @@ export class LogoutComponent {
     private errorHandler: ErrorHandlerService,
     private translate: TranslateService,
     private title: Title,
-    private meta: Meta
+    private meta: Meta,
+    private angulartics: Angulartics2
   ) {
     title.setTitle('Logout | GymSystems');
     this.meta.updateTag({property: 'og:title', content: `Logout | GymSystems`});
     this.meta.updateTag({property: 'og:description', content: `Loging out of GymSystems`});
+    userService.getMe().subscribe(res => {
+      this.angulartics.eventTrack.next({action: 'logout', properties: {category: 'auth', label: 'logout', value: res.name}});
+    });
     userService.logout().subscribe(() => this.reroute(), (err) => this.reroute(err));
   }
 
