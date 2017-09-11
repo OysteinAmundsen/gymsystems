@@ -76,7 +76,7 @@ export class Gymnast implements BelongsToClub {
   /**
    * A reference to the club this perfomer is registerred under
    */
-  @ManyToOne(type => Club, club => club.teams, { nullable: false })
+  @ManyToOne(type => Club, club => club.gymnasts, { nullable: false })
   club: Club;
 
 }
