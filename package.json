@@ -126,7 +126,7 @@
     "@types/rimraf": "^2.0.2",
     "@types/serve-favicon": "~2.2.29",
     "@types/winston": "~2.3.5",
-    "codelyzer": "~3.1.2",
+    "codelyzer": "~3.2.0",
     "concurrently": "~3.5.0",
     "jasmine": "^2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
