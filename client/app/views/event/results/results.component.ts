@@ -22,7 +22,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     return this.getDivisionNames(this.national);
   }
 
-  get teamGymDivisions() {
+  get teamGymDivisions(): Set<string> {
     return this.getDivisionNames(this.teamgym);
   }
 
