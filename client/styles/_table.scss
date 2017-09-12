@@ -12,12 +12,24 @@ table[role="list"] {
   tr:last-child td {
     border-bottom: 0;
   }
-  tbody,
-  tr {
+  tbody, tr {
     &[role="listitem"] {
       cursor: pointer;
       &:hover td {
         background-color: rgba($primary, 0.2) !important;
+      }
+    }
+    &.unimportant {
+      td {
+        background: repeating-linear-gradient(54deg, transparent, rgba(#ddd,0.4) 2px, transparent 4px);
+        &:first-of-type {
+          background: linear-gradient(to right, white 0%, transparent 30%), repeating-linear-gradient(54deg, transparent, rgba(#ddd,0.4) 2px, transparent 4px);
+        }
+      }
+      > tr:first-of-type td {
+        &:last-of-type {
+          background: linear-gradient(to left, white 0%, transparent 70%), repeating-linear-gradient(54deg, transparent, rgba(#ddd,0.4) 2px, transparent 4px);
+        }
       }
     }
   }
