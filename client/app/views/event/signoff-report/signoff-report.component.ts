@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Rx';
 
 import { EventComponent } from '../event.component';
 
-import { ITeamInDiscipline, ITournament, IScoreGroup } from 'app/services/model';
+import { ITeamInDiscipline, ITournament, IScoreGroup, ParticipationType } from 'app/services/model';
 import { ScheduleService, TeamsService, ScoreService, TournamentService } from 'app/services/api';
 
 @Component({
@@ -44,7 +44,7 @@ export class SignoffReportComponent implements OnInit {
       if (tournament && tournament.id) {
         this.tournament = tournament;
         this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => {
-          this.schedule = schedule;
+          this.schedule = schedule.filter(s => s.type === ParticipationType.Live);
           this.onRenderComplete();
         });
       }

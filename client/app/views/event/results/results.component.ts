@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
-import { ITournament, ITeamInDiscipline, IUser, Classes } from 'app/services/model';
+import { ITournament, ITeamInDiscipline, IUser, Classes, ParticipationType } from 'app/services/model';
 import { EventComponent } from '../event.component';
 
 @Component({
@@ -17,6 +17,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   eventSubscription: Subscription;
   tournamentSubscription: Subscription;
+  scoreHead: {type: string}[];
 
   get divisions() {
     return this.getDivisionNames(this.national);
@@ -67,7 +68,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   loadResults() {
-    this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => this.schedule = schedule);
+    this.scheduleService.getByTournament(this.tournament.id)
+      .subscribe((schedule) => this.schedule = schedule.filter(s => s.type === ParticipationType.Live));
   }
 
   getDivisionNames(participants: ITeamInDiscipline[]): Set<string> {
@@ -89,14 +91,16 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   scoreHeadByDiscipline(discipline: string): {type: string}[] {
-    const d = this.schedule.find(s => s.discipline.name === discipline);
-    if (d) {
-      return d.discipline.scoreGroups.reduce((prev, curr) => {
-        for (let j = 0; j < curr.judges; j++) { prev.push({type: curr.type + (j + 1)}); }
-        return prev;
-      }, []);
+    if (!this.scoreHead) {
+      const d = this.schedule.find(s => s.discipline.name === discipline);
+      if (d) {
+        this.scoreHead = d.discipline.scoreGroups.reduce((prev, curr) => {
+          for (let j = 0; j < curr.judges; j++) { prev.push({type: curr.type + (j + 1)}); }
+          return prev;
+        }, []);
+      }
     }
-    return null;
+    return this.scoreHead;
   }
 
   scoresByGroup(participant: ITeamInDiscipline): {type: string, value: number}[] {
