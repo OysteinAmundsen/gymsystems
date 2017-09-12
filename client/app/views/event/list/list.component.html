@@ -25,7 +25,7 @@
       </tr>
     </thead>
     <tbody *ngFor="let item of schedule; let i = index;" role="listitem"
-           [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime, isTraining: item.type === types.Training, isCurrent: item.startTime && !item.endTime && !item.publishTime}">
+           [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime, unimportant: item.type === types.Training, isCurrent: item.startTime && !item.endTime && !item.publishTime}">
 
       <!-- View details wide screen -->
       <tr *ngIf="selected !== item && (!selectedDiscipline || selectedDiscipline.id === item.discipline.id) && item.type !== participationTypes.Training || showTraining === true" (click)="select(item)">
