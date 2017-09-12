@@ -156,7 +156,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
   getTimeRangeDay(day) {
     let startDate = this.tournamentForm.value.startDate;
-    if (startDate instanceof Date) {
+    if (startDate instanceof Date || typeof startDate === 'string') {
       startDate = moment(startDate);
     } else if (startDate.hasOwnProperty('momentObj')) {
       startDate = startDate['momentObj']

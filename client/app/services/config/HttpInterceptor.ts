@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Request, Response, RequestOptionsArgs, RequestOptions, XHRBackend, RequestMethod } from '@angular/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 
@@ -18,7 +18,13 @@ export interface HttpAction {
 @Injectable()
 export class HttpInterceptor extends Http {
   public httpAction: Subject<HttpAction> = new Subject();
-  constructor(backend: XHRBackend, defaultOptions: RequestOptions, private router: Router, private error: ErrorHandlerService) {
+  constructor(
+    backend: XHRBackend,
+    defaultOptions: RequestOptions,
+    private router: Router,
+    private route: ActivatedRoute,
+    private error: ErrorHandlerService
+  ) {
     super(backend, defaultOptions);
 
     // Prevent Ajax Request Caching for Internet Explorer
@@ -45,12 +51,13 @@ export class HttpInterceptor extends Http {
     .catch((err: Response) => {
       if (err.status === 401) {
         this.error.error = err.statusText + ' - ' + err.json().message;
-        me.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
+        this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
       } else {
         let body: any;
         try { body = err.json(); } catch (ex) { body = err.text() || ''; }
-        errMsg = `${err.status} - ${err.statusText || ''}: ${body.message ? body.message : body}`;
+        errMsg = `${err.status} - ${err.statusText || ''}: ${body.message ? body.message : err.url}`;
         this.error.error = errMsg;
+        this.router.navigate(['../'], { relativeTo: this.route })
       }
       if (url instanceof Request) {
         this.httpAction.next({url: url.url, method: url.method, isComplete: true, failed: true, values: err});

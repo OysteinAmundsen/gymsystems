@@ -47,18 +47,20 @@ export class ResultsComponent implements OnInit, OnDestroy {
     private userService: UserService) {  }
 
   ngOnInit() {
-    this.tournamentSubscription = this.parent.tournamentSubject.subscribe(tournament => {
-      if (tournament && tournament.id) {
-        this.tournament = tournament;
-        this.eventSubscription = this.eventService.connect().subscribe(message => {
-          if (!message || message.indexOf('Scores') > -1 || message.indexOf('Participant') > -1) {
-            this.loadResults();
-          }
-        });
-        this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
-        this.loadResults();
+    this.tournamentSubscription = this.parent.tournamentSubject.subscribe(
+      tournament => {
+        if (tournament && tournament.id) {
+          this.tournament = tournament;
+          this.eventSubscription = this.eventService.connect().subscribe(message => {
+            if (!message || message.indexOf('Scores') > -1 || message.indexOf('Participant') > -1) {
+              this.loadResults();
+            }
+          });
+          this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
+          this.loadResults();
+        }
       }
-    });
+    );
   }
 
   ngOnDestroy() {

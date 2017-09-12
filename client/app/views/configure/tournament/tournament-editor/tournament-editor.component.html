@@ -43,7 +43,7 @@
     <div class="row">
       <div class="col-5 help-available" appFloatingLabelContainer *appIfAuth="'Admin'">
         <label translate>Club</label>
-        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub" appAutoFocus></app-typeahead>
+        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
         <app-help-block>
           <p translate>Admins do not belong to any club. We need to know which club you are creating this tournament for.</p>
         </app-help-block>

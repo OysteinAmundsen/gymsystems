@@ -169,7 +169,7 @@ export class ListComponent implements OnInit, OnDestroy {
       this.user.role >= Role.Admin
       || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.club.id)
     )) {
-      if (participant != null && participant.startTime == null) {
+      if (participant != null && participant.startTime == null && participant.type === ParticipationType.Live) {
         this.errorHandler.error = this.translate.instant(`Cannot edit score. This participant hasn't started yet.`);
         return;
       }
