@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, Index, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, Index, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { Team } from './Team';
 import { Discipline } from './Discipline';
 import { Division, DivisionType } from './Division';

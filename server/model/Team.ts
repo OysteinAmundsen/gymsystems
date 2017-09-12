@@ -63,7 +63,7 @@ export class Team implements BelongsToClub {
    * in the following format: `[ GenderDivision, AgeDivision ]`
    */
   @ManyToMany(type => Division, division => division.teams)
-  @JoinTable()
+  @JoinTable({name: 'team_divisions_division_id'})
   divisions: Division[] = [];
 
   /**
@@ -94,7 +94,7 @@ export class Team implements BelongsToClub {
    * The disciplines this team is to compete in in this tournament
    */
   @ManyToMany(type => Discipline, discipline => discipline.teams, { cascadeInsert: false, cascadeUpdate: false })
-  @JoinTable()
+  @JoinTable({name: 'team_disciplines_discipline_id'})
   disciplines: Discipline[] = [];
 
   /**

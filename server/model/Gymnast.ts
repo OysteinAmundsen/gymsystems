@@ -63,14 +63,14 @@ export class Gymnast implements BelongsToClub {
    * A reference to troops this perfomer is a part of
    */
   @ManyToMany(type => Troop, troop => troop.gymnasts, { cascadeInsert: false, cascadeUpdate: false })
-  @JoinTable()
+  @JoinTable({name: 'gymnast_troop_troop_id'})
   troop: Troop[];
 
   /**
    * A reference to teams this perfomer is/has been a part of
    */
   @ManyToMany(type => Team, team => team.gymnasts, { cascadeInsert: false, cascadeUpdate: false })
-  @JoinTable()
+  @JoinTable({name: 'gymnast_team_team_id'})
   team: Team[];
 
   /**
