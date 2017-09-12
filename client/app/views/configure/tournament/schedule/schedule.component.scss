@@ -1,7 +1,7 @@
 @import '~styles/variables';
 
 tr.new td {
-  background: rgba(lighten(green, 50%), 0.1);
+  background-color: rgba(lighten(green, 50%), 0.1);
 }
 
 tr.day-split td {
