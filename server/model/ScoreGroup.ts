@@ -1,5 +1,5 @@
 import { Discipline } from './Discipline';
-import { PrimaryGeneratedColumn, Column, Entity, ManyToOne } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
 
 /**
  * Defines the type of operation the application should perform when
@@ -101,5 +101,6 @@ export class ScoreGroup {
   @ManyToOne(type => Discipline, discipline => discipline.scoreGroups, {
     nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: true
   })
+  @JoinColumn({name: 'discipline'})
   discipline: Discipline;
 }

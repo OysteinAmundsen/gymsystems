@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, OneToMany, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, OneToMany, JoinColumn } from 'typeorm';
 import { Club, BelongsToClub } from './Club';
 import { Tournament } from './Tournament';
 
@@ -64,6 +64,7 @@ export class User implements BelongsToClub {
   role: Role;
 
   @ManyToOne(type => Club, club => club.users, { nullable: true })
+  @JoinColumn({name: 'club'})
   club: Club;
 
   @OneToMany(type => Tournament, tournaments => tournaments.createdBy, { cascadeInsert: false, cascadeUpdate: false })

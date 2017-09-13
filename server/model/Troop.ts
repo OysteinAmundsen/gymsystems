@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, Index, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, Index, OneToMany, JoinColumn } from 'typeorm';
 import { Tournament } from './Tournament';
 import { Discipline } from './Discipline';
 import { Media } from './Media';
@@ -51,6 +51,7 @@ export class Troop implements BelongsToClub {
    * The `Club` which created and is responsible for this troop.
    */
   @ManyToOne(type => Club, club => club.teams, { nullable: false })
+  @JoinColumn({name: 'club'})
   club: Club;
 
   /**
