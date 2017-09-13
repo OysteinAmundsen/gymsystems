@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Title, Meta } from '@angular/platform-browser';
+import { Subscription } from 'rxjs/Subscription';
+
+import { Angulartics2 } from 'angulartics2';
 
 import { UserService } from 'app/services/api';
-import { Subscription } from 'rxjs/Subscription';
-import { Title, Meta } from '@angular/platform-browser';
 import { ErrorHandlerService } from 'app/services/config';
-import { Angulartics2 } from 'angulartics2';
 import { IUser } from 'app/services/model';
 
 @Component({

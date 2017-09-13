@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { ScoreComponent } from '../score/score.component';
 import { IScoreContainer } from '../IScoreContainer';
+import { ScoreService } from 'app/services/api';
 
 @Component({
   selector: 'app-score-group',
@@ -14,7 +15,7 @@ export class ScoreGroupComponent implements OnInit, AfterViewInit {
   @Input() form: FormGroup;
   @ViewChildren(ScoreComponent) scores: QueryList<ScoreComponent>;
 
-  constructor() { }
+  constructor(private scoreService: ScoreService) { }
 
   ngOnInit() {
     this.form.valueChanges.subscribe(value => {
@@ -37,8 +38,7 @@ export class ScoreGroupComponent implements OnInit, AfterViewInit {
     const me = this;
     me.scores.forEach((score, idx) => {
       score.input.nativeElement.onblur = function (evt) {
-        const fixedVal = (Math.ceil(score.score*20)/20).toFixed(2);
-        score.score = parseFloat(fixedVal);
+        score.score = me.scoreService.fixScore(score.score);
 
         if (me.model.total > 0 && score.score === score.defaultScore) {
           // Check previous and copy (0 is not allowed)

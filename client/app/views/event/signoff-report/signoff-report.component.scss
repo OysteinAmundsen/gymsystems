@@ -3,14 +3,19 @@ section {
   -webkit-print-color-adjust: exact !important;
 }
 
-thead > tr {
-  > td {
-    border: 0;
-  }
-  &:last-of-type {
+table {
+  thead > tr {
     > td {
-      border-bottom: 1px solid black;
+      border: 0;
     }
+    &:last-of-type {
+      > td {
+        border-bottom: 1px solid black;
+      }
+    }
+  }
+  td {
+    padding: 4px;
   }
 }
 .group {

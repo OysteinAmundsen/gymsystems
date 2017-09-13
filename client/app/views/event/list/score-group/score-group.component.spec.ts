@@ -11,6 +11,8 @@ import { IScoreContainer } from '../IScoreContainer';
 import { IScoreGroup, IDiscipline, Operation } from 'app/services/model';
 import { AppModule } from 'app/app.module';
 import { EventModule } from 'app/views/event/event.module';
+import { ScoreService } from 'app/services/api';
+import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 
 @Component({
  selector  : 'app-cmp',
@@ -41,6 +43,9 @@ describe('views.event.list:ScoreGroupComponent', () => {
       ],
       declarations: [
         WrapperComponent
+      ],
+      providers: [
+        { provide: ScoreService, useClass: ScoreServiceStub }
       ]
     })
     .overrideModule(EventModule, {

@@ -36,11 +36,16 @@ export class ScoreService {
 
   calculateScoreGroupTotal(participant: ITeamInDiscipline, type: string) {
     const scores = participant.scores.filter(s => type.indexOf(s.scoreGroup.type) > -1);
-    return scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
+    return this.fixScore(scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0);
   }
 
   // Calculate final score
   calculateTotal(participant: ITeamInDiscipline) {
     return participant.discipline.scoreGroups.reduce((prev, curr) => prev += this.calculateScoreGroupTotal(participant, curr.type), 0);
+  }
+
+  fixScore(score) {
+    const fixedVal = (Math.ceil(score * 20) / 20).toFixed(2);
+    return parseFloat(fixedVal);
   }
 }
