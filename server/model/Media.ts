@@ -33,10 +33,19 @@ export class Media {
    * This will differ from the name of the file uploaded.
    *
    * After upload, the media is available under
-   * `media/{tournament.id}/{team.name}_{team.divisionName}_{discipline.name}.mp3`
+   * `media/{tournament.id}/{team.name}_{team.divisionName}_{discipline.name}.{extension}`
    */
   @Column({ length: 100, unique: true })
   filename: string;
+
+  /**
+   * The original filename
+   */
+  @Column({ length: 100 })
+  originalName: string;
+
+  @Column({ length: 50 })
+  mimeType: string;
 
   /**
    * The reference to the discipline this media is to be played
