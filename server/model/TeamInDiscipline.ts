@@ -48,11 +48,11 @@ export class TeamInDiscipline {
   tournament: Tournament;
 
   @OneToOne(type => Discipline, { nullable: false })
-  @JoinColumn()
+  @JoinColumn({name: 'discipline'})
   discipline: Discipline;
 
   @OneToOne(type => Team, { nullable: false })
-  @JoinColumn()
+  @JoinColumn({name: 'team'})
   team: Team;
 
   @OneToMany(type => Score, score => score.participant, { cascadeInsert: true, cascadeUpdate: true })
