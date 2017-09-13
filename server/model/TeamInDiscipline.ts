@@ -26,48 +26,88 @@ export enum ParticipationType {
  */
 @Entity()
 export class TeamInDiscipline {
+  /**
+   *
+   */
   @PrimaryGeneratedColumn()
   id: number;
 
+  /**
+   *
+   */
   @Column()
   startNumber: number;
 
+  /**
+   *
+   */
   @Column({ nullable: true })
   startTime: Date;
 
+  /**
+   *
+   */
   @Column({ nullable: true })
   endTime: Date;
 
+  /**
+   *
+   */
   @Column({ nullable: true })
   publishTime: Date;
 
+  /**
+   *
+   */
   @Column({ default: ParticipationType.Live })
   type: ParticipationType;
 
+  /**
+   *
+   */
   @ManyToOne(type => Tournament, tournament => tournament.schedule, { nullable: false })
+  @JoinColumn({name: 'tournament'})
   tournament: Tournament;
 
+  /**
+   *
+   */
   @OneToOne(type => Discipline, { nullable: false })
-  @JoinColumn()
+  @JoinColumn({name: 'discipline'})
   discipline: Discipline;
 
+  /**
+   *
+   */
   @OneToOne(type => Team, { nullable: false })
-  @JoinColumn()
+  @JoinColumn({name: 'team'})
   team: Team;
 
+  /**
+   *
+   */
   @OneToMany(type => Score, score => score.participant, { cascadeInsert: true, cascadeUpdate: true })
   scores: Score[];
 
+  /**
+   *
+   */
   get disciplineName(): string {
     return (this.team.class === Classes.TeamGym ? 'TG: ' : '') + this.discipline.name;
   }
 
+  /**
+   *
+   */
   get division(): string {
     const ageDivision = (team: Team): Division => team.divisions.find(d => d.type === DivisionType.Age);
     const genderDivision = (team: Team): Division => team.divisions.find(d => d.type === DivisionType.Gender);
     return `${genderDivision(this.team).name} ${ageDivision(this.team).name}`;
   }
 
+  /**
+   *
+   */
   get total(): number {
     return this.discipline.scoreGroups.reduce((prev, curr) => {
       const scores = this.scores.filter(s => s.scoreGroup.id === curr.id);

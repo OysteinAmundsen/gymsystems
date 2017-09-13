@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Column, Entity, ManyToMany, ManyToOne, Index } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, Entity, ManyToMany, ManyToOne, Index, JoinColumn } from 'typeorm';
 
 import { Tournament } from './Tournament';
 import { Team } from './Team';
@@ -71,5 +71,6 @@ export class Division {
    * The tournament where this division is to be competed in
    */
   @ManyToOne(type => Tournament, tournament => tournament.divisions, { nullable: false, cascadeRemove: true })
+  @JoinColumn({name: 'tournament'})
   tournament: Tournament;
 }

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { TeamInDiscipline } from './TeamInDiscipline';
 import { ScoreGroup } from './ScoreGroup';
 
@@ -37,6 +37,7 @@ export class Score {
    * The `ScoreGroup` this score affects.
    */
   @ManyToOne(type => ScoreGroup, { nullable: false, cascadeRemove: false })
+  @JoinColumn({name: 'scoreGroup'})
   scoreGroup: ScoreGroup;
 
   /**
@@ -57,6 +58,7 @@ export class Score {
   @ManyToOne(type => TeamInDiscipline, participant => participant.scores, {
     nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: false
   })
+  @JoinColumn({name: 'participant'})
   participant: TeamInDiscipline;
 }
 

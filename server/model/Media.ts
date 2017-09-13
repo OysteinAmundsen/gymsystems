@@ -43,20 +43,21 @@ export class Media {
    * under.
    */
   @OneToOne(type => Discipline, { nullable: false })
-  @JoinColumn()
+  @JoinColumn({name: 'discipline' })
   discipline: Discipline;
 
   /**
    * The reference to the team this media is to be played under
    */
   @OneToOne(type => Team, { nullable: false, cascadeInsert: false, cascadeUpdate: false })
-  @JoinColumn()
+  @JoinColumn({name: 'team'})
   team: Team;
 
   /**
    * The reference to the tournament this media is to be played under
    */
   @ManyToOne(type => Tournament, tournament => tournament.media, { nullable: false })
+  @JoinColumn({name: 'tournament'})
   tournament: Tournament;
 
   /**

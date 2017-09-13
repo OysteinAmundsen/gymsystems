@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, Index, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, Index, OneToMany, JoinColumn } from 'typeorm';
 import { Club, BelongsToClub } from './Club';
 import { DivisionType } from './Division';
 import { Team } from './Team';
@@ -77,6 +77,6 @@ export class Gymnast implements BelongsToClub {
    * A reference to the club this perfomer is registerred under
    */
   @ManyToOne(type => Club, club => club.gymnasts, { nullable: false })
+  @JoinColumn({name: 'club'})
   club: Club;
-
 }

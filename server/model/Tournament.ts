@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 
 import { Discipline } from './Discipline';
 import { Division } from './Division';
@@ -32,9 +32,14 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * event.
    */
   @ManyToOne(type => User, user => user.tournaments, {nullable: false})
+  @JoinColumn({name: 'createdBy'})
   createdBy: User;
 
+  /**
+   *
+   */
   @ManyToOne(type => Club, club => club.tournaments, {nullable: true})
+  @JoinColumn({name: 'club'})
   club: Club;
 
   /**
