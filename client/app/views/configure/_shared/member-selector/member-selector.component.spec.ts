@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { ConfigureSharedModule } from '../_shared.module';
 import { MemberSelectorComponent } from './member-selector.component';
 
@@ -15,7 +15,7 @@ describe('MemberSelectorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModuleTest,
         ConfigureSharedModule,
         RouterTestingModule
       ],

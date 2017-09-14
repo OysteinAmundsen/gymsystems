@@ -3,7 +3,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { UserService } from 'app/services/api';
-import { IUser, RoleNames } from 'app/services/model';
+import { IUser, RoleNames } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({

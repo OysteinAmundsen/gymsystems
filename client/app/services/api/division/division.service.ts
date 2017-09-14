@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { IDivision } from 'app/services/model';
+import { IDivision } from 'app/model';
 import { Helper } from '../Helper';
 
 @Injectable()

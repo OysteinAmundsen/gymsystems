@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { ITournament, IUser, IClub } from 'app/services/model';
+import { ITournament, IUser, IClub } from 'app/model';
 import { TournamentService } from './tournament.service';
 
 export const dummyTournament = <ITournament>{

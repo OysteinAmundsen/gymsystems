@@ -3,19 +3,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, ReplaySubject } from 'rxjs/Rx';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { TournamentModule } from '../tournament.module';
 import { TeamsComponent } from './teams.component';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
-import { TournamentService, UserService, TeamsService, EventService, ConfigurationService } from 'app/services/api';
-import { IClub, IUser, Role, ITournament } from 'app/services/model';
+import { IClub, IUser, Role, ITournament } from 'app/model';
 
-import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
-import { UserServiceStub } from 'app/services/api/user/user.service.stub';
-import { TournamentServiceStub, dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
-import { EventServiceStub } from 'app/services/api/event/event.service.stub';
-import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+import { dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
 
 
 class DummyParent {
@@ -31,16 +26,11 @@ describe('views.configure.tournament:TeamsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModuleTest,
         TournamentModule,
-        RouterTestingModule,
       ],
       providers: [
         {provide: TournamentEditorComponent, useClass: DummyParent},
-        {provide: TeamsService, useClass: TeamsServiceStub},
-        {provide: UserService, useClass: UserServiceStub},
-        {provide: ConfigurationService, useClass: ConfigurationServiceStub},
-        {provide: EventService, useClass: EventServiceStub }
       ]
     })
     .compileComponents();
@@ -52,7 +42,7 @@ describe('views.configure.tournament:TeamsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

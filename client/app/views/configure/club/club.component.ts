@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ClubService, UserService } from 'app/services/api';
-import { IClub, IUser, Role } from 'app/services/model';
+import { IClub, IUser, Role } from 'app/model';
 import { Title, Meta } from '@angular/platform-browser';
 import { KeyCode } from 'app/shared/KeyCodes';
 

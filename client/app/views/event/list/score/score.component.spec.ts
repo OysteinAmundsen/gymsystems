@@ -4,10 +4,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 
-import { AppModule } from 'app/app.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { EventModule } from '../../event.module';
 import { ScoreComponent } from './score.component';
-import { IScoreGroup, IDiscipline, Operation, IScore, ITeamInDiscipline } from 'app/services/model';
+import { IScoreGroup, IDiscipline, Operation, IScore, ITeamInDiscipline } from 'app/model';
 
 @Component({
  selector  : 'app-cmp',
@@ -34,7 +34,7 @@ describe('views.event.list:ScoreComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        SharedModule,
         EventModule,
         RouterTestingModule,
       ],
@@ -54,7 +54,7 @@ describe('views.event.list:ScoreComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

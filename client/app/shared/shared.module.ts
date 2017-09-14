@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { DragulaModule } from 'ng2-dragula';
 import { RouterModule } from '@angular/router';
+import { DragulaModule } from 'ng2-dragula';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome';
 
 // Shared components
@@ -34,7 +34,7 @@ import { HelpBlockComponent } from './components/help-block/help-block.component
     TranslateModule,
     DragulaModule,
     RouterModule,
-    Angular2FontawesomeModule
+    Angular2FontawesomeModule,
   ],
   declarations: [
     DatepickerComponent,

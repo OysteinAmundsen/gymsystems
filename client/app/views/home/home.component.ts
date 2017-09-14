@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta } from '@angular/platform-browser';
 
 import { TournamentService } from 'app/services/api/tournament/tournament.service';
-import { ITournament, IUser } from 'app/services/model';
+import { ITournament, IUser } from 'app/model';
 import { UserService } from 'app/services/api';
 
 interface TournamentType {name: string, tournaments: ITournament[]}

@@ -1,16 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { Http } from '@angular/http';
-import { BaseRequestOptions, Response, ResponseOptions } from '@angular/http';
+
+import { Response, ResponseOptions, BaseRequestOptions, Http } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { ClubService } from 'app/services/api';
-import { IClub } from 'app/services/model';
+import { IClub } from 'app/model';
 
 describe('services.api:ClubService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        ClubService,
         BaseRequestOptions,
         MockBackend,
         {
@@ -20,6 +19,7 @@ describe('services.api:ClubService', () => {
           },
           deps: [MockBackend, BaseRequestOptions],
         },
+        ClubService
       ]
     });
   });

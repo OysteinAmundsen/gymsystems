@@ -1,6 +1,5 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppModule } from './app.module';
 
 import { TournamentService, UserService } from './services/api';
 
@@ -9,6 +8,7 @@ import { TournamentServiceStub } from './services/api/tournament/tournament.serv
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
 
 import { AppComponent } from './app.component';
+import { AppModuleTest } from 'app/app.module.spec';
 
 describe('views:AppComponent', () => {
   let component: AppComponent;
@@ -16,14 +16,11 @@ describe('views:AppComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        AppModule,
-        RouterTestingModule
+      declarations: [
+        AppComponent
       ],
-      providers: [
-        {provide: UserService, useClass: UserServiceStub },
-        {provide: TournamentService, useClass: TournamentServiceStub },
-        ErrorHandlerService,
+      imports: [
+        AppModuleTest
       ]
     });
     TestBed.compileComponents();

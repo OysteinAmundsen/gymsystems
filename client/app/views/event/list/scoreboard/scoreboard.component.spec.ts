@@ -3,20 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { EventModule } from '../../event.module';
 import { ScoreboardComponent } from './scoreboard.component';
 
-import { ITeamInDiscipline, IDiscipline, ITeam, ITournament, IScoreGroup, Operation } from 'app/services/model';
-import { ScoreService, UserService, ScheduleService, TeamsService, EventService, ConfigurationService } from 'app/services/api';
-import { MediaService } from 'app/services';
-
-import { UserServiceStub } from 'app/services/api/user/user.service.stub';
-import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
-import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
-import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
-import { EventServiceStub } from 'app/services/api/event/event.service.stub';
-import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+import { ITeamInDiscipline, IDiscipline, ITeam, ITournament, IScoreGroup, Operation } from 'app/model';
 
 @Component({
  selector  : 'app-cmp',
@@ -40,21 +31,12 @@ describe('views.event.list:ScoreboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModuleTest,
         EventModule,
         RouterTestingModule,
       ],
       declarations: [
         WrapperComponent
-      ],
-      providers: [
-        MediaService,
-        { provide: ScoreService, useClass: ScoreServiceStub },
-        { provide: UserService, useClass: UserServiceStub },
-        { provide: ScheduleService, useClass: ScheduleServiceStub },
-        { provide: TeamsService, useClass: TeamsServiceStub },
-        { provide: EventService, useClass: EventServiceStub },
-        { provide: ConfigurationService, useClass: ConfigurationServiceStub },
       ]
     })
     .overrideModule(EventModule, {
@@ -73,7 +55,7 @@ describe('views.event.list:ScoreboardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

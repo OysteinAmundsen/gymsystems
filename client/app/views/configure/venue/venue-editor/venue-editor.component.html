@@ -1,0 +1,75 @@
+<header>
+  <h1>
+    <fa name="map-marker" fw="true"></fa>
+    <span>{{ venueName }}</span>
+  </h1>
+</header>
+
+<!-- Edit data -->
+<form class="panel" [formGroup]="venueForm" (submit)="save()">
+  <fieldset>
+    <div class="row">
+      <div class="col-5" appFloatingLabelContainer>
+        <label translate for="name">Name</label>
+        <input type="text" id="name" formControlName="name"/>
+      </div>
+    </div>
+
+    <div class="row"><label translate>Location</label></div>
+    <div class="row">
+      <div class="col-6" appFloatingLabelContainer>
+        <label translate for="address">Address</label>
+        <input type="text" id="address" formControlName="address"/>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-6" appFloatingLabelContainer>
+            <label translate>Longitude</label>
+            <input type="text" formControlName="longitude"/>
+          </div>
+          <div class="col-6" appFloatingLabelContainer>
+            <label translate>Latitude</label>
+            <input type="text" formControlName="latitude"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row"><label translate for="contact">Contact</label></div>
+    <div class="row">
+      <div class="col-5" appFloatingLabelContainer>
+        <label translate for="contact">Contact Name</label>
+        <input type="text" id="contact" formControlName="contact"/>
+      </div>
+      <div class="col-3" appFloatingLabelContainer>
+        <label translate for="contactPhone">Phone</label>
+        <input type="tel" id="contactPhone" formControlName="contactPhone"/>
+      </div>
+      <div class="col-4" appFloatingLabelContainer>
+        <label translate for="contactEmail">Email</label>
+        <input type="email" id="contactEmail" formControlName="contactEmail"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-5" appFloatingLabelContainer>
+        <label translate for="rentalCost">Rental cost</label>
+        <input type="number" id="rentalCost" formControlName="rentalCost"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-5" appFloatingLabelContainer>
+        <label translate for="capacity">Capacity</label>
+        <input type="number" id="capacity" formControlName="capacity"/>
+      </div>
+    </div>
+  </fieldset>
+
+  <footer>
+    <app-save-button buttonType="submit" [disabled]="venueForm.invalid || venueForm.pristine"></app-save-button>
+    <button type="button" [title]="'Cancel' | translate" (click)="cancel()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
+    <button type="button" *ngIf="venueForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
+  </footer>
+</form>

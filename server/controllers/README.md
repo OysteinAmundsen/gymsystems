@@ -137,7 +137,18 @@ Every url should be prefixed `https://www.gymsystems.org/api`
 | GET    | /users                              | Organizer   | retreiving all users |
 | GET    | /users/me                           |             | retreiving data for currently logged in user |
 | GET    | /users/get/:id                      | Any Login   | retreiving a specific user |
-| PUT    | /users:id                           | Any Login   | updating a user |
+| PUT    | /users/:id                          | Any Login   | updating a user |
 | POST   | /users                              | Organizer   | creating a user (from the users panel) |
 | POST   | /users/register                     |             | registering a new user (from the registration panel) |
-| DELETE | /users:id                           | Organizer   | removing a user |
+| DELETE | /users/:id                          | Organizer   | removing a user |
+
+## VenueController
+
+| Method | Url                                 | Auth        | Description |
+|-------:|:------------------------------------|:------------|:------------|
+| GET    | /venue                              |             | retreiving all venues |
+| GET    | /venue/tournament/:id               |             | retreiving all venues used by tournament |
+| GET    | /venue/:id                          |             | retreiving one venue |
+| PUT    | /venue/:id                          |             | updating one venue |
+| POST   | /venue                              |             | creating one venue |
+| DELETE | /venue/:id                          |             | removing one venue |

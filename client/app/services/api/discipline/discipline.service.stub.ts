@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { IDiscipline, ITournament } from 'app/services/model';
+import { IDiscipline, ITournament } from 'app/model';
 import { DisciplineService } from './discipline.service';
 
 @Injectable()

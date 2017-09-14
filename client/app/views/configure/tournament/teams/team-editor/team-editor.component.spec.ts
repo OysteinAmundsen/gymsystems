@@ -6,13 +6,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/Rx';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { TournamentModule } from '../../tournament.module';
+import { TeamsComponent } from '../teams.component';
 import { TeamEditorComponent } from './team-editor.component';
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { ITeam, ITournament, IClub, IUser, Role, Classes } from 'app/services/model';
+import { ITeam, ITournament, IClub, IUser, Role, Classes } from 'app/model';
 import {
   TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService, ConfigurationService
 } from 'app/services/api';
@@ -25,7 +26,6 @@ import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.service.stub';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
-import { TeamsComponent } from "app/views/configure/tournament/teams";
 
 const club: IClub = <IClub>{
   id          : 0,
@@ -63,7 +63,7 @@ describe('views.configure.tournament:TeamEditorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModuleTest,
         TournamentModule,
         RouterTestingModule,
       ],
@@ -100,7 +100,7 @@ describe('views.configure.tournament:TeamEditorComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

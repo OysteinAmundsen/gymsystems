@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { IConfiguration } from 'app/services/model';
+import { IConfiguration } from 'app/model';
 
 @Injectable()
 export class ConfigurationService  {

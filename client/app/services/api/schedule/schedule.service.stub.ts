@@ -8,7 +8,7 @@ import 'rxjs/add/observable/of';
 
 import * as moment from 'moment';
 
-import { ITeamInDiscipline, IDiscipline, ITournament, ParticipationType } from 'app/services/model';
+import { ITeamInDiscipline, IDiscipline, ITournament, ParticipationType } from 'app/model';
 import { ScheduleService } from './schedule.service';
 import { ConfigurationService } from '../configuration/configuration.service';
 

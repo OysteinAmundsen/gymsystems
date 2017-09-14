@@ -2,12 +2,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { LoginComponent } from './login.component';
 
-import { UserService } from 'app/services/api';
-import { UserServiceStub } from 'app/services/api/user/user.service.stub';
-import { ErrorHandlerService } from 'app/services/config';
 
 describe('views.home:LoginComponent', () => {
   let component: LoginComponent;
@@ -15,16 +12,13 @@ describe('views.home:LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        AppModule,
-        RouterTestingModule,
+      declarations: [
+        LoginComponent
       ],
-      providers: [
-        ErrorHandlerService,
-        {provide: UserService, useClass: UserServiceStub},
+      imports: [
+        AppModuleTest
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -33,7 +27,7 @@ describe('views.home:LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

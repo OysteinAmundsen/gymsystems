@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { IClub, IGymnast, ITroop } from 'app/services/model';
+import { IClub, IGymnast, ITroop } from 'app/model';
 import { ClubService } from './club.service';
 
 @Injectable()

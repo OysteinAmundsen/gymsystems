@@ -9,7 +9,7 @@ describe('services.api:EventService', () => {
     });
   });
 
-  it('should ...', inject([EventService], (service: EventService) => {
+  it('should be created', inject([EventService], (service: EventService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -2,13 +2,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 
 import { HomeComponent } from './home.component';
-import { ScheduleService, UserService, TournamentService } from 'app/services/api';
-import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
-import { UserServiceStub } from 'app/services/api/user/user.service.stub';
-import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
+import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 
 describe('views.home:HomeComponent', () => {
   let component: HomeComponent;
@@ -16,14 +13,12 @@ describe('views.home:HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        AppModule,
-        RouterTestingModule
+      declarations: [
+        HomeComponent
       ],
-      providers: [
-        {provide: TournamentService, useClass: TournamentServiceStub},
-        {provide: UserService, useClass: UserServiceStub},
-        {provide: ScheduleService, useClass: ScheduleServiceStub},
+      imports: [
+        AppModuleTest,
+        MarkdownToHtmlModule
       ]
     })
     .compileComponents();
@@ -35,7 +30,7 @@ describe('views.home:HomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

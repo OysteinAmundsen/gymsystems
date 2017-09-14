@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
 
-import { IGymnast, IClub, Gender } from 'app/services/model';
+import { IGymnast, IClub, Gender } from 'app/model';
 import { ClubService } from 'app/services/api';
 
 @Component({

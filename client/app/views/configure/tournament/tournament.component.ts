@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 
 import { TournamentService } from 'app/services/api';
-import { ITournament } from 'app/services/model';
+import { ITournament } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({

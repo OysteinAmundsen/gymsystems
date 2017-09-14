@@ -14,6 +14,7 @@ import { ClubModule } from './club/club.module';
 import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
 import { MacroDialogComponent } from './display/macro-dialog/macro-dialog.component';
+import { VenueModule } from 'app/views/configure/venue/venue.module';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { MacroDialogComponent } from './display/macro-dialog/macro-dialog.compon
 
     // Packaged modules
     SharedModule,
+    VenueModule,
     TournamentModule,
     ClubModule,
     UsersModule,

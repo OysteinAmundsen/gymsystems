@@ -27,7 +27,8 @@ import {
   ScheduleService,
   EventService,
   DisplayService,
-  ClubService
+  ClubService,
+  VenueService
 } from './services/api';
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
 import { MediaService } from './services/media.service';
@@ -45,7 +46,7 @@ import { RegisterComponent } from './views/home/register/register.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, './i18n/', '.json');
+  return new TranslateHttpLoader(http, './i18n/', '.json');
 }
 
 @NgModule({
@@ -79,7 +80,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     // Routes last (!important)
     AppRoutingModule,
   ],
-  exports: [ TranslateModule ],
+  exports: [
+    TranslateModule,
+  ],
   providers: [
     // API Services
     ErrorHandlerService,
@@ -95,6 +98,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DisplayService,
     ClubService,
     MediaService,
+    VenueService,
 
     // SSE Provider
     EventService,

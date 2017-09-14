@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@a
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { DisciplineService } from 'app/services/api';
-import { IDiscipline } from 'app/services/model';
+import { IDiscipline } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
 
 

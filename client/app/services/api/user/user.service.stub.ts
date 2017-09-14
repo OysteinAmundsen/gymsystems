@@ -7,7 +7,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
-import { IUser, Role, IClub } from 'app/services/model';
+import { IUser, Role, IClub } from 'app/model';
 
 @Injectable()
 export class UserServiceStub {

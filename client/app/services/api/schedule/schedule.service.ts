@@ -10,7 +10,7 @@ import * as moment from 'moment';
 import { Logger } from 'app/services';
 
 import { ConfigurationService } from '../configuration/configuration.service';
-import { ITeamInDiscipline, ITournament, ParticipationType, DivisionType } from 'app/services/model';
+import { ITeamInDiscipline, ITournament, ParticipationType, DivisionType } from 'app/model';
 import { Helper } from '../Helper';
 
 @Injectable()

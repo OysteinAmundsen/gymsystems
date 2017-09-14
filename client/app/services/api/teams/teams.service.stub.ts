@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { ITeam, IClub, IDiscipline } from 'app/services/model';
+import { ITeam, IClub, IDiscipline } from 'app/model';
 
 import { TeamsService } from './teams.service';
 import { dummyTournament } from '../tournament/tournament.service.stub';

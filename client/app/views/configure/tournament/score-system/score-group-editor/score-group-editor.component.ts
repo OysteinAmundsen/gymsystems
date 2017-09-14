@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ScoreGroupService } from 'app/services/api';
-import { IDiscipline, IScoreGroup, Operation } from 'app/services/model';
+import { IDiscipline, IScoreGroup, Operation } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({

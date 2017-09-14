@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 
 import {
   IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender
-} from 'app/services/model';
+} from 'app/model';
 import { TeamsService, DisciplineService, DivisionService, ClubService, UserService, ConfigurationService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';

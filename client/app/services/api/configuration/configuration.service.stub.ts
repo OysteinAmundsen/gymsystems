@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
-import { IConfiguration, DivisionType } from 'app/services/model';
+import { IConfiguration, DivisionType } from 'app/model';
 import { ConfigurationService } from './configuration.service';
 
 @Injectable()

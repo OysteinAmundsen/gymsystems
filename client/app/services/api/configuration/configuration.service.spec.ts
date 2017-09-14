@@ -1,17 +1,30 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
+
+import { Response, ResponseOptions, BaseRequestOptions, Http } from '@angular/http';
+import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { ConfigurationService } from './configuration.service';
+import { IConfiguration } from 'app/model';
 
 describe('services.api:ConfigurationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
-      providers: [ConfigurationService]
+      providers: [
+        BaseRequestOptions,
+        MockBackend,
+        {
+          provide: Http,
+          useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions) => {
+            return new Http(backend, defaultOptions);
+          },
+          deps: [MockBackend, BaseRequestOptions],
+        },
+        ConfigurationService
+      ]
     });
   });
 
-  it('should ...', inject([ConfigurationService], (service: ConfigurationService) => {
+  it('should be created', inject([ConfigurationService], (service: ConfigurationService) => {
     expect(service).toBeTruthy();
   }));
 });

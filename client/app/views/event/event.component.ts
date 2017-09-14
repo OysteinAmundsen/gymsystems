@@ -3,7 +3,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject } from 'rxjs/Rx';
 import { TournamentService } from 'app/services/api';
-import { ITournament } from 'app/services/model';
+import { ITournament } from 'app/model';
 
 
 @Component({

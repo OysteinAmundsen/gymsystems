@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
 import { EventService, DisplayService } from 'app/services/api';
-import { ITournament } from 'app/services/model';
+import { ITournament } from 'app/model';
 import { EventComponent } from '../event.component';
 
 @Component({

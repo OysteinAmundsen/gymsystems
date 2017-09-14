@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 
-import { IClub, IBelongsToClub, IGymnast, ITroop } from 'app/services/model';
+import { IClub, IBelongsToClub, IGymnast, ITroop } from 'app/model';
 import { Helper } from '../Helper';
 
 @Injectable()

@@ -5,7 +5,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Rx';
 
 import { UserService, ClubService } from 'app/services/api';
-import { IUser, RoleNames, Role, IClub } from 'app/services/model';
+import { IUser, RoleNames, Role, IClub } from 'app/model';
 import { ValidationService } from 'app/services/validation';
 import { ErrorHandlerService } from 'app/services/config';
 import { UppercaseFormControl } from 'app/shared/form';

@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { IScore, ITeamInDiscipline } from 'app/services/model';
+import { IScore, ITeamInDiscipline } from 'app/model';
 import { Helper } from '../Helper';
 
 @Injectable()

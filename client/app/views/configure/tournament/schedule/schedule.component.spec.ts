@@ -2,12 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReplaySubject } from 'rxjs/Rx';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { TournamentModule } from '../tournament.module';
 import { ScheduleComponent } from './schedule.component';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
-import { ITournament } from 'app/services/model/ITournament';
+import { ITournament } from 'app/model/ITournament';
 import { ScheduleService, DivisionService, DisciplineService, TeamsService, ConfigurationService } from 'app/services/api';
 
 import { dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
@@ -33,7 +33,7 @@ describe('views.configure.tournament:ScheduleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModuleTest,
         TournamentModule,
         RouterTestingModule,
       ],
@@ -56,7 +56,7 @@ describe('views.configure.tournament:ScheduleComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

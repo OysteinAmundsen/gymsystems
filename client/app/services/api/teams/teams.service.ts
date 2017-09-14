@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { ITeam, IDiscipline, DivisionType } from 'app/services/model';
+import { ITeam, IDiscipline, DivisionType } from 'app/model';
 import { Helper } from '../Helper';
 
 @Injectable()

@@ -2,7 +2,7 @@
 
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppModule } from 'app/app.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { EventModule } from '../event.module';
 import { EventComponent } from '../event.component';
 import { SignoffReportComponent } from './signoff-report.component';
@@ -22,7 +22,7 @@ describe('SignoffReportComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        SharedModule,
         EventModule,
         RouterTestingModule,
       ],

@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ClubService } from 'app/services/api';
-import { IClub, IGymnast, DivisionType, Gender } from 'app/services/model';
+import { IClub, IGymnast, DivisionType, Gender } from 'app/model';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { Logger } from 'app/services/Logger';

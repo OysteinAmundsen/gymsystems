@@ -1,4 +1,4 @@
-import { IClub } from 'app/services/model';
+import { IClub } from 'app/model';
 
 export interface IBelongsToClub {
   club: IClub;

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
 import { EventService, DisplayService } from 'app/services/api';
-import { ITournament } from 'app/services/model';
+import { ITournament } from 'app/model';
 import { EventComponent } from '../../event.component';
 import { KeyCode } from 'app/shared/KeyCodes';
 

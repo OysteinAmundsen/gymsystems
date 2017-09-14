@@ -1,10 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Http } from '@angular/http';
-import { HttpInterceptor, ErrorHandlerService } from 'app/services/config';
 
-import { AppModule } from 'app/app.module';
-import { SharedModule } from 'app/shared/shared.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { SaveButtonComponent } from './save-button.component';
 
 describe('shared.components:SaveButtonComponent', () => {
@@ -14,12 +10,7 @@ describe('shared.components:SaveButtonComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
-        RouterTestingModule,
-        SharedModule
-      ],
-      providers: [
-        { provide: Http, useClass: HttpInterceptor }
+        AppModuleTest
       ]
     })
     .compileComponents();

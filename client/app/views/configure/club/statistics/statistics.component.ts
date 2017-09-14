@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ITeamInDiscipline } from 'app/services/model';
+import { ITeamInDiscipline } from 'app/model';
 
 @Component({
   selector: 'app-statistics',

@@ -1,4 +1,4 @@
-import { IUser } from './services/model/IUser';
+import { IUser } from './model/IUser';
 import { Component, ElementRef, OnInit, OnDestroy, AfterContentChecked } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';

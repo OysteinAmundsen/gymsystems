@@ -3,10 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 @Injectable()
-export class EventServiceStub {
+export class EventServiceStub  {
 
-  constructor() {
-  }
+  constructor() {  }
 
   connect(): Observable<any> {
     return Observable.of('');

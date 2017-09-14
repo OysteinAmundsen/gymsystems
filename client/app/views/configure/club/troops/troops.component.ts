@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Rx';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
-import { ITroop, IUser, Role, IGymnast, Gender } from 'app/services/model';
+import { ITroop, IUser, Role, IGymnast, Gender } from 'app/model';
 import { UserService, ClubService, ConfigurationService } from 'app/services/api';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { TranslateService } from '@ngx-translate/core';

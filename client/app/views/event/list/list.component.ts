@@ -10,7 +10,7 @@ import { ScheduleService, TeamsService, EventService, UserService, ScoreService 
 import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
-import { ITournament, ITeamInDiscipline, ITeam, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/services/model';
+import { ITournament, ITeamInDiscipline, ITeam, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/model';
 
 interface ParticipantCache {
   time: string;

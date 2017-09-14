@@ -3,7 +3,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ConfigurationService } from 'app/services/api';
-import { IConfiguration } from 'app/services/model';
+import { IConfiguration } from 'app/model';
 
 @Component({
   selector: 'app-advanced',

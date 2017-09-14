@@ -8,10 +8,11 @@ import { IDiscipline } from './IDiscipline';
 import { ITeamInDiscipline } from './ITeamInDiscipline';
 import { IClub } from './IClub';
 
-export interface ITournament {
+import { IBelongsToClub } from './IBelongsToClub';
+import { ICreatedBy } from './ICreatedBy';
+
+export interface ITournament extends IBelongsToClub, ICreatedBy {
   id: number;
-  createdBy: IUser;
-  club: IClub;
   name: string;
   description_no: string;
   description_en: string;

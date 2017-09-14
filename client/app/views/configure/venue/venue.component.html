@@ -1,0 +1,32 @@
+<h1>
+  <fa name="map-marker" fw="true"></fa>
+  <span translate>Venue</span>
+</h1>
+
+<div class="table-responsive">
+  <table role="list" class="editable">
+    <thead>
+      <tr>
+        <th translate>Name</th>
+        <th translate>Contact</th>
+        <th translate>Rental cost</th>
+        <th translate>Address</th>
+        <th translate *appIfAuth="'Admin'">Created by</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let venue of venueList">
+      <tr [routerLink]="['.', venue.id]" role="listitem">
+        <td>{{ venue.name }}</td>
+        <td>{{ venue.contact }}</td>
+        <td>{{ venue.rentalCost }}</td>
+        <td>{{ venue.address }}</td>
+        <td *appIfAuth="'Admin'">{{ venue.createdBy.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<button type="button" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
+  <fa name="plus" fw="true"></fa>
+  <span translate>Add Venue</span>
+</button>

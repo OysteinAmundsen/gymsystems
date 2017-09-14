@@ -11,7 +11,7 @@ import { Moment } from 'moment';
 import * as moment from 'moment';
 
 import { TournamentService, UserService, ClubService } from 'app/services/api';
-import { ITournament, IUser, Role, IClub } from 'app/services/model';
+import { ITournament, IUser, Role, IClub } from 'app/model';
 
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { UppercaseFormControl } from 'app/shared/form';

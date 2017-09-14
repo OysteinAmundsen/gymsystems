@@ -7,7 +7,7 @@ import 'rxjs/add/operator/share';
 
 import * as moment from 'moment';
 
-import { ITournament } from 'app/services/model/ITournament';
+import { ITournament } from 'app/model/ITournament';
 import { Helper } from '../Helper';
 
 @Injectable()

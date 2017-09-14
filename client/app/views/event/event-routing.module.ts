@@ -9,7 +9,7 @@ import { FullscreenComponent } from './display/fullscreen/fullscreen.component';
 import { EventComponent } from './event.component';
 
 import { RoleGuard } from 'app/shared/guards';
-import { Role } from 'app/services/model';
+import { Role } from 'app/model';
 
 const routes: Routes = [
   { path: ':id',          component: EventComponent, children: [

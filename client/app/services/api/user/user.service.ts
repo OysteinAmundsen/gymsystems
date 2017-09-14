@@ -9,7 +9,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
 import { Logger } from 'app/services';
-import { IUser } from 'app/services/model';
+import { IUser } from 'app/model';
 import { Helper } from '../Helper';
 
 @Injectable()

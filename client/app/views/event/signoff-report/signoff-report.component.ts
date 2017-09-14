@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Rx';
 
 import { EventComponent } from '../event.component';
 
-import { ITeamInDiscipline, ITournament, IScoreGroup, ParticipationType } from 'app/services/model';
+import { ITeamInDiscipline, ITournament, IScoreGroup, ParticipationType } from 'app/model';
 import { ScheduleService, TeamsService, ScoreService, TournamentService } from 'app/services/api';
 
 @Component({

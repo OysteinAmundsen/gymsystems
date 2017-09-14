@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, OneToMany, JoinColumn } from 'typeorm';
 import { Club, BelongsToClub } from './Club';
 import { Tournament } from './Tournament';
+import { Venue } from './Venue';
 
 /**
  * A `Role` is a set privilege level in the system.
@@ -90,4 +91,10 @@ export class User implements BelongsToClub {
    */
   @OneToMany(type => Tournament, tournaments => tournaments.createdBy, { cascadeInsert: false, cascadeUpdate: false })
   tournaments: Tournament[];
+
+  /**
+   *
+   */
+  @OneToMany(type => Venue, venues => venues.createdBy, { cascadeInsert: false, cascadeUpdate: false })
+  venues: Venue[];
 }
