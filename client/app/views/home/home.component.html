@@ -10,9 +10,13 @@
         </header>
 
         <div><pre [innerHtml]="getDescription(tournament) | MarkdownToHtml"></pre></div>
-        <a [routerLink]="['/event', tournament.id, 'list']" class="btn primary">
+        <a [routerLink]="['/event', tournament.id, 'list']" class="btn primary" *appIfAuth="true">
           <fa name="arrow-right" fw="true"></fa>
           <span translate>Go to scoreboard</span>
+        </a>
+        <a [routerLink]="['/event', tournament.id, 'results']" class="btn primary" *appIfAuth="false">
+          <fa name="arrow-right" fw="true"></fa>
+          <span translate>Go to results</span>
         </a>
       </div>
     </section>

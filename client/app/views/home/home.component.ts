@@ -3,7 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta } from '@angular/platform-browser';
 
 import { TournamentService } from 'app/services/api/tournament/tournament.service';
-import { ITournament } from 'app/services/model';
+import { ITournament, IUser } from 'app/services/model';
+import { UserService } from 'app/services/api';
 
 interface TournamentType {name: string, tournaments: ITournament[]}
 
@@ -30,7 +31,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     return past && past.tournaments && past.tournaments.length;
   }
 
-  constructor(private tournamentService: TournamentService, private translate: TranslateService, private title: Title, private meta: Meta) {
+  constructor(
+    private tournamentService: TournamentService,
+    private translate: TranslateService,
+    private title: Title,
+    private meta: Meta
+  ) {
     title.setTitle('GymSystems');
     this.meta.updateTag({property: 'og:title', content: `GymSystems`});
     this.meta.updateTag({property: 'og:description', content: `Web system for competitive teamgym scoreboarding`});
