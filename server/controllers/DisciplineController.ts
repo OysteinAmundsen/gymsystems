@@ -143,7 +143,7 @@ export class DisciplineController {
     const discipline = await this.repository.findOneById(disciplineId);
     return this.removeMany([discipline])
       .catch(err => {
-        Logger.log.error(`Error removing discipline ${id}`, err);
+        Logger.log.error(`Error removing discipline ${disciplineId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
