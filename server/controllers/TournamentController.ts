@@ -217,7 +217,7 @@ export class TournamentController {
         return persisted;
       })
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error creating tournament`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }
@@ -246,7 +246,7 @@ export class TournamentController {
         return persisted;
       })
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error updating tournament ${id}`, err);
         return Promise.resolve();
       });
   }
@@ -293,7 +293,7 @@ export class TournamentController {
     // Lastly remove the tournament.
     return this.repository.remove(tournament)
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error removing tournament ${tournamentId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -324,14 +324,14 @@ export class TournamentController {
           ])
             .then(() => tournament)
             .catch(err => {
-              Logger.log.error(err);
+              Logger.log.error(`Error creating default values for tournament ${tournament.id}`, err);
               return Promise.reject(err);
             });
         }
         return tournament;
       })
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error Error fetching configuration: defaultValues`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }

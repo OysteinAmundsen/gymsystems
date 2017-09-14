@@ -102,7 +102,7 @@ export class DivisionController {
     const divisions = Array.isArray(division) ? division : [division];
     return this.repository.persist(divisions)
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error creating division`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -122,7 +122,7 @@ export class DivisionController {
   update( @Param('id') id: number, @Body() division: Division, @Res() res: Response) {
     return this.repository.persist(division)
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error updating division ${id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -141,7 +141,7 @@ export class DivisionController {
     const division = await this.repository.findOneById(divisionId);
     return this.removeMany([division])
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error removing division ${divisionId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -183,7 +183,7 @@ export class DivisionController {
     return configRepository.get('defaultValues')
       .then(values => this.create(values.value.division.map((d: Division) => { d.tournament = tournament; return d; }), res))
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error creating default divisions for tournament ${tournament.id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }

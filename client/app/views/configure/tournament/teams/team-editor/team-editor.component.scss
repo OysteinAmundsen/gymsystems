@@ -9,6 +9,7 @@ table[role="list"] {
         line-height: $padding * 10;
         display: block;
         height: $padding * 10;
+        white-space: nowrap;
       }
       input {
         margin-right: 0.5rem;
@@ -29,26 +30,40 @@ header {
   }
 }
 
-td.media-head {
-  padding-top: ($padding * 3);
-  padding-left: ($padding * 6) !important;
-  margin: 0 2px 2px 2px;
-}
-td.media {
-  label.file-upload {
-    position: relative;
-    max-width: 40px;
-    padding-top: 0;
-    input[type="file"] {
-      cursor: pointer;
-      position: absolute;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      opacity: 0;
-      z-index: 999;
-      margin: 0;
-      padding: 0;
+td {
+  &.disciplines {
+    width: 5rem;
+  }
+  &.media-head, &.media {
+    // max-width: 50%;
+  }
+  &.media-head {
+    padding-top: ($padding * 3);
+    padding-left: ($padding * 6) !important;
+    margin: 0 2px 2px 2px;
+  }
+  &.media {
+    label.media-name {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    label.file-upload {
+      position: relative;
+      max-width: 40px;
+      padding-top: 0;
+      input[type="file"] {
+        cursor: pointer;
+        position: absolute;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        z-index: 999;
+        margin: 0;
+        padding: 0;
+      }
     }
   }
 }
+

@@ -195,17 +195,19 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const ageDivision = this.team.divisions.find(d => d.type === DivisionType.Age);
     const genderDivision = this.team.divisions.find(d => d.type === DivisionType.Gender);
     this.team = team;
-    this.teamForm.setValue({
-      id: this.team.id,
-      name: this.team.name,
-      club: this.team.club ? this.team.club.name : '',
-      ageDivision: ageDivision ? ageDivision.id : null,
-      genderDivision: genderDivision ? genderDivision.id : null,
-      disciplines: this.team.disciplines,
-      tournament: this.team.tournament,
-      gymnasts: this.team.gymnasts || [],
-      class: this.team.class
-    });
+    if (this.team && this.team.id) {
+      this.teamForm.setValue({
+        id: this.team.id,
+        name: this.team.name,
+        club: this.team.club ? this.team.club.name : '',
+        ageDivision: ageDivision ? ageDivision.id : null,
+        genderDivision: genderDivision ? genderDivision.id : null,
+        disciplines: this.team.disciplines,
+        tournament: this.team.tournament,
+        gymnasts: this.team.gymnasts || [],
+        class: this.team.class
+      });
+    }
     // this.classChanged();
   }
 

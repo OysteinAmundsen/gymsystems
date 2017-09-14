@@ -84,7 +84,7 @@ export class ScoreGroupController {
     const scoreGroups = Array.isArray(scoreGroup) ? scoreGroup : [scoreGroup];
     return this.repository.persist(scoreGroups)
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error creating scoregroups`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -103,7 +103,7 @@ export class ScoreGroupController {
   update( @Param('id') id: number, @Body() scoreGroup: ScoreGroup) {
     return this.repository.persist(scoreGroup)
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error updating scoregroup ${id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -122,7 +122,7 @@ export class ScoreGroupController {
     const scoreGroup = await this.repository.findOneById(scoreGroupId);
     return this.removeMany([scoreGroup])
     .catch(err => {
-      Logger.log.error(err);
+      Logger.log.error(`Error removing scoregroup ${scoreGroupId}`, err);
       return Promise.resolve(new ErrorResponse(err.code, err.message));
     });
   }

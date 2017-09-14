@@ -95,7 +95,7 @@ export class ScoreController {
         return s;
       })
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error creating scores for participant ${participantId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -134,7 +134,7 @@ export class ScoreController {
           return s;
         }))
         .catch(err => {
-          Logger.log.error(err);
+          Logger.log.error(`Error removing scores for participant: ${participantId}`, err);
           return Promise.resolve(new ErrorResponse(err.code, err.message));
         });
     }

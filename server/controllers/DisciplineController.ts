@@ -105,7 +105,7 @@ export class DisciplineController {
     const disciplines = Array.isArray(discipline) ? discipline : [discipline];
     return this.repository.persist(disciplines)
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error('Error creating discipline', err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -124,7 +124,7 @@ export class DisciplineController {
   update( @Param('id') id: number, @Body() discipline: Discipline): Promise<Discipline | ErrorResponse> {
     return this.repository.persist(discipline)
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error updating discipline ${id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -143,7 +143,7 @@ export class DisciplineController {
     const discipline = await this.repository.findOneById(disciplineId);
     return this.removeMany([discipline])
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error removing discipline ${disciplineId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -203,12 +203,12 @@ export class DisciplineController {
             return disciplines;
           })
           .catch(err => {
-            Logger.log.error(err);
+            Logger.log.error(`Error creating default disciplines and scoregroups for tournament ${tournament.id}`, err);
             return Promise.resolve(new ErrorResponse(err.code, err.message));
           });
       })
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error('Error fetching configuration: defaultValues', err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }

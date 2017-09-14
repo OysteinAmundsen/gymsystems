@@ -48,25 +48,46 @@ export interface CreatedBy {
  */
 @Entity()
 export class User implements BelongsToClub {
+  /**
+   *
+   */
   @PrimaryGeneratedColumn()
   id: number;
 
+  /**
+   *
+   */
   @Column({ length: 100, unique: true })
   name: string;
 
-  @Column({ length: 100, nullable: true})
+  /**
+   *
+   */
+  @Column({ length: 100, nullable: true })
   email: string;
 
+  /**
+   *
+   */
   @Column({ length: 100 })
   password: string;
 
+  /**
+   *
+   */
   @Column()
   role: Role;
 
+  /**
+   *
+   */
   @ManyToOne(type => Club, club => club.users, { nullable: true })
   @JoinColumn({name: 'club'})
   club: Club;
 
+  /**
+   *
+   */
   @OneToMany(type => Tournament, tournaments => tournaments.createdBy, { cascadeInsert: false, cascadeUpdate: false })
   tournaments: Tournament[];
 }

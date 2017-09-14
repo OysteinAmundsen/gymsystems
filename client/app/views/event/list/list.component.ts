@@ -76,7 +76,10 @@ export class ListComponent implements OnInit, OnDestroy {
             this.loadSchedule();
           }
         });
-        this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
+        this.userSubscription = this.userService.getMe().subscribe(user => {
+          this.user = user;
+          this.showTraining = !!this.user;
+        });
         this.loadSchedule();
       }
     });

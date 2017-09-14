@@ -1,6 +1,6 @@
 {
   "name": "gymsystems",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web system for competitive teamgym scoreboarding",
   "homepage": "https://www.gymsystems.org",
   "bugs": "https://github.com/OysteinAmundsen/gymsystems/issues",
@@ -60,7 +60,7 @@
     "@angular/router": "^4.4.0-RC.0",
     "@angular/service-worker": "^1.0.0-beta.16",
     "@ngx-translate/core": "^8.0.0",
-    "@ngx-translate/http-loader": "1.1.0",
+    "@ngx-translate/http-loader": "2.0.0",
     "angular2-fontawesome": "^0.9.3",
     "angulartics2": "^2.4.0",
     "bcrypt": "^1.0.3",

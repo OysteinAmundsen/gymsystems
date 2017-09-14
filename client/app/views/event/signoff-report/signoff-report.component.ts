@@ -120,7 +120,7 @@ export class SignoffReportComponent implements OnInit {
       const type = groupName.charAt(0);
       const judge = parseInt(groupName.charAt(1), null);
       const score = participant.scores.find(s => s.judgeIndex === judge && s.scoreGroup.type === type);
-      return score ? score.value : '';
+      return score ? score.value : 0;
     } else {
       // Group total
       return this.scoreService.calculateScoreGroupTotal(participant, groupName);

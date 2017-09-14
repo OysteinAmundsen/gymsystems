@@ -35,6 +35,9 @@ export class Tournament implements CreatedBy, BelongsToClub {
   @JoinColumn({name: 'createdBy'})
   createdBy: User;
 
+  /**
+   *
+   */
   @ManyToOne(type => Club, club => club.tournaments, {nullable: true})
   @JoinColumn({name: 'club'})
   club: Club;

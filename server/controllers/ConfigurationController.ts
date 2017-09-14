@@ -72,7 +72,7 @@ export class ConfigurationController {
     return this.repository.persist(configuration)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error saving configuration ${configuration.name}`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }
@@ -93,7 +93,7 @@ export class ConfigurationController {
     return this.repository.persist(configuration)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error updating configuration ${id}`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }
@@ -114,7 +114,7 @@ export class ConfigurationController {
     return this.repository.remove(configuration)
       .then(result => res.send(result))
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`error removing configuration ${id}`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }
