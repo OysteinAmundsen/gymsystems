@@ -62,7 +62,12 @@
       <div>
         <table role="list">
           <tr role="listitem">
-            <td><label><input type="checkbox" [checked]="allChecked" (click)="toggleChecked()" [disabled]="teamForm.value.class === classes.TeamGym"> <span translate>All</span></label></td>
+            <td class="disciplines">
+              <label>
+                <input type="checkbox" [checked]="allChecked" (click)="toggleChecked()" [disabled]="teamForm.value.class === classes.TeamGym">
+                <span translate>All</span>
+              </label>
+            </td>
             <td class="media-head help-available">
               <fa name="music" fw="true"></fa>
               <span translate>Upload media</span>
@@ -74,20 +79,25 @@
           </tr>
           <tbody *ngFor="let discipline of disciplines">
             <tr role="listitem">
-              <td>
+              <td class="disciplines">
                 <label>
                   <input type="checkbox" #selectedDisciplines [attr.data]="discipline.id" (change)="disciplinesChanged()" [disabled]="teamForm.value.class === classes.TeamGym">
                   {{ discipline.name }}
                 </label>
               </td>
               <td class="media">
-                <button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)" [title]="'Play media' | translate"><fa name="play" fw="true"></fa></button>
-                <button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" [title]="'Stop playing' | translate"><fa name="stop" fw="true"></fa></button>
-                <button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate"><fa name="trash" fw="true"></fa></button>
-                <label class="file-upload btn" *ngIf="!hasMedia(discipline) && !teamForm.invalid && selectedDisciplines.checked" [title]="'Upload media' | translate">
-                  <input type="file" (change)="fileAdded($event, discipline)" accept=".mp3,.wav">
-                  <fa name="upload" fw="true"></fa>
-                </label>
+                <div class="flex">
+                  <div class="action-buttons">
+                    <button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)" [title]="'Play media' | translate"><fa name="play" fw="true"></fa></button>
+                    <button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" [title]="'Stop playing' | translate"><fa name="stop" fw="true"></fa></button>
+                    <button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate"><fa name="trash" fw="true"></fa></button>
+                    <label class="file-upload btn" *ngIf="!hasMedia(discipline) && !teamForm.invalid && selectedDisciplines.checked" [title]="'Upload media' | translate">
+                      <input type="file" (change)="fileAdded($event, discipline)" accept=".mp3,.wav">
+                      <fa name="upload" fw="true"></fa>
+                    </label>
+                  </div>
+                  <label *ngIf="hasMedia(discipline)" class="flex-col media-name"><small>{{ getMedia(discipline).originalName }}</small></label>
+                </div>
               </td>
             </tr>
           </tbody>
