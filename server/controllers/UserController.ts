@@ -214,7 +214,7 @@ export class UserController {
           return persisted;
         })
         .catch(err => {
-          Logger.log.error(err);
+          Logger.log.error(`Error updating user ${id} with password/email change`, err);
           return Promise.resolve(new ErrorResponse(err.code, err.message));
         });
     }
@@ -229,7 +229,7 @@ export class UserController {
       });
       return this.repository.persist(u)
         .catch(err => {
-          Logger.log.error(err);
+          Logger.log.error(`Error updating user ${id}`, err);
           return Promise.resolve(new ErrorResponse(err.code, err.message));
         });
     });
@@ -318,7 +318,7 @@ export class UserController {
           return new ErrorResponse(403, 'A user with this name allready exists');
         }
         // Default response
-        Logger.log.error(err);
+        Logger.log.error(`Error creating user`, err);
         res.status(400);
         return new ErrorResponse(err.code, err.message);
       });
@@ -344,7 +344,7 @@ export class UserController {
 
     return this.repository.remove(user)
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error removing user ${userId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }

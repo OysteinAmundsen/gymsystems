@@ -130,7 +130,9 @@ export class MediaController {
 
   createArchive(id: number, expire: Date) {
     mkdirp(`./media/${id}`, (err) => {
-      if (err) { Logger.log.error('', err); }
+      if (err) {
+        Logger.log.error(`Error creating archive folder ./media/${id}`, err);
+      }
       this.expireArchive(id, expire); // Register for expiration
       Logger.log.info(`Created tournament media folder at: './media/${id}'`);
     });
@@ -238,7 +240,7 @@ export class MediaController {
     return new Promise((resolve, reject) => {
       rimraf(`./media/${id}`, (err: Error) => {
         if (err) {
-          Logger.log.error(err.message);
+          Logger.log.error(`Error removing media folder ./media/${id}`, err.message);
           // reject(err);
         }
         Logger.log.info(`Tournament media folder './media/${id}' removed!`);

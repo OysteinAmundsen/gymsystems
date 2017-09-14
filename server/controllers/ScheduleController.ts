@@ -198,7 +198,7 @@ export class ScheduleController {
 
     return this.repository.persist(participants)
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error creating schedule participants`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }
@@ -229,7 +229,7 @@ export class ScheduleController {
         return this.get(id);
       })
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error updating participant ${id} in schedule`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }
@@ -287,7 +287,7 @@ export class ScheduleController {
     }
     return this.repository.remove(participants)
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error removing participants in schedule`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }

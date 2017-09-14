@@ -176,7 +176,7 @@ export class TeamController {
           return result;
         })
         .catch(err => {
-          Logger.log.error(err);
+          Logger.log.error(`Error updating team ${id}`, err);
           res.status(400);
           return new ErrorResponse(400, err);
         });
@@ -227,7 +227,7 @@ export class TeamController {
           return result;
         })
         .catch(err => {
-          Logger.log.error(err);
+          Logger.log.error(`Error creating team`, err);
           return new ErrorResponse(err.code, err.message);
         });
     } else {
@@ -276,7 +276,7 @@ export class TeamController {
         return result;
       })
       .catch(err => {
-        Logger.log.error(err);
+        Logger.log.error(`Error removing team ${teamId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
