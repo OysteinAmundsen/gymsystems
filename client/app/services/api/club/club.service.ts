@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/share';
 
 import { IClub, IBelongsToClub, IGymnast, ITroop } from 'app/model';
 import { Helper } from '../Helper';
@@ -10,38 +8,37 @@ import { Helper } from '../Helper';
 @Injectable()
 export class ClubService {
   url = '/api/clubs';
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   all(): Observable<IClub[]> {
-    return this.http.get(this.url).map((res: Response) => res.json()).share();
+    return this.http.get<IClub[]>(this.url);
   }
 
   findByName(name: string): Observable<IClub[]> {
-    return this.http.get(`${this.url}?name=${name}`).map((res: Response) => res.json()).share();
+    return this.http.get<IClub[]>(`${this.url}?name=${name}`);
   }
 
   getById(id: number): Observable<IClub> {
-    return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share();
+    return this.http.get<IClub>(`${this.url}/${id}`);
   }
 
-  saveClub(club: IClub) {
+  saveClub(club: IClub): Observable<IClub> {
     return (club.id
-      ? this.http.put(`${this.url}/${club.id}`, Helper.reduceLevels(club))
-      : this.http.post(`${this.url}/`, club))
-      .map((res: Response) => res.json());
+      ? this.http.put<IClub>(`${this.url}/${club.id}`, Helper.reduceLevels(club))
+      : this.http.post<IClub>(`${this.url}/`, club));
   }
 
   deleteClub(club: IClub) {
-    return this.http.delete(`${this.url}/${club.id}`).map((res: Response) => res.json());
+    return this.http.delete(`${this.url}/${club.id}`);
   }
 
   // MEMBER API
   getMembers(club: IClub): Observable<IGymnast[]> {
-    return this.http.get(`${this.url}/${club.id}/members`).map((res: Response) => res.json());
+    return this.http.get<IGymnast[]>(`${this.url}/${club.id}/members`);
   }
 
   getAvailableMembers(club: IClub): Observable<IGymnast[]> {
-    return this.http.get(`${this.url}/${club.id}/available-members`).map((res: Response) => res.json());
+    return this.http.get<IGymnast[]>(`${this.url}/${club.id}/available-members`);
   }
 
   importMembers(file: File, club: IClub) {
@@ -49,32 +46,31 @@ export class ClubService {
     formData.append('members', file, file.name);
 
     return this.http.post(`${this.url}/${club.id}/import-members`, formData)
-      .map(res => res.json())
       .catch(error => Observable.throw(error));
   }
 
-  saveMember(member: IGymnast) {
-    return this.http.post(`${this.url}/${member.club.id}/members`, member).map((res: Response) => res.json());
+  saveMember(member: IGymnast): Observable<IGymnast | any> {
+    return this.http.post<IGymnast | any>(`${this.url}/${member.club.id}/members`, member);
   }
 
   deleteMember(member: IGymnast): any {
-    return this.http.delete(`${this.url}/${member.club.id}/members/${member.id}`).map((res: Response) => res.json());
+    return this.http.delete(`${this.url}/${member.club.id}/members/${member.id}`);
   }
 
   // TROOPS API
   getTeams(club: IClub): Observable<ITroop[]> {
-    return this.http.get(`${this.url}/${club.id}/troop`).map((res: Response) => res.json());
+    return this.http.get<ITroop[]>(`${this.url}/${club.id}/troop`);
   }
 
   findTroopByName(club: IClub, name: string): Observable<ITroop[]> {
-    return this.http.get(`${this.url}/${club.id}/troop?name=${name}`).map((res: Response) => res.json());
+    return this.http.get<ITroop[]>(`${this.url}/${club.id}/troop?name=${name}`);
   }
 
   saveTeam(team: ITroop) {
-    return this.http.post(`${this.url}/${team.club.id}/troop`, team).map((res: Response) => res.json());
+    return this.http.post<ITroop>(`${this.url}/${team.club.id}/troop`, team);
   }
 
   deleteTeam(team: ITroop) {
-    return this.http.delete(`${this.url}/${team.club.id}/troop/${team.id}`).map((res: Response) => res.json());
+    return this.http.delete(`${this.url}/${team.club.id}/troop/${team.id}`);
   }
 }

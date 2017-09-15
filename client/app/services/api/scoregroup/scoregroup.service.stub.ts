@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { IScoreGroup } from 'app/model';
 import { ScoreGroupService } from './scoregroup.service';
 
-export const scoreGroups = <IScoreGroup[]>[
+export const defaultScoreGroups = <IScoreGroup[]>[
   { id: 1, name: 'Composition', type: 'C',  operation: 1, judges: 2, max: 5,  min: 0, discipline: null },
   { id: 2, name: 'Execution',   type: 'E',  operation: 1, judges: 4, max: 10, min: 0, discipline: null },
   { id: 3, name: 'Difficulty',  type: 'D',  operation: 1, judges: 2, max: 5,  min: 0, discipline: null },
@@ -18,20 +15,20 @@ export const scoreGroups = <IScoreGroup[]>[
 
 @Injectable()
 export class ScoreGroupServiceStub extends ScoreGroupService {
-  constructor(http: Http) {
+  constructor(http: HttpClient) {
     super(http);
   }
 
   all(): Observable<IScoreGroup[]> {
-    return Observable.of(scoreGroups);
+    return Observable.of(defaultScoreGroups);
   }
 
   getByDiscipline(id: number): Observable<IScoreGroup[]> {
-    return Observable.of(scoreGroups);
+    return Observable.of(defaultScoreGroups);
   }
 
   getById(id: number): Observable<IScoreGroup> {
-    return Observable.of(scoreGroups[0]);
+    return Observable.of(defaultScoreGroups[0]);
   }
 
   save(scoreGroup: IScoreGroup) {

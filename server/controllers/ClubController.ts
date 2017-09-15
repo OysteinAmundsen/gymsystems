@@ -1,6 +1,6 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
 import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req, QueryParam } from 'routing-controllers';
-import { Service } from 'typedi';
+import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
 import * as fs from 'fs';
@@ -17,6 +17,7 @@ import { Gymnast } from '../model/Gymnast';
 import { Team } from '../model/Team';
 import { Troop } from '../model/Troop';
 import { ErrorResponse } from '../utils/ErrorResponse';
+import { GymServer } from '../index';
 
 /**
  * RESTful controller for all things related to `Club`s.
@@ -63,16 +64,27 @@ export class ClubController {
     const n = name || req.query['name'];
     const query = this.repository.createQueryBuilder('club');
     if (n) { query.where('club.name like :name', {name: `%${n}%`}); }
-    return Promise.all([ query.getMany(), this.brregLookup(n) ]).then(result => {
+
+    const promises: Promise<Club[]>[] = [query.getMany()];
+    const server = Container.get(GymServer);
+    if (!server.isTest) {
+      promises.push(this.brregLookup(n));
+    }
+    return Promise.all(promises).then((result: Club[] | Club[][]) => {
       // Map and merge results from both DB and Brønnøysund
-      let [dbResult, brregResult] = result;
-      brregResult = brregResult.reduce((prev: Club[], curr: Club) => {
-        if (dbResult.findIndex(d => d.name === curr.name) < 0) {
-          prev.push(curr);
-        }
-        return prev;
-      }, []);
-      return dbResult.concat(brregResult);
+      let dbResult: Club[];
+      let brregResult: Club[];
+      if (!server.isTest) {
+        [dbResult, brregResult] = <Club[][]> result;
+        brregResult = brregResult.reduce((prev: Club[], curr: Club) => {
+          if (dbResult.findIndex(d => d.name === curr.name) < 0) {
+            prev.push(curr);
+          }
+          return prev;
+        }, []);
+        return <Club[]> dbResult.concat(brregResult);
+      }
+      return <Club[]> result;
     });
   }
 

@@ -27,10 +27,16 @@ export class LogoutComponent {
     title.setTitle('Logout | GymSystems');
     this.meta.updateTag({property: 'og:title', content: `Logout | GymSystems`});
     this.meta.updateTag({property: 'og:description', content: `Loging out of GymSystems`});
-    userService.getMe().subscribe(res => {
-      this.angulartics.eventTrack.next({action: 'logout', properties: {category: 'auth', label: 'logout', value: res.name}});
-    });
-    userService.logout().subscribe(() => this.reroute(), (err) => this.reroute(err));
+    this.angulartics.eventTrack.next(
+      {action: 'logout', properties: {category: 'auth', label: 'logout', value: userService.currentUser.name}}
+    );
+    userService.logout().subscribe(
+      res => {
+        this.reroute();
+      },
+      err => {
+        this.reroute(err);
+      });
   }
 
   reroute(err?: string) {

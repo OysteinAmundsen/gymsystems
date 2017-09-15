@@ -29,12 +29,13 @@ import { HelpBlockComponent } from './components/help-block/help-block.component
 @NgModule({
   imports: [
     CommonModule,
+    TranslateModule,
+    Angular2FontawesomeModule,
+
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule,
     DragulaModule,
     RouterModule,
-    Angular2FontawesomeModule,
   ],
   declarations: [
     DatepickerComponent,

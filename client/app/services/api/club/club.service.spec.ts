@@ -1,24 +1,16 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { Response, ResponseOptions, BaseRequestOptions, Http } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ClubService } from 'app/services/api';
 import { IClub } from 'app/model';
+import { HttpTestingController } from '@angular/common/http/testing';
 
 describe('services.api:ClubService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
-        BaseRequestOptions,
-        MockBackend,
-        {
-          provide: Http,
-          useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions) => {
-            return new Http(backend, defaultOptions);
-          },
-          deps: [MockBackend, BaseRequestOptions],
-        },
         ClubService
       ]
     });
@@ -28,18 +20,21 @@ describe('services.api:ClubService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should load a list of clubs', inject([ClubService, MockBackend], (service: ClubService, backend: MockBackend) => {
+  it('should load a list of clubs', inject([ClubService], (service: ClubService) => {
     // Mockup a response
-    backend.connections.subscribe((c: MockConnection) => c.mockRespond(new Response(new ResponseOptions(
-      { body: <IClub[]>[
-        { id: 0, name: 'test-club', teams: [] }
-      ]}
-    )) ));
+    const http = TestBed.get(HttpTestingController);
 
-    service.all().subscribe((res: IClub[]) => {
-      expect(res.length).toBe(1);
-      expect(res[0].id).toBe(0);
-      expect(res[0].name).toBe('test-club');
-    });
+    // fake response
+    const expectedResponse = [{ id: 0, name: 'test-club', teams: [] }];
+    let actualResponse;
+
+    // Make the request
+    service.all().subscribe((res: IClub[]) => actualResponse = res);
+    http.expectOne('/api/clubs').flush(expectedResponse);
+
+    // Test real response
+    expect(actualResponse.length).toBe(1);
+    expect(actualResponse[0].id).toBe(0);
+    expect(actualResponse[0].name).toBe('test-club');
   }));
 });

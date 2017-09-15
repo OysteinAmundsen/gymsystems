@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { IClub, IGymnast, ITroop } from 'app/model';
@@ -11,7 +9,7 @@ import { ClubService } from './club.service';
 @Injectable()
 export class ClubServiceStub extends ClubService {
 
-  constructor(http: Http) {
+  constructor(http: HttpClient) {
     super(http);
   }
 

@@ -1,9 +1,7 @@
 // Framework & libs
 import { NgModule } from '@angular/core';
-import { HttpModule, Http, BaseRequestOptions } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { MockBackend } from '@angular/http/testing';
-import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -33,10 +31,11 @@ import {
 } from './services/api';
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
 import { MediaService } from './services/media.service';
+import { AuthStateService } from 'app/services/config/auth-state.service';
 
 // Other services
 import { RoleGuard } from './shared/guards/role-guard';
-import { HttpInterceptor } from './services/config/HttpInterceptor';
+import { AuthInterceptor } from './services/config/AuthInterceptor';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
@@ -66,8 +65,7 @@ import { EventServiceStub } from 'app/services/api/event/event.service.stub';
     // Framework modules
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
-    HttpClientModule,
+    HttpClientTestingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -83,13 +81,13 @@ import { EventServiceStub } from 'app/services/api/event/event.service.stub';
     RouterTestingModule,
   ],
   exports: [
+    HttpClientTestingModule,
     TranslateModule,
-    HttpModule,
     RouterTestingModule,
-    SharedModule,
-    Angulartics2Module,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Angulartics2Module,
+    SharedModule,
   ],
   providers: [
     // API Services
@@ -113,22 +111,8 @@ import { EventServiceStub } from 'app/services/api/event/event.service.stub';
     RoleGuard,
 
     // Authentication interceptor
-    { provide: Http, useClass: HttpInterceptor }
-    // MockBackend,
-    // BaseRequestOptions,
-    // {
-    //   provide: Http,
-    //   useFactory: (
-    //     backend: MockBackend,
-    //     defaultOptions: BaseRequestOptions,
-    //     router: Router,
-    //     route: ActivatedRoute,
-    //     error: ErrorHandlerService
-    //   ) => {
-    //     return new HttpInterceptor(backend, defaultOptions, router, route, error);
-    //   },
-    //   deps: [MockBackend, BaseRequestOptions, Router, ActivatedRoute, ErrorHandlerService],
-    // }
+    AuthStateService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })
 export class AppModuleTest { }

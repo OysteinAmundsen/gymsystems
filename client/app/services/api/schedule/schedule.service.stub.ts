@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import * as moment from 'moment';
@@ -13,7 +10,7 @@ import { ScheduleService } from './schedule.service';
 import { ConfigurationService } from '../configuration/configuration.service';
 
 // Dummy data
-import { scoreGroups } from '../scoregroup/scoregroup.service.stub';
+import { defaultScoreGroups } from '../scoregroup/scoregroup.service.stub';
 import { dummyTournament } from '../tournament/tournament.service.stub';
 import { dummyTeam } from '../teams/teams.service.stub';
 
@@ -24,7 +21,7 @@ function generateParticipants(amount: number): ITeamInDiscipline[] {
       startNumber: i,
       type: ParticipationType.Live,
       discipline: <IDiscipline>{
-        scoreGroups: scoreGroups
+        scoreGroups: defaultScoreGroups
       },
       team: dummyTeam,
       tournament: dummyTournament,
@@ -37,7 +34,7 @@ function generateParticipants(amount: number): ITeamInDiscipline[] {
 export class ScheduleServiceStub extends ScheduleService {
   participant: ITeamInDiscipline = generateParticipants(1)[0];
   schedule: ITeamInDiscipline[] = generateParticipants(10);
-  constructor(http: Http, configService: ConfigurationService) {
+  constructor(http: HttpClient, configService: ConfigurationService) {
     super(http, configService);
   }
 

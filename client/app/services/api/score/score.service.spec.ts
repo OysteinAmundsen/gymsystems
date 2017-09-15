@@ -4,22 +4,13 @@ import { Response, ResponseOptions, BaseRequestOptions, Http } from '@angular/ht
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { ScoreService } from './score.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('services.api:ScoreService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        BaseRequestOptions,
-        MockBackend,
-        {
-          provide: Http,
-          useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions) => {
-            return new Http(backend, defaultOptions);
-          },
-          deps: [MockBackend, BaseRequestOptions],
-        },
-        ScoreService
-      ]
+      imports: [HttpClientTestingModule],
+      providers: [ScoreService]
     });
   });
 

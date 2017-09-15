@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/share';
 
 import { IDivision } from 'app/model';
 import { Helper } from '../Helper';
@@ -12,29 +9,28 @@ import { Helper } from '../Helper';
 export class DivisionService {
   url = '/api/divisions';
 
-  constructor(private http: Http) {  }
+  constructor(private http: HttpClient) {  }
 
   all(): Observable<IDivision[]> {
-    return this.http.get(this.url).map((res: Response) => res.json()).share();
+    return this.http.get<IDivision[]>(this.url);
   }
 
   getByTournament(id: number): Observable<IDivision[]> {
-    return this.http.get(`${this.url}/tournament/${id}`).map((res: Response) => res.json()).share();
+    return this.http.get<IDivision[]>(`${this.url}/tournament/${id}`);
   }
 
   getById(id: number): Observable<IDivision> {
-    return this.http.get(`${this.url}/${id}`).map((res: Response) => res.json()).share();
+    return this.http.get<IDivision>(`${this.url}/${id}`);
   }
 
   save(division: IDivision) {
-    const call = (division.id)
-      ? this.http.put(`${this.url}/${division.id}`, Helper.reduceLevels(division))
-      : this.http.post(this.url, Helper.reduceLevels(division));
-    return call.map((res: Response) => res.json());
+    return (division.id)
+      ? this.http.put<IDivision>(`${this.url}/${division.id}`, Helper.reduceLevels(division))
+      : this.http.post<IDivision>(this.url, Helper.reduceLevels(division));
   }
 
   saveAll(divisions: IDivision[]) {
-    return this.http.post(this.url, Helper.reduceLevels(divisions)).map((res: Response) => res.json());
+    return this.http.post<IDivision[]>(this.url, Helper.reduceLevels(divisions));
   }
 
   delete(division: IDivision) {

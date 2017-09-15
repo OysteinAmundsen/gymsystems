@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { RequestMethod, Http } from '@angular/http';
+import { RequestMethod } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
-import { HttpInterceptor, HttpAction } from 'app/services/config';
+import { AuthStateService, HttpAction } from 'app/services/config/auth-state.service';
 
 @Component({
   selector: 'app-save-button',
@@ -33,10 +33,10 @@ export class SaveButtonComponent implements OnInit, OnDestroy {
 
   actionSubscription: Subscription;
 
-  constructor(private http: Http, private translate: TranslateService) { }
+  constructor(private authState: AuthStateService, private translate: TranslateService) { }
 
   ngOnInit() {
-    this.actionSubscription = (<HttpInterceptor>this.http).httpAction.subscribe((action: HttpAction) => {
+    this.actionSubscription = this.authState.httpAction.subscribe((action: HttpAction) => {
       if (this.isListening && (action.method === RequestMethod.Post || action.method === RequestMethod.Put)) {
         this.isSaving = !(action.isComplete);
         const now = moment();

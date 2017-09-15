@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/share';
 
 import { IConfiguration } from 'app/model';
 
@@ -11,19 +8,18 @@ import { IConfiguration } from 'app/model';
 export class ConfigurationService  {
   url = '/api/configuration';
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   all(): Observable<IConfiguration[]> {
-    return this.http.get(this.url).map((res: Response) => res.json()).share();
+    return this.http.get<IConfiguration[]>(this.url);
   }
 
   getByname(name: string): Observable<IConfiguration> {
-    return this.http.get(`${this.url}/${name}`).map((res: Response) => res.json()).share();
+    return this.http.get<IConfiguration>(`${this.url}/${name}`);
   }
 
   save(configuration: IConfiguration[]) {
-    return this.http.post(this.url, configuration)
-      .map((res: Response) => res.json());
+    return this.http.post<IConfiguration[]>(this.url, configuration);
   }
 
   delete(configuration: IConfiguration) {
