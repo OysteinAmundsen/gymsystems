@@ -136,5 +136,6 @@ export class Tournament implements CreatedBy, BelongsToClub {
   media: Media[];
 
   @ManyToOne(type => Venue, venue => venue.tournaments)
+  @JoinColumn({name: 'venue'})
   venue: Venue;
 }

@@ -7,7 +7,7 @@ describe('ClubController', () => {
   // let dataprovider: EntityProvider;
 
   beforeEach(() => {
-    queryBuilder = new QueryBuilder<Club>(null);
+    // queryBuilder = new QueryBuilder<Club>(null);
 
     // dataprovider = new EntityProvider(null);
     // dataprovider.setQueryBuilder(queryBuilder);
