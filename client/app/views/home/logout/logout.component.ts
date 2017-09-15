@@ -28,7 +28,9 @@ export class LogoutComponent {
     this.meta.updateTag({property: 'og:title', content: `Logout | GymSystems`});
     this.meta.updateTag({property: 'og:description', content: `Loging out of GymSystems`});
     this.angulartics.eventTrack.next(
-      {action: 'logout', properties: {category: 'auth', label: 'logout', value: userService.currentUser.name}}
+      {action: 'logout', properties: {
+        category: 'auth', label: 'logout', value: userService.currentUser ? userService.currentUser.name : null}
+      }
     );
     userService.logout().subscribe(
       res => {
