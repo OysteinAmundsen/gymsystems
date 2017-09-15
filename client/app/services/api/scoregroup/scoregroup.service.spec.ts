@@ -1,17 +1,18 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
+
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ScoreGroupService } from './scoregroup.service';
 
 describe('services.api:ScoreService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpClientTestingModule],
       providers: [ScoreGroupService]
     });
   });
 
-  it('should ...', inject([ScoreGroupService], (service: ScoreGroupService) => {
+  it('should be created', inject([ScoreGroupService], (service: ScoreGroupService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -4,14 +4,14 @@ import { DragulaService } from 'ng2-dragula';
 import * as moment from 'moment';
 
 import { TeamsService, ScheduleService } from 'app/services/api';
-import { ITeam } from 'app/services/model/ITeam';
-import { IDiscipline } from 'app/services/model/IDiscipline';
-import { IDivision } from 'app/services/model/IDivision';
-import { ITeamInDiscipline } from 'app/services/model/ITeamInDiscipline';
-import { DivisionType } from 'app/services/model/DivisionType';
-import { Classes } from 'app/services/model/Classes';
-import { ParticipationType } from 'app/services/model/ParticipationType';
-import { ITournament } from 'app/services/model/ITournament';
+import { ITeam } from 'app/model/ITeam';
+import { IDiscipline } from 'app/model/IDiscipline';
+import { IDivision } from 'app/model/IDivision';
+import { ITeamInDiscipline } from 'app/model/ITeamInDiscipline';
+import { DivisionType } from 'app/model/DivisionType';
+import { Classes } from 'app/model/Classes';
+import { ParticipationType } from 'app/model/ParticipationType';
+import { ITournament } from 'app/model/ITournament';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
 @Component({

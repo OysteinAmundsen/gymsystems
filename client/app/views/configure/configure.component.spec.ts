@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { ConfigureModule } from './configure.module';
 
 import { ConfigureComponent } from './configure.component';
@@ -14,7 +14,7 @@ describe('views.configure:ConfigureComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModuleTest,
         ConfigureModule,
         RouterTestingModule,
       ],
@@ -25,7 +25,7 @@ describe('views.configure:ConfigureComponent', () => {
     .compileComponents();
   }));
 
-  it('should create', () => {
+  it('should be created', () => {
     const fixture = TestBed.createComponent(ConfigureComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();

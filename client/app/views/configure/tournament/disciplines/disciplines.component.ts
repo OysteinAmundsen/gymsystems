@@ -2,7 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit, Input, Output, EventEmitter
 import { DragulaService } from 'ng2-dragula';
 
 import { DisciplineService, ScoreGroupService, ConfigurationService, TournamentService } from 'app/services/api';
-import { IScoreGroup, IDiscipline } from 'app/services/model';
+import { IScoreGroup, IDiscipline } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({

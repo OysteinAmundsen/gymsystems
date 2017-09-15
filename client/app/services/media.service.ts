@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IMedia } from 'app/services/model';
+import { IMedia } from 'app/model';
 
 @Injectable()
 export class MediaService {

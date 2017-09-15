@@ -1,8 +1,7 @@
 // Framework & libs
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -27,14 +26,16 @@ import {
   ScheduleService,
   EventService,
   DisplayService,
-  ClubService
+  ClubService,
+  VenueService
 } from './services/api';
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
 import { MediaService } from './services/media.service';
 
 // Other services
 import { RoleGuard } from './shared/guards/role-guard';
-import { HttpInterceptor } from './services/config/HttpInterceptor';
+import { AuthInterceptor } from './services/config/AuthInterceptor';
+import { AuthStateService } from 'app/services/config/auth-state.service';
 
 // Module components
 import { AppComponent } from './app.component';
@@ -45,7 +46,7 @@ import { RegisterComponent } from './views/home/register/register.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, './i18n/', '.json');
+  return new TranslateHttpLoader(http, './i18n/', '.json');
 }
 
 @NgModule({
@@ -61,7 +62,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -79,7 +79,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     // Routes last (!important)
     AppRoutingModule,
   ],
-  exports: [ TranslateModule ],
+  exports: [
+    TranslateModule,
+  ],
   providers: [
     // API Services
     ErrorHandlerService,
@@ -95,6 +97,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DisplayService,
     ClubService,
     MediaService,
+    VenueService,
 
     // SSE Provider
     EventService,
@@ -103,7 +106,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RoleGuard,
 
     // Authentication interceptor
-    { provide: Http, useClass: HttpInterceptor }
+    AuthStateService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

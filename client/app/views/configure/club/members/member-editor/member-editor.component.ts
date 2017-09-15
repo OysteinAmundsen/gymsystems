@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { IClub, IGymnast, Gender, IDivision, DivisionType } from 'app/services/model';
+import { IClub, IGymnast, Gender, IDivision, DivisionType } from 'app/model';
 import { ConfigurationService, ClubService } from 'app/services/api';
 
 import * as moment from 'moment';

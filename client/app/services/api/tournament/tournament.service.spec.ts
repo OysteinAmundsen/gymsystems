@@ -1,17 +1,18 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
+
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { TournamentService } from './tournament.service';
 
 describe('services.api:TournamentService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpClientTestingModule],
       providers: [TournamentService]
     });
   });
 
-  it('should ...', inject([TournamentService], (service: TournamentService) => {
+  it('should be created', inject([TournamentService], (service: TournamentService) => {
     expect(service).toBeTruthy();
   }));
 });

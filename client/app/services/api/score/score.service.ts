@@ -1,32 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/share';
+import { HttpClient } from '@angular/common/http';
 
-import { IScore, ITeamInDiscipline } from 'app/services/model';
+import { IScore, ITeamInDiscipline } from 'app/model';
 import { Helper } from '../Helper';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ScoreService {
   url = '/api/score/participant';
 
-  constructor(private http: Http) {  }
+  constructor(private http: HttpClient) {  }
 
-  getByParticipant(participantId: number) {
-    return this.http.get(`${this.url}/${participantId}`).map((res: Response) => res.json()).share();
+  getByParticipant(participantId: number): Observable<IScore[]> {
+    return this.http.get<IScore[]>(`${this.url}/${participantId}`);
   }
 
-  saveFromParticipant(participantId: number, scores: IScore[]) {
-    return this.http.post(`${this.url}/${participantId}`, Helper.reduceLevels(scores)).map((res: Response) => res.json()).share();
+  saveFromParticipant(participantId: number, scores: IScore[]): Observable<IScore[]> {
+    return this.http.post<IScore[]>(`${this.url}/${participantId}`, Helper.reduceLevels(scores));
   }
 
   removeFromParticipant(participantId: number) {
-    return this.http.delete(`${this.url}/${participantId}`).map((res: Response) => res.json()).share();
+    return this.http.delete(`${this.url}/${participantId}`);
   }
 
   rollbackToParticipant(participantId: number) {
-    return this.http.get(`${this.url}/${participantId}/rollback`).map((res: Response) => res.json()).share();
+    return this.http.get(`${this.url}/${participantId}/rollback`);
   }
 
   calculateTeamTotal(participants: ITeamInDiscipline[]) {

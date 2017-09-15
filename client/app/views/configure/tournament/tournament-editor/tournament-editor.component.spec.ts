@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { TournamentModule } from '../tournament.module';
 import { TournamentEditorComponent } from './tournament-editor.component';
 
@@ -19,7 +19,7 @@ describe('views.configure.tournament:TournamentEditorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModuleTest,
         TournamentModule,
         RouterTestingModule,
       ],
@@ -39,7 +39,7 @@ describe('views.configure.tournament:TournamentEditorComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

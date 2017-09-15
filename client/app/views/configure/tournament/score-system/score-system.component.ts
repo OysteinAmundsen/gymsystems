@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 
 import { ScoreGroupService, ConfigurationService } from 'app/services/api';
-import { IDiscipline, IScoreGroup, Operation } from 'app/services/model';
+import { IDiscipline, IScoreGroup, Operation } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({

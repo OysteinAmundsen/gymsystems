@@ -1,5 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
+
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ScheduleService } from './schedule.service';
 import { ConfigurationService } from '../configuration/configuration.service';
@@ -8,7 +9,7 @@ import { ConfigurationServiceStub } from '../configuration/configuration.service
 describe('services.api:ScheduleService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpClientTestingModule],
       providers: [
         ScheduleService,
         {provide: ConfigurationService, useClass: ConfigurationServiceStub}
@@ -16,7 +17,7 @@ describe('services.api:ScheduleService', () => {
     });
   });
 
-  it('should ...', inject([ScheduleService], (service: ScheduleService) => {
+  it('should be created', inject([ScheduleService], (service: ScheduleService) => {
     expect(service).toBeTruthy();
   }));
 });

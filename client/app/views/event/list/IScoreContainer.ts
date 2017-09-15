@@ -1,4 +1,4 @@
-import { IScoreGroup, IScore } from 'app/services/model';
+import { IScoreGroup, IScore } from 'app/model';
 
 export interface IScoreContainer {
   group: IScoreGroup;

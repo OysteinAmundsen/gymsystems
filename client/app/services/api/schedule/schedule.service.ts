@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/share';
 
 import * as moment from 'moment';
 
 import { Logger } from 'app/services';
 
 import { ConfigurationService } from '../configuration/configuration.service';
-import { ITeamInDiscipline, ITournament, ParticipationType, DivisionType } from 'app/services/model';
+import { ITeamInDiscipline, ITournament, ParticipationType, DivisionType } from 'app/model';
 import { Helper } from '../Helper';
 
 @Injectable()
@@ -20,44 +17,43 @@ export class ScheduleService {
   trainingTime: number;
 
 
-  constructor(private http: Http, private configService: ConfigurationService) {
+  constructor(private http: HttpClient, private configService: ConfigurationService) {
     this.configService.getByname('scheduleExecutionTime').subscribe(exec => this.executionTime = +exec.value);
     this.configService.getByname('scheduleTrainingTime').subscribe(exec => this.trainingTime = +exec.value);
   }
 
   all(): Observable<ITeamInDiscipline[]> {
-    return this.http.get(this.url).map((res: Response) => res.json()).share();
+    return this.http.get<ITeamInDiscipline[]>(this.url);
   }
 
   getByTournament(id: number): Observable<ITeamInDiscipline[]> {
-    return this.http.get(`${this.url}/tournament/${id}`).share().map((res: Response) => res.json());
+    return this.http.get<ITeamInDiscipline[]>(`${this.url}/tournament/${id}`);
   }
 
   getById(id: number): Observable<ITeamInDiscipline> {
-    return this.http.get(`${this.url}/${id}`).share().map((res: Response) => res.json());
+    return this.http.get<ITeamInDiscipline>(`${this.url}/${id}`);
   }
 
   save(participant: ITeamInDiscipline) {
-    const call = (participant.id)
-      ? this.http.put(`${this.url}/${participant.id}`, Helper.reduceLevels(participant))
-      : this.http.post(this.url, Helper.reduceLevels(participant));
-    return call.map((res: Response) => res.json());
+    return (participant.id)
+      ? this.http.put<ITeamInDiscipline>(`${this.url}/${participant.id}`, Helper.reduceLevels(participant))
+      : this.http.post<ITeamInDiscipline>(this.url, Helper.reduceLevels(participant));
   }
 
   start(participant: ITeamInDiscipline) {
-    return this.http.post(`${this.url}/${participant.id}/start`, {}).map((res: Response) => res.json());
+    return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/start`, {});
   }
 
   stop(participant: ITeamInDiscipline) {
-    return this.http.post(`${this.url}/${participant.id}/stop`, {}).map((res: Response) => res.json());
+    return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/stop`, {});
   }
 
   publish(participant: ITeamInDiscipline) {
-    return this.http.post(`${this.url}/${participant.id}/publish`, {}).map((res: Response) => res.json());
+    return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/publish`, {});
   }
 
   saveAll(participants: ITeamInDiscipline[]) {
-    return this.http.post(this.url, Helper.reduceLevels(participants, 2)).map((res: Response) => res.json());
+    return this.http.post<ITeamInDiscipline[]>(this.url, Helper.reduceLevels(participants, 2));
   }
 
   delete(participant: ITeamInDiscipline) {

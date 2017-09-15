@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/throw';
 
-import { IUser, Role, IClub } from 'app/services/model';
+import { IUser, Role, IClub } from 'app/model';
+import { UserService } from 'app/services/api';
 
 @Injectable()
-export class UserServiceStub {
+export class UserServiceStub extends UserService {
   club: IClub = <IClub>{
     id  : 0,
     name: 'HAUGESUND TURNFORENING'
@@ -23,7 +20,9 @@ export class UserServiceStub {
     club  : this.club
   };
 
-  constructor(private http: Http) {  }
+  constructor(http: HttpClient) {
+    super(http);
+  }
 
   getMe(): Observable<IUser> {
     return Observable.of(this.user);

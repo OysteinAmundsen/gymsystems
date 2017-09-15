@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/share';
 
 import * as moment from 'moment';
 
-import { ITournament } from 'app/services/model/ITournament';
+import { ITournament } from 'app/model/ITournament';
 import { Helper } from '../Helper';
 
 @Injectable()
@@ -15,29 +13,28 @@ export class TournamentService {
   private url = '/api/tournaments';
   selected: ITournament;
 
-  constructor(private http: Http) {  }
+  constructor(private http: HttpClient) {  }
 
   all(): Observable<ITournament[]> {
-    return this.http.get(this.url).map((res: Response) => this.mapDates(res.json())).share();
+    return this.http.get<ITournament[]>(this.url).map((res: ITournament[]) => this.mapDates(res));
   }
   past(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/list/past`).map((res: Response) => this.mapDates(res.json())).share();
+    return this.http.get<ITournament[]>(`${this.url}/list/past`).map((res: ITournament[]) => this.mapDates(res));
   }
   current(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/list/current`).map((res: Response) => this.mapDates(res.json())).share();
+    return this.http.get<ITournament[]>(`${this.url}/list/current`).map((res: ITournament[]) => this.mapDates(res));
   }
   upcoming(): Observable<ITournament[]> {
-    return this.http.get(`${this.url}/list/future`).map((res: Response) => this.mapDates(res.json())).share();
+    return this.http.get<ITournament[]>(`${this.url}/list/future`).map((res: ITournament[]) => this.mapDates(res));
   }
   getById(id: number): Observable<ITournament> {
-    return this.http.get(`${this.url}/${id}`).map((res: Response) => this.mapDate(res.json())).share();
+    return this.http.get<ITournament>(`${this.url}/${id}`).map((res: ITournament) => this.mapDate(res));
   }
 
-  save(tournament: ITournament) {
-    const call = (tournament.id)
-      ? this.http.put(`${this.url}/${tournament.id}`, Helper.reduceLevels(tournament))
-      : this.http.post(this.url, tournament);
-    return call.map((res: Response) => res.json());
+  save(tournament: ITournament): Observable<ITournament | any> {
+    return (tournament.id)
+      ? this.http.put<ITournament>(`${this.url}/${tournament.id}`, Helper.reduceLevels(tournament))
+      : this.http.post<ITournament>(this.url, tournament);
   }
 
   delete(tournament: ITournament) {

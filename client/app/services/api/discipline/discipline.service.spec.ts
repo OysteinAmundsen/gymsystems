@@ -1,17 +1,18 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
+
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { DisciplineService } from './discipline.service';
 
 describe('services.api:DisciplineService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpClientTestingModule],
       providers: [DisciplineService]
     });
   });
 
-  it('should ...', inject([DisciplineService], (service: DisciplineService) => {
+  it('should be created', inject([DisciplineService], (service: DisciplineService) => {
     expect(service).toBeTruthy();
   }));
 });

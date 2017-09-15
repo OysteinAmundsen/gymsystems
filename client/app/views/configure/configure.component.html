@@ -8,6 +8,10 @@
       <a routerLink="./club">
         <fa name="university" fw="true"></fa> <span translate>Club</span> </a>
     </li>
+    <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'">
+      <a routerLink="./venue">
+        <fa name="map-marker" fw="true"></fa> <span translate>Venue</span> </a>
+    </li>
     <li class="divider" *appIfAuth="'Organizer'"></li>
     <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Organizer'">
       <a routerLink="./users">

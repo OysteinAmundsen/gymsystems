@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
 import { TeamsService, UserService, ConfigurationService, EventService } from 'app/services/api';
-import { ITeam, IUser, Role, Classes, ITournament } from 'app/services/model';
+import { ITeam, IUser, Role, Classes, ITournament } from 'app/model';
 
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 import { KeyCode } from 'app/shared/KeyCodes';

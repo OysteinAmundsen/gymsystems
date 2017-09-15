@@ -1,14 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { ClubModule } from '../../club.module';
 import { ClubEditorComponent } from '../../club-editor/club-editor.component';
 import { MemberEditorComponent } from './member-editor.component';
 import { MembersComponent } from '../members.component';
 
-import { ConfigurationService } from 'app/services/api';
+import { ConfigurationService, ClubService, UserService } from 'app/services/api';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
+import { ErrorHandlerService } from 'app/services/config';
+import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
 describe('views.configure.club:MemberEditorComponent', () => {
   let component: MemberEditorComponent;
@@ -17,13 +20,16 @@ describe('views.configure.club:MemberEditorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModuleTest,
         ClubModule,
         RouterTestingModule,
       ],
       providers: [
         MembersComponent,
         ClubEditorComponent,
+        ErrorHandlerService,
+        { provide: ClubService, useClass: ClubServiceStub },
+        { provide: UserService, useClass: UserServiceStub },
         { provide: ConfigurationService, useClass: ConfigurationServiceStub },
       ]
     })

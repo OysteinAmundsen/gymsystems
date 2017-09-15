@@ -7,6 +7,5 @@ export interface ITroop extends IBelongsToClub {
   id: number;
   name: string;
   gymnasts: IGymnast[];
-  club: IClub;
   media: IMedia[];
 }

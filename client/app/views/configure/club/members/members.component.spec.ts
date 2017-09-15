@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { ClubModule } from '../club.module';
 import { MembersComponent } from './members.component';
 import { ClubEditorComponent } from '../club-editor/club-editor.component';
@@ -17,7 +17,7 @@ describe('views.configure.club:MembersComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModuleTest,
         ClubModule,
         RouterTestingModule,
       ],

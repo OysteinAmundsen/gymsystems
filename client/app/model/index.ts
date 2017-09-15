@@ -5,6 +5,8 @@ export * from './Operation';
 export * from './ParticipationType';
 
 export * from './IBelongsToClub';
+export * from './ICreatedBy';
+
 export * from './IClub';
 export * from './IGymnast';
 export * from './IConfiguration';
@@ -18,3 +20,4 @@ export * from './ITeamInDiscipline';
 export * from './IScore';
 export * from './ITournament';
 export * from './IUser';
+export * from './IVenue';

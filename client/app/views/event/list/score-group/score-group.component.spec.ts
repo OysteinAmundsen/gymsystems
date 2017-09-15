@@ -4,15 +4,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 
+import { AppModuleTest } from 'app/app.module.spec';
 import { ScoreGroupComponent } from './score-group.component';
-import { ScoreComponent } from '../score/score.component';
 
 import { IScoreContainer } from '../IScoreContainer';
-import { IScoreGroup, IDiscipline, Operation } from 'app/services/model';
-import { AppModule } from 'app/app.module';
+import { IScoreGroup, IDiscipline, Operation } from 'app/model';
 import { EventModule } from 'app/views/event/event.module';
-import { ScoreService } from 'app/services/api';
-import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 
 @Component({
  selector  : 'app-cmp',
@@ -37,15 +34,11 @@ describe('views.event.list:ScoreGroupComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModuleTest,
         EventModule,
-        RouterTestingModule,
       ],
       declarations: [
         WrapperComponent
-      ],
-      providers: [
-        { provide: ScoreService, useClass: ScoreServiceStub }
       ]
     })
     .overrideModule(EventModule, {
@@ -64,7 +57,7 @@ describe('views.event.list:ScoreGroupComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

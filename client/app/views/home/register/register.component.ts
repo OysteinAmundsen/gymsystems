@@ -8,8 +8,8 @@ import { UserService, ClubService } from 'app/services/api';
 import { ValidationService } from 'app/services/validation';
 import { ErrorHandlerService } from 'app/services/config';
 
-import { IUser, Role } from 'app/services/model/IUser';
-import { IClub } from 'app/services/model/IClub';
+import { IUser, Role } from 'app/model/IUser';
+import { IClub } from 'app/model/IClub';
 import { UppercaseFormControl } from 'app/shared/form';
 
 enum Type {

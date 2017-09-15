@@ -6,7 +6,7 @@ import { DragulaService } from 'ng2-dragula';
 
 import * as _ from 'lodash';
 
-import { ITroop, IClub, IUser, IMedia, ITournament, IGymnast } from 'app/services/model';
+import { ITroop, IClub, IUser, IMedia, ITournament, IGymnast } from 'app/model';
 import { ClubService, UserService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';

@@ -19,5 +19,4 @@ export interface IUser extends IBelongsToClub  {
   email: string;
   password: string;
   role?: Role;
-  club: IClub;
 }

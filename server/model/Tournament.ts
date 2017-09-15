@@ -7,6 +7,7 @@ import { TeamInDiscipline } from './TeamInDiscipline';
 import { User, CreatedBy } from './User';
 import { Media } from './Media';
 import { BelongsToClub, Club } from './Club';
+import { Venue } from './Venue';
 
 /**
  * A Tournament describes a competitive event created and arranged by
@@ -133,4 +134,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
    */
   @OneToMany(type => Media, media => media.tournament, { cascadeInsert: false, cascadeUpdate: false })
   media: Media[];
+
+  @ManyToOne(type => Venue, venue => venue.tournaments)
+  venue: Venue;
 }

@@ -1,7 +1,7 @@
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 
-import { IScore } from 'app/services/model';
+import { IScore } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({

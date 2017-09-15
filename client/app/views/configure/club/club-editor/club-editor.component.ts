@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 
 import { KeyCode } from 'app/shared/KeyCodes';
 import { ClubService, UserService } from 'app/services/api';
-import { IUser, Role, IClub } from 'app/services/model';
+import { IUser, Role, IClub } from 'app/model';
 import { UppercaseFormControl } from 'app/shared/form';
 
 @Component({

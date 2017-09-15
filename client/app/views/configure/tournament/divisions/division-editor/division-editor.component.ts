@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@a
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { DivisionService } from 'app/services/api';
-import { IDivision, DivisionType } from 'app/services/model';
+import { IDivision, DivisionType } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({

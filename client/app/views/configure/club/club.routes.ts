@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { RoleGuard } from 'app/shared/guards';
-import { Role } from 'app/services/model';
+import { Role } from 'app/model';
 
 import { ClubComponent } from './club.component';
 import { ClubEditorComponent } from './club-editor/club-editor.component';

@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ScoreService, UserService } from 'app/services/api';
-import { Operation, ITeamInDiscipline, IScore, IUser, Role } from 'app/services/model';
+import { Operation, ITeamInDiscipline, IScore, IUser, Role } from 'app/model';
 
 import { IScoreContainer } from '../IScoreContainer';
 import { ScoreGroupComponent } from '../score-group/score-group.component';

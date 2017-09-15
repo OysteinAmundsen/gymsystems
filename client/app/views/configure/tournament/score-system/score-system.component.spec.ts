@@ -1,14 +1,9 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppModule } from 'app/app.module';
+import { AppModuleTest } from 'app/app.module.spec';
 import { ScoreSystemModule } from './score-system.module';
 import { ScoreSystemComponent } from './score-system.component';
-
-import { ScoreGroupService, ConfigurationService } from 'app/services/api';
-import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
-import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 
 describe('views.configure.tournament:ScoreSystemComponent', () => {
   let component: ScoreSystemComponent;
@@ -17,16 +12,10 @@ describe('views.configure.tournament:ScoreSystemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        AppModuleTest,
         ScoreSystemModule,
-        RouterTestingModule,
-      ],
-      providers: [
-        {provide: ScoreGroupService, useClass: ScoreGroupServiceStub},
-        {provide: ConfigurationService, useClass: ConfigurationServiceStub},
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -35,7 +24,7 @@ describe('views.configure.tournament:ScoreSystemComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

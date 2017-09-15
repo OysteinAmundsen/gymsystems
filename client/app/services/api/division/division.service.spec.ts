@@ -1,17 +1,18 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
+
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { DivisionService } from './division.service';
 
 describe('services.api:DivisionService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpClientTestingModule],
       providers: [DivisionService]
     });
   });
 
-  it('should ...', inject([DivisionService], (service: DivisionService) => {
+  it('should be created', inject([DivisionService], (service: DivisionService) => {
     expect(service).toBeTruthy();
   }));
 });

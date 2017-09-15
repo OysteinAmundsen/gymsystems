@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppModule } from 'app/app.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { RegisterComponent } from './register.component';
 
 import { UserService, ClubService } from 'app/services/api';
@@ -16,7 +16,7 @@ describe('views.home:RegisterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        SharedModule,
         RouterTestingModule,
       ],
       providers: [
@@ -35,7 +35,7 @@ describe('views.home:RegisterComponent', () => {
     fixture.detectChanges();
   });
 
-  // it('should create', () => {
+  // it('should be created', () => {
   //   expect(component).toBeTruthy();
   // });
 });
