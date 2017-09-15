@@ -34,6 +34,7 @@ export class VenueEditorComponent implements OnInit {
   ngOnInit() {
     this.venueForm = this.fb.group({
       id           : [null, []],
+      createdBy    : [null, []],
       name         : ['', [Validators.required]],
       address      : ['', []],
       longitude    : ['', []],
@@ -43,8 +44,17 @@ export class VenueEditorComponent implements OnInit {
       contactEmail : ['', []],
       capacity     : [0, []],
       rentalCost   : [0, []],
-      tournaments  : [null, []],
     });
+    this.route.params.subscribe(params => {
+      if (params.id) {
+        this.venueService.getById(+params.id).subscribe(venue => this.venueReceived(venue));
+      }
+    })
+  }
+
+  venueReceived(venue: IVenue) {
+    this.selectedVenue = venue;
+    this.venueForm.setValue(this.selectedVenue);
   }
 
   save() {
