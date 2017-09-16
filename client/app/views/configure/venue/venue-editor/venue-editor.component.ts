@@ -8,6 +8,7 @@ import { IVenue } from 'app/model';
 import { TranslateService } from '@ngx-translate/core';
 import { VenueService } from 'app/services/api';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { ValidationService } from 'app/services/validation';
 
 @Component({
   selector: 'app-venue-editor',
@@ -47,8 +48,8 @@ export class VenueEditorComponent implements OnInit {
       longitude    : [0.0, [Validators.required]],
       latitude     : [0.0, [Validators.required]],
       contact      : ['', [Validators.required]],
-      contactPhone : ['', [Validators.required]],
-      contactEmail : ['', [Validators.required]],
+      contactPhone : ['', [Validators.required, Validators.minLength(8)]],
+      contactEmail : ['', [Validators.required, ValidationService.emailValidator]],
       capacity     : [0, []],
       rentalCost   : [0, []],
     });
