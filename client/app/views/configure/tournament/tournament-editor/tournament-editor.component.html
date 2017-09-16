@@ -65,9 +65,9 @@
       </div>
       <div class="col-xs-4 help-available" appFloatingLabelContainer>
         <label translate>Location</label>
-        <input type="text" formControlName="location">
+        <app-typeahead itemText="name" [items]="venues" [getMatches]="getVenueMatchesFn()" formControlName="location" [(selectedItem)]="selectedVenue"></app-typeahead>
         <app-help-block>
-          <p translate>This will not actually be used for anything other than display purposes. Why enter? Because it is nice to know where the tournament will be held.</p>
+          <p translate>This gives the geo location for the tournament. It will also be used to calculate the entry cost per team in this tournament.</p>
         </app-help-block>
       </div>
     </div>

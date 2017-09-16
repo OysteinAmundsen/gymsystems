@@ -59,8 +59,10 @@ export class AuthInterceptor implements HttpInterceptor {
       .catch(err => {
         // Something went wrong. Analyze and take action
         // Compile a human readable version of server sent error message
-        let message = err.error;
-        const error = typeof err.error === 'string' ? JSON.parse(err.error) : err.error;
+        let message; let error = err;
+        if (err.status !== 404) {
+          error = typeof err.error === 'string' ? JSON.parse(err.error) : err.error;
+        }
         if (error.message) { message = error.message; }
         else { message = err.message; }
         this.error.error = `${err.status} - ${err.statusText}: ${JSON.stringify(message)}`;

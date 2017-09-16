@@ -27,6 +27,10 @@ export class VenueService {
     return this.http.get<IVenue>('/api/venue/' + id);
   }
 
+  findByName(name: string): Observable<IVenue[]> {
+    return this.http.get<IVenue[]>(`/api/venue/name/${name}`);
+  }
+
   save(venue: IVenue): Observable<IVenue> {
     return (venue.id
       ? this.http.put<IVenue>(`/api/venue/${venue.id}`, Helper.reduceLevels(venue))

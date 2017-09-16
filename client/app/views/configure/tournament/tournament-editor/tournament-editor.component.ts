@@ -10,8 +10,8 @@ import { ReplaySubject } from 'rxjs/Rx';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-import { TournamentService, UserService, ClubService } from 'app/services/api';
-import { ITournament, IUser, Role, IClub } from 'app/model';
+import { TournamentService, UserService, ClubService, VenueService } from 'app/services/api';
+import { ITournament, IUser, Role, IClub, IVenue } from 'app/model';
 
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { UppercaseFormControl } from 'app/shared/form';
@@ -46,6 +46,11 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     return clubName;
   }
 
+  // Venue typeahead
+  venues = [];
+  set selectedVenue(v) {
+    this.tournamentForm.controls['venue'].setValue(v);
+  }
 
   private get startDate(): Moment {
     const startDate = this.tournamentForm.value.startDate;
@@ -86,6 +91,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private tournamentService: TournamentService,
     private clubService: ClubService,
+    private venueService: VenueService,
     private error: ErrorHandlerService,
     private translate: TranslateService,
     private title: Title,
@@ -114,6 +120,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       startDate: [this.tournament.startDate, [Validators.required]],
       endDate: [this.tournament.endDate, [Validators.required]],
       location: [this.tournament.location],
+      venue: [this.tournament.venue],
       description: [this.tournament['description_' + this.translate.currentLang] || ''],
       createdBy: [this.tournament.createdBy],
       times: [this.tournament.times]
@@ -143,6 +150,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       startDate: this.tournament.startDate,
       endDate: this.tournament.endDate,
       location: this.tournament.location,
+      venue: this.tournament.venue || null,
       description: this.tournament['description_' + this.translate.currentLang] || '',
       createdBy: this.tournament.createdBy,
       times: this.tournament.times || null
@@ -159,6 +167,14 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     return function (items: any[], currentValue: string, matchText: string): Observable<IClub[]> {
       if (!currentValue) { return Observable.of(items); }
       return me.clubService.findByName(currentValue);
+    }
+  }
+
+  getVenueMatchesFn() {
+    const me = this;
+    return function (items: any[], currentValue: string, matchText: string): Observable<IVenue[]> {
+      if (!currentValue) { return Observable.of(items); }
+      return me.venueService.findByName(currentValue);
     }
   }
 

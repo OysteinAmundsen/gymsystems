@@ -84,6 +84,23 @@ export class VenueController {
   }
 
   /**
+   * Endpoint for retreiving venues where name resembles given string
+   *
+   * **USAGE:**
+   * GET /venue/name/:name
+   *
+   * @param id
+   */
+  @Get('/name/:name')
+  @OnUndefined(404)
+  findByName( @Param('name') name: string): Promise<Venue[]> {
+    return this.repository.createQueryBuilder('venue')
+      .where('lower(venue.name) LIKE :name', {name: `%${name.toLowerCase()}%`})
+      .innerJoinAndSelect('venue.createdBy', 'user')
+      .getMany();
+  }
+
+  /**
    * Endpoint for updating one venue
    *
    * **USAGE:**
