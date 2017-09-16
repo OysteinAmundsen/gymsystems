@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import { IVenue } from 'app/model';
 import { TranslateService } from '@ngx-translate/core';
 import { VenueService } from 'app/services/api';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-venue-editor',
@@ -86,5 +87,12 @@ export class VenueEditorComponent implements OnInit {
 
   delete() {
     this.venueService.delete(this.venueForm.value).subscribe(res => this.cancel);
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
+      this.cancel();
+    }
   }
 }
