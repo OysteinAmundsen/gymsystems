@@ -159,7 +159,10 @@ export class TeamsComponent implements OnInit, OnDestroy {
   }
 
   hasStarted() {
-    return moment(this.tournament.startDate).isBefore(moment());
+    if (this.tournament) {
+      return moment(this.tournament.startDate).isBefore(moment());
+    }
+    return false;
   }
 
   canSelect(team: ITeam) {
