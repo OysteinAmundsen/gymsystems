@@ -18,17 +18,18 @@
     <div class="row">
       <div class="col-6" appFloatingLabelContainer>
         <label translate for="address">Address</label>
-        <input type="text" id="address" formControlName="address"/>
+        <app-typeahead itemText="formatted_address" [items]="adresses" [getMatches]="getAddressMatchesFn()" formControlName="address" [(selectedItem)]="selectedAddress"></app-typeahead>
+        <!-- <input type="text" id="address" formControlName="address"/> -->
       </div>
       <div class="col-6">
         <div class="row">
           <div class="col-6" appFloatingLabelContainer>
             <label translate>Longitude</label>
-            <input type="text" formControlName="longitude"/>
+            <input type="number" formControlName="longitude" [attr.disabled]="true"/>
           </div>
           <div class="col-6" appFloatingLabelContainer>
             <label translate>Latitude</label>
-            <input type="text" formControlName="latitude"/>
+            <input type="number" formControlName="latitude" [attr.disabled]="true"/>
           </div>
         </div>
       </div>
@@ -69,4 +70,16 @@
     <button type="button" [title]="'Cancel' | translate" (click)="cancel()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
     <button type="button" *ngIf="venueForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
   </footer>
+
+  <agm-map [latitude]="venueForm.value.latitude" [longitude]="venueForm.value.longitude" [zoom]="17">
+    <agm-marker [latitude]="venueForm.value.latitude"
+                [longitude]="venueForm.value.longitude"
+                [markerDraggable]="true"
+                (dragEnd)="markerDragEnd($event)">
+      <agm-info-window [isOpen]="true">
+        {{ venueForm.value.name }}
+      </agm-info-window>
+    </agm-marker>
+  </agm-map>
 </form>
+

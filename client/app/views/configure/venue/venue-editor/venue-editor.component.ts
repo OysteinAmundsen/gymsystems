@@ -16,6 +16,12 @@ import { VenueService } from 'app/services/api';
 export class VenueEditorComponent implements OnInit {
   venueForm: FormGroup;
   selectedVenue: IVenue = <IVenue>{};
+  adresses = [];
+
+  set selectedAddress(v) {
+    this.venueForm.controls['latitude'].setValue(v.geometry.location.lat);
+    this.venueForm.controls['longitude'].setValue(v.geometry.location.lng);
+  }
 
   get venueName() {
     let venueName = this.venueForm && this.venueForm.value.name ? this.venueForm.value.name : this.selectedVenue.name;
@@ -36,12 +42,12 @@ export class VenueEditorComponent implements OnInit {
       id           : [null, []],
       createdBy    : [null, []],
       name         : ['', [Validators.required]],
-      address      : ['', []],
-      longitude    : ['', []],
-      latitude     : ['', []],
-      contact      : ['', []],
-      contactPhone : ['', []],
-      contactEmail : ['', []],
+      address      : ['', [Validators.required]],
+      longitude    : [0.0, [Validators.required]],
+      latitude     : [0.0, [Validators.required]],
+      contact      : ['', [Validators.required]],
+      contactPhone : ['', [Validators.required]],
+      contactEmail : ['', [Validators.required]],
       capacity     : [0, []],
       rentalCost   : [0, []],
     });
@@ -55,6 +61,19 @@ export class VenueEditorComponent implements OnInit {
   venueReceived(venue: IVenue) {
     this.selectedVenue = venue;
     this.venueForm.setValue(this.selectedVenue);
+  }
+
+  getAddressMatchesFn() {
+    const me = this;
+    return function (items, currentValue: string, matchText: string) {
+      if (!currentValue) { return items; }
+      return me.venueService.findLocationByAddress(currentValue);
+    }
+  }
+
+  markerDragEnd($event: MouseEvent) {
+    this.venueForm.controls['latitude'].setValue($event['coords'].lat);
+    this.venueForm.controls['longitude'].setValue($event['coords'].lng);
   }
 
   save() {

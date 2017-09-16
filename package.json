@@ -50,6 +50,7 @@
     "migrations:revert": "typeorm migrations:revert"
   },
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.1",
     "@angular/common": "^4.4.1",
     "@angular/compiler": "4.2.6",
     "@angular/core": "^4.4.1",

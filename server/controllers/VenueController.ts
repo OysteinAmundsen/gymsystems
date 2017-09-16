@@ -2,6 +2,7 @@ import { getConnectionManager, Connection, Repository } from 'typeorm';
 import { Body, Delete, Get, JsonController, Param, Post, Put, Res, Req, OnUndefined } from 'routing-controllers';
 import { Container, Service } from 'typedi';
 import { Request, Response } from 'express';
+import * as request from 'request';
 
 import { Logger } from '../utils/Logger';
 
@@ -27,6 +28,7 @@ import { UserController } from './UserController';
 export class VenueController {
   private repository: Repository<Venue>;
   private conn: Connection;
+  private geoApiKey = 'AIzaSyBTq0cVwJ2lH7VO84OthPhtJHaF_gOYNVI';
 
   constructor() {
     this.conn = getConnectionManager().get();
@@ -129,5 +131,24 @@ export class VenueController {
   async remove( @Param('id') id: number, @Req() req: Request, @Res() res: Response) {
     const venue = await this.get(id);
     return this.repository.remove(venue);
+  }
+
+  /**
+   * Lookup a geolocation by address
+   *
+   * @param address The address to lookup
+   */
+  @Get('/addr/:address')
+  getByAddress( @Param('address') address: string) {
+    return new Promise((resolve, reject) => {
+      request(`https://maps.googleapis.com/maps/api/geocode/json?&address=${address}&key=${this.geoApiKey}`, (error, response, body) => {
+        if (error) { Logger.log.error('Error looking up address', error); return reject(error); }
+        if (body) {
+          const res = JSON.parse(body);
+          return resolve(res.results);
+        }
+        reject('Not found');
+      });
+    });
   }
 }

@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Rx';
 import { ControlValueAccessor } from '@angular/forms/src/directives';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
@@ -12,6 +11,9 @@ import {
   SimpleChange
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subject } from 'rxjs/Rx';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 const noop = () => { };
 
@@ -63,6 +65,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
       this._onChangeCallback(v);
     }
   }
+  searchTerm$ = new Subject<string>();
 
   /** Callback registered via registerOnTouched (ControlValueAccessor) */
   private _onTouchedCallback: () => void = noop;
@@ -75,7 +78,8 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   matcher: string;
 
   ngAfterContentInit() {
-    this.setMatches();
+    this.setMatches(this.value);
+    this.searchTerm$.debounceTime(300).distinctUntilChanged().switchMap(term => this.setMatches(term)).subscribe();
   }
 
   /** TODO: internal */
@@ -83,7 +87,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   }
 
   onEnter() {
-    this.setMatches();
+    this.setMatches(this.value);
     this.hasFocus = true;
     this.popupVisible = this.matches.length > 0;
   }
@@ -104,7 +108,10 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     const input: HTMLInputElement = <HTMLInputElement>event.target;
     setTimeout(() => {
       this.value = input.value;
-      this.setMatches();
+      if (this.value) {
+        this.searchTerm$.next(this.value);
+      }
+      // this.setMatches();
 
       switch (keyCode) {
         case 40: this.selectedIndex++; break;
@@ -123,10 +130,10 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     this.popupVisible = false;
   }
 
-  private setMatches() {
-    if (this.value) {
-      if (this.matcher !== this.value) {
-        const m = this.getMatches(this.items, this.value, this.itemText);
+  private setMatches(value: any) {
+    if (value) {
+      if (this.matcher !== value) {
+        const m = this.getMatches(this.items, value, this.itemText);
         const matchReceived = (res) => {
           this.matches = res;
           this.popupVisible = this.hasFocus && this.matches.length > 0;
@@ -143,6 +150,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     } else {
       this.matches = this.items;
     }
+    return value;
   }
 
   /**
