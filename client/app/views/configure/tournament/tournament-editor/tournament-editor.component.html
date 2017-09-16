@@ -96,15 +96,15 @@
 
 <menu *ngIf="tournamentForm.value.id" role="tablist">
   <ul>
-    <li [routerLinkActive]="['active']" *ngIf="canEdit">
+    <li [routerLinkActive]="['active']" *ngIf="canEdit" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
       <a routerLink="./divisions">
         <fa name="cubes" fw="true"></fa> <span translate>Divisions</span> </a>
     </li>
-    <li [routerLinkActive]="['active']" *ngIf="canEdit">
+    <li [routerLinkActive]="['active']" *ngIf="canEdit" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
       <a routerLink="./disciplines">
         <fa name="heartbeat" fw="true"></fa> <span translate>Disciplines</span> </a>
     </li>
-    <li [routerLinkActive]="['active']" *appIfAuth="'Club'">
+    <li [routerLinkActive]="['active']" *appIfAuth="'Club'" [title]="menuTitle()">
       <a routerLink="./teams">
         <fa name="users" fw="true"></fa> <span translate>Teams</span></a>
     </li>
@@ -112,7 +112,7 @@
       <a routerLink="./schedule">
         <fa name="sort-numeric-asc" fw="true"></fa> <span translate>Schedule</span></a>
     </li>
-    <li [routerLinkActive]="['active']" *ngIf="canEdit">
+    <li [routerLinkActive]="['active']" *ngIf="canEdit" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
       <a routerLink="./info">
         <fa name="info" fw="true"></fa> <span translate>Info</span></a>
     </li>

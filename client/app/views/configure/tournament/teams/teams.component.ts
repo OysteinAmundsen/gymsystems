@@ -1,11 +1,14 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
+import * as moment from 'moment';
+
 import { TeamsService, UserService, ConfigurationService, EventService } from 'app/services/api';
 import { ITeam, IUser, Role, Classes, ITournament } from 'app/model';
 
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-teams',
@@ -55,6 +58,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private eventService: EventService,
     private configuration: ConfigurationService,
+    private translate: TranslateService,
     private teamService: TeamsService) {
   }
 
@@ -133,7 +137,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
   }
 
   select(team: ITeam) {
-    if (team) {
+    if (team && this.canSelect(team)) {
       if (!team.tournament) {
         team.tournament = this.tournament;
       }
@@ -145,8 +149,26 @@ export class TeamsComponent implements OnInit, OnDestroy {
     }
   }
 
+  title(team: ITeam) {
+    if (this.currentUser.role < Role.Admin && team.club.id !== this.currentUser.club.id) {
+      return this.translate.instant('You do not have the privileges to edit this team');
+    } else if (this.currentUser.role < Role.Admin && this.hasStarted()) {
+      return this.translate.instant('The tournament has allready started. You can no longer edit your team.');
+    }
+    return '';
+  }
+
+  hasStarted() {
+    return moment(this.tournament.startDate).isBefore(moment());
+  }
+
   canSelect(team: ITeam) {
-    return (this.currentUser.role >= Role.Admin || team.club.id === this.currentUser.club.id);
+    return (this.currentUser.role >= Role.Admin
+      || (team.club.id === this.currentUser.club.id && !this.hasStarted()));
+  }
+
+  canAdd() {
+    return this.currentUser.role >= Role.Admin || !this.hasStarted();
   }
 
   @HostListener('window:keyup', ['$event'])

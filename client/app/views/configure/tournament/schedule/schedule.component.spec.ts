@@ -18,10 +18,13 @@ import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { IUser } from 'app/model';
+import { dummyAdmin } from 'app/services/api/user/user.service.stub';
 
 
 class DummyParent {
   tournamentSubject = new ReplaySubject<ITournament>(1);
+  user: IUser = dummyAdmin;
   constructor() {
     this.tournamentSubject.next(dummyTournament);
   }

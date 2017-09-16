@@ -11,15 +11,16 @@
       </tr>
     </thead>
 
-    <tbody dragula="schedule-bag" [dragulaModel]="schedule">
-      <tr *ngFor="let item of schedule" role="listitem" class="draggable {{item.id ? '' : 'new'}}" [ngClass]="{'day-split': isNewDay(item), unimportant: item.type === participationTypes.Training}">
+    <tbody dragula="schedule-bag" [dragulaModel]="schedule" [dragulaOptions]="dragulaOptions">
+      <tr *ngFor="let item of schedule" role="listitem" [title]="title(item)"
+        [ngClass]="{'draggable': true, 'new': !item.id, 'day-split': isNewDay(item), unimportant: item.type === participationTypes.Training, 'isStarted': item.startTime}">
         <td *ngIf="item.type === participationTypes.Training">Tr</td>
         <td *ngIf="item.type === participationTypes.Live">#{{ item.startNumber + 1 }}</td>
         <td class="visible-wide" [innerHtml]="startTime(item)"></td>
         <td>{{ item.team.name }}</td>
         <td>{{ division(item.team) }}</td>
         <td><b *ngIf="item.team.class === classes.TeamGym">TG: </b>{{ item.discipline.name }}</td>
-        <td class="icons"><button type="button" class="warning" (click)="deleteParticipant(item)"><fa name="trash" fw="true"></fa></button>
+        <td class="icons"><button type="button" class="warning" (click)="deleteParticipant(item)" *ngIf="!item.startTime"><fa name="trash" fw="true"></fa></button>
       </tr>
     </tbody>
   </table>
@@ -30,4 +31,4 @@
   <fa name="calculator" fw="true"></fa>
   <span translate>Calculate schedule</span>
 </button>
-<button type="button" *ngIf="schedule.length" [title]="'Delete' | translate" class="pull-right warning" (click)="deleteAll()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
+<button type="button" *ngIf="canDeleteAll()" [title]="'Delete' | translate" class="pull-right warning" (click)="deleteAll()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>

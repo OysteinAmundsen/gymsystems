@@ -5,20 +5,36 @@ import 'rxjs/add/observable/of';
 
 import { IUser, Role, IClub } from 'app/model';
 import { UserService } from 'app/services/api';
+import { dummyClub } from 'app/services/api/club/club.service.stub';
+
+export const dummyAdmin: IUser = <IUser>{
+  id    : 0,
+  name  : 'admin',
+  email : 'admin@admin.no',
+  role  : Role.Admin,
+  club  : dummyClub
+};
+
+export const dummyOrganizer: IUser = <IUser>{
+  id    : 0,
+  name  : 'organizer',
+  email : 'organizer@admin.no',
+  role  : Role.Organizer,
+  club  : dummyClub
+};
+
+export const dummyClubRep: IUser = <IUser>{
+  id    : 0,
+  name  : 'club',
+  email : 'club@admin.no',
+  role  : Role.Club,
+  club  : dummyClub
+};
 
 @Injectable()
 export class UserServiceStub extends UserService {
-  club: IClub = <IClub>{
-    id  : 0,
-    name: 'HAUGESUND TURNFORENING'
-  }
-  user: IUser = <IUser>{
-    id    : 0,
-    name  : 'admin',
-    email : 'admin@admin.no',
-    role  : Role.Admin,
-    club  : this.club
-  };
+  club: IClub = dummyClub
+  user: IUser = dummyAdmin;
 
   constructor(http: HttpClient) {
     super(http);

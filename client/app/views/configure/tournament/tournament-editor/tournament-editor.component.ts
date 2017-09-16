@@ -68,7 +68,15 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   }
 
   get canEdit() {
-    return this.user.role >= Role.Admin || (this.user.role >= Role.Organizer && this.tournament.club.id === this.user.club.id);
+    return this.user.role >= Role.Admin
+      || (this.user.role >= Role.Organizer
+        && this.tournament.club.id === this.user.club.id);
+        // && this.tournament.createdBy.id === this.user.id);
+  }
+
+  get hasStarted() {
+    const now = moment();
+    return moment(this.tournament.startDate).isBefore(now);
   }
 
   constructor(
@@ -162,6 +170,10 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       startDate = startDate['momentObj']
     }
     return startDate.clone().startOf('day').utc().add(day, 'days').format('ddd');
+  }
+
+  menuTitle() {
+    return this.hasStarted ? this.translate.instant('This tournament has allready started') : '';
   }
 
   timeRangeChange(event, obj) {
