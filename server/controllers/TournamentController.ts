@@ -82,6 +82,7 @@ export class TournamentController {
       .createQueryBuilder('tournament')
       .innerJoinAndSelect('tournament.createdBy', 'user')
       .innerJoinAndSelect('tournament.club', 'club')
+      .leftJoinAndSelect('tournament.venue', 'venue')
       .orderBy('tournament.startDate', 'DESC')
       .getMany();
   }
@@ -102,6 +103,7 @@ export class TournamentController {
     const date = moment().utc().startOf('day').toDate();
     return this.repository
       .createQueryBuilder('tournament')
+      .leftJoinAndSelect('tournament.venue', 'venue')
       .where('tournament.endDate < :date', { date: date })
       .orderBy('tournament.startDate', 'DESC')
       .setLimit(limit) // Next-gen Typeorm: .limit(10)
@@ -128,6 +130,7 @@ export class TournamentController {
     const now = moment().utc().toDate();
     return this.repository
       .createQueryBuilder('tournament')
+      .leftJoinAndSelect('tournament.venue', 'venue')
       .where(':now between tournament.startDate and tournament.endDate', { now: now })
       .orderBy('tournament.startDate', 'DESC')
       .setLimit(limit) // Next-gen Typeorm: .limit(10)
@@ -154,6 +157,7 @@ export class TournamentController {
     const date = moment().utc().endOf('day').toDate();
     return this.repository
       .createQueryBuilder('tournament')
+      .leftJoinAndSelect('tournament.venue', 'venue')
       .where('tournament.startDate > :date', { date: date })
       .orderBy('tournament.startDate', 'DESC')
       .setLimit(limit) // Next-gen Typeorm: .limit(10)
@@ -180,6 +184,7 @@ export class TournamentController {
       .where('tournament.id=:id', { id: id })
       .innerJoinAndSelect('tournament.createdBy', 'user')
       .leftJoinAndSelect('tournament.club', 'club')
+      .leftJoinAndSelect('tournament.venue', 'venue')
       .leftJoinAndSelect('tournament.disciplines', 'disciplines')
       .leftJoinAndSelect('disciplines.scoreGroups', 'scoreGroups')
       .getOne()
