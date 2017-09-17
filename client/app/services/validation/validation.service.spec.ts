@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ValidationService } from './validation.service';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 describe('services.validation:ValidationService', () => {
   beforeEach(() => {

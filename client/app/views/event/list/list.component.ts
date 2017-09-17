@@ -158,6 +158,11 @@ export class ListComponent implements OnInit, OnDestroy {
     return dayCache.isNewDay;
   }
 
+  isVisible(participant: ITeamInDiscipline) {
+    return (!this.selectedDiscipline || this.selectedDiscipline.id === participant.discipline.id)
+      && (participant.type !== ParticipationType.Training || this.showTraining === true)
+  }
+
   division(team: ITeam) { return this.teamService.getDivisionName(team); }
 
   score(participant: ITeamInDiscipline) {
