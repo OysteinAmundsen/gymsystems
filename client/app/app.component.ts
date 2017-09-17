@@ -58,7 +58,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
     this.translate.setDefaultLang('en');
     const browserLang: string = this.translate.getBrowserLang();
     const newLang = localStorage.getItem('lang') || browserLang;
-    this.changeLang(newLang.match(/en|no|nb/) ? newLang : 'en');
+    this.changeLang(newLang ? newLang : 'en');
 
     // For debugging routes (only visible in dev mode)
     this.router.events.subscribe(event => Logger.debug(event));
@@ -97,7 +97,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
   }
 
   changeLang(lang) {
-    if (lang === 'nb') { lang = 'no'; }
+    if (lang.match(/no|nb|no-nb/)) { lang = 'no'; } else { lang = 'en'; }
     this.translate.use(lang);
     localStorage.setItem('lang', lang);
     Logger.debug('%c** Changing language: ', 'font-size: 1.1em; font-weight: bold; color: green', this.currentLang, lang);

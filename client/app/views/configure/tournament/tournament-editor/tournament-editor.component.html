@@ -51,6 +51,9 @@
       <div [ngClass]="(user.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12')" appFloatingLabelContainer>
         <label translate>Name</label>
         <input type="text" formControlName="name" appAutofocus>
+        <app-help-block>
+          <p translate>Make sure the name for this tournament is descriptive, and unique. I.e. "Norwegian championship 2017".</p>
+        </app-help-block>
       </div>
     </div>
 
@@ -58,16 +61,22 @@
       <div class="col-xs-4" appFloatingLabelContainer>
         <label translate>Start date</label>
         <app-datepicker formControlName="startDate" [options]="{maxDate: tournamentForm.value.endDate, initialDate: tournamentForm.value.endDate, autoApply: true}"></app-datepicker>
+        <app-help-block>
+          <p translate>Pick the date this tournament is to start.</p>
+        </app-help-block>
       </div>
       <div class="col-xs-4" appFloatingLabelContainer>
         <label translate>End date</label>
         <app-datepicker formControlName="endDate" [options]="{minDate: tournamentForm.value.startDate, initialDate: tournamentForm.value.startDate, autoApply: true}"></app-datepicker>
+        <app-help-block>
+          <p translate>The date this tournament is over.</p>
+        </app-help-block>
       </div>
       <div class="col-xs-4 help-available" appFloatingLabelContainer>
         <label translate>Location</label>
         <app-typeahead itemText="name" [items]="venues" [getMatches]="getVenueMatchesFn()" formControlName="location" [(selectedItem)]="selectedVenue"></app-typeahead>
         <app-help-block>
-          <p translate>This gives the geo location for the tournament. It will also be used to calculate the entry cost per team in this tournament.</p>
+          <p translate>Search in pre-configured venues. This will be used to inform participants of the location, and calculate the entry cost per team in this tournament.</p>
         </app-help-block>
       </div>
     </div>

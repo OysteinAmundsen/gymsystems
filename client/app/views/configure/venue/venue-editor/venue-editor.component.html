@@ -12,6 +12,9 @@
       <div class="col-5" appFloatingLabelContainer>
         <label translate for="name">Name</label>
         <input type="text" id="name" formControlName="name"/>
+        <app-help-block>
+          <p translate>This name will be displayed everywhere this venue is referred.</p>
+        </app-help-block>
       </div>
     </div>
 
@@ -19,17 +22,25 @@
       <div class="col-6" appFloatingLabelContainer>
         <label translate for="address">Address</label>
         <app-typeahead itemText="formatted_address" [items]="adresses" [getMatches]="getAddressMatchesFn()" formControlName="address" [(selectedItem)]="selectedAddress"></app-typeahead>
-        <!-- <input type="text" id="address" formControlName="address"/> -->
+        <app-help-block>
+          <p translate>We need the address of the venue. By typing in this field, we will automatically lookup the geo-location of the venue.</p>
+        </app-help-block>
       </div>
       <div class="col-6">
         <div class="row">
           <div class="col-6" appFloatingLabelContainer>
             <label translate>Longitude</label>
             <input type="number" formControlName="longitude" [attr.disabled]="true"/>
+            <app-help-block>
+              <p translate>The longitude of the venue. This is 1/2 of the results from the geo-lookup made by typing in the address.</p>
+            </app-help-block>
           </div>
           <div class="col-6" appFloatingLabelContainer>
             <label translate>Latitude</label>
             <input type="number" formControlName="latitude" [attr.disabled]="true"/>
+            <app-help-block>
+              <p translate>The latitude of the venue. This is 1/2 of the results from the geo-lookup made by typing in the address.</p>
+            </app-help-block>
           </div>
         </div>
       </div>
@@ -39,14 +50,23 @@
       <div class="col-5" appFloatingLabelContainer>
         <label translate for="contact">Contact Name</label>
         <input type="text" id="contact" formControlName="contact"/>
+        <app-help-block>
+          <p translate>The name of a person responsible for this venue. This is the person you want to contact if you want to rent this venue for events.</p>
+        </app-help-block>
       </div>
       <div class="col-3" appFloatingLabelContainer>
         <label translate for="contactPhone">Phone</label>
         <input type="tel" id="contactPhone" formControlName="contactPhone"/>
+        <app-help-block>
+          <p translate>Phone number of the contact</p>
+        </app-help-block>
       </div>
       <div class="col-4" appFloatingLabelContainer>
         <label translate for="contactEmail">Email</label>
         <input type="email" id="contactEmail" formControlName="contactEmail"/>
+        <app-help-block>
+          <p translate>The email address of the contact</p>
+        </app-help-block>
       </div>
     </div>
 
@@ -54,6 +74,9 @@
       <div class="col-5" appFloatingLabelContainer>
         <label translate for="rentalCost">Rental cost</label>
         <input type="number" id="rentalCost" formControlName="rentalCost"/>
+        <app-help-block>
+          <p translate>This is the rental cost for the venue, as negotiated.</p>
+        </app-help-block>
       </div>
     </div>
 
@@ -61,6 +84,9 @@
       <div class="col-5" appFloatingLabelContainer>
         <label translate for="capacity">Capacity</label>
         <input type="number" id="capacity" formControlName="capacity"/>
+        <app-help-block>
+          <p translate>The audience capacity for this venue. This will play a part in calculating cost and revenue.</p>
+        </app-help-block>
       </div>
     </div>
   </fieldset>
