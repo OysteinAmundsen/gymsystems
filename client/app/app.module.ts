@@ -8,6 +8,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
+import { AgmCoreModule } from '@agm/core';
 
 // Module dependencies
 import { AppRoutingModule } from './app-routing.module';
@@ -72,6 +73,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     MarkdownToHtmlModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+    AgmCoreModule.forRoot({ apiKey: VenueService.apiKey }),
 
     // Application modules
     SharedModule,

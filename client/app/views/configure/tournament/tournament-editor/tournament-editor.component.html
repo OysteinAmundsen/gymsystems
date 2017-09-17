@@ -33,7 +33,12 @@
     </tr>
     <tr>
       <th translate>Location</th>
-      <td>{{ tournament.location }}</td>
+      <td>
+        <span>{{ tournament.location }}</span>
+        <a *ngIf="tournament.venue" class="marker" [routerLink]="['../../venue', tournament.venue.id]" [title]="'View location info' | translate">
+          <fa name="map-marker" fw="true"></fa>
+        </a>
+      </td>
     </tr>
   </table>
 </div>

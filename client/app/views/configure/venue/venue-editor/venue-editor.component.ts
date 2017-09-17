@@ -78,6 +78,10 @@ export class VenueEditorComponent implements OnInit {
     this.venueForm.controls['longitude'].setValue($event['coords'].lng);
   }
 
+  createTournament() {
+    this.router.navigate([`../../tournament/add`], { queryParams: { fromVenue: this.venueForm.value.id}, relativeTo: this.route });
+  }
+
   save() {
     this.venueService.save(this.venueForm.value).subscribe(res => this.cancel());
   }

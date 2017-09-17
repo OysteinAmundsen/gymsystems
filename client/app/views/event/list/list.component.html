@@ -28,7 +28,7 @@
            [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime, unimportant: item.type === types.Training, isCurrent: item.startTime && !item.endTime && !item.publishTime}">
 
       <!-- View details wide screen -->
-      <tr *ngIf="selected !== item && (!selectedDiscipline || selectedDiscipline.id === item.discipline.id) && item.type !== participationTypes.Training || showTraining === true" (click)="select(item)">
+      <tr *ngIf="selected !== item && isVisible(item)" (click)="select(item)">
         <td *ngIf="item.type === participationTypes.Training"></td>
         <td *ngIf="item.type === participationTypes.Live">#{{ item.startNumber + 1 }}</td>
         <td class="visible-wide" [innerHtml]="startTime(item)"></td>
