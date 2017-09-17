@@ -8,6 +8,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
+import { AgmCoreModule } from '@agm/core';
 
 // Module dependencies
 import { SharedModule } from './shared/shared.module';
@@ -75,6 +76,9 @@ import { EventServiceStub } from 'app/services/api/event/event.service.stub';
     }),
     MarkdownToHtmlModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+    AgmCoreModule.forRoot({
+      apiKey: VenueService.apiKey
+    }),
 
     // Application modules
     SharedModule,

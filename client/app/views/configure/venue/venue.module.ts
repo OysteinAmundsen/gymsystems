@@ -18,9 +18,7 @@ import { VenueService } from 'app/services/api';
     ReactiveFormsModule,
 
     RouterModule,
-    AgmCoreModule.forRoot({
-      apiKey: VenueService.apiKey
-    })
+    AgmCoreModule
   ],
   declarations: [VenueComponent, VenueEditorComponent]
 })
