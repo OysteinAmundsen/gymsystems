@@ -109,6 +109,19 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.route.queryParams.subscribe((params: any) => {
+      if (params.fromVenue) {
+        this.venueService.getById(params.fromVenue).subscribe(venue => {
+          if (venue) {
+            const year = moment().format('YYYY');
+            this.tournamentForm.controls['name'].setValue(`${venue.name} ${year}`);
+            this.tournamentForm.controls['venue'].setValue(venue);
+            this.tournamentForm.controls['location'].setValue(venue.name);
+          }
+        })
+      }
+    });
+
     // Make sure we have translations for weekdays
     this.translate.get(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']).subscribe();
 
