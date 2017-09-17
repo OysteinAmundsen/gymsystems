@@ -50,14 +50,15 @@
     "migrations:revert": "typeorm migrations:revert"
   },
   "dependencies": {
-    "@angular/common": "^4.4.0-RC.0",
+    "@agm/core": "^1.0.0-beta.1",
+    "@angular/common": "^4.4.1",
     "@angular/compiler": "4.2.6",
-    "@angular/core": "^4.4.0-RC.0",
-    "@angular/forms": "^4.4.0-RC.0",
-    "@angular/http": "^4.4.0-RC.0",
-    "@angular/platform-browser": "^4.4.0-RC.0",
-    "@angular/platform-browser-dynamic": "^4.4.0-RC.0",
-    "@angular/router": "^4.4.0-RC.0",
+    "@angular/core": "^4.4.1",
+    "@angular/forms": "^4.4.1",
+    "@angular/http": "^4.4.1",
+    "@angular/platform-browser": "^4.4.1",
+    "@angular/platform-browser-dynamic": "^4.4.1",
+    "@angular/router": "^4.4.1",
     "@angular/service-worker": "^1.0.0-beta.16",
     "@ngx-translate/core": "^8.0.0",
     "@ngx-translate/http-loader": "2.0.0",
@@ -102,8 +103,8 @@
     "zone.js": "0.8.17"
   },
   "devDependencies": {
-    "@angular/cli": "~1.4.1",
-    "@angular/compiler-cli": "^4.4.0-RC.0",
+    "@angular/cli": "~1.4.2",
+    "@angular/compiler-cli": "^4.4.1",
     "@biesbjerg/ngx-translate-extract": "^2.3.2",
     "@types/bcrypt": "^1.0.0",
     "@types/body-parser": "^1.16.5",
@@ -138,12 +139,12 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-spec-reporter": "^0.0.31",
-    "nodemon": "~1.12.0",
+    "nodemon": "~1.12.1",
     "npm-scripts-help": "^0.7.0",
     "protractor": "~5.1.2",
     "ts-node": "^3.3.0",
     "tslint": "~5.7.0",
-    "typescript": "^2.5.2",
+    "typescript": ">=2.1.0 <2.4.0",
     "wait-on": "^2.0.2"
   }
 }

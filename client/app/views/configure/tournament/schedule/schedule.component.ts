@@ -13,6 +13,8 @@ import { Classes } from 'app/model/Classes';
 import { ParticipationType } from 'app/model/ParticipationType';
 import { ITournament } from 'app/model/ITournament';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
+import { TranslateService } from '@ngx-translate/core';
+import { Role } from 'app/model';
 
 @Component({
   selector: 'app-schedule',
@@ -29,19 +31,23 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   dragulaSubscription;
   isDirty = false;
 
+  dragulaOptions = {
+    invalid: (el: HTMLElement, handle) => {
+      return el.classList.contains('isStarted');
+    }
+  }
+
   constructor(
     private parent: TournamentEditorComponent,
     private teamService: TeamsService,
     private scheduleService: ScheduleService,
+    private translate: TranslateService,
     private dragulaService: DragulaService) { }
 
   ngOnInit() {
     this.parent.tournamentSubject.subscribe(tournament => {
       this.tournament = tournament;
       this.loadSchedule();
-      if (!this.dragulaService.find('schedule-bag')) {
-        this.dragulaService.setOptions('schedule-bag', { invalid: (el: HTMLElement, handle) => el.classList.contains('static') });
-      }
       this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
         setTimeout(() => { // Sometimes dragula is not finished syncing model
           this.scheduleService.recalculateStartTime(this.tournament, this.schedule);
@@ -79,6 +85,11 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     }
   }
 
+  canDeleteAll() {
+    const now = moment();
+    return this.schedule.length && (this.parent.user.role >= Role.Admin || moment(this.tournament.startDate).isAfter(now));
+  }
+
   deleteAll() {
     const schedules = this.schedule.filter(s => s.id != null);
     if (schedules.length) {
@@ -86,6 +97,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     } else {
       this.loadSchedule();
     }
+  }
+
+  title(participant: ITeamInDiscipline) {
+    if (participant.startTime) {
+      return this.translate.instant('This team cannot be moved or deleted. Performance has allready started.');
+    }
+    return '';
   }
 
   startTime(participant: ITeamInDiscipline) {

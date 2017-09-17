@@ -10,8 +10,8 @@ import { ReplaySubject } from 'rxjs/Rx';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-import { TournamentService, UserService, ClubService } from 'app/services/api';
-import { ITournament, IUser, Role, IClub } from 'app/model';
+import { TournamentService, UserService, ClubService, VenueService } from 'app/services/api';
+import { ITournament, IUser, Role, IClub, IVenue } from 'app/model';
 
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { UppercaseFormControl } from 'app/shared/form';
@@ -46,6 +46,11 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     return clubName;
   }
 
+  // Venue typeahead
+  venues = [];
+  set selectedVenue(v) {
+    this.tournamentForm.controls['venue'].setValue(v);
+  }
 
   private get startDate(): Moment {
     const startDate = this.tournamentForm.value.startDate;
@@ -68,7 +73,15 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   }
 
   get canEdit() {
-    return this.user.role >= Role.Admin || (this.user.role >= Role.Organizer && this.tournament.club.id === this.user.club.id);
+    return this.user.role >= Role.Admin
+      || (this.user.role >= Role.Organizer
+        && this.tournament.club.id === this.user.club.id);
+        // && this.tournament.createdBy.id === this.user.id);
+  }
+
+  get hasStarted() {
+    const now = moment();
+    return moment(this.tournament.startDate).isBefore(now);
   }
 
   constructor(
@@ -78,6 +91,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private tournamentService: TournamentService,
     private clubService: ClubService,
+    private venueService: VenueService,
     private error: ErrorHandlerService,
     private translate: TranslateService,
     private title: Title,
@@ -106,6 +120,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       startDate: [this.tournament.startDate, [Validators.required]],
       endDate: [this.tournament.endDate, [Validators.required]],
       location: [this.tournament.location],
+      venue: [this.tournament.venue],
       description: [this.tournament['description_' + this.translate.currentLang] || ''],
       createdBy: [this.tournament.createdBy],
       times: [this.tournament.times]
@@ -135,6 +150,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       startDate: this.tournament.startDate,
       endDate: this.tournament.endDate,
       location: this.tournament.location,
+      venue: this.tournament.venue || null,
       description: this.tournament['description_' + this.translate.currentLang] || '',
       createdBy: this.tournament.createdBy,
       times: this.tournament.times || null
@@ -154,6 +170,14 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  getVenueMatchesFn() {
+    const me = this;
+    return function (items: any[], currentValue: string, matchText: string): Observable<IVenue[]> {
+      if (!currentValue) { return Observable.of(items); }
+      return me.venueService.findByName(currentValue);
+    }
+  }
+
   getTimeRangeDay(day) {
     let startDate = this.tournamentForm.value.startDate;
     if (startDate instanceof Date || typeof startDate === 'string') {
@@ -162,6 +186,10 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       startDate = startDate['momentObj']
     }
     return startDate.clone().startOf('day').utc().add(day, 'days').format('ddd');
+  }
+
+  menuTitle() {
+    return this.hasStarted ? this.translate.instant('This tournament has allready started') : '';
   }
 
   timeRangeChange(event, obj) {

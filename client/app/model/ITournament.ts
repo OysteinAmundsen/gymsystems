@@ -10,6 +10,7 @@ import { IClub } from './IClub';
 
 import { IBelongsToClub } from './IBelongsToClub';
 import { ICreatedBy } from './ICreatedBy';
+import { IVenue } from './IVenue';
 
 export interface ITournament extends IBelongsToClub, ICreatedBy {
   id: number;
@@ -20,6 +21,7 @@ export interface ITournament extends IBelongsToClub, ICreatedBy {
   endDate: Date | moment.Moment | string;
   times: {day: number, time: string}[];
   location: string;
+  venue: IVenue;
   schedule: ITeamInDiscipline[];
   disciplines: IDiscipline[];
   divisions: IDivision[];

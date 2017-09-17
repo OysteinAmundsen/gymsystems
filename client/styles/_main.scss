@@ -67,6 +67,11 @@ h2 {
   font-size: 1.3rem;
 }
 
+a[disabled] {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .pull-left {
   float: left;
 }

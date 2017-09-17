@@ -277,9 +277,12 @@ export class ClubController {
         .on('data', (data: any) => {
           const find = (key: string) => data[Object.keys(data).find((k: string) => k.toLowerCase().indexOf(key.toLowerCase()) > -1)];
           members.push(<Gymnast>{
+            id: null,
             name: find('name'),
             birthYear: find('year'),
             gender: ['m', 'male', 'herre', 'herrer', 'gutt', 'boy'].indexOf(find('gender').toLowerCase()) > -1 ? 1 : 2,
+            troop: null,
+            team: null,
             club: club
           })
         })

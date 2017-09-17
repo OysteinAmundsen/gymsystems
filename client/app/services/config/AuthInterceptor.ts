@@ -58,15 +58,25 @@ export class AuthInterceptor implements HttpInterceptor {
       })
       .catch(err => {
         // Something went wrong. Analyze and take action
-        let message = err.error;
-        const error = JSON.parse(err.error);
+        // Compile a human readable version of server sent error message
+        let message; let error = err;
+        if (err.status !== 404) {
+          error = typeof err.error === 'string' ? JSON.parse(err.error) : err.error;
+        }
         if (error.message) { message = error.message; }
-        this.error.error = `${err.status} - ${err.statusText}: ${message}`;
+        else { message = err.message; }
+        this.error.error = `${err.status} - ${err.statusText}: ${JSON.stringify(message)}`;
+
+        // Analyze status
         if (err.status === 401) {
+          // We should be logged in, but aren't. Redirect
           this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
-        } else {
+        } else if (err.status === 403) {
+          // We are in a place we aren't supposed to be. Go up a level and see if that remedies the situation.
           this.router.navigate(['../'], { relativeTo: this.route })
         }
+
+        // Notify and bubble error
         this.state.notifySubscribers(req, err);
         return Observable.throw(this.error.error);
       });

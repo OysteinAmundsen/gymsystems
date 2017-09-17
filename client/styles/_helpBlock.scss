@@ -27,3 +27,9 @@
     font-weight: bold;
   }
 }
+
+app-typeahead, app-datepicker {
+  + app-help-block {
+    margin-right: 1rem;
+  }
+}

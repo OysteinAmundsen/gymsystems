@@ -1,15 +1,24 @@
 @import '~styles/variables';
 
-tr.new td {
-  background-color: rgba(lighten(green, 50%), 0.1);
+table[role="list"] {
+  tr {
+    &.new td {
+      background-color: rgba(lighten(green, 50%), 0.1);
+    }
+
+    &.day-split td {
+      border-bottom-width: 2px;
+      border-bottom-color: $text-color;
+    }
+    &.isStarted {
+      font-style: italic;
+      cursor: not-allowed;
+    }
+
+    td.icons {
+      width: 41px;
+      padding: 0;
+    }
+  }
 }
 
-tr.day-split td {
-  border-bottom-width: 2px;
-  border-bottom-color: $text-color;
-}
-
-table[role="list"] tr td.icons {
-  width: 41px;
-  padding: 0;
-}

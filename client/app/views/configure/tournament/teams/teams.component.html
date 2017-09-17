@@ -8,7 +8,7 @@
         <th translate>Club</th>
       </tr>
     </thead>
-    <tbody *ngFor="let team of teamList" [ngClass]="{'unselectable': !canSelect(team)}" [title]="!canSelect(team) ? 'You do not have the privileges to edit this team' : ''">
+    <tbody *ngFor="let team of teamList" [ngClass]="{'unselectable': !canSelect(team)}" [title]="title(team)">
       <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
         <td>{{ team.name }}</td>
         <td>{{ divisions(team) }}</td>
@@ -24,13 +24,18 @@
   </table>
 </div>
 
-<button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addTeam()" [disabled]="!hasFreeSlots">
+<button type="button" *ngIf="selected == null && canAdd()" [title]="'Add' | translate" (click)="addTeam()" [disabled]="!hasFreeSlots">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Team</span>
 </button>
 
 <span [title]="'positions taken / positions available' | translate" *ngIf="hasFreeSlots">{{ takenSlots }} / {{ availableSlots }}</span>
-<span *ngIf="!hasFreeSlots" class="warning" [title]="'We\'ve filled all available positions of this tournament.' | translate">
+<span *ngIf="!hasFreeSlots && !hasStarted()" class="warning" [title]="'We\'ve filled all available positions of this tournament.' | translate">
   <fa name="warning" fw="true"></fa>
   <span translate>We're sorry, registration is closed!</span>
+</span>
+<span *ngIf="hasStarted()" class="warning">
+  <fa name="warning" fw="true"></fa>
+  <span translate>We're sorry, registration is closed!</span>
+  <span translate>This tournament has allready started</span>
 </span>
