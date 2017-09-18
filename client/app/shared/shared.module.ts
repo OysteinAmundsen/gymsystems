@@ -25,6 +25,7 @@ import { MultirangeComponent } from './components/multirange/multirange.componen
 import { SaveButtonComponent } from './components/save-button/save-button.component';
 import { UtcDatePipe } from './pipes/utc-date.pipe';
 import { HelpBlockComponent } from './components/help-block/help-block.component';
+import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directive';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import { HelpBlockComponent } from './components/help-block/help-block.component
     SaveButtonComponent,
     HelpBlockComponent,
 
+    ToCaseDirective,
     FloatingLabelContainerDirective,
     AutofocusDirective,
     IfAuthDirective,
@@ -71,6 +73,7 @@ import { HelpBlockComponent } from './components/help-block/help-block.component
     SaveButtonComponent,
     HelpBlockComponent,
 
+    ToCaseDirective,
     FloatingLabelContainerDirective,
     AutofocusDirective,
     IfAuthDirective,

@@ -14,8 +14,8 @@ import { TournamentService, UserService, ClubService, VenueService } from 'app/s
 import { ITournament, IUser, Role, IClub, IVenue } from 'app/model';
 
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
-import { UppercaseFormControl } from 'app/shared/form';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { toUpperCaseTransformer } from 'app/shared/directives';
 
 const Moment: any = (<any>moment).default || moment;
 
@@ -39,18 +39,11 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   // Club typeahead
   clubs = [];
   selectedClub: IClub;
-  get clubName() {
-    let clubName = '';
-    if (this.tournament.club && this.tournament.club.name) { clubName = this.tournament.club.name; }
-    else if (this.user.club && this.user.club.name) { clubName = this.user.club.name; }
-    return clubName;
-  }
+  clubTransformer = toUpperCaseTransformer;
 
   // Venue typeahead
   venues = [];
-  set selectedVenue(v) {
-    this.tournamentForm.controls['venue'].setValue(v);
-  }
+  selectedVenue: IVenue;
 
   private get startDate(): Moment {
     const startDate = this.tournamentForm.value.startDate;
@@ -116,7 +109,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
             const year = moment().format('YYYY');
             this.tournamentForm.controls['name'].setValue(`${venue.name} ${year}`);
             this.tournamentForm.controls['venue'].setValue(venue);
-            this.tournamentForm.controls['location'].setValue(venue.name);
           }
         })
       }
@@ -129,10 +121,9 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.tournamentForm = this.fb.group({
       id: [this.tournament.id],
       name: [this.tournament.name, [Validators.required]],
-      club: new UppercaseFormControl(this.clubName, [Validators.required]),
+      club: [this.tournament.club, [Validators.required]],
       startDate: [this.tournament.startDate, [Validators.required]],
       endDate: [this.tournament.endDate, [Validators.required]],
-      location: [this.tournament.location],
       venue: [this.tournament.venue],
       description: [this.tournament['description_' + this.translate.currentLang] || ''],
       createdBy: [this.tournament.createdBy],
@@ -159,10 +150,9 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.tournamentForm.setValue({
       id: this.tournament.id,
       name: this.tournament.name,
-      club: this.clubName,
+      club: this.tournament.club,
       startDate: this.tournament.startDate,
       endDate: this.tournament.endDate,
-      location: this.tournament.location,
       venue: this.tournament.venue || null,
       description: this.tournament['description_' + this.translate.currentLang] || '',
       createdBy: this.tournament.createdBy,
@@ -227,6 +217,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
         this.error.error = `${tournament.message}`;
         return false;
       }
+      this.tournament = tournament;
       this.isEdit = false;
       if (this.isAdding) {
         this.isAdding = false;

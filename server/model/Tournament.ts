@@ -87,7 +87,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * sees fit to give in order to guide competitors to where the event
    * is held.
    *
-   * NOTE: This might change to a google maps url at some point.
+   * @deprecated Use `venue` instead
    */
   @Column()
   location: string;
@@ -135,6 +135,9 @@ export class Tournament implements CreatedBy, BelongsToClub {
   @OneToMany(type => Media, media => media.tournament, { cascadeInsert: false, cascadeUpdate: false })
   media: Media[];
 
+  /**
+   * An object specifying the location of the event.
+   */
   @ManyToOne(type => Venue, venue => venue.tournaments)
   @JoinColumn({name: 'venue'})
   venue: Venue;

@@ -10,7 +10,7 @@ import { ErrorHandlerService } from 'app/services/config';
 
 import { IUser, Role } from 'app/model/IUser';
 import { IClub } from 'app/model/IClub';
-import { UppercaseFormControl } from 'app/shared/form';
+import { toUpperCaseTransformer } from 'app/shared/directives';
 
 enum Type {
   Organizer = 0 + Role.Organizer, Club = 0 + Role.Club
@@ -31,6 +31,7 @@ export class RegisterComponent implements OnInit {
   get Club(): string { return this.translate.instant('Club'); }
 
   type = Type;
+  clubTransformer = toUpperCaseTransformer;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +47,7 @@ export class RegisterComponent implements OnInit {
       name: [this.user.name, [Validators.required]],
       email: [this.user.email, [Validators.required, ValidationService.emailValidator]],
       role: [this.user.role, [Validators.required]],
-      club: new UppercaseFormControl(this.user.club ? this.user.club.name : '', [Validators.required]),
+      club: [this.user.club, [Validators.required]],
       password: [this.user.password, [Validators.required]],
       repeatPassword: [this.user.password, [Validators.required]]
     }, {validator: (c: AbstractControl) => {
@@ -65,11 +66,6 @@ export class RegisterComponent implements OnInit {
   async register() {
     const user = this.registerForm.value;
     if (!user.club) {
-    //   user.club = await this.clubService.validateClub(user);
-    // } else if (this.selectedClub && this.selectedClub.id) {
-    //   delete this.selectedClub.teams;
-    //   user.club = this.selectedClub;
-    // } else {
       this.errorHandler.error = 'No club set. Cannot register!';
       return;
     }

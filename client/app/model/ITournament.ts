@@ -20,7 +20,6 @@ export interface ITournament extends IBelongsToClub, ICreatedBy {
   startDate: Date | moment.Moment | string;
   endDate: Date | moment.Moment | string;
   times: {day: number, time: string}[];
-  location: string;
   venue: IVenue;
   schedule: ITeamInDiscipline[];
   disciplines: IDiscipline[];

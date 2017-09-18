@@ -15,9 +15,9 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { Logger } from 'app/services/Logger';
 
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
-import { UppercaseFormControl } from 'app/shared/form';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { TeamsComponent } from 'app/views/configure/tournament/teams/teams.component';
+import { toUpperCaseTransformer } from 'app/shared/directives';
 
 @Component({
   selector: 'app-team-editor',
@@ -107,6 +107,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   get TeamGym(): string { return this.translate.instant('TeamGym'); }
   get National(): string { return this.translate.instant('National classes'); }
 
+  clubTransformer = toUpperCaseTransformer;
+
   constructor(
     private fb: FormBuilder,
     private tournamentEditor: TournamentEditorComponent,
@@ -139,7 +141,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       this.teamForm = this.fb.group({
         id: [this.team.id],
         name: [this.team.name, [Validators.required, this.forbiddenNameValidator()]],
-        club: new UppercaseFormControl(this.team.club ? this.team.club.name : '', [Validators.required]),
+        club: [this.team.club, [Validators.required]],
         ageDivision: [null, [Validators.required]],
         genderDivision: [null, [Validators.required]],
         disciplines: [this.team.disciplines],

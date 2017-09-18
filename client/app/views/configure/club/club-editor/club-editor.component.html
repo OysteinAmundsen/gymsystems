@@ -27,7 +27,7 @@
     <div class="row">
       <div class="col-12" appFloatingLabelContainer>
         <label translate>Name</label>
-        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="name" appAutofocus></app-typeahead>
+        <app-typeahead itemText="name" [valueTransformer]="clubTransformer" [items]="clubs" [getMatches]="getClubMatchesFn()" (textValueChange)="setClubName($event)" [(selectedItem)]="selectedClub" appAutofocus></app-typeahead>
       </div>
     </div>
   </fieldset>

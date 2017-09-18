@@ -20,7 +20,7 @@
         <td>{{ tournament.name }}</td>
         <td>{{ tournament.startDate | date }}</td>
         <td>{{ tournament.endDate | date }}</td>
-        <td>{{ tournament.location }}</td>
+        <td>{{ tournament.venue.name }}</td>
         <td>{{ tournament.club.name }}</td>
         <td *appIfAuth="'Admin'">{{ tournament.createdBy.name }}</td>
       </tr>

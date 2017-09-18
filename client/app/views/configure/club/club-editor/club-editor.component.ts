@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReplaySubject } from 'rxjs/Rx';
 
 import * as _ from 'lodash';
@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { ClubService, UserService } from 'app/services/api';
 import { IUser, Role, IClub } from 'app/model';
-import { UppercaseFormControl } from 'app/shared/form';
+import { toUpperCaseTransformer } from 'app/shared/directives';
 
 @Component({
   selector: 'app-club-editor',
@@ -20,6 +20,12 @@ export class ClubEditorComponent implements OnInit {
   clubs = []; // Typeahead values
 
   club: IClub = <IClub>{};
+  get selectedClub() { return this.club; }
+  set selectedClub(v) {
+    v.id = v.id || null;
+    this.clubReceived(v);
+    this.clubForm.markAsDirty();
+  }
   clubSubject = new ReplaySubject<IClub>(1);
 
   clubForm: FormGroup;
@@ -27,10 +33,11 @@ export class ClubEditorComponent implements OnInit {
 
   isAdding = false;
   isEdit = false;
+  clubTransformer = toUpperCaseTransformer;
 
   get clubName() {
-    const clubName = this.clubForm && this.clubForm.value.name ? this.clubForm.value.name : this.club.name;
-    return _.startCase(_.lowerCase(clubName));
+    const name = this.clubForm && this.clubForm.value.name ? this.clubForm.value.name : this.club.name;
+    return _.startCase(_.lowerCase(name));
   }
 
   constructor(
@@ -67,7 +74,7 @@ export class ClubEditorComponent implements OnInit {
     // Setup form
     this.clubForm = this.fb.group({
       id: [this.club.id],
-      name: new UppercaseFormControl(this.club.name)
+      name: [this.club.name, [Validators.required]]
     });
   }
 
@@ -87,6 +94,9 @@ export class ClubEditorComponent implements OnInit {
       name: club.name
     });
   }
+  setClubName(v) {
+    this.clubForm.controls['name'].setValue(v);
+  }
 
   save() {
     this.clubService.saveClub(this.clubForm.value).subscribe(club => {
@@ -104,7 +114,7 @@ export class ClubEditorComponent implements OnInit {
 
   cancel() {
     this.isEdit = false;
-    this.clubReceived(this.club);
+    // this.clubReceived(this.club);
     if (this.isAdding) {
       this.goBack();
     }

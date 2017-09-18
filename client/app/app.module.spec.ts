@@ -76,9 +76,9 @@ import { EventServiceStub } from 'app/services/api/event/event.service.stub';
     }),
     MarkdownToHtmlModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-    AgmCoreModule.forRoot({
-      apiKey: VenueService.apiKey
-    }),
+    // AgmCoreModule.forRoot({
+    //   apiKey: VenueService.apiKey
+    // }),
 
     // Application modules
     SharedModule,
