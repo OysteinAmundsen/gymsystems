@@ -38,9 +38,9 @@
             <td class="spacer"> </td>
           </tr>
         </thead>
-        <tbody *ngFor="let participant of getByTeamGym(division)" class="team">
+        <tbody class="team">
           <!-- Data for screen -->
-          <tr class="screen-only team-total" [ngClass]="{isPublished: isPublished(participant)}">
+          <tr *ngFor="let participant of getByTeamGym(division)" class="screen-only team-total" [ngClass]="{isPublished: isPublished(participant)}">
             <td>{{participant.team.name}}</td>
             <td *ngFor="let exec of teamGymScoresByGroup(participant)" class="score">
               <small>{{exec.total | number:'1.3-3'}}</small>
