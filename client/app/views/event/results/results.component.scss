@@ -16,6 +16,8 @@ header {
 
 .division {
   margin-bottom: 1rem;
+  border: 1px solid rgba($primary, 0.4);
+  border-radius: $rounded;
   h3 {
     color: white;
     background: $primary;
