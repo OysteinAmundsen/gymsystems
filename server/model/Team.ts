@@ -38,6 +38,7 @@ export enum Classes {
 @Entity()
 @Index('team_name_tournament', (team: Team) => [team.name, team.tournament], { unique: true})
 export class Team implements BelongsToClub {
+
   /**
    * The Troop/Team primary key
    */
@@ -51,6 +52,7 @@ export class Team implements BelongsToClub {
    */
   @Column({ length: 100 })
   name: string;
+
   /**
    * The team must be competing in either 'National classes' or 'Teamgym'.
    * Default is 'National classes'
@@ -104,7 +106,6 @@ export class Team implements BelongsToClub {
   @ManyToOne(type => Tournament, tournament => tournament.teams, { nullable: false })
   @JoinColumn({name: 'tournament'})
   tournament: Tournament;
-
 
   /**
    * Convenience method for displaying the division array as

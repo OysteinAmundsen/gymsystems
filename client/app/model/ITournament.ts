@@ -11,6 +11,7 @@ import { IClub } from './IClub';
 import { IBelongsToClub } from './IBelongsToClub';
 import { ICreatedBy } from './ICreatedBy';
 import { IVenue } from './IVenue';
+import { IGymnast } from 'app/model';
 
 export interface ITournament extends IBelongsToClub, ICreatedBy {
   id: number;
@@ -25,4 +26,22 @@ export interface ITournament extends IBelongsToClub, ICreatedBy {
   disciplines: IDiscipline[];
   divisions: IDivision[];
   media: IMedia[];
+
+
+  // // LODGING -----------------------------------------------------
+  // canProvideLodgingFor: number;
+  // lodingCostPerHead: number;
+  // lodging: IGymnast[];
+
+
+  // // TRANSPORT ---------------------------------------------------
+  // providesTransport: boolean;
+  // transportationCostPerHead: number;
+  // transporting: IGymnast[];
+
+
+  // // BANQUET -----------------------------------------------------
+  // providesBanquet: boolean;
+  // banquetCostPerHead: number;
+  // banquetFor: IGymnast[];
 }

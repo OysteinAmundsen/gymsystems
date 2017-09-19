@@ -5,6 +5,8 @@
       <fa *ngIf="memberListHidden" name="chevron-right" fw="true"></fa>
     </button>
   </div>
+
+  <!-- Available members -->
   <div [ngClass]="{'flex-col': true, hidden: memberListHidden}">
     <h3>
       <fa name="address-book" fw="true"></fa>
@@ -17,12 +19,15 @@
       </li>
     </ul>
   </div>
+
+  <!-- Added members -->
   <div class="flex-col">
-    <div class="help-available">
-      <h3>
+    <div class="help-available flex">
+      <h3 class="flex-col">
         <fa name="group" fw="true"></fa>
         <span translate>Gymnasts in</span> <span>{{ troopName }}</span>
       </h3>
+      <ng-content></ng-content>
       <app-help-block *ngIf="availableMembers && availableMembers.length > 0">
         <p translate>Press the <fa name="chevron-right"></fa> icon found to the left of this header to view available members.</p>
         <p translate>You can then drag and drop members into the team.</p>
@@ -32,12 +37,16 @@
       </app-help-block>
     </div>
     <ul [dragula]="'member-bag'" class="added">
-      <li [ngClass]="{'memberBox': true, 'male': member.gender === genders.Male, 'female': member.gender === genders.Female}" *ngFor="let member of gymnasts">
-        <span>{{ member.name }}</span>
+      <li [ngClass]="{'memberBox': true, 'male': member.gender === genders.Male, 'female': member.gender === genders.Female, 'flex': true}"
+          *ngFor="let member of gymnasts">
+        <span class="flex-col">{{ member.name }}</span>
+        <ng-container *ngTemplateOutlet="memberTemplate;context:{member: member}"></ng-container>
         <small>{{ age(member.birthYear) }}</small>
       </li>
     </ul>
   </div>
+
+
 </section>
 <div *ngIf="club && (!availableMembers || availableMembers.length === 0) && (!gymnasts || gymnasts.length === 0)" class="help">
   <span translate>Your club does not have any gymnasts registerred.</span>

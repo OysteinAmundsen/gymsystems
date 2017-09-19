@@ -109,7 +109,24 @@
   <div class="row">
 
     <!-- Members -->
-    <app-member-selector [club]="team.club" [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()" [troopName]="teamForm.value.name"></app-member-selector>
+    <app-member-selector [club]="team.club" [troopName]="teamForm.value.name"
+                         [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()">
+                         <!-- [memberTemplate]="memberContent">
+      <span class="flex-col">
+        <label [title]="'Require lodging' | translate">
+          <input type="checkbox" [(ngModel)]="isAllLodged" [ngModelOptions]="{standalone: true}"/>
+          <fa name="bed" fw="true"></fa>
+        </label>
+        <label [title]="'Require transportation' | translate">
+          <input type="checkbox" [(ngModel)]="isAllTransport" [ngModelOptions]="{standalone: true}"/>
+          <fa name="bus" fw="true"></fa>
+        </label>
+        <label [title]="'Joining banquet' | translate">
+          <input type="checkbox" [(ngModel)]="isAllBanquet" [ngModelOptions]="{standalone: true}"/>
+          <fa name="cutlery" fw="true"></fa>
+        </label>
+      </span> -->
+    </app-member-selector>
   </div>
 
   <footer>
@@ -118,3 +135,11 @@
     <button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
   </footer>
 </form>
+
+<ng-template #memberContent let-member="member">
+  <div class="member-extras flex-col">
+    <label [title]="'Require lodging' | translate"><input type="checkbox" [(ngModel)]="member.lodging"/> <fa name="bed" fw="true"></fa></label>
+    <label [title]="'Require transportation' | translate"><input type="checkbox" [(ngModel)]="member.transport"/> <fa name="bus" fw="true"></fa></label>
+    <label [title]="'Joining banquet' | translate"><input type="checkbox" [(ngModel)]="member.banquet"/> <fa name="cutlery" fw="true"></fa></label>
+  </div>
+</ng-template>

@@ -3,6 +3,7 @@ import { Club, BelongsToClub } from './Club';
 import { DivisionType } from './Division';
 import { Team } from './Team';
 import { Troop } from './Troop';
+import { Tournament } from './Tournament';
 
 /**
  * Defines the available genders
@@ -79,4 +80,13 @@ export class Gymnast implements BelongsToClub {
   @ManyToOne(type => Club, club => club.gymnasts, { nullable: false })
   @JoinColumn({name: 'club'})
   club: Club;
+
+  // @ManyToMany(type => Tournament, tournament => tournament.lodging, { cascadeInsert: false, cascadeUpdate: false })
+  // wantsLodging: Tournament[];
+
+  // @ManyToMany(type => Tournament, tournament => tournament.transporting, { cascadeInsert: false, cascadeUpdate: false })
+  // wantsTransport: Tournament[];
+
+  // @ManyToMany(type => Tournament, tournament => tournament.banquetFor, { cascadeInsert: false, cascadeUpdate: false })
+  // willAttendBanquet: Tournament[];
 }

@@ -67,3 +67,15 @@ td {
   }
 }
 
+app-member-selector span {
+  text-align: right;
+  margin-right: 3.6rem;
+}
+
+.member-extras {
+  text-align: right;
+  margin-right: 2rem;
+  label {
+    display: initial;
+  }
+}

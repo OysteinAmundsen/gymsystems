@@ -109,6 +109,21 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   clubTransformer = toUpperCaseTransformer;
 
+
+  get isAllLodged() { return this.teamForm.value.gymnasts.every(g => g.lodging); }
+  set isAllLodged($event) {
+    this.teamForm.value.gymnasts.forEach(g => g.lodging = $event);
+  }
+  get isAllTransport() { return this.teamForm.value.gymnasts.every(g => g.transport); }
+  set isAllTransport($event) {
+    this.teamForm.value.gymnasts.forEach(g => g.transport = $event);
+  }
+  get isAllBanquet() { return this.teamForm.value.gymnasts.every(g => g.banquet); }
+  set isAllBanquet($event) {
+    this.teamForm.value.gymnasts.forEach(g => g.banquet = $event);
+  }
+
+
   constructor(
     private fb: FormBuilder,
     private tournamentEditor: TournamentEditorComponent,
@@ -339,6 +354,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const state = this.allChecked;
     this.disciplineCheckboxes.forEach((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked = !state);
   }
+
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {

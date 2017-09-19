@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, TemplateRef } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -32,6 +32,8 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
     }
   }
   get gymnasts() { return this._gymnasts; }
+
+  @Input() memberTemplate: TemplateRef<any>;
 
 
   availableMembers: IGymnast[];
