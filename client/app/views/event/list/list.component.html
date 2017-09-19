@@ -51,7 +51,7 @@
       </tr>
 
       <!-- View details narrow screen -->
-      <tr *ngIf="selected !== item && (!selectedDiscipline || selectedDiscipline.id === item.discipline.id)" (click)="select(item)" class="visible-narrow details">
+      <tr *ngIf="selected !== item && isVisible(item)" (click)="select(item)" class="visible-narrow details">
         <td>{{ startTime(item) }}</td>
         <td><small>{{ division(item.team) }} - {{ item.discipline.name }}</small></td>
         <td>&nbsp;</td>

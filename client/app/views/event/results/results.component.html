@@ -5,25 +5,17 @@
 <!-- National classes -->
 <section *ngFor="let division of divisions" class="division">
   <h3>{{division}}</h3>
-  <div class="row">
-    <div *ngFor="let discipline of disciplines" class="col-4">
+  <div class="flex">
+    <div *ngFor="let discipline of disciplines" class="flex-col">
       <table>
         <thead>
-          <tr class="screen-only"><th colspan="2"><h4>{{discipline}}</h4></th></tr>
-          <tr class="print-only"><th colspan="20"><h4>{{discipline}}</h4></th></tr>
-          <tr class="print-only">
-            <td></td>
-            <td *ngFor="let score of scoreHeadByDiscipline(discipline)">{{score.type}}</td>
-            <td translate>Total:</td>
-          </tr>
+          <tr><th colspan="3"><h4>{{discipline}}</h4></th></tr>
         </thead>
         <tbody>
           <tr *ngFor="let participant of getByDiscipline(discipline, getByDivision(division))" [ngClass]="{isPublished: isPublished(participant)}">
             <td>{{participant.team.name}}</td>
-            <td class="print-only" *ngFor="let score of scoresByGroup(participant)">
-              {{ score.value | number:'1.2-2'}}
-            </td>
             <td class="score">{{score(participant) | number:'1.3-3'}}</td>
+            <td class="spacer"> </td>
           </tr>
         </tbody>
       </table>
@@ -34,46 +26,27 @@
 <!-- TeamGym -->
 <section class="division" *ngIf="teamGymDivisions.size > 0">
   <h3 translate>TeamGym</h3>
-  <div class="row">
-    <div *ngFor="let division of teamGymDivisions" class="col-4">
+  <div class="flex">
+    <div *ngFor="let division of teamGymDivisions" class="flex-col">
       <table>
         <thead>
-          <!-- Headers for screen -->
-          <tr class="screen-only"><th [attr.colspan]="getMaxColspan()"><h4>{{division}}</h4></th></tr>
-          <tr class="screen-only">
+          <tr><th [attr.colspan]="getMaxColspan()"><h4>{{division}}</h4></th></tr>
+          <tr>
             <td></td>
             <td *ngFor="let discipline of disciplines"><small>{{discipline}}</small></td>
             <td translate class="score">Total</td>
-          </tr>
-          <!-- Headers for print -->
-          <tr class="print-only"><th colspan="20"><h4>{{division}}</h4></th></tr>
-          <tr class="print-only">
-            <td></td>
-            <td *ngFor="let score of scoreHeadByDiscipline(disciplines[0])">{{score.type}}</td>
-            <td translate>Total:</td>
+            <td class="spacer"> </td>
           </tr>
         </thead>
-        <tbody *ngFor="let participant of getByTeamGym(division)" class="team">
+        <tbody class="team">
           <!-- Data for screen -->
-          <tr class="screen-only team-total" [ngClass]="{isPublished: isPublished(participant)}">
+          <tr *ngFor="let participant of getByTeamGym(division)" class="screen-only team-total" [ngClass]="{isPublished: isPublished(participant)}">
             <td>{{participant.team.name}}</td>
             <td *ngFor="let exec of teamGymScoresByGroup(participant)" class="score">
               <small>{{exec.total | number:'1.3-3'}}</small>
             </td>
             <td class="score">{{score(participant) | number:'1.3-3'}}
-          </tr>
-
-          <!-- Data for print -->
-          <tr class="print-only team-total">
-            <td [attr.colspan]="scoreHeadByDiscipline(disciplines[0]).length + 1">{{participant.team.name}}</td>
-            <td>{{score(participant) | number:'1.3-3'}}
-          </tr>
-          <tr [ngClass]="{isPublished: isPublished(participant), 'print-only': true, 'team-details': true}" *ngFor="let exec of teamGymScoresByGroup(participant); let i of index;">
-            <td>&nbsp;&nbsp;<small>{{exec.discipline}}</small></td>
-            <td class="print-only" *ngFor="let score of exec.scores">
-              <small>{{ score.value | number:'1.2-2'}}</small>
-            </td>
-            <td><small>{{exec.total | number:'1.3-3'}}</small></td>
+            <td class="spacer"> </td>
           </tr>
         </tbody>
       </table>

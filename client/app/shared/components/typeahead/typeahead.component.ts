@@ -53,7 +53,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   disabled = false;
   changed = false;
 
-  _value: string;
+  _value: any;
   @Input()
   get value(): any { return this._value; };
   set value(v: any) {
@@ -65,6 +65,26 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
       this._onChangeCallback(v);
     }
   }
+
+  @Output() textValueChange = new EventEmitter<string>();
+  _stringValue: string;
+  get stringValue(): string {
+    if (!this._stringValue) {
+      if (!this.value) { return null; }
+      this._stringValue = (typeof this.value === 'string') ? this.value : this.value[this.itemText];
+    }
+    return this._stringValue;
+  }
+  set stringValue(v: string) {
+    this._stringValue = this.valueTransformer(v);
+    if (v) {
+      this.searchTerm$.next(v);
+    } else {
+      setTimeout(() => this.popupVisible = false);
+    }
+    this.textValueChange.emit(this._stringValue);
+  }
+
   searchTerm$ = new Subject<string>();
 
   /** Callback registered via registerOnTouched (ControlValueAccessor) */
@@ -73,13 +93,14 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   private _onChangeCallback: (_: any) => void = noop;
 
   popupVisible = false;
-  private matches = [];
+  matches = [];
   matchSubscription: Subscription;
   matcher: string;
+  @Input() valueTransformer = (v: string) => v;
 
   ngAfterContentInit() {
-    this.setMatches(this.value);
-    this.searchTerm$.debounceTime(300).distinctUntilChanged().switchMap(term => this.setMatches(term)).subscribe();
+    this.setMatches(this.stringValue);
+    this.searchTerm$.debounceTime(200).distinctUntilChanged().switchMap(term => this.setMatches(term)).subscribe();
   }
 
   /** TODO: internal */
@@ -87,7 +108,6 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   }
 
   onEnter() {
-    this.setMatches(this.value);
     this.hasFocus = true;
     this.popupVisible = this.matches.length > 0;
   }
@@ -107,11 +127,8 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     const keyCode = event.keyCode;
     const input: HTMLInputElement = <HTMLInputElement>event.target;
     setTimeout(() => {
-      this.value = input.value;
-      if (this.value) {
-        this.searchTerm$.next(this.value);
-      }
-      // this.setMatches();
+      this.stringValue = input.value;
+      input.value = this.stringValue;
 
       switch (keyCode) {
         case 40: this.selectedIndex++; break;
@@ -125,7 +142,8 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   select(item) {
     if (item) {
       this.selectedItemChange.emit(item);
-      this.value = item[this.itemText];
+      this.value = item;
+      this.stringValue = item[this.itemText];
     }
     this.popupVisible = false;
   }

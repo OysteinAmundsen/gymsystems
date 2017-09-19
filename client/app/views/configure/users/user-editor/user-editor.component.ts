@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
@@ -8,7 +8,8 @@ import { UserService, ClubService } from 'app/services/api';
 import { IUser, RoleNames, Role, IClub } from 'app/model';
 import { ValidationService } from 'app/services/validation';
 import { ErrorHandlerService } from 'app/services/config';
-import { UppercaseFormControl } from 'app/shared/form';
+import { toUpperCaseTransformer } from 'app/shared/directives';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-user-editor',
@@ -27,13 +28,8 @@ export class UserEditorComponent implements OnInit {
     return RoleNames.filter(r => r.id <= this.currentUser.role);
   };
 
-  get clubName() {
-    let clubName = '';
-    if (this.user.club && this.user.club.name) { clubName = this.user.club.name; }
-    else if (this.currentUser && this.currentUser.club) { clubName = this.currentUser.club.name; }
-    return clubName;
-  }
   roles = Role;
+  clubTransformer = toUpperCaseTransformer;
 
   constructor(
     private fb: FormBuilder,
@@ -65,7 +61,7 @@ export class UserEditorComponent implements OnInit {
       name: [this.user.name, [Validators.required]],
       role: [this.user.role, [Validators.required]],
       email: [this.user.email, [Validators.required, ValidationService.emailValidator]],
-      club: new UppercaseFormControl(this.clubName, []),
+      club: [this.user.club, []],
       password: [this.user.password, [Validators.required]],
       repeatPassword: [this.user.password, [Validators.required]]
     }, {validator: (c: AbstractControl) => {
@@ -83,7 +79,7 @@ export class UserEditorComponent implements OnInit {
       name: this.user.name,
       role: this.user.role,
       email: this.user.email || '',
-      club: this.clubName,
+      club: this.user.club,
       password: this.user.password,
       repeatPassword: this.user.password
     });
@@ -131,5 +127,12 @@ export class UserEditorComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
+      this.cancel();
+    }
   }
 }

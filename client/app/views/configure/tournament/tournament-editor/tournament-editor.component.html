@@ -32,10 +32,10 @@
       <td>{{ tournament.endDate | utcDate }}</td>
     </tr>
     <tr>
-      <th translate>Location</th>
-      <td>
-        <span>{{ tournament.location }}</span>
-        <a *ngIf="tournament.venue" class="marker" [routerLink]="['../../venue', tournament.venue.id]" [title]="'View location info' | translate">
+      <th *ngIf="tournament.venue" translate>Location</th>
+      <td *ngIf="tournament.venue">
+        <span>{{ tournament.venue.name }}</span>
+        <a class="marker" [routerLink]="['../../venue', tournament.venue.id]" [title]="'View location info' | translate">
           <fa name="map-marker" fw="true"></fa>
         </a>
       </td>
@@ -48,7 +48,7 @@
     <div class="row">
       <div class="col-5 help-available" appFloatingLabelContainer *appIfAuth="'Admin'">
         <label translate>Club</label>
-        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
+        <app-typeahead itemText="name" [valueTransformer]="clubTransformer" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
         <app-help-block>
           <p translate>Admins do not belong to any club. We need to know which club you are creating this tournament for.</p>
         </app-help-block>
@@ -79,7 +79,7 @@
       </div>
       <div class="col-xs-4 help-available" appFloatingLabelContainer>
         <label translate>Location</label>
-        <app-typeahead itemText="name" [items]="venues" [getMatches]="getVenueMatchesFn()" formControlName="location" [(selectedItem)]="selectedVenue"></app-typeahead>
+        <app-typeahead itemText="name" [items]="venues" [getMatches]="getVenueMatchesFn()" formControlName="venue" [(selectedItem)]="selectedVenue"></app-typeahead>
         <app-help-block>
           <p translate>Search in pre-configured venues. This will be used to inform participants of the location, and calculate the entry cost per team in this tournament.</p>
         </app-help-block>

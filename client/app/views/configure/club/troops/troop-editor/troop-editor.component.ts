@@ -12,7 +12,6 @@ import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { Logger } from 'app/services/Logger';
 
-import { UppercaseFormControl } from 'app/shared/form';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { TroopsComponent } from 'app/views/configure/club/troops/troops.component';
 import { KeyCode } from 'app/shared/KeyCodes';

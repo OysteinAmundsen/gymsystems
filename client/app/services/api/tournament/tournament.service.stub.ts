@@ -5,6 +5,7 @@ import 'rxjs/add/observable/of';
 
 import { ITournament, IUser, IClub } from 'app/model';
 import { TournamentService } from './tournament.service';
+import { dummyVenue } from 'app/services/api/venue/venue.service.spec';
 
 export const dummyTournament = <ITournament>{
   id: 1,
@@ -15,7 +16,7 @@ export const dummyTournament = <ITournament>{
   description_en: '',
   startDate: new Date(),
   endDate: new Date(),
-  location: '',
+  venue: dummyVenue,
   schedule: [],
   disciplines: [],
   divisions: [],
@@ -24,37 +25,9 @@ export const dummyTournament = <ITournament>{
 
 @Injectable()
 export class TournamentServiceStub extends TournamentService {
-  previous: ITournament = <ITournament>{
-    id: 0,
-    createdBy: <IUser>{},
-    club: <IClub>{},
-    name: '',
-    description_no: '',
-    description_en: '',
-    startDate: new Date(),
-    endDate: new Date(),
-    location: '',
-    schedule: [],
-    disciplines: [],
-    divisions: [],
-    times: null
-  };
+  previous: ITournament = dummyTournament;
   present: ITournament = dummyTournament;
-  future: ITournament = <ITournament>{
-    id: 2,
-    createdBy: <IUser>{},
-    club: <IClub>{},
-    name: '',
-    description_no: '',
-    description_en: '',
-    startDate: new Date(),
-    endDate: new Date(),
-    location: '',
-    schedule: [],
-    disciplines: [],
-    divisions: [],
-    times: null
-  };
+  future: ITournament = dummyTournament;
   tournaments: ITournament[] = [
     this.previous, this.present, this.future
   ]

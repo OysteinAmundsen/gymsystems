@@ -37,7 +37,7 @@
       </div>
       <div class="col-5 help-available" appFloatingLabelContainer>
         <label translate>Club</label>
-        <app-typeahead itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
+        <app-typeahead itemText="name" [valueTransformer]="clubTransformer" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
         <app-help-block>
           <p translate>We need to know which club you represent in order to provide you with the appropriate privileges.</p>
         </app-help-block>

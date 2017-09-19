@@ -26,6 +26,7 @@ import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
 import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.service.stub';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+import { dummyVenue } from 'app/services/api/venue/venue.service.spec';
 
 const club: IClub = <IClub>{
   id          : 0,
@@ -52,7 +53,7 @@ class WrapperComponent {
   selected: ITeam = <ITeam>{
     id: 0, class: Classes.TeamGym, name: 'Haugesund-1', divisions: [], disciplines: [], gymnasts: [], club: club, tournament: <ITournament>{
       id: 0, createdBy: user, club: user.club, name: 'Landsturnstevnet 2017', description_no: 'Test tekst', description_en: 'Test text',
-      location: 'Haugesund', schedule: [], disciplines: [], divisions: []
+      venue: dummyVenue, schedule: [], disciplines: [], divisions: []
     },
   }
 }
