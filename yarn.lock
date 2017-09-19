@@ -90,17 +90,17 @@
   optionalDependencies:
     node-sass "^4.3.0"
 
-"@angular/common@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-4.4.2.tgz#728084f538106ffc82d11895a190fd81cfe44881"
+"@angular/common@4.3.6":
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-4.3.6.tgz#ed37e9307c7506dd834797c1a6cf675e52b5b6ee"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/compiler-cli@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-4.4.2.tgz#9af605e60a204916d9abf42138a672af38c30d60"
+"@angular/compiler-cli@4.3.6":
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-4.3.6.tgz#6afa6aef68dd681e61b398be4d6270e5c8680b12"
   dependencies:
-    "@angular/tsc-wrapped" "4.4.2"
+    "@angular/tsc-wrapped" "4.3.6"
     minimist "^1.2.0"
     reflect-metadata "^0.1.2"
 
@@ -110,39 +110,39 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/core@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-4.4.2.tgz#7bb50379c4f836d3c859fe92d6dfe92306ab1500"
+"@angular/core@4.3.6":
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-4.3.6.tgz#bbac63d68d0f7bcb389d12b34208652be3287e96"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/forms@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-4.4.2.tgz#6763ab09a515760749caca67e898d2456052cb1e"
+"@angular/forms@4.3.6":
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-4.3.6.tgz#0f20c4597c16a152745d7cd95559855a0a5c6687"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/http@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.4.2.tgz#c0c1bc29ad49afbbdfe063bade393fd0aa1a3e7d"
+"@angular/http@4.3.6":
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.3.6.tgz#563827d1a7d5e89e3b7d86b77fbbd367b2c08591"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/platform-browser-dynamic@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.4.2.tgz#c199dc0a9e0ff20c5ae81c9048888ed2674e2128"
+"@angular/platform-browser-dynamic@4.3.6":
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.3.6.tgz#9eabf826f119c98f85c2a96edcb18ab00b4efb1c"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/platform-browser@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-4.4.2.tgz#fadf51894db804e3a21b6978ff61838c1e4c193a"
+"@angular/platform-browser@4.3.6":
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-4.3.6.tgz#6152b1f3b78d0246fc5e150e2f7b9ed4337e3ba6"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/router@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-4.4.2.tgz#6420bb7b9e18555317c7c1d134e044034f62c9ea"
+"@angular/router@4.3.6":
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-4.3.6.tgz#64033edb4fcda08a323e7533b4a1820c0f28d130"
   dependencies:
     tslib "^1.7.1"
 
@@ -153,9 +153,9 @@
     base64-js "^1.1.2"
     jshashes "^1.0.5"
 
-"@angular/tsc-wrapped@4.4.2":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@angular/tsc-wrapped/-/tsc-wrapped-4.4.2.tgz#8c28ff0d19b32b9b281b4cb434d25876fc1acd60"
+"@angular/tsc-wrapped@4.3.6":
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/@angular/tsc-wrapped/-/tsc-wrapped-4.3.6.tgz#1aa66e0ab2c4799a4ad14b675e13953aa5fcd436"
   dependencies:
     tsickle "^0.21.0"
 

@@ -82,17 +82,6 @@ export class Tournament implements CreatedBy, BelongsToClub {
   times: {day: number, time: string}[];
 
   /**
-   * A string hinting to the location of the event. This can be a city,
-   * or a venue in a city. All the information the creator of the event
-   * sees fit to give in order to guide competitors to where the event
-   * is held.
-   *
-   * @deprecated Use `venue` instead
-   */
-  @Column()
-  location: string;
-
-  /**
    * This is the actual tournament schedule. It contains a list of
    * teams in disciplines. If a team is competing in one discipline, it
    * will only appear once in this list. If a team is competing in three

@@ -57,7 +57,12 @@ export class VenueEditorComponent implements OnInit {
       if (params.id) {
         this.venueService.getById(+params.id).subscribe(venue => this.venueReceived(venue));
       }
-    })
+    });
+    this.route.queryParams.subscribe(params => {
+      if (params.fromName) {
+        this.venueForm.controls['name'].setValue(params.fromName);
+      }
+    });
   }
 
   venueReceived(venue: IVenue) {

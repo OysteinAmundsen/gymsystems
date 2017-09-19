@@ -8,8 +8,11 @@ textarea {
 
 section {
   margin-bottom: 2rem;
-  h2 {
-    margin-bottom: 0.5rem;
+  header {
+    max-width: 9rem;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 0.5rem;
   }
 }
 
@@ -17,17 +20,17 @@ section {
   margin-top: 1em;
 }
 
-.floorTime {
-  [class^="col-"] {
-    width: 6rem;
-  }
-}
-.ageLimits {
+article {
   > div {
     padding: 0 1em;
-    &:first-of-type {
-      padding-left: 0;
-    }
+  }
+  > div, > div > span {
+    display: inline-block;
+  }
+}
+
+.ageLimits {
+  > article > div {
     > label {
       display: block;
       text-align: center;

@@ -4,9 +4,13 @@
   $helpColor: $primary;
   $helpBorder: darken($helpColor, 10%);
 
-  display: none;
+  display: inline-block;
+  position: absolute;
+  bottom: 5px;
+  right: 0;
   vertical-align: top;
-  position: relative;
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
   fa {
     color: darken($helpColor, 50%);
     font-size: 1.2rem;

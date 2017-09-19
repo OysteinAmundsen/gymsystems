@@ -79,7 +79,12 @@
       </div>
       <div class="col-xs-4 help-available" appFloatingLabelContainer>
         <label translate>Location</label>
-        <app-typeahead itemText="name" [items]="venues" [getMatches]="getVenueMatchesFn()" formControlName="venue" [(selectedItem)]="selectedVenue"></app-typeahead>
+        <app-typeahead itemText="name" [items]="venues" [getMatches]="getVenueMatchesFn()" formControlName="venue" [(selectedItem)]="selectedVenue" (textValueChange)="setVenueName($event)">
+          <div no-content>
+            <p translate>This location is not defined.</p>
+            <a [routerLink]="['../../venue/add']" [queryParams]="{fromName: venueName}" translate>Do you want to create it?</a>
+          </div>
+        </app-typeahead>
         <app-help-block>
           <p translate>Search in pre-configured venues. This will be used to inform participants of the location, and calculate the entry cost per team in this tournament.</p>
         </app-help-block>

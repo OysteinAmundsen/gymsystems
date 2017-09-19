@@ -8,7 +8,7 @@
   user-select: none;
   backface-visibility: hidden;
 
-  div {
+  datalist {
     @include panel();
     position: absolute;
     left: 0;
@@ -20,13 +20,14 @@
     max-height: 256px;
     min-height: 48px;
     overflow-y: auto;
-
-    ul {
-      list-style-type: none;
-      padding: 0;
+    &.no-options {
+      padding: 8px;
+    }
+    &[hidden] {
+      display: none;
     }
 
-    li {
+    option {
       cursor: pointer;
       color: black;
       padding: 8px;

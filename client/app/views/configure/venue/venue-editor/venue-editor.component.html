@@ -94,7 +94,7 @@
   <footer>
     <app-save-button buttonType="submit" [disabled]="venueForm.invalid || venueForm.pristine"></app-save-button>
     <button type="button" [title]="'Cancel' | translate" (click)="cancel()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
-    <button type="button" [title]="'Create tournament here' | translate" (click)="createTournament()"><fa name="trophy" fw="true"></fa> <span translate>Create tournament here</span></button>
+    <button type="button" *ngIf="venueForm.value.id" [title]="'Create tournament here' | translate" (click)="createTournament()"><fa name="trophy" fw="true"></fa> <span translate>Create tournament here</span></button>
     <button type="button" *ngIf="venueForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
   </footer>
 

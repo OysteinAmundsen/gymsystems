@@ -44,6 +44,8 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   // Venue typeahead
   venues = [];
   selectedVenue: IVenue;
+  venueName: string;
+  setVenueName(name) { this.venueName = name; }
 
   private get startDate(): Moment {
     const startDate = this.tournamentForm.value.startDate;
