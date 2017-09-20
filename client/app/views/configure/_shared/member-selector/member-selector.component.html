@@ -37,11 +37,13 @@
       </app-help-block>
     </div>
     <ul [dragula]="'member-bag'" class="added">
-      <li [ngClass]="{'memberBox': true, 'male': member.gender === genders.Male, 'female': member.gender === genders.Female, 'flex': true}"
+      <li [ngClass]="{'memberBox': true, 'male': member.gender === genders.Male, 'female': member.gender === genders.Female}"
           *ngFor="let member of gymnasts">
-        <span class="flex-col">{{ member.name }}</span>
-        <ng-container *ngTemplateOutlet="memberTemplate;context:{member: member}"></ng-container>
-        <small>{{ age(member.birthYear) }}</small>
+        <div class="flex">
+          <span class="flex-col">{{ member.name }}</span>
+          <ng-container *ngTemplateOutlet="memberTemplate;context:{member: member}"></ng-container>
+          <small>{{ age(member.birthYear) }}</small>
+        </div>
       </li>
     </ul>
   </div>

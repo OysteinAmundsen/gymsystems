@@ -40,6 +40,9 @@ ul {
   small {
     float: right;
   }
+  span {
+    min-height: 1rem;
+  }
   &.male {
     background: rgba($primary, 0.05);
   }

@@ -50,9 +50,9 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     if (v !== this._selectedClub) {
       this._selectedClub = v;
       this.team.club = v;
-      this.team.gymnasts = null;
+      this.team.gymnasts = [];
       if (this.teamForm) {
-        this.teamForm.controls['gymnasts'].setValue(null);
+        this.teamForm.controls['gymnasts'].setValue([]);
       }
     }
   }
@@ -161,7 +161,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         genderDivision: [null, [Validators.required]],
         disciplines: [this.team.disciplines],
         tournament: [this.team.tournament],
-        gymnasts: [this.team.gymnasts || null],
+        gymnasts: [this.team.gymnasts || []],
         class: [this.team.class || Classes.TeamGym]
       });
 

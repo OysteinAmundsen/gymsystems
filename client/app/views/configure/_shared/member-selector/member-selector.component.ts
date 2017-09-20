@@ -24,7 +24,7 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
   @Input() troopName: string;
   @Input() memberListHidden = true;
   @Output() gymnastsChange = new EventEmitter<IGymnast[]>();
-  _gymnasts: IGymnast[];
+  _gymnasts: IGymnast[] = [];
   @Input() set gymnasts(v) {
     this._gymnasts = v;
     if (v) {

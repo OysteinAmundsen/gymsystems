@@ -33,6 +33,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   @Input() items = [];
   @Input() itemText: string;
   @Input() itemValue: string;
+  @Input() allowUnmatched = false;
   @Input() getMatches: Function;
 
   @Input() selectedItem;
@@ -73,7 +74,9 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   @Input()
   get value(): any { return this._value; };
   set value(v: any) {
-    v = this.itemValue ? v[this.itemValue] : v;
+    if (typeof v === 'object') {
+      v = this.itemValue ? v[this.itemValue] : v;
+    }
     if (v !== this._value) {
       if (this._value != null && v != null) {
         this.changed = true;
@@ -128,6 +131,8 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     if (match && this.changed) {
       this.select(match);
       this.changed = false;
+    } else if (this.allowUnmatched) {
+      this.select(this.stringValue);
     }
   }
 
@@ -152,8 +157,12 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     if (item) {
       this.selectedItemChange.emit(item);
       this.value = item;
-      this.selectedIndex = this.matches.findIndex(m => m.id === item.id);
-      this.stringValue = item[this.itemText ? this.itemText : this.itemValue];
+      if (typeof item === 'string') {
+        this.stringValue = item;
+      } else if (typeof item === 'object') {
+        this.selectedIndex = this.matches.findIndex(m => m.id === item.id);
+        this.stringValue = item[this.itemText ? this.itemText : this.itemValue];
+      }
     }
     this.popupVisible = false;
   }

@@ -5,10 +5,10 @@
         <label translate>Club</label>
         <app-typeahead appAutofocus [valueTransformer]="clubTransformer" itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
       </div>
-      <div [ngClass]="{'col-7': !currentUser.club, 'col-12': currentUser.club, 'help-available': teamForm.value.club.length <= 0}" appFloatingLabelContainer>
+      <div [ngClass]="{'col-7': !currentUser.club, 'col-12': currentUser.club, 'help-available': teamForm.value.club != null}" appFloatingLabelContainer>
         <label translate>Name</label>
-        <app-typeahead appAutofocus itemText="name" [items]="troops" [getMatches]="getTroopMatchesFn()" formControlName="name" [(selectedItem)]="selectedTroop"></app-typeahead>
-        <app-help-block *ngIf="teamForm.value.club.length <= 0">
+        <app-typeahead appAutofocus itemValue="name" [allowUnmatched]="true" [items]="troops" [getMatches]="getTroopMatchesFn()" formControlName="name" [(selectedItem)]="selectedTroop"></app-typeahead>
+        <app-help-block *ngIf="teamForm.value.club != null">
           <p translate>You cannot enter a team name before you've selected which club it belongs to</p>
           <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="['/configure/club']">Club</a> section</p>
         </app-help-block>
@@ -112,7 +112,7 @@
     <app-member-selector [club]="team.club" [troopName]="teamForm.value.name"
                          [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()"
                          [memberTemplate]="memberContent">
-      <span class="flex-col">
+      <span class="flex-col" *ngIf="teamForm.value.gymnasts != null && teamForm.value.gymnasts.length > 0">
         <label [title]="'Require lodging' | translate">
           <input type="checkbox" [(ngModel)]="isAllLodged" [ngModelOptions]="{standalone: true}"/>
           <fa name="bed" fw="true"></fa>

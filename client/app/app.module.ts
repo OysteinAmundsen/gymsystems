@@ -70,9 +70,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     // Routes last (!important)
     AppRoutingModule,
   ],
-  exports: [
-    TranslateModule,
-  ],
   providers: [
     // API Services
     UserService,
