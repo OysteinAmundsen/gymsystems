@@ -32,6 +32,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   @Input() required = false;
   @Input() items = [];
   @Input() itemText: string;
+  @Input() itemValue: string;
   @Input() getMatches: Function;
 
   @Input() selectedItem;
@@ -72,6 +73,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   @Input()
   get value(): any { return this._value; };
   set value(v: any) {
+    v = this.itemValue ? v[this.itemValue] : v;
     if (v !== this._value) {
       if (this._value != null && v != null) {
         this.changed = true;
@@ -86,7 +88,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   get stringValue(): string {
     if (!this._stringValue) {
       if (!this.value) { return null; }
-      this._stringValue = (typeof this.value === 'string') ? this.value : this.value[this.itemText];
+        this._stringValue = (typeof this.value === 'string') ? this.value : this.value[this.itemText ? this.itemText : this.itemValue];
     }
     return this._stringValue;
   }
@@ -122,7 +124,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   onLeave() {
     this.hasFocus = false;
     this.popupVisible = false;
-    const match = this.matches.find(i => i[this.itemText] === this.value);
+    const match = this.matches.find(i => i[this.itemText ? this.itemText : this.itemValue] === this.value);
     if (match && this.changed) {
       this.select(match);
       this.changed = false;
@@ -151,7 +153,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
       this.selectedItemChange.emit(item);
       this.value = item;
       this.selectedIndex = this.matches.findIndex(m => m.id === item.id);
-      this.stringValue = item[this.itemText];
+      this.stringValue = item[this.itemText ? this.itemText : this.itemValue];
     }
     this.popupVisible = false;
   }
@@ -159,7 +161,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   private setMatches(value: any) {
     if (value) {
       if (this.matcher !== value) {
-        const m = this.getMatches(this.items, value, this.itemText);
+        const m = this.getMatches(this.items, value, this.itemText ? this.itemText : this.itemValue);
         const matchReceived = (res) => {
           this.matches = res;
           this._selectedIndex = -1;

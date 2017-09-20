@@ -21,7 +21,7 @@
     <div class="row">
       <div class="col-6" appFloatingLabelContainer>
         <label translate for="address">Address</label>
-        <app-typeahead itemText="formatted_address" [items]="adresses" [getMatches]="getAddressMatchesFn()" formControlName="address" [(selectedItem)]="selectedAddress"></app-typeahead>
+        <app-typeahead itemValue="formatted_address" [items]="adresses" [getMatches]="getAddressMatchesFn()" formControlName="address" [(selectedItem)]="selectedAddress"></app-typeahead>
         <app-help-block>
           <p translate>We need the address of the venue. By typing in this field, we will automatically lookup the geo-location of the venue.</p>
         </app-help-block>

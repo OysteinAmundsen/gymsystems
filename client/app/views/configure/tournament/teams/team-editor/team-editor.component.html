@@ -110,8 +110,8 @@
 
     <!-- Members -->
     <app-member-selector [club]="team.club" [troopName]="teamForm.value.name"
-                         [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()">
-                         <!-- [memberTemplate]="memberContent">
+                         [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()"
+                         [memberTemplate]="memberContent">
       <span class="flex-col">
         <label [title]="'Require lodging' | translate">
           <input type="checkbox" [(ngModel)]="isAllLodged" [ngModelOptions]="{standalone: true}"/>
@@ -125,7 +125,7 @@
           <input type="checkbox" [(ngModel)]="isAllBanquet" [ngModelOptions]="{standalone: true}"/>
           <fa name="cutlery" fw="true"></fa>
         </label>
-      </span> -->
+      </span>
     </app-member-selector>
   </div>
 

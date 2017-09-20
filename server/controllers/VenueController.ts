@@ -158,7 +158,7 @@ export class VenueController {
   @Get('/addr/:address')
   getByAddress( @Param('address') address: string) {
     return new Promise((resolve, reject) => {
-      request(`https://maps.googleapis.com/maps/api/geocode/json?&address=${address}&key=${this.geoApiKey}`, (error, response, body) => {
+      request(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${this.geoApiKey}`, (error, response, body) => {
         if (error) { Logger.log.error('Error looking up address', error); return reject(error); }
         if (body) {
           const res = JSON.parse(body);
