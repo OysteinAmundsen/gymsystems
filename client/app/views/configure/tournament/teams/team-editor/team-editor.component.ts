@@ -111,17 +111,13 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
 
   get isAllLodged() { return this.teamForm.value.gymnasts ? this.teamForm.value.gymnasts.every(g => g.lodging) : false; }
-  set isAllLodged($event) {
-    this.teamForm.value.gymnasts.forEach(g => g.lodging = $event);
-  }
+  set isAllLodged($event) { this.teamForm.value.gymnasts.forEach(g => g.lodging = $event); }
+
   get isAllTransport() { return this.teamForm.value.gymnasts ? this.teamForm.value.gymnasts.every(g => g.transport) : false; }
-  set isAllTransport($event) {
-    this.teamForm.value.gymnasts.forEach(g => g.transport = $event);
-  }
+  set isAllTransport($event) { this.teamForm.value.gymnasts.forEach(g => g.transport = $event); }
+
   get isAllBanquet() { return this.teamForm.value.gymnasts ? this.teamForm.value.gymnasts.every(g => g.banquet) : false; }
-  set isAllBanquet($event) {
-    this.teamForm.value.gymnasts.forEach(g => g.banquet = $event);
-  }
+  set isAllBanquet($event) { this.teamForm.value.gymnasts.forEach(g => g.banquet = $event); }
 
 
   constructor(

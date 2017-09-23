@@ -3,16 +3,16 @@
   "version": "1.0.1",
   "description": "Web system for competitive teamgym scoreboarding",
   "homepage": "https://www.gymsystems.org",
-  "bugs": "https://github.com/OysteinAmundsen/gymsystems/issues",
-  "repository": {
-    "url": "https://github.com/OysteinAmundsen/gymsystems",
-    "type": "git"
+  "main": "dist/index.js",
+  "bugs": {
+    "url": "https://github.com/OysteinAmundsen/gymsystems/issues"
   },
+  "repository": "git+https://github.com/OysteinAmundsen/gymsystems",
   "author": "oystein.amundsen@gmail.com",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=7.7.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "help": "node node_modules/npm-scripts-help",
