@@ -1,5 +1,5 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req, QueryParam } from 'routing-controllers';
+import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req, QueryParam, Middleware } from 'routing-controllers';
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
@@ -7,13 +7,14 @@ import * as fs from 'fs';
 import * as request from 'request';
 import * as multer from 'multer';
 const csv: any = require('fast-csv');
+const json2csv: any = require('json2csv');
 
 import { RequireRole } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';
 
 import { Club } from '../model/Club';
 import { Role } from '../model/User';
-import { Gymnast } from '../model/Gymnast';
+import { Gymnast, Gender } from '../model/Gymnast';
 import { Team } from '../model/Team';
 import { Troop } from '../model/Troop';
 import { ErrorResponse } from '../utils/ErrorResponse';
@@ -307,6 +308,45 @@ export class ClubController {
         });
     });
   }
+
+  /**
+   * Endpoint for exporting members to a club
+   *
+   * **USAGE:** (Club only)
+   * POST /clubs/:clubId/export-members
+   *
+   * @param {number} clubId
+   * @param member
+   */
+  @Get('/:clubId/export-members')
+  @Middleware({type: 'after'})
+  @UseBefore(RequireRole.get(Role.Club))
+  @UseBefore(async (req: any, res: Response, next?: (err?: any) => any) => {
+    return new Promise(async (resolve, reject) => {
+      const controller = Container.get(ClubController);
+      const members: Gymnast[] = await controller.getMembers(req.params.clubId, true);
+      try {
+        const result = json2csv({
+          data: members.map(m => {
+            return {
+              name: m.name,
+              birthYear: m.birthYear,
+              gender: m.gender === Gender.Male ? 'male' : 'female'
+            }
+          }),
+          fields: ['name', 'birthYear', 'gender'],
+          del: ';'
+        });
+        res.status(200)
+          .attachment(`club-members-export.csv`)
+          .contentType('text/csv')
+          .send(result);
+      } catch (err) {
+        Logger.log.error(err);
+      };
+    });
+  })
+  exportMembers(@Param('clubId') clubId: number, @Req() req: Request, @Res() res: Response) { }
 
   /**
    * Endpoint for removing a member from a club
