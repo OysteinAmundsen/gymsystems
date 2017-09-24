@@ -33,7 +33,7 @@
   <fa name="upload" fw="true"></fa>
   <span translate>Import Members</span>
 </label>
-<a href="/api/clubs/{{ club.id }}/export-members" class="file-upload btn" *ngIf="club != null && selected == null" [title]="'Import' | translate">
+<a href="/api/clubs/{{ club.id }}/export-members" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0" [title]="'Import' | translate">
   <fa name="download" fw="true"></fa>
   <span translate>Export Members</span>
 </a>
