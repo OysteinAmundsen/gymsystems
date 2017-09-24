@@ -10,7 +10,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class VenueService {
-  public static apiKey = 'AIzaSyBTq0cVwJ2lH7VO84OthPhtJHaF_gOYNVI';
+  public static apiKey = 'AIzaSyDIYbCDSYzEF6naFvgkjv297hX7cqS3mBs';
 
   constructor(private http: HttpClient) { }
 

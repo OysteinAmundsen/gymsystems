@@ -50,9 +50,9 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     if (v !== this._selectedClub) {
       this._selectedClub = v;
       this.team.club = v;
-      this.team.gymnasts = null;
+      this.team.gymnasts = [];
       if (this.teamForm) {
-        this.teamForm.controls['gymnasts'].setValue(null);
+        this.teamForm.controls['gymnasts'].setValue([]);
       }
     }
   }
@@ -109,6 +109,17 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   clubTransformer = toUpperCaseTransformer;
 
+
+  get isAllLodged() { return this.teamForm.value.gymnasts ? this.teamForm.value.gymnasts.every(g => g.lodging) : false; }
+  set isAllLodged($event) { this.teamForm.value.gymnasts.forEach(g => g.lodging = $event); }
+
+  get isAllTransport() { return this.teamForm.value.gymnasts ? this.teamForm.value.gymnasts.every(g => g.transport) : false; }
+  set isAllTransport($event) { this.teamForm.value.gymnasts.forEach(g => g.transport = $event); }
+
+  get isAllBanquet() { return this.teamForm.value.gymnasts ? this.teamForm.value.gymnasts.every(g => g.banquet) : false; }
+  set isAllBanquet($event) { this.teamForm.value.gymnasts.forEach(g => g.banquet = $event); }
+
+
   constructor(
     private fb: FormBuilder,
     private tournamentEditor: TournamentEditorComponent,
@@ -146,7 +157,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         genderDivision: [null, [Validators.required]],
         disciplines: [this.team.disciplines],
         tournament: [this.team.tournament],
-        gymnasts: [this.team.gymnasts || null],
+        gymnasts: [this.team.gymnasts || []],
         class: [this.team.class || Classes.TeamGym]
       });
 
@@ -339,6 +350,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const state = this.allChecked;
     this.disciplineCheckboxes.forEach((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked = !state);
   }
+
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {

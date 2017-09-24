@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, ManyToMany } from 'typeorm';
 
 import { Discipline } from './Discipline';
 import { Division } from './Division';
@@ -8,6 +8,7 @@ import { User, CreatedBy } from './User';
 import { Media } from './Media';
 import { BelongsToClub, Club } from './Club';
 import { Venue } from './Venue';
+import { Gymnast } from './Gymnast';
 
 /**
  * A Tournament describes a competitive event created and arranged by
@@ -22,6 +23,7 @@ import { Venue } from './Venue';
  */
 @Entity()
 export class Tournament implements CreatedBy, BelongsToClub {
+
   /**
    * The tournament primary key
    */
@@ -82,17 +84,6 @@ export class Tournament implements CreatedBy, BelongsToClub {
   times: {day: number, time: string}[];
 
   /**
-   * A string hinting to the location of the event. This can be a city,
-   * or a venue in a city. All the information the creator of the event
-   * sees fit to give in order to guide competitors to where the event
-   * is held.
-   *
-   * @deprecated Use `venue` instead
-   */
-  @Column()
-  location: string;
-
-  /**
    * This is the actual tournament schedule. It contains a list of
    * teams in disciplines. If a team is competing in one discipline, it
    * will only appear once in this list. If a team is competing in three
@@ -141,4 +132,78 @@ export class Tournament implements CreatedBy, BelongsToClub {
   @ManyToOne(type => Venue, venue => venue.tournaments)
   @JoinColumn({name: 'venue'})
   venue: Venue;
+
+
+  // // LODGING -----------------------------------------------------
+  // /**
+  //  * The number of gymnasts this tournament can be able to provide
+  //  * lodging for.
+  //  */
+  // @Column({ default: 0 })
+  // canProvideLodgingFor: number;
+
+  // /**
+  //  * The price for lodging per head. This will be covered by
+  //  * the entry fee for the tournament, and split between all teams
+  //  * entering.
+  //  */
+  // @Column({ default: 0 })
+  // lodingCostPerHead: number;
+
+  // /**
+  //  * The actual list of gymnasts signed up for lodging
+  //  */
+  // @ManyToMany(type => Gymnast, gymnasts => gymnasts.wantsLodging, { cascadeInsert: false, cascadeUpdate: false })
+  // @JoinColumn({name: 'lodging'})
+  // lodging: Gymnast[];
+
+
+  // // TRANSPORT ---------------------------------------------------
+  // /**
+  //  * If true, this tournament can provide transportation for
+  //  * traveling gymnasts.
+  //  */
+  // @Column({ default: false })
+  // providesTransport: boolean;
+
+  // /**
+  //  * The price for transportation per head. This will be covered by
+  //  * the entry fee for the tournament, and split between all teams
+  //  * entering.
+  //  */
+  // @Column({ default: 0 })
+  // transportationCostPerHead: number;
+
+  // /**
+  //  * The list of gymnasts requiering transportation to the venue
+  //  */
+  // @ManyToMany(type => Gymnast, gymnasts => gymnasts.wantsTransport, { cascadeInsert: false, cascadeUpdate: false })
+  // @JoinColumn({name: 'transporting'})
+  // transporting: Gymnast[];
+
+
+
+  // // BANQUET -----------------------------------------------------
+  // /**
+  //  * If true, this tournament will throw a banquet in honor of the
+  //  * performing gymnasts.
+  //  */
+  // @Column({ default: false })
+  // providesBanquet: boolean;
+
+  // /**
+  //  * The price for the banquet per head. This will be covered by
+  //  * the entry fee for the tournament, and split between all teams
+  //  * entering.
+  //  */
+  // @Column({ default: 0 })
+  // banquetCostPerHead: number;
+
+  // /**
+  //  * The list of gymnasts attending the banquet
+  //  */
+  // @ManyToMany(type => Gymnast, gymnasts => gymnasts.willAttendBanquet, { cascadeInsert: false, cascadeUpdate: false })
+  // @JoinColumn({name: 'banquetFor'})
+  // banquetFor: Gymnast[];
+
 }

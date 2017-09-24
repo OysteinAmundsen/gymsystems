@@ -1,8 +1,7 @@
 .view-help app-help-block, *:hover > app-help-block {
-  display: inline-block;
-  position: absolute;
-  bottom: 5px;
-  right: 0;
+  opacity: 1;
+  transition: opacity 0.1s ease-in;
+
   .help > * {
     padding: $padding 0;
     position: relative;

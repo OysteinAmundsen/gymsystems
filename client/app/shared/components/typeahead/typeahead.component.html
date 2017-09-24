@@ -1,9 +1,10 @@
-<input type="search" (focus)="onEnter()" (blur)="onLeave()" (keydown)="onKeyPress($event)" [(value)]="stringValue" required="{{required}}" autocomplete="off" [disabled]="disabled">
-<ng-content></ng-content>
-<div *ngIf="popupVisible" class="panel">
-  <ul>
-    <li *ngFor="let item of matches; let i = index;" (mousedown)="select(item)" [ngClass]="{'selected': i === selectedIndex}">
-      <p>{{item[itemText]}}</p>
-    </li>
-  </ul>
-</div>
+<input type="search" (focus)="onEnter()" (blur)="onLeave()" (keydown)="onKeyPress($event)" [(value)]="stringValue" required="{{ required }}" autocomplete="off" [disabled]="disabled">
+<datalist *ngIf="popupVisible">
+  <option *ngFor="let item of matches; let i = index;" (mousedown)="select(item)" [ngClass]="{'selected': i === selectedIndex}">
+    {{ item[itemText ? itemText : itemValue] }}
+  </option>
+</datalist>
+<datalist class="no-options" [hidden]="showNoOpt" #noopt>
+  <ng-content></ng-content>
+</datalist>
+

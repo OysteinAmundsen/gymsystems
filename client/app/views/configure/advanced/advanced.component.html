@@ -6,98 +6,105 @@
 <!-- Div configurational objects -->
 <form (submit)="save()" class="horizontal" [formGroup]="configForm">
 
-  <section class="floorTime">
-    <h2 translate>Default floor time (in minutes)</h2>
-    <div class="row">
-      <div class="col-xs-6" appFloatingLabelContainer>
-        <label translate>Execution</label>
-        <input type="number" name="executionTime" formControlName="executionTime" />
+  <section class="floorTime flex">
+    <header class="flex-col" translate>Default floor time (in minutes)</header>
+    <article class="flex-col">
+      <div>
+        <span appFloatingLabelContainer>
+          <label translate>Execution</label>
+          <input type="number" name="executionTime" formControlName="executionTime" />
+        </span>
       </div>
-      <div class="col-xs-6" appFloatingLabelContainer>
-        <label translate>Training</label>
-        <input type="number" name="trainingTime" formControlName="trainingTime" />
+      <div>
+        <span appFloatingLabelContainer>
+          <label translate>Training</label>
+          <input type="number" name="trainingTime" formControlName="trainingTime" />
+        </span>
       </div>
-    </div>
+    </article>
   </section>
 
-  <section class="ageLimits">
-    <h2 translate>Age limits</h2>
-    <div class="col-3">
-      <label translate>Aspirant</label>
-      <div class="col-xs-6" appFloatingLabelContainer>
-        <label translate>Min</label>
-        <input type="number" name="aspirant-min" formControlName="agelimit.aspirant.min" />
+  <section class="ageLimits flex">
+    <header class="flex-col" translate>Age limits</header>
+    <article class="flex-col">
+      <div>
+        <label translate>Aspirant</label>
+        <span appFloatingLabelContainer>
+          <label translate>Min</label>
+          <input type="number" name="aspirant-min" formControlName="agelimit.aspirant.min" />
+        </span>
+        <span appFloatingLabelContainer>
+          <label translate>Max</label>
+          <input type="number" name="aspirant-max" formControlName="agelimit.aspirant.max" />
+        </span>
       </div>
-      <div class="col-xs-6" appFloatingLabelContainer>
-        <label translate>Max</label>
-        <input type="number" name="aspirant-max" formControlName="agelimit.aspirant.max" />
+      <div>
+        <label translate>Rekrutt</label>
+        <span appFloatingLabelContainer>
+          <label translate>Min</label>
+          <input type="number" name="rekrutt-min" formControlName="agelimit.rekrutt.min" />
+        </span>
+        <span appFloatingLabelContainer>
+          <label translate>Max</label>
+          <input type="number" name="rekrutt-max" formControlName="agelimit.rekrutt.max" />
+        </span>
       </div>
-    </div>
-    <div class="col-3">
-      <label translate>Rekrutt</label>
-      <div class="col-xs-6" appFloatingLabelContainer>
-        <label translate>Min</label>
-        <input type="number" name="rekrutt-min" formControlName="agelimit.rekrutt.min" />
+      <div>
+        <label translate>Junior</label>
+        <span appFloatingLabelContainer>
+          <label translate>Min</label>
+          <input type="number" name="junior-min" formControlName="agelimit.junior.min" />
+        </span>
+        <span appFloatingLabelContainer>
+          <label translate>Max</label>
+          <input type="number" name="junior-max" formControlName="agelimit.junior.max" />
+        </span>
       </div>
-      <div class="col-xs-6" appFloatingLabelContainer>
-        <label translate>Max</label>
-        <input type="number" name="rekrutt-max" formControlName="agelimit.rekrutt.max" />
+      <div>
+        <label translate>Senior</label>
+        <span appFloatingLabelContainer>
+          <label translate>Min</label>
+          <input type="number" name="senior-min" formControlName="agelimit.senior.min" />
+        </span>
+        <span appFloatingLabelContainer>
+          <label translate>Max</label>
+          <input type="number" name="senior-max" formControlName="agelimit.senior.max" />
+        </span>
       </div>
-    </div>
-    <div class="col-3">
-      <label translate>Junior</label>
-      <div class="col-xs-6" appFloatingLabelContainer>
-        <label translate>Min</label>
-        <input type="number" name="junior-min" formControlName="agelimit.junior.min" />
-      </div>
-      <div class="col-xs-6" appFloatingLabelContainer>
-        <label translate>Max</label>
-        <input type="number" name="junior-max" formControlName="agelimit.junior.max" />
-      </div>
-    </div>
-    <div class="col-3">
-      <label translate>Senior</label>
-      <div class="col-xs-6" appFloatingLabelContainer>
-        <label translate>Min</label>
-        <input type="number" name="senior-min" formControlName="agelimit.senior.min" />
-      </div>
-      <div class="col-xs-6" appFloatingLabelContainer>
-        <label translate>Max</label>
-        <input type="number" name="senior-max" formControlName="agelimit.senior.max" />
-      </div>
-    </div>
+    </article>
   </section>
 
 
   <!-- Default types and values -->
-  <section>
-    <h2 translate>Default values</h2>
+  <section class="flex">
+    <header class="flex-col" translate>Default values</header>
+    <article class="flex-col">
+      <menu role="tablist">
+        <ul>
+          <li (click)="selected = 'division'" [ngClass]="{'active': selected === 'division'}">
+            <a><fa name="cubes" fw="true"></fa> <span translate>Divisions</span></a>
+          </li>
+          <li (click)="selected = 'discipline'" [ngClass]="{'active': selected === 'discipline'}">
+            <a><fa name="heartbeat" fw="true"></fa> <span translate>Disciplines</span></a>
+          </li>
+          <li (click)="selected = 'scoreGroup'" [ngClass]="{'active': selected === 'scoreGroup'}">
+            <a><fa name="star" fw="true"></fa> <span translate>Score system</span></a>
+          </li>
+        </ul>
+      </menu>
 
-    <menu role="tablist">
-      <ul>
-        <li (click)="selected = 'division'" [ngClass]="{'active': selected === 'division'}">
-          <a><fa name="cubes" fw="true"></fa> <span translate>Divisions</span></a>
-        </li>
-        <li (click)="selected = 'discipline'" [ngClass]="{'active': selected === 'discipline'}">
-          <a><fa name="heartbeat" fw="true"></fa> <span translate>Disciplines</span></a>
-        </li>
-        <li (click)="selected = 'scoreGroup'" [ngClass]="{'active': selected === 'scoreGroup'}">
-          <a><fa name="star" fw="true"></fa> <span translate>Score system</span></a>
-        </li>
-      </ul>
-    </menu>
-
-    <div class="tab-panel">
-      <div *ngIf="selected === 'scoreGroup'">
-        <app-score-system [scoreGroupList]="defaultValues.scoreGroup" (scoreGroupListChanged)="valueChanged('scoreGroup', $event)" [standalone]="true"></app-score-system>
+      <div class="tab-panel">
+        <div *ngIf="selected === 'scoreGroup'">
+          <app-score-system [scoreGroupList]="defaultValues.scoreGroup" (scoreGroupListChanged)="valueChanged('scoreGroup', $event)" [standalone]="true"></app-score-system>
+        </div>
+        <div *ngIf="selected === 'discipline'">
+          <app-disciplines [disciplineList]="defaultValues.discipline" (disciplineListchanged)="valueChanged('discipline', $event)" [standalone]="true"></app-disciplines>
+        </div>
+        <div *ngIf="selected === 'division'">
+          <app-divisions [divisions]="defaultValues.division" (divisionsChanged)="valueChanged('division', $event)" [standalone]="true"></app-divisions>
+        </div>
       </div>
-      <div *ngIf="selected === 'discipline'">
-        <app-disciplines [disciplineList]="defaultValues.discipline" (disciplineListchanged)="valueChanged('discipline', $event)" [standalone]="true"></app-disciplines>
-      </div>
-      <div *ngIf="selected === 'division'">
-        <app-divisions [divisions]="defaultValues.division" (divisionsChanged)="valueChanged('division', $event)" [standalone]="true"></app-divisions>
-      </div>
-    </div>
+    </article>
   </section>
 
   <div class="row">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, TemplateRef } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -24,7 +24,7 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
   @Input() troopName: string;
   @Input() memberListHidden = true;
   @Output() gymnastsChange = new EventEmitter<IGymnast[]>();
-  _gymnasts: IGymnast[];
+  _gymnasts: IGymnast[] = [];
   @Input() set gymnasts(v) {
     this._gymnasts = v;
     if (v) {
@@ -32,6 +32,8 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
     }
   }
   get gymnasts() { return this._gymnasts; }
+
+  @Input() memberTemplate: TemplateRef<any>;
 
 
   availableMembers: IGymnast[];

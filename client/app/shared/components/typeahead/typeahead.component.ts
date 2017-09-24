@@ -8,7 +8,8 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChange
+  SimpleChange,
+  ViewChild
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable, Subject } from 'rxjs/Rx';
@@ -27,15 +28,34 @@ const noop = () => { };
     multi: true
   }]
 })
-export class TypeaheadComponent implements ControlValueAccessor, AfterContentInit, OnChanges {
+export class TypeaheadComponent implements ControlValueAccessor, AfterContentInit {
   @Input() required = false;
   @Input() items = [];
   @Input() itemText: string;
+  @Input() itemValue: string;
+  @Input() allowUnmatched = false;
   @Input() getMatches: Function;
 
   @Input() selectedItem;
   @Output() selectedItemChange = new EventEmitter();
+
+  @ViewChild('noopt') noOption;
+
+
+  get showNoOpt() {
+    const hasOpts = this.noOption.nativeElement.children.length > 0;
+    const hasMatches = this.matches != null && this.matches.length > 0;
+    const hasSearchTerm = this.stringValue != null && this.stringValue.length > 0;
+    return !(hasOpts && !hasMatches && hasSearchTerm);
+  }
+  popupVisible = false;
   hasFocus: boolean;
+  disabled = false;
+  changed = false;
+
+  matches = [];
+  matchSubscription: Subscription;
+  matcher: string;
 
   _selectedIndex: number;
   get selectedIndex() { return this._selectedIndex; }
@@ -50,13 +70,13 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     this._selectedIndex = value;
   }
 
-  disabled = false;
-  changed = false;
-
   _value: any;
   @Input()
   get value(): any { return this._value; };
   set value(v: any) {
+    if (typeof v === 'object') {
+      v = this.itemValue ? v[this.itemValue] : v;
+    }
     if (v !== this._value) {
       if (this._value != null && v != null) {
         this.changed = true;
@@ -71,7 +91,7 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   get stringValue(): string {
     if (!this._stringValue) {
       if (!this.value) { return null; }
-      this._stringValue = (typeof this.value === 'string') ? this.value : this.value[this.itemText];
+        this._stringValue = (typeof this.value === 'string') ? this.value : this.value[this.itemText ? this.itemText : this.itemValue];
     }
     return this._stringValue;
   }
@@ -92,19 +112,11 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   /** Callback registered via registerOnChange (ControlValueAccessor) */
   private _onChangeCallback: (_: any) => void = noop;
 
-  popupVisible = false;
-  matches = [];
-  matchSubscription: Subscription;
-  matcher: string;
   @Input() valueTransformer = (v: string) => v;
 
   ngAfterContentInit() {
     this.setMatches(this.stringValue);
     this.searchTerm$.debounceTime(200).distinctUntilChanged().switchMap(term => this.setMatches(term)).subscribe();
-  }
-
-  /** TODO: internal */
-  ngOnChanges(changes: { [key: string]: SimpleChange }) {
   }
 
   onEnter() {
@@ -115,10 +127,12 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   onLeave() {
     this.hasFocus = false;
     this.popupVisible = false;
-    const match = this.matches.find(i => i[this.itemText] === this.value);
+    const match = this.matches.find(i => i[this.itemText ? this.itemText : this.itemValue] === this.value);
     if (match && this.changed) {
       this.select(match);
       this.changed = false;
+    } else if (this.allowUnmatched) {
+      this.select(this.stringValue);
     }
   }
 
@@ -143,7 +157,12 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
     if (item) {
       this.selectedItemChange.emit(item);
       this.value = item;
-      this.stringValue = item[this.itemText];
+      if (typeof item === 'string') {
+        this.stringValue = item;
+      } else if (typeof item === 'object') {
+        this.selectedIndex = this.matches.findIndex(m => m.id === item.id);
+        this.stringValue = item[this.itemText ? this.itemText : this.itemValue];
+      }
     }
     this.popupVisible = false;
   }
@@ -151,9 +170,10 @@ export class TypeaheadComponent implements ControlValueAccessor, AfterContentIni
   private setMatches(value: any) {
     if (value) {
       if (this.matcher !== value) {
-        const m = this.getMatches(this.items, value, this.itemText);
+        const m = this.getMatches(this.items, value, this.itemText ? this.itemText : this.itemValue);
         const matchReceived = (res) => {
           this.matches = res;
+          this._selectedIndex = -1;
           this.popupVisible = this.hasFocus && this.matches.length > 0;
         }
         if (m instanceof Observable) {

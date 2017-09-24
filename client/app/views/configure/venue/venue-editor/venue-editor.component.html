@@ -21,7 +21,7 @@
     <div class="row">
       <div class="col-6" appFloatingLabelContainer>
         <label translate for="address">Address</label>
-        <app-typeahead itemText="formatted_address" [items]="adresses" [getMatches]="getAddressMatchesFn()" formControlName="address" [(selectedItem)]="selectedAddress"></app-typeahead>
+        <app-typeahead itemValue="formatted_address" [items]="adresses" [getMatches]="getAddressMatchesFn()" formControlName="address" [(selectedItem)]="selectedAddress"></app-typeahead>
         <app-help-block>
           <p translate>We need the address of the venue. By typing in this field, we will automatically lookup the geo-location of the venue.</p>
         </app-help-block>
@@ -94,7 +94,7 @@
   <footer>
     <app-save-button buttonType="submit" [disabled]="venueForm.invalid || venueForm.pristine"></app-save-button>
     <button type="button" [title]="'Cancel' | translate" (click)="cancel()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
-    <button type="button" [title]="'Create tournament here' | translate" (click)="createTournament()"><fa name="trophy" fw="true"></fa> <span translate>Create tournament here</span></button>
+    <button type="button" *ngIf="venueForm.value.id" [title]="'Create tournament here' | translate" (click)="createTournament()"><fa name="trophy" fw="true"></fa> <span translate>Create tournament here</span></button>
     <button type="button" *ngIf="venueForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
   </footer>
 
