@@ -71,7 +71,7 @@
     "core-js": "^2.5.1",
     "dragula": "~3.7.2",
     "event-source-polyfill": "0.0.9",
-    "express": "~4.15.4",
+    "express": "~5.0.0-alpha.6",
     "express-session": "^1.15.5",
     "fast-csv": "^2.4.0",
     "flag-icon-css": "^2.8.0",
