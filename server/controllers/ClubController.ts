@@ -1,13 +1,16 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req, QueryParam, Middleware } from 'routing-controllers';
+import {
+  Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req, QueryParam, Middleware
+} from 'routing-controllers';
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
 import * as fs from 'fs';
 import * as request from 'request';
 import * as multer from 'multer';
+import * as _ from 'lodash';
+
 const csv: any = require('fast-csv');
-const json2csv: any = require('json2csv');
 
 import { RequireRole } from '../middlewares/RequireAuth';
 import { Logger } from '../utils/Logger';
@@ -19,6 +22,7 @@ import { Team } from '../model/Team';
 import { Troop } from '../model/Troop';
 import { ErrorResponse } from '../utils/ErrorResponse';
 import { GymServer } from '../index';
+import { ExportService } from '../services/ExportService';
 
 /**
  * RESTful controller for all things related to `Club`s.
@@ -281,7 +285,7 @@ export class ClubController {
             id: null,
             name: find('name'),
             birthYear: find('year'),
-            gender: ['m', 'male', 'herre', 'herrer', 'gutt', 'boy'].indexOf(find('gender').toLowerCase()) > -1 ? 1 : 2,
+            gender: ['m', 'male', 'herre', 'herrer', 'gutt', 'boy', '1', 1].indexOf(find('gender').toLowerCase()) > -1 ? 1 : 2,
             troop: null,
             team: null,
             club: club
@@ -324,26 +328,9 @@ export class ClubController {
   @UseBefore(async (req: any, res: Response, next?: (err?: any) => any) => {
     return new Promise(async (resolve, reject) => {
       const controller = Container.get(ClubController);
+      const club = await controller.get(req.params.clubId);
       const members: Gymnast[] = await controller.getMembers(req.params.clubId, true);
-      try {
-        const result = json2csv({
-          data: members.map(m => {
-            return {
-              name: m.name,
-              birthYear: m.birthYear,
-              gender: m.gender === Gender.Male ? 'male' : 'female'
-            }
-          }),
-          fields: ['name', 'birthYear', 'gender'],
-          del: ';'
-        });
-        res.status(200)
-          .attachment(`club-members-export.csv`)
-          .contentType('text/csv')
-          .send(result);
-      } catch (err) {
-        Logger.log.error(err);
-      };
+      ExportService.writeCSVExport({ data: members, name: `${_.snakeCase(club.name)}.members` }, res);
     });
   })
   exportMembers(@Param('clubId') clubId: number, @Req() req: Request, @Res() res: Response) { }
