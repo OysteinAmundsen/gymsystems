@@ -55,7 +55,7 @@
     "@agm/core": "^1.0.0-beta.1",
     "@angular/common": "4.4.3",
     "@angular/compiler": "4.2.6",
-    "@angular/core": "4.4.3",
+    "@angular/core": "4.4.4",
     "@angular/forms": "4.4.3",
     "@angular/http": "4.4.3",
     "@angular/platform-browser": "4.4.3",
