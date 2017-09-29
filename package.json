@@ -60,7 +60,7 @@
     "@angular/http": "4.4.3",
     "@angular/platform-browser": "4.4.3",
     "@angular/platform-browser-dynamic": "4.4.3",
-    "@angular/router": "4.4.3",
+    "@angular/router": "4.4.4",
     "@angular/service-worker": "^1.0.0-beta.16",
     "@ngx-translate/core": "^8.0.0",
     "@ngx-translate/http-loader": "2.0.0",
