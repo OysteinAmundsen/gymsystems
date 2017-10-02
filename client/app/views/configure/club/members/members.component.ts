@@ -49,7 +49,7 @@ export class MembersComponent implements OnInit, OnDestroy {
       name        : null,
       birthYear   : null,
       gender      : null,
-      team      : null,
+      team        : null,
       club        : null
     };
     this.memberList.push(member);

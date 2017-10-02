@@ -15,8 +15,8 @@ export interface ExportOptions {
 export class ExportService {
   static writeCSVExport(opt: ExportOptions, res: Response) {
     // Flatten data to only primitives.
-    opt.data = opt.data.map(d => {
-      return Object.keys(d).reduce((prev, curr) => {
+    opt.data = opt.data.map((d: any) => {
+      return Object.keys(d).reduce((prev: any, curr) => {
         if (!_.isObject(d[curr]) && !_.isArray(d[curr])) {
           prev[curr] = d[curr];
         }

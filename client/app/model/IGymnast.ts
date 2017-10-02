@@ -9,7 +9,17 @@ export interface IGymnast extends IBelongsToClub {
   id: number;
   name: string;
   birthYear: number;
+  birthDate?: Date;
+  email?: string;
+  phone?: number;
   gender: Gender;
-  team: ITeam[];
+  allergies?: string;
+  guardian1?: string;
+  guardian2?: string;
+  guardian1Phone?: number;
+  guardian2Phone?: number;
+  guardian1Email?: string;
+  guardian2Email?: string;
   troop: ITroop[];
+  team: ITeam[];
 }
