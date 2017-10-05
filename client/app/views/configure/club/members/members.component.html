@@ -1,10 +1,10 @@
 <div class="table-responsive">
-  <table role="list" class="editable">
+  <table role="list" class="editable" mdSort (mdSortChange)="sortData($event)">
     <thead>
       <tr>
-        <th translate>Name</th>
-        <th translate>Birth year</th>
-        <th translate>Gender</th>
+        <th translate md-sort-header="name">Name</th>
+        <th translate md-sort-header="birthYear">Birth year</th>
+        <th translate md-sort-header="gender">Gender</th>
         <th translate>Teams</th>
       </tr>
     </thead>

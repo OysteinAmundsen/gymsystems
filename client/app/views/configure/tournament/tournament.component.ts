@@ -1,10 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
+import { BehaviorSubject } from 'rxjs/Rx';
 
 import { TournamentService } from 'app/services/api';
 import { ITournament } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { Sort } from '@angular/material';
 
 @Component({
   selector: 'app-tournament',
@@ -12,7 +14,8 @@ import { KeyCode } from 'app/shared/KeyCodes';
   styleUrls: ['./tournament.component.scss']
 })
 export class TournamentComponent implements OnInit {
-  tournamentList: ITournament[] = [];
+  tournamentListSubject = new BehaviorSubject<ITournament[]>([]);
+  get tournamentList() { return this.tournamentListSubject.value || []; }
 
   constructor(
     private router: Router,
@@ -27,7 +30,14 @@ export class TournamentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tournamentService.all().subscribe(tournaments => this.tournamentList = tournaments);
+    this.tournamentService.all().subscribe(tournaments => this.tournamentListSubject.next(tournaments));
+  }
+
+  sortData($event: Sort) {
+    this.tournamentList.sort((a, b) => {
+      const dir = $event.direction === 'asc' ? -1 : 1;
+      return (a[$event.active] > b[$event.active]) ? dir : -dir;
+    });
   }
 
   @HostListener('window:keyup', ['$event'])
