@@ -1,4 +1,5 @@
 @import "~styles/variables";
+@import "~styles/panel";
 
 :host {
   .fixed-back {
@@ -9,11 +10,16 @@
 }
 
 form {
+  @include panel;
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
   overflow: hidden;
   border-width: 0;
+  header {
+    margin: $margin ($margin * 2) 0 ($margin * 2);
+    padding: ($padding * 2) ($padding * 2) 0 ($padding * 2);
+  }
   footer {
     padding: 4px;
   }

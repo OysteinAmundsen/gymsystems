@@ -6,14 +6,16 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { UsersComponent } from './users.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
-import { MdSortModule } from '@angular/material';
+import { MdSortModule, MdCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MdSortModule,
     RouterModule,
+
+    MdSortModule,
+    MdCardModule,
 
     SharedModule
   ],

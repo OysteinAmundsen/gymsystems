@@ -18,6 +18,7 @@ import { DisplayComponent } from './display/display.component';
 import { FullscreenComponent } from './display/fullscreen/fullscreen.component';
 import { ResultsComponent } from './results/results.component';
 import { SignoffReportComponent } from './signoff-report/signoff-report.component';
+import { MdCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -26,6 +27,8 @@ import { SignoffReportComponent } from './signoff-report/signoff-report.componen
     FormsModule,
     ReactiveFormsModule,
     MarkdownToHtmlModule,
+
+    MdCardModule,
 
     EventRoutingModule
   ],

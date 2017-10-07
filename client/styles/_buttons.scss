@@ -38,7 +38,7 @@
   }
 }
 
-button:not(.mat-sort-header-button),
+button:not([class*="mat-"]),
 .btn {
   @include btn();
   &[type="submit"],

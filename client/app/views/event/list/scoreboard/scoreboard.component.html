@@ -1,46 +1,51 @@
-<form class="panel" [formGroup]="scoreForm" (ngSubmit)="onSubmit(scoreForm.value, $event)">
-  <header>
-    <h3>#{{ participant.startNumber }} - {{ participant.team.name }} - {{ participant.discipline.name}}</h3>
-  </header>
-  <div role="table">
-    <div role="row">
-      <app-score-group *ngFor="let group of groupedScores" [model]="group" [form]="scoreForm" class="x{{ group.scores ? group.scores.length : '0' }} group_{{ group.group.type }}"></app-score-group>
+<form [formGroup]="scoreForm" (ngSubmit)="onSubmit(scoreForm.value, $event)">
+  <md-card>
+    <md-card-header>
+      <h4 md-card-avatar>#{{ participant.startNumber + 1 }}</h4>
+      <md-card-title><h3>{{ participant.team.name }} - {{ participant.discipline.name}}</h3></md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <div role="table">
+        <div role="row">
+          <app-score-group *ngFor="let group of groupedScores" [model]="group" [form]="scoreForm" class="x{{ group.scores ? group.scores.length : '0' }} group_{{ group.group.type }}"></app-score-group>
 
-      <section class="final">
-        <header translate>Final score</header>
-        <div *ngFor="let type of groupedScores" (click)="selectGroup(type)">
-          <span>
-            <label class="large">{{ type.group.type }} : </label>
-            <label class="small">{{ type.group.name }} <small>[{{ type.group.type }}]</small>: </label>
-          </span>
-          <code>{{ type.avg || 0 | number:'1.2-2' }}&nbsp;</code>
+          <section class="final">
+            <header translate>Final score</header>
+            <div *ngFor="let type of groupedScores" (click)="selectGroup(type)">
+              <span>
+                <label class="large">{{ type.group.type }} : </label>
+                <label class="small">{{ type.group.name }} <small>[{{ type.group.type }}]</small>: </label>
+              </span>
+              <code>{{ type.avg || 0 | number:'1.2-2' }}&nbsp;</code>
+            </div>
+            <footer>
+              <span>
+                <label class="large">F:</label>
+                <label class="small" translate>Final score:</label>
+              </span>
+              <code>{{ grandTotal | number:'1.3-3' }}</code>
+            </footer>
+          </section>
         </div>
-        <footer>
-          <span>
-            <label class="large">F:</label>
-            <label class="small" translate>Final score:</label>
-          </span>
-          <code>{{ grandTotal | number:'1.3-3' }}</code>
-        </footer>
-      </section>
-    </div>
-  </div>
+      </div>
+    </md-card-content>
 
-  <footer>
-    <app-save-button buttonType="submit"></app-save-button>
-    <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
-    <button *ngIf="participant.publishTime == null || currentUser.role >= roles.Organizer" type="button" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()">
-      <fa name="trash" fw="true"></fa>
-      <span *ngIf="participant.publishTime == null && participant.endTime == null" translate>Delete</span>
-      <span *ngIf="participant.publishTime == null && participant.endTime != null" translate>Empty scores</span>
-      <span *ngIf="participant.publishTime != null" translate>Allready published!</span>
-    </button>
-    <button *ngIf="participant.endTime != null && currentUser.role >= roles.Organizer" type="button" [title]="'Rollback' | translate" class="pull-right warning" (click)="rollback()">
-      <fa name="undo" fw="true"></fa>
-      <span translate>Rollback</span>
-    </button>
-    <div *ngIf="participant.publishTime != null && currentUser.role < roles.Organizer" class="pull-right warning">
-      <span translate>Allready published!</span>
-    </div>
-  </footer>
+    <md-card-actions>
+      <app-save-button buttonType="submit"></app-save-button>
+      <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
+      <button *ngIf="participant.publishTime == null || currentUser.role >= roles.Organizer" type="button" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()">
+        <fa name="trash" fw="true"></fa>
+        <span *ngIf="participant.publishTime == null && participant.endTime == null" translate>Delete</span>
+        <span *ngIf="participant.publishTime == null && participant.endTime != null" translate>Empty scores</span>
+        <span *ngIf="participant.publishTime != null" translate>Allready published!</span>
+      </button>
+      <button *ngIf="participant.endTime != null && currentUser.role >= roles.Organizer" type="button" [title]="'Rollback' | translate" class="pull-right warning" (click)="rollback()">
+        <fa name="undo" fw="true"></fa>
+        <span translate>Rollback</span>
+      </button>
+      <div *ngIf="participant.publishTime != null && currentUser.role < roles.Organizer" class="pull-right warning">
+        <span translate>Allready published!</span>
+      </div>
+    </md-card-actions>
+  </md-card>
 </form>

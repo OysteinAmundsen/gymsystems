@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdSortModule } from '@angular/material';
+import { MdSortModule, MdCardModule } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { ConfigureSharedModule } from '../_shared/_shared.module';
@@ -23,7 +23,8 @@ import { TroopEditorComponent } from './troops/troop-editor/troop-editor.compone
     RouterModule,
     ReactiveFormsModule,
 
-    MdSortModule
+    MdSortModule,
+    MdCardModule
   ],
   declarations: [
     ClubComponent,

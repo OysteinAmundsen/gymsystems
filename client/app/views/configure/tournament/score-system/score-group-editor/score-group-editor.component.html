@@ -1,38 +1,40 @@
-<form class="panel" [formGroup]="scoreForm" (submit)="save()">
-  <fieldset>
-    <div class="row">
-      <div class="col-8" appFloatingLabelContainer>
-        <label translate>Name</label>
-        <input type="text" formControlName="name" appAutofocus>
+<form [formGroup]="scoreForm" (submit)="save()">
+  <md-card>
+    <md-card-content>
+      <div class="row">
+        <div class="col-8" appFloatingLabelContainer>
+          <label translate>Name</label>
+          <input type="text" formControlName="name" appAutofocus>
+        </div>
+        <div class="col-2" appFloatingLabelContainer>
+          <label translate>Type</label>
+          <input type="text" formControlName="type">
+        </div>
+        <div class="col-2">
+          <label translate>Operation</label>
+          <app-slide-toggle [onLabel]="Adds" [offLabel]="Subtracts" [onState]="operations.Addition" [offState]="operations.Subtraction" [initState]="operations.Addition" formControlName="operation"></app-slide-toggle>
+        </div>
       </div>
-      <div class="col-2" appFloatingLabelContainer>
-        <label translate>Type</label>
-        <input type="text" formControlName="type">
-      </div>
-      <div class="col-2">
-        <label translate>Operation</label>
-        <app-slide-toggle [onLabel]="Adds" [offLabel]="Subtracts" [onState]="operations.Addition" [offState]="operations.Subtraction" [initState]="operations.Addition" formControlName="operation"></app-slide-toggle>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-4" appFloatingLabelContainer>
-        <label translate>Judges</label>
-        <input type="number" formControlName="judges">
+      <div class="row">
+        <div class="col-4" appFloatingLabelContainer>
+          <label translate>Judges</label>
+          <input type="number" formControlName="judges">
+        </div>
+        <div class="col-4" appFloatingLabelContainer>
+          <label translate>Max Score</label>
+          <input type="number" formControlName="max">
+        </div>
+        <div class="col-4" appFloatingLabelContainer>
+          <label translate>Min Score</label>
+          <input type="number" formControlName="min">
+        </div>
       </div>
-      <div class="col-4" appFloatingLabelContainer>
-        <label translate>Max Score</label>
-        <input type="number" formControlName="max">
-      </div>
-      <div class="col-4" appFloatingLabelContainer>
-        <label translate>Min Score</label>
-        <input type="number" formControlName="min">
-      </div>
-    </div>
-  </fieldset>
-  <footer>
-    <app-save-button buttonType="submit" [disabled]="scoreForm.invalid || scoreForm.pristine"></app-save-button>
-    <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
-    <button type="button" *ngIf="standalone || scoreForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
-  </footer>
+    </md-card-content>
+    <md-card-actions>
+      <app-save-button buttonType="submit" [disabled]="scoreForm.invalid || scoreForm.pristine"></app-save-button>
+      <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
+      <button type="button" *ngIf="standalone || scoreForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
+    </md-card-actions>
+  </md-card>
 </form>

@@ -26,6 +26,7 @@ import { SaveButtonComponent } from './components/save-button/save-button.compon
 import { UtcDatePipe } from './pipes/utc-date.pipe';
 import { HelpBlockComponent } from './components/help-block/help-block.component';
 import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directive';
+import { MdSnackBarModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -36,6 +37,8 @@ import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directiv
     FormsModule,
     ReactiveFormsModule,
     DragulaModule,
+
+    MdSnackBarModule,
     RouterModule,
   ],
   declarations: [

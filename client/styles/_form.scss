@@ -1,5 +1,4 @@
 @import "variables";
-@import "panel";
 
 $inputHeight: 33px;
 $labelHeight: 16px;
@@ -24,18 +23,13 @@ fieldset {
   border: 0;
 }
 
-form.panel {
-  @include panel;
-  header {
-    margin: $margin ($margin * 2) 0 ($margin * 2);
-    padding: ($padding * 2) ($padding * 2) 0 ($padding * 2);
-  }
-  fieldset {
-    @include innerPanel;
-  }
-}
-
 form, .form {
+  md-card-content {
+    margin: 0 -16px 16px -16px;
+    fieldset {
+      padding: 0;
+    }
+  }
   label {
     height: $labelHeight;
     font-size: 0.8rem;

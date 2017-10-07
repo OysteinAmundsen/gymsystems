@@ -4,6 +4,7 @@ import { AppModuleTest } from 'app/app.module.spec';
 import { VenueEditorComponent } from './venue-editor.component';
 import { AgmCoreModule } from '@agm/core';
 import { VenueService } from 'app/services/api';
+import { MdCardModule } from '@angular/material';
 
 describe('VenueEditorComponent', () => {
   let component: VenueEditorComponent;
@@ -13,6 +14,7 @@ describe('VenueEditorComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         AppModuleTest,
+        MdCardModule,
         AgmCoreModule.forRoot({
           apiKey: VenueService.apiKey
         })

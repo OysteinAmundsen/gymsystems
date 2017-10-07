@@ -1,6 +1,10 @@
 @import "~styles/variables";
 @import "~styles/panel";
 :host /deep/ {
+  .mat-card-avatar {
+    padding-top: 2px;
+    padding-left: 7px;
+  }
   // Group sections
   app-score-group,
   section {

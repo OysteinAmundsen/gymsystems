@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
 import { AuthStateService, HttpAction } from 'app/services/config/auth-state.service';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-save-button',
@@ -18,22 +19,9 @@ export class SaveButtonComponent implements OnInit, OnDestroy {
   success = false;
   isListening = false; // Only listen for http events if this button has actually been clicked.
 
-  private _messageTimeout;
-  private _message: string;
-  get message() { return this._message; }
-  set message(v) {
-    if (this._messageTimeout) { clearTimeout(this._messageTimeout); }
-    if (v) {
-      this._message = v;
-      this._messageTimeout = setTimeout(() => this._message = null, 5 * 1000);
-    } else {
-      this._message = null;
-    }
-  }
-
   actionSubscription: Subscription;
 
-  constructor(private authState: AuthStateService, private translate: TranslateService) { }
+  constructor(private authState: AuthStateService, private translate: TranslateService, private snackBar: MdSnackBar) { }
 
   ngOnInit() {
     this.actionSubscription = this.authState.httpAction.subscribe((action: HttpAction) => {
@@ -41,12 +29,12 @@ export class SaveButtonComponent implements OnInit, OnDestroy {
         this.isSaving = !(action.isComplete);
         const now = moment();
         if (action.isComplete) {
-          this.success = !action.failed;
-          if (this.success) {
-            this.message = `${this.translate.instant('Saved on')} <b>${now.format('DD.MM.YYYY HH:mm:ss')}</b>`;
-          } else {
-            this.message = this.translate.instant(`Save failed!`);
-          }
+          const message = (!action.failed
+            ? `${this.translate.instant('Saved')} ${now.format('HH:mm:ss')}`
+            : this.translate.instant(`Save failed!`));
+          const status = (!action.failed ? 'SUCCESS' : 'ERROR');
+          const opts = (!action.failed) ? { duration: 5 * 1000, } : {};
+          this.snackBar.open(message, status, opts);
           this.isListening = false;
         }
       }

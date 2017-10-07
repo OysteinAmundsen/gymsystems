@@ -7,6 +7,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { SharedModule } from 'app/shared/shared.module';
 import { ScoreSystemComponent } from './score-system.component';
 import { ScoreGroupEditorComponent } from './score-group-editor/score-group-editor.component';
+import { MdCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -15,6 +16,8 @@ import { ScoreGroupEditorComponent } from './score-group-editor/score-group-edit
     ReactiveFormsModule,
     RouterModule,
     DragulaModule,
+
+    MdCardModule,
 
     SharedModule
   ],

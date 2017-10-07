@@ -100,7 +100,7 @@ export class TournamentController {
     let limit: number = req.query['limit'] || 10;
     if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
 
-    const date = moment().utc().startOf('day').toDate();
+    const date = moment().startOf('day').utc().toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .leftJoinAndSelect('tournament.venue', 'venue')
@@ -154,7 +154,7 @@ export class TournamentController {
     let limit: number = req.query['limit'] || 10;
     if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
 
-    const date = moment().utc().endOf('day').toDate();
+    const date = moment().endOf('day').utc().toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .leftJoinAndSelect('tournament.venue', 'venue')

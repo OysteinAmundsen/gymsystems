@@ -9,7 +9,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { VenueComponent } from './venue.component';
 import { VenueEditorComponent } from './venue-editor/venue-editor.component';
 import { VenueService } from 'app/services/api';
-import { MdSortModule } from '@angular/material';
+import { MdSortModule, MdCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -17,7 +17,9 @@ import { MdSortModule } from '@angular/material';
     SharedModule,
     ReactiveFormsModule,
     AgmCoreModule,
+
     MdSortModule,
+    MdCardModule,
 
     RouterModule,
   ],

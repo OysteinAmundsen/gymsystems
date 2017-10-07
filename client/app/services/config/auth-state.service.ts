@@ -34,6 +34,6 @@ export class AuthStateService {
     }
 
     const obj: HttpRequest<any> | HttpResponse<any> = res ? res : req;
-    this.httpAction.next({url: obj.url, method: method, values: obj.body});
+    this.httpAction.next({url: obj.url, method: method, values: obj.body, isComplete: res != null, failed: res && res.status !== 200});
   }
 }

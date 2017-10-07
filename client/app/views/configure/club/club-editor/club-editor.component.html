@@ -22,20 +22,22 @@
 </div>
 
 <!-- Edit data -->
-<form class="panel" [formGroup]="clubForm" (submit)="save()" *ngIf="isEdit">
-  <fieldset>
-    <div class="row">
-      <div class="col-12" appFloatingLabelContainer>
-        <label translate>Name</label>
-        <app-typeahead itemText="name" [valueTransformer]="clubTransformer" [items]="clubs" [getMatches]="getClubMatchesFn()" (textValueChange)="setClubName($event)" [(selectedItem)]="selectedClub" appAutofocus></app-typeahead>
+<form [formGroup]="clubForm" (submit)="save()" *ngIf="isEdit">
+  <md-card>
+    <md-card-content>
+      <div class="row">
+        <div class="col-12" appFloatingLabelContainer>
+          <label translate>Name</label>
+          <app-typeahead itemText="name" [valueTransformer]="clubTransformer" [items]="clubs" [getMatches]="getClubMatchesFn()" (textValueChange)="setClubName($event)" [(selectedItem)]="selectedClub" appAutofocus></app-typeahead>
+        </div>
       </div>
-    </div>
-  </fieldset>
-  <footer>
-    <app-save-button buttonType="submit" [disabled]="clubForm.invalid || clubForm.pristine"></app-save-button>
-    <button type="button" [title]="'Cancel' | translate" (click)="cancel()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
-    <button type="button" *ngIf="clubForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
-  </footer>
+    </md-card-content>
+    <md-card-actions>
+      <app-save-button buttonType="submit" [disabled]="clubForm.invalid || clubForm.pristine"></app-save-button>
+      <button type="button" [title]="'Cancel' | translate" (click)="cancel()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
+      <button type="button" *ngIf="clubForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
+    </md-card-actions>
+  </md-card>
 </form>
 
 <!-- Tab list -->

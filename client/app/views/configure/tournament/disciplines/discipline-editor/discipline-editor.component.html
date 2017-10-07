@@ -1,24 +1,28 @@
-<form class="panel" [formGroup]="disciplineForm" (submit)="save()">
-  <fieldset>
-    <div class="row">
-      <div class="col-12" appFloatingLabelContainer>
-        <label translate>Name</label>
-        <input type="text" formControlName="name" appAutofocus>
-      </div>
-    </div>
-  </fieldset>
+<form [formGroup]="disciplineForm" (submit)="save()">
+  <md-card>
+    <md-card-content>
+      <fieldset>
+        <div class="row">
+          <div class="col-12" appFloatingLabelContainer>
+            <label translate>Name</label>
+            <input type="text" formControlName="name" appAutofocus>
+          </div>
+        </div>
+      </fieldset>
 
-  <fieldset *ngIf="disciplineForm.value.id">
-    <h2>
-      <fa name="star" fw="true"></fa>
-      "{{ discipline.name }}" <span translate>score system</span>
-    </h2>
+      <fieldset *ngIf="disciplineForm.value.id">
+        <h2>
+          <fa name="star" fw="true"></fa>
+          "{{ discipline.name }}" <span translate>score system</span>
+        </h2>
 
-    <app-score-system [discipline]="discipline" (editModeChanged)="editingScore = $event"></app-score-system>
-  </fieldset>
-  <footer *ngIf="!editingScore">
-    <app-save-button buttonType="submit" [disabled]="disciplineForm.invalid || disciplineForm.pristine"></app-save-button>
-    <button type="button" [title]="'Cancel' | translate" (click)="cancel()"><fa name="arrow-left" fw="true"></fa> <span translate>Go back</span></button>
-    <button type="button" *ngIf="standalone || disciplineForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
-  </footer>
+        <app-score-system [discipline]="discipline" (editModeChanged)="editingScore = $event"></app-score-system>
+      </fieldset>
+    </md-card-content>
+    <md-card-actions *ngIf="!editingScore">
+      <app-save-button buttonType="submit" [disabled]="disciplineForm.invalid || disciplineForm.pristine"></app-save-button>
+      <button type="button" [title]="'Cancel' | translate" (click)="cancel()"><fa name="arrow-left" fw="true"></fa> <span translate>Go back</span></button>
+      <button type="button" *ngIf="standalone || disciplineForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
+    </md-card-actions>
+  </md-card>
 </form>

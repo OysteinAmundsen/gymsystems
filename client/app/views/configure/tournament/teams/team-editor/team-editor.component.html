@@ -1,139 +1,142 @@
-<form class="panel" [formGroup]="teamForm" (submit)="save()">
-  <fieldset>
-    <div class="row">
-      <div class="col-5" appFloatingLabelContainer *ngIf="!currentUser.club">
-        <label translate>Club</label>
-        <app-typeahead appAutofocus [valueTransformer]="clubTransformer" itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
-      </div>
-      <div [ngClass]="{'col-7': !currentUser.club, 'col-12': currentUser.club, 'help-available': teamForm.value.club != null}" appFloatingLabelContainer>
-        <label translate>Name</label>
-        <app-typeahead appAutofocus itemValue="name" [allowUnmatched]="true" [items]="troops" [getMatches]="getTroopMatchesFn()" formControlName="name" [(selectedItem)]="selectedTroop"></app-typeahead>
-        <app-help-block *ngIf="teamForm.value.club != null">
-          <p translate>You cannot enter a team name before you've selected which club it belongs to</p>
-          <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="['/configure/club']">Club</a> section</p>
-        </app-help-block>
-      </div>
-    </div>
-  </fieldset>
-  <div class="row">
-
-    <!-- Divisions -->
-    <div class="col-6">
-      <header>
-        <h2>
-          <fa name="cubes" fw="true"></fa>
-          <span translate>Division</span>
-        </h2>
-      </header>
+<form [formGroup]="teamForm" (submit)="save()">
+  <md-card>
+    <md-card-content>
       <fieldset>
-
-        <div appFloatingLabel>
-          <label>
-            <fa name="venus-mars" fw="true"></fa>
-            <span translate>Gender group</span>
-          </label>
-          <select formControlName="genderDivision">
-            <option *ngFor="let division of genderDivisions" [ngValue]="division.id">{{division.name}}</option>
-          </select>
+        <div class="row">
+          <div class="col-5" appFloatingLabelContainer *ngIf="!currentUser.club">
+            <label translate>Club</label>
+            <app-typeahead appAutofocus [valueTransformer]="clubTransformer" itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
+          </div>
+          <div [ngClass]="{'col-7': !currentUser.club, 'col-12': currentUser.club, 'help-available': teamForm.value.club != null}" appFloatingLabelContainer>
+            <label translate>Name</label>
+            <app-typeahead appAutofocus itemValue="name" [allowUnmatched]="true" [items]="troops" [getMatches]="getTroopMatchesFn()" formControlName="name" [(selectedItem)]="selectedTroop"></app-typeahead>
+            <app-help-block *ngIf="teamForm.value.club != null">
+              <p translate>You cannot enter a team name before you've selected which club it belongs to</p>
+              <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="['/configure/club']">Club</a> section</p>
+            </app-help-block>
+          </div>
         </div>
-
-        <div appFloatingLabel>
-          <label>
-            <fa name="child" fw="true"></fa>
-            <span translate>Age group</span>
-          </label>
-          <select formControlName="ageDivision">
-            <option *ngFor="let division of ageDivisions" [ngValue]="division.id">{{division.name}}</option>
-          </select>
-        </div>
-
       </fieldset>
-    </div>
+      <div class="row">
 
-    <!-- Disciplines -->
-    <div class="col-6">
-      <header>
-        <h2>
-          <fa name="heartbeat" fw="true"></fa>
-          <span translate>Disciplines</span>
-          <app-slide-toggle [onLabel]="TeamGym" [offLabel]="National" [onState]="classes.TeamGym" [offState]="classes.National" [initState]="classes.National" formControlName="class"></app-slide-toggle>
-        </h2>
-      </header>
-      <div>
-        <table role="list">
-          <tr role="listitem">
-            <td class="disciplines">
+        <!-- Divisions -->
+        <div class="col-6">
+          <header>
+            <h2>
+              <fa name="cubes" fw="true"></fa>
+              <span translate>Division</span>
+            </h2>
+          </header>
+          <fieldset>
+
+            <div appFloatingLabel>
               <label>
-                <input type="checkbox" [checked]="allChecked" (click)="toggleChecked()" [disabled]="teamForm.value.class === classes.TeamGym">
-                <span translate>All</span>
+                <fa name="venus-mars" fw="true"></fa>
+                <span translate>Gender group</span>
               </label>
-            </td>
-            <td class="media-head help-available">
-              <fa name="music" fw="true"></fa>
-              <span translate>Upload media</span>
-              <app-help-block>
-                <p translate>The <fa name="upload"></fa> buttons below will allow you to upload media for your teams performance in that discipline</p>
-                <p *ngIf="teamForm.invalid"><b translate>You will not see any upload button until you have specified a team name, divisions and disciplines.</b></p>
-              </app-help-block>
-            </td>
-          </tr>
-          <tbody *ngFor="let discipline of disciplines">
-            <tr role="listitem">
-              <td class="disciplines">
-                <label>
-                  <input type="checkbox" #selectedDisciplines [attr.data]="discipline.id" (change)="disciplinesChanged()" [disabled]="teamForm.value.class === classes.TeamGym">
-                  {{ discipline.name }}
-                </label>
-              </td>
-              <td class="media">
-                <div class="flex">
-                  <div class="action-buttons">
-                    <button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)" [title]="'Play media' | translate"><fa name="play" fw="true"></fa></button>
-                    <button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" [title]="'Stop playing' | translate"><fa name="stop" fw="true"></fa></button>
-                    <button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate"><fa name="trash" fw="true"></fa></button>
-                    <label class="file-upload btn" *ngIf="!hasMedia(discipline) && !teamForm.invalid && selectedDisciplines.checked" [title]="'Upload media' | translate">
-                      <input type="file" (change)="fileAdded($event, discipline)" accept=".mp3,.wav">
-                      <fa name="upload" fw="true"></fa>
+              <select formControlName="genderDivision">
+                <option *ngFor="let division of genderDivisions" [ngValue]="division.id">{{division.name}}</option>
+              </select>
+            </div>
+
+            <div appFloatingLabel>
+              <label>
+                <fa name="child" fw="true"></fa>
+                <span translate>Age group</span>
+              </label>
+              <select formControlName="ageDivision">
+                <option *ngFor="let division of ageDivisions" [ngValue]="division.id">{{division.name}}</option>
+              </select>
+            </div>
+
+          </fieldset>
+        </div>
+
+        <!-- Disciplines -->
+        <div class="col-6">
+          <header>
+            <h2>
+              <fa name="heartbeat" fw="true"></fa>
+              <span translate>Disciplines</span>
+              <app-slide-toggle [onLabel]="TeamGym" [offLabel]="National" [onState]="classes.TeamGym" [offState]="classes.National" [initState]="classes.National" formControlName="class"></app-slide-toggle>
+            </h2>
+          </header>
+          <div>
+            <table role="list">
+              <tr role="listitem">
+                <td class="disciplines">
+                  <label>
+                    <input type="checkbox" [checked]="allChecked" (click)="toggleChecked()" [disabled]="teamForm.value.class === classes.TeamGym">
+                    <span translate>All</span>
+                  </label>
+                </td>
+                <td class="media-head help-available">
+                  <fa name="music" fw="true"></fa>
+                  <span translate>Upload media</span>
+                  <app-help-block>
+                    <p translate>The <fa name="upload"></fa> buttons below will allow you to upload media for your teams performance in that discipline</p>
+                    <p *ngIf="teamForm.invalid"><b translate>You will not see any upload button until you have specified a team name, divisions and disciplines.</b></p>
+                  </app-help-block>
+                </td>
+              </tr>
+              <tbody *ngFor="let discipline of disciplines">
+                <tr role="listitem">
+                  <td class="disciplines">
+                    <label>
+                      <input type="checkbox" #selectedDisciplines [attr.data]="discipline.id" (change)="disciplinesChanged()" [disabled]="teamForm.value.class === classes.TeamGym">
+                      {{ discipline.name }}
                     </label>
-                  </div>
-                  <label *ngIf="hasMedia(discipline)" class="flex-col media-name"><small>{{ getMedia(discipline).originalName }}</small></label>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  </td>
+                  <td class="media">
+                    <div class="flex">
+                      <div class="action-buttons">
+                        <button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)" [title]="'Play media' | translate"><fa name="play" fw="true"></fa></button>
+                        <button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" [title]="'Stop playing' | translate"><fa name="stop" fw="true"></fa></button>
+                        <button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate"><fa name="trash" fw="true"></fa></button>
+                        <label class="file-upload btn" *ngIf="!hasMedia(discipline) && !teamForm.invalid && selectedDisciplines.checked" [title]="'Upload media' | translate">
+                          <input type="file" (change)="fileAdded($event, discipline)" accept=".mp3,.wav">
+                          <fa name="upload" fw="true"></fa>
+                        </label>
+                      </div>
+                      <label *ngIf="hasMedia(discipline)" class="flex-col media-name"><small>{{ getMedia(discipline).originalName }}</small></label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="row">
+      <div class="row">
 
-    <!-- Members -->
-    <app-member-selector [club]="team.club" [troopName]="teamForm.value.name"
-                         [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()"
-                         [memberTemplate]="memberContent">
-      <span class="flex-col" *ngIf="teamForm.value.gymnasts != null && teamForm.value.gymnasts.length > 0">
-        <label [title]="'Require lodging' | translate">
-          <input type="checkbox" [(ngModel)]="isAllLodged" [ngModelOptions]="{standalone: true}"/>
-          <fa name="bed" fw="true"></fa>
-        </label>
-        <label [title]="'Require transportation' | translate">
-          <input type="checkbox" [(ngModel)]="isAllTransport" [ngModelOptions]="{standalone: true}"/>
-          <fa name="bus" fw="true"></fa>
-        </label>
-        <label [title]="'Joining banquet' | translate">
-          <input type="checkbox" [(ngModel)]="isAllBanquet" [ngModelOptions]="{standalone: true}"/>
-          <fa name="cutlery" fw="true"></fa>
-        </label>
-      </span>
-    </app-member-selector>
-  </div>
-
-  <footer>
-    <app-save-button buttonType="submit" [disabled]="teamForm.invalid || teamForm.pristine"></app-save-button>
-    <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
-    <button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
-  </footer>
+        <!-- Members -->
+        <app-member-selector [club]="team.club" [troopName]="teamForm.value.name"
+                            [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()"
+                            [memberTemplate]="memberContent">
+          <span class="flex-col" *ngIf="teamForm.value.gymnasts != null && teamForm.value.gymnasts.length > 0">
+            <label [title]="'Require lodging' | translate">
+              <input type="checkbox" [(ngModel)]="isAllLodged" [ngModelOptions]="{standalone: true}"/>
+              <fa name="bed" fw="true"></fa>
+            </label>
+            <label [title]="'Require transportation' | translate">
+              <input type="checkbox" [(ngModel)]="isAllTransport" [ngModelOptions]="{standalone: true}"/>
+              <fa name="bus" fw="true"></fa>
+            </label>
+            <label [title]="'Joining banquet' | translate">
+              <input type="checkbox" [(ngModel)]="isAllBanquet" [ngModelOptions]="{standalone: true}"/>
+              <fa name="cutlery" fw="true"></fa>
+            </label>
+          </span>
+        </app-member-selector>
+      </div>
+    </md-card-content>
+    <md-card-actions>
+      <app-save-button buttonType="submit" [disabled]="teamForm.invalid || teamForm.pristine"></app-save-button>
+      <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
+      <button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
+    </md-card-actions>
+  </md-card>
 </form>
 
 <ng-template #memberContent let-member="member">

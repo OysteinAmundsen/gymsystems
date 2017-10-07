@@ -9,6 +9,7 @@ import { ScoreSystemModule } from '../score-system/score-system.module';
 
 import { DisciplinesComponent } from './disciplines.component';
 import { DisciplineEditorComponent } from './discipline-editor/discipline-editor.component';
+import { MdCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -17,8 +18,9 @@ import { DisciplineEditorComponent } from './discipline-editor/discipline-editor
     RouterModule,
     DragulaModule,
     ScoreSystemModule,
+    MdCardModule,
 
-    SharedModule
+    SharedModule,
   ],
   declarations: [
     DisciplinesComponent, DisciplineEditorComponent
