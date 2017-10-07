@@ -117,29 +117,29 @@
   </md-card>
 </form>
 
-<menu *ngIf="tournamentForm.value.id" role="tablist">
-  <ul>
-    <li [routerLinkActive]="['active']" *ngIf="canEdit" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
-      <a routerLink="./divisions">
-        <fa name="cubes" fw="true"></fa> <span translate>Divisions</span> </a>
-    </li>
-    <li [routerLinkActive]="['active']" *ngIf="canEdit" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
-      <a routerLink="./disciplines">
-        <fa name="heartbeat" fw="true"></fa> <span translate>Disciplines</span> </a>
-    </li>
-    <li [routerLinkActive]="['active']" *appIfAuth="'Club'" [title]="menuTitle()">
-      <a routerLink="./teams">
-        <fa name="users" fw="true"></fa> <span translate>Teams</span></a>
-    </li>
-    <li [routerLinkActive]="['active']" *ngIf="canEdit">
-      <a routerLink="./schedule">
-        <fa name="sort-numeric-asc" fw="true"></fa> <span translate>Schedule</span></a>
-    </li>
-    <li [routerLinkActive]="['active']" *ngIf="canEdit" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
-      <a routerLink="./info">
-        <fa name="info" fw="true"></fa> <span translate>Info</span></a>
-    </li>
-  </ul>
+<menu md-tab-nav-bar *ngIf="tournamentForm.value.id">
+  <a md-tab-link *ngIf="canEdit" routerLink="./divisions" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+    [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
+    <fa name="cubes" fw="true"></fa> <span translate>Divisions</span>
+  </a>
+
+  <a md-tab-link *ngIf="canEdit" routerLink="./disciplines" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+    [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
+    <fa name="heartbeat" fw="true"></fa> <span translate>Disciplines</span>
+  </a>
+
+  <a md-tab-link *appIfAuth="'Club'" routerLink="./teams" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()">
+    <fa name="users" fw="true"></fa> <span translate>Teams</span>
+  </a>
+
+  <a md-tab-link *ngIf="canEdit" routerLink="./schedule" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()">
+    <fa name="sort-numeric-asc" fw="true"></fa> <span translate>Schedule</span>
+  </a>
+
+  <a md-tab-link *ngIf="canEdit" routerLink="./info" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+    [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
+    <fa name="info" fw="true"></fa> <span translate>Info</span>
+  </a>
 </menu>
 
 <div class="sub-routes">

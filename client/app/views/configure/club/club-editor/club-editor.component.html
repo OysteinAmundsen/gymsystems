@@ -3,12 +3,6 @@
     <fa name="university" fw="true"></fa>
     <span>{{ clubName }}</span>
   </h1>
-  <!--<div class="pull-right buttons">
-    <button type="button" class="pull-right primary raised">
-      <fa name="tv" fw="true"></fa>
-      <span translate>Display </span>
-    </button>
-  </div>-->
 </header>
 
 <!-- View data -->
@@ -41,21 +35,19 @@
 </form>
 
 <!-- Tab list -->
-<menu *ngIf="clubForm.value.id" role="tablist">
-  <ul>
-    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
-      <a routerLink="./members">
-        <fa name="id-card-o" fw="true"></fa> <span translate>Members</span> </a>
-    </li>
-    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
-      <a routerLink="./troops">
-        <fa name="group" fw="true"></fa> <span translate>Teams</span> </a>
-    </li>
-    <li [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
-      <a routerLink="./statistics">
-        <fa name="line-chart" fw="true"></fa> <span translate>Statistics</span> </a>
-    </li>
-  </ul>
+<menu md-tab-nav-bar *ngIf="clubForm.value.id">
+  <a md-tab-link routerLink="./members" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+    [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
+    <fa name="id-card-o" fw="true"></fa> <span translate>Members</span>
+  </a>
+  <a md-tab-link routerLink="./troops" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+    [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
+    <fa name="group" fw="true"></fa> <span translate>Teams</span>
+  </a>
+  <a md-tab-link routerLink="./statistics" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+    [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
+    <fa name="line-chart" fw="true"></fa> <span translate>Statistics</span>
+  </a>
 </menu>
 
 <div class="sub-routes">

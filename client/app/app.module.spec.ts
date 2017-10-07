@@ -52,6 +52,7 @@ import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.se
 import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 import { EventServiceStub } from 'app/services/api/event/event.service.stub';
 import { MdCardModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
  * Reusable module for component testing.
@@ -68,6 +69,7 @@ import { MdCardModule } from '@angular/material';
     FormsModule,
     ReactiveFormsModule,
     HttpClientTestingModule,
+    BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { DragulaModule } from 'ng2-dragula';
-import { MdSortModule, MdCardModule } from '@angular/material';
+import { MdSortModule, MdCardModule, MdTabsModule } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { ConfigureSharedModule } from '../_shared/_shared.module';
@@ -28,6 +28,7 @@ import { InfoComponent } from './info/info.component';
     DragulaModule,
 
     MdCardModule,
+    MdTabsModule,
     MdSortModule,
 
     SharedModule,

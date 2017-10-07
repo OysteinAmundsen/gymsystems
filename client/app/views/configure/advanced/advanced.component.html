@@ -79,31 +79,26 @@
   <section class="flex">
     <header class="flex-col" translate>Default values</header>
     <article class="flex-col">
-      <menu role="tablist">
-        <ul>
-          <li (click)="selected = 'division'" [ngClass]="{'active': selected === 'division'}">
-            <a><fa name="cubes" fw="true"></fa> <span translate>Divisions</span></a>
-          </li>
-          <li (click)="selected = 'discipline'" [ngClass]="{'active': selected === 'discipline'}">
-            <a><fa name="heartbeat" fw="true"></fa> <span translate>Disciplines</span></a>
-          </li>
-          <li (click)="selected = 'scoreGroup'" [ngClass]="{'active': selected === 'scoreGroup'}">
-            <a><fa name="star" fw="true"></fa> <span translate>Score system</span></a>
-          </li>
-        </ul>
-      </menu>
-
-      <div class="tab-panel">
-        <div *ngIf="selected === 'scoreGroup'">
+      <md-tab-group *ngIf="defaultValues">
+        <md-tab>
+          <ng-template md-tab-label>
+            <fa name="cubes" fw="true"></fa> <span translate>Divisions</span>
+          </ng-template>
           <app-score-system [scoreGroupList]="defaultValues.scoreGroup" (scoreGroupListChanged)="valueChanged('scoreGroup', $event)" [standalone]="true"></app-score-system>
-        </div>
-        <div *ngIf="selected === 'discipline'">
+        </md-tab>
+        <md-tab>
+          <ng-template md-tab-label>
+            <fa name="heartbeat" fw="true"></fa> <span translate>Disciplines</span>
+          </ng-template>
           <app-disciplines [disciplineList]="defaultValues.discipline" (disciplineListchanged)="valueChanged('discipline', $event)" [standalone]="true"></app-disciplines>
-        </div>
-        <div *ngIf="selected === 'division'">
+        </md-tab>
+        <md-tab>
+          <ng-template md-tab-label>
+            <fa name="star" fw="true"></fa> <span translate>Score system</span>
+          </ng-template>
           <app-divisions [divisions]="defaultValues.division" (divisionsChanged)="valueChanged('division', $event)" [standalone]="true"></app-divisions>
-        </div>
-      </div>
+        </md-tab>
+      </md-tab-group>
     </article>
   </section>
 
