@@ -141,7 +141,11 @@ export class ScheduleService {
       const startHour   = timesMoment.clone().hour(+timesForDay.time.split(',')[0]).subtract(10, 'minutes');
       const trainingDay = training.filter(t => {
         const livePerformance = schedule.find(l => this.stringHash(t, ParticipationType.Live) === this.stringHash(l));
-        return livePerformance.calculatedStartTime.isSame(timesMoment, 'day');
+        if (livePerformance) {
+          return livePerformance.calculatedStartTime.isSame(timesMoment, 'day');
+        } else {
+          return false;
+        }
       });
       trainingDay.forEach((s, idx) => {
         time = startHour.clone().subtract(this.trainingTime * (idx), 'minutes');
@@ -154,6 +158,9 @@ export class ScheduleService {
 
     return training.concat(live).sort((a, b) => {
       // Interleave training and live performances for each day of the tournament.
+      if (a.calculatedStartTime == null || b.calculatedStartTime == null) {
+        return 0;
+      }
       return a.calculatedStartTime.isBefore(b.calculatedStartTime) ? -1 : 1;
     });
   }

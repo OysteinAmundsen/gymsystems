@@ -24,6 +24,9 @@ fieldset {
 }
 
 form, .form {
+  .mat-select {
+    display: initial;
+  }
   md-card-content {
     margin: 0 -16px 16px -16px;
     fieldset {

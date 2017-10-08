@@ -34,7 +34,7 @@ import { HomeComponent } from './views/home/home.component';
 import { LoginComponent } from './views/home/login/login.component';
 import { LogoutComponent } from './views/home/logout/logout.component';
 import { RegisterComponent } from './views/home/register/register.component';
-import { MdCardModule } from '@angular/material';
+import { MdCardModule, MdSnackBarModule } from '@angular/material';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -68,6 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AgmCoreModule.forRoot({ apiKey: VenueService.apiKey }),
 
     MdCardModule,
+    MdSnackBarModule,
 
     // Application modules
     SharedModule,

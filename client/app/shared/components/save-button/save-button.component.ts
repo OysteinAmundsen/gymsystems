@@ -24,17 +24,12 @@ export class SaveButtonComponent implements OnInit, OnDestroy {
   constructor(private authState: AuthStateService, private translate: TranslateService, private snackBar: MdSnackBar) { }
 
   ngOnInit() {
+    // Make sure language texts exist
+    this.translate.get(['Saved', 'Deleted', 'SUCCESS']).subscribe();
     this.actionSubscription = this.authState.httpAction.subscribe((action: HttpAction) => {
       if (this.isListening && (action.method === RequestMethod.Post || action.method === RequestMethod.Put)) {
         this.isSaving = !(action.isComplete);
-        const now = moment();
         if (action.isComplete) {
-          const message = (!action.failed
-            ? `${this.translate.instant('Saved')} ${now.format('HH:mm:ss')}`
-            : this.translate.instant(`Save failed!`));
-          const status = (!action.failed ? 'SUCCESS' : 'ERROR');
-          const opts = (!action.failed) ? { duration: 5 * 1000, } : {};
-          this.snackBar.open(message, status, opts);
           this.isListening = false;
         }
       }
