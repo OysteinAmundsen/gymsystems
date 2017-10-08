@@ -3,11 +3,18 @@
  */
 app-root {
   min-height: 100vh;
-  @supports (display: flex) {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-  }
+  // @supports (display: grid) {
+  //   display: grid;
+  //   grid-template-columns: 1fr;
+  //   grid-template-rows: 56px 1fr 8.3rem;
+  // }
+  // @supports not (display: grid) {
+    @supports (display: flex) {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-start;
+    }
+  // }
   @media (max-width: $stop1) {
     width: 100%;
     height: 100%;
@@ -17,7 +24,7 @@ app-root {
     backface-visibility: hidden;
     //display: table;
   }
-  >footer {
+  > footer {
     background: $primary;
     min-height: 8.3rem;
     margin-top: 5.4rem;

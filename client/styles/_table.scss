@@ -14,6 +14,7 @@ table[role="list"] {
     border-bottom: 0;
   }
   tbody, tr {
+    outline: none;
     &[role="listitem"] {
       cursor: pointer;
       &:hover td {
