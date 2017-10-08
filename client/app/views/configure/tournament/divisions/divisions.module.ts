@@ -7,7 +7,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { SharedModule } from 'app/shared/shared.module';
 import { DivisionsComponent } from './divisions.component';
 import { DivisionEditorComponent } from './division-editor/division-editor.component';
-import { MdCardModule } from '@angular/material';
+import { MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -16,7 +16,11 @@ import { MdCardModule } from '@angular/material';
     RouterModule,
     DragulaModule,
 
-    MdCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatCardModule,
 
     SharedModule
   ],

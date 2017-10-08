@@ -4,12 +4,12 @@
 </h1>
 
 <div class="table-responsive">
-  <table role="list" class="editable" mdSort (mdSortChange)="sortData($event)">
+  <table role="list" class="editable" matSort (matSortChange)="sortData($event)">
     <thead>
       <tr>
-        <th translate md-sort-header="name">Name</th>
-        <th translate md-sort-header="role">Role</th>
-        <th translate md-sort-header="club.name">Club</th>
+        <th translate mat-sort-header="name">Name</th>
+        <th translate mat-sort-header="role">Role</th>
+        <th translate mat-sort-header="club.name">Club</th>
       </tr>
     </thead>
     <tbody *ngFor="let user of userList">

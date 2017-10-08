@@ -29,8 +29,8 @@ export class TeamsService {
 
   save(team: ITeam) {
     return (team.id)
-      ? this.http.put<ITeam>(`${this.url}/${team.id}`, Helper.reduceLevels(team))
-      : this.http.post<ITeam>(this.url, Helper.reduceLevels(team));
+      ? this.http.put<ITeam>(`${this.url}/${team.id}`, Helper.reduceLevels(team, 2))
+      : this.http.post<ITeam>(this.url, Helper.reduceLevels(team, 2));
   }
 
   delete(team: ITeam): Observable<ITeam> {

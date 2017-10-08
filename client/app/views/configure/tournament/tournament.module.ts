@@ -4,7 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { DragulaModule } from 'ng2-dragula';
-import { MdSortModule, MdCardModule, MdTabsModule } from '@angular/material';
+import {
+  MatSortModule, MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatOptionModule, MatSelectModule, MatDatepickerModule
+} from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { ConfigureSharedModule } from '../_shared/_shared.module';
@@ -27,9 +29,15 @@ import { InfoComponent } from './info/info.component';
     MarkdownToHtmlModule,
     DragulaModule,
 
-    MdCardModule,
-    MdTabsModule,
-    MdSortModule,
+    MatCardModule,
+    MatTabsModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatDatepickerModule,
 
     SharedModule,
     DisciplinesModule,

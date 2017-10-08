@@ -24,14 +24,12 @@ enum Type {
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   user: IUser = <IUser>{role: Role.Club};
-  clubs = [];
-  selectedClub: IClub;
+  clubList = [];
 
   get Organizer(): string { return this.translate.instant('Organizer'); }
   get Club(): string { return this.translate.instant('Club'); }
 
   type = Type;
-  clubTransformer = toUpperCaseTransformer;
 
   constructor(
     private fb: FormBuilder,
@@ -53,14 +51,17 @@ export class RegisterComponent implements OnInit {
     }, {validator: (c: AbstractControl) => {
       return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false}};
     }});
+    // Read filtered options
+    const clubCtrl = this.registerForm.controls['club'];
+    clubCtrl.valueChanges
+      .distinctUntilChanged()
+      .map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
+      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      .subscribe(v => this.clubService.findByName(v && v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
   }
 
-  getClubMatchesFn() {
-    const me = this;
-    return function (items, currentValue: string, matchText: string) {
-      if (!currentValue) { return items; }
-      return me.clubService.findByName(currentValue);
-    }
+  clubDisplay(club: IClub) {
+    return club && club.name ? club.name : club;
   }
 
   async register() {

@@ -51,7 +51,7 @@ import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.se
 import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
 import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 import { EventServiceStub } from 'app/services/api/event/event.service.stub';
-import { MdCardModule } from '@angular/material';
+import { MatCardModule, MatSnackBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
@@ -82,6 +82,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     // AgmCoreModule.forRoot({
     //   apiKey: VenueService.apiKey
     // }),
+
+    MatSnackBarModule,
+    MatCardModule,
 
     // Application modules
     SharedModule,

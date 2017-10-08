@@ -4,13 +4,13 @@
 </h1>
 
 <div class="table-responsive">
-  <table role="list" class="editable" mdSort (mdSortChange)="sortData($event)">
+  <table role="list" class="editable" matSort (matSortChange)="sortData($event)">
     <thead>
       <tr>
-        <th translate md-sort-header="name">Name</th>
-        <th translate md-sort-header="contact">Contact</th>
-        <th translate md-sort-header="rentalCost">Rental cost</th>
-        <th translate md-sort-header="address">Address</th>
+        <th translate mat-sort-header="name">Name</th>
+        <th translate mat-sort-header="contact">Contact</th>
+        <th translate mat-sort-header="rentalCost">Rental cost</th>
+        <th translate mat-sort-header="address">Address</th>
         <th translate *appIfAuth="'Admin'">Created by</th>
       </tr>
     </thead>

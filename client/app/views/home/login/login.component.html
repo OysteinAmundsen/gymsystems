@@ -7,16 +7,14 @@
     </header>
     <fieldset>
       <div class="row">
-        <div class="col-xs-12" appFloatingLabelContainer>
-          <label for="login-user" translate>Username</label>
-          <input type="text" formControlName="username" appAutofocus/>
-        </div>
+        <mat-form-field class="col-xs-12">
+          <input matInput type="text" formControlName="username" placeholder="{{'Username' | translate}}" appAutofocus/>
+        </mat-form-field>
       </div>
       <div class="row">
-        <div class="col-xs-12" appFloatingLabelContainer>
-          <label for="login-user" translate>Password</label>
-          <input type="password" formControlName="password" />
-        </div>
+        <mat-form-field class="col-xs-12">
+          <input matInput type="password" formControlName="password" placeholder="{{'Password' | translate}}"/>
+        </mat-form-field>
       </div>
     </fieldset>
     <footer>

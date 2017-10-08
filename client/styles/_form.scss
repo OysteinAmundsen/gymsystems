@@ -24,23 +24,29 @@ fieldset {
 }
 
 form, .form {
-  .mat-select {
-    display: initial;
+  @media (min-width: $stop1) {
+    .row {
+      .mat-form-field {
+        display: contents;
+      }
+    }
+    .material-label > label {
+      color: rgba(0, 0, 0, 0.54);
+      transform: scale(0.8);
+      transform-origin: left;
+      display: block;
+    }
+    .mat-slide-toggle {
+      display: block;
+    }
   }
-  md-card-content {
+  mat-card-content {
+    @media (max-width: 600px) {
+      margin: 0 -8px 8px -8px;
+    }
     margin: 0 -16px 16px -16px;
     fieldset {
       padding: 0;
-    }
-  }
-  label {
-    height: $labelHeight;
-    font-size: 0.8rem;
-    display: inline-block;
-    padding: 0.1rem 0 0 $margin;
-    margin-top: $margin * 2;
-    &:first-of-type {
-      margin-top: 0;
     }
   }
   &.horizontal {
@@ -48,10 +54,9 @@ form, .form {
       vertical-align: bottom;
     }
   }
-  input:not([type="checkbox"]),
+  input:not([type="checkbox"]):not([class*="mat-"]),
   textarea,
   select {
-    @include input();
     width: 99%;
     &.ng-invalid {
       border-color: red;
@@ -60,9 +65,18 @@ form, .form {
   [appFloatingLabelContainer] {
     position: relative;
     min-height: $labelHeight + $inputHeight;
-    label {
+    > label {
       cursor: text;
+      height: $labelHeight;
+      font-size: 0.8rem;
+      display: inline-block;
+      padding: 0.1rem 0 0 $margin;
+      margin-top: $margin * 2;
+      &:first-of-type {
+        margin-top: 0;
+      }
     }
+
     label,
     input,
     textarea,
@@ -72,9 +86,11 @@ form, .form {
     }
     input,
     textarea {
+      @include input();
       margin-top: $labelHeight;
     }
     select {
+      @include input();
       margin-top: $labelHeight - 1;
     }
     label {

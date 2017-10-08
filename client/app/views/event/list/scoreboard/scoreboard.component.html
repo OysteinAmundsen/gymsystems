@@ -1,10 +1,10 @@
 <form [formGroup]="scoreForm" (ngSubmit)="onSubmit(scoreForm.value, $event)">
-  <md-card>
-    <md-card-header>
-      <h4 md-card-avatar>#{{ participant.startNumber + 1 }}</h4>
-      <md-card-title><h3>{{ participant.team.name }} - {{ participant.discipline.name}}</h3></md-card-title>
-    </md-card-header>
-    <md-card-content>
+  <mat-card>
+    <mat-card-header>
+      <h4 mat-card-avatar>#{{ participant.startNumber + 1 }}</h4>
+      <mat-card-title><h3>{{ participant.team.name }} - {{ participant.discipline.name}}</h3></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
       <div role="table">
         <div role="row">
           <app-score-group *ngFor="let group of groupedScores" [model]="group" [form]="scoreForm" class="x{{ group.scores ? group.scores.length : '0' }} group_{{ group.group.type }}"></app-score-group>
@@ -28,9 +28,9 @@
           </section>
         </div>
       </div>
-    </md-card-content>
+    </mat-card-content>
 
-    <md-card-actions>
+    <mat-card-actions>
       <app-save-button buttonType="submit"></app-save-button>
       <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
       <button *ngIf="participant.publishTime == null || currentUser.role >= roles.Organizer" type="button" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()">
@@ -46,6 +46,6 @@
       <div *ngIf="participant.publishTime != null && currentUser.role < roles.Organizer" class="pull-right warning">
         <span translate>Allready published!</span>
       </div>
-    </md-card-actions>
-  </md-card>
+    </mat-card-actions>
+  </mat-card>
 </form>

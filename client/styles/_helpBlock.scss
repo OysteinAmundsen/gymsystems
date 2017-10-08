@@ -27,7 +27,7 @@
   }
 }
 
-app-typeahead, app-datepicker, input[type="number"]:not([disabled]) {
+app-datepicker, input[type="number"]:not([disabled]) {
   + app-help-block {
     margin-right: 1rem;
   }

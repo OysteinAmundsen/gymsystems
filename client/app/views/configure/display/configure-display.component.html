@@ -4,8 +4,8 @@
 </h1>
 
 <form>
-  <md-card>
-    <md-card-content>
+  <mat-card>
+    <mat-card-content>
       <div role="table">
         <div role="row">
           <section *ngFor="let template of templates; let i = index;">
@@ -14,9 +14,9 @@
           </section>
         </div>
       </div>
-    </md-card-content>
-    <md-card-actions>
+    </mat-card-content>
+    <mat-card-actions>
       <app-save-button buttonType="submit" (click)="save()"></app-save-button>
-    </md-card-actions>
-  </md-card>
+    </mat-card-actions>
+  </mat-card>
 </form>

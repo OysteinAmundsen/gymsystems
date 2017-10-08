@@ -5,7 +5,6 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
 import { AuthStateService, HttpAction } from 'app/services/config/auth-state.service';
-import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-save-button',
@@ -21,7 +20,7 @@ export class SaveButtonComponent implements OnInit, OnDestroy {
 
   actionSubscription: Subscription;
 
-  constructor(private authState: AuthStateService, private translate: TranslateService, private snackBar: MdSnackBar) { }
+  constructor(private authState: AuthStateService, private translate: TranslateService) { }
 
   ngOnInit() {
     // Make sure language texts exist

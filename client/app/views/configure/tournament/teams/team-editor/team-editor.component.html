@@ -1,26 +1,34 @@
 <form [formGroup]="teamForm" (submit)="save()">
-  <md-card>
-    <md-card-content>
+  <mat-card>
+    <mat-card-content>
       <fieldset>
         <div class="row">
-          <div class="col-5" appFloatingLabelContainer *ngIf="!currentUser.club">
-            <label translate>Club</label>
-            <app-typeahead appAutofocus [valueTransformer]="clubTransformer" itemText="name" [items]="clubs" [getMatches]="getClubMatchesFn()" formControlName="club" [(selectedItem)]="selectedClub"></app-typeahead>
-          </div>
-          <div [ngClass]="{'col-7': !currentUser.club, 'col-12': currentUser.club, 'help-available': teamForm.value.club != null}" appFloatingLabelContainer>
-            <label translate>Name</label>
-            <app-typeahead appAutofocus itemValue="name" [allowUnmatched]="true" [items]="troops" [getMatches]="getTroopMatchesFn()" formControlName="name" [(selectedItem)]="selectedTroop"></app-typeahead>
+          <mat-form-field class="col-5" *ngIf="!currentUser.club">
+            <input matInput formControlName="club" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead">
+            <mat-autocomplete #clubTypeahead="matAutocomplete" (optionSelected)="setSelectedClub($event)" [displayWith]="clubDisplay">
+              <mat-option *ngFor="let club of clubList" [value]="club">
+                {{ club.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field [ngClass]="{'col-7': !currentUser.club, 'col-12': currentUser.club, 'help-available': teamForm.value.club != null}">
+            <input matInput formControlName="name" placeholder="{{'Name' | translate}}" [matAutocomplete]="troopTypeahead">
+            <mat-autocomplete #troopTypeahead="matAutocomplete" (optionSelected)="setSelectedTroop($event)" [displayWith]="troopDisplay">
+              <mat-option *ngFor="let troop of troopList" [value]="troop">
+                {{ troop.name }}
+              </mat-option>
+            </mat-autocomplete>
             <app-help-block *ngIf="teamForm.value.club != null">
               <p translate>You cannot enter a team name before you've selected which club it belongs to</p>
               <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="['/configure/club']">Club</a> section</p>
             </app-help-block>
-          </div>
+          </mat-form-field>
         </div>
       </fieldset>
       <div class="row">
 
         <!-- Divisions -->
-        <div class="col-6">
+        <div class="col-6 divisions">
           <header>
             <h2>
               <fa name="cubes" fw="true"></fa>
@@ -28,27 +36,25 @@
             </h2>
           </header>
           <fieldset>
-
-            <div appFloatingLabel>
-              <label>
+            <mat-form-field class="col-12">
+              <mat-placeholder>
                 <fa name="venus-mars" fw="true"></fa>
                 <span translate>Gender group</span>
-              </label>
-              <select formControlName="genderDivision">
-                <option *ngFor="let division of genderDivisions" [ngValue]="division.id">{{division.name}}</option>
-              </select>
-            </div>
+              </mat-placeholder>
+              <mat-select formControlName="genderDivision">
+                <mat-option *ngFor="let division of genderDivisions" [value]="division.id">{{division.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-            <div appFloatingLabel>
-              <label>
+            <mat-form-field class="col-12">
+              <mat-placeholder>
                 <fa name="child" fw="true"></fa>
                 <span translate>Age group</span>
-              </label>
-              <select formControlName="ageDivision">
-                <option *ngFor="let division of ageDivisions" [ngValue]="division.id">{{division.name}}</option>
-              </select>
-            </div>
-
+              </mat-placeholder>
+              <mat-select formControlName="ageDivision">
+                <mat-option *ngFor="let division of ageDivisions" [value]="division.id">{{division.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </fieldset>
         </div>
 
@@ -111,7 +117,8 @@
       <div class="row">
 
         <!-- Members -->
-        <app-member-selector [club]="team.club" [troopName]="teamForm.value.name"
+        <app-member-selector [club]="teamForm.value.club && teamForm.value.club.id ? teamForm.value.club : null"
+                            [troopName]="teamForm.value.name && teamForm.value.name.id ? teamForm.value.name.name : teamForm.value.name"
                             [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()"
                             [memberTemplate]="memberContent">
           <span class="flex-col" *ngIf="teamForm.value.gymnasts != null && teamForm.value.gymnasts.length > 0">
@@ -130,13 +137,13 @@
           </span>
         </app-member-selector>
       </div>
-    </md-card-content>
-    <md-card-actions>
+    </mat-card-content>
+    <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="teamForm.invalid || teamForm.pristine"></app-save-button>
       <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
       <button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
-    </md-card-actions>
-  </md-card>
+    </mat-card-actions>
+  </mat-card>
 </form>
 
 <ng-template #memberContent let-member="member">

@@ -27,25 +27,17 @@ const Moment: any = (<any>moment).default || moment;
 export class TournamentEditorComponent implements OnInit, OnDestroy {
   tournamentSubject = new ReplaySubject<ITournament>(1);
   tournament: ITournament = <ITournament>{};
-  // get tournament() { return this._tournament; }
-  // set tournament(v) { this._tournament = v; this.tournamentSubject.next(v); }
   tournamentForm: FormGroup;
+
   user: IUser;
   roles = Role;
   userSubscription: Subscription;
   isEdit = false;
   isAdding = false;
 
-  // Club typeahead
-  clubs = [];
-  selectedClub: IClub;
-  clubTransformer = toUpperCaseTransformer;
+  clubList = [];  // Club typeahead
 
-  // Venue typeahead
-  venues = [];
-  selectedVenue: IVenue;
-  venueName: string;
-  setVenueName(name) { this.venueName = name; }
+  venueList = []; // Venue typeahead
 
   private get startDate(): Moment {
     const startDate = this.tournamentForm.value.startDate;
@@ -132,11 +124,39 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       times: [this.tournament.times]
     });
 
+    // Filter club in typeahead
+    const clubCtrl = this.tournamentForm.controls['club'];
+    clubCtrl.valueChanges
+      .distinctUntilChanged()
+      .map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
+      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      .subscribe(v => this.clubService.findByName(v && v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
+
+    // Filter venues in typeahead
+    const venueCtrl = this.tournamentForm.controls['venue'];
+    venueCtrl.valueChanges
+      .distinctUntilChanged()
+      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      .subscribe(v => {
+        if (v) {
+          this.venueService.findByName(v && v.name ? v.name : v).subscribe(venues => this.venueList = venues);
+        } else {
+          this.venueList = [];
+        }
+      });
+
     const reset = () => {
       this.tournamentForm.value.times = null;
     }
     this.tournamentForm.controls['startDate'].valueChanges.distinctUntilChanged().subscribe((val: any) => setTimeout(reset));
     this.tournamentForm.controls['endDate'].valueChanges.distinctUntilChanged().subscribe((val: any) => setTimeout(reset));
+  }
+
+  clubDisplay(club: IClub) {
+    return club && club.name ? club.name : club;
+  }
+  venueDisplay(venue: IVenue) {
+    return venue && venue.name ? venue.name : venue;
   }
 
   tournamentReceived(tournament) {
@@ -165,22 +185,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
     this.tournamentService.selected = null;
-  }
-
-  getClubMatchesFn() {
-    const me = this;
-    return function (items: any[], currentValue: string, matchText: string): Observable<IClub[]> {
-      if (!currentValue) { return Observable.of(items); }
-      return me.clubService.findByName(currentValue);
-    }
-  }
-
-  getVenueMatchesFn() {
-    const me = this;
-    return function (items: any[], currentValue: string, matchText: string): Observable<IVenue[]> {
-      if (!currentValue) { return Observable.of(items); }
-      return me.venueService.findByName(currentValue);
-    }
   }
 
   getTimeRangeDay(day) {

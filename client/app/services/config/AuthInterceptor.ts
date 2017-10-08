@@ -13,7 +13,7 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -43,7 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
     private error: ErrorHandlerService,
     private state: AuthStateService,
     private injector: Injector,
-    private snackBar: MdSnackBar
+    private snackBar: MatSnackBar
   ) { }
 
   intercept(

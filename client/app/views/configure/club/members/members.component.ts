@@ -30,7 +30,9 @@ export class MembersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(this.parent.clubSubject.subscribe(club => {
       this.club = club;
-      this.loadMembers();
+      if (this.club.id) {
+        this.loadMembers();
+      }
     }));
   }
 

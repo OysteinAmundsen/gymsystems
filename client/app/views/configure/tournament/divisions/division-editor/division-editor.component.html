@@ -1,23 +1,21 @@
 <form [formGroup]="divisionForm" (submit)="save()">
-  <md-card>
-    <md-card-content>
+  <mat-card>
+    <mat-card-content>
       <div class="row">
-        <div [className]="!division.type ? 'col-6' : 'col-12'" appFloatingLabelContainer>
-          <label translate>Name</label>
-          <input type="text" formControlName="name" appAutofocus>
-        </div>
-        <div *ngIf="!division.type" class="col-6" appFloatingLabelContainer>
-          <label translate>Type</label>
-          <select formControlName="type">
-            <option *ngFor="let type of types" [ngValue]="type.id">{{type.name}}</option>
-          </select>
-        </div>
+        <mat-form-field [className]="!division.type ? 'col-6' : 'col-12'">
+          <input matInput type="text" formControlName="name" placeholder="{{'Name' | translate}}" appAutofocus>
+        </mat-form-field>
+        <mat-form-field *ngIf="!division.type" class="col-6">
+          <mat-select formControlName="type" placeholder="{{'Type' | translate}}">
+            <mat-option *ngFor="let type of types" [value]="type.id">{{type.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-    </md-card-content>
-    <md-card-actions>
+    </mat-card-content>
+    <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="divisionForm.invalid || divisionForm.pristine"></app-save-button>
       <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
       <button type="button" *ngIf="standalone || divisionForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
-    </md-card-actions>
-  </md-card>
+    </mat-card-actions>
+  </mat-card>
 </form>

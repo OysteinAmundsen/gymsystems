@@ -20,7 +20,7 @@ export class UserEditorComponent implements OnInit {
 
   currentUser: IUser;
   userForm: FormGroup;
-  clubs = [];
+  clubList = [];
   selectedClub: IClub;
   selectedUserId: number;
   user: IUser = <IUser>{};
@@ -67,6 +67,18 @@ export class UserEditorComponent implements OnInit {
     }, {validator: (c: AbstractControl) => {
       return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false}};
     }});
+
+    const clubCtrl = this.userForm.controls['club'];
+    // Read filtered options
+    clubCtrl.valueChanges
+      .distinctUntilChanged()
+      .map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
+      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      .subscribe(v => this.clubService.findByName(v && v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
+  }
+
+  clubDisplay(club: IClub) {
+    return club && club.name ? club.name : club;
   }
 
   userReceived(user: IUser) {
@@ -79,20 +91,11 @@ export class UserEditorComponent implements OnInit {
       name: this.user.name,
       role: this.user.role,
       email: this.user.email || '',
-      club: this.user.club,
+      club: this.user.club || null,
       password: this.user.password,
       repeatPassword: this.user.password
     });
   }
-
-  getClubMatchesFn() {
-    const me = this;
-    return function (items: any[], currentValue: string, matchText: string): Observable<IClub[]> {
-      if (!currentValue) { return Observable.of(items); }
-      return me.clubService.findByName(currentValue);
-    }
-  }
-
 
   async save() {
     const formVal = this.userForm.value;
