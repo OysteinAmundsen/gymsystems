@@ -4,8 +4,8 @@ import { ITournament } from './ITournament';
 export interface IVenue extends ICreatedBy {
   id: number;
   name: string;
-  longitude: number;
-  latitude: number;
+  longitude: string;
+  latitude: string;
   address: string;
   rentalCost: number;
   contact: string;

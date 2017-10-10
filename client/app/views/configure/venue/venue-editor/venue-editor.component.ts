@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { VenueService } from 'app/services/api';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { ValidationService } from 'app/services/validation';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 @Component({
   selector: 'app-venue-editor',
@@ -21,9 +22,23 @@ export class VenueEditorComponent implements OnInit {
   adressList = [];
 
   get venueName() {
-    let venueName = this.venueForm && this.venueForm.value.name ? this.venueForm.value.name : this.selectedVenue.name;
+    let venueName = this.venueForm && this.venueForm.getRawValue().name ? this.venueForm.getRawValue().name : this.selectedVenue.name;
     if (!venueName) { venueName = this.translate.instant('Add Venue'); }
     return venueName;
+  }
+
+  get latitude(): number {
+    if (this.venueForm && this.venueForm.getRawValue().latitude) {
+      return parseFloat(this.venueForm.getRawValue().latitude);
+    }
+    return 0;
+  }
+
+  get longitude(): number {
+    if (this.venueForm && this.venueForm.getRawValue().longitude) {
+      return parseFloat(this.venueForm.getRawValue().longitude);
+    }
+    return 0;
   }
 
   constructor(
@@ -53,7 +68,7 @@ export class VenueEditorComponent implements OnInit {
     addressCtrl.valueChanges
       .distinctUntilChanged()
       .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      .subscribe(v => this.venueService.findByName(v).subscribe(address => this.adressList = address));
+      .subscribe(v => this.venueService.findLocationByAddress(v).subscribe(address => this.adressList = address));
 
     this.route.params.subscribe(params => {
       if (params.id) {
@@ -72,9 +87,10 @@ export class VenueEditorComponent implements OnInit {
     this.venueForm.setValue(this.selectedVenue);
   }
 
-  setSelectedAddress(v) {
-    this.venueForm.controls['latitude'].setValue(v.geometry.location.lat);
-    this.venueForm.controls['longitude'].setValue(v.geometry.location.lng);
+  setSelectedAddress(v: MatAutocompleteSelectedEvent) {
+    this.venueForm.controls['address'].setValue(v.option.value.formatted_address);
+    this.venueForm.controls['latitude'].setValue(v.option.value.geometry.location.lat);
+    this.venueForm.controls['longitude'].setValue(v.option.value.geometry.location.lng);
   }
 
   markerDragEnd($event: MouseEvent) {

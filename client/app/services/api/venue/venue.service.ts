@@ -41,8 +41,8 @@ export class VenueService {
     return this.http.delete(`/api/venue/${venue.id}`);
   }
 
-  findLocationByAddress(address: string) {
+  findLocationByAddress(address: string): Observable<[{}]> {
     // return this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${VenueService.apiKey}`);
-    return this.http.get(`/api/venue/addr/${address}`);
+    return this.http.get<[{}]>(`/api/venue/addr/${address}`);
   }
 }

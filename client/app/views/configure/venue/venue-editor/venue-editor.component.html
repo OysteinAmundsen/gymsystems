@@ -21,8 +21,8 @@
       <div class="row">
         <mat-form-field class="col-6">
           <input matInput formControlName="address" placeholder="{{'Address' | translate}}" [matAutocomplete]="addressTypeahead">
-          <mat-autocomplete #addressTypeahead="matAutocomplete">
-            <mat-option *ngFor="let address of adressList" [value]="address.formatted_address" (optionSelected)="setSelectedAddress(address)">
+          <mat-autocomplete #addressTypeahead="matAutocomplete" (optionSelected)="setSelectedAddress($event)">
+            <mat-option *ngFor="let address of adressList" [value]="address">
               {{ address.formatted_address }}
             </mat-option>
           </mat-autocomplete>
@@ -96,9 +96,9 @@
     </mat-card-actions>
 
     <mat-card-footer>
-      <agm-map [latitude]="venueForm.controls['latitude'].value" [longitude]="venueForm.controls['longitude'].value" [zoom]="17">
-        <agm-marker [latitude]="venueForm.controls['latitude'].value"
-                    [longitude]="venueForm.controls['longitude'].value"
+      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="17">
+        <agm-marker [latitude]="latitude"
+                    [longitude]="longitude"
                     [markerDraggable]="true"
                     (dragEnd)="markerDragEnd($event)">
           <agm-info-window [isOpen]="true">

@@ -33,13 +33,13 @@ export class Venue implements CreatedBy {
    * The longitude part of the geolocation for this venue
    */
   @Column()
-  longitude: number;
+  longitude: string;
 
   /**
    * The latitude part of the geolocation for this venue
    */
   @Column()
-  latitude: number;
+  latitude: string;
 
   /**
    * A human readable address for this venue
