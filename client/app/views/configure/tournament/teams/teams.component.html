@@ -24,7 +24,7 @@
   </table>
 </div>
 
-<button type="button" *ngIf="selected == null && canAdd()" [title]="'Add' | translate" (click)="addTeam()" [disabled]="!hasFreeSlots">
+<button mat-raised-button type="button" *ngIf="selected == null && canAdd()" [title]="'Add' | translate" (click)="addTeam()" [disabled]="!hasFreeSlots">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Team</span>
 </button>

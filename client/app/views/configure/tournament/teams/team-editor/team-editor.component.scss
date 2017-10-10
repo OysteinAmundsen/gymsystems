@@ -24,7 +24,7 @@ table[role="list"] {
 }
 header {
   margin-left: 1rem;
-  app-slide-toggle {
+  .mat-slide-toggle {
     float: right;
     min-width: 10rem;
   }
@@ -48,7 +48,7 @@ td {
       white-space: nowrap;
       text-overflow: ellipsis;
     }
-    label.file-upload {
+    .file-upload {
       position: relative;
       max-width: 40px;
       padding-top: 0;

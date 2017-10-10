@@ -15,7 +15,7 @@
         </mat-form-field>
         <div class="col-5 lowered material-label help-available">
           <label translate>Register as</label>
-          <mat-slide-toggle [checked]="registerForm.value.role === type.Organizer" (change)="$event.checked ? registerForm.controls['role'].setValue(type.Organizer) : registerForm.controls['role'].setValue(type.Club)">
+          <mat-slide-toggle class="mat-primary" [checked]="registerForm.value.role === type.Organizer" (change)="$event.checked ? registerForm.controls['role'].setValue(type.Organizer) : registerForm.controls['role'].setValue(type.Club)">
             <span *ngIf="registerForm.value.role === type.Organizer" translate>Organizer</span>
             <span *ngIf="registerForm.value.role === type.Club" translate>Club</span>
           </mat-slide-toggle>
@@ -65,11 +65,11 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button type="submit" [title]="'Login' | translate" [disabled]="registerForm.invalid || registerForm.pristine">
+      <button mat-raised-button type="submit" [title]="'Login' | translate" [disabled]="registerForm.invalid || registerForm.pristine">
         <fa name="sign-in" fw="true"></fa>
         <span translate>Register</span>
       </button>
-      <a [title]="'Login' | translate" [routerLink]="['../login']" class="btn">
+      <a mat-raised-button [title]="'Login' | translate" [routerLink]="['../login']">
         <fa name="sign-in" fw="true"></fa>
         <span translate>Back to login</span>
       </a>

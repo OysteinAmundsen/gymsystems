@@ -12,7 +12,7 @@ import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { AgmCoreModule } from '@agm/core';
 import {
   MatCardModule, MatSnackBarModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule,
-  MatOptionModule, MatSlideToggleModule
+  MatOptionModule, MatSlideToggleModule, MatButtonModule
 } from '@angular/material';
 
 // Module dependencies
@@ -76,6 +76,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatOptionModule,
     MatCardModule,
     MatSnackBarModule,
+    MatButtonModule,
     MatSlideToggleModule,
 
     // Application modules

@@ -30,8 +30,6 @@ export class ListComponent implements OnInit, OnDestroy {
   classes = Classes;
   types = ParticipationType;
   showTraining = true;
-  get trainingVisibleLabel(): string { return this.translate.instant('Training visible'); }
-  get trainingHiddenLabel(): string { return this.translate.instant('Training hidden'); }
 
   _cache: {[key: string]: ParticipantCache} = {};
 

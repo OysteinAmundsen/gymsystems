@@ -2,10 +2,10 @@
   <table role="list" class="editable" matSort (matSortChange)="sortData($event)">
     <thead>
       <tr>
-        <th translate mat-sort-header="name">Name</th>
-        <th translate mat-sort-header="birthYear">Birth year</th>
-        <th translate mat-sort-header="gender">Gender</th>
-        <th translate>Teams</th>
+        <th mat-sort-header="name">{{'Name' | translate}}</th>
+        <th mat-sort-header="birthYear">{{'Birth year' | translate}}</th>
+        <th mat-sort-header="gender">{{'Gender' | translate}}</th>
+        <th>{{'Teams' | translate}}</th>
       </tr>
     </thead>
     <tbody *ngFor="let member of memberList">
@@ -24,16 +24,16 @@
   </table>
 </div>
 
-<button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()">
+<button mat-raised-button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Member</span>
 </button>
-<label class="file-upload btn" *ngIf="selected == null" [title]="'Import' | translate">
+<a mat-raised-button class="file-upload btn" *ngIf="selected == null" [title]="'Import' | translate">
   <input type="file" (change)="importMember($event)" accept=".csv">
   <fa name="upload" fw="true"></fa>
   <span translate>Import Members</span>
-</label>
-<a href="/api/clubs/{{ club.id }}/export-members" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0" [title]="'Import' | translate">
+</a>
+<a mat-raised-button href="/api/clubs/{{ club.id }}/export-members" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0" [title]="'Import' | translate">
   <fa name="download" fw="true"></fa>
   <span translate>Export Members</span>
 </a>

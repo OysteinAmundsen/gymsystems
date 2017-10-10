@@ -14,8 +14,8 @@
     </mat-card-content>
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="divisionForm.invalid || divisionForm.pristine"></app-save-button>
-      <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
-      <button type="button" *ngIf="standalone || divisionForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="standalone || divisionForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>
 </form>

@@ -6,6 +6,12 @@ textarea {
   // caret-color: black;
   font-family: inherit;
   font-size: inherit;
+  width: 100%;
+}
+
+.mat-button {
+  min-width: 1rem;
+  padding: 0 10px;
 }
 
 .divider {

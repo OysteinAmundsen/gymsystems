@@ -5,12 +5,15 @@ import { DragulaModule } from 'ng2-dragula';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { MemberSelectorComponent } from './member-selector/member-selector.component';
+import { MatButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     DragulaModule,
     RouterModule,
+
+    MatButtonModule,
     SharedModule,
   ],
   declarations: [MemberSelectorComponent],

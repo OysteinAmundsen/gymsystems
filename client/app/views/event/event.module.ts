@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
+import {
+  MatCardModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatSlideToggleModule, MatButtonModule
+} from '@angular/material';
 
 // Module dependencies
 import { SharedModule } from 'app/shared/shared.module';
@@ -18,7 +21,6 @@ import { DisplayComponent } from './display/display.component';
 import { FullscreenComponent } from './display/fullscreen/fullscreen.component';
 import { ResultsComponent } from './results/results.component';
 import { SignoffReportComponent } from './signoff-report/signoff-report.component';
-import { MatCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -29,6 +31,11 @@ import { MatCardModule } from '@angular/material';
     MarkdownToHtmlModule,
 
     MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatSlideToggleModule,
+    MatButtonModule,
 
     EventRoutingModule
   ],

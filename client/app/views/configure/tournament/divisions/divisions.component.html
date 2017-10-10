@@ -50,11 +50,11 @@
 <div *ngIf="selected && !selected.type">
   <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor>
 </div>
-<button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDivision()">
+<button mat-raised-button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDivision()">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Divisions</span>
 </button>
-<button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
+<button mat-raised-button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
   <fa name="plus-circle" fw="true"></fa>
   <span translate>Add Default Divisions</span>
 </button>

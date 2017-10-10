@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule, MatButtonModule } from '@angular/material';
 
 // Module dependencies
 import { SharedModule } from 'app/shared/shared.module';
@@ -15,7 +16,6 @@ import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
 import { MacroDialogComponent } from './display/macro-dialog/macro-dialog.component';
 import { VenueModule } from 'app/views/configure/venue/venue.module';
-import { MatCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -25,6 +25,7 @@ import { MatCardModule } from '@angular/material';
     ConfigureRoutingModule,
 
     MatCardModule,
+    MatButtonModule,
 
     // Packaged modules
     SharedModule,

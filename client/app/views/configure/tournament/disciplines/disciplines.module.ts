@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DragulaModule } from 'ng2-dragula';
+import { MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { ScoreSystemModule } from '../score-system/score-system.module';
 
 import { DisciplinesComponent } from './disciplines.component';
 import { DisciplineEditorComponent } from './discipline-editor/discipline-editor.component';
-import { MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -22,6 +22,7 @@ import { MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/mate
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
 
     SharedModule,
   ],

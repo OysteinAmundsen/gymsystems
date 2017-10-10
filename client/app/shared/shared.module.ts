@@ -9,7 +9,6 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome';
 // Shared components
 import { DialogComponent } from './components/dialog/dialog.component';
 import { PanelComponent } from './components/panel/panel.component';
-import { SlideToggleComponent } from './components/slide-toggle/slide-toggle.component';
 
 // Shared directives
 import { AutofocusDirective } from './directives/autofocus/autofocus.directive';
@@ -23,6 +22,7 @@ import { SaveButtonComponent } from './components/save-button/save-button.compon
 import { UtcDatePipe } from './pipes/utc-date.pipe';
 import { HelpBlockComponent } from './components/help-block/help-block.component';
 import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directive';
+import { MatButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -34,12 +34,13 @@ import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directiv
     ReactiveFormsModule,
     DragulaModule,
 
+    MatButtonModule,
+
     RouterModule,
   ],
   declarations: [
     DialogComponent,
     PanelComponent,
-    SlideToggleComponent,
     MultirangeComponent,
     SaveButtonComponent,
     HelpBlockComponent,
@@ -61,7 +62,6 @@ import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directiv
     // Export components
     DialogComponent,
     PanelComponent,
-    SlideToggleComponent,
     MultirangeComponent,
     SaveButtonComponent,
     HelpBlockComponent,

@@ -12,11 +12,11 @@
     </tbody>
   </table>
 </div>
-<button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDiscipline()">
+<button mat-raised-button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDiscipline()">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Disciplines</span>
 </button>
-<button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
+<button mat-raised-button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
   <fa name="plus-circle" fw="true"></fa>
   <span translate>Add Default Disciplines</span>
 </button>

@@ -38,34 +38,10 @@
   }
 }
 
-button:not([class*="mat-"]),
-.btn {
-  @include btn();
-  &[type="submit"],
-  &.primary {
-    color: white;
-    background: $primary;
-    &[disabled] {
-      background: lighten(desaturate($primary, 100%), 20%);
-      color: lighten($text-color, 30%);
-      &.raised,
-      &:hover,
-      &:active,
-      &:focus {
-        box-shadow: none;
-      }
-    }
-  }
-  &.warning {
-    &:hover {
-      color: white;
-      background-color: $warning;
-    }
-  }
-  &[disabled] {
-    color: lighten($text-color, 30%);
-  }
-  &.small {
-    padding: 4px;
+
+.mat-raised-button:not(.primary):not([disabled]):not(.cdk-focused) {
+  box-shadow: none;
+  &:hover {
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12)
   }
 }

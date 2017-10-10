@@ -3,20 +3,12 @@
 header {
   max-width: 400px;
   display: flex;
-  div {
+  align-items: center;
+  mat-form-field {
+
+  }
+  mat-slide-toggle {
     flex: 1;
-    &[appFloatingLabel] {
-      display: flex;
-      > * {
-        flex: 1;
-      }
-    }
-  }
-  label {
-    line-height: 32px;
-  }
-  select {
-    display: inline-block;
   }
 }
 td.editor {

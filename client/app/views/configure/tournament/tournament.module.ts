@@ -6,7 +6,7 @@ import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { DragulaModule } from 'ng2-dragula';
 import {
   MatSortModule, MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule,
-  MatOptionModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule
+  MatOptionModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatSlideToggleModule
 } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
@@ -41,6 +41,7 @@ import { InfoComponent } from './info/info.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
+    MatSlideToggleModule,
 
     SharedModule,
     DisciplinesModule,

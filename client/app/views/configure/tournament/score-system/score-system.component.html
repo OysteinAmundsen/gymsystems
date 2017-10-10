@@ -26,11 +26,11 @@
   </table>
 </div>
 
-<button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addScoreGroup()">
+<button mat-raised-button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addScoreGroup()">
   <fa name="plus" fw="true"></fa>
   <span translate>Add ScoreGroup</span>
 </button>
-<button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
+<button mat-raised-button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
   <fa name="plus-circle" fw="true"></fa>
   <span translate>Add Default ScoreGroups</span>
 </button>

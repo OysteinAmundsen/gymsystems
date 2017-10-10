@@ -3,7 +3,8 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
-  MatSortModule, MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatAutocompleteModule
+  MatSortModule, MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule,
+  MatAutocompleteModule, MatButtonModule
 } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
@@ -32,7 +33,8 @@ import { TroopEditorComponent } from './troops/troop-editor/troop-editor.compone
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatButtonModule
   ],
   declarations: [
     ClubComponent,

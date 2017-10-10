@@ -7,11 +7,11 @@
   <table role="list" class="editable" matSort (matSortChange)="sortData($event)">
     <thead>
       <tr>
-        <th translate mat-sort-header="name">Name</th>
-        <th translate mat-sort-header="contact">Contact</th>
-        <th translate mat-sort-header="rentalCost">Rental cost</th>
-        <th translate mat-sort-header="address">Address</th>
-        <th translate *appIfAuth="'Admin'">Created by</th>
+        <th mat-sort-header="name">{{'Name' | translate}}</th>
+        <th mat-sort-header="contact">{{'Contact' | translate}}</th>
+        <th mat-sort-header="rentalCost">{{'Rental cost' | translate}}</th>
+        <th mat-sort-header="address">{{'Address' | translate}}</th>
+        <th *appIfAuth="'Admin'">{{'Created by' | translate}}</th>
       </tr>
     </thead>
     <tbody *ngFor="let venue of venueList">
@@ -26,7 +26,7 @@
   </table>
 </div>
 
-<button type="button" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
+<button mat-raised-button type="button" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Venue</span>
 </button>

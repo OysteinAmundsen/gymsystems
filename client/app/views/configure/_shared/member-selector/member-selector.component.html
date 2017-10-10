@@ -1,6 +1,6 @@
 <section *ngIf="club">
   <div class="action">
-    <button type="button" class="small" (click)="toggleMembers()" [title]="toggleTitle">
+    <button mat-icon-button type="button" class="small" (click)="toggleMembers()" [title]="toggleTitle">
       <fa *ngIf="!memberListHidden" name="chevron-left" fw="true"></fa>
       <fa *ngIf="memberListHidden" name="chevron-right" fw="true"></fa>
     </button>

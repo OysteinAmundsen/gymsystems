@@ -7,9 +7,9 @@
   <table role="list" class="editable" matSort (matSortChange)="sortData($event)">
     <thead>
       <tr>
-        <th translate mat-sort-header="name">Name</th>
-        <th translate mat-sort-header="role">Role</th>
-        <th translate mat-sort-header="club.name">Club</th>
+        <th mat-sort-header="name">{{'Name' | translate}}</th>
+        <th mat-sort-header="role">{{'Role' | translate}}</th>
+        <th mat-sort-header="club.name">{{'Club' | translate}}</th>
       </tr>
     </thead>
     <tbody *ngFor="let user of userList">
@@ -22,7 +22,7 @@
   </table>
 </div>
 
-<button type="button" [title]="'Add' | translate" [routerLink]="['./add']">
+<button mat-raised-button type="button" [title]="'Add' | translate" [routerLink]="['./add']">
   <fa name="plus" fw="true"></fa>
   <span translate>Add User</span>
 </button>

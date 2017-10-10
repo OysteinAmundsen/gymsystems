@@ -56,8 +56,12 @@
 
   <div class="container">
     <div class="language-selector">
-      <span (click)="changeLang('no')" [ngClass]="'clickable flag-icon flag-icon-large flag-icon-no ' + (currentLang === 'no' ? 'selected' : '')"></span>
-      <span (click)="changeLang('en')" [ngClass]="'clickable flag-icon flag-icon-large flag-icon-gb ' + (currentLang === 'en' ? 'selected' : '')"></span>
+      <button mat-icon-button (click)="changeLang('no')">
+        <i [ngClass]="'clickable flag-icon flag-icon-large flag-icon-no ' + (currentLang === 'no' ? 'selected' : '')"></i>
+      </button>
+      <button mat-icon-button (click)="changeLang('en')">
+        <i [ngClass]="'clickable flag-icon flag-icon-large flag-icon-gb ' + (currentLang === 'en' ? 'selected' : '')"></i>
+      </button>
     </div>
     <span *ngIf="user" class="user-info">
       <b translate>Logged in as: </b><i>{{ user.name }}</i><br>
