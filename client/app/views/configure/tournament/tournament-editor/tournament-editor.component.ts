@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
@@ -16,6 +16,7 @@ import { ITournament, IUser, Role, IClub, IVenue } from 'app/model';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { toUpperCaseTransformer } from 'app/shared/directives';
+import { MatDatepickerInput } from '@angular/material';
 
 const Moment: any = (<any>moment).default || moment;
 
@@ -25,6 +26,8 @@ const Moment: any = (<any>moment).default || moment;
   styleUrls: ['./tournament-editor.component.scss']
 })
 export class TournamentEditorComponent implements OnInit, OnDestroy {
+  @ViewChild('startDateInput') startDateInput: MatDatepickerInput<any>;
+  @ViewChild('endDateInput') endDateInput: MatDatepickerInput<any>;
   tournamentSubject = new ReplaySubject<ITournament>(1);
   tournament: ITournament = <ITournament>{};
   tournamentForm: FormGroup;

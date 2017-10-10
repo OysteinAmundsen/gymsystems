@@ -196,7 +196,7 @@ export class ScheduleController {
       return new ErrorResponse(403, 'You are not authorized to create participants in a tournament not run by your club.');
     }
 
-    return this.repository.persist(participants)
+    return this.repository.save(participants)
       .catch(err => {
         Logger.log.error(`Error creating schedule participants`, err);
         return new ErrorResponse(err.code, err.message);
@@ -223,7 +223,7 @@ export class ScheduleController {
       res.status(403);
       return new ErrorResponse(403, 'You are not authorized to update participants in a tournament not run by your club.');
     }
-    return this.repository.persist(participant)
+    return this.repository.save(participant)
       .then(() => {
         sseService.publish('Participant updated');
         return this.get(id);

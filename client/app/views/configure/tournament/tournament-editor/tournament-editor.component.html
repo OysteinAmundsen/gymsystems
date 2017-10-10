@@ -68,18 +68,20 @@
         </div>
 
         <div class="row">
-          <mat-form-field class="col-xs-4">
-            <input matInput [matDatepicker]="startDate" placeholder="{{'Start date' | translate}}">
-            <mat-datepicker #startDate></mat-datepicker>
             <!-- <app-datepicker formControlName="startDate" [options]="{maxDate: tournamentForm.value.endDate, initialDate: tournamentForm.value.endDate, autoApply: true}"></app-datepicker> -->
+            <!-- <app-datepicker formControlName="endDate" [options]="{minDate: tournamentForm.value.startDate, initialDate: tournamentForm.value.startDate, autoApply: true}"></app-datepicker> -->
+            <mat-form-field class="col-xs-4">
+            <input matInput formControlName="startDate" [matDatepicker]="startDate" placeholder="{{'Start date' | translate}}" [max]="tournamentForm.value.endDate" #startDateInput>
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
             <app-help-block>
               <p translate>Pick the date this tournament is to start.</p>
             </app-help-block>
           </mat-form-field>
           <mat-form-field class="col-xs-4">
-            <input matInput [matDatepicker]="endDate" placeholder="{{'End date' | translate}}">
+            <input matInput formControlName="endDate" [matDatepicker]="endDate" placeholder="{{'End date' | translate}}" [min]="tournamentForm.value.startDate" #endDateInput>
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
             <mat-datepicker #endDate></mat-datepicker>
-            <!-- <app-datepicker formControlName="endDate" [options]="{minDate: tournamentForm.value.startDate, initialDate: tournamentForm.value.startDate, autoApply: true}"></app-datepicker> -->
             <app-help-block>
               <p translate>The date this tournament is over.</p>
             </app-help-block>

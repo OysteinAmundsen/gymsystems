@@ -40,6 +40,9 @@ form, .form {
       display: block;
     }
   }
+  .datepicker-input-icon {
+    padding-right: 1rem;
+  }
   mat-card-content {
     @media (max-width: 600px) {
       margin: 0 -8px 8px -8px;

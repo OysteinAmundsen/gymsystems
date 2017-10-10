@@ -89,7 +89,7 @@ export class ScoreController {
     }
 
     scores = scores.map(s => { s.participant = p; return s; });
-    return this.repository.persist(scores)
+    return this.repository.save(scores)
       .then(s => {
         sseService.publish('Scores updated');
         return s;
@@ -128,7 +128,7 @@ export class ScoreController {
     if (me.role >= Role.Organizer || p.publishTime == null) { // Cannot delete if allready published, unless you're the Organizer
       p.publishTime = null;
       scheduleRepository.update(p.id, p, res, req);
-      return this.repository.find({ participant: participantId }) // Next-gen TypeORM: .find({ participant: {id: participantId} })
+      return this.repository.find({ participant: {id: participantId} })
         .then(scores => this.repository.remove(scores).then(s => {
           sseService.publish('Scores updated');
           return s;
@@ -177,7 +177,7 @@ export class ScoreController {
       i.publishTime = null;
       return this.repository.remove(i.scores).then(s => {
         i.scores = [];
-        return scheduleRepository.repository.persist(i);
+        return scheduleRepository.repository.save(i);
       })
     })).then(() => {
       sseService.publish('Scores updated');

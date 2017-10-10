@@ -103,7 +103,7 @@ export class DisciplineController {
   @UseBefore(RequireRole.get(Role.Organizer))
   create( @Body() discipline: Discipline | Discipline[], @Res() res: Response): Promise<Discipline[] | ErrorResponse> {
     const disciplines = Array.isArray(discipline) ? discipline : [discipline];
-    return this.repository.persist(disciplines)
+    return this.repository.save(disciplines)
       .catch(err => {
         Logger.log.error('Error creating discipline', err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
@@ -122,7 +122,7 @@ export class DisciplineController {
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   update( @Param('id') id: number, @Body() discipline: Discipline): Promise<Discipline | ErrorResponse> {
-    return this.repository.persist(discipline)
+    return this.repository.save(discipline)
       .catch(err => {
         Logger.log.error(`Error updating discipline ${id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));

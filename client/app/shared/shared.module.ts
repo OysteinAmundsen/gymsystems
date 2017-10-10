@@ -7,13 +7,11 @@ import { DragulaModule } from 'ng2-dragula';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome';
 
 // Shared components
-import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { SlideToggleComponent } from './components/slide-toggle/slide-toggle.component';
 
 // Shared directives
-import { FloatingLabelContainerDirective } from './directives/floating-label/floating-label-container.directive';
 import { AutofocusDirective } from './directives/autofocus/autofocus.directive';
 import { IfAuthDirective } from './directives/auth/if-auth.directive';
 
@@ -39,7 +37,6 @@ import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directiv
     RouterModule,
   ],
   declarations: [
-    DatepickerComponent,
     DialogComponent,
     PanelComponent,
     SlideToggleComponent,
@@ -48,7 +45,6 @@ import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directiv
     HelpBlockComponent,
 
     ToCaseDirective,
-    FloatingLabelContainerDirective,
     AutofocusDirective,
     IfAuthDirective,
 
@@ -63,7 +59,6 @@ import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directiv
     Angular2FontawesomeModule,
 
     // Export components
-    DatepickerComponent,
     DialogComponent,
     PanelComponent,
     SlideToggleComponent,
@@ -72,7 +67,6 @@ import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directiv
     HelpBlockComponent,
 
     ToCaseDirective,
-    FloatingLabelContainerDirective,
     AutofocusDirective,
     IfAuthDirective,
 

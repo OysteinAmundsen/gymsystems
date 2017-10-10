@@ -106,7 +106,7 @@ export class MediaController {
       .then((fileName) => {
 
         // Create a media link for this entry
-        return this.repository.persist(<Media>{
+        return this.repository.save(<Media>{
           filename: fileName,
           originalName: metaData.originalName,
           mimeType: metaData.mimeType,

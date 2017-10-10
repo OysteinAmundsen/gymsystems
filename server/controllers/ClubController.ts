@@ -145,7 +145,7 @@ export class ClubController {
    */
   @Post()
   create( @Body() club: Club, @Res() res?: Response): Promise<Club | any> {
-    return this.repository.persist(club)
+    return this.repository.save(club)
       .catch(err => {
         Logger.log.error('Error creating club', err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
@@ -165,7 +165,7 @@ export class ClubController {
   @Put('/:clubId')
   @UseBefore(RequireRole.get(Role.Club))
   update( @Param('clubId') clubId: number, @Body() club: Club): Promise<Club | any> {
-    return this.repository.persist(club)
+    return this.repository.save(club)
       .catch(err => {
         Logger.log.error(`Error updating club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
@@ -253,7 +253,7 @@ export class ClubController {
   @UseBefore(RequireRole.get(Role.Club))
   addMember(@Param('clubId') clubId: number, @Body() member: Gymnast): Promise<Gymnast | ErrorResponse> {
     return this.conn.getRepository(Gymnast)
-      .persist(member)
+      .save(member)
       .catch(err => {
         Logger.log.error(`Error adding member to club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
@@ -309,7 +309,7 @@ export class ClubController {
 
           // Persist data
           this.conn.getRepository(Gymnast)
-            .persist(members)
+            .save(members)
             .then(persisted => resolve(persisted))
             .catch(err => {
               Logger.log.error(`Error persisting members to club ${clubId}`, err);
@@ -402,7 +402,7 @@ export class ClubController {
   @UseBefore(RequireRole.get(Role.Club))
   saveTeams(@Param('clubId') clubId: number, @Body() troop: Troop): Promise < Troop | ErrorResponse > {
     return this.conn.getRepository(Troop)
-      .persist(troop)
+      .save(troop)
       .catch(err => {
         Logger.log.error(`Error creating teams in club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));

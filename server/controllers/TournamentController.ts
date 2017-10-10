@@ -106,7 +106,7 @@ export class TournamentController {
       .leftJoinAndSelect('tournament.venue', 'venue')
       .where('tournament.endDate < :date', { date: date })
       .orderBy('tournament.startDate', 'DESC')
-      .setLimit(limit) // Next-gen Typeorm: .limit(10)
+      .limit(10)
       .getMany()
       .catch(() => {
         Logger.log.debug(`Query for past tournament was rejected before it was fulfilled`);
@@ -133,7 +133,7 @@ export class TournamentController {
       .leftJoinAndSelect('tournament.venue', 'venue')
       .where(':now between tournament.startDate and tournament.endDate', { now: now })
       .orderBy('tournament.startDate', 'DESC')
-      .setLimit(limit) // Next-gen Typeorm: .limit(10)
+      .limit(10)
       .getMany()
       .catch(() => {
         Logger.log.debug(`Query for current tournaments was rejected before it was fulfilled`);
@@ -160,7 +160,7 @@ export class TournamentController {
       .leftJoinAndSelect('tournament.venue', 'venue')
       .where('tournament.startDate > :date', { date: date })
       .orderBy('tournament.startDate', 'DESC')
-      .setLimit(limit) // Next-gen Typeorm: .limit(10)
+      .limit(10)
       .getMany()
       .catch(() => {
         Logger.log.debug(`Query for future tournaments was rejected before it was fulfilled`);
@@ -213,7 +213,7 @@ export class TournamentController {
     const me = await Container.get(UserController).me(req);
     tournament.createdBy = me;
 
-    return this.repository.persist(tournament)
+    return this.repository.save(tournament)
       .then(persisted => {
         this.createDefaults(persisted, res);
 
@@ -245,7 +245,7 @@ export class TournamentController {
     const msg = await validateClub(tournament, null, req);
     if (msg) { res.status(403); return new ErrorResponse(403, msg); }
 
-    return this.repository.persist(tournament)
+    return this.repository.save(tournament)
       .then(persisted => {
         Container.get(MediaController).expireArchive(persisted.id, persisted.endDate)
         return persisted;
@@ -282,7 +282,7 @@ export class TournamentController {
 
     // Remove participants
     const participantRepository = this.conn.getRepository(TeamInDiscipline);
-    const participants = await participantRepository.find({ tournament: tournament.id });
+    const participants = await participantRepository.find({ tournament: {id: tournament.id} });
     await participantRepository.remove(participants);
 
     // Remove divisions
