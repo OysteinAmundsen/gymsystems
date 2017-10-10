@@ -9,7 +9,7 @@ export interface IVenue extends ICreatedBy {
   address: string;
   rentalCost: number;
   contact: string;
-  contactPhone: number;
+  contactPhone: string;
   contactEmail: string;
   capacity: number;
   tournaments: ITournament[];
