@@ -5,7 +5,7 @@ import { Team } from './Team';
 import { Troop } from './Troop';
 import { Tournament } from './Tournament';
 
-/**
+ /**
 * Defines the available genders
 *
 * @export
@@ -66,7 +66,7 @@ export class Gymnast implements BelongsToClub {
    * Phone number of this gymnast
    */
   @Column({ nullable: true})
-  phone: number;
+  phone: string;
 
   /**
    * The gender of the performer will allow the system
@@ -97,13 +97,13 @@ export class Gymnast implements BelongsToClub {
    * Phone number of a parent or a legal guardian for this gymnast
    */
   @Column({ nullable: true})
-  guardian1Phone: number;
+  guardian1Phone: string;
 
   /**
    * Phone number of a parent or a legal guardian for this gymnast
    */
   @Column({ nullable: true})
-  guardian2Phone: number;
+  guardian2Phone: string;
 
   /**
    * Email of a parent or a legal guardian for this gymnast
