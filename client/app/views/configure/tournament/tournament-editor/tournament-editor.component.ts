@@ -26,8 +26,8 @@ const Moment: any = (<any>moment).default || moment;
   styleUrls: ['./tournament-editor.component.scss']
 })
 export class TournamentEditorComponent implements OnInit, OnDestroy {
-  @ViewChild('startDateInput') startDateInput: MatDatepickerInput<any>;
-  @ViewChild('endDateInput') endDateInput: MatDatepickerInput<any>;
+  @ViewChild('startDateInput') startDateInput: MatDatepickerInput<Date>;
+  @ViewChild('endDateInput') endDateInput: MatDatepickerInput<Date>;
   tournamentSubject = new ReplaySubject<ITournament>(1);
   tournament: ITournament = <ITournament>{};
   tournamentForm: FormGroup;
@@ -43,19 +43,17 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   venueList = []; // Venue typeahead
 
   private get startDate(): Moment {
-    const startDate = this.tournamentForm.value.startDate;
-    return startDate ? (startDate.hasOwnProperty('momentObj') ? startDate.momentObj : moment.utc(startDate)) : null;
+    return moment(this.tournamentForm.value.startDate);
   }
 
   private get endDate(): Moment {
-    const endDate = this.tournamentForm.value.endDate;
-    return endDate ? (endDate.hasOwnProperty('momentObj') ? endDate.momentObj : moment.utc(endDate)) : null;
+    return moment(this.tournamentForm.value.endDate);
   }
 
   get selectedDays(): {day: number, time: string}[] {
     if (!this.tournamentForm.value.times && this.startDate && this.endDate) {
       this.tournamentForm.value.times = [];
-      for (let j = 0; j < moment.duration(this.endDate.diff(this.startDate)).asDays(); j++) {
+      for (let j = 0; j < moment.duration(this.endDate.diff(this.startDate)).asDays() + 1; j++) {
         this.tournamentForm.value.times.push({day: j, time: '12,18'});
       }
     }
@@ -151,8 +149,24 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     const reset = () => {
       this.tournamentForm.value.times = null;
     }
-    this.tournamentForm.controls['startDate'].valueChanges.distinctUntilChanged().subscribe((val: any) => setTimeout(reset));
-    this.tournamentForm.controls['endDate'].valueChanges.distinctUntilChanged().subscribe((val: any) => setTimeout(reset));
+    const startCtrl = this.tournamentForm.controls['startDate'];
+    const endCtrl = this.tournamentForm.controls['endDate'];
+    startCtrl.valueChanges
+      .distinctUntilChanged()
+      .subscribe((val: Date) => {
+        if (this.endDateInput) {
+          this.endDateInput.min = val;
+        }
+        setTimeout(reset);
+      });
+    endCtrl.valueChanges
+      .distinctUntilChanged()
+      .subscribe((val: Date) => {
+        if (this.startDateInput) {
+          this.startDateInput.max = val;
+        }
+        setTimeout(reset);
+      });
   }
 
   clubDisplay(club: IClub) {
