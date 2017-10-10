@@ -34,7 +34,7 @@
     "server:buildw": "yarn server:build -w",
     "server:test": "jasmine-ts",
     "client": "ng serve --proxy-config proxy.conf.json",
-    "client:build": "yarn ng --version && ng build --prod",
+    "client:build": "yarn ng --version && ng build --prod --progress=false --aot=true",
     "client:buildw": "yarn client:build -w",
     "client:test": "yarn client:testw --single-run=true --watch=false",
     "client:testw": "ng test --sourcemaps=false",
