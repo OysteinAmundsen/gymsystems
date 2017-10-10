@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {
+  MatSortModule, MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatAutocompleteModule
+} from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { ConfigureSharedModule } from '../_shared/_shared.module';
@@ -20,7 +23,16 @@ import { TroopEditorComponent } from './troops/troop-editor/troop-editor.compone
     SharedModule,
     ConfigureSharedModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
+
+    MatSortModule,
+    MatCardModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatSlideToggleModule
   ],
   declarations: [
     ClubComponent,

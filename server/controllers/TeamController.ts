@@ -170,7 +170,7 @@ export class TeamController {
       }
       return Promise.resolve();
     })).then(() => {
-      return this.repository.persist(team)
+      return this.repository.save(team)
         .then(result => {
           sseService.publish('Teams updated');
           return result;
@@ -221,7 +221,7 @@ export class TeamController {
 
     if ((availableSlots - takenSlots) >= tournament.disciplines.length) {
       // We have openings. Register team
-      return this.repository.persist(teams)
+      return this.repository.save(teams)
         .then(result => {
           Container.get(SSEController).publish('Teams updated');
           return result;

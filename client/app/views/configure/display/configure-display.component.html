@@ -3,16 +3,20 @@
   <span translate>Display</span>
 </h1>
 
-<form class="panel">
-  <div role="table">
-    <div role="row">
-      <section *ngFor="let template of templates; let i = index;">
-        <app-macro-dialog></app-macro-dialog>
-        <textarea title="{{ template.title }}" name="{{'template' + i}}" [(ngModel)]="template.content" rows="20">{{ template.content }}</textarea>
-      </section>
-    </div>
-  </div>
-  <footer>
-    <app-save-button buttonType="submit" (click)="save()"></app-save-button>
-  </footer>
+<form>
+  <mat-card>
+    <mat-card-content>
+      <div role="table">
+        <div role="row">
+          <section *ngFor="let template of templates; let i = index;">
+            <app-macro-dialog></app-macro-dialog>
+            <textarea title="{{ template.title }}" name="{{'template' + i}}" [(ngModel)]="template.content" rows="20">{{ template.content }}</textarea>
+          </section>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <app-save-button buttonType="submit" (click)="save()"></app-save-button>
+    </mat-card-actions>
+  </mat-card>
 </form>

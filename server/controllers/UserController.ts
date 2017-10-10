@@ -200,7 +200,7 @@ export class UserController {
       // Password is updated. Encrypt and store entire user object
       const setPassword = user.password;
       user.password = bcrypt.hashSync(setPassword, bcrypt.genSaltSync(8));
-      return this.repository.persist(user)
+      return this.repository.save(user)
         .then(persisted => {
           if (!Container.get(GymServer).isTest) {
             // We are not in test mode, Password is updated. Notify user by email
@@ -227,7 +227,7 @@ export class UserController {
           (<any>u)[k] = (<any>user)[k];
         }
       });
-      return this.repository.persist(u)
+      return this.repository.save(u)
         .catch(err => {
           Logger.log.error(`Error updating user ${id}`, err);
           return Promise.resolve(new ErrorResponse(err.code, err.message));
@@ -292,7 +292,7 @@ export class UserController {
 
     // Hash up password
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(8));
-    return this.repository.persist(user)
+    return this.repository.save(user)
       .then(persisted => {
         const server = Container.get(GymServer);
         if (!server.isTest) {

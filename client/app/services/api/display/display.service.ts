@@ -12,6 +12,6 @@ export class DisplayService {
   }
 
   getDisplay(tournamentId: number, displayId: number): Observable<any> {
-    return this.http.get(`/api/display/${tournamentId}/${displayId}`);
+    return this.http.get(`/api/display/${tournamentId}/${displayId}`, {responseType: 'text'});
   }
 }

@@ -7,19 +7,19 @@
 <form (submit)="save()" class="horizontal" [formGroup]="configForm">
 
   <section class="floorTime flex">
-    <header class="flex-col" translate>Default floor time (in minutes)</header>
+    <header class="flex-col" translate>Default floor time</header>
     <article class="flex-col">
       <div>
-        <span appFloatingLabelContainer>
-          <label translate>Execution</label>
-          <input type="number" name="executionTime" formControlName="executionTime" />
-        </span>
+        <mat-form-field>
+          <input matInput type="number" name="executionTime" formControlName="executionTime" placeholder="{{'Execution' | translate}}"/>
+          <small matSuffix translate>min</small>
+        </mat-form-field>
       </div>
       <div>
-        <span appFloatingLabelContainer>
-          <label translate>Training</label>
-          <input type="number" name="trainingTime" formControlName="trainingTime" />
-        </span>
+        <mat-form-field>
+          <input matInput type="number" name="trainingTime" formControlName="trainingTime" placeholder="{{'Training' | translate}}"/>
+          <small matSuffix translate>min</small>
+        </mat-form-field>
       </div>
     </article>
   </section>
@@ -29,47 +29,39 @@
     <article class="flex-col">
       <div>
         <label translate>Aspirant</label>
-        <span appFloatingLabelContainer>
-          <label translate>Min</label>
-          <input type="number" name="aspirant-min" formControlName="agelimit.aspirant.min" />
-        </span>
-        <span appFloatingLabelContainer>
-          <label translate>Max</label>
-          <input type="number" name="aspirant-max" formControlName="agelimit.aspirant.max" />
-        </span>
+        <mat-form-field>
+          <input matInput type="number" name="aspirant-min" formControlName="agelimit.aspirant.min" placeholder="{{'Min' | translate}}"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" name="aspirant-max" formControlName="agelimit.aspirant.max" placeholder="{{'Max' | translate}}"/>
+        </mat-form-field>
       </div>
       <div>
         <label translate>Rekrutt</label>
-        <span appFloatingLabelContainer>
-          <label translate>Min</label>
-          <input type="number" name="rekrutt-min" formControlName="agelimit.rekrutt.min" />
-        </span>
-        <span appFloatingLabelContainer>
-          <label translate>Max</label>
-          <input type="number" name="rekrutt-max" formControlName="agelimit.rekrutt.max" />
-        </span>
+        <mat-form-field>
+          <input matInput type="number" name="rekrutt-min" formControlName="agelimit.rekrutt.min" placeholder="{{'Min' | translate}}"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" name="rekrutt-max" formControlName="agelimit.rekrutt.max" placeholder="{{'Max' | translate}}"/>
+        </mat-form-field>
       </div>
       <div>
         <label translate>Junior</label>
-        <span appFloatingLabelContainer>
-          <label translate>Min</label>
-          <input type="number" name="junior-min" formControlName="agelimit.junior.min" />
-        </span>
-        <span appFloatingLabelContainer>
-          <label translate>Max</label>
-          <input type="number" name="junior-max" formControlName="agelimit.junior.max" />
-        </span>
+        <mat-form-field>
+          <input matInput type="number" name="junior-min" formControlName="agelimit.junior.min" placeholder="{{'Min' | translate}}"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" name="junior-max" formControlName="agelimit.junior.max" placeholder="{{'Max' | translate}}"/>
+        </mat-form-field>
       </div>
       <div>
         <label translate>Senior</label>
-        <span appFloatingLabelContainer>
-          <label translate>Min</label>
-          <input type="number" name="senior-min" formControlName="agelimit.senior.min" />
-        </span>
-        <span appFloatingLabelContainer>
-          <label translate>Max</label>
-          <input type="number" name="senior-max" formControlName="agelimit.senior.max" />
-        </span>
+        <mat-form-field>
+          <input matInput type="number" name="senior-min" formControlName="agelimit.senior.min" placeholder="{{'Min' | translate}}"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" name="senior-max" formControlName="agelimit.senior.max" placeholder="{{'Max' | translate}}"/>
+        </mat-form-field>
       </div>
     </article>
   </section>
@@ -79,31 +71,26 @@
   <section class="flex">
     <header class="flex-col" translate>Default values</header>
     <article class="flex-col">
-      <menu role="tablist">
-        <ul>
-          <li (click)="selected = 'division'" [ngClass]="{'active': selected === 'division'}">
-            <a><fa name="cubes" fw="true"></fa> <span translate>Divisions</span></a>
-          </li>
-          <li (click)="selected = 'discipline'" [ngClass]="{'active': selected === 'discipline'}">
-            <a><fa name="heartbeat" fw="true"></fa> <span translate>Disciplines</span></a>
-          </li>
-          <li (click)="selected = 'scoreGroup'" [ngClass]="{'active': selected === 'scoreGroup'}">
-            <a><fa name="star" fw="true"></fa> <span translate>Score system</span></a>
-          </li>
-        </ul>
-      </menu>
-
-      <div class="tab-panel">
-        <div *ngIf="selected === 'scoreGroup'">
+      <mat-tab-group *ngIf="defaultValues">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <fa name="cubes" fw="true"></fa> <span translate>Divisions</span>
+          </ng-template>
           <app-score-system [scoreGroupList]="defaultValues.scoreGroup" (scoreGroupListChanged)="valueChanged('scoreGroup', $event)" [standalone]="true"></app-score-system>
-        </div>
-        <div *ngIf="selected === 'discipline'">
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <fa name="heartbeat" fw="true"></fa> <span translate>Disciplines</span>
+          </ng-template>
           <app-disciplines [disciplineList]="defaultValues.discipline" (disciplineListchanged)="valueChanged('discipline', $event)" [standalone]="true"></app-disciplines>
-        </div>
-        <div *ngIf="selected === 'division'">
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <fa name="star" fw="true"></fa> <span translate>Score system</span>
+          </ng-template>
           <app-divisions [divisions]="defaultValues.division" (divisionsChanged)="valueChanged('division', $event)" [standalone]="true"></app-divisions>
-        </div>
-      </div>
+        </mat-tab>
+      </mat-tab-group>
     </article>
   </section>
 

@@ -2,6 +2,9 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReplaySubject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 import * as _ from 'lodash';
 
@@ -9,6 +12,7 @@ import { KeyCode } from 'app/shared/KeyCodes';
 import { ClubService, UserService } from 'app/services/api';
 import { IUser, Role, IClub } from 'app/model';
 import { toUpperCaseTransformer } from 'app/shared/directives';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 @Component({
   selector: 'app-club-editor',
@@ -17,23 +21,17 @@ import { toUpperCaseTransformer } from 'app/shared/directives';
 })
 export class ClubEditorComponent implements OnInit {
   user: IUser;
-  clubs = []; // Typeahead values
+  clubList = []; // Typeahead values
 
   club: IClub = <IClub>{};
-  get selectedClub() { return this.club; }
-  set selectedClub(v) {
-    v.id = v.id || null;
-    this.clubReceived(v);
-    this.clubForm.markAsDirty();
-  }
   clubSubject = new ReplaySubject<IClub>(1);
 
   clubForm: FormGroup;
-  roles = Role;
 
   isAdding = false;
   isEdit = false;
-  clubTransformer = toUpperCaseTransformer;
+
+  roles = Role;
 
   get clubName() {
     const name = this.clubForm && this.clubForm.value.name ? this.clubForm.value.name : this.club.name;
@@ -55,18 +53,19 @@ export class ClubEditorComponent implements OnInit {
           // If you are not admin, and this is not your club, you will be
           // auto-redirected one url-level up to let the ClubComponent handle
           // placing you where you are supposed to be.
-          this.goBack();
+          return this.goBack();
+        }
+        if (params.id) {
+          // Existing club
+          this.clubService.getById(+params.id)
+            .subscribe(
+              club => this.clubReceived(club),
+              err => this.goBack()
+            )
         } else {
-          if (params.id) {
-            this.clubService.getById(+params.id)
-              .subscribe(
-                club => this.clubReceived(club),
-                err => this.goBack()
-              )
-          } else {
-            this.isAdding = true;
-            this.isEdit = true;
-          }
+          // Creating new club
+          this.isAdding = true;
+          this.isEdit = true;
         }
       });
     });
@@ -76,17 +75,25 @@ export class ClubEditorComponent implements OnInit {
       id: [this.club.id],
       name: [this.club.name, [Validators.required]]
     });
+    const control = this.clubForm.controls['name'];
+    control.valueChanges
+      .distinctUntilChanged()
+      .map(v => { control.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
+      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      .subscribe(v => this.clubService.findByName(v.name ? v.name : v).subscribe(clubs => this.clubList = clubs)); // Read filtered options
   }
 
-  getClubMatchesFn() {
-    const me = this;
-    return function (items, currentValue: string, matchText: string) {
-      if (!currentValue) { return items; }
-      return me.clubService.findByName(currentValue);
-    }
+  setSelectedClub(v: MatAutocompleteSelectedEvent) {
+    v.option.value.id = v.option.value.id || null;
+    this.clubReceived(v.option.value);
+    this.clubForm.markAsDirty();
   }
 
   clubReceived(club: IClub) {
+    if (!club.id && this.club.id) {
+      // Name changed. Reuse id.
+      club.id = this.club.id;
+    }
     this.club = club;
     this.clubSubject.next(club);
     this.clubForm.setValue({
@@ -94,14 +101,12 @@ export class ClubEditorComponent implements OnInit {
       name: club.name
     });
   }
-  setClubName(v) {
-    this.clubForm.controls['name'].setValue(v);
-  }
 
   save() {
     this.clubService.saveClub(this.clubForm.value).subscribe(club => {
       this.clubReceived(club);
       this.isEdit = false;
+      this.router.navigate(['../', club.id], {relativeTo: this.route});
     });
   }
 

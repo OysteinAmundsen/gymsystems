@@ -69,7 +69,7 @@ export class ConfigurationController {
   @Post()
   @UseBefore(RequireRole.get(Role.Admin))
   create( @Body() configuration: Configuration, @Res() res: Response) {
-    return this.repository.persist(configuration)
+    return this.repository.save(configuration)
       .then(persisted => res.send(persisted))
       .catch(err => {
         Logger.log.error(`Error saving configuration ${configuration.name}`, err);
@@ -90,7 +90,7 @@ export class ConfigurationController {
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Admin))
   update( @Param('id') id: string, @Body() configuration: Configuration, @Res() res: Response) {
-    return this.repository.persist(configuration)
+    return this.repository.save(configuration)
       .then(persisted => res.send(persisted))
       .catch(err => {
         Logger.log.error(`Error updating configuration ${id}`, err);

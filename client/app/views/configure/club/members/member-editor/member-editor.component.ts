@@ -45,17 +45,29 @@ export class MemberEditorComponent implements OnInit {
       lastGender = lastMember.gender;
     }
     this.memberForm = this.fb.group({
-      id: [this.member.id],
-      name: [this.member.name, [Validators.required]],
-      club: [this.club],
-      birthYear: [this.member.birthYear || lastBirthYear, [
+      id             : [this.member.id],
+      name           : [this.member.name, [Validators.required]],
+      birthYear      : [this.member.birthYear || lastBirthYear, [
         Validators.required,
         Validators.min(this.minYear),
         Validators.max(this.maxYear),
         Validators.minLength(4),
         Validators.maxLength(4)
       ]],
-      gender: [this.member.gender || lastGender]
+      birthDate      : [this.member.birthDate],
+      club           : [this.club],
+      email          : [this.member.email],
+      phone          : [this.member.phone],
+      gender         : [this.member.gender || lastGender],
+      allergies      : [this.member.allergies],
+      guardian1      : [this.member.guardian1],
+      guardian2      : [this.member.guardian2],
+      guardian1Phone : [this.member.guardian1Phone],
+      guardian2Phone : [this.member.guardian1Phone],
+      guardian1Email : [this.member.guardian1Email],
+      guardian2Email : [this.member.guardian2Email],
+      troop          : [this.member.troop],
+      team           : [this.member.team]
     });
   }
 

@@ -5,4 +5,3 @@ export * from './multirange/multirange.component';
 export * from './panel/panel.component';
 export * from './save-button/save-button.component';
 export * from './slide-toggle/slide-toggle.component';
-export * from './typeahead/typeahead.component';

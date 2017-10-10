@@ -26,6 +26,11 @@
   width: 100%;
   display: table;
   @include clearfix();
+  @media (min-width: 688px) {
+    > .col {
+      display: table-cell;
+    }
+  }
 }
 
 .col {

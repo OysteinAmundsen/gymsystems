@@ -25,7 +25,4 @@ aside {
   @media (max-width: 30rem) {
     width: 100%;
   }
-  div {
-    @include innerPanel;
-  }
 }

@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import {
+  MatSortModule, MatCardModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatOptionModule
+} from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
 
@@ -15,9 +18,16 @@ import { VenueService } from 'app/services/api';
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
+    AgmCoreModule,
+
+    MatSortModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatOptionModule,
 
     RouterModule,
-    AgmCoreModule
   ],
   declarations: [VenueComponent, VenueEditorComponent]
 })

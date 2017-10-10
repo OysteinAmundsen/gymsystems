@@ -1,9 +1,10 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Title, Meta } from '@angular/platform-browser';
+import { Subscription } from 'rxjs/Rx';
 
 import { ClubService, UserService } from 'app/services/api';
 import { IClub, IUser, Role } from 'app/model';
-import { Title, Meta } from '@angular/platform-browser';
 import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
@@ -11,9 +12,11 @@ import { KeyCode } from 'app/shared/KeyCodes';
   templateUrl: './club.component.html',
   styleUrls: ['./club.component.scss']
 })
-export class ClubComponent implements OnInit {
+export class ClubComponent implements OnInit, OnDestroy {
   clubList: IClub[];
   user: IUser;
+
+  subscriptions: Subscription[] = [];
   constructor(
     private clubService: ClubService,
     private userService: UserService,
@@ -37,6 +40,10 @@ export class ClubComponent implements OnInit {
         this.router.navigate(['./', this.user.club.id], { relativeTo: this.route});
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => { if (s) { s.unsubscribe(); }});
   }
 
   addClub() {

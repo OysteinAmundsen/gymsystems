@@ -100,7 +100,7 @@ export class DivisionController {
   @UseBefore(RequireRole.get(Role.Organizer))
   create( @Body() division: Division | Division[], @Res() res: Response): Promise<Division[] | any> {
     const divisions = Array.isArray(division) ? division : [division];
-    return this.repository.persist(divisions)
+    return this.repository.save(divisions)
       .catch(err => {
         Logger.log.error(`Error creating division`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
@@ -120,7 +120,7 @@ export class DivisionController {
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   update( @Param('id') id: number, @Body() division: Division, @Res() res: Response) {
-    return this.repository.persist(division)
+    return this.repository.save(division)
       .catch(err => {
         Logger.log.error(`Error updating division ${id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));

@@ -1,10 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/Rx';
 
 import { UserService } from 'app/services/api';
 import { IUser, RoleNames } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { Sort } from '@angular/material';
 
 @Component({
   selector: 'app-users',
@@ -13,7 +15,8 @@ import { KeyCode } from 'app/shared/KeyCodes';
 })
 export class UsersComponent implements OnInit {
 
-  userList: IUser[];
+  userListSubject = new BehaviorSubject<IUser[]>([]);
+  get userList() { return this.userListSubject.value || []; }
 
   constructor(
     private userService: UserService,
@@ -28,7 +31,14 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.all().subscribe(users => this.userList = users);
+    this.userService.all().subscribe(users => this.userListSubject.next(users));
+  }
+
+  sortData($event: Sort) {
+    this.userList.sort((a, b) => {
+      const dir = $event.direction === 'asc' ? -1 : 1;
+      return (a[$event.active] > b[$event.active]) ? dir : -dir;
+    });
   }
 
   roleName(user: IUser) {

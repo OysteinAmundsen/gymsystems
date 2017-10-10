@@ -9,12 +9,17 @@ import { DivisionsModule } from '../tournament/divisions/divisions.module';
 import { ScoreSystemModule } from '../tournament/score-system/score-system.module';
 
 import { AdvancedComponent } from './advanced.component';
+import { MatTabsModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     DragulaModule,
+
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
 
     SharedModule,
     DisciplinesModule,

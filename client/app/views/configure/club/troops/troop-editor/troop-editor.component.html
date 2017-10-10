@@ -1,21 +1,22 @@
-<form class="panel" [formGroup]="troopForm" (submit)="save()">
-  <fieldset>
-    <div class="row">
-      <div class="col-12" appFloatingLabelContainer>
-        <label translate>Name</label>
-        <input type="text" formControlName="name" appAutofocus>
+<form [formGroup]="troopForm" (submit)="save()">
+  <mat-card>
+    <mat-card-content>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <input matInput type="text" formControlName="name" placeholder="{{'Name' | translate}}" appAutofocus>
+        </mat-form-field>
       </div>
-    </div>
 
-    <br/>
-    <div class="row">
-      <app-member-selector [club]="club" [gymnasts]="troopForm.value.gymnasts" (gymnastsChange)="troopForm.markAsDirty()" [troopName]="troopForm.value.name" [memberListHidden]="memberListHidden"></app-member-selector>
-    </div>
-  </fieldset>
+      <br/>
+      <div class="row">
+        <app-member-selector [club]="club" [gymnasts]="troopForm.value.gymnasts" (gymnastsChange)="troopForm.markAsDirty()" [troopName]="troopForm.value.name" [memberListHidden]="memberListHidden"></app-member-selector>
+      </div>
+    </mat-card-content>
 
-  <footer>
-    <app-save-button buttonType="submit" [disabled]="troopForm.invalid || troopForm.pristine"></app-save-button>
-    <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
-    <button type="button" *ngIf="troopForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
-  </footer>
+    <mat-card-actions>
+      <app-save-button buttonType="submit" [disabled]="troopForm.invalid || troopForm.pristine"></app-save-button>
+      <button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
+      <button type="button" *ngIf="troopForm.value.id" [title]="'Delete' | translate" class="pull-right warning" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
+    </mat-card-actions>
+  </mat-card>
 </form>

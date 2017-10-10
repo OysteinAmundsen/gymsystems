@@ -18,12 +18,7 @@ import { ValidationService } from 'app/services/validation';
 export class VenueEditorComponent implements OnInit {
   venueForm: FormGroup;
   selectedVenue: IVenue = <IVenue>{};
-  adresses = [];
-
-  set selectedAddress(v) {
-    this.venueForm.controls['latitude'].setValue(v.geometry.location.lat);
-    this.venueForm.controls['longitude'].setValue(v.geometry.location.lng);
-  }
+  adressList = [];
 
   get venueName() {
     let venueName = this.venueForm && this.venueForm.value.name ? this.venueForm.value.name : this.selectedVenue.name;
@@ -45,14 +40,21 @@ export class VenueEditorComponent implements OnInit {
       createdBy    : [null, []],
       name         : ['', [Validators.required]],
       address      : ['', [Validators.required]],
-      longitude    : [0.0, [Validators.required]],
-      latitude     : [0.0, [Validators.required]],
+      longitude    : [{value: 0.0, disabled: true}, [Validators.required]],
+      latitude     : [{value: 0.0, disabled: true}, [Validators.required]],
       contact      : ['', [Validators.required]],
       contactPhone : ['', [Validators.required, Validators.minLength(8)]],
       contactEmail : ['', [Validators.required, ValidationService.emailValidator]],
       capacity     : [0, []],
       rentalCost   : [0, []],
     });
+    // Read filtered options
+    const addressCtrl = this.venueForm.controls['address'];
+    addressCtrl.valueChanges
+      .distinctUntilChanged()
+      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      .subscribe(v => this.venueService.findByName(v).subscribe(address => this.adressList = address));
+
     this.route.params.subscribe(params => {
       if (params.id) {
         this.venueService.getById(+params.id).subscribe(venue => this.venueReceived(venue));
@@ -70,12 +72,9 @@ export class VenueEditorComponent implements OnInit {
     this.venueForm.setValue(this.selectedVenue);
   }
 
-  getAddressMatchesFn() {
-    const me = this;
-    return function (items, currentValue: string, matchText: string) {
-      if (!currentValue) { return items; }
-      return me.venueService.findLocationByAddress(currentValue);
-    }
+  setSelectedAddress(v) {
+    this.venueForm.controls['latitude'].setValue(v.geometry.location.lat);
+    this.venueForm.controls['longitude'].setValue(v.geometry.location.lng);
   }
 
   markerDragEnd($event: MouseEvent) {
@@ -88,7 +87,7 @@ export class VenueEditorComponent implements OnInit {
   }
 
   save() {
-    this.venueService.save(this.venueForm.value).subscribe(res => this.cancel());
+    this.venueService.save(this.venueForm.getRawValue()).subscribe(res => this.cancel());
   }
 
   cancel() {

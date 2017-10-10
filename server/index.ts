@@ -156,6 +156,7 @@ export class GymServer {
     // Setup routing-controllers
     Logger.log.info('** Setting up REST endpoints');
     useExpressServer(this.app, {
+      cors: true,
       routePrefix: '/api',
       controllers: [__dirname + '/controllers/*.js'],
       middlewares: [__dirname + '/middlewares/*.js'],

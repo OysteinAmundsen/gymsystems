@@ -89,7 +89,7 @@ export class ScoreController {
     }
 
     scores = scores.map(s => { s.participant = p; return s; });
-    return this.repository.persist(scores)
+    return this.repository.save(scores)
       .then(s => {
         sseService.publish('Scores updated');
         return s;
@@ -177,7 +177,7 @@ export class ScoreController {
       i.publishTime = null;
       return this.repository.remove(i.scores).then(s => {
         i.scores = [];
-        return scheduleRepository.repository.persist(i);
+        return scheduleRepository.repository.save(i);
       })
     })).then(() => {
       sseService.publish('Scores updated');

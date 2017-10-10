@@ -1,11 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "./styles/_variables";
+@import "./styles/_quick-render";
+@import "./styles/_material";
+
 @import "./styles/_dragula";
 @import "./styles/_flex";
 @import "./styles/_grid";
 @import "./styles/_main";
-@import "./styles/_quick-render";
 
 @import "./styles/_flag";
 @import "./styles/_nav";

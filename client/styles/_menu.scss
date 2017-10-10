@@ -76,38 +76,9 @@ menu[role="menu"] {
   }
 }
 
-menu[role="tablist"] {
-  ul {
-    position: relative;
-    display: flex;
-  }
-  li {
-    margin: 0 10px;
-    min-width: 0;
-    padding: 0 5px;
-    cursor: pointer;
-    text-align: center;
-    line-height: 35px;
-    height: 48px;
-    border-radius: 2px;
-    transition: background .4s cubic-bezier(.25, .8, .25, 1);
-    &[disabled] {
-      cursor: not-allowed !important;
-      a {
-        color: rgba(black, 0.6);
-        pointer-events: none;
-      }
-    }
-    &:hover:not([disabled]) {
-      background: $primaryLight;
-    }
-    &.active {
-      border-bottom: 2px solid $primary;
-    }
-  }
+menu[class*="mat-tab"] {
   a {
-    color: $text-color;
-    cursor: inherit;
+    min-width: auto;
     @media (max-width: $stop2) {
       span {
         display: none;

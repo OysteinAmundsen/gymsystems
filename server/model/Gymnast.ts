@@ -51,18 +51,75 @@ export class Gymnast implements BelongsToClub {
   birthYear: number;
 
   /**
-  * The gender of the performer will allow the system
-  * to automatically calculate which Gender divisions
-  * this performer can be entered in.
-  *
-  * This opens for automatic troop/team generation
-  */
+   * Will replace the birthYear property in the near future
+   */
+  @Column({ nullable: true})
+  birthDate: Date;
+
+  /**
+   * Email address of this gymnast
+   */
+  @Column({ nullable: true})
+  email: string;
+
+  /**
+   * Phone number of this gymnast
+   */
+  @Column({ nullable: true})
+  phone: number;
+
+  /**
+   * The gender of the performer will allow the system
+   * to automatically calculate which Gender divisions
+   * this performer can be entered in.
+   *
+   * This opens for automatic troop/team generation
+   */
   @Column()
   gender: Gender;
 
+  @Column({ nullable: true})
+  allergies: string;
+
   /**
-  * A reference to troops this perfomer is a part of
-  */
+   * Name of a parent or a legal guardian for this gymnast
+   */
+  @Column({ nullable: true})
+  guardian1: string;
+
+  /**
+   * Name of a parent or a legal guardian for this gymnast
+   */
+  @Column({ nullable: true})
+  guardian2: string;
+
+  /**
+   * Phone number of a parent or a legal guardian for this gymnast
+   */
+  @Column({ nullable: true})
+  guardian1Phone: number;
+
+  /**
+   * Phone number of a parent or a legal guardian for this gymnast
+   */
+  @Column({ nullable: true})
+  guardian2Phone: number;
+
+  /**
+   * Email of a parent or a legal guardian for this gymnast
+   */
+  @Column({ nullable: true})
+  guardian1Email: string;
+
+  /**
+   * Email of a parent or a legal guardian for this gymnast
+   */
+  @Column({ nullable: true})
+  guardian2Email: string;
+
+  /**
+   * A reference to troops this perfomer is a part of
+   */
   @ManyToMany(type => Troop, troop => troop.gymnasts, { cascadeInsert: false, cascadeUpdate: false })
   @JoinTable({name: 'gymnast_troop_troop_id'})
   troop: Troop[];
@@ -80,13 +137,4 @@ export class Gymnast implements BelongsToClub {
   @ManyToOne(type => Club, club => club.gymnasts, { nullable: false })
   @JoinColumn({name: 'club'})
   club: Club;
-
-  // @ManyToMany(type => Tournament, tournament => tournament.lodging, { cascadeInsert: false, cascadeUpdate: false })
-  // wantsLodging: Tournament[];
-
-  // @ManyToMany(type => Tournament, tournament => tournament.transporting, { cascadeInsert: false, cascadeUpdate: false })
-  // wantsTransport: Tournament[];
-
-  // @ManyToMany(type => Tournament, tournament => tournament.banquetFor, { cascadeInsert: false, cascadeUpdate: false })
-  // willAttendBanquet: Tournament[];
 }

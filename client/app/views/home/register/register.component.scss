@@ -13,8 +13,8 @@ form {
   margin: 0 auto;
 }
 .lowered {
-  .control {
-    padding-top: 1rem;
-    display: block;
+  padding-left: 1rem;
+  label {
+    margin-bottom: 0.5rem;
   }
 }

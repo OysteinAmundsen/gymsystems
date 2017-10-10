@@ -7,7 +7,6 @@ import { DragulaModule } from 'ng2-dragula';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome';
 
 // Shared components
-import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { SlideToggleComponent } from './components/slide-toggle/slide-toggle.component';
@@ -19,7 +18,6 @@ import { IfAuthDirective } from './directives/auth/if-auth.directive';
 
 // Shared pipes
 import { ToUpperPipe } from './pipes/to-upper.pipe';
-import { TypeaheadComponent } from './components/typeahead/typeahead.component';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { MultirangeComponent } from './components/multirange/multirange.component';
 import { SaveButtonComponent } from './components/save-button/save-button.component';
@@ -36,14 +34,13 @@ import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directiv
     FormsModule,
     ReactiveFormsModule,
     DragulaModule,
+
     RouterModule,
   ],
   declarations: [
-    DatepickerComponent,
     DialogComponent,
     PanelComponent,
     SlideToggleComponent,
-    TypeaheadComponent,
     MultirangeComponent,
     SaveButtonComponent,
     HelpBlockComponent,
@@ -64,11 +61,9 @@ import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directiv
     Angular2FontawesomeModule,
 
     // Export components
-    DatepickerComponent,
     DialogComponent,
     PanelComponent,
     SlideToggleComponent,
-    TypeaheadComponent,
     MultirangeComponent,
     SaveButtonComponent,
     HelpBlockComponent,

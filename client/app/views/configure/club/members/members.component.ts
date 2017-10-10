@@ -1,9 +1,14 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { Sort } from '@angular/material';
+import { BehaviorSubject } from 'rxjs/Rx';
+
+import { KeyCode } from 'app/shared/KeyCodes';
+import { Logger } from 'app/services/Logger';
+
 import { ClubService } from 'app/services/api';
 import { IClub, IGymnast, DivisionType, Gender } from 'app/model';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
-import { KeyCode } from 'app/shared/KeyCodes';
-import { Logger } from 'app/services/Logger';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-members',
@@ -12,25 +17,38 @@ import { Logger } from 'app/services/Logger';
 })
 export class MembersComponent implements OnInit, OnDestroy {
   club: IClub;
-  memberList: IGymnast[] = [];
+  memberListSubject = new BehaviorSubject<IGymnast[]>([]);
+  get memberList() { return this.memberListSubject.value || []; }
   genders = Gender;
 
   selected: IGymnast;
 
-  constructor(private parent: ClubEditorComponent, private clubService: ClubService) { }
+  subscriptions: Subscription[] = [];
+
+  constructor(private parent: ClubEditorComponent, private clubService: ClubService) {  }
 
   ngOnInit() {
-    this.parent.clubSubject.subscribe(club => {
+    this.subscriptions.push(this.parent.clubSubject.subscribe(club => {
       this.club = club;
-      this.loadMembers();
-    });
+      if (this.club.id) {
+        this.loadMembers();
+      }
+    }));
   }
 
   ngOnDestroy() {
+    this.subscriptions.forEach(s => { if (s) { s.unsubscribe(); }});
+  }
+
+  sortData($event: Sort) {
+    this.memberList.sort((a, b) => {
+      const dir = $event.direction === 'asc' ? -1 : 1;
+      return (a[$event.active] > b[$event.active]) ? dir : -dir;
+    });
   }
 
   loadMembers() {
-    this.clubService.getMembers(this.club).subscribe(members => this.memberList = members);
+    this.clubService.getMembers(this.club).subscribe(members => this.memberListSubject.next(members));
   }
 
   genderDivision(member: IGymnast) { return Object.keys(Gender).find(k => Gender[k] === member.gender); }
@@ -49,10 +67,11 @@ export class MembersComponent implements OnInit, OnDestroy {
       name        : null,
       birthYear   : null,
       gender      : null,
-      team      : null,
+      team        : null,
       club        : null
     };
     this.memberList.push(member);
+    // this.memberListSubject.next(newList);
     this.selected = member;
   }
 

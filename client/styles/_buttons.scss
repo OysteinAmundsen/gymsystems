@@ -38,7 +38,7 @@
   }
 }
 
-button,
+button:not([class*="mat-"]),
 .btn {
   @include btn();
   &[type="submit"],

@@ -1,11 +1,15 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req, QueryParam } from 'routing-controllers';
+import {
+  Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, UseBefore, Req, QueryParam, Middleware
+} from 'routing-controllers';
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
 import * as fs from 'fs';
 import * as request from 'request';
 import * as multer from 'multer';
+import * as _ from 'lodash';
+
 const csv: any = require('fast-csv');
 
 import { RequireRole } from '../middlewares/RequireAuth';
@@ -13,11 +17,12 @@ import { Logger } from '../utils/Logger';
 
 import { Club } from '../model/Club';
 import { Role } from '../model/User';
-import { Gymnast } from '../model/Gymnast';
+import { Gymnast, Gender } from '../model/Gymnast';
 import { Team } from '../model/Team';
 import { Troop } from '../model/Troop';
 import { ErrorResponse } from '../utils/ErrorResponse';
 import { GymServer } from '../index';
+import { ExportService } from '../services/ExportService';
 
 /**
  * RESTful controller for all things related to `Club`s.
@@ -140,7 +145,7 @@ export class ClubController {
    */
   @Post()
   create( @Body() club: Club, @Res() res?: Response): Promise<Club | any> {
-    return this.repository.persist(club)
+    return this.repository.save(club)
       .catch(err => {
         Logger.log.error('Error creating club', err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
@@ -160,7 +165,7 @@ export class ClubController {
   @Put('/:clubId')
   @UseBefore(RequireRole.get(Role.Club))
   update( @Param('clubId') clubId: number, @Body() club: Club): Promise<Club | any> {
-    return this.repository.persist(club)
+    return this.repository.save(club)
       .catch(err => {
         Logger.log.error(`Error updating club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
@@ -248,7 +253,7 @@ export class ClubController {
   @UseBefore(RequireRole.get(Role.Club))
   addMember(@Param('clubId') clubId: number, @Body() member: Gymnast): Promise<Gymnast | ErrorResponse> {
     return this.conn.getRepository(Gymnast)
-      .persist(member)
+      .save(member)
       .catch(err => {
         Logger.log.error(`Error adding member to club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
@@ -280,7 +285,17 @@ export class ClubController {
             id: null,
             name: find('name'),
             birthYear: find('year'),
-            gender: ['m', 'male', 'herre', 'herrer', 'gutt', 'boy'].indexOf(find('gender').toLowerCase()) > -1 ? 1 : 2,
+            birthDate: null,
+            email: find('email'),
+            phone: find('phone'),
+            gender: ['m', 'male', 'herre', 'herrer', 'gutt', 'boy', '1', 1].indexOf(find('gender').toLowerCase()) > -1 ? 1 : 2,
+            allergies: find('allergies'),
+            guardian1: find('guardian1'),
+            guardian2: find('guardian2'),
+            guardian1Phone: find('guardian1Phone'),
+            guardian2Phone: find('guardian2Phone'),
+            guardian1Email: find('guardian1Email'),
+            guardian2Email: find('guardian2Email'),
             troop: null,
             team: null,
             club: club
@@ -294,7 +309,7 @@ export class ClubController {
 
           // Persist data
           this.conn.getRepository(Gymnast)
-            .persist(members)
+            .save(members)
             .then(persisted => resolve(persisted))
             .catch(err => {
               Logger.log.error(`Error persisting members to club ${clubId}`, err);
@@ -307,6 +322,28 @@ export class ClubController {
         });
     });
   }
+
+  /**
+   * Endpoint for exporting members to a club
+   *
+   * **USAGE:** (Club only)
+   * POST /clubs/:clubId/export-members
+   *
+   * @param {number} clubId
+   * @param member
+   */
+  @Get('/:clubId/export-members')
+  @Middleware({type: 'after'})
+  @UseBefore(RequireRole.get(Role.Club))
+  @UseBefore(async (req: any, res: Response, next?: (err?: any) => any) => {
+    return new Promise(async (resolve, reject) => {
+      const controller = Container.get(ClubController);
+      const club = await controller.get(req.params.clubId);
+      const members: Gymnast[] = await controller.getMembers(req.params.clubId, true);
+      ExportService.writeCSVExport({ data: members, name: `${_.snakeCase(club.name)}.members` }, res);
+    });
+  })
+  exportMembers(@Param('clubId') clubId: number, @Req() req: Request, @Res() res: Response) { }
 
   /**
    * Endpoint for removing a member from a club
@@ -365,7 +402,7 @@ export class ClubController {
   @UseBefore(RequireRole.get(Role.Club))
   saveTeams(@Param('clubId') clubId: number, @Body() troop: Troop): Promise < Troop | ErrorResponse > {
     return this.conn.getRepository(Troop)
-      .persist(troop)
+      .save(troop)
       .catch(err => {
         Logger.log.error(`Error creating teams in club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));

@@ -36,3 +36,10 @@
   padding: $padding * 2;
   border: 0;
 }
+
+mat-card.mat-card {
+  border-radius: $rounded;
+}
+mat-card-header.mat-card-header {
+  margin: 0 -19.5px;
+}

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RequestMethod } from '@angular/http';
 import {
@@ -12,11 +12,15 @@ import {
   HttpResponse,
   HttpHeaders
 } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
+
+import * as moment from 'moment';
 
 import { ErrorHandlerService } from './ErrorHandler.service';
 import { AuthStateService } from './auth-state.service';
@@ -26,11 +30,21 @@ import { Logger } from '../Logger';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
+  // Cache TranslateService as this could not be auto injected through
+  // the constructor. Cyclic dependency issue
+  _translator: TranslateService;
+  get translator(): TranslateService {
+    return this._translator = this._translator || this.injector.get(TranslateService);
+  }
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private error: ErrorHandlerService,
-    private state: AuthStateService) { }
+    private state: AuthStateService,
+    private injector: Injector,
+    private snackBar: MatSnackBar
+  ) { }
 
   intercept(
     req: HttpRequest<any>,
@@ -50,7 +64,15 @@ export class AuthInterceptor implements HttpInterceptor {
       .do(res => {
         // Successful Response;
         if (res instanceof HttpResponse) {
-          this.state.notifySubscribers(req, res);
+          const action = this.state.notifySubscribers(req, res);
+          // Notify user of success
+          const now = moment();
+          const success = this.translator.instant('SUCCESS');
+          if (action.method === RequestMethod.Post || action.method === RequestMethod.Put) {
+            this.snackBar.open(`${this.translator.instant('Saved')} ${now.format('HH:mm:ss')}`, success, { duration: 5 * 1000, });
+          } else if (action.method === RequestMethod.Delete) {
+            this.snackBar.open(`${this.translator.instant('Deleted')} ${now.format('HH:mm:ss')}`, success, { duration: 5 * 1000, });
+          }
         } else if (res.type !== 0) {
           Logger.debug('Response is not HttpResponse', res);
         }

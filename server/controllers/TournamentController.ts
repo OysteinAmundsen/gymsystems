@@ -100,7 +100,7 @@ export class TournamentController {
     let limit: number = req.query['limit'] || 10;
     if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
 
-    const date = moment().utc().startOf('day').toDate();
+    const date = moment().startOf('day').utc().toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .leftJoinAndSelect('tournament.venue', 'venue')
@@ -154,7 +154,7 @@ export class TournamentController {
     let limit: number = req.query['limit'] || 10;
     if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
 
-    const date = moment().utc().endOf('day').toDate();
+    const date = moment().endOf('day').utc().toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .leftJoinAndSelect('tournament.venue', 'venue')
@@ -213,7 +213,7 @@ export class TournamentController {
     const me = await Container.get(UserController).me(req);
     tournament.createdBy = me;
 
-    return this.repository.persist(tournament)
+    return this.repository.save(tournament)
       .then(persisted => {
         this.createDefaults(persisted, res);
 
@@ -245,7 +245,7 @@ export class TournamentController {
     const msg = await validateClub(tournament, null, req);
     if (msg) { res.status(403); return new ErrorResponse(403, msg); }
 
-    return this.repository.persist(tournament)
+    return this.repository.save(tournament)
       .then(persisted => {
         Container.get(MediaController).expireArchive(persisted.id, persisted.endDate)
         return persisted;

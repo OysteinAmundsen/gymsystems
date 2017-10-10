@@ -1,7 +1,8 @@
 // Framework & libs
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -9,6 +10,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { AgmCoreModule } from '@agm/core';
+import {
+  MatCardModule, MatSnackBarModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule,
+  MatOptionModule, MatSlideToggleModule
+} from '@angular/material';
 
 // Module dependencies
 import { AppRoutingModule } from './app-routing.module';
@@ -50,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     // Framework modules
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -63,6 +69,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     MarkdownToHtmlModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     AgmCoreModule.forRoot({ apiKey: VenueService.apiKey }),
+
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    MatCardModule,
+    MatSnackBarModule,
+    MatSlideToggleModule,
 
     // Application modules
     SharedModule,
@@ -96,7 +110,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     // Authentication interceptor
     AuthStateService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'nb-NO' },
   ],
   bootstrap: [AppComponent]
 })

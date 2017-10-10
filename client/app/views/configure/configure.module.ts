@@ -15,6 +15,7 @@ import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
 import { MacroDialogComponent } from './display/macro-dialog/macro-dialog.component';
 import { VenueModule } from 'app/views/configure/venue/venue.module';
+import { MatCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -22,6 +23,8 @@ import { VenueModule } from 'app/views/configure/venue/venue.module';
     FormsModule,
     ReactiveFormsModule,
     ConfigureRoutingModule,
+
+    MatCardModule,
 
     // Packaged modules
     SharedModule,

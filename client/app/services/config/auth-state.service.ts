@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { RequestMethod } from '@angular/http';
+import { HttpRequest } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/throw';
-import { HttpRequest } from '@angular/common/http';
-import { HttpResponse } from '@angular/common/http';
+
 
 export interface HttpAction {
   url: string;
@@ -34,6 +35,8 @@ export class AuthStateService {
     }
 
     const obj: HttpRequest<any> | HttpResponse<any> = res ? res : req;
-    this.httpAction.next({url: obj.url, method: method, values: obj.body});
+    const action = {url: obj.url, method: method, values: obj.body, isComplete: res != null, failed: res && res.status !== 200};
+    this.httpAction.next(action);
+    return action;
   }
 }

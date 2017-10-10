@@ -1,10 +1,10 @@
 <div class="table-responsive">
-  <table role="list" class="editable">
+  <table role="list" class="editable" matSort (matSortChange)="sortData($event)">
     <thead>
       <tr>
-        <th translate>Name</th>
-        <th translate>Birth year</th>
-        <th translate>Gender</th>
+        <th translate mat-sort-header="name">Name</th>
+        <th translate mat-sort-header="birthYear">Birth year</th>
+        <th translate mat-sort-header="gender">Gender</th>
         <th translate>Teams</th>
       </tr>
     </thead>
@@ -33,3 +33,7 @@
   <fa name="upload" fw="true"></fa>
   <span translate>Import Members</span>
 </label>
+<a href="/api/clubs/{{ club.id }}/export-members" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0" [title]="'Import' | translate">
+  <fa name="download" fw="true"></fa>
+  <span translate>Export Members</span>
+</a>

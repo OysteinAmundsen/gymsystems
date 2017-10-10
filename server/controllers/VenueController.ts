@@ -113,7 +113,7 @@ export class VenueController {
    */
   @Put('/:id')
   async update( @Param('id') id: number, @Body() venue: Venue, @Req() req: Request, @Res() res: Response) {
-    return this.repository.persist(venue);
+    return this.repository.save(venue);
   }
 
   /**
@@ -131,7 +131,7 @@ export class VenueController {
     const me = await Container.get(UserController).me(req);
     const venues = Array.isArray(venue) ? venue : [venue];
     venues.forEach(v => v.createdBy = me);
-    return this.repository.persist(venues);
+    return this.repository.save(venues);
   }
 
   /**

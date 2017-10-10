@@ -82,7 +82,7 @@ export class ScoreGroupController {
   @UseBefore(RequireRole.get(Role.Organizer))
   create( @Body() scoreGroup: ScoreGroup | ScoreGroup[], @Res() res: Response): Promise<ScoreGroup[] | ErrorResponse> {
     const scoreGroups = Array.isArray(scoreGroup) ? scoreGroup : [scoreGroup];
-    return this.repository.persist(scoreGroups)
+    return this.repository.save(scoreGroups)
       .catch(err => {
         Logger.log.error(`Error creating scoregroups`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
@@ -101,7 +101,7 @@ export class ScoreGroupController {
   @Put('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   update( @Param('id') id: number, @Body() scoreGroup: ScoreGroup) {
-    return this.repository.persist(scoreGroup)
+    return this.repository.save(scoreGroup)
       .catch(err => {
         Logger.log.error(`Error updating scoregroup ${id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));

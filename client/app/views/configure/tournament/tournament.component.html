@@ -4,14 +4,14 @@
 </h1>
 
 <div class="table-responsive">
-  <table role="list" class="editable">
+  <table role="list" class="editable" matSort (matSortChange)="sortData($event)">
     <thead>
       <tr>
-        <th translate>Name</th>
-        <th translate>Start date</th>
-        <th translate>End date</th>
-        <th translate>Location</th>
-        <th translate>Organized by</th>
+        <th translate mat-sort-header="name">Name</th>
+        <th translate mat-sort-header="startDate">Start date</th>
+        <th translate mat-sort-header="endDate">End date</th>
+        <th translate mat-sort-header="venue.name">Location</th>
+        <th translate mat-sort-header="club.name">Organized by</th>
         <th translate *appIfAuth="'Admin'">Created by</th>
       </tr>
     </thead>
@@ -28,7 +28,7 @@
   </table>
 </div>
 
-<button type="button" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
+<button mat-raised-button type="button" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Tournament</span>
 </button>
