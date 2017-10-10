@@ -22,7 +22,7 @@
         <mat-form-field class="col-6">
           <input matInput formControlName="address" placeholder="{{'Address' | translate}}" [matAutocomplete]="addressTypeahead">
           <mat-autocomplete #addressTypeahead="matAutocomplete">
-            <mat-option *ngFor="let address of addressList" [value]="address.formatted_address" (optionSelected)="setSelectedAddress(address)">
+            <mat-option *ngFor="let address of adressList" [value]="address.formatted_address" (optionSelected)="setSelectedAddress(address)">
               {{ address.formatted_address }}
             </mat-option>
           </mat-autocomplete>
