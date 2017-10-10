@@ -12,7 +12,6 @@ import { PanelComponent } from './components/panel/panel.component';
 import { SlideToggleComponent } from './components/slide-toggle/slide-toggle.component';
 
 // Shared directives
-import { FloatingLabelContainerDirective } from './directives/floating-label/floating-label-container.directive';
 import { AutofocusDirective } from './directives/autofocus/autofocus.directive';
 import { IfAuthDirective } from './directives/auth/if-auth.directive';
 
@@ -46,7 +45,6 @@ import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directiv
     HelpBlockComponent,
 
     ToCaseDirective,
-    FloatingLabelContainerDirective,
     AutofocusDirective,
     IfAuthDirective,
 
@@ -69,7 +67,6 @@ import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directiv
     HelpBlockComponent,
 
     ToCaseDirective,
-    FloatingLabelContainerDirective,
     AutofocusDirective,
     IfAuthDirective,
 

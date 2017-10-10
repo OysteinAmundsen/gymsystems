@@ -79,9 +79,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     }),
     MarkdownToHtmlModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-    // AgmCoreModule.forRoot({
-    //   apiKey: VenueService.apiKey
-    // }),
 
     MatSnackBarModule,
     MatCardModule,
