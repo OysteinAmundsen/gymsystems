@@ -3,7 +3,7 @@ import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, UseBe
 import { Service } from 'typedi';
 import { Request, Response } from 'express';
 
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 import { RequireRole } from '../middlewares/RequireAuth';
 import { ScoreGroup } from '../model/ScoreGroup';
 import { Role } from '../model/User';
@@ -84,7 +84,7 @@ export class ScoreGroupController {
     const scoreGroups = Array.isArray(scoreGroup) ? scoreGroup : [scoreGroup];
     return this.repository.save(scoreGroups)
       .catch(err => {
-        Logger.log.error(`Error creating scoregroups`, err);
+        Log.log.error(`Error creating scoregroups`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -103,7 +103,7 @@ export class ScoreGroupController {
   update( @Param('id') id: number, @Body() scoreGroup: ScoreGroup) {
     return this.repository.save(scoreGroup)
       .catch(err => {
-        Logger.log.error(`Error updating scoregroup ${id}`, err);
+        Log.log.error(`Error updating scoregroup ${id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -122,7 +122,7 @@ export class ScoreGroupController {
     const scoreGroup = await this.repository.findOneById(scoreGroupId);
     return this.removeMany([scoreGroup])
     .catch(err => {
-      Logger.log.error(`Error removing scoregroup ${scoreGroupId}`, err);
+      Log.log.error(`Error removing scoregroup ${scoreGroupId}`, err);
       return Promise.resolve(new ErrorResponse(err.code, err.message));
     });
   }

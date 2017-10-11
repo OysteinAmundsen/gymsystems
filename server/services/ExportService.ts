@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 const json2csv: any = require('json2csv');
 
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 
 export interface ExportOptions {
   data: any;
@@ -36,7 +36,7 @@ export class ExportService {
         .contentType('text/csv')
         .send(json2csv({ data: opt.data, fields: opt.fields, del: ';' }));
     } catch (err) {
-      Logger.log.error(err);
+      Log.log.error(err);
     };
   }
 }

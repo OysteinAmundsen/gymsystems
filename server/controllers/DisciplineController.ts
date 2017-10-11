@@ -3,7 +3,7 @@ import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, UseBe
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 import { RequireRole } from '../middlewares/RequireAuth';
 
 import { ConfigurationController } from './ConfigurationController';
@@ -105,7 +105,7 @@ export class DisciplineController {
     const disciplines = Array.isArray(discipline) ? discipline : [discipline];
     return this.repository.save(disciplines)
       .catch(err => {
-        Logger.log.error('Error creating discipline', err);
+        Log.log.error('Error creating discipline', err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -124,7 +124,7 @@ export class DisciplineController {
   update( @Param('id') id: number, @Body() discipline: Discipline): Promise<Discipline | ErrorResponse> {
     return this.repository.save(discipline)
       .catch(err => {
-        Logger.log.error(`Error updating discipline ${id}`, err);
+        Log.log.error(`Error updating discipline ${id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -143,7 +143,7 @@ export class DisciplineController {
     const discipline = await this.repository.findOneById(disciplineId);
     return this.removeMany([discipline])
       .catch(err => {
-        Logger.log.error(`Error removing discipline ${disciplineId}`, err);
+        Log.log.error(`Error removing discipline ${disciplineId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -185,7 +185,7 @@ export class DisciplineController {
    * @param {Response} res
    */
   createDefaults(tournament: Tournament, res: Response): Promise<Discipline[] | ErrorResponse> {
-    Logger.log.debug('Creating default discipline values');
+    Log.log.debug('Creating default discipline values');
     const configRepository = Container.get(ConfigurationController);
     const scoreGroupRepository = Container.get(ScoreGroupController);
 
@@ -203,12 +203,12 @@ export class DisciplineController {
             return disciplines;
           })
           .catch(err => {
-            Logger.log.error(`Error creating default disciplines and scoregroups for tournament ${tournament.id}`, err);
+            Log.log.error(`Error creating default disciplines and scoregroups for tournament ${tournament.id}`, err);
             return Promise.resolve(new ErrorResponse(err.code, err.message));
           });
       })
       .catch(err => {
-        Logger.log.error('Error fetching configuration: defaultValues', err);
+        Log.log.error('Error fetching configuration: defaultValues', err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }

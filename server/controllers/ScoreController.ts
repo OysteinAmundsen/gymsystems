@@ -3,7 +3,7 @@ import { Body, Delete, Get, JsonController, Param, Post, Put, UseBefore, Res, Re
 import { Container, Service } from 'typedi';
 import { Request, Response } from 'express';
 
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 
 import { RequireRole } from '../middlewares/RequireAuth';
 import { isSameClubAsMe } from '../validators/CreatedByValidator';
@@ -95,7 +95,7 @@ export class ScoreController {
         return s;
       })
       .catch(err => {
-        Logger.log.error(`Error creating scores for participant ${participantId}`, err);
+        Log.log.error(`Error creating scores for participant ${participantId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -134,7 +134,7 @@ export class ScoreController {
           return s;
         }))
         .catch(err => {
-          Logger.log.error(`Error removing scores for participant: ${participantId}`, err);
+          Log.log.error(`Error removing scores for participant: ${participantId}`, err);
           return Promise.resolve(new ErrorResponse(err.code, err.message));
         });
     }

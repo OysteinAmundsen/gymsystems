@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Container } from 'typedi';
 
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 
 import { Role, User } from '../model/User';
 import { BelongsToClub, Club } from '../model/Club';

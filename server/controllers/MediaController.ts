@@ -18,7 +18,7 @@ import { RequireRole } from '../middlewares/RequireAuth';
 import { Media } from '../model/Media';
 import { Role } from '../model/User';
 
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 
 import { TournamentController } from '../controllers/TournamentController';
 import { Team } from '../model/Team';
@@ -121,7 +121,7 @@ export class MediaController {
     const newPath = `./media/${archiveId}/${fileName}`;
 
     return new Promise((resolve, reject) => {
-      Logger.log.info(`Storing '${newPath}'`);
+      Log.log.info(`Storing '${newPath}'`);
       fs.rename(file.path, `${newPath}`, (err) => {
         (err ? reject(err) : resolve(newPath));
       });
@@ -131,10 +131,10 @@ export class MediaController {
   createArchive(id: number, expire: Date) {
     mkdirp(`./media/${id}`, (err) => {
       if (err) {
-        Logger.log.error(`Error creating archive folder ./media/${id}`, err);
+        Log.log.error(`Error creating archive folder ./media/${id}`, err);
       }
       this.expireArchive(id, expire); // Register for expiration
-      Logger.log.info(`Created tournament media folder at: './media/${id}'`);
+      Log.log.info(`Created tournament media folder at: './media/${id}'`);
     });
   }
 
@@ -209,7 +209,7 @@ export class MediaController {
       });
     }
 
-    Logger.log.info(`Streaming '${media.filename}' : ${stat.size}`);
+    Log.log.info(`Streaming '${media.filename}' : ${stat.size}`);
     res.writeHead(200, {
       'Content-Type': media.mimeType,
       'Content-Length': stat.size
@@ -240,10 +240,10 @@ export class MediaController {
     return new Promise((resolve, reject) => {
       rimraf(`./media/${id}`, (err: Error) => {
         if (err) {
-          Logger.log.error(`Error removing media folder ./media/${id}`, err.message);
+          Log.log.error(`Error removing media folder ./media/${id}`, err.message);
           // reject(err);
         }
-        Logger.log.info(`Tournament media folder './media/${id}' removed!`);
+        Log.log.info(`Tournament media folder './media/${id}' removed!`);
 
         // Remove cronjob registered to this removal
         schedule.cancelJob(id.toString());
@@ -267,6 +267,6 @@ export class MediaController {
 
     // Create cronjob
     schedule.scheduleJob(id.toString(), expire, () => this.removeArchive(id))
-    Logger.log.info(`Tournament media folder './media/${id}' registered for expiration at ${moment(expire).format('DD.MM.YYYY HH:mm')}`);
+    Log.log.info(`Tournament media folder './media/${id}' registered for expiration at ${moment(expire).format('DD.MM.YYYY HH:mm')}`);
   }
 }

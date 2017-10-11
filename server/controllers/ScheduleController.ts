@@ -3,7 +3,7 @@ import { Body, Delete, OnUndefined, Get, JsonController, Param, Post, Put, Res, 
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 
 import { RequireRole } from '../middlewares/RequireAuth';
 import { isSameClubAsMe, isAllSameClubAsMe } from '../validators/CreatedByValidator';
@@ -198,7 +198,7 @@ export class ScheduleController {
 
     return this.repository.save(participants)
       .catch(err => {
-        Logger.log.error(`Error creating schedule participants`, err);
+        Log.log.error(`Error creating schedule participants`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }
@@ -229,7 +229,7 @@ export class ScheduleController {
         return this.get(id);
       })
       .catch(err => {
-        Logger.log.error(`Error updating participant ${id} in schedule`, err);
+        Log.log.error(`Error updating participant ${id} in schedule`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }
@@ -287,7 +287,7 @@ export class ScheduleController {
     }
     return this.repository.remove(participants)
       .catch(err => {
-        Logger.log.error(`Error removing participants in schedule`, err);
+        Log.log.error(`Error removing participants in schedule`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }

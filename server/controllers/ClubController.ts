@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 const csv: any = require('fast-csv');
 
 import { RequireRole } from '../middlewares/RequireAuth';
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 
 import { Club } from '../model/Club';
 import { Role } from '../model/User';
@@ -107,9 +107,9 @@ export class ClubController {
       const query = this.serializeQueryParams({
         page: 0, size: 10, $filter: encodeURIComponent(`startswith(navn,'${name}') and startswith(naeringskode/kode,'93.120')`)
       });
-      Logger.log.debug(`Requesting: ${url}?${query}`);
+      Log.log.debug(`Requesting: ${url}?${query}`);
       request(`${url}?${query}`, (error, response, body) => {
-        if (error) { Logger.log.error('Error looking up brreg', error); return reject(error); }
+        if (error) { Log.log.error('Error looking up brreg', error); return reject(error); }
         if (body) {
           const json = JSON.parse(body);
           resolve(json.data ? <Club[]>json.data.map((r: any) => <Club> { name: r.navn }) : []);
@@ -147,7 +147,7 @@ export class ClubController {
   create( @Body() club: Club, @Res() res?: Response): Promise<Club | any> {
     return this.repository.save(club)
       .catch(err => {
-        Logger.log.error('Error creating club', err);
+        Log.log.error('Error creating club', err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -167,7 +167,7 @@ export class ClubController {
   update( @Param('clubId') clubId: number, @Body() club: Club): Promise<Club | any> {
     return this.repository.save(club)
       .catch(err => {
-        Logger.log.error(`Error updating club ${clubId}`, err);
+        Log.log.error(`Error updating club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -187,7 +187,7 @@ export class ClubController {
     if (club) {
       return this.repository.remove(club)
         .catch(err => {
-          Logger.log.error(`Error removing club ${clubId}`, err);
+          Log.log.error(`Error removing club ${clubId}`, err);
           return Promise.resolve(new ErrorResponse(err.code, err.message));
         });
     }
@@ -255,7 +255,7 @@ export class ClubController {
     return this.conn.getRepository(Gymnast)
       .save(member)
       .catch(err => {
-        Logger.log.error(`Error adding member to club ${clubId}`, err);
+        Log.log.error(`Error adding member to club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -304,7 +304,7 @@ export class ClubController {
         .on('end', () => {
           // Cleanup removing uploaded file
           fs.unlink(req.file.path, (err: any) => {
-            if (err) { Logger.log.error(`Error importing members to club ${clubId}`, err); }
+            if (err) { Log.log.error(`Error importing members to club ${clubId}`, err); }
           });
 
           // Persist data
@@ -312,12 +312,12 @@ export class ClubController {
             .save(members)
             .then(persisted => resolve(persisted))
             .catch(err => {
-              Logger.log.error(`Error persisting members to club ${clubId}`, err);
+              Log.log.error(`Error persisting members to club ${clubId}`, err);
               resolve(new ErrorResponse(err.code, err.message));
             })
         })
         .on('error', (err: any) => {
-          Logger.log.error(`Error reading in memberdata from file to club ${clubId}`, err);
+          Log.log.error(`Error reading in memberdata from file to club ${clubId}`, err);
           reject(err);
         });
     });
@@ -363,7 +363,7 @@ export class ClubController {
       .delete()
       .execute()
       .catch(err => {
-        Logger.log.error(`Error deleting member in club ${clubId}`, err);
+        Log.log.error(`Error deleting member in club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -404,7 +404,7 @@ export class ClubController {
     return this.conn.getRepository(Troop)
       .save(troop)
       .catch(err => {
-        Logger.log.error(`Error creating teams in club ${clubId}`, err);
+        Log.log.error(`Error creating teams in club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -425,7 +425,7 @@ export class ClubController {
     const troop = await repo.findOneById(id);
     return repo.remove(troop)
       .catch(err => {
-        Logger.log.error(`Error removing teams in club ${clubId}`, err);
+        Log.log.error(`Error removing teams in club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }

@@ -68,10 +68,12 @@ export class AuthInterceptor implements HttpInterceptor {
           // Notify user of success
           const now = moment();
           const success = this.translator.instant('SUCCESS');
-          if (action.method === RequestMethod.Post || action.method === RequestMethod.Put) {
-            this.snackBar.open(`${this.translator.instant('Saved')} ${now.format('HH:mm:ss')}`, success, { duration: 5 * 1000, });
-          } else if (action.method === RequestMethod.Delete) {
-            this.snackBar.open(`${this.translator.instant('Deleted')} ${now.format('HH:mm:ss')}`, success, { duration: 5 * 1000, });
+          if (this.shouldReport(res)) {
+            if (action.method === RequestMethod.Post || action.method === RequestMethod.Put) {
+              this.snackBar.open(`${this.translator.instant('Saved')} ${now.format('HH:mm:ss')}`, success, { duration: 5 * 1000, });
+            } else if (action.method === RequestMethod.Delete) {
+              this.snackBar.open(`${this.translator.instant('Deleted')} ${now.format('HH:mm:ss')}`, success, { duration: 5 * 1000, });
+            }
           }
         } else if (res.type !== 0) {
           Logger.debug('Response is not HttpResponse', res);
@@ -104,4 +106,7 @@ export class AuthInterceptor implements HttpInterceptor {
       });
   }
 
+  shouldReport(res: HttpResponse<any>) {
+    return !(['login', 'logout'].some(u => res.url.indexOf(u) > -1));
+  }
 }

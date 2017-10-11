@@ -3,7 +3,7 @@ import { Delete, OnUndefined, Get, JsonController, Body, Param, Post, Put, UseBe
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 import { RequireRole } from '../middlewares/RequireAuth';
 
 import { Tournament } from '../model/Tournament';
@@ -102,7 +102,7 @@ export class DivisionController {
     const divisions = Array.isArray(division) ? division : [division];
     return this.repository.save(divisions)
       .catch(err => {
-        Logger.log.error(`Error creating division`, err);
+        Log.log.error(`Error creating division`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -122,7 +122,7 @@ export class DivisionController {
   update( @Param('id') id: number, @Body() division: Division, @Res() res: Response) {
     return this.repository.save(division)
       .catch(err => {
-        Logger.log.error(`Error updating division ${id}`, err);
+        Log.log.error(`Error updating division ${id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -141,7 +141,7 @@ export class DivisionController {
     const division = await this.repository.findOneById(divisionId);
     return this.removeMany([division])
       .catch(err => {
-        Logger.log.error(`Error removing division ${divisionId}`, err);
+        Log.log.error(`Error removing division ${divisionId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -183,7 +183,7 @@ export class DivisionController {
     return configRepository.get('defaultValues')
       .then(values => this.create(values.value.division.map((d: Division) => { d.tournament = tournament; return d; }), res))
       .catch(err => {
-        Logger.log.error(`Error creating default divisions for tournament ${tournament.id}`, err);
+        Log.log.error(`Error creating default divisions for tournament ${tournament.id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }

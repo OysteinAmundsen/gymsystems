@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 import * as auth from 'passport';
 
 import { RequireAuth, RequireRole } from '../middlewares/RequireAuth';
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 import { User, Role, RoleNames } from '../model/User';
 import * as bcrypt from 'bcrypt';
 import * as _ from 'lodash';
@@ -49,7 +49,7 @@ export class UserController {
   private conn: Connection;
 
   sendmail = require('sendmail')({
-    logger: Logger.log,
+    logger: Log.log,
     silent: false
   });
 
@@ -207,14 +207,14 @@ export class UserController {
             this.sendmail({ from: emailFrom, to: user.email, subject: 'Your password is changed',
               html: _.template(messages.passwordUpdate)({name: user.name, password: setPassword}),
             }, (err: any, reply: any) => {
-              Logger.log.debug(err && err.stack);
-              Logger.log.debug(reply);
+              Log.log.debug(err && err.stack);
+              Log.log.debug(reply);
             });
           }
           return persisted;
         })
         .catch(err => {
-          Logger.log.error(`Error updating user ${id} with password/email change`, err);
+          Log.log.error(`Error updating user ${id} with password/email change`, err);
           return Promise.resolve(new ErrorResponse(err.code, err.message));
         });
     }
@@ -229,7 +229,7 @@ export class UserController {
       });
       return this.repository.save(u)
         .catch(err => {
-          Logger.log.error(`Error updating user ${id}`, err);
+          Log.log.error(`Error updating user ${id}`, err);
           return Promise.resolve(new ErrorResponse(err.code, err.message));
         });
     });
@@ -306,8 +306,8 @@ export class UserController {
               club: user.club ? user.club.name : 'No club'
             }),
           }, (err: any, reply: any) => {
-            Logger.log.debug(err && err.stack);
-            Logger.log.debug(reply);
+            Log.log.debug(err && err.stack);
+            Log.log.debug(reply);
           });
         }
         return persisted;
@@ -318,7 +318,7 @@ export class UserController {
           return new ErrorResponse(403, 'A user with this name allready exists');
         }
         // Default response
-        Logger.log.error(`Error creating user`, err);
+        Log.log.error(`Error creating user`, err);
         res.status(400);
         return new ErrorResponse(err.code, err.message);
       });
@@ -344,7 +344,7 @@ export class UserController {
 
     return this.repository.remove(user)
       .catch(err => {
-        Logger.log.error(`Error removing user ${userId}`, err);
+        Log.log.error(`Error removing user ${userId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }

@@ -3,7 +3,7 @@ import { Delete, OnUndefined, Get, JsonController, Body, Param, Post, Put, Res, 
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 import moment = require('moment');
 
 import { RequireRole } from '../middlewares/RequireAuth';
@@ -55,7 +55,7 @@ export class TournamentController {
     // Server probably restarted. Recreate cronjobs based on active tournaments
     const today = moment();
     this.all().then(allTournaments => {
-      Logger.log.info(allTournaments.length ? '** Recreating cronjobs' : '** No cronjobs to register');
+      Log.log.info(allTournaments.length ? '** Recreating cronjobs' : '** No cronjobs to register');
       if (allTournaments.length) {
         // Schedule upcoming tournaments for expiration
         allTournaments
@@ -109,7 +109,7 @@ export class TournamentController {
       .limit(10)
       .getMany()
       .catch(() => {
-        Logger.log.debug(`Query for past tournament was rejected before it was fulfilled`);
+        Log.log.debug(`Query for past tournament was rejected before it was fulfilled`);
         return Promise.resolve();
       });
   }
@@ -136,7 +136,7 @@ export class TournamentController {
       .limit(10)
       .getMany()
       .catch(() => {
-        Logger.log.debug(`Query for current tournaments was rejected before it was fulfilled`);
+        Log.log.debug(`Query for current tournaments was rejected before it was fulfilled`);
         return Promise.resolve();
       });
   }
@@ -163,7 +163,7 @@ export class TournamentController {
       .limit(10)
       .getMany()
       .catch(() => {
-        Logger.log.debug(`Query for future tournaments was rejected before it was fulfilled`);
+        Log.log.debug(`Query for future tournaments was rejected before it was fulfilled`);
         return Promise.resolve();
       });
   }
@@ -189,7 +189,7 @@ export class TournamentController {
       .leftJoinAndSelect('disciplines.scoreGroups', 'scoreGroups')
       .getOne()
       .catch(() => {
-        Logger.log.debug(`Query for tournament id ${id} was rejected before it was fulfilled`);
+        Log.log.debug(`Query for tournament id ${id} was rejected before it was fulfilled`);
         return Promise.resolve();
       });
   }
@@ -222,7 +222,7 @@ export class TournamentController {
         return persisted;
       })
       .catch(err => {
-        Logger.log.error(`Error creating tournament`, err);
+        Log.log.error(`Error creating tournament`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }
@@ -251,7 +251,7 @@ export class TournamentController {
         return persisted;
       })
       .catch(err => {
-        Logger.log.error(`Error updating tournament ${id}`, err);
+        Log.log.error(`Error updating tournament ${id}`, err);
         return Promise.resolve();
       });
   }
@@ -298,7 +298,7 @@ export class TournamentController {
     // Lastly remove the tournament.
     return this.repository.remove(tournament)
       .catch(err => {
-        Logger.log.error(`Error removing tournament ${tournamentId}`, err);
+        Log.log.error(`Error removing tournament ${tournamentId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
@@ -329,14 +329,14 @@ export class TournamentController {
           ])
             .then(() => tournament)
             .catch(err => {
-              Logger.log.error(`Error creating default values for tournament ${tournament.id}`, err);
+              Log.log.error(`Error creating default values for tournament ${tournament.id}`, err);
               return Promise.reject(err);
             });
         }
         return tournament;
       })
       .catch(err => {
-        Logger.log.error(`Error Error fetching configuration: defaultValues`, err);
+        Log.log.error(`Error Error fetching configuration: defaultValues`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }

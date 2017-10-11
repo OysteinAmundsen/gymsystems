@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 
 import { RequireRole } from '../middlewares/RequireAuth';
 
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 import { Configuration } from '../model/Configuration';
 import { Service } from 'typedi';
 import { Role } from '../model/User';
@@ -72,7 +72,7 @@ export class ConfigurationController {
     return this.repository.save(configuration)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        Logger.log.error(`Error saving configuration ${configuration.name}`, err);
+        Log.log.error(`Error saving configuration ${configuration.name}`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }
@@ -93,7 +93,7 @@ export class ConfigurationController {
     return this.repository.save(configuration)
       .then(persisted => res.send(persisted))
       .catch(err => {
-        Logger.log.error(`Error updating configuration ${id}`, err);
+        Log.log.error(`Error updating configuration ${id}`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }
@@ -114,7 +114,7 @@ export class ConfigurationController {
     return this.repository.remove(configuration)
       .then(result => res.send(result))
       .catch(err => {
-        Logger.log.error(`error removing configuration ${id}`, err);
+        Log.log.error(`error removing configuration ${id}`, err);
         return new ErrorResponse(err.code, err.message);
       });
   }

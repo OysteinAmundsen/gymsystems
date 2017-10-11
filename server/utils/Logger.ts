@@ -3,6 +3,10 @@ import * as winston from 'winston';
 import * as morgan from 'morgan';
 import * as fs from 'fs';
 import * as mkdirp from 'mkdirp';
+import * as chalk from 'chalk';
+import { LoggerOptions } from 'typeorm/logger/LoggerOptions';
+import { Logger, QueryRunner } from 'typeorm';
+import { PlatformTools } from 'typeorm/platform/PlatformTools';
 
 if (!fs.existsSync('./log')) {
   mkdirp('./log', (err, made) => {
@@ -21,7 +25,7 @@ if (!fs.existsSync('./log')) {
  * Logger.log.debug('This is a log entry');
  * ```
  */
-export namespace Logger {
+export namespace Log {
   function formatter(logEntry: any) {
     // Remove ansi coloring from log entries
     const regexp = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
@@ -73,7 +77,81 @@ export namespace Logger {
    */
   export let stream: morgan.StreamOptions = {
     write: function (message: string) {
-      Logger.log.info(message);
+      Log.log.info(message);
     }
   };
+}
+
+/**
+ * This is the relay class we send to TypeORM.
+ */
+export class OrmLog implements Logger {
+  constructor(private options?: LoggerOptions) { }
+
+  /**
+   * Logs query and parameters used in it.
+   */
+  logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner) {
+    if (this.options === 'all' || this.options === true || (this.options instanceof Array && this.options.indexOf('query') !== -1)) {
+      const sql = query + (parameters && parameters.length ? ' -- PARAMETERS: ' + this.stringifyParams(parameters) : '');
+      Log.log.info(chalk.gray.underline('executing query:'), PlatformTools.highlightSql(sql));
+    }
+  }
+
+  /**
+   * Logs query that is failed.
+   */
+  logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner) {
+    if (this.options === 'all' || this.options === true || (this.options instanceof Array && this.options.indexOf('error') !== -1)) {
+      const sql = query + (parameters && parameters.length ? ' -- PARAMETERS: ' + this.stringifyParams(parameters) : '');
+      Log.log.error(chalk.underline.red(`query failed:`), PlatformTools.highlightSql(sql));
+      Log.log.error(chalk.underline.red(`error:`), error);
+    }
+  }
+
+  /**
+   * Logs query that is slow.
+   */
+  logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: QueryRunner) {
+    const sql = query + (parameters && parameters.length ? ' -- PARAMETERS: ' + this.stringifyParams(parameters) : '');
+    Log.log.warn(chalk.underline.yellow(`query is slow:`), PlatformTools.highlightSql(sql));
+    Log.log.warn(chalk.underline.yellow(`execution time:`), time);
+  }
+
+  /**
+   * Logs events from the schema build process.
+   */
+  logSchemaBuild(message: string, queryRunner?: QueryRunner) {
+    if (this.options === 'all' || (this.options instanceof Array && this.options.indexOf('schema') !== -1)) {
+      Log.log.debug(chalk.underline(message));
+    }
+  }
+
+  /**
+   * Logs events from the migration run process.
+   */
+  logMigration(message: string, queryRunner?: QueryRunner) {
+    Log.log.debug(chalk.underline(message));
+  }
+
+  /**
+   * Perform logging using given logger, or by default to the console.
+   * Log has its own level and message.
+   */
+  log(level: 'log' | 'info' | 'warn', message: any, queryRunner?: QueryRunner) {
+    throw new Error('Method not implemented.');
+  }
+
+  /**
+   * Converts parameters to a string.
+   * Sometimes parameters can have circular objects and therefor we are handle this case too.
+   */
+  protected stringifyParams(parameters: any[]) {
+    try {
+      return JSON.stringify(parameters);
+
+    } catch (error) { // most probably circular objects in parameters
+      return parameters;
+    }
+  }
 }

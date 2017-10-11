@@ -21,7 +21,7 @@ import * as auth from 'passport';
 
 // Persistance
 import 'reflect-metadata';
-import { createConnection, useContainer, ConnectionOptions } from 'typeorm';
+import { createConnection, useContainer, ConnectionOptions, getConnectionOptions } from 'typeorm';
 import { useExpressServer } from 'routing-controllers';
 import { Container } from 'typedi';
 const rc = require('routing-controllers');
@@ -29,11 +29,11 @@ const rc = require('routing-controllers');
 // Other
 import { setupAuthentication } from './config/AuthenticationConfig';
 import { SSEController } from './services/SSEController';
-import { Logger } from './utils/Logger';
+import { Log, OrmLog } from './utils/Logger';
 import { ERROR_MESSAGES } from './messages';
 import { NextFunction, ErrorRequestHandler } from 'express-serve-static-core';
 
-/**
+    /**
  * Our application starts here.
  *
  * @class Server
@@ -43,23 +43,24 @@ export class GymServer {
   private port: number = +process.env.PORT || 3000;
   private clientPath = path.join(__dirname, './public');
   public isTest: boolean = !!process.env.PRODUCTION; // false;
+  private ormConfig;
 
-  /**
+      /**
    * Bootstrap the application.
    *
    * @returns {Promise<any>}
    * @constructor
    */
   static Initialize(args: string[]): Promise<any> {
-    Logger.log.debug(`
+    Log.log.debug(`
 **********************
   Starting GymSystems
 **********************
 `);
     return new GymServer()
       .start(args)
-      .then(() => Logger.log.debug('** Server started...'))
-      .catch((error: any) => Logger.log.error((ERROR_MESSAGES[error.code]) ? ERROR_MESSAGES[error.code] : error));
+      .then(() => Log.log.debug('** Server started...'))
+      .catch((error: any) => Log.log.error((ERROR_MESSAGES[error.code]) ? ERROR_MESSAGES[error.code] : error));
   }
 
   /**
@@ -75,33 +76,25 @@ export class GymServer {
    *
    * @returns {Promise<Server>}
    */
-  start(args: string[]): Promise<Server> {
+  async start(args: string[]): Promise<Server> {
     this.isTest = args.length > 2 && args[2] === 'test';
 
     // Read typeorm config and add our own Logger
-    const config: any = JSON.parse(fs.readFileSync(path.join('.', 'ormconfig.json'), 'utf8'));
-
-    // Use config from command line (if given)
-    let index = 0;
-    if (args.length > 2) {
-      Logger.log.debug(`Finding typeorm config ${args[2]}`);
-      index = config.findIndex((c: ConnectionOptions) => c.name === args[2]);
-      Logger.log.debug(`Using typeorm config "${config[index].name}"`);
-    }
-    const configuration = config[index];
-
-    // Rename configuration to 'default' as typeorm requires a default config
-    configuration.name = 'default';
+    this.ormConfig = await getConnectionOptions(args.length > 2 ? args[2] : 'default');
+    this.ormConfig = Object.assign(this.ormConfig, {
+      name: 'default',                           // Rename configuration to 'default' as typeorm requires a default config
+      logger: new OrmLog(this.ormConfig.logging) // Apply logger system to typeorm config
+    });
 
     // Connect to database and startup Express
-    Logger.log.info('** Connecting to database and setting up schema');
-    return createConnection(configuration).then(async connection => {
-      Logger.log.info('** DB connected. Creating server...');
-      return this.createServer()
-        .listen(this.port)  // Listen on provided port, on all network interfaces.
-        .on('listening', () => this.onReady())
-        .on('error', this.onServerInitError);
-    });
+    Log.log.info('** Connecting to database and setting up schema');
+    const connection = createConnection(this.ormConfig);
+
+    Log.log.info('** DB connected. Creating server...');
+    return this.createServer()
+      .listen(this.port)  // Listen on provided port, on all network interfaces.
+      .on('listening', () => this.onReady())
+      .on('error', this.onServerInitError);
   }
 
   /**
@@ -121,7 +114,7 @@ export class GymServer {
     // Setup the following only if we are not running tests
     if (!this.isTest) {
       // Setup morgan access logger using winston
-      this.app.use(morgan('combined', { stream: Logger.stream }));
+      this.app.use(morgan('combined', { stream: Log.stream }));
 
       // Setup static resources
       this.app.use(serveStatic(this.clientPath));
@@ -134,7 +127,7 @@ export class GymServer {
     }
 
     // Configure authentication services
-    Logger.log.info('** Setting up authentication services');
+    Log.log.info('** Setting up authentication services');
     this.app.use(cookieParser());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     const MemoryStore = require('session-memory-store')(session);
@@ -154,7 +147,7 @@ export class GymServer {
     const passport = setupAuthentication(this.app);
 
     // Setup routing-controllers
-    Logger.log.info('** Setting up REST endpoints');
+    Log.log.info('** Setting up REST endpoints');
     useExpressServer(this.app, {
       cors: true,
       routePrefix: '/api',
@@ -182,7 +175,7 @@ export class GymServer {
    */
   private onReady() {
     const url = chalk.blue.underline(`http://localhost:${this.port}/`);
-    Logger.log.debug(`Serving on ${url}`);
+    Log.log.debug(`Serving on ${url}`);
   }
 
   /**
@@ -191,11 +184,11 @@ export class GymServer {
    * @param error
    */
   private onServerInitError(error: any) {
-    Logger.log.error((ERROR_MESSAGES[error.code] ? ERROR_MESSAGES[error.code] : error));
+    Log.log.error((ERROR_MESSAGES[error.code] ? ERROR_MESSAGES[error.code] : error));
   }
 
   private globalErrorHandler(err: any, req: Request, res: Response, next: NextFunction): any {
-    if (err) { Logger.log.error(err); }
+    if (err) { Log.log.error(err); }
     if (next) { next(); }
   }
 }

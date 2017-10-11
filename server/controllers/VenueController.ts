@@ -4,7 +4,7 @@ import { Container, Service } from 'typedi';
 import { Request, Response } from 'express';
 import * as request from 'request';
 
-import { Logger } from '../utils/Logger';
+import { Log } from '../utils/Logger';
 
 import { ErrorResponse } from '../utils/ErrorResponse';
 import { Venue } from '../model/Venue';
@@ -159,7 +159,7 @@ export class VenueController {
   getByAddress( @Param('address') address: string) {
     return new Promise((resolve, reject) => {
       request(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${this.geoApiKey}`, (error, response, body) => {
-        if (error) { Logger.log.error('Error looking up address', error); return reject(error); }
+        if (error) { Log.log.error('Error looking up address', error); return reject(error); }
         if (body) {
           const res = JSON.parse(body);
           return resolve(res.results);
