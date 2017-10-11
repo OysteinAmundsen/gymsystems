@@ -25,11 +25,11 @@
     </tr>
     <tr>
       <th translate>Start date</th>
-      <td>{{ tournament.startDate | utcDate }}</td>
+      <td>{{ tournament.startDate | date:'dMy' }}</td>
     </tr>
     <tr>
       <th translate>End date</th>
-      <td>{{ tournament.endDate | utcDate }}</td>
+      <td>{{ tournament.endDate | date:'dMy' }}</td>
     </tr>
     <tr>
       <th *ngIf="tournament.venue" translate>Location</th>
@@ -68,9 +68,7 @@
         </div>
 
         <div class="row">
-            <!-- <app-datepicker formControlName="startDate" [options]="{maxDate: tournamentForm.value.endDate, initialDate: tournamentForm.value.endDate, autoApply: true}"></app-datepicker> -->
-            <!-- <app-datepicker formControlName="endDate" [options]="{minDate: tournamentForm.value.startDate, initialDate: tournamentForm.value.startDate, autoApply: true}"></app-datepicker> -->
-            <mat-form-field class="col-xs-4">
+          <mat-form-field class="col-xs-4">
             <input matInput formControlName="startDate" [matDatepicker]="startDate" placeholder="{{'Start date' | translate}}" [max]="tournamentForm.value.endDate" #startDateInput>
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate></mat-datepicker>

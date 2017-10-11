@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -9,6 +9,7 @@ import { ConfigurationService, ClubService } from 'app/services/api';
 import * as moment from 'moment';
 import { ErrorHandlerService } from 'app/services/config';
 import { MembersComponent } from 'app/views/configure/club/members/members.component';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 @Component({
   selector: 'app-member-editor',
@@ -39,8 +40,9 @@ export class MemberEditorComponent implements OnInit {
 
   ngOnInit() {
     let lastBirthYear = this.maxYear, lastGender = Gender.Male;
-    if (this.parent.memberList.length > 1) {
-      const lastMember = this.parent.memberList[this.parent.memberList.length - 2];
+    const memberList = this.parent.memberList;
+    if (memberList.length > 1) {
+      const lastMember = memberList[memberList.length - 2];
       lastBirthYear = lastMember.birthYear;
       lastGender = lastMember.gender;
     }
@@ -94,5 +96,12 @@ export class MemberEditorComponent implements OnInit {
 
   close() {
     this.memberChanged.emit(this.member);
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.keyCode === KeyCode.ESCAPE) {
+      this.close();
+    }
   }
 }

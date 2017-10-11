@@ -51,7 +51,7 @@ export class ClubController {
   /**
    * Fetch all clubs.
    *
-   * This will also perform a lookup in https://www.brreg.no
+   * This will also perform a lookup in https:// www.brreg.no
    * to fetch all organizations with a industry code specifying
    * sports clubs.
    *
@@ -378,16 +378,54 @@ export class ClubController {
    * @param {number} clubId
    */
   @Get('/:clubId/troop')
-  getTeams(@Param('clubId') clubId: number, @QueryParam('name') name?: string): Promise< Troop[] > {
+  getTroops(@Param('clubId') clubId: number, @QueryParam('name') name?: string): Promise<Troop[]> {
     const query = this.conn.getRepository(Troop)
       .createQueryBuilder('troop')
       .innerJoinAndSelect('troop.club', 'club')
       .leftJoinAndSelect('troop.gymnasts', 'gymnasts')
-      .where('troop.club = :id', {id: clubId})
+      .where('troop.club = :clubId', {clubId: clubId})
     if (name) {
       query.andWhere('lower(troop.name) LIKE lower(:name)', {name: `%${name}%`});
     }
     return query.getMany();
+  }
+
+  /**
+   * Endpoint for retreiving a clubs troops
+   *
+   * **USAGE:**
+   * GET /clubs/:clubId/troop
+   *
+   * @param {number} clubId
+   */
+  @Get('/:clubId/troop/count')
+  getTroopsCount(@Param('clubId') clubId: number): Promise<number> {
+    return this.conn.getRepository(Troop)
+      .createQueryBuilder('troop')
+      .innerJoinAndSelect('troop.club', 'club')
+      .where('troop.club = :clubId', {clubId: clubId})
+      .getCount();
+  }
+
+  /**
+   * Endpoint for retreiving a troop
+   *
+   * **USAGE:**
+   * GET /clubs/:clubId/troop/:id
+   *
+   * @param {number} clubId
+   * @param {number} id
+   */
+  @Get('/:clubId/troop/:id')
+  @UseBefore(RequireRole.get(Role.Club))
+  async getTroop(@Param('clubId') clubId: number,  @Param('id') id: number) {
+    return this.conn.getRepository(Troop)
+      .createQueryBuilder('troop')
+      .innerJoinAndSelect('troop.club', 'club')
+      .leftJoinAndSelect('troop.gymnasts', 'gymnasts')
+      .where('troop.club = :clubId', {clubId: clubId})
+      .andWhere('troop.id = :id', {id: id})
+      .getOne();
   }
 
   /**
@@ -400,7 +438,7 @@ export class ClubController {
    */
   @Post('/:clubId/troop')
   @UseBefore(RequireRole.get(Role.Club))
-  saveTeams(@Param('clubId') clubId: number, @Body() troop: Troop): Promise < Troop | ErrorResponse > {
+  saveTroops(@Param('clubId') clubId: number, @Body() troop: Troop): Promise < Troop | ErrorResponse > {
     return this.conn.getRepository(Troop)
       .save(troop)
       .catch(err => {
@@ -420,7 +458,7 @@ export class ClubController {
    */
   @Delete('/:clubId/troop/:id')
   @UseBefore(RequireRole.get(Role.Club))
-  async removeTeams(@Param('clubId') clubId: number,  @Param('id') id: number) {
+  async removeTroop(@Param('clubId') clubId: number,  @Param('id') id: number) {
     const repo = this.conn.getRepository(Troop);
     const troop = await repo.findOneById(id);
     return repo.remove(troop)

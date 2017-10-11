@@ -3,32 +3,37 @@
   <span translate>Tournaments</span>
 </h1>
 
-<div class="table-responsive">
-  <table role="list" class="editable" matSort (matSortChange)="sortData($event)">
-    <thead>
-      <tr>
-        <th mat-sort-header="name">{{'Name' | translate}}</th>
-        <th mat-sort-header="startDate">{{'Start date' | translate}}</th>
-        <th mat-sort-header="endDate">{{'End date' | translate}}</th>
-        <th mat-sort-header="venue.name">{{'Location' | translate}}</th>
-        <th mat-sort-header="club.name">{{'Organized by' | translate}}</th>
-        <th *appIfAuth="'Admin'">{{'Created by' | translate}}</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let tournament of tournamentList">
-      <tr [routerLink]="['.', tournament.id]" role="listitem">
-        <td>{{ tournament.name }}</td>
-        <td>{{ tournament.startDate | utcDate }}</td>
-        <td>{{ tournament.endDate | utcDate }}</td>
-        <td>{{ tournament.venue.name }}</td>
-        <td>{{ tournament.club.name }}</td>
-        <td *appIfAuth="'Admin'">{{ tournament.createdBy.name }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<mat-table #table [dataSource]="tournamentSource" role="menu" matSort (matSortChange)="tournamentSource.sortData($event)">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let tournament">{{ tournament.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="startDate">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Start date' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let tournament">{{ tournament.startDate | date:'dMy' }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="endDate">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'End date' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let tournament">{{ tournament.endDate | date:'dMy' }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="venueName">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Location' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let tournament">{{ tournament.venue.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="clubName">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Organized by' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let tournament">{{ tournament.club.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="createdBy">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Created by' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let tournament">{{ tournament.createdBy.name }}</mat-cell>
+  </ng-container>
 
-<button mat-raised-button type="button" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
+  <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+  <mat-row *matRowDef="let tournament; columns: displayColumns; let index=index" #dataRow [routerLink]="['.', tournament.id]"></mat-row>
+</mat-table>
+
+<button mat-raised-button type="button" class="mat-primary" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Tournament</span>
 </button>

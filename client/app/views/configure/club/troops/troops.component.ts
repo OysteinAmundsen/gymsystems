@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Rx';
+import { trigger, state, transition, style, animate } from '@angular/animations';
+import { TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Subscription } from 'rxjs/Rx';
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -7,19 +9,33 @@ import * as _ from 'lodash';
 import { ITroop, IUser, Role, IGymnast, Gender } from 'app/model';
 import { UserService, ClubService, ConfigurationService } from 'app/services/api';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
-import { TranslateService } from '@ngx-translate/core';
+import { ExpansionSource, ExpansionRow } from 'app/services/expansion-source';
+import { SubjectSource } from 'app/services/subject-source';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-troops',
   templateUrl: './troops.component.html',
-  styleUrls: ['./troops.component.scss']
+  styleUrls: ['./troops.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0', visibility: 'hidden', opacity: '0'})),
+      state('expanded', style({height: '*', visibility: 'visible', opacity: '1'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class TroopsComponent implements OnInit {
   currentUser: IUser;
   userSubscription: Subscription;
-  selected: ITroop;
-  teamList: ITroop[] = [];
+
+  // selected: ITroop;
   ageLimits: {[type: string]: {min: number, max: number}};
+
+  teamSource = new SubjectSource<ITroop>(new BehaviorSubject<ITroop[]>([]));
+  get teamCount(): number { return this.teamSource.subject.value.length; }
+  displayedColumns = ['name', 'ageGroup', 'genderGroup', 'members'];
+
 
   get club() {
     return this.clubComponent.club;
@@ -29,6 +45,8 @@ export class TroopsComponent implements OnInit {
     private userService: UserService,
     private clubService: ClubService,
     private configuration: ConfigurationService,
+    private router: Router,
+    private route: ActivatedRoute,
     private translate: TranslateService,
     private clubComponent: ClubEditorComponent) { }
 
@@ -39,7 +57,7 @@ export class TroopsComponent implements OnInit {
   }
 
   loadTeams() {
-    this.clubService.getTeams(this.club).subscribe(teams => this.teamList = teams);
+    this.clubService.getTroops(this.club).subscribe(teams => this.teamSource.subject.next(teams));
   }
 
   ageDivision(team: ITroop) {
@@ -53,7 +71,11 @@ export class TroopsComponent implements OnInit {
 
   genderDivision(team: ITroop) {
     if (team.gymnasts.every(g => g.gender === team.gymnasts[0].gender)) {
-      return team.gymnasts[0].gender === Gender.Female ? this.translate.instant('Female') : this.translate.instant('Male');
+      if (team.gymnasts.length > 0) {
+        return team.gymnasts[0].gender === Gender.Female
+          ? this.translate.instant('Women')
+          : this.translate.instant('Men');
+      }
     }
     return this.translate.instant('Mix');
   }
@@ -63,40 +85,46 @@ export class TroopsComponent implements OnInit {
   }
 
   addTeam() {
-    let teamCounter = this.teamList ? this.teamList.length : 0
-    const team = <ITroop>{
-      id          : null,
-      name        : this.club.name.split(' ')[0].toLowerCase() + '-' + ++teamCounter,
-      club        : this.currentUser.club,
-      gymnasts    : []
-    };
-    this.teamList.push(team);
-    this.selected = team;
-  }
-
-  select(team: ITroop) {
-    if (team) {
-      if (this.currentUser.role >= Role.Admin || team.club.id === this.currentUser.club.id) {
-        this.selected = team;
-      }
-    } else {
-      this.selected = null;
+    if (this.currentUser.role >= Role.Admin || this.club.id === this.currentUser.club.id) {
+      this.router.navigate(['./add'], {relativeTo: this.route});
     }
+    // let teamCounter = this.teamCount;
+    // const team = <ITroop>{
+    //   id          : null,
+    //   name        : this.club.name.split(' ')[0].toLowerCase() + '-' + ++teamCounter,
+    //   club        : this.currentUser.club,
+    //   gymnasts    : []
+    // };
+    // this.teamSource.add(team);
+    // this.select(team);
   }
 
-  onChange($event) {
-    this.select(null);
-    this.loadTeams();
+  select(team: ITroop, row?: number) {
+    // this.teamSource.clearSelection();
+    if (team != null) {
+      if (this.currentUser.role >= Role.Admin || team.club.id === this.currentUser.club.id) {
+        // this.teamSource.select(team, row);
+        // this.selected = team;
+        this.router.navigate(['./', team.id], { relativeTo: this.route });
+      }
+    } /* else {
+      this.selected = null;
+    } */
   }
+
+  // onChange($event) {
+  //   this.select(null);
+  //   this.loadTeams();
+  // }
 
   generateTeams() {
     this.clubService.getAvailableMembers(this.club).subscribe(members => {
       const troopSize = 12;
       const promises = [];
 
-      let teamCounter = this.teamList ? this.teamList.length : 0;
+      let teamCounter = this.teamCount;
       const saveTroop = (gymnasts: IGymnast[]) => {
-        return this.clubService.saveTeam(<ITroop>{
+        return this.clubService.saveTroop(<ITroop>{
           name: this.club.name.split(' ')[0].toLowerCase() + '-' + ++teamCounter,
           gymnasts: gymnasts,
           club: this.club
@@ -121,7 +149,7 @@ export class TroopsComponent implements OnInit {
       createTroop(members);
       Promise.all(promises).then(result => {
         console.log(result);
-        this.onChange(null);
+        // this.onChange(null);
       });
     });
   }

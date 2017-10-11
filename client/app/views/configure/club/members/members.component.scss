@@ -4,7 +4,7 @@
   padding-bottom: 2rem; // To make room for save button feedback
 }
 
-tr[role="listitem"] {
+tr[role="listitem"], .mat-row {
   &.male {
     background: rgba($primary, 0.05);
   }
@@ -26,4 +26,8 @@ a.file-upload {
     margin: 0;
     padding: 0;
   }
+}
+
+.mat-row.detail {
+  padding: 0 2px;
 }

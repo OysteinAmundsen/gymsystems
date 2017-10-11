@@ -55,16 +55,16 @@ export class ClubServiceStub extends ClubService {
   }
 
   // TROOPS API
-  getTeams(club: IClub): Observable<ITroop[]> {
+  getTroops(club: IClub): Observable<ITroop[]> {
     return Observable.of(null);
   }
   findTroopByName(club: IClub, name: string): Observable<ITroop[]> {
     return Observable.of(null);
   }
-  saveTeam(team: ITroop) {
+  saveTroop(team: ITroop) {
     return Observable.of(null);
   }
-  deleteTeam(team: ITroop) {
+  deleteTroop(team: ITroop) {
     return Observable.of(null);
   }
 }

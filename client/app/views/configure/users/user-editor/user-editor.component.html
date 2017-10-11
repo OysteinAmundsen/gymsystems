@@ -1,10 +1,14 @@
-<h1>
-  <fa name="user" fw="true"></fa>
-  {{ userForm.value.name || 'User' }}
-</h1>
-
 <form [formGroup]="userForm" (submit)="save()">
   <mat-card>
+    <mat-card-header>
+      <div class="card-actions">
+        <button type="button" mat-icon-button (click)="cancel()"><fa name="close" fw="true"></fa></button>
+      </div>
+      <fa name="user" size="2" fw="true" mat-card-avatar></fa>
+      <mat-card-title>
+        <h3>{{ userForm.value.name || 'User' }}</h3>
+      </mat-card-title>
+    </mat-card-header>
     <mat-card-content>
       <div class="row">
         <mat-form-field [ngClass]="(userForm.value.id !== currentUser.id ? 'col-xs-8' : 'col-xs-12') + ' help-available'">

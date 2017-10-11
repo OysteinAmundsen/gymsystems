@@ -194,10 +194,10 @@ export class DisciplineController {
         const defaultValues = values.value;
         return this.create(defaultValues.discipline.map((d: Discipline) => { d.tournament = tournament; return d; }), res)
           .then((disciplines: Discipline[]) => {
-            const scoreGroups: ScoreGroup[] = [];
+            let scoreGroups: ScoreGroup[] = [];
             disciplines.forEach((d: Discipline) => {
               const defaults = JSON.parse(JSON.stringify(defaultValues.scoreGroup));
-              scoreGroups.push(defaults.map((s: ScoreGroup) => { s.discipline = d; return s; }));
+              scoreGroups = scoreGroups.concat(defaults.map((s: ScoreGroup) => { s.discipline = d; return s; }));
             });
             scoreGroupRepository.create(scoreGroups, res);
             return disciplines;

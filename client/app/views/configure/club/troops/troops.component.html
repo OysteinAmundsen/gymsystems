@@ -1,34 +1,30 @@
-<div class="table-responsive">
-  <table role="list">
-    <thead>
-      <tr>
-        <th translate>Name</th>
-        <th translate>Age group</th>
-        <th translate>Gender group</th>
-        <th translate>Members</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let team of teamList">
-      <tr *ngIf="team !== selected" (click)="select(team)" role="listitem">
-        <td>{{ team.name }}</td>
-        <td>{{ ageDivision(team) }}</td>
-        <td>{{ genderDivision(team) }}</td>
-        <td>{{ members(team) }}</td>
-      </tr>
-      <tr *ngIf="team === selected">
-        <td colspan="4">
-          <app-troop-editor [troop]="selected" (troopChanged)="onChange($event)"></app-troop-editor>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<mat-table #table [dataSource]="teamSource" role="menu">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>{{'Name' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let team">{{ team.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ageGroup">
+    <mat-header-cell *matHeaderCellDef>{{'Age group' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let team">{{ ageDivision(team) }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="genderGroup">
+    <mat-header-cell *matHeaderCellDef>{{'Gender group' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let team">{{ genderDivision(team) }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="members">
+    <mat-header-cell *matHeaderCellDef>{{'Members' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let team">{{ members(team) }}</mat-cell>
+  </ng-container>
 
-<button mat-raised-button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addTeam()">
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let team; columns: displayedColumns; let index=index" #dataRow (click)="select(team, index)"></mat-row>
+</mat-table>
+
+<button mat-raised-button class="mat-primary" type="button" [title]="'Add' | translate" (click)="addTeam()">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Team</span>
 </button>
-<button mat-raised-button type="button" *ngIf="selected == null" [title]="'Generate' | translate" (click)="generateTeams()">
+<button mat-raised-button type="button" [title]="'Generate' | translate" (click)="generateTeams()">
   <fa name="magic" fw="true"></fa>
   <span translate>Generate teams from members</span>
 </button>

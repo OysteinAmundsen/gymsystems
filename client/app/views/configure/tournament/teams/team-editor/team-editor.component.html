@@ -1,5 +1,14 @@
 <form [formGroup]="teamForm" (submit)="save()">
   <mat-card>
+    <mat-card-header>
+      <div class="card-actions">
+        <button type="button" mat-icon-button (click)="close()"><fa name="close" fw="true"></fa></button>
+      </div>
+      <fa name="group" size="2" fw="true" mat-card-avatar></fa>
+      <mat-card-title>
+        <h3>{{ 'Team' | translate}} {{ teamForm.value.name }}</h3>
+      </mat-card-title>
+    </mat-card-header>
     <mat-card-content>
       <fieldset>
         <div class="row">

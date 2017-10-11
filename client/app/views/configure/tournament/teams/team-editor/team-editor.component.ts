@@ -19,6 +19,7 @@ import { KeyCode } from 'app/shared/KeyCodes';
 import { TeamsComponent } from 'app/views/configure/tournament/teams/teams.component';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-team-editor',
@@ -28,20 +29,16 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 export class TeamEditorComponent implements OnInit, OnDestroy {
   @Input() team: ITeam = <ITeam>{};
   @Input() tournament: ITournament;
-  @Output() teamChanged: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChildren('selectedDisciplines') disciplineCheckboxes;
-  teamForm: FormGroup;
 
-  _currentUser: IUser;
-  get currentUser() { return this._currentUser; }
-  set currentUser(value: IUser) {
-    this._currentUser = value;
-  }
-  userSubscription: Subscription;
+  subscriptions: Subscription[] = [];
+  teamForm: FormGroup;
+  currentUser: IUser;
 
   clubList = [];
   troopList = [];
+  configuredTroops = [];
   disciplines: IDiscipline[];
   divisions: IDivision[] = [];
   ageLimits: {[type: string]: {min: number, max: number}};
@@ -60,9 +57,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   }
 
   classes = Classes;
-  get TeamGym(): string { return this.translate.instant('TeamGym'); }
-  get National(): string { return this.translate.instant('National classes'); }
-
 
   get isAllLodged() { return this.teamForm.value.gymnasts ? this.teamForm.value.gymnasts.every(g => g.lodging) : false; }
   set isAllLodged($event) { this.teamForm.value.gymnasts.forEach(g => g.lodging = $event); }
@@ -76,8 +70,9 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
     private tournamentEditor: TournamentEditorComponent,
-    private parent: TeamsComponent,
     private configuration: ConfigurationService,
     private teamService: TeamsService,
     private clubService: ClubService,
@@ -89,66 +84,65 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     private mediaService: MediaService) { }
 
   ngOnInit() {
-    this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
+    this.subscriptions.push(this.userService.getMe().subscribe(user => this.currentUser = user));
     this.configuration.getByname('ageLimits').subscribe(ageLimits => this.ageLimits = ageLimits.value);
-    this.tournamentEditor.tournamentSubject.subscribe(tournament => {
+    this.subscriptions.push(this.tournamentEditor.tournamentSubject.subscribe(tournament => {
       this.tournament = tournament;
+      this.subscriptions.push(this.route.params.subscribe(params => params.id ? this.reloadTeam(+params.id) : null));
+      this.teamService.getByTournament(this.tournament.id).subscribe((teams) => this.configuredTroops = teams);
       this.divisionService.getByTournament(this.tournament.id).subscribe(d => this.divisions = d);
       this.disciplineService.getByTournament(this.tournament.id).subscribe(d => {
         this.disciplines = d;
         setTimeout(() => this.classChanged());
       });
-      if (this.team.id) { this.reloadTeam(); }
-      else { setTimeout(() => this.teamReceived(this.team)); }
+    }));
 
+    // Group divisions by type
+    this.teamForm = this.fb.group({
+      id             : [this.team.id],
+      name           : [this.team.name, [Validators.required, this.forbiddenNameValidator()]],
+      club           : [this.team.club, [Validators.required]],
+      ageDivision    : [null, [Validators.required]],
+      genderDivision : [null, [Validators.required]],
+      disciplines    : [this.team.disciplines],
+      tournament     : [this.team.tournament || this.tournament],
+      gymnasts       : [this.team.gymnasts || []],
+      class          : [this.team.class || Classes.TeamGym],
+      media          : [this.team.media]
+    });
 
-      // Group divisions by type
-      this.teamForm = this.fb.group({
-        id: [this.team.id],
-        name: [this.team.name, [Validators.required, this.forbiddenNameValidator()]],
-        club: [this.team.club, [Validators.required]],
-        ageDivision: [null, [Validators.required]],
-        genderDivision: [null, [Validators.required]],
-        disciplines: [this.team.disciplines],
-        tournament: [this.team.tournament],
-        gymnasts: [this.team.gymnasts || []],
-        class: [this.team.class || Classes.TeamGym],
-        media: [this.team.media]
+    const clubCtrl = this.teamForm.controls['club'];
+    const nameCtrl = this.teamForm.controls['name'];
+
+    // Club typeahead
+    clubCtrl.valueChanges
+      .distinctUntilChanged()
+      .map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
+      .map(v => {(v.length <= 0) ? nameCtrl.disable() : nameCtrl.enable(); return v; }) // Disable 'name' control if club is empty
+      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      .subscribe(v => this.clubService.findByName(v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
+
+    // Troopname typeahead
+    nameCtrl.valueChanges
+      .distinctUntilChanged()
+      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      .subscribe(v => {
+        if (this.teamForm.value.club.id) {
+          this.clubService.findTroopByName(this.teamForm.value.club, v.name ? v.name : v).subscribe(troops => {
+            this.troopList = troops.filter(t => this.configuredTroops.findIndex(l => l.name === t.name) < 0)
+          })
+        }
       });
 
-      // Club typeahead
-      const clubCtrl = this.teamForm.controls['club'];
-      const nameCtrl = this.teamForm.controls['name'];
-      // Read filtered options
-      clubCtrl.valueChanges
-        .distinctUntilChanged()
-        .map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
-        .map(v => {(v.length <= 0) ? nameCtrl.disable() : nameCtrl.enable(); return v; }) // Disable 'name' control if club is empty
-        .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-        .subscribe(v => this.clubService.findByName(v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
-
-      // Troopname typeahead
-      nameCtrl.valueChanges
-        .distinctUntilChanged()
-        .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-        .subscribe(v => {
-          if (this.teamForm.value.club.id) {
-            this.clubService.findTroopByName(this.teamForm.value.club, v.name ? v.name : v).subscribe(troops => {
-              this.troopList = troops.filter(t => this.parent.teamList.findIndex(l => l.name === t.name) < 0)
-            })
-          }
-        }); // Read filtered options
-
-      // Select all disciplines if TeamGym is chosen
-      this.teamForm.controls['class']
-        .valueChanges
-        .distinctUntilChanged()
-        .subscribe((c: Classes) => setTimeout(() => this.classChanged()));
-    });
+    // Select all disciplines if TeamGym is chosen
+    this.teamForm.controls['class']
+      .valueChanges
+      .distinctUntilChanged()
+      .subscribe((c: Classes) => setTimeout(() => this.classChanged()));
   }
 
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
+    this.subscriptions.forEach(s => s ? s.unsubscribe() : null);
   }
 
   setSelectedClub(v: MatAutocompleteSelectedEvent) {
@@ -192,7 +186,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   forbiddenNameValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       if (!this.teamForm) { return null; }
-      const check = this.parent.teamList
+      const check = this.configuredTroops
         .filter(t => t.club && t.club.name === this.teamForm.value.club && (!t.id || t.id !== this.teamForm.value.id))
         .findIndex(t => t.name === control.value) > -1;
       return check ? { 'forbiddenName': {value: control.value} } : null;
@@ -211,7 +205,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const fileList: FileList = (<HTMLInputElement>event.target).files;
     const upload = () => {
       this.teamService.uploadMedia(fileList[0], this.teamForm.value, discipline).subscribe(
-        data => this.reloadTeam(),
+        data => this.reloadTeam(this.teamForm.value.id),
         error => Logger.error(error)
       )
     }
@@ -240,11 +234,10 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         media: team.media || null
       });
     }
-    // this.classChanged();
   }
 
-  reloadTeam() {
-    this.teamService.getById(this.team.id).subscribe(team => this.teamReceived(team));
+  reloadTeam(id: number) {
+    this.teamService.getById(id).subscribe(team => this.teamReceived(team));
   }
 
   hasMedia(discipline: IDiscipline) {
@@ -271,16 +264,15 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   removeMedia(discipline: IDiscipline) {
     this.stopMedia(discipline);
-    this.teamService.removeMedia(this.team, discipline).subscribe(() => this.reloadTeam());
+    this.teamService.removeMedia(this.team, discipline).subscribe(() => this.reloadTeam(this.teamForm.value.id));
   }
 
   async save(keepOpen?: boolean) {
     const team = JSON.parse(JSON.stringify(this.teamForm.value)); // Clone form values
 
     // Troop name
-    if (team.name.id) {
-      team.name = team.name.name;
-    }
+    if (team.name.id) { team.name = team.name.name; }
+    if (!team.tournament) { team.tournament = this.tournament; }
 
     // Compute division set
     const ageDivision = this.divisions.find(d => d.id === team.ageDivision);
@@ -303,16 +295,13 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         return this.disciplines.find(d => d.id === +disciplineId);
       });
 
-    // Apply media
-    // this.teamForm.controls['media'].setValue(team.media);
-
     // Save team
     return new Promise((resolve, reject) => {
       this.teamService.save(team).subscribe(result => {
         const t: ITeam = Array.isArray(result) ? result[0] : result;
         this.teamReceived(t);
         if (!keepOpen) {
-          this.teamChanged.emit(t);
+          this.close(t);
         }
         resolve(t);
       });
@@ -325,12 +314,12 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   delete() {
     this.teamService.delete(this.teamForm.value).subscribe(result => {
-      this.teamChanged.emit(result);
+      this.close(result);
     })
   }
 
-  close() {
-    this.teamChanged.emit(this.team);
+  close(result?) {
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   classChanged() {
@@ -354,7 +343,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const state = this.allChecked;
     this.disciplineCheckboxes.forEach((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked = !state);
   }
-
 
   @HostListener('window:keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {

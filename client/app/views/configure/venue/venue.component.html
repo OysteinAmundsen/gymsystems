@@ -3,30 +3,33 @@
   <span translate>Venue</span>
 </h1>
 
-<div class="table-responsive">
-  <table role="list" class="editable" matSort (matSortChange)="sortData($event)">
-    <thead>
-      <tr>
-        <th mat-sort-header="name">{{'Name' | translate}}</th>
-        <th mat-sort-header="contact">{{'Contact' | translate}}</th>
-        <th mat-sort-header="rentalCost">{{'Rental cost' | translate}}</th>
-        <th mat-sort-header="address">{{'Address' | translate}}</th>
-        <th *appIfAuth="'Admin'">{{'Created by' | translate}}</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let venue of venueList">
-      <tr [routerLink]="['.', venue.id]" role="listitem">
-        <td>{{ venue.name }}</td>
-        <td>{{ venue.contact }}</td>
-        <td>{{ venue.rentalCost }}</td>
-        <td>{{ venue.address }}</td>
-        <td *appIfAuth="'Admin'">{{ venue.createdBy.name }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<mat-table #table [dataSource]="venueSource" role="menu" matSort (matSortChange)="venueSource.sortData($event)">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let venue">{{ venue.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="contact">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Contact' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let venue">{{ venue.contact }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="rendalCost">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Rental cost' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let venue">{{ venue.rentalCost }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="address">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Address' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let venue">{{ venue.address }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="createdBy">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Created by' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let venue">{{ venue.createdBy.name }}</mat-cell>
+  </ng-container>
 
-<button mat-raised-button type="button" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let venue; columns: displayedColumns; let index=index" #dataRow [routerLink]="['.', venue.id]"></mat-row>
+</mat-table>
+
+<button mat-raised-button type="button" class="mat-primary" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Venue</span>
 </button>

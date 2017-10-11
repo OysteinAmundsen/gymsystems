@@ -1,13 +1,16 @@
-<header>
-  <h1>
-    <fa name="map-marker" fw="true"></fa>
-    <span>{{ venueName }}</span>
-  </h1>
-</header>
-
 <!-- Edit data -->
 <form [formGroup]="venueForm" (submit)="save()">
   <mat-card>
+    <mat-card-header>
+      <div class="card-actions">
+        <button type="button" mat-icon-button (click)="cancel()"><fa name="close" fw="true"></fa></button>
+      </div>
+      <fa name="map-marker" size="2" fw="true" mat-card-avatar></fa>
+      <mat-card-title>
+        <h3>{{ venueName }}</h3>
+      </mat-card-title>
+    </mat-card-header>
+
     <mat-card-content>
       <div class="row">
         <mat-form-field class="col-5">

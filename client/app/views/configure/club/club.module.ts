@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatSortModule, MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule,
-  MatAutocompleteModule, MatButtonModule
+  MatAutocompleteModule, MatButtonModule, MatTableModule
 } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
@@ -27,6 +27,7 @@ import { TroopEditorComponent } from './troops/troop-editor/troop-editor.compone
     FormsModule,
     ReactiveFormsModule,
 
+    MatTableModule,
     MatSortModule,
     MatCardModule,
     MatTabsModule,

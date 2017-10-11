@@ -72,6 +72,7 @@ nav {
       border-right-color: rgba(white, 0.3);
       box-shadow: 0px 5px 20px -4px rgba(0, 0, 0, 0.3) inset, 1px 0 8px rgba(255, 255, 255, 0.2);
       text-shadow: 1px 1px 1px rgba(black, 0.4);
+      background-image: linear-gradient(to bottom, transparent 95%, white 98%);
     }
     @media (max-width: $stop1) {
       float: none;

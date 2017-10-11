@@ -9,6 +9,7 @@ import { DivisionsComponent } from './divisions/divisions.component';
 import { TeamsComponent } from './teams/teams.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { InfoComponent } from './info/info.component';
+import { TeamEditorComponent } from 'app/views/configure/tournament/teams';
 
 export const TournamentRoutes: Routes = [
   {
@@ -21,6 +22,8 @@ export const TournamentRoutes: Routes = [
           { path: 'divisions', component: DivisionsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
           ...DisciplineRoutes,
           { path: 'teams', component: TeamsComponent, canActivate: [RoleGuard], data: { role: Role.Club}  },
+          { path: 'teams/add', component: TeamEditorComponent, canActivate: [RoleGuard], data: { role: Role.Club}  },
+          { path: 'teams/:id', component: TeamEditorComponent, canActivate: [RoleGuard], data: { role: Role.Club}  },
           { path: 'schedule', component: ScheduleComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
           { path: 'info', component: InfoComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
         ]

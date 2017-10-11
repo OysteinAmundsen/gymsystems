@@ -1,5 +1,13 @@
 <form [formGroup]="troopForm" (submit)="save()">
   <mat-card>
+    <mat-card-header>
+      <div class="card-actions">
+        <button type="button" mat-icon-button (click)="close()"><fa name="close" fw="true"></fa></button>
+      </div>
+      <mat-card-title>
+        <h3>{{ 'Troop' | translate}} {{ troopForm.value.name }}</h3>
+      </mat-card-title>
+    </mat-card-header>
     <mat-card-content>
       <div class="row">
         <mat-form-field class="col-12">

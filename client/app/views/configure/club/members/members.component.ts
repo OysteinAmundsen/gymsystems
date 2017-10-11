@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Sort } from '@angular/material';
-import { BehaviorSubject } from 'rxjs/Rx';
+import { Subscription, BehaviorSubject } from 'rxjs/Rx';
 
 import { KeyCode } from 'app/shared/KeyCodes';
 import { Logger } from 'app/services/Logger';
@@ -8,24 +9,36 @@ import { Logger } from 'app/services/Logger';
 import { ClubService } from 'app/services/api';
 import { IClub, IGymnast, DivisionType, Gender } from 'app/model';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
-import { Subscription } from 'rxjs/Subscription';
+import { SubjectSource } from 'app/services/subject-source';
+import { MemberEditorComponent } from 'app/views/configure/club/members/member-editor/member-editor.component';
+import { ExpansionSource, ExpansionRow } from 'app/services/expansion-source';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
-  styleUrls: ['./members.component.scss']
+  styleUrls: ['./members.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0', visibility: 'hidden', opacity: '0'})),
+      state('expanded', style({height: '*', visibility: 'visible', opacity: '1'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class MembersComponent implements OnInit, OnDestroy {
   club: IClub;
-  memberListSubject = new BehaviorSubject<IGymnast[]>([]);
-  get memberList() { return this.memberListSubject.value || []; }
-  genders = Gender;
+  memberSource = new ExpansionSource<IGymnast>(new BehaviorSubject<IGymnast[]>([]));
+  get memberList() { return this.memberSource.subject.value || []; }
+  displayedColumns = ['name', 'birthYear', 'gender', 'teams'];
 
+  genders = Gender;
   selected: IGymnast;
 
   subscriptions: Subscription[] = [];
 
-  constructor(private parent: ClubEditorComponent, private clubService: ClubService) {  }
+  constructor(private parent: ClubEditorComponent, private clubService: ClubService, private translate: TranslateService) {  }
+
 
   ngOnInit() {
     this.subscriptions.push(this.parent.clubSubject.subscribe(club => {
@@ -40,18 +53,16 @@ export class MembersComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => { if (s) { s.unsubscribe(); }});
   }
 
-  sortData($event: Sort) {
-    this.memberList.sort((a, b) => {
-      const dir = $event.direction === 'asc' ? -1 : 1;
-      return (a[$event.active] > b[$event.active]) ? dir : -dir;
-    });
-  }
-
   loadMembers() {
-    this.clubService.getMembers(this.club).subscribe(members => this.memberListSubject.next(members));
+    this.clubService.getMembers(this.club).subscribe(members => this.memberSource.sortData(null, members));
   }
 
-  genderDivision(member: IGymnast) { return Object.keys(Gender).find(k => Gender[k] === member.gender); }
+  genderDivision(member: IGymnast) {
+    switch (member.gender) {
+      case Gender.Male: return this.translate.instant('Male');
+      case Gender.Female: return this.translate.instant('Female');
+    }
+  }
 
   countTeams(member: IGymnast) {
     return member && member.troop && member.troop.length ? `${member.troop.length}` : '';
@@ -70,9 +81,8 @@ export class MembersComponent implements OnInit, OnDestroy {
       team        : null,
       club        : null
     };
-    this.memberList.push(member);
-    // this.memberListSubject.next(newList);
-    this.selected = member;
+    this.memberSource.add(member);
+    this.select(member);
   }
 
   onChange() {
@@ -80,7 +90,8 @@ export class MembersComponent implements OnInit, OnDestroy {
     this.loadMembers();
   }
 
-  select(member: IGymnast) {
+  select(member: IGymnast, row?: number) {
+    this.memberSource.select(member, row);
     this.selected = member ? member : null;
   }
 

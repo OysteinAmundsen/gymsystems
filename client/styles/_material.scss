@@ -61,6 +61,13 @@ $gymsystems-theme: mat-light-theme($gymsystems-primary, $gymsystems-accent, $gym
 // that you are using.
 @include angular-material-theme($gymsystems-theme);
 
+
 .mat-form-field {
   line-height: 1.25;
+}
+
+.mat-card-header .card-actions {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }

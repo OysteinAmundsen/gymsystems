@@ -1,30 +1,40 @@
-<div class="table-responsive">
-  <table role="list" class="editable" matSort (matSortChange)="sortData($event)">
-    <thead>
-      <tr>
-        <th mat-sort-header="name">{{'Name' | translate}}</th>
-        <th mat-sort-header="birthYear">{{'Birth year' | translate}}</th>
-        <th mat-sort-header="gender">{{'Gender' | translate}}</th>
-        <th>{{'Teams' | translate}}</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let member of memberList">
-      <tr *ngIf="member !== selected" (click)="select(member)" role="listitem" [ngClass]="{'male': member.gender == genders.Male, 'female': member.gender == genders.Female}">
-        <td>{{ member.name }}</td>
-        <td>{{ member.birthYear }}</td>
-        <td>{{ genderDivision(member) }}</td>
-        <td [title]="teamsTitle(member)">{{ countTeams(member) }}</td>
-      </tr>
-      <tr *ngIf="member === selected">
-        <td colspan="4">
-          <app-member-editor [club]="club" [member]="selected" (memberChanged)="onChange($event)"></app-member-editor>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<mat-table #table [dataSource]="memberSource" matSort (matSortChange)="memberSource.sortData($event)">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member">{{ member.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="birthYear">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Birth year' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member">{{ member.birthYear }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="gender">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Gender' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member">{{ genderDivision(member) }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="teams">
+    <mat-header-cell *matHeaderCellDef>{{'Teams' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member">{{ countTeams(member) }}</mat-cell>
+  </ng-container>
 
-<button mat-raised-button type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()">
+  <ng-container matColumnDef="expandedDetail">
+    <mat-cell *matCellDef="let row">
+      <app-member-editor *ngIf="row.expanded === true" [club]="club" [member]="row.element" (memberChanged)="onChange($event)"></app-member-editor>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+  <mat-row *matRowDef="let member; columns: displayedColumns; let index=index"
+          matRipple #dataRow
+          (click)="select(member, index)"
+          [@detailExpand]="member == selected ? 'collapsed' : 'expanded'"
+          [ngClass]="{'male': member.gender == genders.Male, 'female': member.gender == genders.Female, collapsed: selected == member}"></mat-row>
+  <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: memberSource.isExpansionDetailRow"
+          [ngClass]="{'male': row.element.gender == genders.Male, 'female': row.element.gender == genders.Female, 'detail': true, expanded: row.element == selected}"
+          [@detailExpand]="row.element == selected ? 'expanded' : 'collapsed'"></mat-row>
+</mat-table>
+
+<button mat-raised-button class="mat-primary" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Member</span>
 </button>

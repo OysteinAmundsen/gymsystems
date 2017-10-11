@@ -40,6 +40,8 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
 
   genders = Gender;
 
+  isLoadingMembers = false;
+
   dragSubscription;
   dropSubscription;
 
@@ -89,12 +91,18 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
 
   loadAvailableMembers() {
     if (this.club) {
-      this.clubService.getMembers(this.club).distinctUntilChanged().debounceTime(200).subscribe((members: IGymnast[]) => {
-        this.availableMembers = members && members.length && this.gymnasts && this.gymnasts.length
-          ? members.filter(g => this.gymnasts.findIndex(tg => tg.id === g.id) < 0)
-          : members;
-        this.memberListHidden = this.gymnasts && this.gymnasts.length > 0;
-      });
+      if (!this.isLoadingMembers) {
+        this.isLoadingMembers = true;
+        this.clubService.getMembers(this.club)
+          .distinctUntilChanged()
+          .subscribe((members: IGymnast[]) => {
+            this.availableMembers = members && members.length && this.gymnasts && this.gymnasts.length
+              ? members.filter(g => this.gymnasts.findIndex(tg => tg.id === g.id) < 0)
+              : members;
+            this.memberListHidden = this.gymnasts && this.gymnasts.length > 0;
+            this.isLoadingMembers = false;
+          });
+      }
     }
   }
 

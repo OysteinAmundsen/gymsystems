@@ -15,6 +15,7 @@ import { Logger } from 'app/services/Logger';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { TroopsComponent } from 'app/views/configure/club/troops/troops.component';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-troop-editor',
@@ -32,13 +33,12 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
   set currentUser(value) {
     this._currentUser = value;
   }
-  userSubscription: Subscription;
+  subscriptions: Subscription[] = [];
 
   memberListHidden = true;
 
-  get club() {
-    return this.clubComponent.club;
-  }
+  club: IClub;
+  troopsCount = 0;
 
   get clubName() {
     return _.upperCase(this.troop.club ? this.troop.club.name : this.clubComponent.clubName);
@@ -46,32 +46,46 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
 
   get troopSuggestion() {
     setTimeout(() => this.troopForm.markAsDirty());
-    let teamCounter = this.troopsComponent.teamList ? this.troopsComponent.teamList.length : 0
+    let teamCounter = this.troopsCount;
     return this.clubName.split(' ')[0].toLowerCase() + '-' + ++teamCounter;
   }
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
     private clubService: ClubService,
     private userService: UserService,
-    private clubComponent: ClubEditorComponent,
-    private troopsComponent: TroopsComponent) { }
+    private clubComponent: ClubEditorComponent/* ,
+    private troopsComponent: TroopsComponent */) { }
 
   ngOnInit() {
-    this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
+    this.subscriptions.push(this.userService.getMe().subscribe(user => this.currentUser = user));
 
     this.troopForm = this.fb.group({
       id: [this.troop.id],
-      name: [this.troop.name || this.troopSuggestion, [Validators.required]],
+      name: [this.troop.name, [Validators.required]],
       club: [this.club],
       gymnasts: [this.troop.gymnasts || []]
     });
 
-    this.troopReceived(this.troop);
+    this.clubComponent.clubSubject.subscribe(club => {
+      this.club = club;
+      this.route.params.subscribe(params => {
+        if (params.id) {
+          this.clubService.getTroop(this.club, +params.id).subscribe(troop => this.troopReceived(troop));
+        } else {
+          this.clubService.getTroopsCount(this.club).subscribe(count => {
+            this.troopsCount = count;
+            this.troopForm.controls['name'].setValue(this.troopSuggestion);
+          });
+        }
+      });
+    });
   }
 
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
+    this.subscriptions.forEach(s => s ? s.unsubscribe() : null);
   }
 
   troopReceived(troop: ITroop) {
@@ -89,23 +103,24 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
 
     // Save team
     return new Promise((resolve, reject) => {
-      this.clubService.saveTeam(troop).subscribe(result => {
+      this.clubService.saveTroop(troop).subscribe(result => {
         const t: ITroop = Array.isArray(result) ? result[0] : result;
         this.troopReceived(t);
-        this.troopChanged.emit(t);
+        this.close(t);
         resolve(t);
       });
     });
   }
 
   delete() {
-    this.clubService.deleteTeam(this.troopForm.value).subscribe(result => {
-      this.troopChanged.emit(result);
+    this.clubService.deleteTroop(this.troopForm.value).subscribe(result => {
+      this.close(result);
     })
   }
 
-  close() {
-    this.troopChanged.emit(this.troop);
+  close(result?) {
+    this.troopChanged.emit(result || this.troop);
+    this.router.navigate(['../'], { relativeTo: this.route});
   }
 
   @HostListener('window:keyup', ['$event'])

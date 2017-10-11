@@ -38,4 +38,19 @@ footer {
   position: absolute;
   bottom: 1rem;
   right: 0;
+  .flag-icon-large {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  @media (min-width: $stop1) {
+    .mat-icon-button {
+      width: 25px;
+      height: 25px;
+      line-height: 20px;
+    }
+    .flag-icon-large {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
 }

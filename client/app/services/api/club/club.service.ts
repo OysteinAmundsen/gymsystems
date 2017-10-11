@@ -58,19 +58,27 @@ export class ClubService {
   }
 
   // TROOPS API
-  getTeams(club: IClub): Observable<ITroop[]> {
+  getTroops(club: IClub): Observable<ITroop[]> {
     return this.http.get<ITroop[]>(`${this.url}/${club.id}/troop`);
+  }
+
+  getTroopsCount(club: IClub): Observable<number> {
+    return this.http.get<number>(`${this.url}/${club.id}/troop/count`);
+  }
+
+  getTroop(club: IClub, id: number): Observable<ITroop> {
+    return this.http.get<ITroop>(`${this.url}/${club.id}/troop/${id}`);
   }
 
   findTroopByName(club: IClub, name: string): Observable<ITroop[]> {
     return this.http.get<ITroop[]>(`${this.url}/${club.id}/troop?name=${name}`);
   }
 
-  saveTeam(team: ITroop) {
+  saveTroop(team: ITroop) {
     return this.http.post<ITroop>(`${this.url}/${team.club.id}/troop`, team);
   }
 
-  deleteTeam(team: ITroop) {
+  deleteTroop(team: ITroop) {
     return this.http.delete(`${this.url}/${team.club.id}/troop/${team.id}`);
   }
 }

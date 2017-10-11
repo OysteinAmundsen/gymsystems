@@ -1,11 +1,12 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription, BehaviorSubject } from 'rxjs/Rx';
 
 import { ClubService, UserService } from 'app/services/api';
 import { IClub, IUser, Role } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { SubjectSource } from 'app/services/subject-source';
 
 @Component({
   selector: 'app-club',
@@ -13,10 +14,11 @@ import { KeyCode } from 'app/shared/KeyCodes';
   styleUrls: ['./club.component.scss']
 })
 export class ClubComponent implements OnInit, OnDestroy {
-  clubList: IClub[];
+  clubSource = new SubjectSource<IClub>(new BehaviorSubject<IClub[]>([]));
   user: IUser;
 
   subscriptions: Subscription[] = [];
+
   constructor(
     private clubService: ClubService,
     private userService: UserService,
@@ -34,7 +36,7 @@ export class ClubComponent implements OnInit, OnDestroy {
       this.user = user;
       if (this.user.role >= Role.Admin) {
         // Only admins should be able to edit any clubs
-        this.clubService.all().subscribe(clubs => this.clubList = clubs);
+        this.clubService.all().subscribe(clubs => this.clubSource.subject.next(clubs));
       } else {
         // If you are not admin, you will be auto-redirected to your club page
         this.router.navigate(['./', this.user.club.id], { relativeTo: this.route});

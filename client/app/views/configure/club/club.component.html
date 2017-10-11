@@ -3,22 +3,17 @@
   <span translate>Clubs</span>
 </h1>
 
-<div class="table-responsive">
-  <table role="list" class="editable">
-    <thead>
-      <tr>
-        <th translate>Name</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let club of clubList">
-      <tr [routerLink]="['.', club.id]" role="listitem">
-        <td class="club">{{ club.name }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<mat-table #table [dataSource]="clubSource" role="menu" matSort (matSortChange)="clubSource.sortData($event)">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let club">{{ club.name }}</mat-cell>
+  </ng-container>
 
-<button mat-raised-button type="button" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Admin'">
+  <mat-header-row *matHeaderRowDef="['name']"></mat-header-row>
+  <mat-row *matRowDef="let club; columns: ['name']; let index=index" #dataRow [routerLink]="['.', club.id]"></mat-row>
+</mat-table>
+
+<button mat-raised-button class="mat-primary" type="button" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Admin'">
   <fa name="plus" fw="true"></fa>
   <span translate>Add club</span>
 </button>

@@ -24,7 +24,7 @@
         <a routerLink="/">
           <fa name="home" fw="true"></fa> <span translate>Home</span> </a>
       </li>
-      <li [routerLinkActive]="['active']" *appIfAuth="false" [title]="'Login to the system if you have an account' | translate">
+      <li *appIfAuth="false" [title]="'Login to the system if you have an account' | translate">
         <a routerLink="/login" [queryParams]="{u: locationHref}">
           <fa name="sign-in" fw="true"></fa> <span translate>Login</span> </a>
       </li>

@@ -282,7 +282,10 @@ export class TournamentController {
 
     // Remove participants
     const participantRepository = this.conn.getRepository(TeamInDiscipline);
-    const participants = await participantRepository.find({ tournament: {id: tournament.id} });
+    const participants = await participantRepository
+      .createQueryBuilder('participant')
+      .where('participant.tournament = :id', {id: tournament.id} )
+      .getMany();
     await participantRepository.remove(participants);
 
     // Remove divisions
