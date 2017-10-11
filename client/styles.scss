@@ -1,21 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "./styles/_variables";
-@import "./styles/_quick-render";
-@import "./styles/_material";
+// Load fonts
+@import url('https://fonts.googleapis.com/css?family=Economica|Roboto:400,700');
 
+// Setup global variables
+@import "./styles/_variables";
+
+// Priority
+@import "./styles/_quick-render";
+
+// Framework setup
+@import "./styles/_material";
 @import "./styles/_dragula";
+
+// Functional classes and main setup
 @import "./styles/_flex";
 @import "./styles/_grid";
 @import "./styles/_main";
 
+// The rest
 @import "./styles/_flag";
 @import "./styles/_nav";
 @import "./styles/_menu";
-@import "./styles/_panel";
+@import "./styles/_panel"; // TBD
 @import "./styles/_form";
 @import "./styles/_table";
-@import "./styles/_buttons";
+@import "./styles/_buttons"; // TBD
 @import "./styles/_helpBlock";
 
+// Routes with global styling
 @import "./styles/_display";

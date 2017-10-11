@@ -1,8 +1,10 @@
 {
   "external": {
       "urls": [
-          {"url": "https://fonts.googleapis.com/css?family=Economica:400,700"},
-          {"url": "https://fonts.gstatic.com/s/economica/v4/UK4l2VEpwjv3gdcwbwXE9Ogdm0LZdjqr5-oayXSOefg.woff2"},
+          {"url": "https://fonts.googleapis.com/css?family=Economica|Roboto:400,700"},
+          {"url": "https://fonts.gstatic.com/s/economica/v5/jObgDQiPUtmACAaaK3pMG1tXRa8TVwTICgirnJhmVJw.woff2"},
+          {"url": "https://fonts.gstatic.com/s/roboto/v16/CWB0XYA8bzo0kSThX0UTuA.woff2"},
+          {"url": "https://fonts.gstatic.com/s/roboto/v16/d-6IYplOFocCacKzxwXSOFtXRa8TVwTICgirnJhmVJw.woff2"},
           {"url": "https://www.google-analytics.com/analytics.js"}
       ]
   },
