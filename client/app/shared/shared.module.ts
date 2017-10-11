@@ -22,7 +22,8 @@ import { SaveButtonComponent } from './components/save-button/save-button.compon
 import { UtcDatePipe } from './pipes/utc-date.pipe';
 import { HelpBlockComponent } from './components/help-block/help-block.component';
 import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directive';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatProgressBarModule, MatDialogModule } from '@angular/material';
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 @NgModule({
   imports: [
@@ -34,12 +35,15 @@ import { MatButtonModule } from '@angular/material';
     ReactiveFormsModule,
     DragulaModule,
 
+    MatDialogModule,
     MatButtonModule,
+    MatProgressBarModule,
 
     RouterModule,
   ],
   declarations: [
     DialogComponent,
+    ErrorDialogComponent,
     PanelComponent,
     MultirangeComponent,
     SaveButtonComponent,
@@ -61,6 +65,7 @@ import { MatButtonModule } from '@angular/material';
 
     // Export components
     DialogComponent,
+    ErrorDialogComponent,
     PanelComponent,
     MultirangeComponent,
     SaveButtonComponent,
@@ -73,6 +78,9 @@ import { MatButtonModule } from '@angular/material';
     ToUpperPipe,
     OrderByPipe,
     UtcDatePipe,
+  ],
+  entryComponents: [
+    ErrorDialogComponent
   ]
 })
 export class SharedModule { }

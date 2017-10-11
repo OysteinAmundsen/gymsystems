@@ -89,7 +89,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         if (error.message) { message = error.message; }
         else { message = err.message; }
-        this.error.error = `${err.status} - ${err.statusText}: ${JSON.stringify(message)}`;
+        this.error.setError(`${err.status} - ${err.statusText}: ${JSON.stringify(message)}`, err.status);
 
         // Analyze status
         if (err.status === 401) {

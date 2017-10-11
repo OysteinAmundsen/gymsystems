@@ -237,7 +237,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     }
     this.tournamentService.save(formVal).subscribe(tournament => {
       if (tournament.hasOwnProperty('code')) {
-        this.error.error = `${tournament.message}`;
+        this.error.setError(`${tournament.message}`);
         return false;
       }
       this.tournament = tournament;

@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.angulartics.eventTrack.next({action: 'login', properties: {category: 'auth', label: 'login', value: result.name}});
         me.router.navigate([me.redirectTo]);
       },
-      error => this.errorHandler.error = 'Wrong username or password'
+      error => this.errorHandler.setError('Wrong username or password')
     );
   }
 }

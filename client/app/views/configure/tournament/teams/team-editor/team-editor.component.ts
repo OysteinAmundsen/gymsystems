@@ -291,7 +291,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
     // Get club
     if (!team.club) {
-      this.errorHandler.error = 'No club set. Cannot register!';
+      this.errorHandler.setError(this.translate.instant('No club set.'), this.translate.instant('Cannot register!'));
       return;
     }
 

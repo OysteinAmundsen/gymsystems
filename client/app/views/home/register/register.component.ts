@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
   async register() {
     const user = this.registerForm.value;
     if (!user.club) {
-      this.errorHandler.error = 'No club set. Cannot register!';
+      this.errorHandler.setError('No club set. Cannot register!');
       return;
     }
 
@@ -78,9 +78,9 @@ export class RegisterComponent implements OnInit {
   }
 
   registrationComplete(res) {
-    this.errorHandler.error = (res && res.id
+    this.errorHandler.setError(res && res.id
       ? this.translate.instant(`You are registerred! We've sent you an email with your credentials.`)
-      : JSON.stringify(res));
+      : JSON.stringify(res), '');
     this.router.navigate(['/login']);
   }
 }

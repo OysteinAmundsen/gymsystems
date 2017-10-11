@@ -70,7 +70,7 @@ export namespace Log {
     exitOnError: false
   });
 
-  /**
+   /**
    * This is the options object we relay to `morgan`
    *
    * @type {{write: ((message:string)=>any)}}
@@ -94,7 +94,7 @@ export class OrmLog implements Logger {
   logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner) {
     if (this.options === 'all' || this.options === true || (this.options instanceof Array && this.options.indexOf('query') !== -1)) {
       const sql = query + (parameters && parameters.length ? ' -- PARAMETERS: ' + this.stringifyParams(parameters) : '');
-      Log.log.info(chalk.gray.underline('executing query:'), PlatformTools.highlightSql(sql));
+      Log.log.verbose(chalk.gray.underline('executing query:'), PlatformTools.highlightSql(sql));
     }
   }
 

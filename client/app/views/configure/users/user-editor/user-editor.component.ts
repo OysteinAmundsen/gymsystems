@@ -111,7 +111,9 @@ export class UserEditorComponent implements OnInit {
 
     // Make sure you don't degrade yourself
     if (this.currentUser.id === formVal.id && this.currentUser.role !== formVal.role) {
-      this.errorHandler.error = 'You cannot upgrade/degrade yourself. If you belive your role should be different, contact a person with a higher or equal role.';
+      this.errorHandler.setError(`
+      You cannot upgrade/degrade yourself.
+      If you belive your role should be different, contact a person with a higher or equal role.`);
       return;
     }
     this.userService.save(formVal).subscribe(result => {
@@ -120,7 +122,7 @@ export class UserEditorComponent implements OnInit {
   }
 
   delete() {
-    this.errorHandler.error = '';
+    this.errorHandler.clearError();
     if (this.userForm.value.id !== this.currentUser.id) {
       this.userService.delete(this.userForm.value).subscribe(result => {
         this.router.navigate(['../'], { relativeTo: this.route });

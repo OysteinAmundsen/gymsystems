@@ -51,8 +51,25 @@ import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.se
 import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
 import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 import { EventServiceStub } from 'app/services/api/event/event.service.stub';
-import { MatCardModule, MatSnackBarModule } from '@angular/material';
+import { MatCardModule, MatSnackBarModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+@NgModule({
+  imports: [
+    // Framework modules
+    HttpClientTestingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
+  ],
+  exports: [
+    TranslateModule
+  ]})
+export class TranslateModuleTest { }
 
 /**
  * Reusable module for component testing.
@@ -70,18 +87,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     HttpClientTestingModule,
     BrowserAnimationsModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+    TranslateModuleTest,
     MarkdownToHtmlModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
 
     MatSnackBarModule,
     MatCardModule,
+    MatDialogModule,
 
     // Application modules
     SharedModule,
@@ -89,7 +101,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   exports: [
     HttpClientTestingModule,
-    TranslateModule,
     RouterTestingModule,
     FormsModule,
     ReactiveFormsModule,

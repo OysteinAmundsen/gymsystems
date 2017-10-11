@@ -35,9 +35,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
 
   showHelp = false;
 
-  get error() { return this.errorHandler.error; }
-  set error(value) { this.errorHandler.error = value; }
-
   constructor(
     private element: ElementRef,
     private userService: UserService,

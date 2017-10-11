@@ -75,7 +75,7 @@ export class MemberEditorComponent implements OnInit {
     const member = this.memberForm.value;
     this.clubService.saveMember(member).subscribe(response => {
       if (response && response.message) {
-        this.errorHandler.error = response.message;
+        this.errorHandler.setError(response.message);
       } else {
         this.close();
       }
@@ -85,7 +85,7 @@ export class MemberEditorComponent implements OnInit {
   delete() {
     this.clubService.deleteMember(this.member).subscribe(response => {
       if (response && response.message) {
-        this.errorHandler.error = response.message;
+        this.errorHandler.setError(response.message);
       } else {
         this.close();
       }
