@@ -25,8 +25,8 @@ export class ScoreGroupService {
 
   save(scoreGroup: IScoreGroup) {
     return (scoreGroup.id)
-      ? this.http.put<IScoreGroup>(`${this.url}/${scoreGroup.id}`, Helper.reduceLevels(scoreGroup))
-      : this.http.post<IScoreGroup>(this.url, Helper.reduceLevels(scoreGroup));
+      ? this.http.put<IScoreGroup>(`${this.url}/${scoreGroup.id}`, Helper.reduceLevels(scoreGroup, 2))
+      : this.http.post<IScoreGroup>(this.url, Helper.reduceLevels(scoreGroup, 2));
   }
 
   saveAll(scoreGroups: IScoreGroup[]) {

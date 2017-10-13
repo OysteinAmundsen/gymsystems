@@ -5,11 +5,11 @@
   </h1>
 
   <div *ngIf="tournament && tournament.id" class="pull-right buttons">
-    <button mat-raised-button type="button" class="mat-primary" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'list']">
+    <button mat-raised-button type="button" class="mat-primary flat" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'list']">
       <fa name="list" fw="true"></fa>
       <span translate>List</span>
     </button>
-    <button mat-raised-button type="button" class="mat-primary" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'display']">
+    <button mat-raised-button type="button" class="mat-primary flat" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'display']">
       <fa name="tv" fw="true"></fa>
       <span translate>Display </span>
     </button>

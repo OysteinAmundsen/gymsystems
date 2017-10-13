@@ -1,36 +1,38 @@
 <menu role="menu" *appIfAuth="true">
-  <ul>
-    <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Club'">
-      <a routerLink="./tournament">
-        <fa name="trophy" fw="true"></fa> <span translate>Tournaments</span> </a>
-    </li>
-    <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Club'">
-      <a routerLink="./club">
-        <fa name="university" fw="true"></fa> <span translate>Club</span> </a>
-    </li>
-    <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Organizer'">
-      <a routerLink="./venue">
-        <fa name="map-marker" fw="true"></fa> <span translate>Venue</span> </a>
-    </li>
-    <li class="divider" *appIfAuth="'Organizer'"></li>
-    <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Organizer'">
-      <a routerLink="./users">
-        <fa name="users" fw="true"></fa> <span translate>Users</span></a>
-    </li>
-    <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'">
-      <a routerLink="./display">
-        <fa name="tv" fw="true"></fa> <span translate>Display</span></a>
-    </li>
-    <li role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'">
-      <a routerLink="./advanced">
-        <fa name="cogs" fw="true"></fa> <span translate>Advanced settings</span></a>
-    </li>
-    <li class="divider"></li>
-    <li role="menuitem">
-      <a routerLink="/logout">
-        <fa name="sign-out" fw="true"></fa> <span translate>Log out</span></a>
-    </li>
-  </ul>
+  <mat-nav-list>
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Club'" routerLink="./tournament">
+      <fa name="trophy" fw="true"></fa>
+      <span translate>Tournaments</span>
+    </a>
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Club'" routerLink="./club">
+      <fa name="university" fw="true"></fa>
+      <span translate>Club</span>
+    </a>
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Organizer'" routerLink="./venue">
+      <fa name="map-marker" fw="true"></fa>
+      <span translate>Venue</span>
+    </a>
+
+    <mat-divider *appIfAuth="'Organizer'"></mat-divider>
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Organizer'" routerLink="./users">
+      <fa name="users" fw="true"></fa>
+      <span translate>Users</span>
+    </a>
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'" routerLink="./display">
+      <fa name="tv" fw="true"></fa>
+      <span translate>Display</span>
+    </a>
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'" routerLink="./advanced">
+      <fa name="cogs" fw="true"></fa>
+      <span translate>Advanced settings</span>
+    </a>
+
+    <mat-divider></mat-divider>
+    <a mat-list-item role="menuitem" routerLink="/logout">
+      <fa name="sign-out" fw="true"></fa>
+      <span translate>Log out</span>
+    </a>
+  </mat-nav-list>
 </menu>
 
 <section>

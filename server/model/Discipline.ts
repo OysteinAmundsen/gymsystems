@@ -3,7 +3,7 @@ import { Tournament } from './Tournament';
 import { Team } from './Team';
 import { PrimaryGeneratedColumn, Column, Entity, OneToMany, ManyToOne, ManyToMany, Index, JoinColumn } from 'typeorm';
 
-/**
+ /**
  * Describes the available disciplines in this tournament.
  *
  * @export
@@ -39,9 +39,7 @@ export class Discipline {
   /**
    * The tournament where this discipline is to be competed in
    */
-  @ManyToOne(type => Tournament, tournament => tournament.disciplines, {
-    nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: true
-  })
+  @ManyToOne(type => Tournament, tournament => tournament.disciplines, { nullable: false })
   @JoinColumn({name: 'tournament'})
   tournament: Tournament;
 

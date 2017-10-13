@@ -34,7 +34,7 @@
           [@detailExpand]="row.element == selected ? 'expanded' : 'collapsed'"></mat-row>
 </mat-table>
 
-<button mat-raised-button class="mat-primary" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()">
+<button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Member</span>
 </button>

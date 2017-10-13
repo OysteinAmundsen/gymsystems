@@ -33,7 +33,7 @@
   <mat-row *matRowDef="let tournament; columns: displayColumns; let index=index" #dataRow [routerLink]="['.', tournament.id]"></mat-row>
 </mat-table>
 
-<button mat-raised-button type="button" class="mat-primary" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
+<button mat-raised-button type="button" class="mat-accent" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Tournament</span>
 </button>

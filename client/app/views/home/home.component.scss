@@ -5,7 +5,7 @@
       margin-top: 20%;
     }
   }
-  /deep/ app-panel {
+  ::ng-deep app-panel {
     width: 100%;
     >section {
       border-width: 0 !important;
@@ -52,8 +52,5 @@
       margin-top: 1.2rem;
       margin-right: 2rem;
     }
-  }
-  .btn {
-    text-shadow: none;
   }
 }

@@ -10,11 +10,11 @@
         </header>
 
         <div><pre [innerHtml]="getDescription(tournament) | MarkdownToHtml"></pre></div>
-        <a [routerLink]="['/event', tournament.id, 'list']" class="btn primary" *appIfAuth="true">
+        <a [routerLink]="['/event', tournament.id, 'list']" mat-raised-button class="mat-primary" *appIfAuth="true">
           <fa name="arrow-right" fw="true"></fa>
           <span translate>Go to scoreboard</span>
         </a>
-        <a [routerLink]="['/event', tournament.id, 'results']" class="btn primary" *appIfAuth="false">
+        <a [routerLink]="['/event', tournament.id, 'results']" mat-raised-button class="mat-primary" *appIfAuth="false">
           <fa name="arrow-right" fw="true"></fa>
           <span translate>Go to results</span>
         </a>
@@ -40,7 +40,7 @@
         </tr>
         <tr *ngFor="let tournament of type.tournaments" role="menuitem" [routerLink]="['/event', tournament.id, 'list']" role="listitem">
           <td>{{ tournament.name }}</td>
-          <td>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{ tournament.startDate | date: 'dMy' }}</td>
         </tr>
       </tbody>
     </table>

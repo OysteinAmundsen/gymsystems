@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule, MatButtonModule } from '@angular/material';
+import { MatCardModule, MatButtonModule, MatListModule } from '@angular/material';
 
 // Module dependencies
 import { SharedModule } from 'app/shared/shared.module';
@@ -26,6 +26,7 @@ import { VenueModule } from 'app/views/configure/venue/venue.module';
 
     MatCardModule,
     MatButtonModule,
+    MatListModule,
 
     // Packaged modules
     SharedModule,

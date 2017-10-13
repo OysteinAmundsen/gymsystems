@@ -51,7 +51,7 @@
   <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor>
 </div>
 
-<button mat-raised-button class="mat-primary" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDivision()">
+<button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDivision()">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Divisions</span>
 </button>

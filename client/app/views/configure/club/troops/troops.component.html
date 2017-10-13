@@ -20,7 +20,7 @@
   <mat-row *matRowDef="let team; columns: displayedColumns; let index=index" #dataRow (click)="select(team, index)"></mat-row>
 </mat-table>
 
-<button mat-raised-button class="mat-primary" type="button" [title]="'Add' | translate" (click)="addTeam()">
+<button mat-raised-button class="mat-accent" type="button" [title]="'Add' | translate" (click)="addTeam()">
   <fa name="plus" fw="true"></fa>
   <span translate>Add Team</span>
 </button>

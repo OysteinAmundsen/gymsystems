@@ -1,19 +1,5 @@
 @import "~styles/variables";
 
-header {
-  padding-bottom: 4rem;
-  padding-top: 1rem;
-  line-height: 3em;
-  margin-bottom: 0.5rem;
-  small {
-    font-size: 0.8em;
-    line-height: normal;
-    font-weight: normal;
-    display: block;
-  }
-}
-
-
 .division {
   margin-bottom: 1rem;
   border: 1px solid rgba($primary, 0.4);

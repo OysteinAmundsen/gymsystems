@@ -1,5 +1,37 @@
+@import '~styles/variables';
+
 :host {
   padding: 0.2rem;
   display: inline-block;
   max-width: 3.5rem;
+
+}
+span {
+  > label {
+    cursor: text;
+    height: $labelHeight;
+    font-size: 0.8rem;
+    display: inline-block;
+    padding: 0.1rem 0 0 $margin;
+    margin-top: $margin * 2;
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+  > input {
+    display: block;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(black, 0.4);
+    padding: ($padding * 2) $padding;
+    min-height: $inputHeight;
+    outline: none;
+    margin: 2px;
+    width: 100%;
+    &:focus,
+    &:active {
+      border-color: rgba($primaryDark, 0.8);
+      box-shadow: 0 -2px 2px -2px rgba($primary, 0.6) inset;
+    }
+  }
 }

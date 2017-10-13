@@ -98,9 +98,7 @@ export class ScoreGroup {
    * We do however provide the NGTF standard as default, so an event creator
    * won't have to configure him-/herself to death.
    */
-  @ManyToOne(type => Discipline, discipline => discipline.scoreGroups, {
-    nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: true
-  })
+  @ManyToOne(type => Discipline, discipline => discipline.scoreGroups, { nullable: false })
   @JoinColumn({name: 'discipline'})
   discipline: Discipline;
 }
