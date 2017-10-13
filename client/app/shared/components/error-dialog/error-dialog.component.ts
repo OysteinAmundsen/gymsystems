@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
@@ -34,6 +34,12 @@ export class ErrorDialogComponent implements OnInit {
         this.countDown();
       }
     }, this.step);
+  }
+
+  @HostListener('click', ['$event'])
+  activateWindow() {
+    this.timeRemaining = 0;
+    clearTimeout(this.counter);
   }
 
 }

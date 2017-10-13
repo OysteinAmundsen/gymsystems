@@ -65,6 +65,12 @@ export class AuthInterceptor implements HttpInterceptor {
         // Successful Response;
         if (res instanceof HttpResponse) {
           const action = this.state.notifySubscribers(req, res);
+
+          // Detect error response, but with 200 status
+          if (this.isError(res)) {
+            throw new Error(JSON.stringify({error: res.body}));
+          }
+
           // Notify user of success
           const now = moment();
           const success = this.translator.instant('SUCCESS');
@@ -83,27 +89,44 @@ export class AuthInterceptor implements HttpInterceptor {
       .catch(err => {
         // Something went wrong. Analyze and take action
         // Compile a human readable version of server sent error message
-        let message; let error = err;
-        if (err.status !== 404) {
-          error = typeof err.error === 'string' ? JSON.parse(err.error) : err.error;
-        }
-        if (error.message) { message = error.message; }
-        else { message = err.message; }
-        this.error.setError(`${err.status} - ${err.statusText}: ${JSON.stringify(message)}`, err.status);
+        let status; let header; let statusText; let message; let error = err;
 
-        // Analyze status
-        if (err.status === 401) {
-          // We should be logged in, but aren't. Redirect
-          this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
-        } else if (err.status === 403) {
-          // We are in a place we aren't supposed to be. Go up a level and see if that remedies the situation.
-          this.router.navigate(['../'], { relativeTo: this.route })
+        if (err.status) {
+          // Analyze status
+          if (err.status === 401) {
+            // We should be logged in, but aren't. Redirect
+            this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
+          } else if (err.status === 403) {
+            // We are in a place we aren't supposed to be. Go up a level and see if that remedies the situation.
+            this.router.navigate(['../'], { relativeTo: this.route })
+          } else {
+            // For everything else...
+            if (err.error) {
+              error = typeof err.error === 'string' ? JSON.parse(err.error) : err.error;
+            }
+            status = err.status;
+            statusText = err.statusText;
+            header = status;
+          }
+
+          message = JSON.stringify(error.message ? error.message : err.message);
         }
+        if (err instanceof Error) {
+          error = JSON.parse(err.message);
+          header = error.error.code;
+          message = error.error.message.replace(header, '');
+        }
+        this.error.setError((status ? `${status} - ` : '') + (statusText ? `${statusText}:` : '') + ` ${message}`, header);
+
 
         // Notify and bubble error
         this.state.notifySubscribers(req, err);
         return Observable.throw(this.error.error);
       });
+  }
+
+  isError(res: HttpResponse<any>) {
+    return (JSON.stringify(Object.keys(res.body)) === JSON.stringify(['code', 'message']));
   }
 
   shouldReport(res: HttpResponse<any>) {
