@@ -1,15 +1,8 @@
 @import "~styles/variables";
 
 header {
-  max-width: 400px;
-  display: flex;
+  // max-width: 400px;
   align-items: center;
-  mat-form-field {
-
-  }
-  mat-slide-toggle {
-    flex: 1;
-  }
 }
 td.editor {
   padding: 0;

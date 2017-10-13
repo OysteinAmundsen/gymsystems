@@ -1,11 +1,12 @@
-<header class="form horizontal">
+<header class="form horizontal flex">
   <mat-form-field *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.club.id))">
-    <mat-placeholder for="filter"><fa name="filter" fw="true"></fa><span translate>Filter by:</span></mat-placeholder>
+    <mat-placeholder for="filter"><fa name="filter" fw="true"></fa><span translate>Choose discipline:</span></mat-placeholder>
     <mat-select id="filter" name="filter" [(ngModel)]="selectedDiscipline">
       <mat-option [value]="null" translate>No filter</mat-option>
       <mat-option *ngFor="let discipline of disciplines" [value]="discipline">{{ discipline.name }}</mat-option>
     </mat-select>
   </mat-form-field>
+  <div class="flex-col"></div>
   <mat-slide-toggle class="mat-primary" [(ngModel)]="showTraining">
     <span *ngIf="showTraining" translate>Training visible</span>
     <span *ngIf="!showTraining" translate>Training hidden</span>
