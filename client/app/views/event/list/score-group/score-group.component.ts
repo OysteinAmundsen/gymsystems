@@ -1,24 +1,27 @@
-import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { ScoreComponent } from '../score/score.component';
 import { IScoreContainer } from '../IScoreContainer';
 import { ScoreService } from 'app/services/api';
+import { Subscription } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-score-group',
   templateUrl: './score-group.component.html',
   styleUrls: ['./score-group.component.scss']
 })
-export class ScoreGroupComponent implements OnInit, AfterViewInit {
+export class ScoreGroupComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() model: IScoreContainer;
   @Input() form: FormGroup;
   @ViewChildren(ScoreComponent) scores: QueryList<ScoreComponent>;
 
-  constructor(private scoreService: ScoreService) { }
+  subscriptions: Subscription[] = [];
+
+  constructor(private scoreService: ScoreService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.form.valueChanges.subscribe(value => {
+    this.subscriptions.push(this.form.valueChanges.subscribe(value => {
       if (value) {
         let count = 0;
         this.model.total = 0;
@@ -31,7 +34,7 @@ export class ScoreGroupComponent implements OnInit, AfterViewInit {
         });
         this.model.avg = this.model.total / count;
       }
-    });
+    }));
   }
 
   ngAfterViewInit() {
@@ -51,6 +54,10 @@ export class ScoreGroupComponent implements OnInit, AfterViewInit {
         }
       };
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s ? s.unsubscribe() : null);
   }
 }
 

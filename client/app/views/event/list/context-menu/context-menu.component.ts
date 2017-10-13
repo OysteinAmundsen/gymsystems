@@ -25,10 +25,13 @@ export class ContextMenuComponent implements OnInit {
 
 
   get isTraining() { return this.participant.type === ParticipationType.Training; }
-  get hasScores() { return this.participant.scores && this.participant.scores.length; }
   get isPublished() { return this.participant.publishTime != null; }
   get hasEnded() { return this.participant.endTime != null; }
   get hasStarted() { return this.participant.startTime == null; }
+  get hasScores() {
+    const score = this.scoreService.calculateTotal(this.participant);
+    return this.participant.scores && this.participant.scores.length && score > 0;
+  }
 
   constructor(
     public elmRef: ElementRef,
@@ -61,6 +64,8 @@ export class ContextMenuComponent implements OnInit {
     }
   }
 
+  canEdit() { return this.data.canEdit(this.participant); }
+  edit() { return this.data.edit(this.participant); }
   canStart() { return this.data.canStart(this.participant, this.data.rowIndex); }
   start() { return this.data.start(this.participant, null); }
   stop() { return this.data.stop(this.participant, null); }

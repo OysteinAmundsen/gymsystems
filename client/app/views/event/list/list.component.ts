@@ -175,11 +175,15 @@ export class ListComponent implements OnInit, OnDestroy {
     return (participant.publishTime || (this.user && this.user.role >= Role.Secretariat)) ? score : 0;
   }
 
-  select(participant: ITeamInDiscipline) {
-    if (this.user && (
+  canEdit(participant: ITeamInDiscipline) {
+    return this.user && (
       this.user.role >= Role.Admin
       || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.club.id)
-    )) {
+    );
+  }
+
+  select(participant: ITeamInDiscipline) {
+    if (this.canEdit(participant)) {
       if (participant != null && participant.startTime == null && participant.type === ParticipationType.Live) {
         this.errorHandler.setError(this.translate.instant(`Cannot edit score. This participant hasn't started yet.`));
         return;
@@ -278,6 +282,8 @@ export class ListComponent implements OnInit, OnDestroy {
           participant: item,
           currentUser: this.user,
           tournament: this.tournament,
+          canEdit: this.canEdit.bind(this),
+          edit: this.select.bind(this),
           canStart: this.canStart.bind(this),
           start: this.start.bind(this),
           stop: this.stop.bind(this),

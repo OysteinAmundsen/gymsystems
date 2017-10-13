@@ -1,15 +1,16 @@
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
 
 import { IScore } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { Subscription } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-score',
   templateUrl: './score.component.html',
   styleUrls: ['./score.component.scss']
 })
-export class ScoreComponent implements OnInit {
+export class ScoreComponent implements OnInit, OnDestroy {
   defaultScore = 0.0;
   ct: AbstractControl;
 
@@ -22,13 +23,15 @@ export class ScoreComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() index: number;
 
+  subscriptions: Subscription[] = [];
+
   constructor(private element: ElementRef) { }
 
   ngOnInit() {
     if (!this.model.judgeIndex) { this.model.judgeIndex = this.index + 1; }
     this.ct = this.form.controls[`field_${this.model.scoreGroup.type}_${this.model.judgeIndex}`];
     if (this.ct) {
-      this.ct.valueChanges.subscribe(value => {
+      this.subscriptions.push(this.ct.valueChanges.subscribe(value => {
         // Force value to be within range
         if (value == null || value < this.model.scoreGroup.min) {
           this.score = this.model.scoreGroup.min;
@@ -36,8 +39,12 @@ export class ScoreComponent implements OnInit {
         } else if (value > this.model.scoreGroup.max) {
           this.score = this.model.scoreGroup.max;
         }
-      });
+      }));
     }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s ? s.unsubscribe() : null);
   }
 
   /**

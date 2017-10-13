@@ -26,7 +26,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
   scores: IScore[];
   roles = Role;
   currentUser: IUser;
-  userSubscription: Subscription;
+  subscriptions: Subscription[] = [];
 
   @Input() participant: ITeamInDiscipline;
   @Output() onClose: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -60,7 +60,7 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
+    this.subscriptions.push(this.userService.getMe().subscribe(user => this.currentUser = user));
     if (!this.participant.scores.length) {
       // Empty score array. Create one score, per judge, per scoregroup
       this.participant.discipline.scoreGroups.forEach(group => {
@@ -87,13 +87,13 @@ export class ScoreboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.scoreForm.valueChanges.subscribe(() => this.calculateTotals());
+    this.subscriptions.push(this.scoreForm.valueChanges.subscribe(() => this.calculateTotals()));
     this.calculateTotals();
     this.selectGroup(this.groupedScores[0]);
   }
 
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
+    this.subscriptions.forEach(s => s ? s.unsubscribe() : null);
   }
 
   calculateTotals() {
