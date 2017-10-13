@@ -1,0 +1,28 @@
+<mat-nav-list>
+  <mat-list-item *ngIf="canStart()" (click)="start()">
+    <fa matListIcon name="play" fw="true"></fa>
+    <span matLine translate>Start</span>
+  </mat-list-item>
+
+  <mat-list-item *ngIf="participant.startTime != null && participant.endTime == null && !hasScores" (click)="stop()">
+    <fa matListIcon name="stop" fw="true"></fa>
+    <span matLine translate>Stop</span>
+  </mat-list-item>
+
+  <mat-list-item *ngIf="hasScores && participant.publishTime == null" (click)="publish()">
+    <fa name="share" fw="true"></fa>
+    <span matLine translate>Publish</span>
+  </mat-list-item>
+
+  <mat-list-item *ngIf="hasScores && (!isPublished || currentUser.role >= roles.Organizer)" (click)="delete()">
+    <fa matListIcon name="trash" fw="true"></fa>
+    <span matLine *ngIf="participant.publishTime == null && participant.endTime == null" translate>Delete</span>
+    <span matLine *ngIf="participant.publishTime == null && participant.endTime != null" translate>Empty scores</span>
+    <span matLine *ngIf="participant.publishTime != null" translate>Allready published!</span>
+  </mat-list-item>
+
+  <mat-list-item *ngIf="hasEnded && currentUser.role >= roles.Organizer" (click)="rollback()">
+    <fa matListIcon name="undo" fw="true"></fa>
+    <span matLine translate>Rollback</span>
+  </mat-list-item>
+</mat-nav-list>

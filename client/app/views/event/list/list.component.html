@@ -26,7 +26,8 @@
       </tr>
     </thead>
     <tbody *ngFor="let item of schedule; let i = index;" role="listitem"
-           [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime, unimportant: item.type === types.Training, isCurrent: item.startTime && !item.endTime && !item.publishTime}">
+           [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime, unimportant: item.type === types.Training, isCurrent: item.startTime && !item.endTime && !item.publishTime}"
+           (contextmenu)="contextInvoked(item, i, $event)" #row>
 
       <!-- View details wide screen -->
       <tr *ngIf="selected !== item && isVisible(item)" (click)="select(item)">
@@ -38,7 +39,7 @@
         <td class="visible-wide">{{ item.discipline.name }}</td>
         <td *ngIf="item.type === types.Live">{{ score(item) | number:'1.3-3' }}</td>
         <td *ngIf="item.type === types.Training"></td>
-        <td *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.club.id))" class="actions" rowspan="2">
+        <td *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Organizer && user.club.id === tournament.club.id))" class="actions" rowspan="2">
           <button mat-icon-button *ngIf="canStart(item, i)" (click)="start(item, $event)" [title]="'Start' | translate">
             <fa name="play" fw="true"></fa>
           </button>

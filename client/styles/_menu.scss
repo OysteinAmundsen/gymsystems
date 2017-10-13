@@ -22,6 +22,7 @@ menu[role="menu"] {
     box-shadow: none;
   }
   .mat-nav-list {
+    width: 100%;
     @media (max-width: $stop1) {
       display: table-row;
     }
@@ -127,4 +128,8 @@ menu {
     display: table;
     clear: both;
   }
+}
+
+.cdk-overlay-pane .context-menu {
+  padding: 0;
 }

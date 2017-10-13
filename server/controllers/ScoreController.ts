@@ -168,7 +168,8 @@ export class ScoreController {
       return new ErrorResponse(403, 'You are not authorized to remove scores in a tournament not run by your club.');
     }
 
-    const schedule = await scheduleRepository.getByTournament(p.tournament.id);
+    let schedule = await scheduleRepository.getByTournament(p.tournament.id);
+    schedule = schedule.sort((a, b) => a.startNumber < b.startNumber ? -1 : 1);
     const idx = schedule.findIndex(i => i.id === p.id);
     const itemsToRollback = schedule.slice(idx).filter(i => i.startTime != null);
     return Promise.all(itemsToRollback.map(i => {

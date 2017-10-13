@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChildren, QueryList, ViewContainerRef, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 import { TranslateService } from '@ngx-translate/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 import * as moment from 'moment';
 
 import { EventComponent } from '../event.component';
+import { ContextMenuComponent } from './context-menu/context-menu.component';
 
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
@@ -23,6 +25,8 @@ interface ParticipantCache {
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, OnDestroy {
+  @ViewChildren('row', {read: ViewContainerRef}) rows: QueryList<ViewContainerRef>;
+  dialogRef: MatDialogRef<ContextMenuComponent>;
   user: IUser;
   tournament: ITournament;
   schedule: ITeamInDiscipline[] = [];
@@ -53,6 +57,7 @@ export class ListComponent implements OnInit, OnDestroy {
   constructor(
     private parent: EventComponent,
     private translate: TranslateService,
+    private dialog: MatDialog,
     private scheduleService: ScheduleService,
     private teamService: TeamsService,
     private scoreService: ScoreService,
@@ -201,8 +206,10 @@ export class ListComponent implements OnInit, OnDestroy {
         this.errorHandler.setError(this.translate.instant('This participant has allready started.'));
         return;
       }
-      evt.preventDefault();
-      evt.stopPropagation();
+      if (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
 
       // Autostop last participant if this is not allready done
       this.schedule
@@ -223,8 +230,10 @@ export class ListComponent implements OnInit, OnDestroy {
         this.errorHandler.setError(this.translate.instant(`Cannot stop. This participant hasn't started yet.`));
         return;
       }
-      evt.preventDefault();
-      evt.stopPropagation();
+      if (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
 
       this.mediaService.stop();
 
@@ -238,8 +247,10 @@ export class ListComponent implements OnInit, OnDestroy {
       if (participant.publishTime != null) {
         this.errorHandler.setError(this.translate.instant(`This participant's score is allready published.`));
       }
-      evt.preventDefault();
-      evt.stopPropagation();
+      if (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
       participant.publishTime = new Date();
       this.scheduleService.publish(participant).subscribe();
     }
@@ -247,5 +258,40 @@ export class ListComponent implements OnInit, OnDestroy {
 
   closeEditor() {
     this.select(null);
+  }
+
+  contextInvoked(item: ITeamInDiscipline, rowIndex: number, $event: MouseEvent) {
+    if (this.user && (this.user.role >= Role.Admin
+      || (this.user.role >= Role.Organizer && this.user.club.id === this.tournament.club.id))) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      if (this.dialogRef) {
+        this.dialogRef.close();
+      }
+      this.dialogRef = this.dialog.open(ContextMenuComponent, {
+        hasBackdrop: false,
+        data: {
+          mouseX: $event.clientX,
+          mouseY: $event.clientY,
+          rowIndex: rowIndex,
+          participant: item,
+          currentUser: this.user,
+          tournament: this.tournament,
+          canStart: this.canStart.bind(this),
+          start: this.start.bind(this),
+          stop: this.stop.bind(this),
+          publish: this.publish.bind(this)
+        }
+      });
+    }
+  }
+
+  @HostListener('window:click', ['$event'])
+  onClick($event: MouseEvent) {
+    if (this.dialogRef) {
+      // if ($event.target.closest(this.))
+      this.dialogRef.close();
+    }
   }
 }

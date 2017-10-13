@@ -288,7 +288,8 @@ export class ScheduleController {
     return this.repository.remove(participants)
       .catch(err => {
         Log.log.error(`Error removing participants in schedule`, err);
-        return new ErrorResponse(err.code, err.message);
+        res.status(400);
+        return new ErrorResponse(err.code, err.sqlMessage);
       });
   }
 }

@@ -112,9 +112,14 @@ export class AuthInterceptor implements HttpInterceptor {
           message = JSON.stringify(error.message ? error.message : err.message);
         }
         if (err instanceof Error) {
-          error = JSON.parse(err.message);
-          header = error.error.code;
-          message = error.error.message.replace(header, '');
+          if (typeof err.message === 'string') {
+            header = err.message;
+            message = err.stack ? err.stack : '';
+          } else {
+            error = JSON.parse(err.message);
+            header = error.error.code;
+            message = error.error.message.replace(header, '');
+          }
         }
         this.error.setError((status ? `${status} - ` : '') + (statusText ? `${statusText}:` : '') + ` ${message}`, header);
 
@@ -126,7 +131,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   isError(res: HttpResponse<any>) {
-    return (JSON.stringify(Object.keys(res.body)) === JSON.stringify(['code', 'message']));
+    return res.body && (JSON.stringify(Object.keys(res.body)) === JSON.stringify(['code', 'message']));
   }
 
   shouldReport(res: HttpResponse<any>) {

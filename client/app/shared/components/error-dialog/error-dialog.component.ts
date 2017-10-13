@@ -32,6 +32,8 @@ export class ErrorDialogComponent implements OnInit {
       this.timeRemaining += (this.step * 100 / totalTime);
       if (this.timeRemaining < 100) {
         this.countDown();
+      } else {
+        this.close();
       }
     }, this.step);
   }

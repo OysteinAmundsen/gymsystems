@@ -9,7 +9,6 @@ import { ErrorDialogComponent } from 'app/shared/components/error-dialog/error-d
 export class ErrorHandlerService {
   private dialogRef: MatDialogRef<ErrorDialogComponent>;
 
-  private _errorTimeout;
   private _error: string;
   get error() { return this._error; }
 
@@ -29,12 +28,10 @@ export class ErrorHandlerService {
         autocloseAfter: 10 * 1000
       };
       this.dialogRef = this.dialog.open(ErrorDialogComponent, { data: opts });
-      this._errorTimeout = setTimeout(() => this.clearError(), opts.autocloseAfter);
     }
   }
 
   clearError() {
-    if (this._errorTimeout) {clearTimeout(this._errorTimeout); }
     if (this.dialogRef) { this.dialogRef.close(); }
     this._error = null;
   }
