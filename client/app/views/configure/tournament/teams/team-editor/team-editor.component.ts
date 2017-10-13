@@ -58,6 +58,14 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   classes = Classes;
 
+  get teamName() {
+    const form = this.teamForm.value;
+    if (form && form.name) {
+      return typeof form.name === 'string' ? form.name : form.name.name;
+    }
+    return '';
+  }
+
   get isAllLodged() { return this.teamForm.value.gymnasts ? this.teamForm.value.gymnasts.every(g => g.lodging) : false; }
   set isAllLodged($event) { this.teamForm.value.gymnasts.forEach(g => g.lodging = $event); }
 
@@ -84,20 +92,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     private mediaService: MediaService) { }
 
   ngOnInit() {
-    this.subscriptions.push(this.userService.getMe().subscribe(user => this.currentUser = user));
-    this.configuration.getByname('ageLimits').subscribe(ageLimits => this.ageLimits = ageLimits.value);
-    this.subscriptions.push(this.tournamentEditor.tournamentSubject.subscribe(tournament => {
-      this.tournament = tournament;
-      this.subscriptions.push(this.route.params.subscribe(params => params.id ? this.reloadTeam(+params.id) : null));
-      this.teamService.getByTournament(this.tournament.id).subscribe((teams) => this.configuredTroops = teams);
-      this.divisionService.getByTournament(this.tournament.id).subscribe(d => this.divisions = d);
-      this.disciplineService.getByTournament(this.tournament.id).subscribe(d => {
-        this.disciplines = d;
-        setTimeout(() => this.classChanged());
-      });
-    }));
-
-    // Group divisions by type
+    // Create form controls
     this.teamForm = this.fb.group({
       id             : [this.team.id],
       name           : [this.team.name, [Validators.required, this.forbiddenNameValidator()]],
@@ -127,8 +122,10 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       .distinctUntilChanged()
       .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
       .subscribe(v => {
-        if (this.teamForm.value.club.id) {
-          this.clubService.findTroopByName(this.teamForm.value.club, v.name ? v.name : v).subscribe(troops => {
+        const club = this.teamForm.value.club || this.currentUser.club;
+        if (!clubCtrl.value) { clubCtrl.setValue(club); }
+        if (club.id) {
+          this.clubService.findTroopByName(club, v.name ? v.name : v).subscribe(troops => {
             this.troopList = troops.filter(t => this.configuredTroops.findIndex(l => l.name === t.name) < 0)
           })
         }
@@ -139,6 +136,32 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       .valueChanges
       .distinctUntilChanged()
       .subscribe((c: Classes) => setTimeout(() => this.classChanged()));
+
+    // Load current user
+    this.subscriptions.push(this.userService.getMe().subscribe(user => this.currentUser = user));
+
+    // Load configured age limits
+    this.configuration.getByname('ageLimits').subscribe(ageLimits => this.ageLimits = ageLimits.value);
+
+    // Load current tournament and data requiring tournament
+    this.subscriptions.push(this.tournamentEditor.tournamentSubject.subscribe(tournament => {
+      this.tournament = tournament;
+
+      // Load selected team (if any)
+      this.subscriptions.push(this.route.params.subscribe(params => params.id ? this.reloadTeam(+params.id) : null));
+
+      // Load all teams for this club in this tournament
+      this.teamService.getMyTeamsByTournament(this.tournament.id).subscribe((teams) => this.configuredTroops = teams);
+
+      // Load tournaments divisions
+      this.divisionService.getByTournament(this.tournament.id).subscribe(d => this.divisions = d);
+
+      // Load tournaments disciplines
+      this.disciplineService.getByTournament(this.tournament.id).subscribe(d => {
+        this.disciplines = d;
+        setTimeout(() => this.classChanged());
+      });
+    }));
   }
 
   ngOnDestroy() {
