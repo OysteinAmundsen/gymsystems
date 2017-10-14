@@ -1,12 +1,13 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Sort } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/Rx';
 
 import { UserService } from 'app/services/api';
 import { IUser, RoleNames } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
-import { Sort } from '@angular/material';
+import { SubjectSource } from 'app/services/subject-source';
 
 @Component({
   selector: 'app-users',
@@ -15,8 +16,9 @@ import { Sort } from '@angular/material';
 })
 export class UsersComponent implements OnInit {
 
-  userListSubject = new BehaviorSubject<IUser[]>([]);
-  get userList() { return this.userListSubject.value || []; }
+  userSource = new SubjectSource<IUser>(new BehaviorSubject<IUser[]>([]));
+  displayColumns = ['name', 'role', 'club'];
+
 
   constructor(
     private userService: UserService,
@@ -31,14 +33,7 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.all().subscribe(users => this.userListSubject.next(users));
-  }
-
-  sortData($event: Sort) {
-    this.userList.sort((a, b) => {
-      const dir = $event.direction === 'asc' ? -1 : 1;
-      return (a[$event.active] > b[$event.active]) ? dir : -dir;
-    });
+    this.userService.all().subscribe(users => this.userSource.subject.next(users));
   }
 
   roleName(user: IUser) {

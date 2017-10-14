@@ -6,6 +6,20 @@ menu {
   @media (max-width: $stop1) {
     margin-top: 10px;
   }
+  ::ng-deep .mat-nav-list {
+    .mat-list-item {
+      &.active {
+        background: $primaryDark;
+      }
+      .mat-list-icon {
+        font-size: inherit;
+        line-height: 25px;
+      }
+      .mat-list-text {
+        padding: 0 16px 0 0;
+      }
+    }
+  }
 }
 
 section {
@@ -17,6 +31,3 @@ section {
   }
 }
 
-.mat-list-item.active {
-  background: $primaryDark;
-}
