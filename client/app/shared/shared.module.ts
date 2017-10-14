@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { DragulaModule } from 'ng2-dragula';
-import { Angular2FontawesomeModule } from 'angular2-fontawesome';
+import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 
 // Shared components
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -29,7 +29,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
   imports: [
     CommonModule,
     TranslateModule,
-    Angular2FontawesomeModule,
+    AngularFontAwesomeModule,
 
     FormsModule,
     ReactiveFormsModule,
@@ -61,7 +61,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     // Export common modules
     CommonModule,
     TranslateModule,
-    Angular2FontawesomeModule,
+    AngularFontAwesomeModule,
 
     // Export components
     DialogComponent,
