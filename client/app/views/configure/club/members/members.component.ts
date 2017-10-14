@@ -11,8 +11,8 @@ import { IClub, IGymnast, DivisionType, Gender } from 'app/model';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { SubjectSource } from 'app/services/subject-source';
 import { MemberEditorComponent } from 'app/views/configure/club/members/member-editor/member-editor.component';
-import { ExpansionSource, ExpansionRow } from 'app/services/expansion-source';
 import { TranslateService } from '@ngx-translate/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-members',
@@ -28,7 +28,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class MembersComponent implements OnInit, OnDestroy {
   club: IClub;
-  memberSource = new ExpansionSource<IGymnast>(new BehaviorSubject<IGymnast[]>([]));
+  memberSource = new SubjectSource<IGymnast>(new BehaviorSubject<IGymnast[]>([]));
   get memberList() { return this.memberSource.subject.value || []; }
   displayedColumns = ['name', 'birthYear', 'gender', 'teams'];
 
@@ -37,7 +37,12 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private parent: ClubEditorComponent, private clubService: ClubService, private translate: TranslateService) {  }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private parent: ClubEditorComponent,
+    private clubService: ClubService,
+    private translate: TranslateService) {  }
 
 
   ngOnInit() {
@@ -73,27 +78,28 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   addMember() {
-    const member = <IGymnast>{
-      id          : null,
-      name        : null,
-      birthYear   : null,
-      gender      : null,
-      team        : null,
-      club        : null
-    };
-    this.memberSource.add(member);
-    this.select(member);
+    this.router.navigate(['./add'], {relativeTo: this.route});
+    // const member = <IGymnast>{
+    //   id          : null,
+    //   name        : null,
+    //   birthYear   : null,
+    //   gender      : null,
+    //   team        : null,
+    //   club        : null
+    // };
+    // this.memberSource.add(member);
+    // this.select(member);
   }
 
-  onChange() {
-    this.select(null);
-    this.loadMembers();
-  }
+  // onChange() {
+  //   this.select(null);
+  //   this.loadMembers();
+  // }
 
-  select(member: IGymnast, row?: number) {
-    this.memberSource.select(member, row);
-    this.selected = member ? member : null;
-  }
+  // select(member: IGymnast, row?: number) {
+  //   this.memberSource.select(member, row);
+  //   this.selected = member ? member : null;
+  // }
 
   importMember($event) {
     const fileList: FileList = (<HTMLInputElement>event.target).files;

@@ -220,6 +220,26 @@ export class ClubController {
   }
 
   /**
+   * Endpoint for retreiving members from a club
+   *
+   * **USAGE:**
+   * GET /clubs/:clubId/members
+   *
+   * @param {number} clubId
+   */
+  @Get('/:clubId/members/:id')
+  getMember(@Param('clubId') clubId: number, @Param('id') id: number): Promise<Gymnast> {
+    return this.conn.getRepository(Gymnast)
+      .createQueryBuilder('gymnast')
+      .innerJoinAndSelect('gymnast.club', 'club')
+      .leftJoinAndSelect('gymnast.team', 'team')
+      .leftJoinAndSelect('gymnast.troop', 'troop')
+      .where('gymnast.club = :clubId', {clubId: clubId})
+      .andWhere('gymnast.id = :id', {id: id})
+      .getOne();
+  }
+
+  /**
    * Endpoint for retreiving members in a club not yet assigned to troops
    *
    * **USAGE:**

@@ -16,22 +16,11 @@
     <mat-cell *matCellDef="let member">{{ countTeams(member) }}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="expandedDetail">
-    <mat-cell *matCellDef="let row">
-      <app-member-editor *ngIf="row.expanded === true" [club]="club" [member]="row.element" (memberChanged)="onChange($event)"></app-member-editor>
-    </mat-cell>
-  </ng-container>
-
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-
   <mat-row *matRowDef="let member; columns: displayedColumns; let index=index"
           matRipple #dataRow
-          (click)="select(member, index)"
-          [@detailExpand]="member == selected ? 'collapsed' : 'expanded'"
+          [routerLink]="['.', member.id]"
           [ngClass]="{'male': member.gender == genders.Male, 'female': member.gender == genders.Female, collapsed: selected == member}"></mat-row>
-  <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: memberSource.isExpansionDetailRow"
-          [ngClass]="{'male': row.element.gender == genders.Male, 'female': row.element.gender == genders.Female, 'detail': true, expanded: row.element == selected}"
-          [@detailExpand]="row.element == selected ? 'expanded' : 'collapsed'"></mat-row>
 </mat-table>
 
 <button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()">

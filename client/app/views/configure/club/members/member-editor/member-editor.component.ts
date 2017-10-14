@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { IClub, IGymnast, Gender, IDivision, DivisionType } from 'app/model';
@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { ErrorHandlerService } from 'app/services/config';
 import { MembersComponent } from 'app/views/configure/club/members/members.component';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 
 @Component({
   selector: 'app-member-editor',
@@ -17,13 +18,13 @@ import { KeyCode } from 'app/shared/KeyCodes';
   styleUrls: ['./member-editor.component.scss']
 })
 export class MemberEditorComponent implements OnInit {
-  @Input() club: IClub;
   @Input() member: IGymnast = <IGymnast>{};
-  @Output() memberChanged = new EventEmitter<IGymnast>();
+  // @Output() memberChanged = new EventEmitter<IGymnast>();
+  club: IClub;
 
   gender = Gender;
-  get Male(): string { return this.translate.instant('Male'); }
-  get Female(): string { return this.translate.instant('Female'); }
+  // get Male(): string { return this.translate.instant('Male'); }
+  // get Female(): string { return this.translate.instant('Female'); }
 
   minYear = moment().subtract(60, 'year').year();
   maxYear = moment().subtract(8, 'year').year();
@@ -33,23 +34,18 @@ export class MemberEditorComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private clubService: ClubService,
+    private clubComponent: ClubEditorComponent,
     private errorHandler: ErrorHandlerService,
-    private parent: MembersComponent,
     private translate: TranslateService) { }
 
   ngOnInit() {
-    let lastBirthYear = this.maxYear, lastGender = Gender.Male;
-    const memberList = this.parent.memberList;
-    if (memberList.length > 1) {
-      const lastMember = memberList[memberList.length - 2];
-      lastBirthYear = lastMember.birthYear;
-      lastGender = lastMember.gender;
-    }
+    // Create form
     this.memberForm = this.fb.group({
       id             : [this.member.id],
       name           : [this.member.name, [Validators.required]],
-      birthYear      : [this.member.birthYear || lastBirthYear, [
+      birthYear      : [this.member.birthYear, [
         Validators.required,
         Validators.min(this.minYear),
         Validators.max(this.maxYear),
@@ -57,10 +53,10 @@ export class MemberEditorComponent implements OnInit {
         Validators.maxLength(4)
       ]],
       birthDate      : [this.member.birthDate],
-      club           : [this.club],
+      club           : [this.member.club],
       email          : [this.member.email],
       phone          : [this.member.phone],
-      gender         : [this.member.gender || lastGender],
+      gender         : [this.member.gender],
       allergies      : [this.member.allergies],
       guardian1      : [this.member.guardian1],
       guardian2      : [this.member.guardian2],
@@ -71,6 +67,35 @@ export class MemberEditorComponent implements OnInit {
       troop          : [this.member.troop],
       team           : [this.member.team]
     });
+
+    const clubCtrl = this.memberForm.controls['club'];
+    const genderCtrl = this.memberForm.controls['gender'];
+    const birthYearCtrl = this.memberForm.controls['birthYear'];
+
+    this.clubComponent.clubSubject.subscribe(club => {
+      this.club = club;
+
+      this.route.params.subscribe(params => {
+        if (params.id) {
+          // Existing member. Retreive details
+          this.clubService.getMember(this.club, +params.id).subscribe(member => this.memberReceived(member));
+        } else {
+          // New member. Set defaults based on last member entry found
+          this.clubService.getMembers(this.club).subscribe(memberList => {
+            if (memberList.length > 1) {
+              const lastMember = memberList[memberList.length - 2];
+              if (!clubCtrl.value)      { clubCtrl.setValue(this.club); }
+              if (!birthYearCtrl.value) { birthYearCtrl.setValue(lastMember.birthYear || this.maxYear); }
+              if (!genderCtrl.value)    { genderCtrl.setValue(lastMember.gender || Gender.Male); }
+            }
+          });
+        }
+      });
+    });
+  }
+
+  memberReceived(member: IGymnast) {
+    this.memberForm.setValue(member);
   }
 
   save() {
@@ -85,7 +110,8 @@ export class MemberEditorComponent implements OnInit {
   }
 
   delete() {
-    this.clubService.deleteMember(this.member).subscribe(response => {
+    const member = this.memberForm.value;
+    this.clubService.deleteMember(member).subscribe(response => {
       if (response && response.message) {
         this.errorHandler.setError(response.message);
       } else {
@@ -95,7 +121,7 @@ export class MemberEditorComponent implements OnInit {
   }
 
   close() {
-    this.memberChanged.emit(this.member);
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   @HostListener('window:keyup', ['$event'])

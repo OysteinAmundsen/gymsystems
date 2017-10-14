@@ -33,6 +33,10 @@ export class ClubService {
   }
 
   // MEMBER API
+  getMember(club: IClub, id: number): Observable<IGymnast> {
+    return this.http.get<IGymnast>(`${this.url}/${club.id}/members/${id}`);
+  }
+
   getMembers(club: IClub): Observable<IGymnast[]> {
     return this.http.get<IGymnast[]>(`${this.url}/${club.id}/members`);
   }
