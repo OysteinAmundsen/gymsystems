@@ -5,31 +5,17 @@
       margin-top: 20%;
     }
   }
-  ::ng-deep app-panel {
-    width: 100%;
-    >section {
-      border-width: 0 !important;
-      overflow: hidden;
-      div {
-        padding: 0 !important;
-      }
-    }
+}
+
+.mat-card {
+  padding: 0;
+  .mat-subheader {
+    border-bottom: 1px solid #bbb;
+    background: $primary;
+    color: white;
   }
-  app-panel {
-    table {
-      width: 100%;
-    }
-    tbody {
-      th {
-        padding-top: 0.5rem;
-        border-bottom: 1px solid #bbb;
-        background: $primary;
-        color: white;
-      }
-      td:first-child {
-        width: 100%;
-      }
-    }
+  .flex {
+    width: 100%;
   }
 }
 
@@ -40,7 +26,7 @@
   padding: 8px;
   border-radius: 8px;
   @media (min-width: $stop1) {
-    padding-right: 2rem;
+    margin-right: 1rem;
   }
   header {
     h1 {

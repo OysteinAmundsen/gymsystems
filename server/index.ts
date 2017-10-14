@@ -43,7 +43,7 @@ export class GymServer {
   private port: number = +process.env.PORT || 3000;
   private clientPath = path.join(__dirname, './public');
   public isTest: boolean = !!process.env.PRODUCTION; // false;
-  private ormConfig;
+  private ormConfig: ConnectionOptions;
 
       /**
    * Bootstrap the application.

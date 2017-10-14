@@ -8,7 +8,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awes
 
 // Shared components
 import { DialogComponent } from './components/dialog/dialog.component';
-import { PanelComponent } from './components/panel/panel.component';
 
 // Shared directives
 import { AutofocusDirective } from './directives/autofocus/autofocus.directive';
@@ -44,7 +43,6 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
   declarations: [
     DialogComponent,
     ErrorDialogComponent,
-    PanelComponent,
     MultirangeComponent,
     SaveButtonComponent,
     HelpBlockComponent,
@@ -66,7 +64,6 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     // Export components
     DialogComponent,
     ErrorDialogComponent,
-    PanelComponent,
     MultirangeComponent,
     SaveButtonComponent,
     HelpBlockComponent,
