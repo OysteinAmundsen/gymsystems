@@ -41,7 +41,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   configuredTroops = [];
   disciplines: IDiscipline[];
   divisions: IDivision[] = [];
-  ageLimits: {[type: string]: {min: number, max: number}};
+  // defaults: IDivision[];
 
 
   get ageDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Age); }
@@ -141,7 +141,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.userService.getMe().subscribe(user => this.currentUser = user));
 
     // Load configured age limits
-    this.configuration.getByname('ageLimits').subscribe(ageLimits => this.ageLimits = ageLimits.value);
+    // this.configuration.getByname('defaultValues').subscribe(defaults => this.defaults = defaults.value.division);
 
     // Load current tournament and data requiring tournament
     this.subscriptions.push(this.tournamentEditor.tournamentSubject.subscribe(tournament => {
@@ -196,11 +196,11 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const ages: number[] = troop.gymnasts.map(g => <number> age(g.birthYear));
     const minAge: number = Math.min(...ages);
     const maxAge: number = Math.max(...ages);
-    const divisionMatch = Object.keys(this.ageLimits).find(k => maxAge <= this.ageLimits[k].max && minAge >= this.ageLimits[k].min);
-    if (divisionMatch) {
-      division = this.ageDivisions.find(d => d.name === _.startCase(divisionMatch));
-      this.teamForm.controls['ageDivision'].setValue(division ? division.id : null);
-    }
+    division = this.divisions.find(k => maxAge <= k.max && minAge >= k.min);
+    // if (divisionMatch) {
+      // division = this.ageDivisions.find(d => d.name === _.startCase(divisionMatch.name));
+    this.teamForm.controls['ageDivision'].setValue(division ? division.id : null);
+    // }
 
     // Set gymnasts
     this.teamForm.controls['gymnasts'].setValue(troop.gymnasts);

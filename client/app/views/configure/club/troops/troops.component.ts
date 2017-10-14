@@ -6,7 +6,7 @@ import { BehaviorSubject, Subscription } from 'rxjs/Rx';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
-import { ITroop, IUser, Role, IGymnast, Gender } from 'app/model';
+import { ITroop, IUser, Role, IGymnast, Gender, DivisionType, IDivision } from 'app/model';
 import { UserService, ClubService, ConfigurationService } from 'app/services/api';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { ExpansionSource, ExpansionRow } from 'app/services/expansion-source';
@@ -30,7 +30,7 @@ export class TroopsComponent implements OnInit {
   userSubscription: Subscription;
 
   // selected: ITroop;
-  ageLimits: {[type: string]: {min: number, max: number}};
+  defaults: IDivision[];
 
   teamSource = new SubjectSource<ITroop>(new BehaviorSubject<ITroop[]>([]));
   get teamCount(): number { return this.teamSource.subject.value.length; }
@@ -52,7 +52,7 @@ export class TroopsComponent implements OnInit {
 
   ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
-    this.configuration.getByname('ageLimits').subscribe(ageLimits => this.ageLimits = ageLimits.value);
+    this.configuration.getByname('defaultValues').subscribe(defaults => this.defaults = defaults.value.division);
     this.clubComponent.clubSubject.subscribe(club => this.loadTeams());
   }
 
@@ -60,16 +60,16 @@ export class TroopsComponent implements OnInit {
     this.clubService.getTroops(this.club).subscribe(teams => this.teamSource.subject.next(teams));
   }
 
-  ageDivision(team: ITroop) {
+  ageDivision(team: ITroop): string {
     const age = (birthYear) => moment().diff(moment(birthYear, 'YYYY'), 'years');
     const ages: number[] = team.gymnasts.map(g => <number> age(g.birthYear));
     const minAge: number = Math.min(...ages);
     const maxAge: number = Math.max(...ages);
-    const divisionMatch = Object.keys(this.ageLimits).find(k => maxAge <= this.ageLimits[k].max && minAge >= this.ageLimits[k].min);
-    return divisionMatch ? _.startCase(divisionMatch) : `${minAge} - ${maxAge}`;
+    const divisionMatch = this.defaults.find(k => maxAge <= k.max && minAge >= k.min);
+    return divisionMatch ? _.startCase(divisionMatch.name) : `${minAge} - ${maxAge}`;
   }
 
-  genderDivision(team: ITroop) {
+  genderDivision(team: ITroop): string {
     if (team.gymnasts.every(g => g.gender === team.gymnasts[0].gender)) {
       if (team.gymnasts.length > 0) {
         return team.gymnasts[0].gender === Gender.Female
@@ -88,34 +88,16 @@ export class TroopsComponent implements OnInit {
     if (this.currentUser.role >= Role.Admin || this.club.id === this.currentUser.club.id) {
       this.router.navigate(['./add'], {relativeTo: this.route});
     }
-    // let teamCounter = this.teamCount;
-    // const team = <ITroop>{
-    //   id          : null,
-    //   name        : this.club.name.split(' ')[0].toLowerCase() + '-' + ++teamCounter,
-    //   club        : this.currentUser.club,
-    //   gymnasts    : []
-    // };
-    // this.teamSource.add(team);
-    // this.select(team);
   }
 
   select(team: ITroop, row?: number) {
     // this.teamSource.clearSelection();
     if (team != null) {
       if (this.currentUser.role >= Role.Admin || team.club.id === this.currentUser.club.id) {
-        // this.teamSource.select(team, row);
-        // this.selected = team;
         this.router.navigate(['./', team.id], { relativeTo: this.route });
       }
-    } /* else {
-      this.selected = null;
-    } */
+    }
   }
-
-  // onChange($event) {
-  //   this.select(null);
-  //   this.loadTeams();
-  // }
 
   generateTeams() {
     this.clubService.getAvailableMembers(this.club).subscribe(members => {
@@ -149,7 +131,6 @@ export class TroopsComponent implements OnInit {
       createTroop(members);
       Promise.all(promises).then(result => {
         console.log(result);
-        // this.onChange(null);
       });
     });
   }

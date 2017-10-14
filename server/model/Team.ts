@@ -7,7 +7,7 @@ import { Club, BelongsToClub } from './Club';
 import { Gymnast } from './Gymnast';
 import { Troop } from './Troop';
 
-/**
+ /**
  * A team can compete in either `National classes` (which is singular
  * disciplines), or in what is known as `TeamGym` (which is all
  * disciplines combined).
@@ -73,7 +73,7 @@ export class Team implements BelongsToClub {
    * out from the initial `Troop` setup, but can be changed by the
    * club at will in order to finetune the team for this event.
    */
-  @ManyToMany(type => Gymnast, gymnasts => gymnasts.team, { cascadeInsert: false, cascadeUpdate: false })
+  @ManyToMany(type => Gymnast, gymnasts => gymnasts.team)
   gymnasts: Gymnast[];
 
   /**
@@ -90,13 +90,13 @@ export class Team implements BelongsToClub {
    *
    * Media is presented as an array of files, one per discipline.
    */
-  @OneToMany(type => Media, media => media.team, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => Media, media => media.team)
   media: Media[] = [];
 
   /**
    * The disciplines this team is to compete in in this tournament
    */
-  @ManyToMany(type => Discipline, discipline => discipline.teams, { cascadeInsert: false, cascadeUpdate: false })
+  @ManyToMany(type => Discipline, discipline => discipline.teams)
   @JoinTable({name: 'team_disciplines_discipline_id'})
   disciplines: Discipline[] = [];
 

@@ -3,7 +3,7 @@ import { PrimaryGeneratedColumn, Column, Entity, ManyToMany, ManyToOne, Index, J
 import { Tournament } from './Tournament';
 import { Team } from './Team';
 
-/**
+ /**
  * Describe the type of division
  *
  * @export
@@ -70,7 +70,21 @@ export class Division {
   /**
    * The tournament where this division is to be competed in
    */
-  @ManyToOne(type => Tournament, tournament => tournament.divisions, { nullable: false, cascadeRemove: true })
+  @ManyToOne(type => Tournament, tournament => tournament.divisions, { nullable: false})
   @JoinColumn({name: 'tournament'})
   tournament: Tournament;
+
+  /**
+   * Only used for divisions of type Age.
+   * Describes the minimum age limit for gymnasts in this division
+   */
+  @Column({nullable: true})
+  min: number;
+
+  /**
+   * Only used for divisions of type Age
+   * Describes the maximum age limit for gymnasts in this division
+   */
+  @Column({nullable: true})
+  max: number;
 }

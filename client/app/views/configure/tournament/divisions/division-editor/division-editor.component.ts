@@ -15,6 +15,7 @@ export class DivisionEditorComponent implements OnInit {
   @Input() division: IDivision = <IDivision>{};
   @Output() divisionChanged: EventEmitter<any> = new EventEmitter<any>();
   divisionForm: FormGroup;
+  divisionTypes = DivisionType;
   types = [
     { id: DivisionType.Age, name: 'Age' },
     { id: DivisionType.Gender, name: 'Gender' }
@@ -28,6 +29,8 @@ export class DivisionEditorComponent implements OnInit {
       name: [this.division.name, [Validators.required]],
       tournament: [this.division.tournament],
       sortOrder: [this.division.sortOrder],
+      min: [this.division.min, [Validators.required]],
+      max: [this.division.max, [Validators.required]],
       type: [this.division.type, [Validators.required]]
     });
   }
@@ -37,7 +40,7 @@ export class DivisionEditorComponent implements OnInit {
     if (this.division.tournament) {
       this.divisionService.save(this.divisionForm.value).subscribe(result => {
         this.divisionChanged.emit(result);
-        this.divisionForm.setValue(result);
+        // this.divisionForm.setValue(result);
       });
     } else {
       this.divisionChanged.emit(this.divisionForm.value);

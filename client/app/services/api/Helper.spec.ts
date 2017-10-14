@@ -2,9 +2,7 @@ import { Helper } from './Helper';
 
 const maxLevel = [
   { level: 0, children: [
-    { level: 1, children: [
-      { level: 2 }
-    ]}
+    { level: 1}
   ]}
 ];
 describe('services:Helper', () => {

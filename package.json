@@ -76,7 +76,7 @@
     "core-js": "^2.5.1",
     "cors": "^2.8.4",
     "dragula": "~3.7.2",
-    "event-source-polyfill": "0.0.10",
+    "event-source-polyfill": "0.0.11",
     "express": "~4.16.1",
     "express-session": "^1.15.6",
     "fast-csv": "^2.4.1",

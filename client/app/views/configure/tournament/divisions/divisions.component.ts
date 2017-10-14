@@ -112,22 +112,23 @@ export class DivisionsComponent implements OnInit, OnDestroy {
   }
 
   onChange($event) {
+    let divisions: IDivision[] = []; // Get currently selected division bin
     if ($event !== 'DELETED') {
       // Copy properties over to selected object
       Object.keys(this.selected).forEach(k => this.selected[k] = $event[k]);
-    }
-    let divisions: IDivision[]; // Get currently selected division bin
-    switch (this.selected.type) {
-      case DivisionType.Gender: divisions = this.genderDivisions; break;
-      case DivisionType.Age: divisions = this.ageDivisions; break;
-    }
-    if ($event === 'DELETED') {
-      // Remove element from given bin
+
+      switch ($event.type) {
+        case DivisionType.Gender: divisions = this.genderDivisions; break;
+        case DivisionType.Age: divisions = this.ageDivisions; break;
+
+      }
+      if (this.isAdding) {
+        // Add element to given bin
+        divisions.push($event);
+      }
+    } else {
+      // $event === 'DELETED', Remove element from given bin
       divisions.splice(divisions.findIndex(d => d.sortOrder === this.selected.sortOrder), 1);
-    }
-    if (this.isAdding) {
-      // Add element to given bin
-      divisions.push(this.selected);
     }
 
     this.isAdding = false;

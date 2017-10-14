@@ -138,8 +138,11 @@ export class DivisionController {
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') divisionId: number) {
-    const division = await this.repository.findOneById(divisionId);
-    return this.removeMany([division])
+    const division = await this.repository.createQueryBuilder('division')
+      .leftJoinAndSelect('division.teams', 'teams')
+      .where('division.id = :id', {id: divisionId})
+      .getMany();
+    return this.removeMany(division)
       .catch(err => {
         Log.log.error(`Error removing division ${divisionId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));

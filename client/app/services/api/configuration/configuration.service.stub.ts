@@ -11,13 +11,14 @@ export class ConfigurationServiceStub extends ConfigurationService {
   config: IConfiguration[] = [
     {name: 'defaultValues', value: {
       division: [
-        { type: DivisionType.Gender, name: 'Kvinner', sortOrder: 1 },
-        { type: DivisionType.Gender, name: 'Herrer',  sortOrder: 2 },
-        { type: DivisionType.Gender, name: 'Mix',     sortOrder: 0 },
-        { type: DivisionType.Age,    name: 'Rekrutt', sortOrder: 0 },
-        { type: DivisionType.Age,    name: 'Junior',  sortOrder: 1 },
-        { type: DivisionType.Age,    name: 'Senior',  sortOrder: 2 }
-      ],
+        { type: DivisionType.Gender, name: 'Kvinner',  sortOrder: 1 },
+        { type: DivisionType.Gender, name: 'Herrer',   sortOrder: 2 },
+        { type: DivisionType.Gender, name: 'Mix',      sortOrder: 0 },
+        { type: DivisionType.Age,    name: 'Aspirant', sortOrder: 0, min: 8, max: 11 },
+        { type: DivisionType.Age,    name: 'Rekrutt',  sortOrder: 1, min: 11, max: 13 },
+        { type: DivisionType.Age,    name: 'Junior',   sortOrder: 2, min: 13, max: 17 },
+        { type: DivisionType.Age,    name: 'Senior',   sortOrder: 3, min: 16, max: 99 }
+    ],
       discipline: [
         { name: 'Trampett', sortOrder: 1 }, { name: 'Tumbling', sortOrder: 2 }, { name: 'Frittstående', sortOrder: 0 }
       ],
@@ -30,26 +31,45 @@ export class ConfigurationServiceStub extends ConfigurationService {
     }},
     { name: 'scheduleExecutionTime', value: '5' },
     { name: 'scheduleTrainingTime', value: '3' },
-    {
-      name: 'ageLimits',
-      value: {
-        aspirant: {min: 8, max: 11},
-        rekrutt: {min: 11, max: 13},
-        junior: {min: 13, max: 17},
-        senior: {min: 16, max: 99},
-      }
-    },
-    {name: 'display', value: {
-      display1: `<header>{{tournament.name}}</header>
-
-{{#list next len=3}}
-<div>{{team.name}}  {{division}} {{discipline.name}}</div>
-{{/list}}`,
-      display2: `{{#list published len=1}}
-<div>{{team.name}}  {{division}}</div>
-<div>{{discipline.name}}</div>
-<br>
-<div>{{total}}</div>
+    { name: 'display', value: {
+      display1:
+`{{~#list current len=1 ~}}
+  {{~#size 3~}}
+    <b>{{team.name}}</b>
+  {{~/size~}}
+  {{#center ~}}
+    {{~#size 2 ~}}
+      {{division}} {{discipline.name}}
+    {{~/size ~}}
+  {{~/center~}}
+{{~/list~}}
+{{#center ~}}
+  -----------------------------
+{{~/center~}}
+{{#list next len=2 ~}}
+  {{~#size 1~}}
+    <b>{{team.name}}</b>
+    {{division}} {{disciplineName}}
+  {{~/size~}}
+{{~/list}}`,
+      display2:
+`{{~#list published len=1 ~}}
+  {{~#size 3 ~}}
+    <b>{{team.name}}</b>
+  {{~/size~}}
+  {{~#center ~}}
+    {{~#size 2 ~}}
+      {{division}} {{disciplineName}}
+    {{~/size~}}
+  {{~/center~}}
+  {{#center ~}}
+    -----------------------------
+  {{~/center~}}
+  {{#center ~}}
+    {{#size 5 ~}}
+      {{#fix total len=3}}{{/fix}}
+    {{~/size ~}}
+  {{~/center}}
 {{/list}}`
     }}
   ];
