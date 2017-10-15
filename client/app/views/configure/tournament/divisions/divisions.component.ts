@@ -1,9 +1,11 @@
-import { Component, HostListener, OnDestroy, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, Input, EventEmitter, Output, Injector } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
+import { Subscription } from 'rxjs/Rx';
 
 import { DivisionService, ConfigurationService, TournamentService } from 'app/services/api';
-import { IDivision, DivisionType } from 'app/model';
+import { IDivision, DivisionType, ITournament } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { TournamentEditorComponent } from 'app/views/configure/tournament/tournament-editor/tournament-editor.component';
 
 @Component({
   selector: 'app-divisions',
@@ -13,7 +15,7 @@ import { KeyCode } from 'app/shared/KeyCodes';
 export class DivisionsComponent implements OnInit, OnDestroy {
   @Input() standalone = false;
   @Input() divisions: IDivision[] = [];
-  get tournament() { return this.tournamentService.selected; };
+  tournament: ITournament;
 
 
   @Output() divisionsChanged = new EventEmitter<IDivision[]>();
@@ -25,17 +27,25 @@ export class DivisionsComponent implements OnInit, OnDestroy {
 
   get canAddDefaults() { return this.findMissingDefaults().length; }
 
-  dragulaSubscription;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private tournamentService: TournamentService,
     private divisionService: DivisionService,
     private configService: ConfigurationService,
+    private injector: Injector,
     private dragulaService: DragulaService) { }
 
   ngOnInit() {
     this.configService.getByname('defaultValues').subscribe(config => this.defaultDivisions = config.value.division);
-    this.loadDivisions();
+    if (this.standalone) {
+      this.loadDivisions();
+    } else {
+      this.subscriptions.push(this.injector.get(TournamentEditorComponent).tournamentSubject.subscribe(tournament => {
+        this.tournament = tournament;
+        this.loadDivisions();
+      }));
+    }
 
     if (!this.dragulaService.find('gender-bag')) {
       this.dragulaService.setOptions('gender-bag', { invalid: (el: HTMLElement, handle) => el.classList.contains('static') });
@@ -45,7 +55,7 @@ export class DivisionsComponent implements OnInit, OnDestroy {
     }
 
     const me = this;
-    this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
+    this.subscriptions.push(this.dragulaService.dropModel.subscribe((value) => {
       let divisions;
       switch (value[0]) {
         case 'gender-bag': divisions = me.genderDivisions; break;
@@ -58,11 +68,11 @@ export class DivisionsComponent implements OnInit, OnDestroy {
         }
         me.divisionsChanged.emit(me.genderDivisions.concat(me.ageDivisions));
       });
-    });
+    }));
   }
 
   ngOnDestroy() {
-    this.dragulaSubscription.unsubscribe();
+    this.subscriptions.forEach(s => s ? s.unsubscribe() : null);
   }
 
   loadDivisions() {

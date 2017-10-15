@@ -1,9 +1,11 @@
-import { Component, HostListener, OnDestroy, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, Input, Output, EventEmitter, Injector } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
+import { Subscription } from 'rxjs/Rx';
 
 import { DisciplineService, ScoreGroupService, ConfigurationService, TournamentService } from 'app/services/api';
-import { IScoreGroup, IDiscipline } from 'app/model';
+import { IScoreGroup, IDiscipline, ITournament } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { TournamentEditorComponent } from 'app/views/configure/tournament/tournament-editor/tournament-editor.component';
 
 @Component({
   selector: 'app-disciplines',
@@ -17,16 +19,17 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
   defaultScoreGroups: IScoreGroup[];
   defaultDisciplines: IDiscipline[];
 
-  get tournament() { return this.tournamentService.selected; };
+  tournament: ITournament;
 
   _selected: IDiscipline;
   get selected() { return this._selected; }
   set selected(discipline: IDiscipline) { this._selected = discipline; }
   get canAddDefaults() { return this.findMissingDefaults().length; }
 
-  dragulaSubscription;
+  subscriptions: Subscription[] = [];
 
   constructor(
+    private injector: Injector,
     private tournamentService: TournamentService,
     private disciplineService: DisciplineService,
     private scoreService: ScoreGroupService,
@@ -38,21 +41,28 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
       this.defaultDisciplines = config.value.discipline;
       this.defaultScoreGroups = config.value.scoreGroup;
     });
-    this.loadDisciplines();
+    if (this.standalone) {
+      this.loadDisciplines();
+    } else {
+      this.subscriptions.push(this.injector.get(TournamentEditorComponent).tournamentSubject.subscribe(tournament => {
+        this.tournament = tournament;
+        this.loadDisciplines();
+      }));
+    }
 
     if (!this.dragulaService.find('discipline-bag')) {
       this.dragulaService.setOptions('discipline-bag', { invalid: (el: HTMLElement, handle) => el.classList.contains('static') });
     }
-    this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
+    this.subscriptions.push(this.dragulaService.dropModel.subscribe((value) => {
       setTimeout(() => { // Sometimes dragula is not finished syncing model
         this.disciplineList.forEach((div, idx) => div.sortOrder = idx);
         this.saveDisciplines();
       });
-    });
+    }));
   }
 
   ngOnDestroy() {
-    this.dragulaSubscription.unsubscribe();
+    this.subscriptions.forEach(s => s ? s.unsubscribe() : null);
   }
 
   loadDisciplines() {
