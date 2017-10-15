@@ -1,6 +1,6 @@
 <header>
   <h1>
-    <fa name="university" fw="true"></fa>
+    <fa name="university" fixed="true"></fa>
     <span>{{ clubName }}</span>
   </h1>
 </header>
@@ -32,8 +32,8 @@
     </mat-card-content>
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="clubForm.invalid || clubForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="clubForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()"><fa name="ban" fixed="true"></fa> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="clubForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><fa name="trash" fixed="true"></fa> <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>
 </form>
@@ -42,15 +42,15 @@
 <menu mat-tab-nav-bar *ngIf="clubForm.value.id">
   <a mat-tab-link routerLink="./members" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
     [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
-    <fa name="id-card-o" fw="true"></fa> <span translate>Members</span>
+    <fa name="id-card-o" fixed="true"></fa> <span translate>Members</span>
   </a>
   <a mat-tab-link routerLink="./troops" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
     [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
-    <fa name="group" fw="true"></fa> <span translate>Teams</span>
+    <fa name="group" fixed="true"></fa> <span translate>Teams</span>
   </a>
   <a mat-tab-link routerLink="./statistics" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
     [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
-    <fa name="line-chart" fw="true"></fa> <span translate>Statistics</span>
+    <fa name="line-chart" fixed="true"></fa> <span translate>Statistics</span>
   </a>
 </menu>
 

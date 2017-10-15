@@ -1,5 +1,5 @@
 <h1>
-  <fa name="cogs" fw="true"></fa>
+  <fa name="cogs" fixed="true"></fa>
   <span translate>Advanced settings</span>
 </h1>
 
@@ -31,19 +31,19 @@
       <mat-tab-group *ngIf="defaultValues">
         <mat-tab>
           <ng-template mat-tab-label>
-            <fa name="cubes" fw="true"></fa> <span translate>Divisions</span>
+            <fa name="cubes" fixed="true"></fa> <span translate>Divisions</span>
           </ng-template>
           <app-divisions [divisions]="defaultValues.division" (divisionsChanged)="valueChanged('division', $event)" [standalone]="true"></app-divisions>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
-            <fa name="heartbeat" fw="true"></fa> <span translate>Disciplines</span>
+            <fa name="heartbeat" fixed="true"></fa> <span translate>Disciplines</span>
           </ng-template>
           <app-disciplines [disciplineList]="defaultValues.discipline" (disciplineListchanged)="valueChanged('discipline', $event)" [standalone]="true"></app-disciplines>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
-            <fa name="star" fw="true"></fa> <span translate>Score system</span>
+            <fa name="star" fixed="true"></fa> <span translate>Score system</span>
           </ng-template>
           <app-score-system [scoreGroupList]="defaultValues.scoreGroup" (scoreGroupListChanged)="valueChanged('scoreGroup', $event)" [standalone]="true"></app-score-system>
         </mat-tab>

@@ -27,10 +27,10 @@
 </div>
 
 <button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addScoreGroup()">
-  <fa name="plus" fw="true"></fa>
+  <fa name="plus" fixed="true"></fa>
   <span translate>Add ScoreGroup</span>
 </button>
 <button mat-raised-button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
-  <fa name="plus-circle" fw="true"></fa>
+  <fa name="plus-circle" fixed="true"></fa>
   <span translate>Add Default ScoreGroups</span>
 </button>

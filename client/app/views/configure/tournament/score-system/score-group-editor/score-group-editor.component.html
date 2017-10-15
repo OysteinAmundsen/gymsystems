@@ -31,8 +31,8 @@
     </mat-card-content>
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="scoreForm.invalid || scoreForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="standalone || scoreForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><fa name="trash" fw="true"></fa> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fixed="true"></fa> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="standalone || scoreForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><fa name="trash" fixed="true"></fa> <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>
 </form>

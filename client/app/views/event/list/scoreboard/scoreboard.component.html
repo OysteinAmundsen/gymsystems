@@ -32,15 +32,15 @@
 
     <mat-card-actions>
       <app-save-button buttonType="submit"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fw="true"></fa> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fixed="true"></fa> <span translate>Cancel</span></button>
       <button mat-raised-button *ngIf="participant.publishTime == null || currentUser.role >= roles.Organizer" type="button" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()">
-        <fa name="trash" fw="true"></fa>
+        <fa name="trash" fixed="true"></fa>
         <span *ngIf="participant.publishTime == null && participant.endTime == null" translate>Delete</span>
         <span *ngIf="participant.publishTime == null && participant.endTime != null" translate>Empty scores</span>
         <span *ngIf="participant.publishTime != null" translate>Allready published!</span>
       </button>
       <button mat-raised-button *ngIf="participant.endTime != null && currentUser.role >= roles.Organizer" type="button" [title]="'Rollback' | translate" class="pull-right mat-warn" (click)="rollback()">
-        <fa name="undo" fw="true"></fa>
+        <fa name="undo" fixed="true"></fa>
         <span translate>Rollback</span>
       </button>
       <div *ngIf="participant.publishTime != null && currentUser.role < roles.Organizer" class="pull-right warning">

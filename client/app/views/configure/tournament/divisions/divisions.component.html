@@ -3,7 +3,7 @@
   <section class="col-6">
     <header>
       <h2>
-        <fa name="venus-mars" fw="true"></fa>
+        <fa name="venus-mars" fixed="true"></fa>
         <span translate>Gender group</span>
       </h2>
     </header>
@@ -26,7 +26,7 @@
   <section class="col-6">
     <header>
       <h2>
-        <fa name="child" fw="true"></fa>
+        <fa name="child" fixed="true"></fa>
         <span translate>Age group</span>
       </h2>
     </header>
@@ -52,10 +52,10 @@
 </div>
 
 <button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDivision()">
-  <fa name="plus" fw="true"></fa>
+  <fa name="plus" fixed="true"></fa>
   <span translate>Add Divisions</span>
 </button>
 <button mat-raised-button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
-  <fa name="plus-circle" fw="true"></fa>
+  <fa name="plus-circle" fixed="true"></fa>
   <span translate>Add Default Divisions</span>
 </button>

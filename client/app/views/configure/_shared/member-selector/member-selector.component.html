@@ -1,15 +1,15 @@
 <section *ngIf="club">
   <div class="action">
     <button mat-icon-button type="button" class="small" (click)="toggleMembers()" [title]="toggleTitle">
-      <fa *ngIf="!memberListHidden" name="chevron-left" fw="true"></fa>
-      <fa *ngIf="memberListHidden" name="chevron-right" fw="true"></fa>
+      <fa *ngIf="!memberListHidden" name="chevron-left" fixed="true"></fa>
+      <fa *ngIf="memberListHidden" name="chevron-right" fixed="true"></fa>
     </button>
   </div>
 
   <!-- Available members -->
   <div [ngClass]="{'flex-col': true, hidden: memberListHidden}">
     <h3>
-      <fa name="address-book" fw="true"></fa>
+      <fa name="address-book" fixed="true"></fa>
       <span translate>Available</span>
     </h3>
     <ul [dragula]="'member-bag'" class="available">
@@ -24,7 +24,7 @@
   <div class="flex-col">
     <div class="help-available flex">
       <h3 class="flex-col">
-        <fa name="group" fw="true"></fa>
+        <fa name="group" fixed="true"></fa>
         <span translate>Gymnasts in</span> <span>{{ troopName }}</span>
       </h3>
       <ng-content></ng-content>
