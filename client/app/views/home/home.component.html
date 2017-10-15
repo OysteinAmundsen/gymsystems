@@ -37,7 +37,9 @@
   <mat-card>
     <mat-nav-list dense>
       <ng-container *ngFor="let type of types;">
-        <h5 matSubheader>{{ type.name | translate }}&nbsp;<span translate>tournaments</span></h5>
+        <h5 matSubheader *ngIf="type.tournaments && type.tournaments.length">
+          {{ type.name | translate }}&nbsp;<span translate>tournaments</span>
+        </h5>
         <mat-list-item *ngFor="let tournament of type.tournaments" class="flex" [routerLink]="['/event', tournament.id, 'results']">
           <div class="flex">
             <span class="flex-col">{{ tournament.name }}</span>

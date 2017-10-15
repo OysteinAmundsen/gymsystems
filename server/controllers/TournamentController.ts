@@ -1,5 +1,5 @@
 import { getConnectionManager, Connection, Repository } from 'typeorm';
-import { Delete, OnUndefined, Get, JsonController, Body, Param, Post, Put, Res, UseBefore, Req } from 'routing-controllers';
+import { Delete, OnUndefined, Get, JsonController, Body, Param, Post, Put, Res, UseBefore, Req, QueryParam } from 'routing-controllers';
 import { Service, Container } from 'typedi';
 import { Request, Response } from 'express';
 
@@ -96,15 +96,14 @@ export class TournamentController {
    * @param req
    */
   @Get('/list/past')
-  past(@Req() req: Request): Promise<Tournament[] | any> {
+  past(@Req() req: Request, @QueryParam('now') now: Date): Promise<Tournament[] | any> {
     let limit: number = req.query['limit'] || 10;
     if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
 
-    const date = moment().startOf('day').utc().toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .leftJoinAndSelect('tournament.venue', 'venue')
-      .where('tournament.endDate < :date', { date: date })
+      .where('tournament.endDate < :date', { date: now })
       .orderBy('tournament.startDate', 'DESC')
       .limit(10)
       .getMany()
@@ -123,11 +122,10 @@ export class TournamentController {
    * @param req
    */
   @Get('/list/current')
-  current(@Req() req: Request): Promise<Tournament[] | any> {
+  current(@Req() req: Request, @QueryParam('now') now: Date): Promise<Tournament[] | any> {
     let limit: number = req.query['limit'] || 10;
     if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
 
-    const now = moment().utc().toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .leftJoinAndSelect('tournament.venue', 'venue')
@@ -150,15 +148,14 @@ export class TournamentController {
    * @param req
    */
   @Get('/list/future')
-  future(@Req() req: Request): Promise<Tournament[] | any> {
+  future(@Req() req: Request, @QueryParam('now') now: Date): Promise<Tournament[] | any> {
     let limit: number = req.query['limit'] || 10;
     if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
 
-    const date = moment().endOf('day').utc().toDate();
     return this.repository
       .createQueryBuilder('tournament')
       .leftJoinAndSelect('tournament.venue', 'venue')
-      .where('tournament.startDate > :date', { date: date })
+      .where('tournament.startDate > :date', { date: now })
       .orderBy('tournament.startDate', 'DESC')
       .limit(10)
       .getMany()

@@ -7,6 +7,7 @@ import * as moment from 'moment';
 
 import { ITournament } from 'app/model/ITournament';
 import { Helper } from '../Helper';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class TournamentService {
@@ -19,13 +20,16 @@ export class TournamentService {
     return this.http.get<ITournament[]>(this.url).map((res: ITournament[]) => this.mapDates(res));
   }
   past(): Observable<ITournament[]> {
-    return this.http.get<ITournament[]>(`${this.url}/list/past`).map((res: ITournament[]) => this.mapDates(res));
+    return this.http.get<ITournament[]>(`${this.url}/list/past`, {params: new HttpParams().set('now', new Date().toISOString())})
+      .map((res: ITournament[]) => this.mapDates(res));
   }
   current(): Observable<ITournament[]> {
-    return this.http.get<ITournament[]>(`${this.url}/list/current`).map((res: ITournament[]) => this.mapDates(res));
+    return this.http.get<ITournament[]>(`${this.url}/list/current`, {params: new HttpParams().set('now', new Date().toISOString())})
+      .map((res: ITournament[]) => this.mapDates(res));
   }
   upcoming(): Observable<ITournament[]> {
-    return this.http.get<ITournament[]>(`${this.url}/list/future`).map((res: ITournament[]) => this.mapDates(res));
+    return this.http.get<ITournament[]>(`${this.url}/list/future`, {params: new HttpParams().set('now', new Date().toISOString())})
+      .map((res: ITournament[]) => this.mapDates(res));
   }
   getById(id: number): Observable<ITournament> {
     return this.http.get<ITournament>(`${this.url}/${id}`).map((res: ITournament) => this.mapDate(res));
