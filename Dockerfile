@@ -1,27 +1,27 @@
-FROM node
+######################
+### STAGE 1: Build ###
+FROM node:8-alpine as builder
 
-MAINTAINER Øystein Amundsen <oystein.amundsen@gmail.com>
+RUN apk update && apk add git python make g++ patch
 
-# Create app directory
-ENV HOME=/usr/src/app
-RUN mkdir -p $HOME
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+RUN rm -rf ./node_modules && yarn install && yarn build
+
+######################
+### STAGE 2: Setup ###
+FROM node:8-alpine
 
 # In order to build bcrypt library
-RUN apt-get install -y make automake python gcc g++
-
-# Create app user
-# RUN useradd --user-group --create-home --shell /bin/bash app
-# USER app
-WORKDIR $HOME
+RUN apk update && apk add git python make g++ patch gcc
 
 # Install app dependencies
-ADD package.json $HOME/package.json
+WORKDIR /usr/src/app
+COPY package.json /usr/src/app
 RUN yarn global add node-gyp && yarn install --production
 
 # Bundle pre-built app
 ADD ormconfig.prod.json $HOME/ormconfig.json
-COPY dist $HOME/dist
-# RUN chown -R app:app $HOME/*
+COPY --from=builder /usr/src/app/dist /usr/src/app/dist
 
-EXPOSE 3000
 ENTRYPOINT yarn start

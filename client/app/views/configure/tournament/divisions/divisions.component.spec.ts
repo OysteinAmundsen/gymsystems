@@ -1,9 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReplaySubject } from 'rxjs/Rx';
 
 import { AppModuleTest } from 'app/app.module.spec';
 import { DivisionsModule } from './divisions.module';
 import { DivisionsComponent } from './divisions.component';
+import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
+import { ITournament } from 'app/model';
+import { dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
+
+class DummyParent {
+  tournamentSubject = new ReplaySubject<ITournament>(1);
+  constructor() {
+    this.tournamentSubject.next(dummyTournament);
+  }
+}
 describe('views.configure.tournament:DivisionsComponent', () => {
   let component: DivisionsComponent;
   let fixture: ComponentFixture<DivisionsComponent>;
@@ -13,6 +24,9 @@ describe('views.configure.tournament:DivisionsComponent', () => {
       imports: [
         AppModuleTest,
         DivisionsModule,
+      ],
+      providers: [
+        { provide: TournamentEditorComponent, useClass: DummyParent },
       ]
     })
     .compileComponents();
