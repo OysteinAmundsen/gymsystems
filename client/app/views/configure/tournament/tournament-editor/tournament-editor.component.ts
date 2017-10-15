@@ -122,7 +122,10 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       venue: [this.tournament.venue],
       description: [this.tournament['description_' + this.translate.currentLang] || ''],
       createdBy: [this.tournament.createdBy],
-      times: [this.tournament.times]
+      times: [this.tournament.times],
+      providesLodging: [this.tournament.providesLodging],
+      providesTransport: [this.tournament.providesTransport],
+      providesBanquet: [this.tournament.providesBanquet]
     });
 
     // Filter club in typeahead
@@ -195,7 +198,10 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       venue: this.tournament.venue || null,
       description: this.tournament['description_' + this.translate.currentLang] || '',
       createdBy: this.tournament.createdBy,
-      times: this.tournament.times || null
+      times: this.tournament.times || null,
+      providesLodging: this.tournament.providesLodging,
+      providesTransport: this.tournament.providesTransport,
+      providesBanquet: this.tournament.providesBanquet
     });
   }
 
@@ -226,12 +232,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
   save() {
     const formVal: ITournament = this.tournamentForm.value;
-    if (formVal.startDate.hasOwnProperty('momentObj')) {
-      formVal.startDate = formVal.startDate['momentObj'].clone().utc().startOf('day').toISOString();
-    }
-    if (formVal.endDate.hasOwnProperty('momentObj')) {
-      formVal.endDate = formVal.endDate['momentObj'].clone().utc().endOf('day').toISOString();
-    }
     if (!formVal.club) {
       formVal.club = this.user.club;
     }
@@ -240,7 +240,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
         this.error.setError(`${tournament.message}`);
         return false;
       }
-      this.tournament = tournament;
+      this.tournamentReceived(tournament);
       this.isEdit = false;
       if (this.isAdding) {
         this.isAdding = false;

@@ -248,7 +248,7 @@ export class TournamentController {
     return this.repository.save(tournament)
       .then(persisted => {
         Container.get(MediaController).expireArchive(persisted.id, persisted.endDate)
-        return persisted;
+        return this.get(tournament.id);
       })
       .catch(err => {
         Log.log.error(`Error updating tournament ${id}`, err);

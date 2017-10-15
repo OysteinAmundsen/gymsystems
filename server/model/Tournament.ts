@@ -134,13 +134,13 @@ export class Tournament implements CreatedBy, BelongsToClub {
   venue: Venue;
 
 
-  // // LODGING -----------------------------------------------------
-  // /**
-  //  * The number of gymnasts this tournament can be able to provide
-  //  * lodging for.
-  //  */
-  // @Column({ default: 0 })
-  // canProvideLodgingFor: number;
+  // LODGING -----------------------------------------------------
+  /**
+   * The number of gymnasts this tournament can be able to provide
+   * lodging for.
+   */
+  @Column({ default: true })
+  providesLodging: boolean;
 
   // /**
   //  * The price for lodging per head. This will be covered by
@@ -158,13 +158,13 @@ export class Tournament implements CreatedBy, BelongsToClub {
   // lodging: Gymnast[];
 
 
-  // // TRANSPORT ---------------------------------------------------
-  // /**
-  //  * If true, this tournament can provide transportation for
-  //  * traveling gymnasts.
-  //  */
-  // @Column({ default: false })
-  // providesTransport: boolean;
+  // TRANSPORT ---------------------------------------------------
+  /**
+   * If true, this tournament can provide transportation for
+   * traveling gymnasts.
+   */
+  @Column({ default: false })
+  providesTransport: boolean;
 
   // /**
   //  * The price for transportation per head. This will be covered by
@@ -183,13 +183,13 @@ export class Tournament implements CreatedBy, BelongsToClub {
 
 
 
-  // // BANQUET -----------------------------------------------------
-  // /**
-  //  * If true, this tournament will throw a banquet in honor of the
-  //  * performing gymnasts.
-  //  */
-  // @Column({ default: false })
-  // providesBanquet: boolean;
+  // BANQUET -----------------------------------------------------
+  /**
+   * If true, this tournament will throw a banquet in honor of the
+   * performing gymnasts.
+   */
+  @Column({ default: false })
+  providesBanquet: boolean;
 
   // /**
   //  * The price for the banquet per head. This will be covered by

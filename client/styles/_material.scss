@@ -71,3 +71,9 @@ $gymsystems-theme: mat-light-theme($gymsystems-primary, $gymsystems-accent, $gym
   top: 5px;
   right: 5px;
 }
+mat-card.mat-card {
+  border-radius: $rounded;
+}
+mat-card-header.mat-card-header {
+  margin: 0 -19.5px;
+}

@@ -3,9 +3,11 @@
 </div>
 
 <!-- National classes -->
-<section *ngFor="let division of divisions" class="division">
-  <h3>{{division}}</h3>
-  <div class="flex">
+<mat-card *ngFor="let division of divisions" class="division">
+  <mat-card-header>
+      <mat-card-title><h3>{{division}}</h3></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="flex">
     <div *ngFor="let discipline of disciplines" class="flex-col">
       <table role="list">
         <thead>
@@ -20,13 +22,15 @@
         </tbody>
       </table>
     </div>
-  </div>
-</section>
+  </mat-card-content>
+</mat-card>
 
 <!-- TeamGym -->
-<section class="division" *ngIf="teamGymDivisions.size > 0">
-  <h3 translate>TeamGym</h3>
-  <div class="flex">
+<mat-card class="division" *ngIf="teamGymDivisions.size > 0">
+  <mat-card-header>
+    <mat-card-title><h3 translate>TeamGym</h3></mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="flex">
     <div *ngFor="let division of teamGymDivisions" class="flex-col">
       <table role="list">
         <thead>
@@ -51,5 +55,5 @@
         </tbody>
       </table>
     </div>
-  </div>
-</section>
+  </mat-card-content>
+</mat-card>

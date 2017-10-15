@@ -29,19 +29,19 @@ export interface ITournament extends IBelongsToClub, ICreatedBy {
 
 
   // // LODGING -----------------------------------------------------
-  // canProvideLodgingFor: number;
+  providesLodging: boolean;
   // lodingCostPerHead: number;
   // lodging: IGymnast[];
 
 
   // // TRANSPORT ---------------------------------------------------
-  // providesTransport: boolean;
+  providesTransport: boolean;
   // transportationCostPerHead: number;
   // transporting: IGymnast[];
 
 
   // // BANQUET -----------------------------------------------------
-  // providesBanquet: boolean;
+  providesBanquet: boolean;
   // banquetCostPerHead: number;
   // banquetFor: IGymnast[];
 }

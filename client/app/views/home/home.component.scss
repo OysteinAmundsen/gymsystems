@@ -9,10 +9,14 @@
 
 .mat-card {
   padding: 0;
+  overflow: hidden;
   .mat-subheader {
     border-bottom: 1px solid #bbb;
-    background: $primary;
+    background: rgba($primary, 0.8);
     color: white;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 1.3rem;
   }
   .flex {
     width: 100%;
