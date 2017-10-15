@@ -67,7 +67,7 @@
     "@angular/service-worker": "^1.0.0-beta.16",
     "@ngx-translate/core": "^8.0.0",
     "@ngx-translate/http-loader": "2.0.0",
-    "angular-font-awesome": "2.3.5",
+    "angular-font-awesome": "^2.3.7",
     "angulartics2": "^2.4.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
@@ -106,7 +106,6 @@
     "session-memory-store": "^0.2.2",
     "typedi": "~0.5.2",
     "typeorm": "^0.1.0",
-    "typescript": ">=2.1.0 <2.4.0",
     "winston": "~2.4.0",
     "zone.js": "0.8.18"
   },
@@ -151,6 +150,7 @@
     "npm-scripts-help": "^0.7.0",
     "protractor": "~5.1.2",
     "snyk": "^1.42.7",
+    "typescript": ">=2.1.0 <2.4.0",
     "ts-node": "^3.3.0",
     "tslint": "~5.7.0",
     "wait-on": "^2.0.2"
