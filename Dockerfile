@@ -1,12 +1,14 @@
 ######################
 ### STAGE 1: Build ###
-FROM node:8-alpine as builder
+# Could not get builder to work correctly on docker-cloud
 
-RUN apk update && apk add git python make g++ patch
+# FROM node:8-alpine as builder
 
-WORKDIR /usr/src/app
-COPY . /usr/src/app
-RUN rm -rf ./node_modules && yarn install && yarn build
+# RUN apk update && apk add git python make g++ patch
+
+# WORKDIR /usr/src/app
+# COPY . /usr/src/app
+# RUN rm -rf ./node_modules && yarn install && yarn build
 
 ######################
 ### STAGE 2: Setup ###
@@ -21,8 +23,10 @@ COPY package.json /usr/src/app
 RUN yarn global add node-gyp && yarn install --production
 
 # Bundle pre-built app
-ADD ormconfig.prod.json /usr/src/app/ormconfig.json
-COPY --from=builder /usr/src/app/dist /usr/src/app/dist
+COPY ormconfig.prod.json /usr/src/app
+# Could not get builder to work correctly on docker-cloud
+# COPY --from=builder /usr/src/app/dist /usr/src/app/dist
+COPY dist /usr/src/app/dist
 
 EXPOSE 3000
 ENTRYPOINT yarn start
