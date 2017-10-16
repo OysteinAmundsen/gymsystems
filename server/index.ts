@@ -33,7 +33,7 @@ import { Log, OrmLog } from './utils/Logger';
 import { ERROR_MESSAGES } from './messages';
 import { NextFunction, ErrorRequestHandler } from 'express-serve-static-core';
 
-    /**
+/**
  * Our application starts here.
  *
  * @class Server
@@ -99,6 +99,7 @@ export class GymServer {
     this.app = e();
 
     Log.log.info('** Configuring server');
+    const MemoryStore = require('session-memory-store')(session);
     this.app
       .set('trust proxy', true)  // Listen for external requests
       .set('etag', false)
