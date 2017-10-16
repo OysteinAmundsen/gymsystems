@@ -21,7 +21,7 @@ COPY package.json /usr/src/app/package.json
 RUN yarn global add node-gyp && yarn install --production
 
 # Bundle pre-built app
-COPY ormconfig.prod.json /usr/src/app/ormconfig.prod.json
+COPY ormconfig.prod.json /usr/src/app/ormconfig.json
 # Could not get builder to work correctly on docker-cloud
 COPY --from=builder /usr/src/app/dist /usr/src/app/dist
 
