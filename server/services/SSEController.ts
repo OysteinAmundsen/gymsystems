@@ -17,14 +17,15 @@ export class SSEController {
   app: Express;
 
   constructor() {
-    this.app = Container.get(GymServer).app; // My ExpressJS app object
+    // this.app = Container.get(GymServer).app; // My ExpressJS app object
 
     // Register the route this middleware should respond to
-    this.app.use('/api/event', (req, res) => this.connect(req, res));
+    // this.app.use('/api/event', (req, res) => this.connect(req, res));
 
     // Register this class with the TypeDI engine, so we can hook up to the `publish` method here from
     // other places in our application.
     Container.set(SSEController, this);
+    return this;
   }
 
   /**

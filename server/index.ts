@@ -40,35 +40,26 @@ import { NextFunction, ErrorRequestHandler } from 'express-serve-static-core';
  */
 export class GymServer {
   public app: e.Express;
-  private port: number = +process.env.PORT || 3000;
-  private clientPath = path.join(__dirname, './public');
+  private port: number   = +process.env.PORT || 3000;
   public isTest: boolean = !!process.env.PRODUCTION; // false;
+  private clientPath     = path.join(__dirname, './public');
+  private configName: string;
   private ormConfig: ConnectionOptions;
 
-      /**
+  /**
    * Bootstrap the application.
    *
-   * @returns {Promise<any>}
-   * @constructor
+   * @param args
    */
-  static Initialize(args: string[]): Promise<any> {
-    Log.log.debug(`
-**********************
-  Starting GymSystems
-**********************
-`);
-    return new GymServer()
-      .start(args)
-      .then(() => Log.log.debug('** Server started...'))
-      .catch((error: any) => Log.log.error((ERROR_MESSAGES[error.code]) ? ERROR_MESSAGES[error.code] : error));
-  }
+  constructor(args: string[]) {
+    this.isTest     = args.length > 2 && args[2] === 'test';
+    this.configName = (args.length > 2) ? args[2] : 'default';
 
-  /**
-   * Constructor.
-   */
-  constructor() {
     useContainer(Container);    // setup typeorm to use typedi container
     rc.useContainer(Container); // setup routing-controllers to use typedi container.
+
+    // Register this service to typeDI
+    Container.set(GymServer, this);
   }
 
   /**
@@ -76,48 +67,66 @@ export class GymServer {
    *
    * @returns {Promise<Server>}
    */
-  async start(args: string[]): Promise<Server> {
-    this.isTest = args.length > 2 && args[2] === 'test';
-
-    // Read typeorm config and add our own Logger
-    this.ormConfig = await getConnectionOptions(args.length > 2 ? args[2] : 'default');
+  async start(): Promise<Server> {
+    // Read typeorm config and add our own Log
+    this.ormConfig = await getConnectionOptions(this.configName);
     this.ormConfig = Object.assign(this.ormConfig, {
-      name: 'default',                           // Rename configuration to 'default' as typeorm requires a default config
-      logger: new OrmLog(this.ormConfig.logging) // Apply logger system to typeorm config
+      name: 'default',                        // Rename configuration to 'default' as typeorm requires a default config
+      logger: new OrmLog(this.ormConfig.logging) // Apply Log system to typeorm config
     });
 
     // Connect to database and startup Express
     Log.log.info('** Connecting to database and setting up schema');
-    const connection = createConnection(this.ormConfig);
+    const connection = await createConnection(this.ormConfig);
+    Log.log.info('** DB connected!');
 
-    Log.log.info('** DB connected. Creating server...');
+    // Create Express server
     return this.createServer()
       .listen(this.port)  // Listen on provided port, on all network interfaces.
-      .on('listening', () => this.onReady())
-      .on('error', this.onServerInitError);
+      .on('listening', () => {
+        const url = chalk.blue.underline(`http://localhost:${this.port}/`);
+        Log.log.debug(`Serving on ${url}`);
+      })
+      .on('error', (error: any) => Log.log.error((ERROR_MESSAGES[error.code] ? ERROR_MESSAGES[error.code] : error)));
   }
 
   /**
    * Creates and configures our Express container
    *
-   * @returns {Server}
+   * @returns {Express}
    */
-  public createServer(): e.Express {
-    // Register services to typeDI
-    Container.set(GymServer, this);
-
+  private createServer(): e.Express {
     this.app = e();
-    this.app.set('trust proxy', true);  // Listen for external requests
-    this.app.set('etag', false);
-    this.app.disable('x-powered-by');   // Do not announce our architecture to the world!
+
+    Log.log.info('** Configuring server');
+    this.app
+      .set('trust proxy', true)  // Listen for external requests
+      .set('etag', false)
+      .disable('x-powered-by')   // Do not announce our architecture to the world!
+
+      // Global middlewares
+      .use(cookieParser())
+      .use(bodyParser.urlencoded({ extended: true }))
+      .use(session({
+        secret: 'mysecretkey',
+        resave: true,
+        saveUninitialized: true,
+        store: new MemoryStore({expires: 60 * 60 * 12, checkperiod: 10 * 60}),
+        cookie: {
+          path: '/',
+          // httpOnly: true,
+          // secure: false,
+          maxAge: 60 * 60 * 12
+        }
+      }));
 
     // Setup the following only if we are not running tests
     if (!this.isTest) {
-      // Setup morgan access logger using winston
-      this.app.use(morgan('combined', { stream: Log.stream }));
-
-      // Setup static resources
-      this.app.use(serveStatic(this.clientPath));
+      this.app
+        // Setup morgan access Log using winston
+        .use(morgan('combined', { stream: Log.stream }))
+        // Setup static resources
+        .use(serveStatic(this.clientPath));
 
       // Favicon service
       const faviconPath = path.join(this.clientPath, 'favicon.ico');
@@ -128,22 +137,6 @@ export class GymServer {
 
     // Configure authentication services
     Log.log.info('** Setting up authentication services');
-    this.app.use(cookieParser());
-    this.app.use(bodyParser.urlencoded({ extended: false }));
-    const MemoryStore = require('session-memory-store')(session);
-    this.app.use(session({
-        secret: 'mysecretkey',
-        resave: true,
-        saveUninitialized: true,
-        store: new MemoryStore({expires: 60 * 60 * 12, checkperiod: 10 * 60}),
-        cookie: {
-          path: '/',
-          httpOnly: true,
-          secure: false,
-          maxAge: null
-        }
-      }
-    ));
     const passport = setupAuthentication(this.app);
 
     // Setup routing-controllers
@@ -158,8 +151,10 @@ export class GymServer {
 
     this.app.use(this.globalErrorHandler);
 
-    // Registerring custom services
-    new SSEController();
+    // Registerring custom SSE controller
+    // (because Server Sent Events does not play nicely with routing-controllers)
+    const sse = new SSEController();
+    this.app.use('/api/event', sse.connect);
 
     // Setup base route to everything else
     if (!this.isTest) {
@@ -170,29 +165,23 @@ export class GymServer {
     return this.app;
   }
 
-  /**
-   * Callback on server ready!
-   */
-  private onReady() {
-    const url = chalk.blue.underline(`http://localhost:${this.port}/`);
-    Log.log.debug(`Serving on ${url}`);
-  }
-
-  /**
-   * Callback on fatal error during startup of server.
-   * This handles specific listen errors with friendly messages if configured. Defaults to the stack-trace.
-   * @param error
-   */
-  private onServerInitError(error: any) {
-    Log.log.error((ERROR_MESSAGES[error.code] ? ERROR_MESSAGES[error.code] : error));
-  }
-
   private globalErrorHandler(err: any, req: Request, res: Response, next: NextFunction): any {
     if (err) { Log.log.error(err); }
     if (next) { next(); }
   }
 }
 
+/**
+ * Bootstrap the application.
+ */
 (function standalone() {
-  GymServer.Initialize(process.argv);
+  Log.log.debug(`
+**********************
+  Starting GymSystems
+**********************
+`);
+  return new GymServer(process.argv)
+    .start()
+    .then(() => Log.log.debug('** Server started...'))
+    .catch((error: any) => Log.log.error((ERROR_MESSAGES[error.code]) ? ERROR_MESSAGES[error.code] : error));
 })();
