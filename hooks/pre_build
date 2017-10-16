@@ -1,6 +1,0 @@
-#!/bin/bash
-
-echo "=> Building"
-
-#docker run --rm -v ${PWD}:/app -w=/app node /bin/sh -c "apt-get update && apt-get install -y git python make g++ && yarn install && yarn build"
-docker run --rm -v $(pwd):/app -w=/app node /bin/sh -c "apt-get update && apt-get install -y git python make g++ && yarn install && yarn build"
