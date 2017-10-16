@@ -155,7 +155,7 @@ export class GymServer {
     // Registerring custom SSE controller
     // (because Server Sent Events does not play nicely with routing-controllers)
     const sse = new SSEController();
-    this.app.use('/api/event', sse.connect);
+    // this.app.use('/api/event', sse.connect);
 
     // Setup base route to everything else
     if (!this.isTest) {

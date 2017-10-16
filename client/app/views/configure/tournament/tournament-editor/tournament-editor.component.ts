@@ -29,7 +29,11 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   @ViewChild('startDateInput') startDateInput: MatDatepickerInput<Date>;
   @ViewChild('endDateInput') endDateInput: MatDatepickerInput<Date>;
   tournamentSubject = new ReplaySubject<ITournament>(1);
-  tournament: ITournament = <ITournament>{};
+  tournament: ITournament = <ITournament>{
+    providesBanquet: false,
+    providesLodging: false,
+    providesTransport: false
+  };
   tournamentForm: FormGroup;
 
   user: IUser;

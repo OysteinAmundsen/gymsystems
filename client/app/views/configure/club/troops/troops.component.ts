@@ -129,9 +129,7 @@ export class TroopsComponent implements OnInit {
       createTroop(members.filter(g => g.gender === Gender.Female));
       createTroop(members.filter(g => g.gender === Gender.Male));
       createTroop(members);
-      Promise.all(promises).then(result => {
-        console.log(result);
-      });
+      Promise.all(promises).then(result => this.teamSource.subject.next(result));
     });
   }
 }
