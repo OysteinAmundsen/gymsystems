@@ -318,7 +318,10 @@ export class ClubController {
             guardian2Email: find('guardian2Email'),
             troop: null,
             team: null,
-            club: club
+            club: club,
+            lodging: null,
+            transport: null,
+            banquet: null
           })
         })
         .on('end', () => {
