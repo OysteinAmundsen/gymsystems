@@ -68,7 +68,7 @@
     "@ngx-translate/core": "^8.0.0",
     "@ngx-translate/http-loader": "2.0.0",
     "angular-font-awesome": "^2.3.7",
-    "angulartics2": "^2.4.0",
+    "angulartics2": "^3.0.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "chalk": "^2.1.0",
