@@ -62,7 +62,7 @@
     "@angular/http": "4.4.6",
     "@angular/material": "^2.0.0-beta.12",
     "@angular/platform-browser": "4.4.6",
-    "@angular/platform-browser-dynamic": "4.4.6",
+    "@angular/platform-browser-dynamic": "5.0.0",
     "@angular/router": "4.4.6",
     "@angular/service-worker": "^1.0.0-beta.16",
     "@ngx-translate/core": "^8.0.0",
