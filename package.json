@@ -111,7 +111,7 @@
   },
   "devDependencies": {
     "@angular/cli": "~1.4.7",
-    "@angular/compiler-cli": "4.4.6",
+    "@angular/compiler-cli": "5.0.0",
     "@biesbjerg/ngx-translate-extract": "^2.3.2",
     "@types/bcrypt": "^1.0.0",
     "@types/body-parser": "^1.16.5",
