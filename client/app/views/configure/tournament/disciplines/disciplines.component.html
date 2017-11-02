@@ -13,10 +13,10 @@
   </table>
 </div>
 <button mat-raised-button type="button" class="mat-accent" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDiscipline()">
-  <fa name="plus" fixed="true"></fa>
+  <i class="fa fa-fw fa-plus"></i>
   <span translate>Add Disciplines</span>
 </button>
 <button mat-raised-button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
-  <fa name="plus-circle" fixed="true"></fa>
+  <i class="fa fa-fw fa-plus-circle"></i>
   <span translate>Add Default Disciplines</span>
 </button>

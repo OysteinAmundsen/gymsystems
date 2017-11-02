@@ -1,16 +1,16 @@
 <header>
   <h1>
-    <fa name="trophy" fixed="true"></fa>
+    <i class="fa fa-fw fa-trophy"></i>
     <span>{{ tournamentForm.value.name || 'Tournament' }}</span>
   </h1>
 
   <div *ngIf="tournament && tournament.id" class="pull-right buttons">
     <button mat-raised-button type="button" class="mat-primary flat" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'list']">
-      <fa name="list" fixed="true"></fa>
+      <i class="fa fa-fw fa-list"></i>
       <span translate>List</span>
     </button>
     <button mat-raised-button type="button" class="mat-primary flat" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'display']">
-      <fa name="tv" fixed="true"></fa>
+      <i class="fa fa-fw fa-tv"></i>
       <span translate>Display </span>
     </button>
   </div>
@@ -36,7 +36,7 @@
       <td *ngIf="tournament.venue">
         <span>{{ tournament.venue.name }}</span>
         <a class="marker" [routerLink]="['../../venue', tournament.venue.id]" [title]="'View location info' | translate">
-          <fa name="map-marker" fixed="true"></fa>
+          <i class="fa fa-fw fa-map-marker"></i>
         </a>
       </td>
     </tr>
@@ -104,7 +104,7 @@
 
       <fieldset class="start-stop-container">
         <legend class="help-available">
-          <fa name="clock-o" fixed="true"></fa><span translate>Time</span>
+          <i class="fa fa-fw fa-clock-o"></i><span translate>Time</span>
           <app-help-block>
             <p translate>When a start and end date is selected, timeslots will appear as sliders below. Use these to adjust when the tournament starts and ends during each of these days.</p>
           </app-help-block>
@@ -133,8 +133,8 @@
 
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="tournamentForm.invalid || tournamentForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()"><fa name="ban" fixed="true"></fa> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="tournamentForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><fa name="trash" fixed="true"></fa> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="tournamentForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><i class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>
 </form>
@@ -142,29 +142,29 @@
 <menu mat-tab-nav-bar *ngIf="tournamentForm.value.id">
   <a mat-tab-link *ngIf="canEdit" routerLink="./divisions" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
-    <fa name="cubes" fixed="true"></fa>&nbsp;
+    <i class="fa fa-fw fa-cubes"></i>&nbsp;
     <span translate>Divisions</span>
   </a>
 
   <a mat-tab-link *ngIf="canEdit" routerLink="./disciplines" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
-    <fa name="heartbeat" fixed="true"></fa>&nbsp;
+    <i class="fa fa-fw fa-heartbeat"></i>&nbsp;
     <span translate>Disciplines</span>
   </a>
 
   <a mat-tab-link *appIfAuth="'Club'" routerLink="./teams" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()">
-    <fa name="users" fixed="true"></fa>&nbsp;
+    <i class="fa fa-fw fa-users"></i>&nbsp;
     <span translate>Teams</span>
   </a>
 
   <a mat-tab-link *ngIf="canEdit" routerLink="./schedule" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()">
-    <fa name="sort-numeric-asc" fixed="true"></fa>&nbsp;
+    <i class="fa fa-fw fa-sort-numeric-asc"></i>&nbsp;
     <span translate>Schedule</span>
   </a>
 
   <a mat-tab-link *ngIf="canEdit" routerLink="./info" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
-    <fa name="info" fixed="true"></fa>&nbsp;
+    <i class="fa fa-fw fa-info"></i>&nbsp;
     <span translate>Info</span>
   </a>
 </menu>

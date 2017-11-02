@@ -24,15 +24,15 @@
 </mat-table>
 
 <button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()">
-  <fa name="plus" fixed="true"></fa>
+  <i class="fa fa-fw fa-plus"></i>
   <span translate>Add Member</span>
 </button>
 <a mat-raised-button class="file-upload btn" *ngIf="selected == null" [title]="'Import' | translate">
   <input type="file" (change)="importMember($event)" accept=".csv">
-  <fa name="upload" fixed="true"></fa>
+  <i class="fa fa-fw fa-upload"></i>
   <span translate>Import Members</span>
 </a>
 <a mat-raised-button href="/api/clubs/{{ club.id }}/export-members" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0" [title]="'Import' | translate">
-  <fa name="download" fixed="true"></fa>
+  <i class="fa fa-fw fa-download"></i>
   <span translate>Export Members</span>
 </a>

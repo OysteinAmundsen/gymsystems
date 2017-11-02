@@ -4,29 +4,29 @@
 @import url('https://fonts.googleapis.com/css?family=Economica|Roboto:400,700');
 
 // Setup global variables
-@import "./styles/_variables";
+@import "./styles/variables";
 
 // Priority
-@import "./styles/_quick-render";
+@import "./styles/quick-render";
 
 // Framework setup
-@import "./styles/_material";
-@import "./styles/_dragula";
+@import "./styles/material";
+@import "./styles/dragula";
 
 // Functional classes and main setup
-@import "./styles/_flex";
-@import "./styles/_grid";
-@import "./styles/_main";
+@import "./styles/flex";
+@import "./styles/grid";
+@import "./styles/main";
 
 // The rest
-@import "./styles/_flag";
-@import "./styles/_nav";
-@import "./styles/_menu";
-@import "./styles/_panel"; // TBD
-@import "./styles/_form";
-@import "./styles/_table";
-@import "./styles/_buttons"; // TBD
-@import "./styles/_helpBlock";
+@import "./styles/flag";
+@import "./styles/nav";
+@import "./styles/menu";
+@import "./styles/panel"; // TBD
+@import "./styles/form";
+@import "./styles/table";
+@import "./styles/buttons"; // TBD
+@import "./styles/helpBlock";
 
 // Routes with global styling
-@import "./styles/_display";
+@import "./styles/display";

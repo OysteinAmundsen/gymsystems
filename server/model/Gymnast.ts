@@ -137,4 +137,13 @@ export class Gymnast implements BelongsToClub {
   @ManyToOne(type => Club, club => club.gymnasts, { nullable: false })
   @JoinColumn({name: 'club'})
   club: Club;
+
+  @ManyToMany(type => Tournament, tournament => tournament.lodging)
+  lodging: Tournament[];
+
+  @ManyToMany(type => Tournament, tournament => tournament.transport)
+  transport: Tournament[];
+
+  @ManyToMany(type => Tournament, tournament => tournament.banquet)
+  banquet: Tournament[];
 }

@@ -2,9 +2,9 @@
   <mat-card class="mat-elevation-z4">
     <mat-card-header>
       <div class="card-actions">
-        <button type="button" mat-icon-button (click)="close()"><fa name="close" fixed="true"></fa></button>
+        <button type="button" mat-icon-button (click)="close()"><i class="fa fa-fw fa-close"></i></button>
       </div>
-      <fa name="address-card-o" fixed="true" size="2x" mat-card-avatar></fa>
+      <i class="fa fa-fw fa-address-card-o fa-2x" mat-card-avatar></i>
       <mat-card-title><h3>{{memberForm.value.name}}</h3></mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -67,8 +67,8 @@
 
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="memberForm.invalid || memberForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fixed="true"></fa> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="memberForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><fa name="trash" fixed="true"></fa> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="memberForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><i class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>
 </form>

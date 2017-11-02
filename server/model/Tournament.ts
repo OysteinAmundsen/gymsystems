@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
 
 import { Discipline } from './Discipline';
 import { Division } from './Division';
@@ -150,12 +150,12 @@ export class Tournament implements CreatedBy, BelongsToClub {
   // @Column({ default: 0 })
   // lodingCostPerHead: number;
 
-  // /**
-  //  * The actual list of gymnasts signed up for lodging
-  //  */
-  // @ManyToMany(type => Gymnast, gymnasts => gymnasts.wantsLodging, { cascadeInsert: false, cascadeUpdate: false })
-  // @JoinColumn({name: 'lodging'})
-  // lodging: Gymnast[];
+  /**
+   * The actual list of gymnasts signed up for lodging
+   */
+  @ManyToMany(type => Gymnast, gymnasts => gymnasts.lodging)
+  @JoinTable()
+  lodging: Gymnast[];
 
 
   // TRANSPORT ---------------------------------------------------
@@ -174,12 +174,12 @@ export class Tournament implements CreatedBy, BelongsToClub {
   // @Column({ default: 0 })
   // transportationCostPerHead: number;
 
-  // /**
-  //  * The list of gymnasts requiering transportation to the venue
-  //  */
-  // @ManyToMany(type => Gymnast, gymnasts => gymnasts.wantsTransport, { cascadeInsert: false, cascadeUpdate: false })
-  // @JoinColumn({name: 'transporting'})
-  // transporting: Gymnast[];
+  /**
+   * The list of gymnasts requiering transportation to the venue
+   */
+  @ManyToMany(type => Gymnast, gymnasts => gymnasts.transport)
+  @JoinTable()
+  transport: Gymnast[];
 
 
 
@@ -199,11 +199,11 @@ export class Tournament implements CreatedBy, BelongsToClub {
   // @Column({ default: 0 })
   // banquetCostPerHead: number;
 
-  // /**
-  //  * The list of gymnasts attending the banquet
-  //  */
-  // @ManyToMany(type => Gymnast, gymnasts => gymnasts.willAttendBanquet, { cascadeInsert: false, cascadeUpdate: false })
-  // @JoinColumn({name: 'banquetFor'})
-  // banquetFor: Gymnast[];
+  /**
+   * The list of gymnasts attending the banquet
+   */
+  @ManyToMany(type => Gymnast, gymnasts => gymnasts.banquet, { cascadeInsert: false, cascadeUpdate: false })
+  @JoinTable()
+  banquet: Gymnast[];
 
 }

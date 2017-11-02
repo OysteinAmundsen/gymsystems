@@ -2,9 +2,9 @@
   <mat-card>
     <mat-card-header>
       <div class="card-actions">
-        <button type="button" mat-icon-button (click)="close()"><fa name="close" fixed="true"></fa></button>
+        <button type="button" mat-icon-button (click)="close()"><i class="fa fa-fw fa-close"></i></button>
       </div>
-      <fa name="group" size="2x" fixed="true" mat-card-avatar></fa>
+      <i class="fa fa-fw fa-group fa-2x" mat-card-avatar></i>
       <mat-card-title>
         <h3>{{ 'Team' | translate}} {{ teamName }}</h3>
       </mat-card-title>
@@ -40,14 +40,14 @@
         <div class="col-6 divisions">
           <header>
             <h2>
-              <fa name="cubes" fixed="true"></fa>
+              <i class="fa fa-fw fa-cubes"></i>
               <span translate>Division</span>
             </h2>
           </header>
           <fieldset>
             <mat-form-field class="col-12">
               <mat-placeholder>
-                <fa name="venus-mars" fixed="true"></fa>
+                <i class="fa fa-fw fa-venus-mars"></i>
                 <span translate>Gender group</span>
               </mat-placeholder>
               <mat-select formControlName="genderDivision">
@@ -57,7 +57,7 @@
 
             <mat-form-field class="col-12">
               <mat-placeholder>
-                <fa name="child" fixed="true"></fa>
+                <i class="fa fa-fw fa-child"></i>
                 <span translate>Age group</span>
               </mat-placeholder>
               <mat-select formControlName="ageDivision">
@@ -71,7 +71,7 @@
         <div class="col-6">
           <header>
             <h2>
-              <fa name="heartbeat" fixed="true"></fa>
+              <i class="fa fa-fw fa-heartbeat"></i>
               <span translate>Disciplines</span>
               <mat-slide-toggle class="mat-primary" [checked]="teamForm.value.class === classes.TeamGym" (change)="$event.checked ? teamForm.controls['class'].setValue(classes.TeamGym) : teamForm.controls['class'].setValue(classes.National)">
                 <span *ngIf="teamForm.value.class === classes.TeamGym" translate>TeamGym</span>
@@ -89,10 +89,10 @@
                   </label>
                 </td>
                 <td class="media-head help-available">
-                  <fa name="music" fixed="true"></fa>
+                  <i class="fa fa-fw fa-music"></i>
                   <span translate>Upload media</span>
                   <app-help-block>
-                    <p translate>The <fa name="upload"></fa> buttons below will allow you to upload media for your teams performance in that discipline</p>
+                    <p translate>The <i class="fa fa-fw fa-upload"></i> buttons below will allow you to upload media for your teams performance in that discipline</p>
                     <p *ngIf="teamForm.invalid"><b translate>You will not see any upload button until you have specified a team name, divisions and disciplines.</b></p>
                   </app-help-block>
                 </td>
@@ -108,12 +108,12 @@
                   <td class="media">
                     <div class="flex">
                       <div class="action-buttons">
-                        <button mat-icon-button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)" [title]="'Play media' | translate"><fa name="play" fixed="true"></fa></button>
-                        <button mat-icon-button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" [title]="'Stop playing' | translate"><fa name="stop" fixed="true"></fa></button>
-                        <button mat-icon-button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate"><fa name="trash" fixed="true"></fa></button>
+                        <button mat-icon-button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)" [title]="'Play media' | translate"><i class="fa fa-fw fa-play"></i></button>
+                        <button mat-icon-button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" [title]="'Stop playing' | translate"><i class="fa fa-fw fa-stop"></i></button>
+                        <button mat-icon-button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate"><i class="fa fa-fw fa-trash"></i></button>
                         <a mat-icon-button class="file-upload" *ngIf="!hasMedia(discipline) && !teamForm.invalid && selectedDisciplines.checked" [title]="'Upload media' | translate">
                           <input type="file" (change)="fileAdded($event, discipline)" accept=".mp3,.wav">
-                          <fa name="upload" fixed="true"></fa>
+                          <i class="fa fa-fw fa-upload"></i>
                         </a>
                       </div>
                       <label *ngIf="hasMedia(discipline)" class="flex-col media-name"><small>{{ getMedia(discipline).originalName }}</small></label>
@@ -136,15 +136,15 @@
           <span class="flex-col" *ngIf="teamForm.value.gymnasts != null && teamForm.value.gymnasts.length > 0">
             <label [title]="'Require lodging' | translate" *ngIf="tournament.providesLodging">
               <input type="checkbox" [(ngModel)]="isAllLodged" [ngModelOptions]="{standalone: true}"/>
-              <fa name="bed" fixed="true"></fa>
+              <i class="fa fa-fw fa-bed"></i>
             </label>
             <label [title]="'Require transportation' | translate" *ngIf="tournament.providesTransport">
               <input type="checkbox" [(ngModel)]="isAllTransport" [ngModelOptions]="{standalone: true}"/>
-              <fa name="bus" fixed="true"></fa>
+              <i class="fa fa-fw fa-bus"></i>
             </label>
             <label [title]="'Joining banquet' | translate" *ngIf="tournament.providesBanquet">
               <input type="checkbox" [(ngModel)]="isAllBanquet" [ngModelOptions]="{standalone: true}"/>
-              <fa name="cutlery" fixed="true"></fa>
+              <i class="fa fa-fw fa-cutlery"></i>
             </label>
           </span>
         </app-member-selector>
@@ -152,16 +152,16 @@
     </mat-card-content>
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="teamForm.invalid || teamForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><fa name="ban" fixed="true"></fa> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><fa name="trash" fixed="true"></fa> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><i class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>
 </form>
 
 <ng-template #memberContent let-member="member">
   <div class="member-extras flex-col">
-    <label *ngIf="tournament.providesLodging" [title]="'Require lodging' | translate"><input type="checkbox" [(ngModel)]="member.lodging"/> <fa name="bed" fixed="true"></fa></label>
-    <label *ngIf="tournament.providesTransport" [title]="'Require transportation' | translate"><input type="checkbox" [(ngModel)]="member.transport"/> <fa name="bus" fixed="true"></fa></label>
-    <label *ngIf="tournament.providesBanquet" [title]="'Joining banquet' | translate"><input type="checkbox" [(ngModel)]="member.banquet"/> <fa name="cutlery" fixed="true"></fa></label>
+    <label *ngIf="tournament.providesLodging" [title]="'Require lodging' | translate"><input type="checkbox" [(ngModel)]="member.lodging"/> <i class="fa fa-fw fa-bed"></i></label>
+    <label *ngIf="tournament.providesTransport" [title]="'Require transportation' | translate"><input type="checkbox" [(ngModel)]="member.transport"/> <i class="fa fa-fw fa-bus"></i></label>
+    <label *ngIf="tournament.providesBanquet" [title]="'Joining banquet' | translate"><input type="checkbox" [(ngModel)]="member.banquet"/> <i class="fa fa-fw fa-cutlery"></i></label>
   </div>
 </ng-template>
