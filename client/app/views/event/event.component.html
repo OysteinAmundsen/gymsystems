@@ -4,19 +4,19 @@
 
   <div class="pull-right buttons">
     <button mat-raised-button type="button" *appIfAuth="'Organizer'" [routerLink]="['/configure/tournament', tournament.id]">
-      <fa name="cog" fixed="true"></fa>
+      <i class="fa fa-fw fa-cog"></i>
       <span translate>Settings </span>
     </button>
     <button mat-raised-button type="button" class="mat-primary flat" [routerLink]="['./list']" [routerLinkActive]="['active']">
-      <fa name="list" fixed="true"></fa>
+      <i class="fa fa-fw fa-list"></i>
       <span translate>List</span>
     </button>
     <button mat-raised-button type="button" class="mat-primary flat" [routerLink]="['./results']" [routerLinkActive]="['active']">
-      <fa name="trophy" fixed="true"></fa>
+      <i class="fa fa-fw fa-trophy"></i>
       <span translate>Results </span>
     </button>
     <button mat-raised-button type="button" class="mat-primary flat" *appIfAuth="'Secretariat'" [routerLink]="['./display']" [routerLinkActive]="['active']">
-      <fa name="tv" fixed="true"></fa>
+      <i class="fa fa-fw fa-tv"></i>
       <span translate>Display </span>
     </button>
   </div>

@@ -3,12 +3,12 @@
     <button mat-button type="button" [title]="'Edit norwegian description' | translate" (click)="setLang('no')"><span [ngClass]="'clickable flag-icon flag-icon-no ' + (lng === 'no' ? 'selected' : '')"></span></button>
     <button mat-button type="button" [title]="'Edit english description' | translate" (click)="setLang('en')"><span [ngClass]="'clickable flag-icon flag-icon-gb ' + (lng === 'en' ? 'selected' : '')"></span></button>
     <span class="divider"></span>
-    <button mat-button type="button" [disabled]="preview" [title]="'Set selected text in bold' | translate" (click)="bold()"><fa name="bold" fixed="true"></fa></button>
-    <button mat-button type="button" [disabled]="preview" [title]="'Set selected text in italic' | translate" (click)="italic()"><fa name="italic" fixed="true"></fa></button>
-    <button mat-button type="button" [disabled]="preview" [title]="'Toggle header level' | translate" (click)="toggleHeaders()"><fa name="header" fixed="true"></fa></button>
+    <button mat-button type="button" [disabled]="preview" [title]="'Set selected text in bold' | translate" (click)="bold()"><i class="fa fa-fw fa-bold"></i></button>
+    <button mat-button type="button" [disabled]="preview" [title]="'Set selected text in italic' | translate" (click)="italic()"><i class="fa fa-fw fa-italic"></i></button>
+    <button mat-button type="button" [disabled]="preview" [title]="'Toggle header level' | translate" (click)="toggleHeaders()"><i class="fa fa-fw fa-header"></i></button>
     <span class="divider"></span>
-    <button mat-button type="button" *ngIf="!preview" [title]="'Preview text' | translate" (click)="preview = true"><fa name="eye" fixed="true"></fa> <span translate>Preview</span></button>
-    <button mat-button type="button" *ngIf="preview" [title]="'Edit mode' | translate" (click)="preview = false"><fa name="code" fixed="true"></fa> <span translate>Edit</span></button>
+    <button mat-button type="button" *ngIf="!preview" [title]="'Preview text' | translate" (click)="preview = true"><i class="fa fa-fw fa-eye"></i> <span translate>Preview</span></button>
+    <button mat-button type="button" *ngIf="preview" [title]="'Edit mode' | translate" (click)="preview = false"><i class="fa fa-fw fa-code"></i> <span translate>Edit</span></button>
   </header>
 
   <section>

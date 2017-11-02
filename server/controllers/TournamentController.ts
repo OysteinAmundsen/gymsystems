@@ -5,6 +5,7 @@ import { Request, Response } from 'express';
 
 import { Log } from '../utils/Logger';
 import moment = require('moment');
+import * as _ from 'lodash';
 
 import { RequireRole } from '../middlewares/RequireAuth';
 
@@ -12,17 +13,18 @@ import { ScoreGroupController } from './ScoreGroupController';
 import { DisciplineController } from './DisciplineController';
 import { DivisionController } from './DivisionController';
 import { ConfigurationController } from './ConfigurationController';
+import { UserController } from './UserController';
+import { MediaController } from './MediaController';
 
 import { Tournament } from '../model/Tournament';
 import { Division } from '../model/Division';
 import { Discipline } from '../model/Discipline';
 import { ScoreGroup } from '../model/ScoreGroup';
 import { TeamInDiscipline } from '../model/TeamInDiscipline';
-import { UserController } from './UserController';
+import { Gymnast } from '../model/Gymnast';
+import { Role } from '../model/User';
 
 import { isCreatedByMe } from '../validators/CreatedByValidator';
-import { Role } from '../model/User';
-import { MediaController } from './MediaController';
 import { ErrorResponse } from '../utils/ErrorResponse';
 import { validateClub } from '../validators/ClubValidator';
 
@@ -184,6 +186,9 @@ export class TournamentController {
       .leftJoinAndSelect('tournament.venue', 'venue')
       .leftJoinAndSelect('tournament.disciplines', 'disciplines')
       .leftJoinAndSelect('disciplines.scoreGroups', 'scoreGroups')
+      .leftJoinAndSelect('tournament.lodging', 'lodging')
+      .leftJoinAndSelect('tournament.transport', 'transport')
+      .leftJoinAndSelect('tournament.banquet', 'banquet')
       .getOne()
       .catch(() => {
         Log.log.debug(`Query for tournament id ${id} was rejected before it was fulfilled`);
@@ -339,5 +344,35 @@ export class TournamentController {
         Log.log.error(`Error Error fetching configuration: defaultValues`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
+  }
+
+  @Post(':id/addToList/:type')
+  @UseBefore(RequireRole.get(Role.Club))
+  async addToList(@Param('id') id: number, @Param('type') type: string, @Body() gymnasts: Gymnast[], @Req() req, @Res() res) {
+    const tournament: Tournament = await this.repository.createQueryBuilder('tournament')
+      .where('tournament.id=:id', { id: id })
+      .leftJoinAndSelect('tournament.lodging', 'lodging')
+      .leftJoinAndSelect('tournament.transport', 'transport')
+      .leftJoinAndSelect('tournament.banquet', 'banquet')
+      .getOne();
+
+    tournament['type'] = (tournament['type'] ? tournament['type'] : []).concat(gymnasts);
+    return this.update(id, tournament, res, req);
+  }
+
+  @Post(':id/removeFromList/:type')
+  @UseBefore(RequireRole.get(Role.Club))
+  async removeFromList(@Param('id') id: number, @Param('type') type: string, @Body() gymnasts: Gymnast[], @Req() req, @Res() res) {
+    const tournament: Tournament = await this.repository.createQueryBuilder('tournament')
+      .where('tournament.id=:id', { id: id })
+      .leftJoinAndSelect('tournament.lodging', 'lodging')
+      .leftJoinAndSelect('tournament.transport', 'transport')
+      .leftJoinAndSelect('tournament.banquet', 'banquet')
+      .getOne();
+
+    if (tournament['type'] && tournament['type'].length) {
+      tournament['type'] = _.differenceWith(tournament['type'], gymnasts, (a, b) => a.id === b.id);
+    }
+    return this.update(id, tournament, res, req);
   }
 }

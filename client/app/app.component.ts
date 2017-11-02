@@ -4,7 +4,8 @@ import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { TranslateService } from '@ngx-translate/core';
-import { Angulartics2GoogleAnalytics, Angulartics2 } from 'angulartics2';
+import { Angulartics2 } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { environment } from 'environments/environment';
 
 import { UserService } from './services/api';

@@ -45,7 +45,7 @@
       /* needed to switch FF to "styleable" control */
     }
     &.high {
-      $background: linear-gradient(to right, transparent var(--low), $primary 0, $primary var(--high), transparent 0) no-repeat 0 45% / 100% 40%;
+      $background: linear-gradient(to right, transparent var(--low, 0), $primary 0, $primary var(--high, 100), transparent 0) no-repeat 0 45% / 100% 40%;
       &::-webkit-slider-runnable-track {
         background: $background;
       }

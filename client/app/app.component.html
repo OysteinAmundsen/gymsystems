@@ -13,28 +13,28 @@
     </header>
 
     <!-- Mobile nav menu activator -->
-    <fa name="bars" fixed="true" size="2x" (click)="toggleNav($event)"></fa>
+    <i class="fa fa-fw fa-bars fa-2x" (click)="toggleNav($event)"></i>
 
     <!-- Main application menu -->
     <ul class="pull-right" [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
       <li *ngIf="hasHelp" [ngClass]="{'active': showHelp, 'visible-wide': true, 'show-help': true}" [title]="'Show all places where help is available on this page' | translate">
-        <a (mouseenter)="toggleHelp()" (mouseleave)="toggleHelp()"><fa name="question" fixed="true"></fa></a>
+        <a (mouseenter)="toggleHelp()" (mouseleave)="toggleHelp()"><i class="fa fa-fw fa-question"></i></a>
       </li>
       <li [title]="'Navigate to the systems frontpage' | translate">
         <a routerLink="/">
-          <fa name="home" fixed="true"></fa> <span translate>Home</span> </a>
+          <i class="fa fa-fw fa-home"></i> <span translate>Home</span> </a>
       </li>
       <li *appIfAuth="false" [title]="'Login to the system if you have an account' | translate">
         <a routerLink="/login" [queryParams]="{u: locationHref}">
-          <fa name="sign-in" fixed="true"></fa> <span translate>Login</span> </a>
+          <i class="fa fa-fw fa-sign-in"></i> <span translate>Login</span> </a>
       </li>
       <li [routerLinkActive]="['active']" *appIfAuth="'Club'" [title]="'You have the privileges to make changes in the system here' | translate">
         <a routerLink="/configure">
-          <fa name="cogs" fixed="true"></fa> <span translate>Configure</span> </a>
+          <i class="fa fa-fw fa-cogs"></i> <span translate>Configure</span> </a>
       </li>
       <li [routerLinkActive]="['active']" *appIfAuth="true" class="visible-narrow" [title]="'Logout of the system' | translate">
         <a routerLink="/logout">
-          <fa name="sign-out" fixed="true"></fa> <span translate>Log out</span> </a>
+          <i class="fa fa-fw fa-sign-out"></i> <span translate>Log out</span> </a>
       </li>
     </ul>
   </div>
@@ -63,7 +63,7 @@
     </div>
     <span *ngIf="user" class="user-info">
       <b translate>Logged in as: </b><i>{{ user.name }}</i><br>
-      <a [routerLink]="['/logout']"><fa name="sign-out"></fa><span translate>Logout</span></a>
+      <a [routerLink]="['/logout']"><i class="fa fa-fw fa-sign-out"></i><span translate>Logout</span></a>
     </span>
     <div class="pull-left logo">
       <a href="http://www.haugesundturn.no/"><img src="assets/images/Logo-Haugesund-Turnforening.white.svg" height="101" alt="Haugesund Turnforening" title="Haugesund Turnforening"></a>

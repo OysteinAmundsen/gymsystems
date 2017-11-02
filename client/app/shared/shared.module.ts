@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { DragulaModule } from 'ng2-dragula';
-import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 
 // Shared components
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -28,7 +27,6 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
   imports: [
     CommonModule,
     TranslateModule,
-    AngularFontAwesomeModule,
 
     FormsModule,
     ReactiveFormsModule,
@@ -59,7 +57,6 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     // Export common modules
     CommonModule,
     TranslateModule,
-    AngularFontAwesomeModule,
 
     // Export components
     DialogComponent,
@@ -77,7 +74,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     UtcDatePipe,
   ],
   entryComponents: [
-    ErrorDialogComponent
+    ErrorDialogComponent,
   ]
 })
 export class SharedModule { }

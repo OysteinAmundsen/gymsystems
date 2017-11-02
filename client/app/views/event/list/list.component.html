@@ -1,6 +1,6 @@
 <header class="form horizontal flex">
   <mat-form-field *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.club.id))">
-    <mat-placeholder for="filter"><fa name="filter" fixed="true"></fa><span translate>Choose discipline:</span></mat-placeholder>
+    <mat-placeholder for="filter"><i class="fa fa-fw fa-filter"></i><span translate>Choose discipline:</span></mat-placeholder>
     <mat-select id="filter" name="filter" [(ngModel)]="selectedDiscipline">
       <mat-option [value]="null" translate>No filter</mat-option>
       <mat-option *ngFor="let discipline of disciplines" [value]="discipline">{{ discipline.name }}</mat-option>
@@ -42,13 +42,13 @@
         <td *ngIf="item.type === types.Training"></td>
         <td *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Organizer && user.club.id === tournament.club.id))" class="actions" rowspan="2">
           <button mat-icon-button *ngIf="canStart(item, i)" (click)="start(item, $event)" [title]="'Start' | translate">
-            <fa name="play" fixed="true"></fa>
+            <i class="fa fa-fw fa-play"></i>
           </button>
           <button mat-icon-button *ngIf="item.startTime != null && item.endTime == null && score(item) == 0" (click)="stop(item, $event)" [title]="'Stop' | translate">
-            <fa name="stop" fixed="true"></fa>
+            <i class="fa fa-fw fa-stop"></i>
           </button>
           <button mat-icon-button *ngIf="score(item) > 0 && item.publishTime == null" (click)="publish(item, $event)" [title]="'Publish' | translate">
-            <fa name="share" fixed="true"></fa>
+            <i class="fa fa-fw fa-share"></i>
           </button>
         </td>
       </tr>

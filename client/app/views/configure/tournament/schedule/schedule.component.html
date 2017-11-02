@@ -20,7 +20,7 @@
         <td>{{ item.team.name }}</td>
         <td>{{ division(item.team) }}</td>
         <td><b *ngIf="item.team.class === classes.TeamGym">TG: </b>{{ item.discipline.name }}</td>
-        <td class="icons"><button mat-icon-button type="button" class="warning" (click)="deleteParticipant(item)" *ngIf="!item.startTime"><fa name="trash" fixed="true"></fa></button>
+        <td class="icons"><button mat-icon-button type="button" class="warning" (click)="deleteParticipant(item)" *ngIf="!item.startTime"><i class="fa fa-fw fa-trash"></i></button>
       </tr>
     </tbody>
   </table>
@@ -28,7 +28,7 @@
 
 <app-save-button buttonType="submit" (click)="saveSchedule()" [disabled]="!hasChanges()"></app-save-button>
 <button mat-raised-button type="button" (click)="calculateSchedule()" *ngIf="haveMissing()">
-  <fa name="calculator" fixed="true"></fa>
+  <i class="fa fa-fw fa-calculator"></i>
   <span translate>Calculate schedule</span>
 </button>
-<button mat-raised-button type="button" *ngIf="canDeleteAll()" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="deleteAll()"><fa name="trash" fixed="true"></fa> <span translate>Delete</span></button>
+<button mat-raised-button type="button" *ngIf="canDeleteAll()" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="deleteAll()"><i class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
