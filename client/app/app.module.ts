@@ -16,6 +16,11 @@ import {
   MatOptionModule, MatSlideToggleModule, MatButtonModule, MatDialogModule, MatListModule
 } from '@angular/material';
 
+// Locale
+import { registerLocaleData } from '@angular/common';
+import localeNo from '@angular/common/locales/nb';
+registerLocaleData(localeNo);
+
 // Module dependencies
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -119,4 +124,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

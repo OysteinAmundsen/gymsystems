@@ -11,7 +11,7 @@
   vertical-align: top;
   opacity: 0;
   transition: opacity 0.5s ease-in;
-  fa {
+  .fa {
     color: darken($helpColor, 50%);
     font-size: 1.2rem;
     padding: 6px;

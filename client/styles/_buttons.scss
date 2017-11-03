@@ -32,7 +32,7 @@
     cursor: not-allowed;
   }
   @media (max-width: $stop2) {
-    fa+span {
+    .fa+span {
       display: none;
     }
   }

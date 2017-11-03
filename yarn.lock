@@ -505,9 +505,9 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-angulartics2@^3.4.4:
-  version "3.4.4"
-  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-3.4.4.tgz#f4f649e283ace20c1b63c2b28b7a108e7be166d5"
+angulartics2@^3.4.6:
+  version "3.4.6"
+  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-3.4.6.tgz#cb9383f1c4f0fc2baeb66d87ec9a11870688c3a4"
 
 ansi-align@^2.0.0:
   version "2.0.0"
@@ -7368,9 +7368,9 @@ typedi@~0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/typedi/-/typedi-0.5.2.tgz#e1f67409bf0d19be86f072ff88ae30db15f61b74"
 
-typeorm@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.1.1.tgz#d2a4b41a087e6a6e3b9e23b303ae65a7d5446461"
+typeorm@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.1.2.tgz#ebcba19f8e01828b3f19441d1fec090c678a417e"
   dependencies:
     app-root-path "^2.0.1"
     chalk "^2.0.1"
