@@ -10,7 +10,7 @@ RUN rm -rf ./node_modules && yarn install && yarn build
 
 ######################
 ### STAGE 2: Setup ###
-FROM node:8-alpine
+FROM node:8
 
 # In order to build bcrypt library
 RUN apk update && apk add git python make g++ patch
