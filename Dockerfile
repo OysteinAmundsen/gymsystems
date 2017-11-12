@@ -13,7 +13,7 @@ RUN rm -rf ./node_modules && yarn install && yarn build
 FROM node:8
 
 # In order to build bcrypt library
-RUN apk update && apk add git python make g++ patch
+RUN apt update && apt install git python make g++ patch
 
 # Install app dependencies
 WORKDIR /usr/src/app
