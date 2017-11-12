@@ -28,7 +28,8 @@ export class RequireRole {
  * If not, returns HTTP 401
  */
 function isLoggedIn(req: any, res: any, next?: (err?: any) => any): boolean {
-  if (!req.session || !req.session.passport || !req.session.passport.user || !req.session.passport.user.id) {
+  const passport = req.session.passport || req.passport;
+  if (!passport || !passport.user || !passport.user.id) {
     res.status(401).json({message: 'You have to login first!'});
     return false;
   }

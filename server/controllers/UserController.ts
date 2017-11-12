@@ -79,9 +79,7 @@ export class UserController {
 
         req.logIn(user, async (error: any) => {
           if (error) { return reject({httpCode: 401, message: error}); }
-
-          const returnedUser = await this.me(req);
-          return resolve(returnedUser || user);
+          return resolve(user);
         });
       })(req, res, req.next);
     });

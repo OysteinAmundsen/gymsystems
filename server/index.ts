@@ -99,35 +99,17 @@ export class GymServer {
     this.app = e();
 
     Log.log.info('** Configuring server');
-    const MemoryStore = require('session-memory-store')(session);
-    this.app
-      .set('trust proxy', true)  // Listen for external requests
-      .set('etag', false)
-      .disable('x-powered-by')   // Do not announce our architecture to the world!
+    this.app.set('trust proxy', true);  // Listen for external requests
+    this.app.set('etag', false);
+    this.app.disable('x-powered-by');   // Do not announce our architecture to the world!
 
-      // Global middlewares
-      .use(cookieParser())
-      .use(bodyParser.urlencoded({ extended: true }))
-      .use(session({
-        secret: 'mysecretkey',
-        resave: true,
-        saveUninitialized: true,
-        store: new MemoryStore({expires: 60 * 60 * 12, checkperiod: 10 * 60}),
-        cookie: {
-          path: '/',
-          // httpOnly: true,
-          // secure: false,
-          maxAge: 60 * 60 * 12
-        }
-      }));
 
     // Setup the following only if we are not running tests
     if (!this.isTest) {
-      this.app
-        // Setup morgan access Log using winston
-        .use(morgan('combined', { stream: Log.stream }))
-        // Setup static resources
-        .use(serveStatic(this.clientPath));
+      // Setup morgan access Log using winston
+      this.app.use(morgan('combined', { stream: Log.stream }))
+      // Setup static resources
+      this.app.use(serveStatic(this.clientPath));
 
       // Favicon service
       const faviconPath = path.join(this.clientPath, 'favicon.ico');
@@ -138,6 +120,26 @@ export class GymServer {
 
     // Configure authentication services
     Log.log.info('** Setting up authentication services');
+    this.app.use(cookieParser());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
+
+    const MemoryStore = require('session-memory-store')(session);
+    const expiryInSeconds = 60 * 60 * 24; // Expires in 24 hours
+    this.app.use(session({
+      secret: 'mysecretkey',
+      resave: true,
+      saveUninitialized: true,
+      store: new MemoryStore({
+        expires: expiryInSeconds,
+        checkperiod: 10 * 60}
+      ),
+      cookie: {
+        path: '/',
+        httpOnly: true,
+        secure: false,
+        maxAge: expiryInSeconds * 1000
+      }
+    }));
     const passport = setupAuthentication(this.app);
 
     // Setup routing-controllers

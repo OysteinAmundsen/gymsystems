@@ -23,13 +23,14 @@ export function setupAuthentication(app: Express): auth.Passport {
     usernameField: 'username',
     passwordField: 'password',
     passReqToCallback: true // allows us to pass back the entire request to the callback
-  },// Verify function with request
+  }, // Verify function with request
     (req: Request, username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) => {
       const userRepository: Repository<User> = getConnectionManager().get().getRepository(User);
       userRepository.findOne({ name: username })
         .then(user => {
-          if (!user) { done('No user found.', null, { message: 'No user found'}); }
-          else if (!bcrypt.compareSync(password, user.password)) {
+          if (!user) {
+            done('No user found.', null, { message: 'No user found'});
+          } else if (!bcrypt.compareSync(password, user.password)) {
             done('Password mismatch', null, { message: 'Password mismatch'});
           } else {
             done(null, user);

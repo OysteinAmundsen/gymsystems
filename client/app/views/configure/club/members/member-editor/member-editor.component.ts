@@ -43,38 +43,39 @@ export class MemberEditorComponent implements OnInit {
   ngOnInit() {
     // Create form
     this.memberForm = this.fb.group({
-      id             : [this.member.id],
-      name           : [this.member.name, [Validators.required]],
-      birthYear      : [this.member.birthYear, [
+      id             : [null],
+      name           : [null, [Validators.required]],
+      birthYear      : [null, [
         Validators.required,
         Validators.min(this.minYear),
         Validators.max(this.maxYear),
         Validators.minLength(4),
         Validators.maxLength(4)
       ]],
-      birthDate      : [this.member.birthDate],
-      club           : [this.member.club],
-      email          : [this.member.email],
-      phone          : [this.member.phone],
-      gender         : [this.member.gender],
-      allergies      : [this.member.allergies],
-      guardian1      : [this.member.guardian1],
-      guardian2      : [this.member.guardian2],
-      guardian1Phone : [this.member.guardian1Phone],
-      guardian2Phone : [this.member.guardian1Phone],
-      guardian1Email : [this.member.guardian1Email],
-      guardian2Email : [this.member.guardian2Email],
-      troop          : [this.member.troop],
-      team           : [this.member.team]
+      birthDate      : [null],
+      club           : [null],
+      email          : [null],
+      phone          : [null],
+      gender         : [null],
+      allergies      : [null],
+      guardian1      : [null],
+      guardian2      : [null],
+      guardian1Phone : [null],
+      guardian2Phone : [null],
+      guardian1Email : [null],
+      guardian2Email : [null],
+      troop          : [null],
+      team           : [null]
     });
 
-    const clubCtrl = this.memberForm.controls['club'];
-    const genderCtrl = this.memberForm.controls['gender'];
-    const birthYearCtrl = this.memberForm.controls['birthYear'];
+    const clubCtrl = this.memberForm.get('club');
+    const genderCtrl = this.memberForm.get('gender');
+    const birthYearCtrl = this.memberForm.get('birthYear');
 
     this.clubComponent.clubSubject.subscribe(club => {
       this.club = club;
 
+      // Determine Create/Edit mode
       this.route.params.subscribe(params => {
         if (params.id) {
           // Existing member. Retreive details
@@ -82,12 +83,10 @@ export class MemberEditorComponent implements OnInit {
         } else {
           // New member. Set defaults based on last member entry found
           this.clubService.getMembers(this.club).subscribe(memberList => {
-            if (memberList.length > 1) {
-              const lastMember = memberList[memberList.length - 2];
-              if (!clubCtrl.value)      { clubCtrl.setValue(this.club); }
-              if (!birthYearCtrl.value) { birthYearCtrl.setValue(lastMember.birthYear || this.maxYear); }
-              if (!genderCtrl.value)    { genderCtrl.setValue(lastMember.gender || Gender.Male); }
-            }
+            if (!clubCtrl.value)      { clubCtrl.setValue(this.club); }
+            const lastMember = memberList.length > 1 ? memberList[memberList.length - 2] : null;
+            birthYearCtrl.setValue(lastMember ? lastMember.birthYear : this.maxYear);
+            genderCtrl.setValue(lastMember    ? lastMember.gender    : Gender.Male);
           });
         }
       });
