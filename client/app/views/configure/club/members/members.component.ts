@@ -13,6 +13,7 @@ import { SubjectSource } from 'app/services/subject-source';
 import { MemberEditorComponent } from 'app/views/configure/club/members/member-editor/member-editor.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MemberStateService } from 'app/views/configure/club/members/member-state.service';
 
 @Component({
   selector: 'app-members',
@@ -31,6 +32,8 @@ export class MembersComponent implements OnInit, OnDestroy {
   memberSource = new SubjectSource<IGymnast>(new BehaviorSubject<IGymnast[]>([]));
   get memberList() { return this.memberSource.subject.value || []; }
   displayedColumns = ['name', 'birthYear', 'gender', 'teams'];
+  get sortColumn() { return this.memberState.sort ? this.memberState.sort.active : ''; }
+  get sortDirection() { return this.memberState.sort ? this.memberState.sort.direction : 'asc'; }
 
   genders = Gender;
   selected: IGymnast;
@@ -40,6 +43,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private memberState: MemberStateService,
     private parent: ClubEditorComponent,
     private clubService: ClubService,
     private translate: TranslateService) {  }
@@ -52,6 +56,13 @@ export class MembersComponent implements OnInit, OnDestroy {
         this.loadMembers();
       }
     }));
+
+    // Save state
+    this.subscriptions.push(this.memberSource.sortChanged.subscribe(sort => {
+      if (sort !== undefined) {
+        this.memberState.sort = sort;
+      }
+    }));
   }
 
   ngOnDestroy() {
@@ -59,7 +70,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   loadMembers() {
-    this.clubService.getMembers(this.club).subscribe(members => this.memberSource.sortData(null, members));
+    this.clubService.getMembers(this.club).subscribe(members => this.memberSource.sortData(this.memberState.sort, members));
   }
 
   genderDivision(member: IGymnast) {
@@ -79,27 +90,7 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   addMember() {
     this.router.navigate(['./add'], {relativeTo: this.route});
-    // const member = <IGymnast>{
-    //   id          : null,
-    //   name        : null,
-    //   birthYear   : null,
-    //   gender      : null,
-    //   team        : null,
-    //   club        : null
-    // };
-    // this.memberSource.add(member);
-    // this.select(member);
   }
-
-  // onChange() {
-  //   this.select(null);
-  //   this.loadMembers();
-  // }
-
-  // select(member: IGymnast, row?: number) {
-  //   this.memberSource.select(member, row);
-  //   this.selected = member ? member : null;
-  // }
 
   importMember($event) {
     const fileList: FileList = (<HTMLInputElement>event.target).files;

@@ -7,7 +7,9 @@ export class SubjectSource<T> extends DataSource<T> {
 
   private get rows() { return this.subject.value; }
 
-  currentSort: Sort;
+  sortChanged = new BehaviorSubject(undefined);
+  get currentSort(): Sort { return this.sortChanged.value; }
+  set currentSort(v) { this.sortChanged.next(v); }
 
   constructor(public subject: BehaviorSubject<T[]>) {
     super();

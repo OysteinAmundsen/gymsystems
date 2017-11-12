@@ -64,6 +64,7 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
       dragIndex = Array.prototype.indexOf.call((<Element>source).children, dragElm);
       sourceModel = (<Element>source).classList.contains('available') ? this.availableMembers : this.gymnasts;
     });
+
     this.dropSubscription = this.drag.drop.subscribe((value) => {
       const [bag, dropElm, target, source] = value;
       dropIndex = Array.prototype.indexOf.call(target.children, dropElm);
@@ -96,9 +97,11 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
         this.clubService.getMembers(this.club)
           .distinctUntilChanged()
           .subscribe((members: IGymnast[]) => {
-            this.availableMembers = members && members.length && this.gymnasts && this.gymnasts.length
-              ? members.filter(g => this.gymnasts.findIndex(tg => tg.id === g.id) < 0)
-              : members;
+            this.availableMembers =
+              (members && members.length && this.gymnasts && this.gymnasts.length
+                ? members.filter(g => this.gymnasts.findIndex(tg => tg.id === g.id) < 0)
+                : members)
+              .sort((a, b) => a.birthYear > b.birthYear ? -1 : 1)
             this.memberListHidden = this.gymnasts && this.gymnasts.length > 0;
             this.isLoadingMembers = false;
           });

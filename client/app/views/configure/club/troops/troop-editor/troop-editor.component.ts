@@ -63,10 +63,10 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.userService.getMe().subscribe(user => this.currentUser = user));
 
     this.troopForm = this.fb.group({
-      id: [this.troop.id],
-      name: [this.troop.name, [Validators.required]],
-      club: [this.club],
-      gymnasts: [this.troop.gymnasts || []]
+      id: [null],
+      name: [null, [Validators.required]],
+      club: [null],
+      gymnasts: [[]]
     });
 
     this.clubComponent.clubSubject.subscribe(club => {
@@ -75,9 +75,10 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
         if (params.id) {
           this.clubService.getTroop(this.club, +params.id).subscribe(troop => this.troopReceived(troop));
         } else {
+          this.troopForm.get('club').setValue(this.club);
           this.clubService.getTroopsCount(this.club).subscribe(count => {
             this.troopsCount = count;
-            this.troopForm.controls['name'].setValue(this.troopSuggestion);
+            this.troopForm.get('name').setValue(this.troopSuggestion);
           });
         }
       });

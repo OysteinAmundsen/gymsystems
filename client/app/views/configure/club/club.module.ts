@@ -17,6 +17,7 @@ import { MemberEditorComponent } from './members/member-editor/member-editor.com
 import { StatisticsComponent } from './statistics/statistics.component';
 import { TroopsComponent } from './troops/troops.component';
 import { TroopEditorComponent } from './troops/troop-editor/troop-editor.component';
+import { MemberStateService } from 'app/views/configure/club/members/member-state.service';
 
 @NgModule({
   imports: [
@@ -45,6 +46,9 @@ import { TroopEditorComponent } from './troops/troop-editor/troop-editor.compone
     StatisticsComponent,
     TroopsComponent,
     TroopEditorComponent
+  ],
+  providers: [
+    MemberStateService
   ]
 })
 export class ClubModule { }

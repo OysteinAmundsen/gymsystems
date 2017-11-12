@@ -1,16 +1,22 @@
-<mat-table #table [dataSource]="memberSource" matSort (matSortChange)="memberSource.sortData($event)">
+<mat-table #table [dataSource]="memberSource"
+           matSort (matSortChange)="memberSource.sortData($event)"
+           [matSortActive]="sortColumn" [matSortDirection]="sortDirection">
+
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name' | translate}}</mat-header-cell>
     <mat-cell *matCellDef="let member">{{ member.name }}</mat-cell>
   </ng-container>
+
   <ng-container matColumnDef="birthYear">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Birth year' | translate}}</mat-header-cell>
     <mat-cell *matCellDef="let member">{{ member.birthYear }}</mat-cell>
   </ng-container>
+
   <ng-container matColumnDef="gender">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Gender' | translate}}</mat-header-cell>
     <mat-cell *matCellDef="let member">{{ genderDivision(member) }}</mat-cell>
   </ng-container>
+
   <ng-container matColumnDef="teams">
     <mat-header-cell *matHeaderCellDef>{{'Teams' | translate}}</mat-header-cell>
     <mat-cell *matCellDef="let member">{{ countTeams(member) }}</mat-cell>
