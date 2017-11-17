@@ -346,33 +346,33 @@ export class TournamentController {
       });
   }
 
-  @Post(':id/addToList/:type')
-  @UseBefore(RequireRole.get(Role.Club))
-  async addToList(@Param('id') id: number, @Param('type') type: string, @Body() gymnasts: Gymnast[], @Req() req, @Res() res) {
-    const tournament: Tournament = await this.repository.createQueryBuilder('tournament')
-      .where('tournament.id=:id', { id: id })
-      .leftJoinAndSelect('tournament.lodging', 'lodging')
-      .leftJoinAndSelect('tournament.transport', 'transport')
-      .leftJoinAndSelect('tournament.banquet', 'banquet')
-      .getOne();
+  // @Post(':id/addToList/:type')
+  // @UseBefore(RequireRole.get(Role.Club))
+  // async addToList(@Param('id') id: number, @Param('type') type: string, @Body() gymnasts: Gymnast[], @Req() req: Request, @Res() res: Response) {
+  //   const tournament: Tournament = await this.repository.createQueryBuilder('tournament')
+  //     .where('tournament.id=:id', { id: id })
+  //     .leftJoinAndSelect('tournament.lodging', 'lodging')
+  //     .leftJoinAndSelect('tournament.transport', 'transport')
+  //     .leftJoinAndSelect('tournament.banquet', 'banquet')
+  //     .getOne();
 
-    tournament['type'] = (tournament['type'] ? tournament['type'] : []).concat(gymnasts);
-    return this.update(id, tournament, res, req);
-  }
+  //   tournament[type] = (tournament[type] ? tournament[type] : []).concat(gymnasts);
+  //   return this.update(id, tournament, res, req);
+  // }
 
-  @Post(':id/removeFromList/:type')
-  @UseBefore(RequireRole.get(Role.Club))
-  async removeFromList(@Param('id') id: number, @Param('type') type: string, @Body() gymnasts: Gymnast[], @Req() req, @Res() res) {
-    const tournament: Tournament = await this.repository.createQueryBuilder('tournament')
-      .where('tournament.id=:id', { id: id })
-      .leftJoinAndSelect('tournament.lodging', 'lodging')
-      .leftJoinAndSelect('tournament.transport', 'transport')
-      .leftJoinAndSelect('tournament.banquet', 'banquet')
-      .getOne();
+  // @Post(':id/removeFromList/:type')
+  // @UseBefore(RequireRole.get(Role.Club))
+  // async removeFromList(@Param('id') id: number, @Param('type') type: string, @Body() gymnasts: Gymnast[], @Req() req: Request, @Res() res: Response) {
+  //   const tournament: Tournament = await this.repository.createQueryBuilder('tournament')
+  //     .where('tournament.id=:id', { id: id })
+  //     .leftJoinAndSelect('tournament.lodging', 'lodging')
+  //     .leftJoinAndSelect('tournament.transport', 'transport')
+  //     .leftJoinAndSelect('tournament.banquet', 'banquet')
+  //     .getOne();
 
-    if (tournament['type'] && tournament['type'].length) {
-      tournament['type'] = _.differenceWith(tournament['type'], gymnasts, (a, b) => a.id === b.id);
-    }
-    return this.update(id, tournament, res, req);
-  }
+  //   if (tournament[type] && tournament[type].length) {
+  //     tournament[type] = _.differenceWith(tournament[type], gymnasts, (a, b) => a.id === b.id);
+  //   }
+  //   return this.update(id, tournament, res, req);
+  // }
 }

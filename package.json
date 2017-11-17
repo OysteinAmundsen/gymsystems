@@ -1,6 +1,6 @@
 {
   "name": "gymsystems",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Web system for competitive teamgym scoreboarding",
   "homepage": "https://www.gymsystems.org",
   "main": "dist/index.js",
@@ -64,7 +64,7 @@
     "@angular/platform-browser": "^5.0.2",
     "@angular/platform-browser-dynamic": "^5.0.2",
     "@angular/router": "^5.0.2",
-    "@angular/service-worker": "^5.0.2",
+    "@angular/service-worker": ">= 1.0.0-beta.5 < 2.0.0",
     "@ngx-translate/core": "^8.0.0",
     "@ngx-translate/http-loader": "2.0.0",
     "angulartics2": "^4.0.2",
