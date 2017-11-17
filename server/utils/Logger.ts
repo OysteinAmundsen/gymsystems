@@ -94,7 +94,7 @@ export class OrmLog implements Logger {
   logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner) {
     if (this.options === 'all' || this.options === true || (this.options instanceof Array && this.options.indexOf('query') !== -1)) {
       const sql = query + (parameters && parameters.length ? ' -- PARAMETERS: ' + this.stringifyParams(parameters) : '');
-      Log.log.verbose(chalk.gray.underline('executing query:'), PlatformTools.highlightSql(sql));
+      Log.log.verbose(chalk.default.gray.underline('executing query:'), PlatformTools.highlightSql(sql));
     }
   }
 
@@ -104,8 +104,8 @@ export class OrmLog implements Logger {
   logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner) {
     if (this.options === 'all' || this.options === true || (this.options instanceof Array && this.options.indexOf('error') !== -1)) {
       const sql = query + (parameters && parameters.length ? ' -- PARAMETERS: ' + this.stringifyParams(parameters) : '');
-      Log.log.error(chalk.underline.red(`query failed:`), PlatformTools.highlightSql(sql));
-      Log.log.error(chalk.underline.red(`error:`), error);
+      Log.log.error(chalk.default.underline.red(`query failed:`), PlatformTools.highlightSql(sql));
+      Log.log.error(chalk.default.underline.red(`error:`), error);
     }
   }
 
@@ -114,8 +114,8 @@ export class OrmLog implements Logger {
    */
   logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: QueryRunner) {
     const sql = query + (parameters && parameters.length ? ' -- PARAMETERS: ' + this.stringifyParams(parameters) : '');
-    Log.log.warn(chalk.underline.yellow(`query is slow:`), PlatformTools.highlightSql(sql));
-    Log.log.warn(chalk.underline.yellow(`execution time:`), time);
+    Log.log.warn(chalk.default.underline.yellow(`query is slow:`), PlatformTools.highlightSql(sql));
+    Log.log.warn(chalk.default.underline.yellow(`execution time:`), time);
   }
 
   /**
@@ -123,7 +123,7 @@ export class OrmLog implements Logger {
    */
   logSchemaBuild(message: string, queryRunner?: QueryRunner) {
     if (this.options === 'all' || (this.options instanceof Array && this.options.indexOf('schema') !== -1)) {
-      Log.log.debug(chalk.underline(message));
+      Log.log.debug(chalk.default.underline(message));
     }
   }
 
@@ -131,7 +131,7 @@ export class OrmLog implements Logger {
    * Logs events from the migration run process.
    */
   logMigration(message: string, queryRunner?: QueryRunner) {
-    Log.log.debug(chalk.underline(message));
+    Log.log.debug(chalk.default.underline(message));
   }
 
   /**
