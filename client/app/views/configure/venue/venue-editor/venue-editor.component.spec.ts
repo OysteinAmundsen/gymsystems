@@ -4,7 +4,7 @@ import { AppModuleTest } from 'app/app.module.spec';
 import { VenueEditorComponent } from './venue-editor.component';
 import { AgmCoreModule } from '@agm/core';
 import { VenueService } from 'app/services/api';
-import { MatCardModule, MatAutocompleteModule } from '@angular/material';
+import { MatCardModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 describe('VenueEditorComponent', () => {
   let component: VenueEditorComponent;
@@ -16,6 +16,8 @@ describe('VenueEditorComponent', () => {
         AppModuleTest,
         MatCardModule,
         MatAutocompleteModule,
+        MatFormFieldModule,
+        MatInputModule,
         AgmCoreModule.forRoot({
           apiKey: VenueService.apiKey
         })

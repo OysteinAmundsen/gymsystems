@@ -10,7 +10,7 @@ import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { AgmCoreModule } from '@agm/core';
-import { MatCardModule, MatSnackBarModule, MatDialogModule } from '@angular/material';
+import { MatCardModule, MatSnackBarModule, MatDialogModule, MatFormFieldModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Module dependencies
@@ -95,6 +95,7 @@ export class TranslateModuleTest { }
     MatSnackBarModule,
     MatCardModule,
     MatDialogModule,
+    MatFormFieldModule,
 
     // Application modules
     SharedModule,
