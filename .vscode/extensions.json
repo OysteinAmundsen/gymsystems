@@ -3,10 +3,11 @@
   // for the documentation about the extensions.json format
   "recommendations": [
     // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
-    "lonefy.vscode-JS-CSS-HTML-formatter",
     "msjsdiag.debugger-for-chrome",
+    "Angular.ng-template",
     "PeterJausovec.vscode-docker",
     "EditorConfig.EditorConfig",
-    "vector-of-bool.gitflow"
+    "HookyQR.beautify",
+    "robertohuertasm.vscode-icons"
   ]
 }

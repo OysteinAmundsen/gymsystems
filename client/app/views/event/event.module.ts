@@ -14,15 +14,13 @@ import { EventRoutingModule } from './event-routing.module';
 // Module components
 import { EventComponent } from './event.component';
 import { ListComponent } from './list/list.component';
-import { ScoreGroupComponent } from './list/score-group/score-group.component';
-import { ScoreComponent } from './list/score/score.component';
-import { ScoreboardComponent } from './list/scoreboard/scoreboard.component';
 import { DisplayComponent } from './display/display.component';
 import { FullscreenComponent } from './display/fullscreen/fullscreen.component';
 import { ResultsComponent } from './results/results.component';
 import { SignoffReportComponent } from './signoff-report/signoff-report.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ContextMenuComponent } from './list/context-menu/context-menu.component';
+import { ScoreEditorComponent } from './list/score-editor/score-editor.component';
 
 @NgModule({
   imports: [
@@ -46,9 +44,6 @@ import { ContextMenuComponent } from './list/context-menu/context-menu.component
   declarations: [
     EventComponent,
     ListComponent,
-    ScoreGroupComponent,
-    ScoreComponent,
-    ScoreboardComponent,
 
     DisplayComponent,
     FullscreenComponent,
@@ -57,7 +52,9 @@ import { ContextMenuComponent } from './list/context-menu/context-menu.component
 
     SignoffReportComponent,
 
-    ContextMenuComponent
+    ContextMenuComponent,
+
+    ScoreEditorComponent
   ],
   entryComponents: [
     ContextMenuComponent

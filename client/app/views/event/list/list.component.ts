@@ -36,7 +36,8 @@ export class ListComponent implements OnInit, OnDestroy {
   _showTraining;
   get showTraining() {
     if (this._showTraining === undefined) {
-      this._showTraining = localStorage.getItem('showTraining') != "false";
+      const show = localStorage.getItem('showTraining') || !!this.user ? "false" : "true";
+      this._showTraining = show != "false";
     }
     return this._showTraining;
   }
@@ -77,7 +78,6 @@ export class ListComponent implements OnInit, OnDestroy {
     private errorHandler: ErrorHandlerService) {  }
 
   ngOnInit() {
-
     // Make sure we have translations for weekdays
     this.translate.get(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']).subscribe();
 
@@ -91,7 +91,6 @@ export class ListComponent implements OnInit, OnDestroy {
         });
         this.userSubscription = this.userService.getMe().subscribe(user => {
           this.user = user;
-          // this.showTraining = !!this.user;
         });
         this.loadSchedule();
       }

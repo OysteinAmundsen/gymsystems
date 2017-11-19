@@ -1,8 +1,0 @@
-<header>
-  {{ model.group.name }}
-</header>
-<app-score *ngFor="let score of model.scores; let idx = index;" [form]="form" [model]="score" [index]="idx"></app-score>
-<footer>
-  <span translate>Calculated: </span>
-  <code>{{ model.avg || 0 | number:'1.2-2' }}&nbsp;</code>
-</footer>

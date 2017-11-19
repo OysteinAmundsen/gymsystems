@@ -2,13 +2,14 @@ import { Component, OnInit, ElementRef, Renderer2, Inject } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Role, ParticipationType, ITeamInDiscipline, IUser, ITournament } from 'app/model';
 import { ScoreService } from 'app/services/api';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-context-menu',
   templateUrl: './context-menu.component.html',
   styleUrls: ['./context-menu.component.scss']
 })
-export class ContextMenuComponent implements OnInit {
+export class ContextMenuComponent implements OnInit, AfterViewInit {
 
   get overlay() {
     return this.elmRef.nativeElement.closest('.cdk-overlay-pane');
@@ -41,10 +42,15 @@ export class ContextMenuComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    this.renderer.addClass(this.container, 'context-menu');
-    this.renderer.setStyle(this.overlay, 'position', 'absolute');
-    this.renderer.setStyle(this.overlay, 'top', this.data.mouseY + 'px');
-    this.renderer.setStyle(this.overlay, 'left', this.data.mouseX + 'px');
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.renderer.addClass(this.container, 'context-menu');
+      this.renderer.setStyle(this.overlay, 'position', 'absolute');
+      this.renderer.setStyle(this.overlay, 'top', this.data.mouseY + 'px');
+      this.renderer.setStyle(this.overlay, 'left', this.data.mouseX + 'px');
+    });
   }
 
   close() {

@@ -63,7 +63,7 @@
       <!-- Score editor -->
       <tr *ngIf="selected === item">
         <td colspan="7" class="editor">
-          <app-scoreboard [participant]="item" (onClose)="closeEditor()"></app-scoreboard>
+          <app-score-editor [participant]="item" (onClose)="closeEditor()"></app-score-editor>
         </td>
       </tr>
 
