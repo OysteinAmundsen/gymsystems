@@ -1,6 +1,6 @@
 {
   "name": "gymsystems",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Web system for competitive teamgym scoreboarding",
   "homepage": "https://www.gymsystems.org",
   "main": "dist/index.js",
