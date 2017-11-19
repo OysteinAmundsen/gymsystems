@@ -50,7 +50,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       this.loadSchedule();
       this.dragulaSubscription = this.dragulaService.dropModel.subscribe((value) => {
         setTimeout(() => { // Sometimes dragula is not finished syncing model
-          this.scheduleService.recalculateStartTime(this.tournament, this.schedule);
+          this.scheduleService.recalculateStartTime(this.tournament, this.schedule, true, !this.parent.hasStarted);
           this.isDirty = true;
         });
       });
@@ -77,17 +77,22 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   deleteParticipant(participant: ITeamInDiscipline) {
     if (participant.id) {
-      this.scheduleService.delete(participant).subscribe(result => this.loadSchedule());
+      if (this.parent.hasStarted) {
+        participant.markDeleted = true;
+        this.scheduleService.save(participant).subscribe(result => this.loadSchedule());
+      } else {
+        this.scheduleService.delete(participant).subscribe(result => this.loadSchedule());
+      }
     } else {
       const hash = this.stringHash(participant);
       this.schedule.splice(this.schedule.findIndex(s => this.stringHash(s) === hash), 1);
-      this.schedule = this.scheduleService.recalculateStartTime(this.tournament, this.schedule);
+      this.schedule = this.scheduleService.recalculateStartTime(this.tournament, this.schedule, true, !this.parent.hasStarted);
     }
   }
 
   canDeleteAll() {
     const now = moment();
-    return this.schedule.length && (this.parent.user.role >= Role.Admin || moment(this.tournament.startDate).isAfter(now));
+    return this.schedule.length && (this.parent.user.role >= Role.Admin || !this.parent.hasStarted);
   }
 
   deleteAll() {
@@ -211,6 +216,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       }
     });
 
-    return this.scheduleService.recalculateStartTime(this.tournament, result);
+    return this.scheduleService.recalculateStartTime(this.tournament, result, true, !this.parent.hasStarted);
   }
 }

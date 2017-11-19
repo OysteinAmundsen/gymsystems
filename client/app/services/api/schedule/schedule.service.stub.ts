@@ -18,6 +18,7 @@ function generateParticipants(amount: number): ITeamInDiscipline[] {
   return Array(amount).fill(0).map((s, i) => {
     return <ITeamInDiscipline>{
       id: i,
+      sortNumber: i,
       startNumber: i,
       type: ParticipationType.Live,
       discipline: <IDiscipline>{

@@ -36,7 +36,19 @@ export class TeamInDiscipline {
    *
    */
   @Column()
+  sortNumber: number;
+
+  /**
+   *
+   */
+  @Column()
   startNumber: number;
+
+  /**
+   *
+   */
+  @Column()
+  markDeleted: boolean;
 
   /**
    *

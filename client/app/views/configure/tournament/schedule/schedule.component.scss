@@ -2,6 +2,9 @@
 
 table[role="list"] {
   tr {
+    &.deleted {
+      text-decoration: line-through;
+    }
     &.new td {
       background-color: rgba(lighten(green, 50%), 0.1);
     }

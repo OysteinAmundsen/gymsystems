@@ -108,7 +108,7 @@ export class DisplayController {
     if (!current.length) { current = [schedule[0]]; }
 
     // Filtered from schedule by not yet started participants
-    const next = schedule.filter(s => !s.startTime).sort((a, b) => a.startNumber < b.startNumber ? -1 : 1);
+    const next = schedule.filter(s => !s.startTime).sort((a, b) => a.sortNumber < b.sortNumber ? -1 : 1);
 
     // Filtered from schedule by allready published participants
     const published = schedule.filter(s => s.publishTime != null).sort((a, b) => a.publishTime > b.publishTime ? -1 : 1);

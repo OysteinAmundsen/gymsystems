@@ -9,7 +9,9 @@ import { ParticipationType } from './ParticipationType';
 export interface ITeamInDiscipline {
   id: number;
   startNumber: number;
+  sortNumber: number;
   startTime: Date;
+  markDeleted: boolean;
   calculatedStartTime?: moment.Moment; // Exists only on client side
   endTime: Date;
   publishTime: Date;

@@ -78,7 +78,7 @@ export class ScheduleController {
       .leftJoinAndSelect('media.team', 'media_team')
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('scores.scoreGroup', 'scoresScoreGroup')
-      .orderBy('participant.startNumber', 'ASC')
+      .orderBy('participant.sortNumber', 'ASC')
       .addOrderBy('scoreGroups.operation', 'ASC')
       .addOrderBy('scoreGroups.type', 'ASC')
       .getMany();

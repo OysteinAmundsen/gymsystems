@@ -123,7 +123,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   private getCacheKey(participant: ITeamInDiscipline) {
-    return participant.startNumber;
+    return participant.sortNumber;
   }
 
   private invalidateCache(participant?: ITeamInDiscipline) {
@@ -185,7 +185,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   canEdit(participant: ITeamInDiscipline) {
-    return this.user && (
+    return this.user && (!participant || !participant.markDeleted) && (
       this.user.role >= Role.Admin
       || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.club.id)
     );
@@ -205,7 +205,15 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   canStart(participant: ITeamInDiscipline, index: number) {
-    const previousStarted = (index > 0 ? this.schedule[index - 1].startTime != null : true);
+    if (participant.markDeleted) { return false; }
+    let previous;
+    for (let j = index - 1; j > 0; j--) {
+      if (!this.schedule[j].markDeleted) {
+        previous = this.schedule[j];
+        break;
+      }
+    }
+    const previousStarted = (previous != null ? previous.startTime != null : true);
     return participant.startTime == null && previousStarted;
   }
 

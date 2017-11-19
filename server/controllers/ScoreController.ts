@@ -169,7 +169,7 @@ export class ScoreController {
     }
 
     let schedule = await scheduleRepository.getByTournament(p.tournament.id);
-    schedule = schedule.sort((a, b) => a.startNumber < b.startNumber ? -1 : 1);
+    schedule = schedule.sort((a, b) => a.sortNumber < b.sortNumber ? -1 : 1);
     const idx = schedule.findIndex(i => i.id === p.id);
     const itemsToRollback = schedule.slice(idx).filter(i => i.startTime != null);
     return Promise.all(itemsToRollback.map(i => {

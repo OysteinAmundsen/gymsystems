@@ -27,7 +27,7 @@
       </tr>
     </thead>
     <tbody *ngFor="let item of schedule; let i = index;" role="listitem"
-           [ngClass]="{isPublished: item.publishTime != null, isStarted: item.startTime, unimportant: item.type === types.Training, isCurrent: item.startTime && !item.endTime && !item.publishTime}"
+           [ngClass]="{isPublished: item.publishTime != null, deleted: item.markDeleted, isStarted: item.startTime, unimportant: item.type === types.Training, isCurrent: item.startTime && !item.endTime && !item.publishTime}"
            (contextmenu)="contextInvoked(item, i, $event)" #row>
 
       <!-- View details wide screen -->

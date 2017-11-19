@@ -84,7 +84,7 @@ export class ScheduleService {
   }
 
   isNewDay(tournament: ITournament, schedule: ITeamInDiscipline[], participant: ITeamInDiscipline): boolean {
-    const next = schedule.find(s => s.startNumber === participant.startNumber + 1);
+    const next = schedule.find(s => s.sortNumber === participant.sortNumber + 1);
     if (next) {
       const thisTime = (participant.calculatedStartTime
         ? participant.calculatedStartTime.clone()
@@ -110,7 +110,7 @@ export class ScheduleService {
       const timesMoment = moment(tournament.startDate).startOf('day').utc().add(day, 'days');
       const startHour   = timesMoment.clone().hour(+timesForDay.time.split(',')[0]);
       const endHour     = timesMoment.clone().hour(+timesForDay.time.split(',')[1]);
-      time = startHour.clone().add(this.executionTime * (participant.startNumber - participantsPast), 'minutes');
+      time = startHour.clone().add(this.executionTime * (participant.sortNumber - participantsPast), 'minutes');
       if (time.isBefore(endHour)) {
         return time.utc();
       }
@@ -120,13 +120,12 @@ export class ScheduleService {
     return null;
   }
 
-  recalculateStartTime(tournament: ITournament, schedule: ITeamInDiscipline[], resetStart = true): ITeamInDiscipline[] {
+  recalculateStartTime(tournament: ITournament, schedule: ITeamInDiscipline[], resetSort = true, resetStart = false): ITeamInDiscipline[] {
     let startNo = 0;
     const live = schedule.filter(s => s.type === ParticipationType.Live);
     live.forEach(s => {
-      if (resetStart) {
-        s.startNumber = startNo++;
-      }
+      if (resetSort) { s.sortNumber = startNo++; }
+      if (resetStart) { s.startNumber = s.sortNumber; }
       s.calculatedStartTime = this.calculateStartTime(tournament, s);
     });
 
@@ -149,9 +148,8 @@ export class ScheduleService {
       });
       trainingDay.forEach((s, idx) => {
         time = startHour.clone().subtract(this.trainingTime * (idx), 'minutes');
-        if (resetStart) {
-          s.startNumber = startNo--;
-        }
+        if (resetSort) { s.sortNumber = startNo--; }
+        if (resetStart) { s.startNumber = s.sortNumber; }
         s.calculatedStartTime = time.utc();
       });
     }
