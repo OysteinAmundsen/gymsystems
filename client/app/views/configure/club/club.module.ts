@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatSortModule, MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule,
-  MatAutocompleteModule, MatButtonModule, MatTableModule
+  MatAutocompleteModule, MatButtonModule, MatTableModule, MatCheckboxModule
 } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
@@ -32,6 +32,7 @@ import { MemberStateService } from 'app/views/configure/club/members/member-stat
     MatSortModule,
     MatCardModule,
     MatTabsModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,

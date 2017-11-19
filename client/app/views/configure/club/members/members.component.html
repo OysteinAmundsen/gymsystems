@@ -2,6 +2,16 @@
            matSort (matSortChange)="memberSource.sortData($event)"
            [matSortActive]="sortColumn" [matSortDirection]="sortDirection">
 
+  <!-- Checked -->
+  <ng-container matColumnDef="selector">
+    <mat-header-cell *matHeaderCellDef class="selector">
+      <mat-checkbox [checked]="selectionState() === 1" [indeterminate]="selectionState() === 2" (change)="toggleSelectAll()"></mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let team" class="selector">
+      <mat-checkbox [checked]="isSelected(team)" (click)="$event.stopPropagation()" (change)="toggleSelection(team)"></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name' | translate}}</mat-header-cell>
     <mat-cell *matCellDef="let member">{{ member.name }}</mat-cell>
@@ -18,12 +28,13 @@
   </ng-container>
 
   <ng-container matColumnDef="teams">
-    <mat-header-cell *matHeaderCellDef>{{'Teams' | translate}}</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef [mat-sort-header]="[countTeams, this]">{{'Teams' | translate}}</mat-header-cell>
     <mat-cell *matCellDef="let member">{{ countTeams(member) }}</mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let member; columns: displayedColumns; let index=index"
+          (press)="onPress($event)"
           matRipple #dataRow
           [routerLink]="['.', member.id]"
           [ngClass]="{'male': member.gender == genders.Male, 'female': member.gender == genders.Female, collapsed: selected == member}"></mat-row>
@@ -42,3 +53,15 @@
   <i class="fa fa-fw fa-download"></i>
   <span translate>Export Members</span>
 </a>
+<ng-container *ngIf="!selectMode">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete all' | translate" (click)="deleteAll()" *appIfAuth="'Admin'">
+    <i class="fa fa-fw fa-trash"></i>
+    <span translate>Delete all</span>
+  </button>
+</ng-container>
+<ng-container *ngIf="selectMode">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteAll()" *appIfAuth="'Organizer'">
+    <i class="fa fa-fw fa-trash"></i>
+    <span translate>Delete selected</span>
+  </button>
+</ng-container>

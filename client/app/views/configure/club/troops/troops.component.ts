@@ -12,6 +12,7 @@ import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-e
 import { ExpansionSource, ExpansionRow } from 'app/services/expansion-source';
 import { SubjectSource } from 'app/services/subject-source';
 import { Router, ActivatedRoute } from '@angular/router';
+import { noop } from 'app/services';
 
 @Component({
   selector: 'app-troops',
@@ -33,9 +34,14 @@ export class TroopsComponent implements OnInit {
   defaults: IDivision[];
 
   teamSource = new SubjectSource<ITroop>(new BehaviorSubject<ITroop[]>([]));
-  get teamCount(): number { return this.teamSource.subject.value.length; }
+  get teams() { return this.teamSource.subject.value || []; }
+  get teamCount(): number { return this.teams.length; }
   displayedColumns = ['name', 'ageGroup', 'genderGroup', 'members'];
 
+  selectMode = false;
+  selection: ITroop[] = [];
+  allSelected = false;
+  allIndeterminate = false;
 
   get club() {
     return this.clubComponent.club;
@@ -57,7 +63,11 @@ export class TroopsComponent implements OnInit {
   }
 
   loadTeams() {
-    this.clubService.getTroops(this.club).subscribe(teams => this.teamSource.subject.next(teams));
+    this.clubService.getTroops(this.club).subscribe(teams => this.onTeamsReceived(teams));
+  }
+
+  onTeamsReceived(teams: ITroop[]) {
+    this.teamSource.subject.next(teams);
   }
 
   ageDivision(team: ITroop): string {
@@ -105,31 +115,79 @@ export class TroopsComponent implements OnInit {
       const promises = [];
 
       let teamCounter = this.teamCount;
-      const saveTroop = (gymnasts: IGymnast[]) => {
-        return this.clubService.saveTroop(<ITroop>{
-          name: this.club.name.split(' ')[0].toLowerCase() + '-' + ++teamCounter,
-          gymnasts: gymnasts,
-          club: this.club
-        }).toPromise();
-      }
+      const troops: ITroop[] = [];
+
+      // Create as many troops as possible from the given gymnasts
       const createTroop = (available: IGymnast[]) => {
-        let gymnasts = [];
-        for (let j = 0; j < available.length; j++) {
-          if (gymnasts.length === troopSize) {
-            promises.push(saveTroop(gymnasts));
-            gymnasts = [];
-          }
-          gymnasts.push(available[j]);
+        let troop = []; // Gymnast bucket
+        const saveTroop = (gymnasts) => {
+          troops.push(<ITroop>{
+            name: this.club.name.split(' ')[0].toLowerCase() + '-' + ++teamCounter,
+            gymnasts: gymnasts,
+            club: this.club
+          });
+          troop = []; // reset gymnast bucket
         }
+        available.forEach(member => {
+          if (troop.length === troopSize) { saveTroop(troop); }
+          troop.push(member);
+        });
         // Make sure last troop is added
-        if (gymnasts.length) { promises.push(saveTroop(gymnasts)); }
+        if (troop.length) { saveTroop(troop); }
       }
 
       // Generate gender troops, sorted by age
-      createTroop(members.filter(g => g.gender === Gender.Female));
-      createTroop(members.filter(g => g.gender === Gender.Male));
-      createTroop(members);
-      Promise.all(promises).then(result => this.teamSource.subject.next(result));
+      this.defaults.forEach(division => {
+        const divisionMembers = members.filter(m => {
+          const age = moment().diff(moment(m.birthYear, 'YYYY'), 'years');
+          return age >= division.min && age <= division.max;
+        });
+
+        createTroop(divisionMembers.filter(g => g.gender === Gender.Female));
+        createTroop(divisionMembers.filter(g => g.gender === Gender.Male));
+        createTroop(divisionMembers);
+      });
+      console.log(troops);
+      this.clubService.saveAllTroops(this.club, troops).subscribe((teams: ITroop[]) => this.onTeamsReceived(teams));
     });
+  }
+
+  onPress($event) {
+    $event.srcEvent.preventDefault();
+    $event.srcEvent.stopPropagation();
+    this.selectMode = !this.selectMode;
+    if (this.selectMode) {
+      this.displayedColumns.unshift('selector');
+    } else {
+      this.displayedColumns.splice(this.displayedColumns.indexOf('selector'), 1);
+    }
+  }
+
+  isSelected(team: ITroop) {
+    return this.selection.findIndex(t => t.id === team.id) > -1;
+  }
+
+  selectionState() {
+    if (this.selection.length === 0) { return 0; }
+    if (this.selection.length === this.teams.length) { return 1; }
+    if (this.selection.length > 0 && this.selection.length < this.teams.length) { return 2; }
+  }
+
+  toggleSelection(team: ITroop) {
+    const index = this.selection.findIndex(t => t.id === team.id);
+    index > -1 ? this.selection.splice(index, 1) : this.selection.push(team);
+  }
+
+  toggleSelectAll() {
+    if (this.selection.length == 0 || this.selection.length < this.teams.length) {
+      // None or some selected. Select all
+      this.selection = this.teams.slice();
+    } else {
+      this.selection = [];
+    }
+  }
+
+  deleteAllTeams() {
+    this.clubService.deleteAllTroops(this.club, this.selection).subscribe(res => this.loadTeams());
   }
 }

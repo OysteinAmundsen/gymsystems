@@ -390,6 +390,36 @@ export class ClubController {
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
   }
+  /**
+   * Endpoint for removing all troops in a club
+   *
+   * **USAGE:**
+   * DELETE /clubs/:clubId/members
+   *
+   * @param {number} clubId
+   * @param {number} id
+   */
+  @Delete('/:clubId/members')
+  @UseBefore(RequireRole.get(Role.Organizer))
+  async removeAllMembers(@Param('clubId') clubId: number, @Req() req: Request): Promise<Gymnast[] | ErrorResponse> {
+    const repo = this.conn.getRepository(Gymnast);
+    const query = repo.createQueryBuilder('gymnast')
+      .where('gymnast.club = :clubId', {clubId: clubId});
+
+    const memberIds = req.query.memberId;
+    if (memberIds && memberIds.length) { query.andWhereInIds(memberIds); }
+    const members = await query.getMany();
+
+    return repo.remove(members)
+      .then(res => {
+        Log.log.info(`Removed all members for club ${clubId}`);
+        return this.getMembers(clubId);
+      })
+      .catch(err => {
+        Log.log.error(`Error removing members in club ${clubId}`, err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
+  }
 
   // Club troops
   /**
@@ -461,9 +491,10 @@ export class ClubController {
    */
   @Post('/:clubId/troop')
   @UseBefore(RequireRole.get(Role.Club))
-  saveTroops(@Param('clubId') clubId: number, @Body() troop: Troop): Promise < Troop | ErrorResponse > {
+  saveTroops(@Param('clubId') clubId: number, @Body() troop: Troop): Promise<Troop[] | ErrorResponse> {
     return this.conn.getRepository(Troop)
       .save(troop)
+      .then(res => this.getTroops(clubId))
       .catch(err => {
         Log.log.error(`Error creating teams in club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
@@ -485,6 +516,37 @@ export class ClubController {
     const repo = this.conn.getRepository(Troop);
     const troop = await repo.findOneById(id);
     return repo.remove(troop)
+      .catch(err => {
+        Log.log.error(`Error removing teams in club ${clubId}`, err);
+        return Promise.resolve(new ErrorResponse(err.code, err.message));
+      });
+  }
+
+  /**
+   * Endpoint for removing all troops in a club
+   *
+   * **USAGE:**
+   * DELETE /clubs/:clubId/troop
+   *
+   * @param {number} clubId
+   * @param {number} id
+   */
+  @Delete('/:clubId/troop')
+  @UseBefore(RequireRole.get(Role.Organizer))
+  async removeAllTroops(@Param('clubId') clubId: number, @Req() req: Request): Promise<Troop[] | ErrorResponse> {
+    const repo = this.conn.getRepository(Troop);
+    const query = repo.createQueryBuilder('troop')
+      .where('troop.club = :clubId', {clubId: clubId});
+
+    const troopId = req.query.troopId;
+    if (troopId && troopId.length) { query.andWhereInIds(troopId); }
+    const troops = await query.getMany();
+
+    return repo.remove(troops)
+      .then(res => {
+        Log.log.info(`Removed all troops for club ${clubId}`);
+        return this.getTroops(clubId);
+      })
       .catch(err => {
         Log.log.error(`Error removing teams in club ${clubId}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));

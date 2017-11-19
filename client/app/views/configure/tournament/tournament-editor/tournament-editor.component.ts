@@ -16,7 +16,7 @@ import { ITournament, IUser, Role, IClub, IVenue } from 'app/model';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { toUpperCaseTransformer } from 'app/shared/directives';
-import { MatDatepickerInput } from '@angular/material';
+import { MatDatepickerInput, MatAutocomplete } from '@angular/material';
 
 const Moment: any = (<any>moment).default || moment;
 
@@ -269,6 +269,14 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
   edit() {
     if (this.canEdit) { this.isEdit = true; }
+  }
+
+  tabOut(typeahead: MatAutocomplete) {
+    const active = typeahead.options.find(o => o.active);
+    if (active) {
+      active.select();
+      typeahead._emitSelectEvent(active);
+    }
   }
 
   @HostListener('window:keyup', ['$event'])

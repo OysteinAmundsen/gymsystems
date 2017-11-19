@@ -70,16 +70,17 @@ export class UserController {
    * @param credentials
    */
   @Post('/login')
-  login(@Req() req: any, @Res() res: Response, @Body() credentials: any) {
+  login( @Req() req: any, @Res() res: Response, @Body() credentials: any) {
     const passport = Container.get(auth.Passport);
     return new Promise((resolve, reject) => {
       passport.authenticate('local-login', { failWithError: true }, (err: any, user: User, info: any) => {
-        if (err) { return reject({httpCode: 401, message: err}); }
-        if (!user) { return reject({httpCode: 401, message: err || 'No user found'}); }
+        if (err) { return reject({ httpCode: 401, message: err }); }
+        if (!user) { return reject({ httpCode: 401, message: err || 'No user found' }); }
 
         req.logIn(user, async (error: any) => {
-          if (error) { return reject({httpCode: 401, message: error}); }
-          return resolve(user);
+          if (error) { return reject({ httpCode: 401, message: error }); }
+          const returnedUser = await this.me(req);
+          return resolve(returnedUser || user);
         });
       })(req, res, req.next);
     });
@@ -95,7 +96,7 @@ export class UserController {
    * @param res
    */
   @Post('/logout')
-  logout(@Req() req: Request, @Res() res: Response): null {
+  logout( @Req() req: Request, @Res() res: Response): null {
     const passport = Container.get(auth.Passport);
     req.logOut();
     return null;
@@ -114,13 +115,13 @@ export class UserController {
    */
   @Get()
   @UseBefore(RequireRole.get(Role.Organizer))
-  async all(@Req() req: Request): Promise<User[]> {
+  async all( @Req() req: Request): Promise<User[]> {
     const me = await this.me(req);
 
     const query = this.repository.createQueryBuilder('user');
     if (me.role < Role.Admin) {
       // Limit to show users in my own club only
-      query.where('user.club=:clubId', {clubId: me.club.id});
+      query.where('user.club=:clubId', { clubId: me.club.id });
     }
     return query
       .leftJoinAndSelect('user.club', 'club')
@@ -146,9 +147,9 @@ export class UserController {
 
   private getUser(userId: number, clubId?: number) {
     const query = this.repository.createQueryBuilder('user')
-      .where('user.id=:id', {id: userId});
+      .where('user.id=:id', { id: userId });
     if (clubId) { // Limit to show users in my own club only
-      query.andWhere('user.club=:clubId', {clubId: clubId});
+      query.andWhere('user.club=:clubId', { clubId: clubId });
     }
     return query
       .leftJoinAndSelect('user.club', 'club')
@@ -202,8 +203,9 @@ export class UserController {
         .then(persisted => {
           if (!Container.get(GymServer).isTest) {
             // We are not in test mode, Password is updated. Notify user by email
-            this.sendmail({ from: emailFrom, to: user.email, subject: 'Your password is changed',
-              html: _.template(messages.passwordUpdate)({name: user.name, password: setPassword}),
+            this.sendmail({
+              from: emailFrom, to: user.email, subject: 'Your password is changed',
+              html: _.template(messages.passwordUpdate)({ name: user.name, password: setPassword }),
             }, (err: any, reply: any) => {
               Log.log.debug(err && err.stack);
               Log.log.debug(reply);
@@ -271,7 +273,7 @@ export class UserController {
    * @param req
    */
   @Post('/register')
-  async selfService(@Body() user: User, @Res() res: Response, @Req() req: Request) {
+  async selfService( @Body() user: User, @Res() res: Response, @Req() req: Request) {
     // Only clubs and Organizers are allowed to use this
     // and we are in a context where we do not have a logged in user.
     // We will therefore assume lowest role `Club` if none is given.
@@ -293,21 +295,20 @@ export class UserController {
     return this.repository.save(user)
       .then(persisted => {
         const server = Container.get(GymServer);
-        if (!server.isTest) {
-          // We are not in test mode, send email confirmation on user creation and login details
-          const roleName = RoleNames.find(r => r.id === user.role);
-          this.sendmail({ from: emailFrom, to: user.email, subject: 'You are registerred',
-            html: _.template(messages.created)({
-              name: user.name,
-              password: origPass,
-              roleName: roleName.name,
-              club: user.club ? user.club.name : 'No club'
-            }),
-          }, (err: any, reply: any) => {
-            Log.log.debug(err && err.stack);
-            Log.log.debug(reply);
-          });
-        }
+        // Send email confirmation on user creation and login details
+        const roleName = RoleNames.find(r => r.id === user.role);
+        this.sendmail({
+          from: emailFrom, to: user.email, subject: 'You are registerred',
+          html: _.template(messages.created)({
+            name: user.name,
+            password: origPass,
+            roleName: roleName.name,
+            club: user.club ? user.club.name : 'No club'
+          }),
+        }, (err: any, reply: any) => {
+          Log.log.debug(err && err.stack);
+          Log.log.debug(reply);
+        });
         return persisted;
       })
       .catch(err => {

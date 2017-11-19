@@ -11,6 +11,7 @@ import { ErrorHandlerService } from 'app/services/config';
 import { IUser, Role } from 'app/model/IUser';
 import { IClub } from 'app/model/IClub';
 import { toUpperCaseTransformer } from 'app/shared/directives';
+import { MatAutocomplete } from '@angular/material';
 
 enum Type {
   Organizer = 0 + Role.Organizer, Club = 0 + Role.Club
@@ -82,5 +83,13 @@ export class RegisterComponent implements OnInit {
       ? this.translate.instant(`You are registerred! We've sent you an email with your credentials.`)
       : JSON.stringify(res), '');
     this.router.navigate(['/login']);
+  }
+
+  tabOut(typeahead: MatAutocomplete) {
+    const active = typeahead.options.find(o => o.active);
+    if (active) {
+      active.select();
+      typeahead._emitSelectEvent(active);
+    }
   }
 }

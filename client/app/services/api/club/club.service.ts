@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { IClub, IBelongsToClub, IGymnast, ITroop } from 'app/model';
@@ -61,6 +61,14 @@ export class ClubService {
     return this.http.delete(`${this.url}/${member.club.id}/members/${member.id}`);
   }
 
+  deleteAllMembers(club: IClub, members?: IGymnast[]): any {
+    let params = new HttpParams();
+    if (members) {
+      members.forEach(t => params = params.append('memberId', `${t.id}`));
+    }
+    return this.http.delete(`${this.url}/${club.id}/members`);
+  }
+
   // TROOPS API
   getTroops(club: IClub): Observable<ITroop[]> {
     return this.http.get<ITroop[]>(`${this.url}/${club.id}/troop`);
@@ -82,7 +90,19 @@ export class ClubService {
     return this.http.post<ITroop>(`${this.url}/${team.club.id}/troop`, team);
   }
 
+  saveAllTroops(club: IClub, teams: ITroop[]): Observable<ITroop[]> {
+    return this.http.post<ITroop[]>(`${this.url}/${club.id}/troop`, teams);
+  }
+
   deleteTroop(team: ITroop) {
     return this.http.delete(`${this.url}/${team.club.id}/troop/${team.id}`);
+  }
+
+  deleteAllTroops(club: IClub, troops?: ITroop[]) {
+    let params = new HttpParams();
+    if (troops) {
+      troops.forEach(t => params = params.append('troopId', `${t.id}`));
+    }
+    return this.http.delete(`${this.url}/${club.id}/troop`, {params: params});
   }
 }

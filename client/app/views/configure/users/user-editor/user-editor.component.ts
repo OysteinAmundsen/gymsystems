@@ -10,6 +10,7 @@ import { ValidationService } from 'app/services/validation';
 import { ErrorHandlerService } from 'app/services/config';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { KeyCode } from 'app/shared/KeyCodes';
+import { MatAutocomplete } from '@angular/material';
 
 @Component({
   selector: 'app-user-editor',
@@ -132,6 +133,14 @@ export class UserEditorComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  tabOut(typeahead: MatAutocomplete) {
+    const active = typeahead.options.find(o => o.active);
+    if (active) {
+      active.select();
+      typeahead._emitSelectEvent(active);
+    }
   }
 
   @HostListener('window:keyup', ['$event'])

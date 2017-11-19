@@ -21,7 +21,7 @@
     <mat-card-content>
       <div class="row">
         <mat-form-field class="col-12">
-          <input matInput formControlName="name" placeholder="{{'Name' | translate}}" [matAutocomplete]="clubTypeahead" appAutofocus>
+          <input matInput formControlName="name" placeholder="{{'Name' | translate}}" [matAutocomplete]="clubTypeahead" appAutofocus (blur)="tabOut(clubTypeahead)">
           <mat-autocomplete #clubTypeahead="matAutocomplete" (optionSelected)="setSelectedClub($event)">
             <mat-option *ngFor="let club of clubList" [value]="club">
               {{ club.name }}

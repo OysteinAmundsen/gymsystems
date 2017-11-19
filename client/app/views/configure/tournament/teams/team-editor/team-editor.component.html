@@ -13,7 +13,7 @@
       <fieldset>
         <div class="row">
           <mat-form-field class="col-5" *ngIf="!currentUser.club">
-            <input matInput formControlName="club" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead">
+            <input matInput formControlName="club" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead" (blur)="tabOut(clubTypeahead)">
             <mat-autocomplete #clubTypeahead="matAutocomplete" (optionSelected)="setSelectedClub($event)" [displayWith]="clubDisplay">
               <mat-option *ngFor="let club of clubList" [value]="club">
                 {{ club.name }}
@@ -21,7 +21,7 @@
             </mat-autocomplete>
           </mat-form-field>
           <mat-form-field [ngClass]="{'col-7': !currentUser.club, 'col-12': currentUser.club, 'help-available': teamForm.value.club != null}">
-            <input matInput formControlName="name" placeholder="{{'Name' | translate}}" [matAutocomplete]="troopTypeahead">
+            <input matInput formControlName="name" placeholder="{{'Name' | translate}}" [matAutocomplete]="troopTypeahead" (blur)="tabOut(troopTypeahead)">
             <mat-autocomplete #troopTypeahead="matAutocomplete" (optionSelected)="setSelectedTroop($event)" [displayWith]="troopDisplay">
               <mat-option *ngFor="let troop of troopList" [value]="troop">
                 {{ troop.name }}

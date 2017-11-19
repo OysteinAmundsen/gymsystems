@@ -33,7 +33,17 @@ export class ListComponent implements OnInit, OnDestroy {
   selected: ITeamInDiscipline;
   classes = Classes;
   types = ParticipationType;
-  showTraining = true;
+  _showTraining;
+  get showTraining() {
+    if (this._showTraining === undefined) {
+      this._showTraining = localStorage.getItem('showTraining') != "false";
+    }
+    return this._showTraining;
+  }
+  set showTraining(v) {
+    localStorage.setItem('showTraining', v);
+    this._showTraining = v;
+  }
 
   _cache: {[key: string]: ParticipantCache} = {};
 
@@ -81,7 +91,7 @@ export class ListComponent implements OnInit, OnDestroy {
         });
         this.userSubscription = this.userService.getMe().subscribe(user => {
           this.user = user;
-          this.showTraining = !!this.user;
+          // this.showTraining = !!this.user;
         });
         this.loadSchedule();
       }

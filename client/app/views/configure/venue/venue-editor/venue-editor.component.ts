@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { VenueService } from 'app/services/api';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { ValidationService } from 'app/services/validation';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 
 @Component({
   selector: 'app-venue-editor',
@@ -112,6 +112,14 @@ export class VenueEditorComponent implements OnInit {
 
   delete() {
     this.venueService.delete(this.venueForm.value).subscribe(res => this.cancel);
+  }
+
+  tabOut(typeahead: MatAutocomplete) {
+    const active = typeahead.options.find(o => o.active);
+    if (active) {
+      active.select();
+      typeahead._emitSelectEvent(active);
+    }
   }
 
   @HostListener('window:keyup', ['$event'])

@@ -36,7 +36,7 @@
           </app-help-block>
         </mat-form-field>
         <mat-form-field class="col-5 help-available">
-          <input matInput formControlName="club" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead">
+          <input matInput formControlName="club" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead" (blur)="tabOut(clubTypeahead)">
           <mat-autocomplete #clubTypeahead="matAutocomplete" [displayWith]="clubDisplay">
             <mat-option *ngFor="let club of clubList" [value]="club">
               {{ club.name }}

@@ -43,7 +43,7 @@
         <mat-list-item *ngFor="let tournament of type.tournaments" class="flex" [routerLink]="['/event', tournament.id, 'results']">
           <div class="flex">
             <span class="flex-col">{{ tournament.name }}</span>
-            <span>{{ tournament.startDate | date: 'dMy' }}</span>
+            <span>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</span>
           </div>
         </mat-list-item>
       </ng-container>

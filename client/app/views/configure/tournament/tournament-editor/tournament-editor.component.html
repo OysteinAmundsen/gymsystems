@@ -25,11 +25,11 @@
     </tr>
     <tr>
       <th translate>Start date</th>
-      <td>{{ tournament.startDate | date:'dMy' }}</td>
+      <td>{{ tournament.startDate | date:'dd.MM.yyyy' }}</td>
     </tr>
     <tr>
       <th translate>End date</th>
-      <td>{{ tournament.endDate | date:'dMy' }}</td>
+      <td>{{ tournament.endDate | date:'dd.MM.yyyy' }}</td>
     </tr>
     <tr>
       <th *ngIf="tournament.venue" translate>Location</th>
@@ -49,7 +49,7 @@
       <fieldset>
         <div class="row">
           <mat-form-field class="col-5 help-available" *appIfAuth="'Admin'">
-            <input matInput formControlName="club" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead">
+            <input matInput formControlName="club" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead" (blur)="tabOut(clubTypeahead)">
             <mat-autocomplete #clubTypeahead="matAutocomplete" [displayWith]="clubDisplay">
               <mat-option *ngFor="let club of clubList" [value]="club">
                 {{ club.name }}
@@ -85,7 +85,7 @@
             </app-help-block>
           </mat-form-field>
           <mat-form-field class="col-xs-4 help-available">
-            <input matInput formControlName="venue" placeholder="{{'Location' | translate}}" [matAutocomplete]="venueTypeahead">
+            <input matInput formControlName="venue" placeholder="{{'Location' | translate}}" [matAutocomplete]="venueTypeahead" (blur)="tabOut(venueTypeahead)">
             <mat-autocomplete #venueTypeahead="matAutocomplete" [displayWith]="venueDisplay">
               <mat-option *ngFor="let venue of venueList" [value]="venue">
                 {{ venue.name }}

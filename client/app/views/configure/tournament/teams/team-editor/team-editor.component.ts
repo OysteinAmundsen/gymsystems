@@ -18,7 +18,7 @@ import { TournamentEditorComponent } from '../../tournament-editor/tournament-ed
 import { KeyCode } from 'app/shared/KeyCodes';
 import { TeamsComponent } from 'app/views/configure/tournament/teams/teams.component';
 import { toUpperCaseTransformer } from 'app/shared/directives';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -106,8 +106,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       media          : [this.team.media]
     });
 
-    const clubCtrl = this.teamForm.controls['club'];
-    const nameCtrl = this.teamForm.controls['name'];
+    const clubCtrl = this.teamForm.get('club');
+    const nameCtrl = this.teamForm.get('name');
 
     // Club typeahead
     clubCtrl.valueChanges
@@ -132,7 +132,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       });
 
     // Select all disciplines if TeamGym is chosen
-    this.teamForm.controls['class']
+    this.teamForm.get('class')
       .valueChanges
       .distinctUntilChanged()
       .subscribe((c: Classes) => setTimeout(() => this.classChanged()));
@@ -170,11 +170,13 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   setSelectedClub(v: MatAutocompleteSelectedEvent) {
     if (this.teamForm) {
-      this.teamForm.controls['gymnasts'].setValue([]);
+      this.teamForm.get('club').setValue(v.option.value);
+      this.teamForm.get('gymnasts').setValue([]);
     }
   }
 
   setSelectedTroop(v: MatAutocompleteSelectedEvent) {
+    this.teamForm.get('name').setValue(v.option.value);
     const troop = v.option.value;
 
     // Copy all values over from troop blueprint
@@ -189,7 +191,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     } else { // Find mix division
       division = this.genderDivisions.find(d => d.name === 'Mix');
     }
-    this.teamForm.controls['genderDivision'].setValue(division ? division.id : null);
+    this.teamForm.get('genderDivision').setValue(division ? division.id : null);
 
     // Apply age division
     const age = (birthYear) => moment().diff(moment(birthYear, 'YYYY'), 'years');
@@ -199,11 +201,11 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     division = this.divisions.find(k => maxAge <= k.max && minAge >= k.min);
     // if (divisionMatch) {
       // division = this.ageDivisions.find(d => d.name === _.startCase(divisionMatch.name));
-    this.teamForm.controls['ageDivision'].setValue(division ? division.id : null);
+    this.teamForm.get('ageDivision').setValue(division ? division.id : null);
     // }
 
     // Set gymnasts
-    this.teamForm.controls['gymnasts'].setValue(troop.gymnasts);
+    this.teamForm.get('gymnasts').setValue(troop.gymnasts);
   }
 
   forbiddenNameValidator(): ValidatorFn {
@@ -359,6 +361,14 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         const disciplineId = el.attributes.getNamedItem('data').nodeValue;
         el.checked = this.teamForm.value.disciplines.findIndex(dis => dis.id === +disciplineId) > -1;
       });
+    }
+  }
+
+  tabOut(typeahead: MatAutocomplete) {
+    const active = typeahead.options.find(o => o.active);
+    if (active) {
+      active.select();
+      typeahead._emitSelectEvent(active);
     }
   }
 

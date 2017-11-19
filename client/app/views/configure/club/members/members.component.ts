@@ -40,6 +40,11 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
+  selectMode = false;
+  selection: IGymnast[] = [];
+  allSelected = false;
+  allIndeterminate = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -70,7 +75,10 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   loadMembers() {
-    this.clubService.getMembers(this.club).subscribe(members => this.memberSource.sortData(this.memberState.sort, members));
+    this.clubService.getMembers(this.club).subscribe(members => this.onMembersReceived(members));
+  }
+  onMembersReceived(members: IGymnast[]) {
+    this.memberSource.sortData(this.memberState.sort, members);
   }
 
   genderDivision(member: IGymnast) {
@@ -94,10 +102,51 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   importMember($event) {
     const fileList: FileList = (<HTMLInputElement>event.target).files;
-    this.clubService.importMembers(fileList[0], this.club).subscribe(
-      data => this.loadMembers(),
-      error => Logger.error(error)
-    )
+    if (fileList.length) {
+      this.clubService.importMembers(fileList[0], this.club).subscribe(
+        data => this.loadMembers(),
+        error => Logger.error(error)
+      )
+    }
+  }
+
+  onPress($event) {
+    $event.srcEvent.preventDefault();
+    $event.srcEvent.stopPropagation();
+    this.selectMode = !this.selectMode;
+    if (this.selectMode) {
+      this.displayedColumns.unshift('selector');
+    } else {
+      this.displayedColumns.splice(this.displayedColumns.indexOf('selector'), 1);
+    }
+  }
+
+  isSelected(team: IGymnast) {
+    return this.selection.findIndex(t => t.id === team.id) > -1;
+  }
+
+  selectionState() {
+    if (this.selection.length === 0) { return 0; }
+    if (this.selection.length === this.memberList.length) { return 1; }
+    if (this.selection.length > 0 && this.selection.length < this.memberList.length) { return 2; }
+  }
+
+  toggleSelection(team: IGymnast) {
+    const index = this.selection.findIndex(t => t.id === team.id);
+    index > -1 ? this.selection.splice(index, 1) : this.selection.push(team);
+  }
+
+  toggleSelectAll() {
+    if (this.selection.length == 0 || this.selection.length < this.memberList.length) {
+      // None or some selected. Select all
+      this.selection = this.memberList.slice();
+    } else {
+      this.selection = [];
+    }
+  }
+
+  deleteAllTeams() {
+    this.clubService.deleteAllMembers(this.club, this.selection).subscribe(res => this.loadMembers());
   }
 
   @HostListener('window:keyup', ['$event'])

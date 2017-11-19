@@ -10,15 +10,15 @@
   </ng-container>
   <ng-container matColumnDef="startDate">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Start date' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let tournament">{{ tournament.startDate | date:'dMy' }}</mat-cell>
+    <mat-cell *matCellDef="let tournament">{{ tournament.startDate | date:'dd.MM.yyyy' }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="endDate">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'End date' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let tournament">{{ tournament.endDate | date:'dMy' }}</mat-cell>
+    <mat-cell *matCellDef="let tournament">{{ tournament.endDate | date:'dd.MM.yyyy' }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="venueName">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Location' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let tournament">{{ tournament.venue.name }}</mat-cell>
+    <mat-cell *matCellDef="let tournament">{{ tournament.venue?.name }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="clubName">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Organized by' | translate}}</mat-header-cell>

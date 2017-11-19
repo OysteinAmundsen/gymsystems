@@ -12,7 +12,7 @@ import { KeyCode } from 'app/shared/KeyCodes';
 import { ClubService, UserService } from 'app/services/api';
 import { IUser, Role, IClub } from 'app/model';
 import { toUpperCaseTransformer } from 'app/shared/directives';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 
 @Component({
   selector: 'app-club-editor',
@@ -132,6 +132,14 @@ export class ClubEditorComponent implements OnInit {
   edit() {
     if (this.user && (this.user.role >= Role.Admin || this.club.id === this.user.club.id)) {
       this.isEdit = true;
+    }
+  }
+
+  tabOut(typeahead: MatAutocomplete) {
+    const active = typeahead.options.find(o => o.active);
+    if (active) {
+      active.select();
+      typeahead._emitSelectEvent(active);
     }
   }
 

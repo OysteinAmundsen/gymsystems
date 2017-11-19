@@ -15,6 +15,8 @@ import {
   MatCardModule, MatSnackBarModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule,
   MatOptionModule, MatSlideToggleModule, MatButtonModule, MatDialogModule, MatListModule
 } from '@angular/material';
+import 'hammerjs';
+import 'hammer-timejs';
 
 // Locale
 import { registerLocaleData } from '@angular/common';
