@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Title, Meta } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/Rx';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Moment } from 'moment';
 import * as moment from 'moment';

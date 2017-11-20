@@ -1,7 +1,8 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
-import { Subscription, BehaviorSubject } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { ClubService, UserService } from 'app/services/api';
 import { IClub, IUser, Role } from 'app/model';

@@ -1,6 +1,6 @@
-import { Observer } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 import { Logger } from 'app/services';
 
 type Callback = (data: any) => void;

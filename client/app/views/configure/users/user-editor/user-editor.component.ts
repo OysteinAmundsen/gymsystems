@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Rx';
+import { Observable} from 'rxjs/Observable';
 
 import { UserService, ClubService } from 'app/services/api';
 import { IUser, RoleNames, Role, IClub } from 'app/model';

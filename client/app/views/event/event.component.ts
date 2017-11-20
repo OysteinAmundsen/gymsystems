@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, ReplaySubject } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { TournamentService } from 'app/services/api';
 import { ITournament } from 'app/model';
 
