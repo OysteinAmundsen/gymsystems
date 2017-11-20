@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Rx';
 
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { ITournament, ITeamInDiscipline, IUser, Classes, ParticipationType } from 'app/model';

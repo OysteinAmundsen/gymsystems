@@ -15,8 +15,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material';
 
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
 

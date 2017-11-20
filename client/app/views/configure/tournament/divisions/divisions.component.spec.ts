@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { ReplaySubject } from 'rxjs/Rx';
 
 import { AppModuleTest } from 'app/app.module.spec';
 import { DivisionsModule } from './divisions.module';

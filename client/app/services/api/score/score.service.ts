@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { IScore, ITeamInDiscipline } from 'app/model';
 import { Helper } from '../Helper';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class ScoreService {
