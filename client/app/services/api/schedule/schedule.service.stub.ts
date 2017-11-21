@@ -14,7 +14,7 @@ import { defaultScoreGroups } from '../scoregroup/scoregroup.service.stub';
 import { dummyTournament } from '../tournament/tournament.service.stub';
 import { dummyTeam } from '../teams/teams.service.stub';
 
-function generateParticipants(amount: number): ITeamInDiscipline[] {
+export function generateParticipants(amount: number): ITeamInDiscipline[] {
   return Array(amount).fill(0).map((s, i) => {
     return <ITeamInDiscipline>{
       id: i,
