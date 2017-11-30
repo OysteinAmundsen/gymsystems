@@ -47,7 +47,7 @@ export class TeamInDiscipline {
   /**
    *
    */
-  @Column()
+  @Column({default: false})
   markDeleted: boolean;
 
   /**
