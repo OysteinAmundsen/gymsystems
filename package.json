@@ -64,7 +64,7 @@
     "@angular/platform-browser": "^5.0.3",
     "@angular/platform-browser-dynamic": "^5.0.3",
     "@angular/router": "^5.0.3",
-    "@angular/service-worker": ">= 1.0.0-beta.5 < 2.0.0",
+    "@angular/service-worker": ">=5.0.4",
     "@ngx-translate/core": "^9.0.1",
     "@ngx-translate/http-loader": "2.0.0",
     "angulartics2": "^4.2.0",
