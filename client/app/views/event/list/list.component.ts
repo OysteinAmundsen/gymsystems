@@ -207,7 +207,7 @@ export class ListComponent implements OnInit, OnDestroy {
   canStart(participant: ITeamInDiscipline, index: number) {
     if (participant.markDeleted) { return false; }
     let previous;
-    for (let j = index - 1; j > 0; j--) {
+    for (let j = index - 1; j >= 0; j--) {
       if (!this.schedule[j].markDeleted) {
         previous = this.schedule[j];
         break;

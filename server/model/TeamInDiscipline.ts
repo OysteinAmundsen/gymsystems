@@ -4,6 +4,7 @@ import { Team, Classes } from './Team';
 import { Discipline } from './Discipline';
 import { Score } from './Score';
 import { Division, DivisionType } from './Division';
+import { Operation } from './ScoreGroup';
 
 /**
  * Defines if this entry should be a part of the competitive
@@ -122,8 +123,13 @@ export class TeamInDiscipline {
    */
   get total(): number {
     return this.discipline.scoreGroups.reduce((prev, curr) => {
+      const add = (prev, num) => {prev += num; return prev; }
+      const sub = (prev, num) => {prev -= num; return prev; }
+      const isAdd = (score) => score.scoreGroup.operation === Operation.Addition;
       const scores = this.scores.filter(s => s.scoreGroup.id === curr.id);
-      return prev += scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0;
+      return prev += scores.length
+        ? scores.reduce((p: number, score: Score) => isAdd(score) ? add(p, score.value) : sub(p, score.value), 0) / scores.length
+        : 0
     }, 0);
   }
 }

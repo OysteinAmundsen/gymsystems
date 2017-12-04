@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { IScore, ITeamInDiscipline } from 'app/model';
+import { IScore, ITeamInDiscipline, Operation } from 'app/model';
 import { Helper } from '../Helper';
 import { Observable } from 'rxjs/Rx';
 
@@ -29,12 +29,18 @@ export class ScoreService {
 
   calculateTeamTotal(participants: ITeamInDiscipline[]) {
     if (!participants || !participants.length) { return 0; }
-    return participants.reduce((prev, curr) => prev += this.calculateTotal(curr), 0) / participants.length;
+    return participants.reduce((prev, curr) => prev += this.calculateTotal(curr), 0);
   }
 
   calculateScoreGroupTotal(participant: ITeamInDiscipline, type: string) {
+    const add = (prev, num) => {prev += num; return prev; }
+    const sub = (prev, num) => {prev -= num; return prev; }
+    const isAdd = (score) => score.scoreGroup.operation === Operation.Addition;
     const scores = participant.scores.filter(s => type.indexOf(s.scoreGroup.type) > -1);
-    return this.fixScore(scores.length ? scores.reduce((p, c) => p += c.value, 0) / scores.length : 0);
+    return this.fixScore(scores.length
+      ? scores.reduce((prev: number, score: IScore) => isAdd(score) ? add(prev, score.value) : sub(prev, score.value), 0) / scores.length
+      : 0
+    );
   }
 
   // Calculate final score
