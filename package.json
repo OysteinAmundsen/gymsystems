@@ -63,7 +63,7 @@
     "@angular/material": "5.0.0-rc.2",
     "@angular/platform-browser": "5.0.4",
     "@angular/platform-browser-dynamic": "5.0.4",
-    "@angular/router": "5.0.4",
+    "@angular/router": "5.1.0",
     "@angular/service-worker": ">= 1.0.0-beta.5 < 2.0.0",
     "@ngx-translate/core": "^9.0.1",
     "@ngx-translate/http-loader": "2.0.0",
