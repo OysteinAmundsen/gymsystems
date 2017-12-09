@@ -55,6 +55,7 @@ import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.se
 import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 import { EventServiceStub } from 'app/services/api/event/event.service.stub';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from 'environments/environment.prod';
 
 @NgModule({
   imports: [
@@ -92,7 +93,7 @@ export class TranslateModuleTest { }
     TranslateModuleTest,
     MarkdownToHtmlModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-    ServiceWorkerModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
 
     MatSnackBarModule,
     MatCardModule,
