@@ -15,7 +15,7 @@ import { ErrorResponse } from '../utils/ErrorResponse';
 export function validateClub(obj: BelongsToClub, oldObj?: BelongsToClub, req?: Request, noCreate = false): Promise<string> {
   return new Promise(async (resolve, reject) => {
     const clubRepository = Container.get(ClubController);
-    const me = await Container.get(UserController).me(req);
+    const me = await Container.get(UserController).getMe(req);
     let clubChanged = false;
 
     if (!obj.club) {

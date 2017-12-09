@@ -128,7 +128,7 @@ export class VenueController {
    */
   @Post()
   async create( @Body() venue: Venue | Venue[], @Req() req: Request, @Res() res: Response) {
-    const me = await Container.get(UserController).me(req);
+    const me = await Container.get(UserController).getMe(req);
     const venues = Array.isArray(venue) ? venue : [venue];
     venues.forEach(v => v.createdBy = me);
     return this.repository.save(venues);

@@ -16,6 +16,7 @@ import { TeamInDiscipline } from '../model/TeamInDiscipline';
 import { Role } from '../model/User';
 import { TournamentController } from './TournamentController';
 import { ErrorResponse } from '../utils/ErrorResponse';
+import { ScoreController } from './ScoreController';
 
 /**
  * RESTful controller for all things related to `TeamInDiscipline`, which effectively
@@ -270,21 +271,32 @@ export class ScheduleController {
   @OnUndefined(200)
   @UseBefore(RequireRole.get(Role.Organizer))
   async removeAllFromTournament( @Param('id') tournamentId: number, @Res() res: Response, @Req() req: Request) {
+    // Remove potential scores
+    const schedule = await this.getByTournament(tournamentId);
+    return this.removeMany(schedule, res, req);
+  }
+
+  async removeAllFromDiscipline(disciplineId: number) {
     const participants = await this.repository.createQueryBuilder('participant')
       .innerJoinAndSelect('participant.tournament', 'tournament')
       .leftJoinAndSelect('tournament.createdBy', 'user')
       .leftJoinAndSelect('tournament.club', 'club')
-      .where('participant.tournament=:id', { id: tournamentId })
+      .where('participant.discipline=:id', { id: disciplineId })
       .getMany();
-    return this.removeMany(participants, res, req);
+    return this.removeMany(participants, null, null, true);
   }
 
-  async removeMany(participants: TeamInDiscipline[], res: Response, req: Request) {
-    const sameClub = await isAllSameClubAsMe(participants.map(p => p.tournament), req);
-    if (!sameClub) {
-      res.status(403);
-      return new ErrorResponse(403, 'You are not authorized to remove participants from a tournament not run by your club.');
+  async removeMany(participants: TeamInDiscipline[], res?: Response, req?: Request, force = false) {
+    if (!force) {
+      const sameClub = await isAllSameClubAsMe(participants.map(p => p.tournament), req);
+      if (!sameClub) {
+        res.status(403);
+        return new ErrorResponse(403, 'You are not authorized to remove participants from a tournament not run by your club.');
+      }
     }
+    const scoreCtrl = Container.get(ScoreController);
+    participants.forEach(s => scoreCtrl.removeFromParticipant(s.id, res, req));
+
     return this.repository.remove(participants)
       .catch(err => {
         Log.log.error(`Error removing participants in schedule`, err);

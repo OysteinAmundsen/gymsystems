@@ -79,7 +79,7 @@ export class UserController {
 
         req.logIn(user, async (error: any) => {
           if (error) { return reject({ httpCode: 401, message: error }); }
-          const returnedUser = await this.me(req);
+          const returnedUser = await this.getMe(req);
           return resolve(returnedUser || user);
         });
       })(req, res, req.next);
@@ -115,8 +115,8 @@ export class UserController {
    */
   @Get()
   @UseBefore(RequireRole.get(Role.Organizer))
-  async all( @Req() req: Request): Promise<User[]> {
-    const me = await this.me(req);
+  async all( @Req() req: Request, @Res() res: Response): Promise<User[]> {
+    const me = await this.getMe(req);
 
     const query = this.repository.createQueryBuilder('user');
     if (me.role < Role.Admin) {
@@ -138,11 +138,15 @@ export class UserController {
    */
   @Get('/me')
   @OnUndefined(204)
-  me( @Req() req: any): Promise<User> {
+  async me( @Req() req: Request, @Res() res: Response) {
+    return res.status(200).contentType("application/json").send(await this.getMe(req));
+  }
+
+  getMe(req: Request): Promise<User> {
     if (req.session && req.session.passport && req.session.passport.user) {
       return this.getUser(req.session.passport.user.id);
     }
-    return null;
+    return Promise.resolve(null);
   }
 
   private getUser(userId: number, clubId?: number) {
@@ -169,7 +173,7 @@ export class UserController {
   @UseBefore(RequireAuth)
   @OnUndefined(404)
   async get( @Param('id') userId: number, @Req() req: Request): Promise<User> {
-    const me = await this.me(req);
+    const me = await this.getMe(req);
 
     // Limit to show users in my own club only
     const clubId = (me.role < Role.Admin) ? me.club.id : null;
@@ -190,7 +194,7 @@ export class UserController {
   @Put('/:id')
   @UseBefore(RequireAuth)
   async update( @Param('id') id: number, @Body() user: User, @Res() res: Response, @Req() req: Request) {
-    const me = await this.me(req);
+    const me = await this.getMe(req);
     const oldUser = await this.getUser(id);
     const msg = await validateClub(user, oldUser, req);
     if (msg && me.role < Role.Admin) { res.status(403); return new ErrorResponse(403, msg); }
@@ -252,7 +256,7 @@ export class UserController {
     const userCopy = JSON.parse(JSON.stringify(user));
 
     // Validate user role
-    const me = await this.me(req);
+    const me = await this.getMe(req);
     if (user.role > me.role && me.role < Role.Admin) {
       res.status(403);
       return new ErrorResponse(403, 'Your are not authorized to create users with higher privileges than your own.');

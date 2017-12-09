@@ -116,7 +116,7 @@ export class ScoreController {
     const scheduleRepository = Container.get(ScheduleController);
     const sseService = Container.get(SSEController);
     const userService = Container.get(UserController);
-    const me = await userService.me(req);
+    const me = await userService.getMe(req);
     const p = await scheduleRepository.getParticipantPlain(participantId);
 
     const sameClub = await isSameClubAsMe(p.tournament, req);
@@ -159,7 +159,7 @@ export class ScoreController {
     const scheduleRepository = Container.get(ScheduleController);
     const sseService = Container.get(SSEController);
     const userService = Container.get(UserController);
-    const me = await userService.me(req);
+    const me = await userService.getMe(req);
     const p = await scheduleRepository.getParticipantPlain(participantId);
 
     const sameClub = await isSameClubAsMe(p.tournament, req);

@@ -27,6 +27,8 @@ import { Role } from '../model/User';
 import { isCreatedByMe } from '../validators/CreatedByValidator';
 import { ErrorResponse } from '../utils/ErrorResponse';
 import { validateClub } from '../validators/ClubValidator';
+import { ScoreController } from './ScoreController';
+import { ScheduleController } from './ScheduleController';
 
 /**
  * RESTful controller for all things related to `Tournament`s.
@@ -212,7 +214,7 @@ export class TournamentController {
     const msg = await validateClub(tournament, null, req);
     if (msg) { res.status(403); return new ErrorResponse(403, msg); }
 
-    const me = await Container.get(UserController).me(req);
+    const me = await Container.get(UserController).getMe(req);
     tournament.createdBy = me;
 
     return this.repository.save(tournament)
@@ -282,13 +284,8 @@ export class TournamentController {
     // Remove media
     await Container.get(MediaController).removeArchive(tournamentId);
 
-    // Remove participants
-    const participantRepository = this.conn.getRepository(TeamInDiscipline);
-    const participants = await participantRepository
-      .createQueryBuilder('participant')
-      .where('participant.tournament = :id', {id: tournament.id} )
-      .getMany();
-    await participantRepository.remove(participants);
+    // Remove schedule
+    await Container.get(ScheduleController).removeAllFromTournament(tournamentId, res, req);
 
     // Remove divisions
     const divisionRepository = Container.get(DivisionController);

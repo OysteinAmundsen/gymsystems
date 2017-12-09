@@ -108,6 +108,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
     const clubCtrl = this.teamForm.get('club');
     const nameCtrl = this.teamForm.get('name');
+    const ageCtrl = this.teamForm.get('ageDivision');
+    const genderCtrl = this.teamForm.get('genderDivision');
 
     // Club typeahead
     clubCtrl.valueChanges
@@ -130,6 +132,16 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
           })
         }
       });
+
+    // Filter available gymnasts by age
+    // ageCtrl.valueChanges
+    //   .distinctUntilChanged()
+    //   .subscribe(v => this.teamForm.get('gymnasts').setValue(troop.gymnasts);)
+
+    // Filter available gymnasts by gender
+    // genderCtrl.valueChanges
+    //   .distinctUntilChanged()
+    //   .subscribe(v => this.teamForm.get('gymnasts').setValue(troop.gymnasts);)
 
     // Select all disciplines if TeamGym is chosen
     this.teamForm.get('class')

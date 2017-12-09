@@ -16,6 +16,7 @@ import { ScoreGroup } from '../model/ScoreGroup';
 import { Role } from '../model/User';
 import { MediaController } from './MediaController';
 import { ErrorResponse } from '../utils/ErrorResponse';
+import { ScheduleController } from './ScheduleController';
 
 /**
  * RESTful controller for all things related to `Discipline`s.
@@ -86,6 +87,7 @@ export class DisciplineController {
     return this.repository.createQueryBuilder('discipline')
       .where('discipline.id=:id', { id: id })
       .innerJoinAndSelect('discipline.tournament', 'tournament')
+      .leftJoinAndSelect('discipline.teams', 'teams')
       // .leftJoinAndSelect('discipline.scoreGroups', 'score_group')
       .getOne();
   }
@@ -140,7 +142,7 @@ export class DisciplineController {
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') disciplineId: number) {
-    const discipline = await this.repository.findOneById(disciplineId);
+    const discipline = await this.get(disciplineId);
     return this.removeMany([discipline])
       .catch(err => {
         Log.log.error(`Error removing discipline ${disciplineId}`, err);
@@ -159,15 +161,19 @@ export class DisciplineController {
   async removeMany(disciplines: Discipline[]) {
     const scoreGroupRepository = Container.get(ScoreGroupController);
     const mediaRepository = Container.get(MediaController);
-    const promises = [];
-    for (let d = 0; d < disciplines.length; d++) {
-      const scoreGroups = await scoreGroupRepository.getByDiscipline(disciplines[d].id);
-      promises.push(scoreGroupRepository.removeMany(scoreGroups));
+    const scheduleRepository = Container.get(ScheduleController);
+    const promises: Promise<any>[] = [];
+    if (!disciplines || !disciplines.length) { return Promise.resolve(true); }
+    disciplines.forEach(discipline => {
+      // Remove potential scores for this discipline
+      promises.push(scoreGroupRepository.getByDiscipline(discipline.id).then(scoreGroups => scoreGroupRepository.removeMany(scoreGroups)));
 
-      for (let t = 0; t < disciplines[d].teams.length; t++) {
-        promises.push(mediaRepository.removeMediaInternal(disciplines[d].teams[t].id));
-      }
-    }
+      // Remove media for this discipline
+      discipline.teams.forEach(team => promises.push(mediaRepository.removeMediaInternal(team.id)));
+
+      // Remove participants in this discipline from schedule
+      promises.push(scheduleRepository.removeAllFromDiscipline(discipline.id));
+    });
     return Promise.all(promises).then(() => this.repository.remove(disciplines.map(d => {
       delete d.teams;
       delete d.tournament;

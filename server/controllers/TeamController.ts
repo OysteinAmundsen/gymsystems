@@ -92,7 +92,7 @@ export class TeamController {
   @OnUndefined(404)
   async getByMyTournament( @Param('id') id: number, @Req() req: Request, @Res() res: Response): Promise<Team[]> {
     const userRepository = Container.get(UserController);
-    const user: User = await userRepository.me(req);
+    const user: User = await userRepository.getMe(req);
     return this.getTournament(id, user)
   }
 
