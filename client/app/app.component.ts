@@ -12,6 +12,7 @@ import { UserService } from './services/api';
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
 import { Logger } from './services/Logger';
 import { HelpBlockComponent } from 'app/shared/components';
+import { SwUpdate } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -43,7 +44,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
     private errorHandler: ErrorHandlerService,
     private router: Router,
     private angulartics2: Angulartics2,
-    private angulartics: Angulartics2GoogleAnalytics
+    private angulartics: Angulartics2GoogleAnalytics,
+    private updates: SwUpdate
   ) {
     // Identify dev mode
     if (!environment.production) {
@@ -60,6 +62,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
 
     // For debugging routes (only visible in dev mode)
     this.router.events.subscribe(event => Logger.debug(event));
+
+    // updates.available.subscribe(event => {
+    //   if (promptUser(event)) {
+    //     updates.activateUpdate().then(() => document.location.reload());
+    //   }
+    // });
   }
 
   ngOnInit(): void {

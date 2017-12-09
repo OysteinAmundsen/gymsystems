@@ -123,9 +123,9 @@ export class TeamInDiscipline {
    */
   get total(): number {
     return this.discipline.scoreGroups.reduce((prev, curr) => {
-      const add = (prev, num) => {prev += num; return prev; }
-      const sub = (prev, num) => {prev -= num; return prev; }
-      const isAdd = (score) => score.scoreGroup.operation === Operation.Addition;
+      const add = (prev: number, num: number) => {prev += num; return prev; }
+      const sub = (prev: number, num: number) => {prev -= num; return prev; }
+      const isAdd = (score: Score) => score.scoreGroup.operation === Operation.Addition;
       const scores = this.scores.filter(s => s.scoreGroup.id === curr.id);
       return prev += scores.length
         ? scores.reduce((p: number, score: Score) => isAdd(score) ? add(p, score.value) : sub(p, score.value), 0) / scores.length
