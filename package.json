@@ -151,7 +151,7 @@
     "npm-scripts-help": "~0.7.0",
     "protractor": "~5.2.1",
     "snyk": "^1.54.1",
-    "ts-node": "~3.3.0",
+    "ts-node": "~4.0.0",
     "tslint": "~5.8.0",
     "typescript": ">=2.4.2 <2.5.0",
     "wait-on": "^2.0.2"
