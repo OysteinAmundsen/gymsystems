@@ -106,7 +106,7 @@
     "serve-favicon": "~2.4.5",
     "session-memory-store": "^0.2.2",
     "typedi": "0.6.0",
-    "typeorm": "0.1.7",
+    "typeorm": "0.1.8",
     "winston": "~2.4.0",
     "zone.js": "0.8.18"
   },
