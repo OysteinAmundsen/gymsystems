@@ -55,7 +55,7 @@
     "@agm/core": "1.0.0-beta.2",
     "@angular/animations": "5.1.0",
     "@angular/cdk": "5.0.0",
-    "@angular/common": "5.1.0",
+    "@angular/common": "5.1.1",
     "@angular/compiler": "5.1.0",
     "@angular/core": "5.1.0",
     "@angular/forms": "5.1.0",
