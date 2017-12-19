@@ -14,7 +14,7 @@
     </h3>
     <ul [dragula]="'member-bag'" class="available">
       <li [ngClass]="{'memberBox': true, 'male': member.gender == genders.Male, 'female': member.gender == genders.Female}"
-          *ngFor="let member of availableMembers">
+          *ngFor="let member of filteredMembers">
         <span>{{ member.name }}</span>
         <small>{{ age(member.birthYear) }}</small>
       </li>
@@ -26,7 +26,7 @@
     <div class="help-available flex">
       <h3 class="flex-col">
         <i class="fa fa-fw fa-group"></i>
-        <span translate>Gymnasts in</span> <span>{{ troopName }}</span> <span>({{ gymnasts.length }})</span>
+        <span translate>Gymnasts</span> <span>({{ gymnasts.length }})</span>
       </h3>
       <ng-content></ng-content>
       <app-help-block *ngIf="availableMembers && availableMembers.length > 0">

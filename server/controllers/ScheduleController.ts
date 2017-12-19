@@ -69,7 +69,7 @@ export class ScheduleController {
   getByTournament( @Param('id') id: number): Promise<TeamInDiscipline[]> {
     return this.repository.createQueryBuilder('participant')
       .where('participant.tournament=:id', { id: id })
-      .innerJoinAndSelect('participant.tournament', 'tournament')
+      // .innerJoinAndSelect('participant.tournament', 'tournament')
       .leftJoinAndSelect('participant.discipline', 'discipline')
       .leftJoinAndSelect('participant.team', 'team')
       .leftJoinAndSelect('participant.scores', 'scores')
@@ -78,7 +78,7 @@ export class ScheduleController {
       .leftJoinAndSelect('media.discipline', 'media_discipline')
       .leftJoinAndSelect('media.team', 'media_team')
       .leftJoinAndSelect('team.divisions', 'division')
-      .leftJoinAndSelect('scores.scoreGroup', 'scoresScoreGroup')
+      // .leftJoinAndSelect('scores.scoreGroup', 'scoresScoreGroup')
       .orderBy('participant.sortNumber', 'ASC')
       .addOrderBy('scoreGroups.operation', 'ASC')
       .addOrderBy('scoreGroups.type', 'ASC')
@@ -96,12 +96,12 @@ export class ScheduleController {
   get( @Param('id') id: number): Promise<TeamInDiscipline> {
     return this.repository.createQueryBuilder('participant')
       .where('participant.id=:id', { id: id })
-      .innerJoinAndSelect('participant.tournament', 'tournament')
+      // .innerJoinAndSelect('participant.tournament', 'tournament')
       .leftJoinAndSelect('participant.discipline', 'discipline')
-      .leftJoinAndSelect('discipline.scoreGroups', 'scoreGroups')
       .innerJoinAndSelect('participant.team', 'team')
-      .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('participant.scores', 'scores')
+      .leftJoinAndSelect('discipline.scoreGroups', 'scoreGroups')
+      .leftJoinAndSelect('team.divisions', 'division')
       .orderBy('scoreGroups.operation', 'ASC')
       .addOrderBy('scoreGroups.type', 'ASC')
       .getOne();
@@ -189,8 +189,10 @@ export class ScheduleController {
   @UseBefore(RequireRole.get(Role.Organizer))
   async create( @Body() participant: TeamInDiscipline | TeamInDiscipline[], @Res() res: Response, @Req() req: Request) {
     const participants = Array.isArray(participant) ? participant : [participant];
+    const item = participants.find(p => p.tournament && p.tournament.id != null);
+    const tournamentId = (item) ? item.tournament.id : null;
     const tournamentRepository = Container.get(TournamentController);
-    const tournament = await tournamentRepository.get(participants[0].tournament.id);
+    const tournament = await tournamentRepository.get(tournamentId);
     const sameClub = await isSameClubAsMe(tournament, req);
     if (!sameClub) {
       res.status(403);

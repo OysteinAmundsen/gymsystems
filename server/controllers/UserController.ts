@@ -139,7 +139,8 @@ export class UserController {
   @Get('/me')
   @OnUndefined(204)
   async me( @Req() req: Request, @Res() res: Response) {
-    return res.status(200).contentType("application/json").send(await this.getMe(req));
+    const user = await this.getMe(req);
+    return res.status(200).send(user);
   }
 
   getMe(req: Request): Promise<User> {

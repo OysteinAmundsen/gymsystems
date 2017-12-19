@@ -124,8 +124,8 @@ export class ScheduleService {
     let startNo = 0;
     const live = schedule.filter(s => s.type === ParticipationType.Live);
     live.forEach(s => {
-      if (resetSort) { s.sortNumber = startNo++; }
-      if (resetStart) { s.startNumber = s.sortNumber; }
+      if (resetSort || !s.sortNumber) { s.sortNumber = startNo++; }
+      if (resetStart || !s.startNumber) { s.startNumber = s.sortNumber; }
       s.calculatedStartTime = this.calculateStartTime(tournament, s);
     });
 

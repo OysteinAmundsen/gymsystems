@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs/Rx';
 import { TranslateService } from '@ngx-translate/core';
@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 
 import {
-  IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender
+  IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender, IGymnast
 } from 'app/model';
 import { TeamsService, DisciplineService, DivisionService, ClubService, UserService, ConfigurationService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
@@ -20,6 +20,7 @@ import { TeamsComponent } from 'app/views/configure/tournament/teams/teams.compo
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MemberSelectorComponent } from 'app/views/configure/_shared/member-selector/member-selector.component';
 
 @Component({
   selector: 'app-team-editor',
@@ -31,6 +32,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   @Input() tournament: ITournament;
 
   @ViewChildren('selectedDisciplines') disciplineCheckboxes;
+  @ViewChild(MemberSelectorComponent) memberSelector: MemberSelectorComponent;
 
   subscriptions: Subscription[] = [];
   teamForm: FormGroup;
@@ -134,14 +136,25 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       });
 
     // Filter available gymnasts by age
-    // ageCtrl.valueChanges
-    //   .distinctUntilChanged()
-    //   .subscribe(v => this.teamForm.get('gymnasts').setValue(troop.gymnasts);)
+    ageCtrl.valueChanges
+      .distinctUntilChanged()
+      .subscribe((v: number) => this.memberSelector.addFilter('age', (g: IGymnast) => {
+        const div = this.divisions.find((d: IDivision) => d.id === v);
+        const age = moment().diff(moment(g.birthYear, 'YYYY'), 'years');
+        return age <= div.max && age >= div.min;
+      }));
 
     // Filter available gymnasts by gender
-    // genderCtrl.valueChanges
-    //   .distinctUntilChanged()
-    //   .subscribe(v => this.teamForm.get('gymnasts').setValue(troop.gymnasts);)
+    genderCtrl.valueChanges
+      .distinctUntilChanged()
+      .subscribe((v: number) => this.memberSelector.addFilter('gender', (g: IGymnast) => {
+        const div = this.divisions.find((d: IDivision) => d.id === v);
+        switch(div.name) {
+          case 'Kvinner': return g.gender === Gender.Female;
+          case 'Herrer' : return g.gender === Gender.Male;
+          default: return true;
+        }
+      }))
 
     // Select all disciplines if TeamGym is chosen
     this.teamForm.get('class')

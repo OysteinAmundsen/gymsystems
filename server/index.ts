@@ -124,7 +124,7 @@ export class GymServer {
     this.app.use(bodyParser.urlencoded({ extended: true }));
 
     const MemoryStore = require('session-memory-store')(session);
-    const expiryInSeconds = 60 * 60 * 24; // Expires in 24 hours
+    const expiryInSeconds = 60 * 60 * 12; // Expires in 24 hours
     this.app.use(session({
       secret: 'mysecretkey',
       resave: true,
@@ -156,13 +156,15 @@ export class GymServer {
 
     // Registerring custom SSE controller
     // (because Server Sent Events does not play nicely with routing-controllers)
-    const sse = new SSEController();
+    const sse = new SSEController(this.app);
     // this.app.use('/api/event', sse.connect);
 
     // Setup base route to everything else
     if (!this.isTest) {
       this.app.get('/*', (req: e.Request, res: e.Response) => {
-        res.sendFile(path.resolve(this.clientPath, 'index.html'));
+        if (!res.headersSent) {
+          return res.sendFile(path.resolve(this.clientPath, 'index.html'));
+        }
       });
     }
     return this.app;

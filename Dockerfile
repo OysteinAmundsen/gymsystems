@@ -10,15 +10,15 @@ RUN rm -rf ./node_modules && yarn install && yarn build
 
 ######################
 ### STAGE 2: Setup ###
-FROM node:8
+FROM node:8-alpine
 
 # In order to build bcrypt library
-RUN apt update && apt install git python make g++ patch
+RUN apk update && apk add git python make g++ patch
 
 # Install app dependencies
 WORKDIR /usr/src/app
 COPY package.json /usr/src/app/package.json
-RUN yarn global add node-gyp && yarn install --production
+RUN yarn global add node-gyp && yarn install --production && npm rebuild bcrypt --build-from-source
 
 # Bundle pre-built app
 COPY ormconfig.prod.json /usr/src/app/ormconfig.json

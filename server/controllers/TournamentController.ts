@@ -100,21 +100,18 @@ export class TournamentController {
    * @param req
    */
   @Get('/list/past')
-  past(@Req() req: Request, @QueryParam('now') now: Date): Promise<Tournament[] | any> {
+  async past(@Req() req: Request, @Res() res: Response, @QueryParam('now') now: Date): Promise<Tournament[] | any> {
     let limit: number = req.query['limit'] || 10;
     if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
 
-    return this.repository
+    const tournaments = await this.repository
       .createQueryBuilder('tournament')
       .leftJoinAndSelect('tournament.venue', 'venue')
       .where('tournament.endDate < :date', { date: now })
       .orderBy('tournament.startDate', 'DESC')
       .limit(10)
-      .getMany()
-      .catch(() => {
-        Log.log.debug(`Query for past tournament was rejected before it was fulfilled`);
-        return Promise.resolve();
-      });
+      .getMany();
+    return res.send(tournaments);
   }
 
   /**
@@ -126,21 +123,18 @@ export class TournamentController {
    * @param req
    */
   @Get('/list/current')
-  current(@Req() req: Request, @QueryParam('now') now: Date): Promise<Tournament[] | any> {
+  async current(@Req() req: Request, @Res() res: Response, @QueryParam('now') now: Date) {
     let limit: number = req.query['limit'] || 10;
     if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
 
-    return this.repository
+    const tournaments = await this.repository
       .createQueryBuilder('tournament')
       .leftJoinAndSelect('tournament.venue', 'venue')
       .where(':now between tournament.startDate and tournament.endDate', { now: now })
       .orderBy('tournament.startDate', 'DESC')
       .limit(10)
-      .getMany()
-      .catch(() => {
-        Log.log.debug(`Query for current tournaments was rejected before it was fulfilled`);
-        return Promise.resolve();
-      });
+      .getMany();
+    return res.send(tournaments);
   }
 
   /**
@@ -152,21 +146,18 @@ export class TournamentController {
    * @param req
    */
   @Get('/list/future')
-  future(@Req() req: Request, @QueryParam('now') now: Date): Promise<Tournament[] | any> {
+  async future(@Req() req: Request, @Res() res: Response, @QueryParam('now') now: Date) {
     let limit: number = req.query['limit'] || 10;
     if (limit > 50) { limit = 50; } // Prevent limit queryParam from overflowing response
 
-    return this.repository
+    const tournaments = await this.repository
       .createQueryBuilder('tournament')
       .leftJoinAndSelect('tournament.venue', 'venue')
       .where('tournament.startDate > :date', { date: now })
       .orderBy('tournament.startDate', 'DESC')
       .limit(10)
-      .getMany()
-      .catch(() => {
-        Log.log.debug(`Query for future tournaments was rejected before it was fulfilled`);
-        return Promise.resolve();
-      });
+      .getMany();
+    return res.send(tournaments);
   }
 
   /**

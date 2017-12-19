@@ -7,6 +7,8 @@ import * as moment from 'moment';
 import { IGymnast, IClub, Gender } from 'app/model';
 import { ClubService } from 'app/services/api';
 
+export type FilterFn = (g: IGymnast) => boolean;
+
 @Component({
   selector: 'app-member-selector',
   templateUrl: './member-selector.component.html',
@@ -14,6 +16,7 @@ import { ClubService } from 'app/services/api';
 })
 export class MemberSelectorComponent implements OnInit, OnDestroy {
   _club: IClub;
+  filterFn: {[name: string]: FilterFn} = {};
   @Input() set club(v) {
     if (v) {
       this._club = v;
@@ -37,6 +40,7 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
 
 
   availableMembers: IGymnast[];
+  filteredMembers: IGymnast[];
 
   genders = Gender;
 
@@ -62,13 +66,13 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
     this.dragSubscription = this.drag.drag.subscribe((value) => {
       const [bag, dragElm, source] = value;
       dragIndex = Array.prototype.indexOf.call((<Element>source).children, dragElm);
-      sourceModel = (<Element>source).classList.contains('available') ? this.availableMembers : this.gymnasts;
+      sourceModel = (<Element>source).classList.contains('available') ? this.filteredMembers : this.gymnasts;
     });
 
     this.dropSubscription = this.drag.drop.subscribe((value) => {
       const [bag, dropElm, target, source] = value;
       dropIndex = Array.prototype.indexOf.call(target.children, dropElm);
-      targetModel = (<Element>target).classList.contains('available') ? this.availableMembers : this.gymnasts;
+      targetModel = (<Element>target).classList.contains('available') ? this.filteredMembers : this.gymnasts;
       if (target === source) {
         sourceModel.splice(dropIndex, 0, sourceModel.splice(dragIndex, 1)[0]);
       } else {
@@ -97,16 +101,34 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
         this.clubService.getMembers(this.club)
           .distinctUntilChanged()
           .subscribe((members: IGymnast[]) => {
-            this.availableMembers =
-              (members && members.length && this.gymnasts && this.gymnasts.length
-                ? members.filter(g => this.gymnasts.findIndex(tg => tg.id === g.id) < 0)
-                : members)
-              .sort((a, b) => a.birthYear > b.birthYear ? -1 : 1)
+            this.availableMembers = this.filteredMembers = members;
+            if (members && members.length && this.gymnasts && this.gymnasts.length) {
+              this.addFilter('available', (g => this.gymnasts.findIndex(tg => tg.id === g.id) < 0));
+            }
+
             this.memberListHidden = this.gymnasts && this.gymnasts.length > 0;
             this.isLoadingMembers = false;
           });
       }
     }
+  }
+
+  getFilteredGymnasts() {
+    let members = this.availableMembers;
+    if (members && members.length) {
+      Object.keys(this.filterFn).forEach(key => members = members.filter(this.filterFn[key]));
+    }
+    return members.sort((a, b) => {
+      if (a.birthYear === b.birthYear) {
+        return a.name > b.name ? 1 : -1;
+      }
+      return a.birthYear > b.birthYear ? -1 : 1;
+    });
+  }
+
+  addFilter(name: string, fn: FilterFn) {
+    this.filterFn[name] = fn;
+    this.filteredMembers = this.getFilteredGymnasts();
   }
 
   age(birthYear: number) {

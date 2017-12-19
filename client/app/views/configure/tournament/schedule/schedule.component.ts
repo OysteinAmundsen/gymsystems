@@ -30,6 +30,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   participationTypes = ParticipationType;
   dragulaSubscription;
   isDirty = false;
+  shouldCalculateTraining = true;
 
   dragulaOptions = {
     invalid: (el: HTMLElement, handle) => {
@@ -142,18 +143,20 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    * current schedule. This will return an unordered array.
    */
   calculateMissing(): ITeamInDiscipline[] {
-    const disciplines: IDiscipline[] = [];
+    const disciplines: Set<IDiscipline> = new Set();
     const schedule: ITeamInDiscipline[] = [];
     const tournament = this.tournament;
     const divisions = this.teams.reduce((prev, team) => prev.add(this.teamService.getDivisionName(team)), new Set<string>());
-    [ParticipationType.Training, ParticipationType.Live].forEach(type => {
+    const types = [ParticipationType.Live];
+    if (this.shouldCalculateTraining) { types.unshift(ParticipationType.Training); }
+    types.forEach(type => {
       divisions.forEach(div => {            // For each division...
         const teamsInDivision = this.teams.filter(t => this.division(t) === div);
         teamsInDivision.forEach(team => {   // ...and each team in division
           team.disciplines.forEach(dis => { // ...and each discipline, create a participant object
-            if (disciplines.findIndex(d => d.id === dis.id) < 0) { disciplines.push(dis); }
+            disciplines.add(dis);
 
-            const participant = <ITeamInDiscipline>{ discipline: dis, team: team, tournament: tournament, type: type };
+            const participant = <ITeamInDiscipline>{ id: null, discipline: dis, team: team, tournament: tournament, type: type };
             if (this.schedule.findIndex(s => this.stringHash(s) === this.stringHash(participant)) < 0) {
               // Only push if participant is not allready registerred
               schedule.push(participant);
@@ -162,7 +165,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         });
       });
     });
-    this.disciplines = disciplines.sort((a, b) => a.sortOrder < b.sortOrder ? -1 : 1 );
+    this.disciplines = Array.from(disciplines).sort((a, b) => a.sortOrder < b.sortOrder ? -1 : 1 );
     return schedule;
   }
 

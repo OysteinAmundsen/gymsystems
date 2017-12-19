@@ -14,11 +14,8 @@ const dispatcher = new EventEmitter();
  */
 @Service()
 export class SSEController {
-  app: Express;
 
-  constructor() {
-    this.app = Container.get(GymServer).app; // My ExpressJS app object
-
+  constructor(private app: Express) {
     // Register the route this middleware should respond to
     this.app.use('/api/event', (req, res) => this.connect(req, res));
 
