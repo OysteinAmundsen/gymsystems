@@ -147,7 +147,7 @@
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "~0.2.2",
     "karma-spec-reporter": "~0.0.32",
-    "nodemon": "~1.13.3",
+    "nodemon": "~1.14.0",
     "npm-scripts-help": "~0.7.0",
     "protractor": "~5.2.2",
     "snyk": "^1.61.0",
