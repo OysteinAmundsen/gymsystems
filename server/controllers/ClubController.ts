@@ -453,11 +453,12 @@ export class ClubController {
    */
   @Get('/:clubId/troop/count')
   async getTroopsCount(@Param('clubId') clubId: number, @Res() res: Response) {
-    return res.status(200).write(await this.conn.getRepository(Troop)
+    const count = await this.conn.getRepository(Troop)
       .createQueryBuilder('troop')
       .innerJoinAndSelect('troop.club', 'club')
       .where('troop.club = :clubId', {clubId: clubId})
-      .getCount());
+      .getCount();
+    return res.status(200).write(count);
   }
 
   /**

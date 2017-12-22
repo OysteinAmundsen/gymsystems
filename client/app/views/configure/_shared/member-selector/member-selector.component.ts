@@ -118,12 +118,12 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
     if (members && members.length) {
       Object.keys(this.filterFn).forEach(key => members = members.filter(this.filterFn[key]));
     }
-    return members.sort((a, b) => {
+    return members && members.length ? members.sort((a, b) => {
       if (a.birthYear === b.birthYear) {
         return a.name > b.name ? 1 : -1;
       }
       return a.birthYear > b.birthYear ? -1 : 1;
-    });
+    }) : members;
   }
 
   addFilter(name: string, fn: FilterFn) {

@@ -16,7 +16,7 @@ import { IVerifyOptions } from 'passport-local';
  * @param {Express} app
  * @param {Passport} passport
  */
-export function setupAuthentication(app: Express): auth.Passport {
+export function setupAuthentication(app: Express): auth.PassportStatic {
   // Configure passport strategies
   passport.use('local-login', new LocalStrategy.Strategy({
     // Strategy options
@@ -42,7 +42,11 @@ export function setupAuthentication(app: Express): auth.Passport {
 
   // Methods for serializing/deserializing the user object
   passport.serializeUser((user: any, done: Function) => done(null, user));
-  passport.deserializeUser((id: number, done: Function) => done(null, { name: 'test', id: 1 }));
+  passport.deserializeUser(async (id: number, done: Function) => {
+    const userRepository: Repository<User> = getConnectionManager().get().getRepository(User);
+    const user = await userRepository.findOneById(id);
+    done(null, user);
+  });
 
   Container.set(auth.Passport, passport);
 
