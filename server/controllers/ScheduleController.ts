@@ -78,7 +78,7 @@ export class ScheduleController {
       .leftJoinAndSelect('media.discipline', 'media_discipline')
       .leftJoinAndSelect('media.team', 'media_team')
       .leftJoinAndSelect('team.divisions', 'division')
-      // .leftJoinAndSelect('scores.scoreGroup', 'scoresScoreGroup')
+      .leftJoinAndSelect('scores.scoreGroup', 'scoresScoreGroup') // Used to calculate scoregroup total on client
       .orderBy('participant.sortNumber', 'ASC')
       .addOrderBy('scoreGroups.operation', 'ASC')
       .addOrderBy('scoreGroups.type', 'ASC')
