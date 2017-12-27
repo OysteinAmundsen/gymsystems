@@ -108,7 +108,7 @@
     "typedi": "0.6.0",
     "typeorm": "0.1.9",
     "winston": "~2.4.0",
-    "zone.js": "0.8.18"
+    "zone.js": "0.8.19"
   },
   "devDependencies": {
     "@angular/cli": "1.6.2",
