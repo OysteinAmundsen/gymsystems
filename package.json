@@ -131,7 +131,7 @@
     "@types/node-schedule": "^1.2.1",
     "@types/passport": "~0.4.2",
     "@types/passport-local": "~1.0.32",
-    "@types/request": "~2.0.9",
+    "@types/request": "~2.47.0",
     "@types/rimraf": "~2.0.2",
     "@types/serve-favicon": "~2.2.30",
     "@types/winston": "~2.3.7",
