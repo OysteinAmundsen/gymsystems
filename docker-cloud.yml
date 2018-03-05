@@ -9,7 +9,7 @@ nginx:
   links:
     - client
   volumes:
-    - /usr/src/app/cert/ssl:/etc/nginx/ssl
+    - /usr/src/app/cert/ssl:/etc/nginx/ssl:rw
   environment:
     - TZ=UTC
     - LETSENCRYPT=true

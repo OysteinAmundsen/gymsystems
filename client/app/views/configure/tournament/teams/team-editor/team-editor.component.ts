@@ -1,4 +1,6 @@
-import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren, OnDestroy, ViewChild } from '@angular/core';
+import {
+  Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren, OnDestroy, ViewChild
+} from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs/Rx';
 import { TranslateService } from '@ngx-translate/core';
@@ -149,7 +151,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       .distinctUntilChanged()
       .subscribe((v: number) => this.memberSelector.addFilter('gender', (g: IGymnast) => {
         const div = this.divisions.find((d: IDivision) => d.id === v);
-        switch(div.name) {
+        switch (div.name) {
           case 'Kvinner': return g.gender === Gender.Female;
           case 'Herrer' : return g.gender === Gender.Male;
           default: return true;

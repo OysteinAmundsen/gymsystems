@@ -33,7 +33,7 @@ export class TournamentComponent implements OnInit {
 
   ngOnInit() {
     this.tournamentService.all().subscribe(tournaments => this.tournamentSource.subject.next(tournaments));
-    this.userService.getMe().subscribe(me => me.role >= Role.Admin ? this.displayColumns.push('createdBy') : null);
+    this.userService.getMe().subscribe(me => me && me.role >= Role.Admin ? this.displayColumns.push('createdBy') : null);
   }
 
   @HostListener('window:keyup', ['$event'])
