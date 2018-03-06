@@ -6,7 +6,6 @@
   "apps": [{
     "root": "client",
     "outDir": "dist/public",
-    "serviceWorker": true,
     "assets": [
       "assets",
       "i18n",
@@ -34,7 +33,8 @@
     "environments": {
       "dev": "environments/environment.ts",
       "prod": "environments/environment.prod.ts"
-    }
+    },
+    "serviceWorker": true
   }],
   "e2e": {
     "protractor": {
@@ -42,9 +42,9 @@
     }
   },
   "lint": [
-    { "project": "client/tsconfig.app.json" },
-    { "project": "client/tsconfig.spec.json" },
-    { "project": "e2e/tsconfig.e2e.json" }
+    { "project": "src/tsconfig.app.json",  "exclude": "**/node_modules/**" },
+    { "project": "src/tsconfig.spec.json", "exclude": "**/node_modules/**" },
+    { "project": "e2e/tsconfig.e2e.json",  "exclude": "**/node_modules/**" }
   ],
   "test": {
     "karma": { "config": "./karma.conf.js" }
