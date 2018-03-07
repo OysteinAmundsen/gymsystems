@@ -1,3 +1,4 @@
+@import "~styles/variables";
 // app-slide-toggle {
 //   display: block;
 //   min-width: 6rem;
@@ -5,4 +6,12 @@
 
 fieldset {
   float: left;
+}
+::ng-deep {
+  .mat-slide-toggle:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgba($warning, 0.10);
+  }
+  .mat-slide-toggle:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: rgba($warning, 0.30);
+  }
 }

@@ -31,7 +31,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   club: IClub;
   memberSource = new SubjectSource<IGymnast>(new BehaviorSubject<IGymnast[]>([]));
   get memberList() { return this.memberSource.subject.value || []; }
-  displayedColumns = ['name', 'birthYear', 'gender', 'teams'];
+  displayedColumns = ['name', 'birthYear', 'gender', 'teams', 'allergies'];
   get sortColumn() { return this.memberState.sort ? this.memberState.sort.active : ''; }
   get sortDirection() { return this.memberState.sort ? this.memberState.sort.direction : 'asc'; }
 
@@ -106,13 +106,13 @@ export class MembersComponent implements OnInit, OnDestroy {
       this.clubService.importMembers(fileList[0], this.club).subscribe(
         data => this.loadMembers(),
         error => Logger.error(error)
-      )
+      );
     }
   }
 
   onPress($event) {
-    $event.srcEvent.preventDefault();
-    $event.srcEvent.stopPropagation();
+    // $event.srcEvent.preventDefault();
+    // $event.srcEvent.stopPropagation();
     this.selectMode = !this.selectMode;
     if (this.selectMode) {
       this.displayedColumns.unshift('selector');
@@ -137,7 +137,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   toggleSelectAll() {
-    if (this.selection.length == 0 || this.selection.length < this.memberList.length) {
+    if (this.selection.length === 0 || this.selection.length < this.memberList.length) {
       // None or some selected. Select all
       this.selection = this.memberList.slice();
     } else {

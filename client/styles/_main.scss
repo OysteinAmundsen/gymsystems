@@ -148,3 +148,11 @@ pre {
     display: none;
   }
 }
+
+.text-muted {
+  color: rgba($text-color, 0.7);
+}
+
+.text-warning {
+  color: rgba($warning, 0.7);
+}

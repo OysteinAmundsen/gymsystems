@@ -18,22 +18,25 @@
         <div class="col-2 material-label">
           <label translate>Gender</label>
           <mat-slide-toggle class="mat-primary" [checked]="memberForm.value.gender === gender.Male" (change)="$event.checked ? memberForm.controls['gender'].setValue(gender.Male) : memberForm.controls['gender'].setValue(gender.Female)">
-            <span *ngIf="memberForm.value.gender === gender.Male" translate>Male</span>
-            <span *ngIf="memberForm.value.gender === gender.Female" translate>Female</span>
+            <span *ngIf="memberForm.value.gender === gender.Male"><i class="fa fa-fw fa-male"></i>{{ 'Male' | translate}}</span>
+            <span *ngIf="memberForm.value.gender === gender.Female"><i class="fa fa-fw fa-female"></i>{{ 'Female' | translate}}</span>
           </mat-slide-toggle>
         </div>
       </div>
       <div class="row">
         <mat-form-field class="col-6">
-          <input matInput type="email" formControlName="email" placeholder="{{'Email' | translate}}">
+          <input matInput type="email" formControlName="email">
+          <mat-placeholder><i class="fa fa-fw fa-envelope"></i>{{'Email' | translate}}</mat-placeholder>
         </mat-form-field>
         <mat-form-field class="col-6">
-          <input matInput type="tel" formControlName="phone" placeholder="{{'Phone' | translate}}">
+          <input matInput type="tel" formControlName="phone">
+          <mat-placeholder><i class="fa fa-fw fa-phone"></i>{{'Phone' | translate}}</mat-placeholder>
         </mat-form-field>
       </div>
       <div class="row">
         <mat-form-field class="col-12">
-          <input matInput type="text" formControlName="allergies" placeholder="{{'Allergies' | translate}}">
+          <input matInput type="text" formControlName="allergies">
+          <mat-placeholder><i class="fa fa-fw fa-medkit"></i>{{'Allergies' | translate}}</mat-placeholder>
         </mat-form-field>
       </div>
       <div class="row">

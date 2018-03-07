@@ -14,7 +14,10 @@
 
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let member">{{ member.name }}</mat-cell>
+    <mat-cell *matCellDef="let member">
+      <span [ngClass]="{'text-warning': member.allergies}">{{ member.name }}</span>
+      <i class="fa fa-fw fa-medkit text-warning" *ngIf="member.allergies"></i>
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="birthYear">
@@ -28,9 +31,14 @@
   </ng-container>
 
   <ng-container matColumnDef="teams">
-    <mat-header-cell *matHeaderCellDef [mat-sort-header]="[countTeams, this]">{{'Teams' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let member">{{ countTeams(member) }}</mat-cell>
-  </ng-container>
+      <mat-header-cell *matHeaderCellDef [mat-sort-header]="[countTeams, this]">{{'Teams' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let member">{{ countTeams(member) }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="allergies">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Allergies' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let member">{{ member.allergies }}</mat-cell>
+    </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let member; columns: displayedColumns; let index=index"
