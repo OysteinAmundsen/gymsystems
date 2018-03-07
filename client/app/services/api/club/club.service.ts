@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable} from 'rxjs/Observable';
 
 import { IClub, IBelongsToClub, IGymnast, ITroop } from 'app/model';
 import { Helper } from '../Helper';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ClubService {
@@ -50,7 +51,9 @@ export class ClubService {
     formData.append('members', file, file.name);
 
     return this.http.post(`${this.url}/${club.id}/import-members`, formData)
-      .catch(error => Observable.throw(error));
+      .pipe(
+        catchError(error => Observable.throw(error))
+      );
   }
 
   saveMember(member: IGymnast): Observable<IGymnast | any> {

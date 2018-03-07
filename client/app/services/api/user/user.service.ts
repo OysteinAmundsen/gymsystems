@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, ReplaySubject } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/throw';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Logger } from 'app/services';
 import { IUser } from 'app/model';
 import { Helper } from '../Helper';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
@@ -38,11 +37,13 @@ export class UserService {
 
   private _loadMeInternal() {
     return this.http.get<IUser>('/api/users/me')
-      .map((res: IUser) => this.userReceived(res))
-      .catch((err: Response) =>  {
-        this.userReceived(null);
-        return Observable.throw(err);
-      });
+      .pipe(
+        map((res: IUser) => this.userReceived(res)),
+        catchError((err: Response) =>  {
+          this.userReceived(null);
+          return Observable.throw(err);
+        })
+      );
   }
 
   getMe(): Observable<IUser> {
@@ -78,13 +79,13 @@ export class UserService {
 
   login(credentials: { username: string, password: string }): Observable<any> {
     return this.http.post<IUser>('/api/users/login', credentials)
-      .map((res: IUser) => this.userReceived(res));
+      .pipe(map((res: IUser) => this.userReceived(res)));
   }
 
   logout() {
     return this.http.post('/api/users/logout', {})
-      .map((res: Response) => {
+      .pipe(map((res: Response) => {
         return this.userReceived(null);
-      });
+      }));
   }
 }

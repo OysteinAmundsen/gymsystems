@@ -1,6 +1,7 @@
 import { DataSource } from '@angular/cdk/table';
-import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import { Sort } from '@angular/material';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 export class SubjectSource<T> extends DataSource<T> {
 

@@ -3,8 +3,8 @@ import { RequestMethod } from '@angular/http';
 import { HttpRequest } from '@angular/common/http';
 import { HttpResponse } from '@angular/common/http';
 
-import { Observable, Subject } from 'rxjs/Rx';
-import 'rxjs/add/observable/throw';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 
 export interface HttpAction {

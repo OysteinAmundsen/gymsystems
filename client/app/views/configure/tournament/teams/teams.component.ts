@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
-import { Subscription, BehaviorSubject } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import * as moment from 'moment';
 
@@ -11,6 +12,7 @@ import { KeyCode } from 'app/shared/KeyCodes';
 import { TranslateService } from '@ngx-translate/core';
 import { SubjectSource } from 'app/services/subject-source';
 import { Router, ActivatedRoute } from '@angular/router';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-teams',
@@ -68,7 +70,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
     this.parent.tournamentSubject.subscribe(tournament => {
       this.tournament = tournament;
       this.loadTeams();
-      this.subscriptions.push(this.eventService.connect().debounceTime(100).subscribe(message => {
+      this.subscriptions.push(this.eventService.connect().pipe(debounceTime(100)).subscribe(message => {
         if (message.indexOf('Teams updated') > -1) {
           this.loadTeams();
         }

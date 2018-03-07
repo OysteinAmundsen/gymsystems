@@ -2,7 +2,7 @@ import {
   Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren, OnDestroy, ViewChild
 } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn } from '@angular/forms';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';
@@ -23,6 +23,7 @@ import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MemberSelectorComponent } from 'app/views/configure/_shared/member-selector/member-selector.component';
+import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-team-editor',
@@ -117,29 +118,31 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
     // Club typeahead
     clubCtrl.valueChanges
-      .distinctUntilChanged()
-      .map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
-      .map(v => {(v.length <= 0) ? nameCtrl.disable() : nameCtrl.enable(); return v; }) // Disable 'name' control if club is empty
-      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      .subscribe(v => this.clubService.findByName(v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
+      .pipe(
+        distinctUntilChanged(),
+        map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }), // Patch to uppercase
+        map(v => {(v.length <= 0) ? nameCtrl.disable() : nameCtrl.enable(); return v; }), // Disable 'name' control if club is empty
+        debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      ).subscribe(v => this.clubService.findByName(v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
 
     // Troopname typeahead
     nameCtrl.valueChanges
-      .distinctUntilChanged()
-      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      .subscribe(v => {
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      ).subscribe(v => {
         const club = this.teamForm.value.club || this.currentUser.club;
         if (!clubCtrl.value) { clubCtrl.setValue(club); }
         if (club.id) {
           this.clubService.findTroopByName(club, v.name ? v.name : v).subscribe(troops => {
             this.troopList = troops.filter(t => this.configuredTroops.findIndex(l => l.name === t.name) < 0)
-          })
+          });
         }
       });
 
     // Filter available gymnasts by age
     ageCtrl.valueChanges
-      .distinctUntilChanged()
+      .pipe(distinctUntilChanged())
       .subscribe((v: number) => this.memberSelector.addFilter('age', (g: IGymnast) => {
         const div = this.divisions.find((d: IDivision) => d.id === v);
         const age = moment().diff(moment(g.birthYear, 'YYYY'), 'years');
@@ -148,7 +151,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
     // Filter available gymnasts by gender
     genderCtrl.valueChanges
-      .distinctUntilChanged()
+      .pipe(distinctUntilChanged())
       .subscribe((v: number) => this.memberSelector.addFilter('gender', (g: IGymnast) => {
         const div = this.divisions.find((d: IDivision) => d.id === v);
         switch (div.name) {
@@ -161,7 +164,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     // Select all disciplines if TeamGym is chosen
     this.teamForm.get('class')
       .valueChanges
-      .distinctUntilChanged()
+      .pipe(distinctUntilChanged())
       .subscribe((c: Classes) => setTimeout(() => this.classChanged()));
 
     // Load current user

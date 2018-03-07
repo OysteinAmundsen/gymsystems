@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
 import * as moment from 'moment';
 
 import { ITournament } from 'app/model/ITournament';
 import { Helper } from '../Helper';
 import { HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class TournamentService {
@@ -17,22 +17,22 @@ export class TournamentService {
   constructor(private http: HttpClient) {  }
 
   all(): Observable<ITournament[]> {
-    return this.http.get<ITournament[]>(this.url).map((res: ITournament[]) => this.mapDates(res));
+    return this.http.get<ITournament[]>(this.url).pipe(map((res: ITournament[]) => this.mapDates(res)));
   }
   past(): Observable<ITournament[]> {
     return this.http.get<ITournament[]>(`${this.url}/list/past`, {params: new HttpParams().set('now', new Date().toISOString())})
-      .map((res: ITournament[]) => this.mapDates(res));
+      .pipe(map((res: ITournament[]) => this.mapDates(res)));
   }
   current(): Observable<ITournament[]> {
     return this.http.get<ITournament[]>(`${this.url}/list/current`, {params: new HttpParams().set('now', new Date().toISOString())})
-      .map((res: ITournament[]) => this.mapDates(res));
+      .pipe(map((res: ITournament[]) => this.mapDates(res)));
   }
   upcoming(): Observable<ITournament[]> {
     return this.http.get<ITournament[]>(`${this.url}/list/future`, {params: new HttpParams().set('now', new Date().toISOString())})
-      .map((res: ITournament[]) => this.mapDates(res));
+      .pipe(map((res: ITournament[]) => this.mapDates(res)));
   }
   getById(id: number): Observable<ITournament> {
-    return this.http.get<ITournament>(`${this.url}/${id}`).map((res: ITournament) => this.mapDate(res));
+    return this.http.get<ITournament>(`${this.url}/${id}`).pipe(map((res: ITournament) => this.mapDate(res)));
   }
 
   save(tournament: ITournament): Observable<ITournament | any> {

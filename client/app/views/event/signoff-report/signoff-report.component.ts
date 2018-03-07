@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 
 import { EventComponent } from '../event.component';
 
@@ -90,7 +90,7 @@ export class SignoffReportComponent implements OnInit {
           prev.push(current.type);
         }
         return prev;
-      }, [])
+      }, []);
   }
 
   colsFilteredByDivisionAndDiscipline(division: string, discipline: string) {
@@ -106,7 +106,7 @@ export class SignoffReportComponent implements OnInit {
         }
         prev.push(current.type);
         return prev;
-      }, [])
+      }, []);
   }
 
   filterByDivisionAndDiscipline(division: string, discipline: string) {

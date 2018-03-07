@@ -11,6 +11,7 @@ import { ErrorHandlerService } from 'app/services/config';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { MatAutocomplete } from '@angular/material';
+import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-editor',
@@ -27,7 +28,7 @@ export class UserEditorComponent implements OnInit {
   user: IUser = <IUser>{};
   get roleNames() {
     return RoleNames.filter(r => r.id <= this.currentUser.role);
-  };
+  }
 
   roles = Role;
   clubTransformer = toUpperCaseTransformer;
@@ -72,10 +73,11 @@ export class UserEditorComponent implements OnInit {
     const clubCtrl = this.userForm.controls['club'];
     // Read filtered options
     clubCtrl.valueChanges
-      .distinctUntilChanged()
-      .map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
-      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      .subscribe(v => this.clubService.findByName(v && v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
+      .pipe(
+        distinctUntilChanged(),
+        map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }), // Patch to uppercase
+        debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      ).subscribe(v => this.clubService.findByName(v && v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
   }
 
   clubDisplay(club: IClub) {

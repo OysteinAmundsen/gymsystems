@@ -1,8 +1,9 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, OnDestroy, HostListener, ViewChildren, ElementRef, QueryList, AfterViewInit } from '@angular/core';
+  Component, OnInit, Input, Output, EventEmitter, OnDestroy, HostListener, ViewChildren, ElementRef, QueryList, AfterViewInit
+} from '@angular/core';
 import { ITeamInDiscipline, IUser, Role, IScore, Operation } from 'app/model';
 import { ScoreContainer } from 'app/views/event/list/IScoreContainer';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import * as _ from 'lodash';
 
 import { UserService, ScoreService } from 'app/services/api';

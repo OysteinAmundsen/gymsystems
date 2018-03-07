@@ -6,6 +6,7 @@ import * as moment from 'moment';
 
 import { IGymnast, IClub, Gender } from 'app/model';
 import { ClubService } from 'app/services/api';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 export type FilterFn = (g: IGymnast) => boolean;
 
@@ -99,7 +100,7 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
       if (!this.isLoadingMembers) {
         this.isLoadingMembers = true;
         this.clubService.getMembers(this.club)
-          .distinctUntilChanged()
+          .pipe(distinctUntilChanged())
           .subscribe((members: IGymnast[]) => {
             this.availableMembers = this.filteredMembers = members;
             if (members && members.length && this.gymnasts && this.gymnasts.length) {

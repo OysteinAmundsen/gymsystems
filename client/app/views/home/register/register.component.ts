@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/map';
+import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 import { UserService, ClubService } from 'app/services/api';
 import { ValidationService } from 'app/services/validation';
@@ -55,10 +55,20 @@ export class RegisterComponent implements OnInit {
     // Read filtered options
     const clubCtrl = this.registerForm.controls['club'];
     clubCtrl.valueChanges
-      .distinctUntilChanged()
-      .map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
-      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      .subscribe(v => this.clubService.findByName(v && v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
+      .pipe(
+        distinctUntilChanged(),
+        map((v: string | IClub) => {
+          // Patch to uppercase
+          if (typeof v === 'string') {
+            clubCtrl.patchValue(toUpperCaseTransformer(<string> v));
+          }
+          return v;
+        }),
+        debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      ).subscribe((v: string | IClub) => {
+        const name: string = (typeof v === 'string' ? v : v.name);
+        this.clubService.findByName(name).subscribe(clubs => this.clubList = clubs);
+      });
   }
 
   clubDisplay(club: IClub) {

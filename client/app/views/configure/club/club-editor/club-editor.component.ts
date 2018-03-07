@@ -1,9 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReplaySubject, Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable } from 'rxjs/Observable';
+import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 import * as _ from 'lodash';
 
@@ -60,7 +60,7 @@ export class ClubEditorComponent implements OnInit {
             .subscribe(
               club => this.clubReceived(club),
               err => this.goBack()
-            )
+            );
         } else {
           // Creating new club
           this.isAdding = true;
@@ -74,12 +74,22 @@ export class ClubEditorComponent implements OnInit {
       id: [this.club.id],
       name: [this.club.name, [Validators.required]]
     });
-    const control = this.clubForm.controls['name'];
-    control.valueChanges
-      .distinctUntilChanged()
-      .map(v => { control.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
-      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      .subscribe(v => this.clubService.findByName(v.name ? v.name : v).subscribe(clubs => this.clubList = clubs)); // Read filtered options
+    const clubCtrl = this.clubForm.controls['name'];
+    clubCtrl.valueChanges
+      .pipe(
+        distinctUntilChanged(),
+        map((v: string | IClub) => {
+          // Patch to uppercase
+          if (typeof v === 'string') {
+            clubCtrl.patchValue(toUpperCaseTransformer(<string> v));
+          }
+          return v;
+        }),
+        debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      ).subscribe((v: string | IClub) => {
+        const name: string = (typeof v === 'string' ? v : v.name);
+        this.clubService.findByName(name).subscribe(clubs => this.clubList = clubs);
+      });
   }
 
   setSelectedClub(v: MatAutocompleteSelectedEvent) {

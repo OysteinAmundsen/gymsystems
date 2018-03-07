@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChildren, QueryList, ViewContainerRef, HostListener } from '@angular/core';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
@@ -13,6 +13,7 @@ import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 
 import { ITournament, ITeamInDiscipline, ITeam, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/model';
+import { debounceTime } from 'rxjs/operators';
 
 interface ParticipantCache {
   time: string;
@@ -36,8 +37,8 @@ export class ListComponent implements OnInit, OnDestroy {
   _showTraining;
   get showTraining() {
     if (this._showTraining === undefined) {
-      const show = localStorage.getItem('showTraining') || !!this.user ? "false" : "true";
-      this._showTraining = show != "false";
+      const show = localStorage.getItem('showTraining') || !!this.user ? 'false' : 'true';
+      this._showTraining = show !== 'false';
     }
     return this._showTraining;
   }
@@ -84,7 +85,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.tournamentSubscription = this.parent.tournamentSubject.subscribe(tournament => {
       if (tournament && tournament.id) {
         this.tournament = tournament;
-        this.eventSubscription = this.eventService.connect().debounceTime(100).subscribe(message => {
+        this.eventSubscription = this.eventService.connect().pipe(debounceTime(100)).subscribe(message => {
           if (!message || message.indexOf('Scores') > -1 || message.indexOf('Participant') > -1) {
             this.loadSchedule();
           }
@@ -172,7 +173,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   isVisible(participant: ITeamInDiscipline) {
     return (!this.selectedDiscipline || this.selectedDiscipline.id === participant.discipline.id)
-      && (participant.type !== ParticipationType.Training || this.showTraining === true)
+      && (participant.type !== ParticipationType.Training || this.showTraining === true);
   }
 
   division(team: ITeam) { return this.teamService.getDivisionName(team); }

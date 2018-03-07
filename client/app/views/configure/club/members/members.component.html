@@ -68,7 +68,7 @@
   </button>
 </ng-container>
 <ng-container *ngIf="selectMode">
-  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteAll()" *appIfAuth="'Organizer'">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteSelected()" *appIfAuth="'Organizer'">
     <i class="fa fa-fw fa-trash"></i>
     <span translate>Delete selected</span>
   </button>

@@ -1,7 +1,9 @@
 import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription, Observable, ReplaySubject } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Title, Meta } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -15,6 +17,7 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatDatepickerInput, MatAutocomplete } from '@angular/material';
+import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 const Moment: any = (<any>moment).default || moment;
 
@@ -107,7 +110,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
             this.tournamentForm.controls['name'].setValue(`${venue.name} ${year}`);
             this.tournamentForm.controls['venue'].setValue(venue);
           }
-        })
+        });
       }
     });
 
@@ -133,17 +136,19 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     // Filter club in typeahead
     const clubCtrl = this.tournamentForm.controls['club'];
     clubCtrl.valueChanges
-      .distinctUntilChanged()
-      .map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
-      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      .subscribe(v => this.clubService.findByName(v && v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
+      .pipe(
+        distinctUntilChanged(),
+        map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }), // Patch to uppercase
+        debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      ).subscribe(v => this.clubService.findByName(v && v.name ? v.name : v).subscribe(clubs => this.clubList = clubs));
 
     // Filter venues in typeahead
     const venueCtrl = this.tournamentForm.controls['venue'];
     venueCtrl.valueChanges
-      .distinctUntilChanged()
-      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      .subscribe(v => {
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      ).subscribe(v => {
         if (v) {
           this.venueService.findByName(v && v.name ? v.name : v).subscribe(venues => this.venueList = venues);
         } else {
@@ -153,11 +158,11 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
     const reset = () => {
       this.tournamentForm.value.times = null;
-    }
+    };
     const startCtrl = this.tournamentForm.controls['startDate'];
     const endCtrl = this.tournamentForm.controls['endDate'];
     startCtrl.valueChanges
-      .distinctUntilChanged()
+      .pipe(distinctUntilChanged())
       .subscribe((val: Date) => {
         if (this.endDateInput) {
           this.endDateInput.min = val;
@@ -165,7 +170,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
         setTimeout(reset);
       });
     endCtrl.valueChanges
-      .distinctUntilChanged()
+      .pipe(distinctUntilChanged())
       .subscribe((val: Date) => {
         if (this.startDateInput) {
           this.startDateInput.max = val;
@@ -217,7 +222,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     if (startDate instanceof Date || typeof startDate === 'string') {
       startDate = moment(startDate);
     } else if (startDate.hasOwnProperty('momentObj')) {
-      startDate = startDate['momentObj']
+      startDate = startDate['momentObj'];
     }
     return startDate.clone().startOf('day').utc().add(day, 'days').format('ddd');
   }

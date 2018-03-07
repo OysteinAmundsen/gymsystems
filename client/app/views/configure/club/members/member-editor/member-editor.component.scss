@@ -7,6 +7,14 @@
 fieldset {
   float: left;
 }
+
+.mat-card-content {
+  display: flex;
+  > .gymnast-data {
+    flex: 1;
+  }
+}
+
 ::ng-deep {
   .mat-slide-toggle:not(.mat-disabled) .mat-slide-toggle-bar {
     background-color: rgba($warning, 0.10);

@@ -1,7 +1,8 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Sort } from '@angular/material';
-import { Subscription, BehaviorSubject } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { KeyCode } from 'app/shared/KeyCodes';
 import { Logger } from 'app/services/Logger';
@@ -145,7 +146,11 @@ export class MembersComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteAllTeams() {
+  deleteAll() {
+    this.clubService.deleteAllMembers(this.club, this.memberList.slice()).subscribe(res => this.loadMembers());
+  }
+
+  deleteSelected() {
     this.clubService.deleteAllMembers(this.club, this.selection).subscribe(res => this.loadMembers());
   }
 
@@ -156,3 +161,4 @@ export class MembersComponent implements OnInit, OnDestroy {
     }
   }
 }
+

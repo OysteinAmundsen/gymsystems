@@ -10,6 +10,7 @@ import { VenueService } from 'app/services/api';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { ValidationService } from 'app/services/validation';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-venue-editor',
@@ -66,9 +67,10 @@ export class VenueEditorComponent implements OnInit {
     // Read filtered options
     const addressCtrl = this.venueForm.controls['address'];
     addressCtrl.valueChanges
-      .distinctUntilChanged()
-      .debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      .subscribe(v => this.venueService.findLocationByAddress(v).subscribe(address => this.adressList = address));
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      ).subscribe(v => this.venueService.findLocationByAddress(v).subscribe(address => this.adressList = address));
 
     this.route.params.subscribe(params => {
       if (params.id) {
