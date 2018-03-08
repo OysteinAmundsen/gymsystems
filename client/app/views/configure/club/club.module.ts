@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatSortModule, MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule,
-  MatAutocompleteModule, MatButtonModule, MatTableModule, MatCheckboxModule
+  MatAutocompleteModule, MatButtonModule, MatTableModule, MatCheckboxModule, MatListModule
 } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
@@ -28,6 +28,7 @@ import { MemberStateService } from 'app/views/configure/club/members/member-stat
     FormsModule,
     ReactiveFormsModule,
 
+    MatListModule,
     MatTableModule,
     MatSortModule,
     MatCardModule,

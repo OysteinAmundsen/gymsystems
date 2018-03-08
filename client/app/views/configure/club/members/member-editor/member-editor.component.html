@@ -70,12 +70,22 @@
       </section>
 
       <section class="teams">
-        <h4>{{'Teams' | translate}}</h4>
-        <datalist>
-          <div *ngFor="let troop of member.troop">
-            {{ troop.name }}
-          </div>
-        </datalist>
+        <h4><i class="fa fa-fw fa-group"></i> {{'Teams' | translate}}</h4>
+        <mat-form-field>
+          <input matInput [(ngModel)]="troopSelector" [ngModelOptions]="{standalone: true}" (ngModelChange)="onTroopSelectorChange($event)"
+                 placeholder="{{'Team' | translate}}" [matAutocomplete]="troopTypeahead">
+          <mat-autocomplete #troopTypeahead="matAutocomplete" (optionSelected)="addToTeam($event)" [displayWith]="troopDisplay">
+            <mat-option *ngFor="let troop of troopList" [value]="troop">
+              {{ troop.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-nav-list>
+          <mat-list-item *ngFor="let troop of memberForm.value.troop">
+            <a matLine [routerLink]="['../../troops/', troop.id]">{{ troop.name }}</a>
+            <button type="button" mat-icon-button (click)="removeFromTeam(troop)"><i class="fa fa-fw fa-trash"></i></button>
+          </mat-list-item>
+        </mat-nav-list>
       </section>
     </mat-card-content>
 

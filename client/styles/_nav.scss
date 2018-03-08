@@ -4,10 +4,13 @@ nav {
   @media print {
     display: none;
   }
+  position: fixed;
+  z-index: 2;
 
   display: block;
   height: $navHeight;
   background: $primary;
+  width: 100%;
   &:after {
     content: '';
     display: table;

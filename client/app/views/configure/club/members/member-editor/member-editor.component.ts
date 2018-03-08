@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { IClub, IGymnast, Gender, IDivision, DivisionType } from 'app/model';
+import { IClub, IGymnast, Gender, IDivision, DivisionType, ITroop } from 'app/model';
 import { ConfigurationService, ClubService } from 'app/services/api';
 
 import * as moment from 'moment';
@@ -11,6 +11,7 @@ import { ErrorHandlerService } from 'app/services/config';
 import { MembersComponent } from 'app/views/configure/club/members/members.component';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 @Component({
   selector: 'app-member-editor',
@@ -23,8 +24,8 @@ export class MemberEditorComponent implements OnInit {
   club: IClub;
 
   gender = Gender;
-  // get Male(): string { return this.translate.instant('Male'); }
-  // get Female(): string { return this.translate.instant('Female'); }
+  troopList = [];
+  troopSelector: string;
 
   minYear = moment().subtract(60, 'year').year();
   maxYear = moment().subtract(8, 'year').year();
@@ -108,6 +109,31 @@ export class MemberEditorComponent implements OnInit {
     });
   }
 
+  onTroopSelectorChange($event) {
+    if (this.club.id) {
+      this.clubService.findTroopByName(this.club, $event).subscribe(troops => {
+        this.troopList = troops.filter(t => this.memberForm.value.troop.findIndex(troop => troop.id === t.id) < 0);
+      });
+    }
+  }
+
+  troopDisplay(troop: ITroop) {
+    return troop && troop.name ? troop.name : troop;
+  }
+
+  addToTeam($event: MatAutocompleteSelectedEvent) {
+    const troop = $event.option.value;
+    this.memberForm.value.troop.push(troop);
+    this.troopSelector = '';
+    this.memberForm.markAsDirty();
+  }
+
+  removeFromTeam(troop) {
+    const troops = this.memberForm.value.troop;
+    troops.splice(troops.findIndex(t => t.id === troop.id));
+    this.memberForm.markAsDirty();
+  }
+
   delete() {
     const member = this.memberForm.value;
     this.clubService.deleteMember(member).subscribe(response => {
@@ -116,7 +142,7 @@ export class MemberEditorComponent implements OnInit {
       } else {
         this.close();
       }
-    })
+    });
   }
 
   close() {

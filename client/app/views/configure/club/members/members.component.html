@@ -26,8 +26,8 @@
   </ng-container>
 
   <ng-container matColumnDef="gender">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Gender' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let member">{{ genderDivision(member) }}</mat-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-medium">{{'Gender' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member" class="visible-medium">{{ genderDivision(member) }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="teams">
@@ -36,8 +36,8 @@
     </ng-container>
 
     <ng-container matColumnDef="allergies">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Allergies' | translate}}</mat-header-cell>
-      <mat-cell *matCellDef="let member">{{ member.allergies }}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-wide">{{'Allergies' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let member" class="visible-wide">{{ member.allergies }}</mat-cell>
     </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

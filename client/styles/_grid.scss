@@ -54,6 +54,12 @@
   }
 }
 
+.visible-medium {
+  @media (max-width: $stop2) {
+    display: none;
+  }
+}
+
 .visible-narrow {
   @media (min-width: $stop1) {
     display: none;

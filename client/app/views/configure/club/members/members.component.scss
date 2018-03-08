@@ -38,7 +38,7 @@ a.file-upload {
   }
   .mat-column-birthYear,
   .mat-column-gender {
-    max-width: 3rem;
+    max-width: 5rem;
   }
   .mat-column-birthYear,
   .mat-column-teams {
@@ -49,10 +49,5 @@ a.file-upload {
   }
   .mat-column-allergies {
     max-width: 8rem;
-  }
-}
-.mat-column-allergies {
-  @media (max-width: $stop2) {
-    display: none;
   }
 }

@@ -1,18 +1,5 @@
 @import "../styles/variables";
 
-// Set static header
-.site-header-background {
-  position: fixed;
-  z-index: 1;
-}
-nav {
-  position: fixed;
-  z-index: 2;
-  +.container {
-    margin-top: 3.4rem;
-  }
-}
-
 // Help functionality
 .show-help {
   a {

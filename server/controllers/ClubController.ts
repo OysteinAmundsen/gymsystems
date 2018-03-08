@@ -257,7 +257,7 @@ export class ClubController {
         }
         return prev;
       }, []);
-    })
+    });
   }
 
   /**
@@ -322,7 +322,7 @@ export class ClubController {
             lodging: null,
             transport: null,
             banquet: null
-          })
+          });
         })
         .on('end', () => {
           // Cleanup removing uploaded file
@@ -337,7 +337,7 @@ export class ClubController {
             .catch(err => {
               Log.log.error(`Error persisting members to club ${clubId}`, err);
               resolve(new ErrorResponse(err.code, err.message));
-            })
+            });
         })
         .on('error', (err: any) => {
           Log.log.error(`Error reading in memberdata from file to club ${clubId}`, err);

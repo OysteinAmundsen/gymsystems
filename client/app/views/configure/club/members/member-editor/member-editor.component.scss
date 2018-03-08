@@ -10,10 +10,25 @@ fieldset {
 
 .mat-card-content {
   display: flex;
+  flex-wrap: wrap;
+  margin: 0 -21px 16px -21px;
+  > section {
+    padding: 0 5px;
+  }
   > .gymnast-data {
     flex: 1;
   }
 }
+
+// .teams {
+//   .mat-list-item {
+//     display: flex;
+//     a {
+//       text-decoration: none;
+//       flex: 1;
+//     }
+//   }
+// }
 
 ::ng-deep {
   .mat-slide-toggle:not(.mat-disabled) .mat-slide-toggle-bar {
