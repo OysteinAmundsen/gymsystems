@@ -31,12 +31,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   dragulaSubscription;
   isDirty = false;
   shouldCalculateTraining = true;
+  editing: number;
 
   dragulaOptions = {
     invalid: (el: HTMLElement, handle) => {
       return el.classList.contains('isStarted');
     }
-  }
+  };
 
   constructor(
     private parent: TournamentEditorComponent,
@@ -103,6 +104,15 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     } else {
       this.loadSchedule();
     }
+  }
+  setEdit(itemId: number) {
+    this.editing = itemId;
+  }
+  editChanged(item: ITeamInDiscipline, startNo: number) {
+    this.setEdit(null);
+    this.schedule.splice(startNo - 1, 0, this.schedule.splice(this.schedule.findIndex(i => i.id === item.id), 1)[0]);
+    this.scheduleService.recalculateStartTime(this.tournament, this.schedule, true, true);
+    this.isDirty = true;
   }
 
   title(participant: ITeamInDiscipline) {

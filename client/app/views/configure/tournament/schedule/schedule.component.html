@@ -15,7 +15,12 @@
       <tr *ngFor="let item of schedule" role="listitem" [title]="title(item)"
         [ngClass]="{'draggable': true, 'deleted': item.markDeleted, 'new': !item.id, 'day-split': isNewDay(item), unimportant: item.type === participationTypes.Training, 'isStarted': item.startTime}">
         <td *ngIf="item.type === participationTypes.Training">Tr</td>
-        <td *ngIf="item.type === participationTypes.Live">#{{ item.startNumber + 1 }}</td>
+        <td *ngIf="item.type === participationTypes.Live && editing != item.id" (click)="setEdit(item.id)">#{{ item.startNumber + 1 }}</td>
+        <td *ngIf="item.type === participationTypes.Live && editing == item.id">
+          <mat-form-field>
+            <input matInput #startNo type="number" [value]="item.startNumber + 1" (blur)="editChanged(item, startNo.value)">
+          </mat-form-field>
+        </td>
         <td class="visible-wide" [innerHtml]="startTime(item)"></td>
         <td>{{ item.team.name }}</td>
         <td>{{ division(item.team) }}</td>
