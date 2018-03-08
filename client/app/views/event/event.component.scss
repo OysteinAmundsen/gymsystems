@@ -1,10 +1,14 @@
 @import "~styles/variables";
 header {
-  padding-bottom: 2.7rem;
   padding-top: 1rem;
   line-height: 3em;
   &.hidden {
     display: none;
+  }
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
   }
   small {
     font-size: 0.8em;

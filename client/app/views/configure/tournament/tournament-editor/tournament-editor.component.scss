@@ -3,10 +3,11 @@
 
 header {
   position: relative;
-  .buttons {
-    position: absolute;
-    top: 0rem;
-    right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  h1 {
+    flex: 1;
+    min-width: 20rem;
   }
 }
 

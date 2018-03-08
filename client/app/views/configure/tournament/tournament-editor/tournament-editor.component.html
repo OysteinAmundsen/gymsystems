@@ -4,7 +4,7 @@
     <span>{{ tournamentForm.value.name || 'Tournament' }}</span>
   </h1>
 
-  <div *ngIf="tournament && tournament.id" class="pull-right buttons">
+  <div *ngIf="tournament && tournament.id" class="buttons">
     <button mat-raised-button type="button" class="mat-primary flat" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'list']">
       <i class="fa fa-fw fa-list"></i>
       <span translate>List</span>

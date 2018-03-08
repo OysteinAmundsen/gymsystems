@@ -1,4 +1,5 @@
 @import "~styles/variables";
+
 menu {
   @supports (display: flex) {
     margin-top: 1rem;
@@ -11,12 +12,24 @@ menu {
       &.active {
         background: $primaryDark;
       }
-      .mat-list-icon {
-        font-size: inherit;
-        line-height: 25px;
-      }
-      .mat-list-text {
-        padding: 0 16px 0 0;
+      .mat-list-item-content {
+        .mat-list-icon {
+          font-size: inherit;
+          line-height: 25px;
+          @media (max-width: $stop2) {
+            display: inline-block;
+          }
+        }
+        .mat-list-text {
+          padding: 0 16px 0 0;
+          @media (max-width: $stop2) {
+            display: block;
+            padding: 0;
+          }
+          @media (max-width: $stop1) {
+            display: none;
+          }
+        }
       }
     }
   }
