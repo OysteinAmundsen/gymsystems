@@ -5,6 +5,7 @@
   <path d="M 0,0 H 200 V 13 c -139,0 -149,1 -200,11 z" />
 </svg>
 
+
 <nav>
   <div class="container">
     <!-- Logo -->
@@ -15,7 +16,7 @@
     <div class="spacer"></div>
 
     <!-- Main application menu -->
-    <ul class="sidebar" [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
+    <ul [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
       <li *ngIf="hasHelp" [ngClass]="{'active': showHelp, 'visible-wide': true, 'show-help': true}" [title]="'Show all places where help is available on this page' | translate">
         <a (mouseenter)="toggleHelp()" (mouseleave)="toggleHelp()"><i class="fa fa-fw fa-question"></i></a>
       </li>

@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       const future = this.types.find(t => t.name === 'Future');
       return future.tournaments;
     }
-    return null;
+    return [];
   }
 
   constructor(

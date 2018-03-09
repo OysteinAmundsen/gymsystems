@@ -22,14 +22,14 @@
 <div class="content-container">
   <div class="main-content">
     <!-- Display todays tournament -->
-    <section *ngIf="current.length">
+    <section *ngIf="current && current.length">
       <div *ngFor="let tournament of current">
         <ng-container *ngTemplateOutlet="tournamentDisplay;context:{tournament: tournament}"></ng-container>
       </div>
     </section>
 
     <!-- Display any future tournaments -->
-    <section *ngIf="future.length">
+    <section *ngIf="future && future.length">
       <div *ngFor="let tournament of future">
         <ng-container *ngTemplateOutlet="tournamentDisplay;context:{tournament: tournament}"></ng-container>
       </div>
