@@ -12,11 +12,10 @@
       <a class="appLogo" routerLink="/"><span>Gym</span><span>Systems</span></a>
     </header>
 
-    <!-- Mobile nav menu activator -->
-    <i class="fa fa-fw fa-bars fa-2x" (click)="toggleNav($event)"></i>
+    <div class="spacer"></div>
 
     <!-- Main application menu -->
-    <ul class="pull-right" [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
+    <ul class="sidebar" [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
       <li *ngIf="hasHelp" [ngClass]="{'active': showHelp, 'visible-wide': true, 'show-help': true}" [title]="'Show all places where help is available on this page' | translate">
         <a (mouseenter)="toggleHelp()" (mouseleave)="toggleHelp()"><i class="fa fa-fw fa-question"></i></a>
       </li>
@@ -37,6 +36,11 @@
           <i class="fa fa-fw fa-sign-out"></i> <span translate>Log out</span> </a>
       </li>
     </ul>
+
+    <!-- Mobile nav menu activator -->
+    <button mat-icon-button type="button" class="mobile-menu-toggle">
+      <i class="fa fa-fw fa-bars fa-2x" (click)="toggleNav($event)"></i>
+    </button>
   </div>
 </nav>
 

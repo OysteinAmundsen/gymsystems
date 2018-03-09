@@ -1,11 +1,4 @@
 @import "~styles/variables";
-:host {
-  .fixed-back {
-    +* {
-      margin-top: 20%;
-    }
-  }
-}
 
 .mat-card {
   padding: 0;
@@ -23,12 +16,25 @@
   }
 }
 
+.content-container {
+  display: flex;
+  flex-wrap: wrap;
+  @media (min-width: $stop1) {
+    margin-top: 4rem;
+  }
+}
 .main-content {
+  flex: 1;
   color: black;
   margin-bottom: 3rem;
   background: rgba(white,0.4);
-  padding: 8px;
+  padding: 16px;
   border-radius: 8px;
+  min-width: 400px;
+  @media (max-width: $stop1) {
+    min-width: 100%;
+    border-radius: 0;
+  }
   @media (min-width: $stop1) {
     margin-right: 1rem;
   }
@@ -36,11 +42,17 @@
     h1 {
       text-shadow: 0px 3px 10px black, 0 0 3px black;
       color: white;
-      margin-top: 0;
+      margin: 0 0 2rem 0;
     }
     small {
       margin-top: 1.2rem;
       margin-right: 2rem;
     }
+  }
+}
+
+.tournament-list {
+  @media (max-width: $stop1) {
+    flex: 1;
   }
 }

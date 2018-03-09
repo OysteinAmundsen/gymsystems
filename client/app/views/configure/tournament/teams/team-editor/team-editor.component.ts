@@ -135,7 +135,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         if (!clubCtrl.value) { clubCtrl.setValue(club); }
         if (club.id) {
           this.clubService.findTroopByName(club, v.name ? v.name : v).subscribe(troops => {
-            this.troopList = troops.filter(t => this.configuredTroops.findIndex(l => l.name === t.name) < 0)
+            this.troopList = troops.filter(t => this.configuredTroops.findIndex(l => l.name === t.name) < 0);
           });
         }
       });
@@ -159,7 +159,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
           case 'Herrer' : return g.gender === Gender.Male;
           default: return true;
         }
-      }))
+      }));
 
     // Select all disciplines if TeamGym is chosen
     this.teamForm.get('class')
@@ -262,8 +262,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       this.teamService.uploadMedia(fileList[0], this.teamForm.value, discipline).subscribe(
         data => this.reloadTeam(this.teamForm.value.id),
         error => Logger.error(error)
-      )
-    }
+      );
+    };
     if (fileList.length > 0) {
       if (this.teamForm.dirty) {
         this.save(true).then(upload);
@@ -370,7 +370,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   delete() {
     this.teamService.delete(this.teamForm.value).subscribe(result => {
       this.close(result);
-    })
+    });
   }
 
   close(result?) {

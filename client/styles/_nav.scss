@@ -1,10 +1,12 @@
 @import "variables";
+
 // Top navbar
 nav {
   @media print {
     display: none;
   }
   position: fixed;
+  top: 0;
   z-index: 2;
 
   display: block;
@@ -16,9 +18,18 @@ nav {
     display: table;
     clear: both;
   }
-  header {
-    float: left;
-    margin: 0 3rem 0 1rem;
+  @media (max-width: $stop1) {
+    overflow: hidden;
+    position: sticky;
+  }
+  > .container {
+    display: flex;
+    header {
+      margin: 0 3rem 0 1rem;
+    }
+    .spacer {
+      flex: 1;
+    }
   }
   a {
     padding: 1rem 0.5rem 1rem 0.5rem;
@@ -30,41 +41,40 @@ nav {
     text-decoration: none;
     height: 3.5rem;
   }
-  header + .fa {
-    float: right;
+  .mobile-menu-toggle {
     cursor: pointer;
     border-radius: $rounded;
     padding: 0.8rem 0.5rem 1.2rem 0.5rem;
     display: none;
     @media (max-width: $stop1) {
-      display: inline-block;
+      display: block;
     }
     &:hover {
       border: 1px solid transparent;
       text-shadow: none;
     }
   }
-  // Site menu
-  ul {
-    list-style: none;
-    padding-left: 0;
-    height: $navHeight;
-    @media (max-width: $stop1) {
-      width: 100%;
-      height: 100% !important;
-      position: fixed;
-      top: $navHeight;
-      right: -100%;
-      background: $primary;
-      transition: 300ms ease all;
-      z-index: 500;
-      &.open {
-        transform: translateX(-100%);
-      }
+}
+
+// Site menu
+.sidebar {
+  list-style: none;
+  padding-left: 0;
+  height: $navHeight;
+  @media (max-width: $stop1) {
+    width: 100%;
+    height: 100% !important;
+    position: fixed;
+    top: $navHeight;
+    right: -100%;
+    background: $primary;
+    transition: 300ms ease all;
+    z-index: 500;
+    &.open {
+      transform: translateX(-100%);
     }
   }
   li {
-    float: left;
     display: inline-block;
     &.active {
       a {

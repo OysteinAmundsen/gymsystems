@@ -6,7 +6,7 @@ import { TournamentService } from 'app/services/api/tournament/tournament.servic
 import { ITournament, IUser } from 'app/model';
 import { UserService } from 'app/services/api';
 
-interface TournamentType {name: string, tournaments: ITournament[]}
+interface TournamentType { name: string; tournaments: ITournament[]; }
 
 @Component({
   selector: 'app-home',
@@ -29,6 +29,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   get hasPast() {
     const past = this.types.find(t => t.name === 'Past');
     return past && past.tournaments && past.tournaments.length;
+  }
+
+  get future() {
+    if (this.hasFuture) {
+      const future = this.types.find(t => t.name === 'Future');
+      return future.tournaments;
+    }
+    return null;
   }
 
   constructor(

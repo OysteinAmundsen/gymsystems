@@ -22,6 +22,7 @@ body * {
   margin: 0 auto;
   max-width: 1280px;
   position: relative;
+  width: 100%;
   .fixed-back {
     background-image: url(/assets/images/frontpage2.jpg);
     background-attachment: fixed;
@@ -43,7 +44,7 @@ body * {
       left: 0;
       right: 0;
       top: 0;
-      background: linear-gradient(to top, rgba(white, 0.9) 30%, rgba(#fff, 0) 80%);
+      background: linear-gradient(to top, rgba(white, 0.8) 60%, rgba(white, 0) 100%);
     }
   }
 }
