@@ -75,7 +75,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   getDivisionNames(participants: ITeamInDiscipline[]): Set<string> {
-    return participants.reduce((p, c) => p.add(this.teamService.getDivisionName(c.team)), new Set<string>());
+    return participants
+      .sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => a.discipline.sortOrder < b.discipline.sortOrder ? 1 : -1)
+      .reduce((p, c) => p.add(this.teamService.getDivisionName(c.team)), new Set<string>());
   }
 
   score(participant: ITeamInDiscipline) {
