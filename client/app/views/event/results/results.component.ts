@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
-import { ITournament, ITeamInDiscipline, IUser, Classes, ParticipationType } from 'app/model';
+import { ITournament, ITeamInDiscipline, IUser, Classes, ParticipationType, DivisionType } from 'app/model';
 import { EventComponent } from '../event.component';
 
 @Component({
@@ -76,7 +76,20 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   getDivisionNames(participants: ITeamInDiscipline[]): Set<string> {
     return participants
-      .sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => a.discipline.sortOrder < b.discipline.sortOrder ? 1 : -1)
+      .sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => {
+        const aAgeGroup = a.team.divisions.find(d => d.type === DivisionType.Age);
+        const aGender = a.team.divisions.find(d => d.type === DivisionType.Gender);
+
+        const bAgeGroup = b.team.divisions.find(d => d.type === DivisionType.Age);
+        const bGender = b.team.divisions.find(d => d.type === DivisionType.Gender);
+
+        if (aAgeGroup.sortOrder !== bAgeGroup.sortOrder) {
+          return aAgeGroup.sortOrder > bAgeGroup.sortOrder ? 1 : -1;
+        } else if (aGender.sortOrder !== bGender.sortOrder) {
+          return aGender.sortOrder > bGender.sortOrder ? 1 : -1;
+        }
+        return 0;
+      })
       .reduce((p, c) => p.add(this.teamService.getDivisionName(c.team)), new Set<string>());
   }
 
