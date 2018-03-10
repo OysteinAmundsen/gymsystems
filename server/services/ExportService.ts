@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
-import * as mysqlDump from 'mysqlDump';
+import * as mysqlDump from 'mysqldump';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -29,6 +29,8 @@ export class ExportService {
         user: ormData.username,
         password: ormData.password,
         database: ormData.database,
+        ifNotExist: true,
+        data: true,
         dest: './dbdump.sql' // destination file
     }, function (err) {
         res.status(200)
