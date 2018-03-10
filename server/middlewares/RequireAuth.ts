@@ -18,8 +18,12 @@ export class RequireAuth implements ExpressMiddlewareInterface {
 export class RequireRole {
   static get(role: Role) {
     return (req: any, res: any, next?: (err?: any) => any): any => {
-      if (hasRole(req, res, role, next) && next) { next(); }
-    }
+      if (hasRole(req, res, role, next) && next) {
+        next();
+      } else {
+        next('Not authorized');
+      }
+    };
   }
 }
 

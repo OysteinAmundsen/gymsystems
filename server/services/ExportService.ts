@@ -2,6 +2,10 @@ import { Request, Response } from 'express';
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import * as mysqlDump from 'mysqlDump';
+import * as fs from 'fs';
+import * as path from 'path';
+
 const json2csv: any = require('json2csv');
 
 import { Log } from '../utils/Logger';
@@ -13,6 +17,31 @@ export interface ExportOptions {
 }
 
 export class ExportService {
+  /**
+   *
+   * @param arg0
+   */
+  static writeExport(res: Response): any {
+    const ormData = JSON.parse(fs.readFileSync('./ormconfig.json', 'UTF-8'))[0];
+    console.log(ormData);
+    mysqlDump({
+        host: ormData.host,
+        user: ormData.username,
+        password: ormData.password,
+        database: ormData.database,
+        dest: './dbdump.sql' // destination file
+    }, function (err) {
+        res.status(200)
+          .attachment('dbdump.sql')
+          .sendFile(path.resolve('./dbdump.sql'));
+    });
+  }
+
+  /**
+   *
+   * @param opt
+   * @param res
+   */
   static writeCSVExport(opt: ExportOptions, res: Response) {
     // Flatten data to only primitives.
     opt.data = opt.data.map((d: any) => {
@@ -37,6 +66,6 @@ export class ExportService {
         .send(json2csv({ data: opt.data, fields: opt.fields, del: ';' }));
     } catch (err) {
       Log.log.error(err);
-    };
+    }
   }
 }
