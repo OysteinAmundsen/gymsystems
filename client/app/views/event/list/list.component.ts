@@ -35,6 +35,8 @@ export class ListComponent implements OnInit, OnDestroy {
   classes = Classes;
   types = ParticipationType;
   _showTraining;
+  isLoading = false;
+
   get showTraining() {
     if (this._showTraining === undefined) {
       const show = localStorage.getItem('showTraining') || !!this.user ? 'false' : 'true';
@@ -105,22 +107,31 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   loadSchedule() {
-    this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => {
-      schedule = this.scheduleService.recalculateStartTime(this.tournament, schedule, false);
-      if (!this.selected) {
-        this.schedule = schedule;
-      } else {
-        schedule.forEach(team => {
-          const idx = this.schedule.findIndex(t => t.id === team.id);
-          if (idx > -1 && this.schedule[idx] !== this.selected) {
-            this.schedule.splice(idx, 1, team);
-          } else {
-            this.schedule.push(team);
-          }
-        });
+    this.isLoading = true;
+    this.scheduleService.getByTournament(this.tournament.id).subscribe(
+      schedule => {
+        schedule = this.scheduleService.recalculateStartTime(this.tournament, schedule, false);
+        this.isLoading = false;
+
+        if (!this.selected) {
+          this.schedule = schedule;
+        } else {
+          schedule.forEach(team => {
+            const idx = this.schedule.findIndex(t => t.id === team.id);
+            if (idx > -1 && this.schedule[idx] !== this.selected) {
+              this.schedule.splice(idx, 1, team);
+            } else {
+              this.schedule.push(team);
+            }
+          });
+        }
+        this.invalidateCache();
+      },
+      error => {
+        this.isLoading = false;
+        this.errorHandler.setError(error);
       }
-      this.invalidateCache();
-    });
+    );
   }
 
   private getCacheKey(participant: ITeamInDiscipline) {

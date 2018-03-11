@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { ITournament, ITeamInDiscipline, IUser, Classes, ParticipationType, DivisionType } from 'app/model';
 import { EventComponent } from '../event.component';
+import { ErrorHandlerService } from 'app/services/config';
 
 @Component({
   selector: 'app-results',
@@ -19,6 +20,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   tournamentSubscription: Subscription;
   scoreHead: {type: string}[];
   collapsed = {};
+  isLoading = false;
 
   get divisions() {
     return this.getDivisionNames(this.national);
@@ -45,7 +47,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
     private teamService: TeamsService,
     private scoreService: ScoreService,
     private eventService: EventService,
-    private userService: UserService) {  }
+    private userService: UserService,
+    private errorHandler: ErrorHandlerService) {  }
 
   ngOnInit() {
     const collapsed = localStorage.getItem('resultsCollapse');
@@ -74,8 +77,17 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   loadResults() {
-    this.scheduleService.getByTournament(this.tournament.id)
-      .subscribe((schedule) => this.schedule = schedule.filter(s => s.type === ParticipationType.Live));
+    this.isLoading = true;
+    this.scheduleService.getByTournament(this.tournament.id).subscribe(
+      schedule => {
+        this.schedule = schedule.filter(s => s.type === ParticipationType.Live);
+        this.isLoading = false;
+      },
+      error => {
+        this.isLoading = false;
+        this.errorHandler.setError(error);
+      }
+    );
   }
 
   getDivisionNames(participants: ITeamInDiscipline[]): Set<string> {

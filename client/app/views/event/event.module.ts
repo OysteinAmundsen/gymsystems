@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import {
-  MatCardModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatSlideToggleModule, MatButtonModule, MatDialogModule, MatListModule
+  MatCardModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatSlideToggleModule,
+  MatButtonModule, MatDialogModule, MatListModule, MatProgressSpinnerModule
 } from '@angular/material';
 
 // Module dependencies
@@ -30,6 +31,7 @@ import { ScoreEditorComponent } from './list/score-editor/score-editor.component
     ReactiveFormsModule,
     MarkdownToHtmlModule,
 
+    MatProgressSpinnerModule,
     MatCardModule,
     MatFormFieldModule,
     MatSelectModule,

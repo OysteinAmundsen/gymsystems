@@ -13,6 +13,8 @@
   </mat-slide-toggle>
 </header>
 
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+
 <section class="table-responsive">
   <table *ngIf="tournament && schedule.length" role="list">
     <thead>

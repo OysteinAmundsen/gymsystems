@@ -2,6 +2,8 @@
   <a [routerLink]="['../signoff']" mat-button><i class="fa fa-fw fa-print"></i> <span translate>Judge signoff</span></a>
 </div>
 
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+
 <!-- National classes -->
 <mat-card *ngFor="let division of divisions" class="division" [ngClass]="{'collapsed': isCollapsed(division)}">
   <mat-card-header>
