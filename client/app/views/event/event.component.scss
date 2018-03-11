@@ -2,6 +2,15 @@
 header {
   padding-top: 1rem;
   line-height: 3em;
+  @media (min-width: $stop1) {
+    display: flex;
+    .hgroup {
+      flex: 1;
+    }
+    .buttons {
+      margin-top: 0.8rem;
+    }
+  }
   &.hidden {
     display: none;
   }
@@ -17,7 +26,18 @@ header {
     display: block;
   }
 
-  button.active {
-    display: none;
+  .buttons {
+    text-align: right;
+    button {
+      &.active {
+        display: none;
+      }
+      @media (max-width: $stop1) {
+        min-width: 0;
+        span {
+          display: none;
+        }
+      }
+    }
   }
 }

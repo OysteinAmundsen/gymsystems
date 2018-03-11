@@ -18,6 +18,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   eventSubscription: Subscription;
   tournamentSubscription: Subscription;
   scoreHead: {type: string}[];
+  collapsed = {};
 
   get divisions() {
     return this.getDivisionNames(this.national);
@@ -47,6 +48,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
     private userService: UserService) {  }
 
   ngOnInit() {
+    const collapsed = localStorage.getItem('resultsCollapse');
+    this.collapsed = collapsed ? JSON.parse(collapsed) : {};
+
     this.tournamentSubscription = this.parent.tournamentSubject.subscribe(
       tournament => {
         if (tournament && tournament.id) {
@@ -148,20 +152,43 @@ export class ResultsComponent implements OnInit, OnDestroy {
       : item.publishTime != null;
   }
 
+  hasParticipants(discipline: string, division: string) {
+    return this.schedule.filter(s => s.discipline.name === discipline && this.teamService.getDivisionName(s.team) === division).length > 0;
+  }
+
+  toggleCollapse(division: string) {
+    if (this.collapsed[division]) {
+      delete this.collapsed[division];
+    } else {
+      this.collapsed[division] = true;
+    }
+    localStorage.setItem('resultsCollapse', JSON.stringify(this.collapsed));
+  }
+
+  isCollapsed(division: string) {
+    return this.collapsed[division];
+  }
+
   getByDivision(name: string, filtered?: ITeamInDiscipline[]) {
     const schedule = filtered || this.schedule;
-    return schedule.filter(s => this.teamService.getDivisionName(s.team) === name)
-      .sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => { // Sort by total score
-        return this.score(a) > this.score(b) ? -1 : 1;
-      });
+    return this.sortByScoreAndName(schedule.filter(s => this.teamService.getDivisionName(s.team) === name));
   }
 
   getByDiscipline(name: string, filtered?: ITeamInDiscipline[]) {
     const schedule = filtered || this.schedule;
-    return schedule.filter(s => s.discipline.name === name && s.team.class !== Classes.TeamGym)
-      .sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => { // Sort by total score
-        return this.score(a) > this.score(b) ? -1 : 1;
-      });
+    return this.sortByScoreAndName(schedule.filter(s => s.discipline.name === name && s.team.class !== Classes.TeamGym));
+  }
+
+  sortByScoreAndName(filtered: ITeamInDiscipline[]) {
+    return filtered
+    .sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => { // Sort by total score
+      const aScore = this.score(a);
+      const bScore = this.score(b);
+      if (aScore !== bScore) {
+        return this.score(a) > bScore ? -1 : 1;
+      }
+      return a.team.name > b.team.name ? 1 : -1;
+    });
   }
 
   getByTeamGym(divisionName: string) {

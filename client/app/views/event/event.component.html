@@ -1,8 +1,10 @@
 <header *ngIf="tournament">
-  <small>{{ tournament.startDate | date: 'dd.MM' }} - {{ tournament.endDate | date: 'dd.MM' }} {{ tournament.endDate | date: 'yyyy' }}</small>
-  <h2 class="pull-left">{{ tournament.name }}</h2>
+  <div class="hgroup">
+    <small>{{ tournament.startDate | date: 'dd.MM' }} - {{ tournament.endDate | date: 'dd.MM' }} {{ tournament.endDate | date: 'yyyy' }}</small>
+    <h2>{{ tournament.name }}</h2>
+  </div>
 
-  <div class="pull-right buttons">
+  <div class="buttons">
     <button mat-raised-button type="button" *appIfAuth="'Organizer'" [routerLink]="['/configure/tournament', tournament.id]">
       <i class="fa fa-fw fa-cog"></i>
       <span translate>Settings </span>
