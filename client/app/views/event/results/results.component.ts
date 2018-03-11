@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
-import { ITournament, ITeamInDiscipline, IUser, Classes, ParticipationType, DivisionType } from 'app/model';
+import { ITournament, ITeamInDiscipline, IUser, Classes, ParticipationType, DivisionType, IDiscipline } from 'app/model';
 import { EventComponent } from '../event.component';
 import { ErrorHandlerService } from 'app/services/config';
 
@@ -30,9 +30,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
     return this.getDivisionNames(this.teamgym);
   }
 
-  get disciplines() {
-    return this.schedule.reduce((p, s) => {
-      if (p.indexOf(s.discipline.name) < 0) { p.push(s.discipline.name); }
+  get disciplines(): IDiscipline[] {
+    return this.schedule.reduce((p: IDiscipline[], s: ITeamInDiscipline) => {
+      if (p.findIndex(dp => dp.name === s.discipline.name) < 0) {
+        p.push(s.discipline);
+      }
       return p;
     }, []);
   }
@@ -206,7 +208,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   getByTeamGym(divisionName: string) {
     const me = this;
     return this.schedule.filter(s => {
-      return s.discipline.name === me.disciplines[0]  // Only one entry per team.
+      return s.discipline.name === me.disciplines[0].name  // Only one entry per team.
           && s.team.class === Classes.TeamGym
           && divisionName === me.teamService.getDivisionName(s.team);
     }).sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => { // Sort by total score

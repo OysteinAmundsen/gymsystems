@@ -16,13 +16,18 @@
   </mat-card-header>
   <mat-card-content class="flex">
     <ng-container *ngFor="let discipline of disciplines">
-      <div class="flex-col" *ngIf="hasParticipants(discipline, division)">
+      <div class="flex-col" *ngIf="hasParticipants(discipline.name, division)">
         <table role="list">
           <thead>
-            <tr><th colspan="3"><h4>{{discipline}}</h4></th></tr>
+            <tr><th colspan="3">
+              <h4>
+                <i class="fa fa-fw fa-square" [attr.discipline]="discipline.sortOrder"></i>
+                {{discipline.name}}
+              </h4>
+            </th></tr>
           </thead>
           <tbody>
-            <tr *ngFor="let participant of getByDiscipline(discipline, getByDivision(division))" [ngClass]="{isPublished: isPublished(participant)}">
+            <tr *ngFor="let participant of getByDiscipline(discipline.name, getByDivision(division))" [ngClass]="{isPublished: isPublished(participant)}">
               <td>{{participant.team.name}}</td>
               <td class="score">{{score(participant) | number:'1.3-3'}}</td>
               <td class="spacer"> </td>
@@ -51,7 +56,12 @@
           <tr><th [attr.colspan]="getMaxColspan()"><h4>{{division}}</h4></th></tr>
           <tr>
             <td></td>
-            <td *ngFor="let discipline of disciplines"><small>{{discipline}}</small></td>
+            <td *ngFor="let discipline of disciplines">
+              <small>
+                <i class="fa fa-fw fa-square" [attr.discipline]="discipline.sortOrder"></i>
+                {{discipline.name}}
+              </small>
+            </td>
             <td translate class="score">Total</td>
             <td class="spacer"> </td>
           </tr>

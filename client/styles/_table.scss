@@ -68,3 +68,14 @@ table[role="list"] {
     overflow: visible;
   }
 }
+
+$base: 120;
+[discipline="0"] {
+  color: hsl($base * 0, 40%, 60%);
+}
+[discipline="1"] {
+  color: hsl($base * 1, 40%, 60%);
+}
+[discipline="2"] {
+  color: hsl($base * 2, 40%, 60%);
+}

@@ -2,7 +2,10 @@
   <table role="list" [dragula]="'discipline-bag'" [dragulaModel]="disciplineList" class="editable">
     <tbody *ngFor="let discipline of disciplineList | orderBy: 'sortOrder'">
       <tr *ngIf="discipline !== selected" (click)="select(discipline)" role="listitem" class="draggable">
-        <td>{{ discipline.name }}</td>
+        <td>
+          <i class="fa fa-fw fa-square" [attr.discipline]="discipline.sortOrder"></i>
+          {{ discipline.name }}
+        </td>
       </tr>
       <tr *ngIf="discipline === selected" class="static">
         <td colspan="1">

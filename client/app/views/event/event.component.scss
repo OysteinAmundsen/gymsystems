@@ -1,6 +1,6 @@
 @import "~styles/variables";
 header {
-  padding-top: 1rem;
+  padding: 1rem 0.5rem;
   line-height: 3em;
   @media (min-width: $stop1) {
     display: flex;

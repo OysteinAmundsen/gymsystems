@@ -24,7 +24,11 @@
         <td class="visible-wide" [innerHtml]="startTime(item)"></td>
         <td>{{ item.team.name }}</td>
         <td>{{ division(item.team) }}</td>
-        <td><b *ngIf="item.team.class === classes.TeamGym">TG: </b>{{ item.discipline.name }}</td>
+        <td>
+          <i class="fa fa-fw fa-square" [attr.discipline]="item.discipline.sortOrder"></i>
+          <b *ngIf="item.team.class === classes.TeamGym">TG: </b>
+          {{ item.discipline.name }}
+        </td>
         <td class="icons"><button mat-icon-button type="button" class="warning" (click)="deleteParticipant(item)" *ngIf="!item.startTime"><i class="fa fa-fw fa-trash"></i></button>
       </tr>
     </tbody>

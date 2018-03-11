@@ -26,6 +26,9 @@
     transition: transform 0.2s;
     margin-top: -3px;
   }
+  &.collapsed {
+    margin-bottom: 0.5rem;
+  }
   &.collapsed .collapser {
     transform: rotate(-90deg);
   }
@@ -93,6 +96,7 @@ table {
       overflow: hidden;
       max-width: 170px;
       text-overflow: ellipsis;
+      height: 41px;
       &:first-child {
         padding-left: 10px;
       }
