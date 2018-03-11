@@ -30,7 +30,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   participationTypes = ParticipationType;
   dragulaSubscription;
   isDirty = false;
-  shouldCalculateTraining = true;
+  shouldCalculateTraining = false;
   editing: number;
 
   dragulaOptions = {
@@ -141,7 +141,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   calculateSchedule() {
-    this.schedule = this.sortSchedule(this.schedule.concat(this.calculateMissing()));
+    this.schedule = this.schedule.concat(this.sortSchedule(this.calculateMissing()));
+    this.scheduleService.recalculateStartTime(this.tournament, this.schedule, true, !this.parent.hasStarted);
   }
 
   haveMissing() {
@@ -229,6 +230,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       }
     });
 
-    return this.scheduleService.recalculateStartTime(this.tournament, result, true, !this.parent.hasStarted);
+    return result;
   }
 }
