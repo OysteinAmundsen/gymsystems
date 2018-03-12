@@ -19,8 +19,12 @@
   padding: 0;
   overflow: hidden;
   margin-bottom: 1rem;
+  .mat-card-header-text {
+    margin: 0;
+    width: 100%;
+  }
 }
-::ng-deep .mat-card {
+.mat-card {
   .collapser {
     cursor: pointer;
     transition: transform 0.2s;
@@ -35,10 +39,6 @@
 
   .mat-card-header {
     margin: 0;
-  }
-  .mat-card-header-text {
-    margin: 0;
-    width: 100%;
   }
 
   .mat-card-title {

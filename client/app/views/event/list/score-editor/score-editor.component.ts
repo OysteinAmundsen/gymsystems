@@ -9,6 +9,9 @@ import * as _ from 'lodash';
 import { UserService, ScoreService } from 'app/services/api';
 import { KeyCode } from 'app/shared/KeyCodes';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-score-editor',
   templateUrl: './score-editor.component.html',
@@ -35,11 +38,19 @@ export class ScoreEditorComponent implements OnInit, OnDestroy {
     }, 0);
   }
 
+  /**
+   *
+   * @param scoreService
+   * @param userService
+   */
   constructor(
     private scoreService: ScoreService,
     private userService: UserService
   ) { }
 
+  /**
+   *
+   */
   ngOnInit() {
     this.subscriptions.push(this.userService.getMe().subscribe(user => this.currentUser = user));
 
@@ -62,14 +73,23 @@ export class ScoreEditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   *
+   */
   ngOnDestroy() {
     this.subscriptions.forEach(s => s ? s.unsubscribe() : null);
   }
 
+  /**
+   *
+   */
   close() {
     this.onClose.emit(true);
   }
 
+  /**
+   *
+   */
   save() {
     // Write back copy
     this.participant.scores = this.groupedScores.reduce((prev, curr) => prev.concat(curr.scores), []);
@@ -78,6 +98,9 @@ export class ScoreEditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   *
+   */
   delete() {
     if (this.currentUser.role >= Role.Organizer || this.participant.publishTime == null) {
       this.participant.scores = [];
@@ -85,12 +108,19 @@ export class ScoreEditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   *
+   */
   rollback() {
     if (this.currentUser.role >= Role.Organizer) {
       this.scoreService.rollbackToParticipant(this.participant.id).subscribe(() => this.onClose.emit(true));
     }
   }
 
+  /**
+   *
+   * @param event
+   */
   onBlur(event: Event) {
     console.log('Blur');
     const identifier = event.srcElement.id.split('_');
@@ -105,6 +135,10 @@ export class ScoreEditorComponent implements OnInit, OnDestroy {
     score.value = this.scoreService.fixScore(score.value);
   }
 
+  /**
+   *
+   * @param event
+   */
   @HostListener('window:keydown', ['$event'])
   onKeydown(event: KeyboardEvent) {
     if (event.keyCode === KeyCode.ESCAPE) {
@@ -118,6 +152,7 @@ export class ScoreEditorComponent implements OnInit, OnDestroy {
       const score = group.scores.find(s => s.judgeIndex === +identifier[2]);
       switch (event.keyCode) {
         // Page down should decrease with one full point
+        case KeyCode.DOWN_ARROW: if (!event.shiftKey) { break; }
         case KeyCode.PAGE_DOWN:
           event.preventDefault();
           if (score.value > score.scoreGroup.min) {
@@ -125,7 +160,8 @@ export class ScoreEditorComponent implements OnInit, OnDestroy {
           }
           break;
 
-        // Page up should increase with one full point
+        // Page up should increase with one full
+        case KeyCode.UP_ARROW: if (!event.shiftKey) { break; }
         case KeyCode.PAGE_UP:
           event.preventDefault();
           if (score.value < score.scoreGroup.max) {

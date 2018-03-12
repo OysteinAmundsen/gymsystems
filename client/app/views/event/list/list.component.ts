@@ -15,11 +15,18 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { ITournament, ITeamInDiscipline, ITeam, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/model';
 import { debounceTime } from 'rxjs/operators';
 
+/**
+ *
+ */
 interface ParticipantCache {
   time: string;
   date: string;
   isNewDay: boolean;
 }
+
+/**
+ *
+ */
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -80,6 +87,9 @@ export class ListComponent implements OnInit, OnDestroy {
     private mediaService: MediaService,
     private errorHandler: ErrorHandlerService) {  }
 
+  /**
+   *
+   */
   ngOnInit() {
     // Make sure we have translations for weekdays
     this.translate.get(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']).subscribe();
@@ -100,12 +110,18 @@ export class ListComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   *
+   */
   ngOnDestroy() {
     this.tournamentSubscription.unsubscribe();
     if (this.eventSubscription) { this.eventSubscription.unsubscribe(); }
     if (this.userSubscription) { this.userSubscription.unsubscribe(); }
   }
 
+  /**
+   *
+   */
   loadSchedule() {
     this.isLoading = true;
     this.scheduleService.getByTournament(this.tournament.id).subscribe(
@@ -134,10 +150,18 @@ export class ListComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   *
+   * @param participant
+   */
   private getCacheKey(participant: ITeamInDiscipline) {
     return participant.sortNumber;
   }
 
+  /**
+   *
+   * @param participant
+   */
   private invalidateCache(participant?: ITeamInDiscipline) {
     if (participant) {
       delete this._cache[this.getCacheKey(participant)];
@@ -146,6 +170,11 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   *
+   * @param participant
+   * @param cacheObj
+   */
   private cache(participant: ITeamInDiscipline, cacheObj?: {}): ParticipantCache {
     const key = this.getCacheKey(participant);
     let cache = this._cache[key];
@@ -157,6 +186,10 @@ export class ListComponent implements OnInit, OnDestroy {
     return cache;
   }
 
+  /**
+   *
+   * @param participant
+   */
   startTime(participant: ITeamInDiscipline): string {
     let timeCache = this.cache(participant);
     if (!timeCache.time) {
@@ -165,6 +198,9 @@ export class ListComponent implements OnInit, OnDestroy {
     return timeCache.time;
   }
 
+  /**
+   *
+   */
   startDate(participant: ITeamInDiscipline): string {
     let dateCache = this.cache(participant);
     if (!dateCache.date) {
@@ -174,6 +210,9 @@ export class ListComponent implements OnInit, OnDestroy {
     return dateCache.date;
   }
 
+  /**
+   *
+   */
   isNewDay(participant: ITeamInDiscipline): boolean {
     let dayCache = this.cache(participant);
     if (dayCache.isNewDay == null) {
@@ -182,13 +221,22 @@ export class ListComponent implements OnInit, OnDestroy {
     return dayCache.isNewDay;
   }
 
+  /**
+   *
+   */
   isVisible(participant: ITeamInDiscipline) {
     return (!this.selectedDiscipline || this.selectedDiscipline.id === participant.discipline.id)
       && (participant.type !== ParticipationType.Training || this.showTraining === true);
   }
 
+  /**
+   *
+   */
   division(team: ITeam) { return this.teamService.getDivisionName(team); }
 
+  /**
+   *
+   */
   score(participant: ITeamInDiscipline) {
     const score = this.scoreService.calculateTotal(participant);
 
@@ -196,6 +244,9 @@ export class ListComponent implements OnInit, OnDestroy {
     return (participant.publishTime || (this.user && this.user.role >= Role.Secretariat)) ? score : 0;
   }
 
+  /**
+   *
+   */
   canEdit(participant: ITeamInDiscipline) {
     return this.user && (!participant || !participant.markDeleted) && (
       this.user.role >= Role.Admin
@@ -203,6 +254,19 @@ export class ListComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   *
+   */
+  canViewActions() {
+    return this.user
+        && (this.user.role >= Role.Admin
+          || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.club.id)
+        );
+  }
+
+  /**
+   *
+   */
   select(participant: ITeamInDiscipline) {
     if (this.canEdit(participant)) {
       if (participant != null && participant.startTime == null && participant.type === ParticipationType.Live) {
@@ -216,6 +280,11 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   *
+   * @param participant
+   * @param index
+   */
   canStart(participant: ITeamInDiscipline, index: number) {
     if (participant.markDeleted) { return false; }
     let previous;
@@ -229,10 +298,19 @@ export class ListComponent implements OnInit, OnDestroy {
     return participant.startTime == null && previousStarted;
   }
 
+  /**
+   *
+   * @param participant
+   */
   getMedia(participant: ITeamInDiscipline): IMedia {
     return participant.team.media ? participant.team.media.find(m => m.discipline.id === participant.discipline.id) : null;
   }
 
+  /**
+   *
+   * @param participant
+   * @param evt
+   */
   start(participant: ITeamInDiscipline, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.startTime != null) {
@@ -257,6 +335,11 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   *
+   * @param participant
+   * @param evt
+   */
   stop(participant: ITeamInDiscipline, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.startTime == null) {
@@ -275,6 +358,11 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   *
+   * @param participant
+   * @param evt
+   */
   publish(participant: ITeamInDiscipline, evt: Event) {
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.publishTime != null) {
@@ -289,10 +377,19 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   *
+   */
   closeEditor() {
     this.select(null);
   }
 
+  /**
+   *
+   * @param item
+   * @param rowIndex
+   * @param
+   */
   contextInvoked(item: ITeamInDiscipline, rowIndex: number, $event: MouseEvent) {
     if (this.user && (this.user.role >= Role.Admin
       || (this.user.role >= Role.Organizer && this.user.club.id === this.tournament.club.id))) {
@@ -322,6 +419,10 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   *
+   * @param
+   */
   @HostListener('window:click', ['$event'])
   onClick($event: MouseEvent) {
     if (this.dialogRef) {
