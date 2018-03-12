@@ -9,7 +9,7 @@ import { ClubService } from './club.service';
 export const dummyClub: IClub = <IClub>{
   id  : 0,
   name: 'HAUGESUND TURNFORENING'
-}
+};
 
 @Injectable()
 export class ClubServiceStub extends ClubService {

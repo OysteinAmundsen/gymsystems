@@ -128,14 +128,14 @@ export class TroopsComponent implements OnInit {
             club: this.club
           });
           troop = []; // reset gymnast bucket
-        }
+        };
         available.forEach(member => {
           if (troop.length === troopSize) { saveTroop(troop); }
           troop.push(member);
         });
         // Make sure last troop is added
         if (troop.length) { saveTroop(troop); }
-      }
+      };
 
       // Generate gender troops, sorted by age
       this.defaults.forEach(division => {
@@ -180,7 +180,7 @@ export class TroopsComponent implements OnInit {
   }
 
   toggleSelectAll() {
-    if (this.selection.length == 0 || this.selection.length < this.teams.length) {
+    if (this.selection.length === 0 || this.selection.length < this.teams.length) {
       // None or some selected. Select all
       this.selection = this.teams.slice();
     } else {

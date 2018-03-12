@@ -46,10 +46,10 @@ export class FullscreenComponent implements OnInit, OnDestroy {
 
     // Go fullscreen
     const elm = this.elRef.nativeElement;
-    if (elm.requestFullscreen)            { elm.requestFullscreen(); }
-    else if (elm.msRequestFullscreen)     { elm.msRequestFullscreen(); }
-    else if (elm.mozRequestFullScreen)    { elm.mozRequestFullScreen(); }
-    else if (elm.webkitRequestFullscreen) { elm.webkitRequestFullscreen(); }
+    if (elm.requestFullscreen)              { elm.requestFullscreen();
+    } else if (elm.msRequestFullscreen)     { elm.msRequestFullscreen();
+    } else if (elm.mozRequestFullScreen)    { elm.mozRequestFullScreen();
+    } else if (elm.webkitRequestFullscreen) { elm.webkitRequestFullscreen(); }
   }
 
   loadDisplay() {

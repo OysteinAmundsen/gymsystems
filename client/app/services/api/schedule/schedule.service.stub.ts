@@ -27,7 +27,7 @@ export function generateParticipants(amount: number): ITeamInDiscipline[] {
       team: dummyTeam,
       tournament: dummyTournament,
       scores: []
-    }
+    };
   });
 }
 

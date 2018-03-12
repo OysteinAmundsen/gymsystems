@@ -2,13 +2,14 @@ import { browser, element, by, ExpectedConditions } from 'protractor';
 import { ConnectionOptions, createConnection, getConnectionManager, QueryRunner } from 'typeorm';
 import * as chalk from 'chalk';
 
-import { AppRootPage } from "../../app.po";
-import { Configure } from "../configure.po";
+import { AppRootPage } from '../../app.po';
+import { Configure } from '../configure.po';
 
 export class ConfigureClubs extends AppRootPage {
 
   setUp(queryRunner?: QueryRunner) {
     if (queryRunner) { this._queryRunner = queryRunner; }
+
     return new Promise((resolve, reject) => {
       this.queryRunner.then(queryRunner => {
         // console.log(chalk.yellow('  - clubs.po: Create clubs'));

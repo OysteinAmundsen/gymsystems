@@ -116,7 +116,7 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
   delete() {
     this.clubService.deleteTroop(this.troopForm.value).subscribe(result => {
       this.close(result);
-    })
+    });
   }
 
   close(result?) {

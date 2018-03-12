@@ -23,7 +23,7 @@ export function toLowerCaseTransformer(value: string) {
   exportAs: 'toCase'
 })
 export class ToCaseDirective extends DefaultValueAccessor {
-  @Input('appToCase') toCase: string;
+  @Input() appToCase: string;
 
   constructor(renderer: Renderer2, elementRef: ElementRef) {
     super(renderer, elementRef, false);
@@ -39,7 +39,7 @@ export class ToCaseDirective extends DefaultValueAccessor {
   onInput($event: any): void {
     const value = $event.target.value;
     let transformed;
-    switch (this.toCase) {
+    switch (this.appToCase) {
       case 'lower':
         transformed = toLowerCaseTransformer(value); break;
       case 'upper':

@@ -7,7 +7,7 @@ import { IDiscipline, ITournament } from 'app/model';
 import { DisciplineService } from './discipline.service';
 
 @Injectable()
-export class DisciplineServiceStub extends DisciplineService{
+export class DisciplineServiceStub extends DisciplineService {
   discipline: IDiscipline = <IDiscipline>{
     id: 0,
     name: '',

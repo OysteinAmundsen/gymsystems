@@ -41,9 +41,8 @@
     </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let member; columns: displayedColumns; let index=index"
+  <mat-row *matRowDef="let member; columns: displayedColumns; let index=index" matRipple #dataRow
           (press)="onPress($event)"
-          matRipple #dataRow
           [routerLink]="['.', member.id]"
           [ngClass]="{'male': member.gender == genders.Male, 'female': member.gender == genders.Female, collapsed: selected == member}"></mat-row>
 </mat-table>

@@ -30,12 +30,12 @@ describe('GYMSYSTEMS: Home', () => {
     it('should redirect to login page when login button is pushed', () => {
       login.navigateTo();
       expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/login?u=%252F');
-    })
+    });
 
     it('should redirect to home page when home button is pushed', () => {
       home.goHome();
       expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + home.url);
-    })
+    });
   });
 
 

@@ -73,7 +73,7 @@
         <h4><i class="fa fa-fw fa-group"></i> {{'Teams' | translate}}</h4>
         <mat-form-field>
           <input matInput [(ngModel)]="troopSelector" [ngModelOptions]="{standalone: true}" (ngModelChange)="onTroopSelectorChange($event)"
-                 placeholder="{{'Team' | translate}}" [matAutocomplete]="troopTypeahead">
+                 placeholder="{{'Add to Team' | translate}}" [matAutocomplete]="troopTypeahead">
           <mat-autocomplete #troopTypeahead="matAutocomplete" (optionSelected)="addToTeam($event)" [displayWith]="troopDisplay">
             <mat-option *ngFor="let troop of troopList" [value]="troop">
               {{ troop.name }}

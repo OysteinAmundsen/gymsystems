@@ -214,7 +214,7 @@ export class ClubController {
       .leftJoinAndSelect('gymnast.troop', 'troop')
       .where('gymnast.club = :id', {id: clubId});
     if (ordered) {
-      q.orderBy('gymnast.birthyear', 'DESC')
+      q.orderBy('gymnast.birthyear', 'DESC');
     }
     return q.getMany();
   }
@@ -436,7 +436,7 @@ export class ClubController {
       .createQueryBuilder('troop')
       .innerJoinAndSelect('troop.club', 'club')
       .leftJoinAndSelect('troop.gymnasts', 'gymnasts')
-      .where('troop.club = :clubId', {clubId: clubId})
+      .where('troop.club = :clubId', {clubId: clubId});
     if (name) {
       query.andWhere('lower(troop.name) LIKE lower(:name)', {name: `%${name}%`});
     }

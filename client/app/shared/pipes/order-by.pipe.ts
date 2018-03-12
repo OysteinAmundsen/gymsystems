@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class OrderByPipe implements PipeTransform {
 
   transform(records: Array<any>, args?: any): any {
-    const direction = (args.substring(0, 1) == '~' ? -1 : 1);
+    const direction = (args.substring(0, 1) === '~' ? -1 : 1);
     const property = args.replace('~', '');
     if (!records || !records.length) {
       return records;
@@ -20,5 +20,5 @@ export class OrderByPipe implements PipeTransform {
         return 0;
       }
     });
-  };
+  }
 }

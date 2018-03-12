@@ -12,7 +12,7 @@ export interface HttpAction {
   method: RequestMethod;
   isComplete?: boolean;
   failed?: boolean;
-  values?: any
+  values?: any;
 }
 
 @Injectable()

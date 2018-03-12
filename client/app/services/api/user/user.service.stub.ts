@@ -33,7 +33,7 @@ export const dummyClubRep: IUser = <IUser>{
 
 @Injectable()
 export class UserServiceStub extends UserService {
-  club: IClub = dummyClub
+  club: IClub = dummyClub;
   user: IUser = dummyAdmin;
 
   constructor(http: HttpClient) {

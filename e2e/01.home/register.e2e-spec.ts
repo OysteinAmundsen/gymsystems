@@ -56,7 +56,7 @@ describe('GYMSYSTEMS: Register', function() {
         browser.ignoreSynchronization = false;
         // console.log('** Teardown "register.e2e" complete!');
         done(err);
-      }
+      };
       users.tearDown().then(callback).catch(callback);
     });
     it('when all is correct', () => {

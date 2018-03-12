@@ -33,8 +33,8 @@ export class ScoreService {
   }
 
   calculateScoreGroupTotal(participant: ITeamInDiscipline, type: string) {
-    const add = (prev, num) => {prev += num; return prev; }
-    const sub = (prev, num) => {prev -= num; return prev; }
+    const add = (prev, num) => {prev += num; return prev; };
+    const sub = (prev, num) => {prev -= num; return prev; };
     const isAdd = (score) => score.scoreGroup.operation === Operation.Addition;
     const scores = participant.scores.filter(s => type.indexOf(s.scoreGroup.type) > -1);
     return this.fixScore(scores.length

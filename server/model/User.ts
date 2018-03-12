@@ -26,8 +26,8 @@ export const RoleNames: [{id: number, name: string}] = [
   {id: Role.Organizer,   name: 'Organizer'},
   {id: Role.Secretariat, name: 'Secretariat'},
   {id: Role.Club,        name: 'Club'},
-  {id: Role.User,        name: 'User'},
-]
+  {id: Role.User,        name: 'User'}
+];
 
 /**
  * A Contract enforced on every object referencing user.

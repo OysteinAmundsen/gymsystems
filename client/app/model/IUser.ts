@@ -11,7 +11,7 @@ export const RoleNames: [{id: number, name: string}] = [
   {id: Role.Secretariat, name: 'Secretariat'},
   {id: Role.Club,        name: 'Club'},
   {id: Role.User,        name: 'User'},
-]
+];
 
 export interface IUser extends IBelongsToClub  {
   id: number;

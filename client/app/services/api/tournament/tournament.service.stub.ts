@@ -30,7 +30,7 @@ export class TournamentServiceStub extends TournamentService {
   future: ITournament = dummyTournament;
   tournaments: ITournament[] = [
     this.previous, this.present, this.future
-  ]
+  ];
 
   selected = dummyTournament;
   selectedId = dummyTournament.id;

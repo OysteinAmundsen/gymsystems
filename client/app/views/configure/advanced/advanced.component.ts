@@ -96,7 +96,7 @@ export class AdvancedComponent implements OnInit {
       //   senior: {min: this.configForm.value['agelimit.senior.min'], max: this.configForm.value['agelimit.senior.max']},
       // }},
       {name: 'defaultValues', value: this.defaultValues }
-    ]
+    ];
     this.config.save(newConfig).subscribe(res => this.configuration = res);
   }
 }

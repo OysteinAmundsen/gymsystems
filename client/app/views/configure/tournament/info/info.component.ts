@@ -80,7 +80,7 @@ export class InfoComponent implements OnInit {
       end: end,
       startOfLine: startOfLine > -1 ? startOfLine : 0,
       endOfLine: endOfLine > -1 ? endOfLine : text.length
-    }
+    };
   }
 
   returnfocus(start, end) {
@@ -107,7 +107,7 @@ export class InfoComponent implements OnInit {
     const selection = this.getSelection();
     const text = this.splitValue(this.tournament['description_' + this.lng], selection);
     const line = text.line.substring(text.line.lastIndexOf('#') + 1).trim();
-    const headers = text.line.substring(0, text.line.lastIndexOf('#') + 1)
+    const headers = text.line.substring(0, text.line.lastIndexOf('#') + 1);
     const head = headers.length > 4 ? '' : headers + '# ';
 
     this.tournament['description_' + this.lng] = `${text.beforeLine}${head}${line}${text.afterLine}`;

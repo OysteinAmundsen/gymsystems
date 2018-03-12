@@ -1,18 +1,5 @@
 @import "~styles/variables";
 
-.table-responsive {
-  padding-bottom: 2rem; // To make room for save button feedback
-}
-
-tr[role="listitem"], .mat-row {
-  &.male {
-    background: rgba($primary, 0.05);
-  }
-  &.female {
-    background: rgba($warning, 0.05);
-  }
-}
-
 a.file-upload {
   position: relative;
   input[type="file"] {
@@ -32,22 +19,28 @@ a.file-upload {
   padding: 0 2px;
 }
 
-::ng-deep {
-  .mat-column-teams {
-    max-width: 2.3rem;
+.mat-column-teams {
+  max-width: 2.3rem;
+}
+.mat-column-birthYear,
+.mat-column-gender {
+  max-width: 5rem;
+}
+.mat-column-birthYear,
+.mat-column-teams {
+  text-align: center;
+  .mat-sort-header-button {
+    margin: 0 auto;
   }
-  .mat-column-birthYear,
-  .mat-column-gender {
-    max-width: 5rem;
-  }
-  .mat-column-birthYear,
-  .mat-column-teams {
-    text-align: center;
-    .mat-sort-header-button {
-      margin: 0 auto;
-    }
-  }
-  .mat-column-allergies {
-    max-width: 8rem;
-  }
+}
+.mat-column-allergies {
+  max-width: 8rem;
+}
+
+.mat-header-cell {
+  padding: 0 0.3rem;
+}
+
+.mat-row {
+  cursor: pointer;
 }

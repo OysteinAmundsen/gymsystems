@@ -12,7 +12,7 @@ describe('services.validation:ValidationService', () => {
   const testEmail = (ctrl: FormControl) => {
     const res = ValidationService.emailValidator(ctrl);
     return res ? JSON.stringify(res) : null;
-  }
+  };
 
   it('should return error object on invalid email patterns', inject([], () => {
     expect(testEmail(new FormControl('error'))).toBe(ERR_RESPONSE);

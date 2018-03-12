@@ -3,7 +3,7 @@ import { QueryBuilder } from 'typeorm';
 import { Club } from '../model/Club';
 
 describe('ClubController', () => {
-  let queryBuilder: QueryBuilder<Club>;
+  // let queryBuilder: QueryBuilder<Club>;
   // let dataprovider: EntityProvider;
 
   beforeEach(() => {
