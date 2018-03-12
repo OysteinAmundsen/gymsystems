@@ -131,6 +131,10 @@ footer {
   @media print {
     display: none;
   }
+  .container {
+    position: relative;
+    
+  }
   .user-info {
     position: absolute;
     top: 0;
@@ -143,6 +147,14 @@ footer {
     margin-top: -1rem;
     img {
       margin-right: 1rem;
+    }
+  }
+  .feedback {
+    color: white;
+    text-align: center;
+    a {
+      text-decoration: none;
+      color: inherit;
     }
   }
 }

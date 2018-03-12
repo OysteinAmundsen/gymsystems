@@ -58,6 +58,12 @@
   </svg>
 
   <div class="container">
+    <div class="feedback visible-medium">
+      <a href="https://github.com/OysteinAmundsen/gymsystems/issues/new" target="_blank">
+        <i class="fa fa-fw fa-envelope"></i>
+        {{'Register flaws or request features' | translate }}
+      </a>
+    </div>
     <div class="language-selector">
       <button mat-icon-button (click)="changeLang('no')">
         <i [ngClass]="'clickable flag-icon flag-icon-large flag-icon-no ' + (currentLang === 'no' ? 'selected' : '')"></i>
