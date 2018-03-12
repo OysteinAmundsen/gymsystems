@@ -1,11 +1,14 @@
 <mat-table #table [dataSource]="teamSource" role="menu" matSort (matSortChange)="teamSource.sortData($event)">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let team">{{ team.name  }}</mat-cell>
+    <mat-cell *matCellDef="let team">
+      <div>{{ team.name  }}</div>
+      <div class="visible-lt-medium">{{ divisions(team) }}</div>
+    </mat-cell>
   </ng-container>
   <ng-container matColumnDef="division">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Division' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let team">{{ divisions(team) }}</mat-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-medium">{{'Division' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let team" class="visible-medium">{{ divisions(team) }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="disciplines">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Disciplines' | translate}}</mat-header-cell>

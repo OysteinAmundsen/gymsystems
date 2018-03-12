@@ -9,20 +9,20 @@
     <mat-cell *matCellDef="let venue">{{ venue.name }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="contact">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Contact' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let venue">{{ venue.contact }}</mat-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-wide">{{'Contact' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let venue" class="visible-wide">{{ venue.contact }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="rendalCost">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Rental cost' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let venue">{{ venue.rentalCost }}</mat-cell>
+  <ng-container matColumnDef="rentalCost">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-wide">{{'Rental cost' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let venue" class="visible-wide">{{ venue.rentalCost }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="address">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Address' | translate}}</mat-header-cell>
     <mat-cell *matCellDef="let venue">{{ venue.address }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="createdBy">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Created by' | translate}}</mat-header-cell>
-    <mat-cell *matCellDef="let venue">{{ venue.createdBy.name }}</mat-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-medium">{{'Created by' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let venue" class="visible-medium">{{ venue.createdBy.name }}</mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

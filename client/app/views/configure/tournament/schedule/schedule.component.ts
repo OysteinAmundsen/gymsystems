@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 
 import * as moment from 'moment';
@@ -15,6 +15,7 @@ import { ITournament } from 'app/model/ITournament';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Role } from 'app/model';
+import { KeyCode } from '../../../../shared/KeyCodes';
 
 @Component({
   selector: 'app-schedule',
@@ -61,6 +62,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.dragulaSubscription.unsubscribe();
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKey($event: KeyboardEvent) {
+    if ($event.keyCode === KeyCode.ESCAPE) {
+      this.setEdit(null);
+    }
   }
 
   loadSchedule() {

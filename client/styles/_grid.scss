@@ -49,13 +49,23 @@
 
 @include create-cols(12);
 .visible-wide {
-  @media (max-width: $stop1) {
+  @media (max-width: $stop0) {
+    display: none;
+  }
+}
+.visible-lt-wide {
+  @media (min-width: $stop0) {
     display: none;
   }
 }
 
 .visible-medium {
-  @media (max-width: $stop2) {
+  @media (max-width: $stop1) {
+    display: none;
+  }
+}
+.visible-lt-medium {
+  @media (min-width: $stop1) {
     display: none;
   }
 }

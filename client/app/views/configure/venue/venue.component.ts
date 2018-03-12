@@ -15,7 +15,7 @@ import { SubjectSource } from 'app/services/subject-source';
 })
 export class VenueComponent implements OnInit {
   venueSource = new SubjectSource<IVenue>(new BehaviorSubject<IVenue[]>([]));
-  displayedColumns = ['name', 'contact', 'rendalCost', 'address'];
+  displayedColumns = ['name', 'contact', 'rentalCost', 'address'];
 
   constructor(
     private venueService: VenueService,
