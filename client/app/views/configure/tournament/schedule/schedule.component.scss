@@ -17,6 +17,10 @@ table[role="list"] {
       font-style: italic;
       cursor: not-allowed;
     }
+    &.isEditing td:first-of-type{
+      padding-top: 0;
+      padding-bottom: 0;
+    }
 
     td.icons {
       width: 3rem;

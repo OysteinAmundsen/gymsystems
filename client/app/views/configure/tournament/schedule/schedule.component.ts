@@ -39,7 +39,10 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   dragulaOptions = {
     invalid: (el: HTMLElement, handle) => {
-      return el.classList.contains('isStarted');
+      if ('ontouchstart' in document.documentElement) {
+        return true;
+      }
+      return el.classList.contains('isStarted') || el.classList.contains('isEditing');
     }
   };
 
@@ -149,7 +152,11 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    *
    * @param itemId
    */
-  setEdit(itemId: number) {
+  setEdit(itemId: number, $event?: MouseEvent) {
+    if ($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+    }
     this.editing = itemId;
   }
 
@@ -163,6 +170,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.schedule.splice(startNo - 1, 0, this.schedule.splice(this.schedule.findIndex(i => i.id === item.id), 1)[0]);
     this.scheduleService.recalculateStartTime(this.tournament, this.schedule, true, true);
     this.isDirty = true;
+  }
+
+  @HostListener('click', ['$event'])
+  onClick($event) {
+    if ($event.target.nodeName !== 'INPUT') {
+      this.setEdit(null);
+    }
   }
 
   /**

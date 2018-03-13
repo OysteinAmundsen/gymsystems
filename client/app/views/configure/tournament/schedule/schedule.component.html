@@ -5,7 +5,7 @@
         <th>#</th>
         <th translate class="visible-wide">Time</th>
         <th translate>Team</th>
-        <th translate>Division</th>
+        <th class="visible-medium" translate>Division</th>
         <th translate>Discipline</th>
         <th class="icons"></th>
       </tr>
@@ -18,22 +18,28 @@
                     'new'        : !item.id,
                     'day-split'  : isNewDay(item),
                     'unimportant': item.type === participationTypes.Training,
-                    'isStarted'  : item.startTime
+                    'isStarted'  : item.startTime,
+                    'isEditing'  : editing != null && editing == item.id
                    }">
         <td *ngIf="item.type === participationTypes.Training">Tr</td>
-        <td *ngIf="item.type === participationTypes.Live && (item.id == null || editing != item.id)" (click)="setEdit(item.id)">#{{ item.startNumber + 1 }}</td>
+        <td *ngIf="item.type === participationTypes.Live && (item.id == null || editing != item.id)" (click)="setEdit(item.id, $event)">#{{ item.startNumber + 1 }}</td>
         <td *ngIf="item.type === participationTypes.Live && editing != null && editing == item.id">
           <mat-form-field>
             <input matInput #startNo type="number" [value]="item.startNumber + 1" (blur)="editChanged(item, startNo.value)">
           </mat-form-field>
         </td>
         <td class="visible-wide" [innerHtml]="startTime(item)"></td>
-        <td>{{ item.team.name }}</td>
-        <td>{{ division(item.team) }}</td>
         <td>
-          <i class="fa fa-fw fa-square" [attr.discipline]="item.discipline.sortOrder"></i>
-          <b *ngIf="item.team.class === classes.TeamGym">TG: </b>
-          {{ item.discipline.name }}
+          <span>{{ item.team.name }}</span>
+          <div class="visible-lt-medium"><span>{{ division(item.team) }}</span></div>
+        </td>
+        <td class="visible-medium"><span>{{ division(item.team) }}</span></td>
+        <td>
+          <span>
+            <i class="fa fa-fw fa-square" [attr.discipline]="item.discipline.sortOrder"></i>
+            <b *ngIf="item.team.class === classes.TeamGym">TG: </b>
+            {{ item.discipline.name }}
+          </span>
         </td>
         <td class="icons">
           <button mat-icon-button [matMenuTriggerFor]="options" *ngIf="!item.startTime" [matMenuTriggerData]="{item: item}">
