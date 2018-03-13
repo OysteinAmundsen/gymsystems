@@ -40,8 +40,8 @@ import { MediaService } from './services/media.service';
 
 // Other services
 import { RoleGuard } from './shared/guards/role-guard';
-import { AuthInterceptor } from './services/config/AuthInterceptor';
-import { AuthStateService } from 'app/services/config/auth-state.service';
+import { AuthInterceptor, TimeoutInterceptor, DEFAULT_TIMEOUT, defaultTimeout } from './services/config';
+import { AuthStateService } from './services/config/auth-state.service';
 
 // Module components
 import { AppComponent } from './app.component';
@@ -134,6 +134,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     // Authentication interceptor
     AuthStateService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TimeoutInterceptor, multi: true },
+    { provide: DEFAULT_TIMEOUT, useValue: defaultTimeout },
     { provide: LOCALE_ID, useValue: 'nb-NO' },
     { // hammer instantion with custom config
       provide: HAMMER_GESTURE_CONFIG,
