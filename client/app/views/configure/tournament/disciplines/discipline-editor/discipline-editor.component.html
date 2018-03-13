@@ -11,7 +11,7 @@
 
       <fieldset *ngIf="disciplineForm.value.id">
         <h2>
-          <i class="fa fa-fw fa-star"></i>
+          <i class="fa fa-fw fa-star" [attr.discipline]="discipline.sortOrder"></i>
           "{{ discipline.name }}" <span translate>score system</span>
         </h2>
 

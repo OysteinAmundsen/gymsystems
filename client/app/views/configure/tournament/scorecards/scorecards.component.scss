@@ -7,7 +7,7 @@
 section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 5mm;
+  grid-gap: 2.5mm;
   grid-auto-rows: minmax(70px, auto);
   page-break-after: always;
   -webkit-print-color-adjust: exact !important;
@@ -15,7 +15,10 @@ section {
 }
 
 article {
-  min-height: 6cm;
+  min-height: 6.5cm;
+  border: 1px solid;
+  padding: 0 10px;
+  position: relative;
 }
 
 header>div {
@@ -27,15 +30,21 @@ h1 {
   .box {
     display: inline-block;
     border: 5px solid;
-    width: 5rem;
+    width: 6.5rem;
 
   }
 }
 h2 {
   font-size: 2rem;
+  margin: 0 0 -8px;
 }
 
 footer {
   border-top: 1px solid;
-  margin-top: 3rem;
+  margin-top: 1.5cm;
+  small {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
 }

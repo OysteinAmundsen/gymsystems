@@ -32,7 +32,12 @@ export class ScorecardsComponent implements OnInit {
         this.scheduleService.getByTournament(this.tournament.id).subscribe(schedule => {
           this.schedule = schedule
             .filter(s => s.team.divisions.find(d => d.type === DivisionType.Age).scorable)
-            .sort((a, b) => a.sortNumber > b.sortNumber ? 1 : -1);
+            .sort((a, b) => {
+              if (a.discipline.sortOrder !== b.discipline.sortOrder) {
+                return a.discipline.sortOrder > b.discipline.sortOrder ? 1 : -1;
+              }
+              return a.sortNumber > b.sortNumber ? 1 : -1;
+            });
           this.onRenderComplete();
         });
       }
@@ -41,9 +46,8 @@ export class ScorecardsComponent implements OnInit {
 
   onRenderComplete() {
     setTimeout(() => {
-      // window.print();
-      // this.showHeaders();
-      // this.router.navigate(['../'], {relativeTo: this.route});
+      window.print();
+      this.router.navigate(['../'], {relativeTo: this.route});
     });
   }
 
@@ -53,6 +57,7 @@ export class ScorecardsComponent implements OnInit {
       .reduce((judges, curr) => {
         for (let j = 0; j < curr.judges; j++) {
           judges.push({
+            name: '',
             startNo: item.startNumber,
             clubName: item.team.name,
             divisionName: this.teamService.getDivisionName(item.team),
