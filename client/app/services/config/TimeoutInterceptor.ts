@@ -3,7 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } fro
 import { Observable } from 'rxjs/Observable';
 import { timeout } from 'rxjs/operators';
 
-export const defaultTimeout = 1000 * 30; // 30 second timeout
+export const defaultTimeout = 1000 * 10; // 10 second timeout
 export const DEFAULT_TIMEOUT = new InjectionToken<number>('defaultTimeout');
 
 /**
