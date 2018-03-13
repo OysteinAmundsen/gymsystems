@@ -5,7 +5,7 @@
   </h1>
 
   <div *ngIf="tournament && tournament.id" class="buttons">
-    <a [routerLink]="['./scorecards']" mat-button *ngIf="user.role >= roles.Organizer"><i class="fa fa-fw fa-print"></i> <span translate>{{'Judge scorecards' | translate}}</span></a>
+    <a [routerLink]="['./scorecards']" mat-button *ngIf="user.role >= roles.Organizer"><i class="fa fa-fw fa-print"></i> <span>{{'Judge scorecards' | translate}}</span></a>
 
     <button mat-raised-button type="button" class="mat-primary flat" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'list']">
       <i class="fa fa-fw fa-list"></i>
