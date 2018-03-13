@@ -87,4 +87,13 @@ export class Division {
    */
   @Column({nullable: true})
   max: number;
+
+  /**
+   * Only used for divisions of type Age
+   * Describes wheather or not this division should be something
+   * the assigned judges should score or not. The youngest participants
+   * should not be judged.
+   */
+  @Column({ default: true })
+  scorable: boolean;
 }

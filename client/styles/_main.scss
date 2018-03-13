@@ -140,13 +140,13 @@ pre {
 
 .print-only {
   @media screen {
-    display: none;
+    display: none !important;
   }
 }
 
 .screen-only {
   @media print {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -156,4 +156,13 @@ pre {
 
 .text-warning {
   color: rgba($warning, 0.7);
+}
+
+@media print {
+  @page {
+    margin: 0;
+  }
+  body {
+    margin: 0;
+  }
 }

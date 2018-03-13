@@ -100,8 +100,10 @@
 	"Insert": "Insert",
 	"Insert value": "Insert value",
 	"Joining banquet": "Joining banquet",
+	"Judge scorecards": "",
 	"Judge signoff": "Judge signoff",
 	"Judges": "Judges",
+	"Judges should score this division": "",
 	"Latitude": "Latitude",
 	"List": "List",
 	"Location": "Location",
@@ -181,6 +183,7 @@
 	"Statistics": "Statistics",
 	"Stop": "Stop",
 	"Stop playing": "Stop playing",
+	"Strike": "",
 	"Subtraction": "Subtraction",
 	"Subtracts": "Subtracts",
 	"Sun": "Sun",
@@ -217,6 +220,7 @@
 	"Troop": "Troop",
 	"Tue": "Tue",
 	"Type": "Type",
+	"Unstrike": "",
 	"Upload media": "Upload media",
 	"Username": "Username",
 	"Users": "Users",
@@ -248,5 +252,7 @@
 	"score system": "score system",
 	"section": "section",
 	"tournaments": "tournaments",
-	"twice to return.": "twice to return."
+	"twice to return.": "twice to return.",
+	"{{'Judge scorecards' | translate}}": "",
+	"{{'Judge signoff' | translate }}": ""
 }

@@ -1,4 +1,4 @@
-<header *ngIf="tournament">
+<header *ngIf="tournament" class="screen-only">
   <div class="hgroup">
     <small>{{ tournament.startDate | date: 'dd.MM' }} - {{ tournament.endDate | date: 'dd.MM' }} {{ tournament.endDate | date: 'yyyy' }}</small>
     <h2>{{ tournament.name }}</h2>

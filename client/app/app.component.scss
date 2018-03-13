@@ -2,9 +2,6 @@
 
 // Top navbar
 nav {
-  @media print {
-    display: none;
-  }
   position: fixed;
   top: 0;
   z-index: 10;
@@ -133,7 +130,7 @@ footer {
   }
   .container {
     position: relative;
-    
+
   }
   .user-info {
     position: absolute;

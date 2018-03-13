@@ -17,6 +17,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Role } from 'app/model';
 import { KeyCode } from '../../../../shared/KeyCodes';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
@@ -47,6 +50,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private dragulaService: DragulaService) { }
 
+  /**
+   *
+   */
   ngOnInit() {
     this.parent.tournamentSubject.subscribe(tournament => {
       this.tournament = tournament;
@@ -60,6 +66,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   *
+   */
   ngOnDestroy() {
     this.dragulaSubscription.unsubscribe();
   }
@@ -71,6 +80,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   *
+   */
   loadSchedule() {
     this.teamService.getByTournament(this.tournament.id).subscribe(teams => this.teams = teams);
     this.scheduleService.getByTournament(this.tournament.id).subscribe(schedule => {
@@ -78,6 +90,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   *
+   */
   saveSchedule() {
     this.scheduleService.saveAll(this.schedule).subscribe(result => {
       this.isDirty = false;
@@ -85,11 +100,21 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   *
+   */
+  toggleStrikeParticipant(participant: ITeamInDiscipline, force?: boolean) {
+    participant.markDeleted = force ? force : !participant.markDeleted;
+    this.scheduleService.save(participant).subscribe(result => this.loadSchedule());
+  }
+
+  /**
+   *
+   */
   deleteParticipant(participant: ITeamInDiscipline) {
     if (participant.id) {
       if (this.parent.hasStarted) {
-        participant.markDeleted = true;
-        this.scheduleService.save(participant).subscribe(result => this.loadSchedule());
+        this.toggleStrikeParticipant(participant, true);
       } else {
         this.scheduleService.delete(participant).subscribe(result => this.loadSchedule());
       }
@@ -100,11 +125,17 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   *
+   */
   canDeleteAll() {
     const now = moment();
     return this.schedule.length && (this.parent.user.role >= Role.Admin || !this.parent.hasStarted);
   }
 
+  /**
+   *
+   */
   deleteAll() {
     const schedules = this.schedule.filter(s => s.id != null);
     if (schedules.length) {
@@ -113,9 +144,20 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       this.loadSchedule();
     }
   }
+
+  /**
+   *
+   * @param itemId
+   */
   setEdit(itemId: number) {
     this.editing = itemId;
   }
+
+  /**
+   *
+   * @param item
+   * @param startNo
+   */
   editChanged(item: ITeamInDiscipline, startNo: number) {
     this.setEdit(null);
     this.schedule.splice(startNo - 1, 0, this.schedule.splice(this.schedule.findIndex(i => i.id === item.id), 1)[0]);
@@ -123,6 +165,10 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.isDirty = true;
   }
 
+  /**
+   *
+   * @param participant
+   */
   title(participant: ITeamInDiscipline) {
     if (participant.startTime) {
       return this.translate.instant('This team cannot be moved or deleted. Performance has allready started.');
@@ -130,29 +176,54 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     return '';
   }
 
+  /**
+   *
+   * @param participant
+   */
   startTime(participant: ITeamInDiscipline) {
     return this.scheduleService.startTime(this.tournament, participant);
   }
 
+  /**
+   *
+   * @param participant
+   */
   isNewDay(participant: ITeamInDiscipline) {
     return this.scheduleService.isNewDay(this.tournament, this.schedule, participant);
   }
 
+  /**
+   *
+   * @param team
+   */
   division(team: ITeam) { return this.teamService.getDivisionName(team); }
 
+  /**
+   *
+   * @param participant
+   */
   stringHash(participant: ITeamInDiscipline): string {
     return this.scheduleService.stringHash(participant);
   }
 
+  /**
+   *
+   */
   hasChanges() {
     return this.schedule.some(s => !s.id) || this.isDirty;
   }
 
+  /**
+   *
+   */
   calculateSchedule() {
     this.schedule = this.schedule.concat(this.sortSchedule(this.calculateMissing()));
     this.scheduleService.recalculateStartTime(this.tournament, this.schedule, true, !this.parent.hasStarted);
   }
 
+  /**
+   *
+   */
   haveMissing() {
     return this.calculateMissing().length;
   }

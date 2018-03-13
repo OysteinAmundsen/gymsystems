@@ -19,6 +19,9 @@
           <input matInput formControlName="max" type="number" placeholder="{{'Max age' | translate}}">
         </mat-form-field>
       </div>
+      <div class="row" *ngIf="divisionForm.value.type == divisionTypes.Age">
+        <mat-checkbox formControlName="scorable">{{'Judges should score this division' | translate }}</mat-checkbox>
+      </div>
     </mat-card-content>
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="divisionForm.invalid || divisionForm.pristine"></app-save-button>

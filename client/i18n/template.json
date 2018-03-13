@@ -100,8 +100,10 @@
 	"Insert": "",
 	"Insert value": "",
 	"Joining banquet": "",
+	"Judge scorecards": "",
 	"Judge signoff": "",
 	"Judges": "",
+	"Judges should score this division": "",
 	"Latitude": "",
 	"List": "",
 	"Location": "",
@@ -181,6 +183,7 @@
 	"Statistics": "",
 	"Stop": "",
 	"Stop playing": "",
+	"Strike": "",
 	"Subtraction": "",
 	"Subtracts": "",
 	"Sun": "",
@@ -217,6 +220,7 @@
 	"Troop": "",
 	"Tue": "",
 	"Type": "",
+	"Unstrike": "",
 	"Upload media": "",
 	"Username": "",
 	"Users": "",
@@ -248,5 +252,7 @@
 	"score system": "",
 	"section": "",
 	"tournaments": "",
-	"twice to return.": ""
+	"twice to return.": "",
+	"{{'Judge scorecards' | translate}}": "",
+	"{{'Judge signoff' | translate }}": ""
 }

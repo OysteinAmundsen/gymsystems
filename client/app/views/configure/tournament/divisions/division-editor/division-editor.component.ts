@@ -31,6 +31,7 @@ export class DivisionEditorComponent implements OnInit {
       sortOrder: [this.division.sortOrder],
       min: [this.division.min, [Validators.required]],
       max: [this.division.max, [Validators.required]],
+      scorable: [this.division.scorable],
       type: [this.division.type, [Validators.required]]
     });
   }

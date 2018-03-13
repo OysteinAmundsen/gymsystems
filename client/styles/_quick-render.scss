@@ -97,6 +97,10 @@ nav+div.container {
   @media (min-width: $stop1) {
     padding: 0 10px;
   }
+  @media print {
+    padding: 0;
+    margin: 0;
+  }
   @supports (display: flex) {
     flex: 1;
     width: 100%;

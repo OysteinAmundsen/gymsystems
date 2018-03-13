@@ -1,0 +1,21 @@
+<!-- 1 Page per item in the schedule -->
+<section *ngFor="let item of schedule">
+
+  <!-- 1 box per judgetype for the discipline -->
+  <article *ngFor="let judge of judges(item)">
+    <header>
+      <div>{{ judge.divisionName }} - {{ judge.disciplineName }}</div>
+      <h2>#{{ judge.startNo }}</h2>
+      <h3>{{ judge.clubName }}</h3>
+    </header>
+
+    <h1>
+      {{ judge.type }}
+      <div class="box">&nbsp;</div>
+    </h1>
+
+    <footer>
+
+    </footer>
+  </article>
+</section>

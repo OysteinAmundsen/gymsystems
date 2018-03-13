@@ -53,9 +53,7 @@ export class SignoffReportComponent implements OnInit {
 
   onRenderComplete() {
     setTimeout(() => {
-      document.querySelector('app-event > header').classList.add('hidden');
       window.print();
-      document.querySelector('app-event > header').classList.remove('hidden');
       this.router.navigate(['../results'], {relativeTo: this.route});
     });
   }

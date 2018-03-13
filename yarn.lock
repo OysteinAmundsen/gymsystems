@@ -363,9 +363,13 @@
     "@types/events" "*"
     "@types/node" "*"
 
-"@types/node@*", "@types/node@9.4.6":
+"@types/node@*":
   version "9.4.6"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.4.6.tgz#d8176d864ee48753d053783e4e463aec86b8d82e"
+
+"@types/node@9.4.7":
+  version "9.4.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.4.7.tgz#57d81cd98719df2c9de118f2d5f3b1120dcd7275"
 
 "@types/node@^6.0.46":
   version "6.0.101"
@@ -551,9 +555,9 @@ amqplib@^0.5.2:
     readable-stream "1.x >=1.1.9"
     safe-buffer "^5.0.1"
 
-angulartics2@5.1.2:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-5.1.2.tgz#c298d1af4ba1b2e075beb1030bf82253740cf67b"
+angulartics2@5.1.3:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-5.1.3.tgz#fb6a126da7ed980f3660312e01883bfb41b05372"
   dependencies:
     tslib "^1.7.1"
 
@@ -6857,7 +6861,7 @@ repeating@^2.0.0:
   dependencies:
     is-finite "^1.0.0"
 
-request@2, request@2.83.0, request@^2.0.0, request@^2.74.0, request@^2.78.0, request@^2.81.0:
+request@2, request@^2.0.0, request@^2.74.0, request@^2.78.0, request@^2.81.0:
   version "2.83.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.83.0.tgz#ca0b65da02ed62935887808e6f510381034e3356"
   dependencies:
@@ -6936,6 +6940,33 @@ request@2.81.0:
     tough-cookie "~2.3.0"
     tunnel-agent "^0.6.0"
     uuid "^3.0.0"
+
+request@2.85.0:
+  version "2.85.0"
+  resolved "https://registry.yarnpkg.com/request/-/request-2.85.0.tgz#5a03615a47c61420b3eb99b7dba204f83603e1fa"
+  dependencies:
+    aws-sign2 "~0.7.0"
+    aws4 "^1.6.0"
+    caseless "~0.12.0"
+    combined-stream "~1.0.5"
+    extend "~3.0.1"
+    forever-agent "~0.6.1"
+    form-data "~2.3.1"
+    har-validator "~5.0.3"
+    hawk "~6.0.2"
+    http-signature "~1.2.0"
+    is-typedarray "~1.0.0"
+    isstream "~0.1.2"
+    json-stringify-safe "~5.0.1"
+    mime-types "~2.1.17"
+    oauth-sign "~0.8.2"
+    performance-now "^2.1.0"
+    qs "~6.5.1"
+    safe-buffer "^5.1.1"
+    stringstream "~0.0.5"
+    tough-cookie "~2.3.3"
+    tunnel-agent "^0.6.0"
+    uuid "^3.1.0"
 
 request@~2.79.0:
   version "2.79.0"
@@ -7230,9 +7261,9 @@ send@0.16.1:
     range-parser "~1.2.0"
     statuses "~1.3.1"
 
-sendmail@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/sendmail/-/sendmail-1.2.0.tgz#a731d80ac004c58026d48b8bfc6278b6bbc89cc0"
+sendmail@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/sendmail/-/sendmail-1.3.0.tgz#2091d2639f7d009d86268d697e49390f3a802725"
   dependencies:
     dkim-signer "^0.2.2"
     mailcomposer "^3.12.0"
@@ -7561,9 +7592,9 @@ snyk-try-require@^1.1.1, snyk-try-require@^1.2.0:
     lru-cache "^4.0.0"
     then-fs "^2.0.0"
 
-snyk@1.69.11:
-  version "1.69.11"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.69.11.tgz#6a4e236311be3afcab9d7f5d665b49f75b68a84a"
+snyk@1.70.0:
+  version "1.70.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.70.0.tgz#141a5ab88c262ef1bd6cb2b590bc50d4f46f4dc8"
   dependencies:
     abbrev "^1.0.7"
     ansi-escapes "^1.3.0"

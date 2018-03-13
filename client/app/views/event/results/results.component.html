@@ -1,5 +1,5 @@
 <div class="buttons" *appIfAuth="'Secretariat'">
-  <a [routerLink]="['../signoff']" mat-button><i class="fa fa-fw fa-print"></i> <span translate>Judge signoff</span></a>
+  <a [routerLink]="['../signoff']" mat-button><i class="fa fa-fw fa-print"></i> <span translate>{{'Judge signoff' | translate }}</span></a>
 </div>
 
 <mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>

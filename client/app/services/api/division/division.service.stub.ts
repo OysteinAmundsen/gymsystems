@@ -6,24 +6,31 @@ import 'rxjs/add/observable/of';
 import { IDivision, DivisionType, ITournament } from 'app/model';
 import { DivisionService } from './division.service';
 
+export const dummyAgeDivision = <IDivision>{
+  id: 0,
+  name: '',
+  sortOrder: 0,
+  type: DivisionType.Age,
+  teams: [],
+  min: 11,
+  max: 14,
+  scorable: true,
+  tournament: <ITournament>{}
+};
+
+export const dummyGenderDivision = <IDivision>{
+  id: 0,
+  name: '',
+  sortOrder: 0,
+  type: DivisionType.Gender,
+  teams: [],
+  tournament: <ITournament>{}
+};
+
 @Injectable()
 export class DivisionServiceStub extends DivisionService {
-  ageDivision: IDivision = <IDivision>{
-    id: 0,
-    name: '',
-    sortOrder: 0,
-    type: DivisionType.Age,
-    teams: [],
-    tournament: <ITournament>{}
-  };
-  genderDivision: IDivision = <IDivision>{
-    id: 0,
-    name: '',
-    sortOrder: 0,
-    type: DivisionType.Gender,
-    teams: [],
-    tournament: <ITournament>{}
-  };
+  ageDivision: IDivision = dummyAgeDivision;
+  genderDivision: IDivision = dummyGenderDivision;
   divisions: IDivision[] = [
     this.ageDivision, this.genderDivision
   ];

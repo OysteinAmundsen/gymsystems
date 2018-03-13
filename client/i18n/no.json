@@ -100,8 +100,10 @@
 	"Insert": "Legg inn",
 	"Insert value": "Legg inn verdi",
 	"Joining banquet": "Deltar på vennekveld",
+	"Judge scorecards": "",
 	"Judge signoff": "Dommer utskrift",
 	"Judges": "Dommere",
+	"Judges should score this division": "",
 	"Latitude": "Breddegrad",
 	"List": "Liste",
 	"Location": "Plassering",
@@ -181,6 +183,7 @@
 	"Statistics": "Statistikk",
 	"Stop": "Stopp",
 	"Stop playing": "Stopp avspilling",
+	"Strike": "",
 	"Subtraction": "Trekke fra",
 	"Subtracts": "Trekker fra",
 	"Sun": "Søn",
@@ -217,6 +220,7 @@
 	"Troop": "Tropp",
 	"Tue": "Tir",
 	"Type": "Type",
+	"Unstrike": "",
 	"Upload media": "Last opp media",
 	"Username": "Brukernavn",
 	"Users": "Brukere",
@@ -248,5 +252,7 @@
 	"score system": "poeng system",
 	"section": "seksjon",
 	"tournaments": "turneringer",
-	"twice to return.": "to ganger for å komme tilbake"
+	"twice to return.": "to ganger for å komme tilbake",
+	"{{'Judge scorecards' | translate}}": "",
+	"{{'Judge signoff' | translate }}": ""
 }

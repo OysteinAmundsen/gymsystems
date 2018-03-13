@@ -3,15 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { ITeam, IClub, IDiscipline } from 'app/model';
+import { ITeam, IClub, IDiscipline, IDivision } from 'app/model';
 
 import { TeamsService } from './teams.service';
 import { dummyTournament } from '../tournament/tournament.service.stub';
+import { dummyAgeDivision, dummyGenderDivision } from '../division/division.service.stub';
 
 export const dummyTeam = <ITeam>{
   id: 0,
   name: '',
-  divisions: [],
+  divisions: [dummyAgeDivision, dummyGenderDivision],
   disciplines: [],
   tournament: dummyTournament,
   club: <IClub>{}

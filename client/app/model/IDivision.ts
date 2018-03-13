@@ -8,6 +8,7 @@ export interface IDivision {
   sortOrder: number;
   min?: number;
   max?: number;
+  scorable: boolean;
   type: DivisionType;
   teams: ITeam[];
   tournament: ITournament;

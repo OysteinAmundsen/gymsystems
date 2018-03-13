@@ -11,9 +11,6 @@ header {
       margin-top: 0.8rem;
     }
   }
-  &.hidden {
-    display: none;
-  }
   &::after {
     content: '';
     display: table;

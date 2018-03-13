@@ -1,0 +1,41 @@
+@media print{
+  @page {
+    // size: A4 landscape !important;
+  }
+}
+
+section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5mm;
+  grid-auto-rows: minmax(70px, auto);
+  page-break-after: always;
+  -webkit-print-color-adjust: exact !important;
+  margin: 0.5cm;
+}
+
+article {
+  min-height: 6cm;
+}
+
+header>div {
+  text-align: center;
+}
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  .box {
+    display: inline-block;
+    border: 5px solid;
+    width: 5rem;
+
+  }
+}
+h2 {
+  font-size: 2rem;
+}
+
+footer {
+  border-top: 1px solid;
+  margin-top: 3rem;
+}

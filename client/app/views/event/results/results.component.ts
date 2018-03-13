@@ -94,6 +94,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   getDivisionNames(participants: ITeamInDiscipline[]): Set<string> {
     return participants
+      .filter(p => p.team.divisions.find(d => d.type === DivisionType.Age).scorable)
       .sort((a: ITeamInDiscipline, b: ITeamInDiscipline) => {
         const aAgeGroup = a.team.divisions.find(d => d.type === DivisionType.Age);
         const aGender = a.team.divisions.find(d => d.type === DivisionType.Gender);

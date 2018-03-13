@@ -1,10 +1,12 @@
-<header>
+<header class="screen-only">
   <h1>
     <i class="fa fa-fw fa-trophy"></i>
     <span>{{ tournamentForm.value.name || 'Tournament' }}</span>
   </h1>
 
   <div *ngIf="tournament && tournament.id" class="buttons">
+    <a [routerLink]="['./scorecards']" mat-button *ngIf="user.role >= roles.Organizer"><i class="fa fa-fw fa-print"></i> <span translate>{{'Judge scorecards' | translate}}</span></a>
+
     <button mat-raised-button type="button" class="mat-primary flat" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'list']">
       <i class="fa fa-fw fa-list"></i>
       <span translate>List</span>
@@ -17,7 +19,7 @@
 </header>
 
 
-<div class="table-responsive">
+<div class="table-responsive screen-only">
   <table *ngIf="!isEdit" [title]="'Click to edit' | translate" (click)="edit()">
     <tr>
       <th translate>Name</th>
@@ -43,7 +45,7 @@
   </table>
 </div>
 
-<form [formGroup]="tournamentForm" (submit)="save()" *ngIf="isEdit">
+<form [formGroup]="tournamentForm" (submit)="save()" *ngIf="isEdit" class="screen-only">
   <mat-card>
     <mat-card-content>
       <fieldset>
@@ -139,7 +141,7 @@
   </mat-card>
 </form>
 
-<menu mat-tab-nav-bar *ngIf="tournamentForm.value.id">
+<menu mat-tab-nav-bar *ngIf="tournamentForm.value.id" class="screen-only">
   <a mat-tab-link *ngIf="canEdit" routerLink="./divisions" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
     <i class="fa fa-fw fa-cubes"></i>&nbsp;

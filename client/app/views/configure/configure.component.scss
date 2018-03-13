@@ -42,5 +42,8 @@ section {
   @media (max-width: $stop1) {
     margin-left: 0;
   }
+  @media print {
+    margin: 0;
+  }
 }
 
