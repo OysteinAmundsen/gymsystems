@@ -7,7 +7,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { SharedModule } from 'app/shared/shared.module';
 import { ScoreSystemComponent } from './score-system.component';
 import { ScoreGroupEditorComponent } from './score-group-editor/score-group-editor.component';
-import { MatCardModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatButtonModule } from '@angular/material';
+import { MatCardModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatButtonModule, MatAutocompleteModule, MatListModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -17,6 +17,8 @@ import { MatCardModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule
     RouterModule,
     DragulaModule,
 
+    MatListModule,
+    MatAutocompleteModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,

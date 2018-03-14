@@ -131,7 +131,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       const d = this.schedule.find(s => s.discipline.name === discipline);
       if (d) {
         this.scoreHead = d.discipline.scoreGroups.reduce((prev, curr) => {
-          for (let j = 0; j < curr.judges; j++) { prev.push({type: curr.type + (j + 1)}); }
+          for (let j = 0; j < curr.judges.length; j++) { prev.push({type: curr.type + (j + 1)}); }
           return prev;
         }, []);
       }
@@ -146,7 +146,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
           .filter(s => s.scoreGroup.id === g.id).sort((a, b) => a.judgeIndex < b.judgeIndex ? -1 : 1)
           .forEach(s => scores.push({type: s.scoreGroup.type + (s.judgeIndex ? s.judgeIndex : ''), value: s.value}) );
       } else {
-        for (let j = 0; j < g.judges; j++) { scores.push({type: g.type + (j + 1), value: 0}); }
+        for (let j = 0; j < g.judges.length; j++) { scores.push({type: g.type + (j + 1), value: 0}); }
       }
       return scores;
     }, []);

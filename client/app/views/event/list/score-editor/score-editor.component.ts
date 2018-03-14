@@ -57,7 +57,7 @@ export class ScoreEditorComponent implements OnInit, OnDestroy {
     if (!this.participant.scores.length) {
       // Empty score array. Create one score, per judge, per scoregroup
       this.participant.discipline.scoreGroups.forEach(group => {
-        for (let j = 0; j < group.judges; j++) {
+        for (let j = 0; j < group.judges.length; j++) {
           this.participant.scores.push(<IScore>{ scoreGroup: group, value: 0, judgeIndex: j + 1 });
         }
       });

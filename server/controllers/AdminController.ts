@@ -37,7 +37,7 @@ export class AdminController {
    */
   @Get('/backup')
   @UseBefore(RequireRole.get(Role.Admin))
-  backup(@Res() res) {
+  backup(@Res() res: Response) {
     return new Promise(async (resolve, reject) => {
       ExportService.writeExport(res);
     });

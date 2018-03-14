@@ -32,7 +32,7 @@ export class ExportService {
         ifNotExist: true,
         data: true,
         dest: './dbdump.sql' // destination file
-    }, function (err) {
+    }, function (err: any) {
         res.status(200)
           .attachment('dbdump.sql')
           .sendFile(path.resolve('./dbdump.sql'));

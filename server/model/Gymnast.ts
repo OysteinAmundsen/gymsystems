@@ -23,7 +23,6 @@ export enum Gender {
 * over time.
 *
 * @export
-* @enum Gymnast
 */
 @Entity()
 @Index('gymnast_club_name', (gymnast: Gymnast) => [gymnast.name, gymnast.club], { unique: true })

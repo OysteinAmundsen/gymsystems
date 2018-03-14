@@ -13,7 +13,7 @@
       <tr *ngIf="score !== selected" (click)="select(score)" role="listitem">
         <td>{{ score.name }}</td>
         <td>{{ score.type}}</td>
-        <td>{{ score.judges}}</td>
+        <td>{{ score.judges.length }}</td>
         <td>{{ score.max}}</td>
         <td>{{ score.min}}</td>
       </tr>

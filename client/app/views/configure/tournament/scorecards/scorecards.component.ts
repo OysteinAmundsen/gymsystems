@@ -55,9 +55,9 @@ export class ScorecardsComponent implements OnInit {
     return item.discipline.scoreGroups
       .filter(g => g.operation === Operation.Addition)
       .reduce((judges, curr) => {
-        for (let j = 0; j < curr.judges; j++) {
+        for (let j = 0; j < curr.judges.length; j++) {
           judges.push({
-            name: '',
+            name: curr.judges[j].name,
             startNo: item.startNumber,
             clubName: item.team.name,
             divisionName: this.teamService.getDivisionName(item.team),

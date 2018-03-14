@@ -11,3 +11,4 @@ export * from './schedule/schedule.service';
 export * from './event/event.service';
 export * from './club/club.service';
 export * from './venue/venue.service';
+export * from './judge/judge.service';

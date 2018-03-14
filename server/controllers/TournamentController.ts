@@ -71,7 +71,7 @@ export class TournamentController {
           .filter(t => t.endDate < today.toDate())
           .forEach(t => Container.get(MediaController).removeArchive(t.id));
       }
-    })
+    });
   }
 
   /**
@@ -179,6 +179,7 @@ export class TournamentController {
       .leftJoinAndSelect('tournament.venue', 'venue')
       .leftJoinAndSelect('tournament.disciplines', 'disciplines')
       .leftJoinAndSelect('disciplines.scoreGroups', 'scoreGroups')
+      .leftJoinAndSelect('scoreGroups.judges', 'judges')
       .leftJoinAndSelect('tournament.lodging', 'lodging')
       .leftJoinAndSelect('tournament.transport', 'transport')
       .leftJoinAndSelect('tournament.banquet', 'banquet')
@@ -242,7 +243,7 @@ export class TournamentController {
 
     return this.repository.save(tournament)
       .then(persisted => {
-        Container.get(MediaController).expireArchive(persisted.id, persisted.endDate)
+        Container.get(MediaController).expireArchive(persisted.id, persisted.endDate);
         return this.get(tournament.id);
       })
       .catch(err => {

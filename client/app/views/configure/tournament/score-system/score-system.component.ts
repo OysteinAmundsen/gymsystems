@@ -45,8 +45,8 @@ export class ScoreSystemComponent implements OnInit {
 
   addScoreGroup() {
     const scoreGroup = <IScoreGroup>(this.standalone
-      ? { name: null, type: null, judges: 1, max: 5, min: 0, operation: Operation.Addition }
-      : { id: null, name: null, type: null, judges: 1, max: 5, min: 0, operation: Operation.Addition, discipline: this.discipline}
+      ? { name: null, type: null, max: 5, min: 0, operation: Operation.Addition }
+      : { id: null, name: null, type: null, max: 5, min: 0, operation: Operation.Addition, discipline: this.discipline}
     );
     this.scoreGroupList.push(scoreGroup);
     this.selected = scoreGroup;

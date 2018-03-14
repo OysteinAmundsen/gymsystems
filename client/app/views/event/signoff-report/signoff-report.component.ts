@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { EventComponent } from '../event.component';
 
-import { ITeamInDiscipline, ITournament, IScoreGroup, ParticipationType } from 'app/model';
+import { ITeamInDiscipline, ITournament, IScoreGroup, ParticipationType, DivisionType, Operation } from 'app/model';
 import { ScheduleService, TeamsService, ScoreService, TournamentService } from 'app/services/api';
 
 @Component({
@@ -44,7 +44,10 @@ export class SignoffReportComponent implements OnInit {
       if (tournament && tournament.id) {
         this.tournament = tournament;
         this.scheduleService.getByTournament(this.tournament.id).subscribe((schedule) => {
-          this.schedule = schedule.filter(s => s.type === ParticipationType.Live);
+          this.schedule = schedule.filter((s: ITeamInDiscipline) => {
+            return s.type === ParticipationType.Live
+              && s.team.divisions.find(d => d.type === DivisionType.Age).scorable;
+          });
           this.onRenderComplete();
         });
       }
@@ -78,10 +81,12 @@ export class SignoffReportComponent implements OnInit {
     if (!this.tournament) { return []; }
 
     return this.tournament.disciplines.find(d => d.name === discipline)
-      .scoreGroups.sort((a: IScoreGroup, b: IScoreGroup) => a.type > b.type ? 1 : -1)
+      .scoreGroups
+      .sort((a: IScoreGroup, b: IScoreGroup) => a.type > b.type ? 1 : -1)
+      .filter(s => s.operation === Operation.Addition)
       .reduce((prev, current) => {
-        if (current.judges > 1) {
-          for (let j = 1; j <= current.judges; j++) {
+        if (current.judges.length > 1) {
+          for (let j = 1; j <= current.judges.length; j++) {
             prev.push(current.type + j);
           }
         } else {
@@ -97,8 +102,8 @@ export class SignoffReportComponent implements OnInit {
     return this.tournament.disciplines.find(d => d.name === discipline)
       .scoreGroups.sort((a: IScoreGroup, b: IScoreGroup) => a.type > b.type ? 1 : -1)
       .reduce((prev, current) => {
-        if (current.judges > 1) {
-          for (let j = 1; j <= current.judges; j++) {
+        if (current.judges.length > 1) {
+          for (let j = 1; j <= current.judges.length; j++) {
             prev.push(current.type + j);
           }
         }

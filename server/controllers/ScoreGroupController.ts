@@ -54,6 +54,7 @@ export class ScoreGroupController {
   getByDiscipline( @Param('id') id: number): Promise<ScoreGroup[]> {
     return this.repository.createQueryBuilder('scoregroup')
       .where('scoregroup.discipline = :id', { id: id} )
+      .leftJoinAndSelect('scoregroup.judges', 'judges')
       .getMany();
   }
 

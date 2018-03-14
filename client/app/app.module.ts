@@ -33,7 +33,7 @@ import { SharedModule } from './shared/shared.module';
 // Module API services
 import {
   UserService, ScoreService, ScoreGroupService, TournamentService, DisciplineService, DivisionService,
-  TeamsService, ConfigurationService, ScheduleService, EventService, DisplayService, ClubService, VenueService
+  TeamsService, ConfigurationService, ScheduleService, EventService, DisplayService, ClubService, VenueService, JudgeService
 } from './services/api';
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
 import { MediaService } from './services/media.service';
@@ -122,6 +122,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ClubService,
     MediaService,
     VenueService,
+    JudgeService,
 
     ErrorHandlerService,
 
