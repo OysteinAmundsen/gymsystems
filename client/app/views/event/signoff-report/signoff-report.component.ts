@@ -85,12 +85,16 @@ export class SignoffReportComponent implements OnInit {
       .sort((a: IScoreGroup, b: IScoreGroup) => a.type > b.type ? 1 : -1)
       .filter(s => s.operation === Operation.Addition)
       .reduce((prev, current) => {
-        if (current.judges.length > 1) {
-          for (let j = 1; j <= current.judges.length; j++) {
-            prev.push(current.type + j);
+        for (let j = 0; j < current.judges.length; j++) {
+          const prevCard = prev.find(card => card.name === current.judges[j].name);
+          if (prevCard) {
+            prevCard.type.push(current.type + (j + 1));
+          } else {
+            prev.push({
+              type: [current.type + (j + 1)],
+              name: current.judges[j].name
+            });
           }
-        } else {
-          prev.push(current.type);
         }
         return prev;
       }, []);

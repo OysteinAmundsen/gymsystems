@@ -6,7 +6,7 @@ import { AppModuleTest } from 'app/app.module.spec';
 import { ScoreSystemModule } from '../score-system.module';
 import { ScoreGroupEditorComponent } from './score-group-editor.component';
 
-import { ScoreGroupService } from 'app/services/api';
+import { ScoreGroupService, JudgeService } from 'app/services/api';
 import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
 import { ErrorHandlerService } from 'app/services/config';
 
@@ -24,6 +24,7 @@ describe('views.configure.tournament:ScoreGroupEditorComponent', () => {
       providers: [
         ErrorHandlerService,
         { provide: ScoreGroupService, useClass: ScoreGroupServiceStub },
+        { provide: JudgeService, useClass: ScoreGroupServiceStub },
       ]
     })
     .compileComponents();

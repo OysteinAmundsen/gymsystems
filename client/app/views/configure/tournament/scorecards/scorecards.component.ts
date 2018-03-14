@@ -46,18 +46,14 @@ export class ScorecardsComponent implements OnInit {
 
   onRenderComplete() {
     setTimeout(() => {
-      // window.print();
-      // this.router.navigate(['../'], {relativeTo: this.route});
+      window.print();
+      this.router.navigate(['../'], {relativeTo: this.route});
     });
   }
 
   judges(item: ITeamInDiscipline) {
     return item.discipline.scoreGroups
       .filter(g => g.operation === Operation.Addition)
-      // .reduce((groups, curr) => {
-      //   if ()
-      //   return groups;
-      // }, [])
       .reduce((judges, curr) => {
         for (let j = 0; j < curr.judges.length; j++) {
           const prevCard = judges.find(card => card.name === curr.judges[j].name);

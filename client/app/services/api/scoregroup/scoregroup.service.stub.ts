@@ -5,12 +5,13 @@ import 'rxjs/add/observable/of';
 
 import { IScoreGroup } from 'app/model';
 import { ScoreGroupService } from './scoregroup.service';
+import { defaultJudge } from '../judge/judge.service.stub';
 
 export const defaultScoreGroups = <IScoreGroup[]>[
-  { id: 1, name: 'Composition', type: 'C',  operation: 1, judges: 2, max: 5,  min: 0, discipline: null },
-  { id: 2, name: 'Execution',   type: 'E',  operation: 1, judges: 4, max: 10, min: 0, discipline: null },
-  { id: 3, name: 'Difficulty',  type: 'D',  operation: 1, judges: 2, max: 5,  min: 0, discipline: null },
-  { id: 4, name: 'Adjustments', type: 'HJ', operation: 2, judges: 1, max: 5,  min: 0, discipline: null }
+  { id: 1, name: 'Composition', type: 'C',  operation: 1, judges: [defaultJudge], max: 5,  min: 0, discipline: null },
+  { id: 2, name: 'Execution',   type: 'E',  operation: 1, judges: [defaultJudge], max: 10, min: 0, discipline: null },
+  { id: 3, name: 'Difficulty',  type: 'D',  operation: 1, judges: [defaultJudge], max: 5,  min: 0, discipline: null },
+  { id: 4, name: 'Adjustments', type: 'HJ', operation: 2, judges: [defaultJudge], max: 5,  min: 0, discipline: null }
 ];
 
 @Injectable()

@@ -3,7 +3,7 @@
     <header class="center">
       <h2>{{ tournament.name }}</h2>
       <h3>{{ dateSpan }}</h3>
-      <h4>{{ tournament.location }}</h4>
+      <h4>{{ tournament.venue.name }}</h4>
       <hr />
       <h1>{{ division }}</h1>
     </header>
@@ -34,7 +34,10 @@
 
     <div class="signatures">
       <div *ngFor="let judge of judgesForDivisionAndDiscipline(division, discipline)">
-        <span>{{ judge }}</span>
+        <span>
+          <b *ngFor="let type of judge.type">{{ type }}</b>
+          <i>{{ judge.name }}</i>
+        </span>
       </div>
     </div>
   </section>
