@@ -26,4 +26,4 @@ COPY ormconfig.prod.json /usr/src/app/ormconfig.json
 COPY --from=builder /usr/src/app/dist /usr/src/app/dist
 
 EXPOSE 3000
-ENTRYPOINT yarn start
+ENTRYPOINT yarn migrations && yarn start
