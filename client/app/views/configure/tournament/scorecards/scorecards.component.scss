@@ -19,6 +19,15 @@ article {
   border: 1px solid;
   padding: 0 10px;
   position: relative;
+  &[score-type="C"] {
+    background: #ffff9c;
+  }
+  &[score-type="D"], &[score-type="CD"] {
+    background: #ffc9c9;
+  }
+  &[score-type="E"] {
+    background: white;
+  }
 }
 
 header>div {

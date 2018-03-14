@@ -59,6 +59,7 @@ export class ScorecardsComponent implements OnInit {
           const prevCard = judges.find(card => card.name === curr.judges[j].name);
           if (prevCard) {
             prevCard.type.push(curr.type + (j + 1));
+            prevCard.scoreType = prevCard.scoreType + curr.type;
           } else {
             const card = {
               name: curr.judges[j].name,
@@ -66,7 +67,8 @@ export class ScorecardsComponent implements OnInit {
               clubName: item.team.name,
               divisionName: this.teamService.getDivisionName(item.team),
               disciplineName: item.discipline.name,
-              type: [curr.type + (j + 1)]
+              type: [curr.type + (j + 1)],
+              scoreType: curr.type
             };
             judges.push(card);
           }

@@ -2,7 +2,7 @@
 <section *ngFor="let item of schedule">
 
   <!-- 1 box per judgetype for the discipline -->
-  <article *ngFor="let judge of judges(item)">
+  <article *ngFor="let judge of judges(item)" [attr.score-type]="judge.scoreType">
     <header>
       <div>{{ judge.divisionName }} - {{ judge.disciplineName }}</div>
       <h2>{{ judge.startNo }}</h2>
