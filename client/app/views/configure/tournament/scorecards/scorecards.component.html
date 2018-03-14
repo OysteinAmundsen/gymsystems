@@ -10,8 +10,10 @@
     </header>
 
     <h1>
-      {{ judge.type }}:
-      <div class="box">&nbsp;</div>
+      <div *ngFor="let type of judge.type" class="type">
+        {{ type }}:
+        <div class="box">&nbsp;</div>
+      </div>
     </h1>
 
     <footer>

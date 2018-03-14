@@ -26,22 +26,32 @@ header>div {
 }
 h1 {
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.5rem;
+  display: flex;
+  letter-spacing: -0.2rem;
+  .type {
+    flex: 1;
+  }
   .box {
     display: inline-block;
-    border: 5px solid;
-    width: 6.5rem;
+    border: 4px solid;
+    width: 5.5rem;
 
   }
 }
 h2 {
-  font-size: 2rem;
+  font-size: 1.7rem;
   margin: 0 0 -8px;
 }
 
 footer {
   border-top: 1px solid;
-  margin-top: 1.5cm;
+  border-top: 1px solid;
+  position: absolute;
+  bottom: 0.1cm;
+  left: 0.2cm;
+  right: 0.2cm;
+  height: 0.6cm;
   small {
     position: absolute;
     bottom: 0;
