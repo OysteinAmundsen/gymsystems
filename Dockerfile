@@ -6,7 +6,7 @@ RUN apk update && apk add git python make g++ patch
 
 WORKDIR /usr/src/app
 COPY . .
-RUN yarn install && yarn build
+RUN rm -rf ./node_modules && yarn install && yarn build
 
 ######################
 ### STAGE 2: Setup ###
@@ -23,7 +23,7 @@ RUN yarn global add node-gyp && yarn install --production && npm rebuild bcrypt 
 
 # Bundle pre-built app
 COPY ormconfig.prod.json ormconfig.json
-COPY --from=builder /usr/src/app/dist dist
+COPY --from=builder /usr/src/app/dist ./dist
 
 EXPOSE 3000
 ENTRYPOINT yarn migrations && yarn start

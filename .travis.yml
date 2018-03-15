@@ -25,12 +25,13 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 script:
-  - yarn run build
-  - yarn run server:test && yarn run client:test
-  - docker build --compress -t gymsystems/client .
+  - yarn server:build
+  - yarn server:test
+  - yarn client:test --prod
+  # - docker build --compress -t gymsystems/client .
 after_success:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" ;
-      docker tag gymsystems/client $DOCKER_USERNAME/gymsystems:latest
-      docker push $DOCKER_USERNAME/gymsystems ;
-    fi
+  # - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+  #     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" ;
+  #     docker tag gymsystems/client $DOCKER_USERNAME/gymsystems:latest
+  #     docker push $DOCKER_USERNAME/gymsystems ;
+  #   fi
