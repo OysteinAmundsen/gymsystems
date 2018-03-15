@@ -27,7 +27,7 @@ before_script:
 script:
   - yarn run build
   - yarn run server:test && yarn run client:test
-  - docker build --squash --compress -t gymsystems/client .
+  - docker build --compress -t gymsystems/client .
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" ;
