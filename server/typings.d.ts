@@ -1,2 +1,2 @@
 declare var module: NodeModule;
-declare module mysqldump {}
+declare module 'mysqldump';

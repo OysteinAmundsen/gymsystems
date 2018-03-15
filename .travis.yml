@@ -27,9 +27,9 @@ before_script:
 script:
   - yarn run build
   - yarn run server:test && yarn run client:test
+  - docker build -t $DOCKER_USERNAME/gymsystems .
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-      yarn docker:build ;
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" ;
-      docker push oysteinamundsen/gymsystems:master ;
+      docker push $DOCKER_USERNAME/gymsystems:master ;
     fi
