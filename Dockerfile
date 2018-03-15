@@ -5,8 +5,8 @@ FROM node:8-alpine as builder
 RUN apk update && apk add git python make g++ patch
 
 WORKDIR /usr/src/app
-COPY . /usr/src/app
-RUN rm -rf ./node_modules && yarn install && yarn build
+COPY . .
+RUN yarn install && yarn build
 
 ######################
 ### STAGE 2: Setup ###
@@ -17,13 +17,13 @@ RUN apk update && apk add git python make g++ patch
 
 # Install app dependencies
 WORKDIR /usr/src/app
-COPY package.json /usr/src/app/package.json
+COPY package.json package.json
 RUN yarn global add node-gyp && yarn install --production && npm rebuild bcrypt --build-from-source
 
+
 # Bundle pre-built app
-COPY ormconfig.prod.json /usr/src/app/ormconfig.json
-# Could not get builder to work correctly on docker-cloud
-COPY --from=builder /usr/src/app/dist /usr/src/app/dist
+COPY ormconfig.prod.json ormconfig.json
+COPY --from=builder /usr/src/app/dist dist
 
 EXPOSE 3000
 ENTRYPOINT yarn migrations && yarn start
