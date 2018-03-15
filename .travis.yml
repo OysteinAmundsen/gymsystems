@@ -27,7 +27,7 @@ before_script:
 script:
   - yarn run build
   - yarn run server:test && yarn run client:test
-  - yarn docker
+  - yarn docker:build
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker push oysteinamundsen/gymsystems:master

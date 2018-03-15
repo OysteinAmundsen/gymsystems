@@ -28,6 +28,7 @@
     "dev": "concurrently --kill-others --exitcrash -p \"[{name}]\" -n \"SERVER,BUILD\" -c \"bgBlue.bold,bgYellow.bold\" \"yarn server:watch\" \"yarn server:buildw\"",
     "docker": "sh docker-build",
     "docker:dev": "docker-compose build && docker-compose up -d",
+    "docker:build": "docker-compose -f docker-compose.yml -f docker-compose.client.yml build",
     "server": "node ./dist/index.js",
     "server:watch": "nodemon --delay .2 dist/index.js -w dist",
     "server:build": "tsc --project ./server/tsconfig.app.json",
