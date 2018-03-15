@@ -1,5 +1,5 @@
 import { Service } from 'typedi';
-import { JsonController, Body, Post, UseBefore, Res, Put, Param, Get, OnUndefined } from 'routing-controllers';
+import { JsonController, Body, Post, UseBefore, Res, Put, Param, Get, OnUndefined, Delete } from 'routing-controllers';
 import { Repository, getConnectionManager } from 'typeorm';
 import { Request, Response } from 'express';
 
@@ -9,6 +9,7 @@ import { Role } from '../model/User';
 import { ErrorResponse } from '../utils/ErrorResponse';
 
 import { Judge } from '../model/Judge';
+import { JudgeInScoreGroup } from '../model/JudgeInScoreGroup';
 
 /**
  * RESTful controller for all things related to `Judge`s.
@@ -27,9 +28,11 @@ import { Judge } from '../model/Judge';
 @JsonController('/judges')
 export class JudgeController {
   private repository: Repository<Judge>;
+  private inScoreGroupRepository: Repository<JudgeInScoreGroup>;
 
   constructor() {
     this.repository = getConnectionManager().get().getRepository(Judge);
+    this.inScoreGroupRepository = getConnectionManager().get().getRepository(JudgeInScoreGroup);
   }
 
   /**
@@ -110,5 +113,22 @@ export class JudgeController {
         Log.log.error(`Error updating judge ${id}`, err);
         return Promise.resolve(new ErrorResponse(err.code, err.message));
       });
+  }
+
+  /**
+   *
+   * @param id
+   * @param scoreGroup
+   */
+  @Delete('/:id/removefrom/:scoreGroup')
+  @UseBefore(RequireRole.get(Role.Organizer))
+  removeFromScoregroup(@Param('id') id: number, @Param('scoreGroup') scoreGroup: number): Promise<boolean> {
+    return this.inScoreGroupRepository.createQueryBuilder('judge')
+      .where('judgeId = :id', {id: id})
+      .andWhere('scoreGroupId = :scoreGroup', {scoreGroup: scoreGroup})
+      .delete()
+      .execute()
+      .then(r => true)
+      .catch(r => false);
   }
 }

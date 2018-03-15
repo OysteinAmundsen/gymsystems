@@ -32,7 +32,7 @@
 
       <mat-list>
         <mat-list-item *ngFor="let judge of scoreForm.value.judges; let i=index;">
-          <span matLine>{{ judge.name }}</span>
+          <span matLine>{{ judge.judge.name }}</span>
           <button mat-icon-button (click)="removeJudge(i)"><i class="fa fa-fw fa-trash"></i></button>
         </mat-list-item>
       </mat-list>

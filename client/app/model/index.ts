@@ -22,3 +22,5 @@ export * from './ITournament';
 export * from './IUser';
 export * from './IVenue';
 export * from './IJudge';
+export * from './IScoreGroup';
+

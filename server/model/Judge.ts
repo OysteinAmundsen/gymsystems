@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, OneToMany } from 'typeorm';
 import { Tournament } from './Tournament';
 import { Discipline } from './Discipline';
 import { ScoreGroup } from './ScoreGroup';
+import { JudgeInScoreGroup } from './JudgeInScoreGroup';
 
 /**
 * Defines one judge.
@@ -34,7 +35,6 @@ export class Judge {
   @Column({ nullable: true})
   phone: string;
 
-
   /**
    *
    */
@@ -44,6 +44,6 @@ export class Judge {
   /**
    *
    */
-  @ManyToMany(type => ScoreGroup, scoreGroup => scoreGroup.judges)
-  scoreGroups: ScoreGroup[];
+  @OneToMany(type => JudgeInScoreGroup, scoreGroup => scoreGroup.judge)
+  scoreGroups: JudgeInScoreGroup[];
 }

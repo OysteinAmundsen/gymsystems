@@ -180,6 +180,7 @@ export class TournamentController {
       .leftJoinAndSelect('tournament.disciplines', 'disciplines')
       .leftJoinAndSelect('disciplines.scoreGroups', 'scoreGroups')
       .leftJoinAndSelect('scoreGroups.judges', 'judges')
+      .leftJoinAndSelect('judges.judge', 'judge')
       .leftJoinAndSelect('tournament.lodging', 'lodging')
       .leftJoinAndSelect('tournament.transport', 'transport')
       .leftJoinAndSelect('tournament.banquet', 'banquet')

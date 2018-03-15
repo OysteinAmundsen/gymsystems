@@ -1,4 +1,5 @@
 import { IScoreGroup } from './IScoreGroup';
+import { IJudgeInScoreGroup } from './IJudgeInScoreGroup';
 
 export interface IJudge {
   id: number;
@@ -6,7 +7,7 @@ export interface IJudge {
   email: string;
   phone: string;
   allergies: string;
-  scoreGroups: IScoreGroup[];
+  scoreGroups: IJudgeInScoreGroup[];
 }
 
 export class Judge implements IJudge {

@@ -5,6 +5,7 @@ import 'rxjs/add/observable/of';
 
 import { IJudge } from 'app/model';
 import { JudgeService } from './judge.service';
+import { IJudgeInScoreGroup } from '../../../model/IJudgeInScoreGroup';
 
 export const defaultJudge = <IJudge>
   { id: 1, name: 'System', email: null, phone: null, allergies: null, scoreGroups: null };

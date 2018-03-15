@@ -55,6 +55,7 @@ export class ScoreGroupController {
     return this.repository.createQueryBuilder('scoregroup')
       .where('scoregroup.discipline = :id', { id: id} )
       .leftJoinAndSelect('scoregroup.judges', 'judges')
+      .leftJoinAndSelect('judges.judge', 'judge')
       .getMany();
   }
 

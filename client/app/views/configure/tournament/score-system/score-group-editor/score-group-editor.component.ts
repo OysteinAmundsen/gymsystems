@@ -9,6 +9,7 @@ import { IJudge, Judge } from 'app/model/IJudge';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { IJudgeInScoreGroup } from '../../../../../model/IJudgeInScoreGroup';
 
 @Component({
   selector: 'app-score-group-editor',
@@ -70,17 +71,24 @@ export class ScoreGroupEditorComponent implements OnInit {
         debounceTime(200)
       ).subscribe(v => {
         if (v) {
-          this.filteredJudgeList = this.judgeList.filter(j => j.name.toLowerCase().indexOf(v.toLowerCase()) > -1);
+          this.filteredJudgeList = this.judgeList
+            .filter(j => j.name.toLowerCase().indexOf(v.toLowerCase()) > -1
+              && this.judges.value.findIndex(i => i.judge.id === j.id) < 0
+            );
         }
       }));
     this.judgeService.all().subscribe(judges => this.judgeList = judges);
   }
 
   getScoreGroupFromForm(): IScoreGroup {
+    const judgeInScoreGroup = this.scoreForm.value.judges.map((judge, i) => {
+      judge.scoreGroup = this.scoreGroup;
+      return judge;
+    });
     return {
       id:  this.scoreForm.value.id,
       name:  this.scoreForm.value.name,
-      judges: this.scoreForm.value.judges,
+      judges: judgeInScoreGroup,
       max:  this.scoreForm.value.max,
       min:  this.scoreForm.value.min,
       type:  this.scoreForm.value.type,
@@ -126,17 +134,14 @@ export class ScoreGroupEditorComponent implements OnInit {
   }
 
   // JUDGE DATA -----------------
-  loadAllJudges() {
-
-  }
-
   get judges(): FormArray {
     return this.scoreForm.get('judges') as FormArray;
   }
 
   removeJudge(index: number) {
+    const judge = this.judges.value[index];
     this.judges.removeAt(index);
-    this.scoreForm.markAsDirty();
+    this.judgeService.removeJudge(judge.judge, this.scoreGroup).subscribe();
   }
 
   addJudge() {
@@ -145,11 +150,18 @@ export class ScoreGroupEditorComponent implements OnInit {
       const foundJudge = this.judgeList.find(j => j.name.toLowerCase().indexOf(newJudge.name.toLowerCase()) > -1);
       newJudge = (foundJudge ? foundJudge : newJudge);
     }
-    this.judgeService.save(newJudge).subscribe(judge => {
-      this.judges.push(this.fb.group(Array.isArray(judge) ? judge[0] : judge));
-      this.judgeForm.reset();
-      this.scoreForm.markAsDirty();
-    });
+
+    if (!newJudge.id) { // Completelly new judge. We need to store it to get an ID.
+      this.judgeService.save(newJudge).subscribe(judge => this._addJudge(judge));
+    } else { // Existing judge reused.
+      this._addJudge(newJudge);
+    }
+  }
+
+  private _addJudge(judge: IJudge) {
+    this.judges.push(this.fb.group({judge: judge, sortNumber: this.judges.length}));
+    this.judgeForm.reset();
+    this.scoreForm.markAsDirty();
   }
 
   setSelectedJudge($event: MatAutocompleteSelectedEvent) {

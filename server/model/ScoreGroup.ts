@@ -1,6 +1,7 @@
 import { Discipline } from './Discipline';
-import { PrimaryGeneratedColumn, Column, Entity, ManyToOne, JoinColumn, ManyToMany, JoinTable } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, Entity, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { Judge } from './Judge';
+import { JudgeInScoreGroup } from './JudgeInScoreGroup';
 
 /**
  * Defines the type of operation the application should perform when
@@ -68,9 +69,8 @@ export class ScoreGroup {
    *
    * All judges can enter 'HJ' scores (withdrawls), but usually don't.
    */
-  @ManyToMany(type => Judge, judge => judge.scoreGroups)
-  @JoinTable()
-  judges: Judge[];
+  @OneToMany(type => JudgeInScoreGroup, judge => judge.scoreGroup, {cascadeInsert: true, cascadeUpdate: true})
+  judges: JudgeInScoreGroup[];
 
   /**
    * The maximum point which can be given in this scoregroup.

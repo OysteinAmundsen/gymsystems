@@ -3,6 +3,7 @@ import { IJudge } from 'app/model/IJudge';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { Helper } from 'app/services/api/Helper';
+import { IScoreGroup } from 'app/model';
 
 @Injectable()
 export class JudgeService {
@@ -27,5 +28,9 @@ export class JudgeService {
     return (judge.id)
       ? this.http.put<IJudge>(`${this.url}/${judge.id}`, val)
       : this.http.post<IJudge>(this.url, val);
+  }
+
+  removeJudge(judge: IJudge, scoreGroup: IScoreGroup): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.url}/${judge.id}/removefrom/${scoreGroup.id}`);
   }
 }

@@ -4,21 +4,35 @@
   <!-- 1 box per judgetype for the discipline -->
   <article *ngFor="let judge of judges(item)" [attr.score-type]="judge.scoreType">
     <header>
-      <div>{{ judge.divisionName }} - {{ judge.disciplineName }}</div>
+      <div>{{ judge.division }} - {{ judge.discipline }}</div>
       <h2>{{ judge.startNo }}</h2>
-      <h3>{{ judge.clubName }}</h3>
+      <h3>{{ judge.club }}</h3>
     </header>
 
-    <h1>
+    <h1 *ngIf="!judge.summary" class="main">
       <div *ngFor="let type of judge.type" class="type">
-        {{ type }}:
+        <span>{{ type.name }} &nbsp;</span>
         <div class="box">&nbsp;</div>
       </div>
     </h1>
 
+    <h2 *ngIf="judge.summary" class="main summary">
+      <div *ngFor="let type of judge.type" class="type" [ngClass]="{'sub': !type.op }">
+        <span>{{ type.name }} </span>
+        <div class="box">&nbsp;</div>
+        <div *ngIf="!type.op" class="explain"></div>
+      </div>
+    </h2>
+
     <footer>
       {{ judge.name }}
       <small>www.gymsystems.org</small>
+      <h2 *ngIf="judge.summary">
+        <div class="type">
+          <span>{{'Tot' | translate }}</span>
+          <div class="box">&nbsp;</div>
+        </div>
+      </h2>
     </footer>
   </article>
 </section>
