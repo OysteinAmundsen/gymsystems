@@ -2,18 +2,18 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "0.1.0",
-    "command": "npm",
+    "command": "yarn",
     "isShellCommand": true,
     "showOutput": "always",
     "suppressTaskName": true,
     "tasks": [
         {
             "taskName": "server:build",
-            "args": ["run", "server:build"]
+            "args": ["server:build"]
         },
         {
             "taskName": "client:build",
-            "args": ["run", "client:build"]
+            "args": ["client:build"]
         }
     ]
 }

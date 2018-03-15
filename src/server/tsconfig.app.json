@@ -1,11 +1,11 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "",
     "noLib": false,
     "rootDir": "./",
     "module": "commonjs",
-    "outDir": "../dist/",
+    "outDir": "../../dist/",
     "target": "es6",
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

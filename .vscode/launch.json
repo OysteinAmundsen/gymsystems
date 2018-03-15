@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Server",
       "outFiles": [ "${workspaceRoot}/dist/**/*.js" ],
-      "program": "${workspaceRoot}\\server\\index.ts",
+      "program": "${workspaceRoot}\\src\\server\\index.ts",
       "console": "integratedTerminal"
     },
     {

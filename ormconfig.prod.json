@@ -16,7 +16,7 @@
       "dist/migrations/*.js"
     ],
     "cli": {
-      "migrationsDir": "server/migrations"
+      "migrationsDir": "src/server/migrations"
     },
     "synchronize": true
   }

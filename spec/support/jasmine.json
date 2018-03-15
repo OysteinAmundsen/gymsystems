@@ -1,6 +1,6 @@
 {
   "spec_files": [
-    "server/**/*.spec.ts"
+    "src/server/**/*.spec.ts"
   ],
   "helpers": [
     "helpers/**/*.js"

@@ -72,6 +72,7 @@ export class TeamController {
    * @param res
    */
   @Get('/tournament/:id')
+  @UseBefore(RequireRole.get(Role.Organizer))
   @OnUndefined(404)
   getByTournament( @Param('id') id: number, @Res() res: Response): Promise<Team[]> {
     return this.getTournament(id, null);
@@ -93,7 +94,7 @@ export class TeamController {
   async getByMyTournament( @Param('id') id: number, @Req() req: Request, @Res() res: Response): Promise<Team[]> {
     const userRepository = Container.get(UserController);
     const user: User = await userRepository.getMe(req);
-    return this.getTournament(id, user)
+    return this.getTournament(id, user);
   }
 
   private getTournament(id: number, user: User) {
@@ -108,11 +109,11 @@ export class TeamController {
       .leftJoinAndSelect('team.tournament', 'tournament')
       .leftJoinAndSelect('team.divisions', 'division')
       .leftJoinAndSelect('team.disciplines', 'discipline')
-      .leftJoinAndSelect('team.gymnasts', 'gymnasts')
+      // .leftJoinAndSelect('team.gymnasts', 'gymnasts')
       .leftJoinAndSelect('team.club', 'club')
       .leftJoinAndSelect('team.media', 'media')
-      .leftJoinAndSelect('media.discipline', 'media_dicsipline')
-      .leftJoinAndSelect('media.team', 'media_team')
+      // .leftJoinAndSelect('media.discipline', 'media_dicsipline')
+      // .leftJoinAndSelect('media.team', 'media_team')
       .orderBy('division.sortOrder', 'ASC')
       .addOrderBy('team.name', 'ASC')
       .addOrderBy('discipline.name', 'ASC')
@@ -272,7 +273,7 @@ export class TeamController {
     // Then remove the team
     return this.repository.remove(team)
       .then(result => {
-        sseService.publish('Teams updated')
+        sseService.publish('Teams updated');
         return result;
       })
       .catch(err => {

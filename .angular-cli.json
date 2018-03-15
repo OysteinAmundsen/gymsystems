@@ -4,7 +4,7 @@
     "name": "gymsystems"
   },
   "apps": [{
-    "root": "client",
+    "root": "src/client",
     "outDir": "dist/public",
     "assets": [
       "assets",
@@ -26,7 +26,7 @@
     "prefix": "app",
     "styles": [
       "styles.scss",
-      "../node_modules/font-awesome/scss/font-awesome.scss"
+      "../../node_modules/font-awesome/scss/font-awesome.scss"
     ],
     "scripts": [],
     "environmentSource": "environments/environment.ts",
@@ -42,8 +42,8 @@
     }
   },
   "lint": [
-    { "project": "client/tsconfig.app.json",  "exclude": "**/node_modules/**" },
-    { "project": "client/tsconfig.spec.json", "exclude": "**/node_modules/**" },
+    { "project": "src/client/tsconfig.app.json",  "exclude": "**/node_modules/**" },
+    { "project": "src/client/tsconfig.spec.json", "exclude": "**/node_modules/**" },
     { "project": "e2e/tsconfig.e2e.json",  "exclude": "**/node_modules/**" }
   ],
   "test": {
