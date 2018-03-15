@@ -153,7 +153,7 @@
     "karma-cli": "1.0.1",
     "karma-coverage-istanbul-reporter": "1.4.2",
     "karma-jasmine": "~1.1.0",
-    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-jasmine-html-reporter": "^1.0.0",
     "karma-spec-reporter": "0.0.32",
     "nodemon": "1.17.2",
     "npm-scripts-help": "0.8.0",
