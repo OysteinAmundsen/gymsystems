@@ -28,8 +28,8 @@ script:
   - yarn run build
   - yarn run server:test && yarn run client:test
 after_success:
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - export REPO=oysteinamundsen/gymsystems
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "master"; else echo $TRAVIS_BRANCH ; fi`
-  - yarn docker:build
-  - docker push $REPO:$tag
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      yarn docker:build ;
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" ;
+      docker push oysteinamundsen/gymsystems:master ;
+    fi

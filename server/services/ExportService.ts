@@ -1,6 +1,4 @@
 import { Request, Response } from 'express';
-declare module mysqldump {}
-
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import * as mysqlDump from 'mysqldump';
