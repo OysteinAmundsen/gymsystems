@@ -159,7 +159,7 @@
     "nodemon": "1.17.2",
     "npm-scripts-help": "0.8.0",
     "protractor": "5.3.0",
-    "snyk": "1.70.1",
+    "snyk": "1.70.2",
     "ts-node": "5.0.1",
     "tslint": "5.9.1",
     "typescript": ">=2.4.2 <2.7",
