@@ -4,12 +4,12 @@ import { HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { RequestMethod } from 'app/services/config';
+import { HttpMethod } from './HttpMethod';
 
 
 export interface HttpAction {
   url: string;
-  method: RequestMethod;
+  method: HttpMethod;
   isComplete?: boolean;
   failed?: boolean;
   values?: any;
@@ -22,15 +22,15 @@ export class AuthStateService {
   constructor() { }
 
   notifySubscribers(req: HttpRequest<any>, res?: HttpResponse<any>) {
-    let method: RequestMethod;
+    let method: HttpMethod;
     switch (req.method) {
-      case 'GET'     : method = RequestMethod.Get;     break;
-      case 'POST'    : method = RequestMethod.Post;    break;
-      case 'PUT'     : method = RequestMethod.Put;     break;
-      case 'DELETE'  : method = RequestMethod.Delete;  break;
-      case 'HEAD'    : method = RequestMethod.Head;    break;
-      case 'PATCH'   : method = RequestMethod.Patch;   break;
-      case 'OPTIONS' : method = RequestMethod.Options; break;
+      case 'GET'     : method = HttpMethod.Get;     break;
+      case 'POST'    : method = HttpMethod.Post;    break;
+      case 'PUT'     : method = HttpMethod.Put;     break;
+      case 'DELETE'  : method = HttpMethod.Delete;  break;
+      case 'HEAD'    : method = HttpMethod.Head;    break;
+      case 'PATCH'   : method = HttpMethod.Patch;   break;
+      case 'OPTIONS' : method = HttpMethod.Options; break;
     }
 
     const obj: HttpRequest<any> | HttpResponse<any> = res ? res : req;

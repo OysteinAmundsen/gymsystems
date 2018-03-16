@@ -24,16 +24,8 @@ import * as moment from 'moment';
 import { ErrorHandlerService } from './ErrorHandler.service';
 import { AuthStateService } from './auth-state.service';
 import { Logger } from '../Logger';
+import { HttpMethod } from './HttpMethod';
 
-export declare enum RequestMethod {
-  Get = 0,
-  Post = 1,
-  Put = 2,
-  Delete = 3,
-  Options = 4,
-  Head = 5,
-  Patch = 6,
-}
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -84,9 +76,9 @@ export class AuthInterceptor implements HttpInterceptor {
             const now = moment();
             const success = this.translator.instant('SUCCESS');
             if (this.shouldReport(res)) {
-              if (action.method === RequestMethod.Post || action.method === RequestMethod.Put) {
+              if (action.method === HttpMethod.Post || action.method === HttpMethod.Put) {
                 this.snackBar.open(`${this.translator.instant('Saved')} ${now.format('HH:mm:ss')}`, success, { duration: 5 * 1000, });
-              } else if (action.method === RequestMethod.Delete) {
+              } else if (action.method === HttpMethod.Delete) {
                 this.snackBar.open(`${this.translator.instant('Deleted')} ${now.format('HH:mm:ss')}`, success, { duration: 5 * 1000, });
               }
             }

@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
 import { AuthStateService, HttpAction } from 'app/services/config/auth-state.service';
-import { RequestMethod } from 'app/services/config';
+import { HttpMethod } from 'app/services/config/HttpMethod';
 
 @Component({
   selector: 'app-save-button',
@@ -26,7 +26,7 @@ export class SaveButtonComponent implements OnInit, OnDestroy {
     // Make sure language texts exist
     this.translate.get(['Saved', 'Deleted', 'SUCCESS']).subscribe();
     this.actionSubscription = this.authState.httpAction.subscribe((action: HttpAction) => {
-      if (this.isListening && (action.method === RequestMethod.Post || action.method === RequestMethod.Put)) {
+      if (this.isListening && (action.method === HttpMethod.Post || action.method === HttpMethod.Put)) {
         this.isSaving = !(action.isComplete);
         if (action.isComplete) {
           this.isListening = false;
