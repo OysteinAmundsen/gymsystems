@@ -4,7 +4,6 @@ services:
   test:
     image: mysql
     container_name: gymsystems_test
-    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: gymsystem_test

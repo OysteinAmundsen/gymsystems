@@ -21,13 +21,13 @@ export class Discipline {
   /**
    * A descriptive name for this discipline
    */
-  @Column()
+  @Column('varchar')
   name: string;
 
   /**
    * A numeric representation of how this object should be sorted
    */
-  @Column({ default: 0 })
+  @Column('int', { default: 0 })
   sortOrder?: number;
 
   /**

@@ -20,25 +20,25 @@ export class Judge {
   /**
   * The full name of the judge
   */
-  @Column({ unique: true, length: 100 })
+  @Column('varchar', { unique: true, length: 100 })
   name: string;
 
   /**
    * Email address of this judge
    */
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   email: string;
 
   /**
    * Phone number of this judge
    */
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   phone: string;
 
   /**
    *
    */
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   allergies: string;
 
   /**

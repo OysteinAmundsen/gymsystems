@@ -49,7 +49,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * The tournaments unique string identifier. Also the header everywhere
    * tournament data is presented.
    */
-  @Column({ unique: true, length: 200 })
+  @Column('varchar', { unique: true, length: 200 })
   name: string;
 
   /**
@@ -67,13 +67,13 @@ export class Tournament implements CreatedBy, BelongsToClub {
   /**
    * The date for the first day of the event
    */
-  @Column()
+  @Column('datetime')
   startDate: Date;
 
   /**
    * The date for the last day of the event
    */
-  @Column()
+  @Column('datetime')
   endDate: Date;
 
   /**
@@ -139,7 +139,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * The number of gymnasts this tournament can be able to provide
    * lodging for.
    */
-  @Column({ default: true })
+  @Column('tinyint', { default: true })
   providesLodging: boolean;
 
   // /**
@@ -163,7 +163,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * If true, this tournament can provide transportation for
    * traveling gymnasts.
    */
-  @Column({ default: false })
+  @Column('tinyint', { default: false })
   providesTransport: boolean;
 
   // /**
@@ -188,7 +188,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * If true, this tournament will throw a banquet in honor of the
    * performing gymnasts.
    */
-  @Column({ default: false })
+  @Column('tinyint', { default: false })
   providesBanquet: boolean;
 
   // /**

@@ -36,43 +36,43 @@ export class TeamInDiscipline {
   /**
    *
    */
-  @Column()
+  @Column('int')
   sortNumber: number;
 
   /**
    *
    */
-  @Column()
+  @Column('int')
   startNumber: number;
 
   /**
    *
    */
-  @Column({default: false})
+  @Column('tinyint', {default: false})
   markDeleted: boolean;
 
   /**
    *
    */
-  @Column({ nullable: true })
+  @Column('datetime', { nullable: true })
   startTime: Date;
 
   /**
    *
    */
-  @Column({ nullable: true })
+  @Column('datetime', { nullable: true })
   endTime: Date;
 
   /**
    *
    */
-  @Column({ nullable: true })
+  @Column('datetime', { nullable: true })
   publishTime: Date;
 
   /**
    *
    */
-  @Column({ default: ParticipationType.Live })
+  @Column('int', { default: ParticipationType.Live })
   type: ParticipationType;
 
   /**

@@ -5,15 +5,19 @@ FROM node:8-alpine as builder
 WORKDIR /usr/src/app
 
 # Copy in source
-COPY package.json tsconfig.json .snyk .angular-cli.json yarn.lock ./
-COPY ./src ./src
+COPY tsconfig.json .snyk .angular-cli.json yarn.lock ./
+COPY src ./src
 
-# Install and build
-RUN yarn install ; \
-    yarn build ; \
-    # Replace node_modules with production modules
-    rm -rf node_modules src ; \
-    yarn install --production=true ;
+# Install packages
+COPY package.json ./
+RUN npm install
+
+# Build to `dist`
+RUN npm run build
+
+# Cleanup! Replace node_modules with production modules
+RUN rm -rf node_modules src
+RUN npm install --production
 
 ######################
 ### STAGE 2: Setup ###
@@ -32,4 +36,4 @@ RUN apk update ; \
     npm rebuild bcrypt --build-from-source ;
 
 EXPOSE 3000
-ENTRYPOINT yarn migrations && yarn start
+ENTRYPOINT npm run migrations && npm run start

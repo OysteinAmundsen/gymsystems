@@ -16,7 +16,7 @@ export class Configuration {
   /**
    * The key
    */
-  @PrimaryColumn()
+  @PrimaryColumn('varchar')
   name: string;
 
   /**

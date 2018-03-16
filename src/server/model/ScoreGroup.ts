@@ -43,20 +43,20 @@ export class ScoreGroup {
   /**
    * The extended name of the group. i.e. 'Execution'
    */
-  @Column({ length: 50 })
+  @Column('varchar', { length: 50 })
   name: string;
 
   /**
    * The shortname of the gtoup. i.e. 'E'
    */
-  @Column()
+  @Column('varchar', )
   type: string;
 
   /**
    * Wheather this group defines scores which will be added to the total,
    * or subtracted from the total
    */
-  @Column()
+  @Column('int')
   operation: Operation = Operation.Addition;
 
   /**
@@ -79,7 +79,7 @@ export class ScoreGroup {
    * this as a configurable option for events nontheless, as smaller
    * events may operate under custom rules if they want.
    */
-  @Column()
+  @Column('int')
   max: number;
 
   /**
@@ -89,7 +89,7 @@ export class ScoreGroup {
    * this as a configurable option for events nontheless, as smaller
    * events may operate under custom rules if they want.
    */
-  @Column()
+  @Column('int')
   min: number;
 
   /**

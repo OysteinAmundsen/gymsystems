@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  client:
+    build: ../../
+    image: gymsystems/client
+    container_name: gymsystems
+    restart: unless-stopped
+    depends_on:
+      - db
+    links:
+      - db:db
+    environment:
+      - DATABASE_HOST=db
+    volumes:
+      - /usr/src/app/node_modules
+      - ../../log:/usr/src/app/log
+      - ../../media:/usr/src/app/media
+    ports:
+      - "3000:3000"
+
+  db:
+    image: mysql
+    container_name: gymsystems_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gymsystem
+      MYSQL_USER: system
+      MYSQL_PASSWORD: admin
+    volumes:
+      - ../../data:/var/lib/mysql
+    ports:
+      - "3306:3306"

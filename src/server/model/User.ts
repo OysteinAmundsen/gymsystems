@@ -58,25 +58,25 @@ export class User implements BelongsToClub {
   /**
    *
    */
-  @Column({ length: 100, unique: true })
+  @Column('varchar', { length: 100, unique: true })
   name: string;
 
   /**
    *
    */
-  @Column({ length: 100, nullable: true })
+  @Column('varchar', { length: 100, nullable: true })
   email: string;
 
   /**
    *
    */
-  @Column({ length: 100 })
+  @Column('varchar', { length: 100 })
   password: string;
 
   /**
    *
    */
-  @Column()
+  @Column('int')
   role: Role;
 
   /**

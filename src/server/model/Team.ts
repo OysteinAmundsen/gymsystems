@@ -50,14 +50,14 @@ export class Team implements BelongsToClub {
    * The name is inherited from the `Troop` which originally defined
    * the team layout, but it can be changed.
    */
-  @Column({ length: 100 })
+  @Column('varchar', { length: 100 })
   name: string;
 
   /**
    * The team must be competing in either 'National classes' or 'Teamgym'.
    * Default is 'National classes'
    */
-  @Column({ default: Classes.National })
+  @Column('int', { default: Classes.National })
   class: Classes;
 
   /**

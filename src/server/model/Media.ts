@@ -35,16 +35,16 @@ export class Media {
    * After upload, the media is available under
    * `media/{tournament.id}/{team.name}_{team.divisionName}_{discipline.name}.{extension}`
    */
-  @Column({ length: 100, unique: true })
+  @Column('varchar', { length: 100, unique: true })
   filename: string;
 
   /**
    * The original filename
    */
-  @Column({ length: 100 })
+  @Column('varchar', { length: 100 })
   originalName: string;
 
-  @Column({ length: 50 })
+  @Column('varchar', { length: 50 })
   mimeType: string;
 
   /**

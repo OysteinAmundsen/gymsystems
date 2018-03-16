@@ -38,7 +38,7 @@ export class Troop implements BelongsToClub {
   /**
   * A unique name for this troop.
   */
-  @Column({ length: 100 })
+  @Column('varchar', { length: 100 })
   name: string;
 
   /**

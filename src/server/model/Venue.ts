@@ -26,55 +26,55 @@ export class Venue implements CreatedBy {
   /**
    * A unique name for this venue.
    */
-  @Column({ length: 100, unique: true })
+  @Column('varchar', { length: 100, unique: true })
   name: string;
 
   /**
    * The longitude part of the geolocation for this venue
    */
-  @Column()
+  @Column('varchar')
   longitude: string;
 
   /**
    * The latitude part of the geolocation for this venue
    */
-  @Column()
+  @Column('varchar')
   latitude: string;
 
   /**
    * A human readable address for this venue
    */
-  @Column({ length: 200 })
+  @Column('varchar', { length: 200 })
   address: string;
 
   /**
    * The cost of renting this venue
    */
-  @Column()
+  @Column('int')
   rentalCost: number;
 
   /**
    * A named contact person registerred as owner of this venue
    */
-  @Column({ length: 200 })
+  @Column('varchar', { length: 200 })
   contact: string;
 
   /**
    * A phone number for the contact person registerred as owner of this venue
    */
-  @Column({ length: 11 })
+  @Column('int', { length: 11 })
   contactPhone: number;
 
   /**
    * An email address for the contact person registerred as owner of this venue
    */
-  @Column({ length: 100 })
+  @Column('varchar', { length: 100 })
   contactEmail: string;
 
   /**
    * The audience capacity this venue rooms
    */
-  @Column()
+  @Column('int')
   capacity: number;
 
   /**

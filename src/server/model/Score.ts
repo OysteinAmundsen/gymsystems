@@ -24,7 +24,7 @@ export class Score {
    * the configured maximum score value this tournament defines.
    * Values can be decimals, but must be rounded upwards to the nearest 0.05
    */
-  @Column()
+  @Column('int')
   value: number;
 
   /**
@@ -48,7 +48,7 @@ export class Score {
    * is delivered from judge E1 - which is the master judge for
    * Execution.
    */
-  @Column({ nullable: true })
+  @Column('int', { nullable: true })
   judgeIndex: number;
 
   /**

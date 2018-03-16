@@ -36,7 +36,7 @@ export class Gymnast implements BelongsToClub {
   /**
   * The full name of the performer
   */
-  @Column({ length: 100 })
+  @Column('varchar', { length: 100 })
   name: string;
 
   /**
@@ -46,25 +46,25 @@ export class Gymnast implements BelongsToClub {
   *
   * This opens for automatic troop/team generation.
   */
-  @Column()
+  @Column('int')
   birthYear: number;
 
   /**
    * Will replace the birthYear property in the near future
    */
-  @Column({ nullable: true})
+  @Column('datetime', { nullable: true})
   birthDate: Date;
 
   /**
    * Email address of this gymnast
    */
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   email: string;
 
   /**
    * Phone number of this gymnast
    */
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   phone: string;
 
   /**
@@ -74,46 +74,46 @@ export class Gymnast implements BelongsToClub {
    *
    * This opens for automatic troop/team generation
    */
-  @Column()
+  @Column('int')
   gender: Gender;
 
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   allergies: string;
 
   /**
    * Name of a parent or a legal guardian for this gymnast
    */
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   guardian1: string;
 
   /**
    * Name of a parent or a legal guardian for this gymnast
    */
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   guardian2: string;
 
   /**
    * Phone number of a parent or a legal guardian for this gymnast
    */
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   guardian1Phone: string;
 
   /**
    * Phone number of a parent or a legal guardian for this gymnast
    */
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   guardian2Phone: string;
 
   /**
    * Email of a parent or a legal guardian for this gymnast
    */
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   guardian1Email: string;
 
   /**
    * Email of a parent or a legal guardian for this gymnast
    */
-  @Column({ nullable: true})
+  @Column('varchar', { nullable: true})
   guardian2Email: string;
 
   /**

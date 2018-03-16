@@ -19,6 +19,6 @@ export class JudgeInScoreGroup {
   /**
    *
    */
-  @Column()
+  @Column('int')
   sortNumber: number;
 }

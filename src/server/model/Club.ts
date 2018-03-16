@@ -46,7 +46,7 @@ export class Club {
    * the future, in order to present users with more details about
    * your club.
    */
-  @Column({ unique: true, length: 100 })
+  @Column('varchar', { unique: true, length: 100 })
   name: string;
 
   /**

@@ -46,19 +46,19 @@ export class Division {
   /**
    * A descriptive name for this division
    */
-  @Column()
+  @Column('varchar', )
   name: string;
 
   /**
    * A numeric representation of how this object should be sorted
    */
-  @Column({ default: 0 })
+  @Column('int', { default: 0 })
   sortOrder?: number;
 
   /**
    * Define if this is a Gender type or Age type division
    */
-  @Column()
+  @Column('int')
   type: DivisionType;
 
   /**
@@ -78,14 +78,14 @@ export class Division {
    * Only used for divisions of type Age.
    * Describes the minimum age limit for gymnasts in this division
    */
-  @Column({nullable: true})
+  @Column('int', {nullable: true})
   min: number;
 
   /**
    * Only used for divisions of type Age
    * Describes the maximum age limit for gymnasts in this division
    */
-  @Column({nullable: true})
+  @Column('int', {nullable: true})
   max: number;
 
   /**
@@ -94,6 +94,6 @@ export class Division {
    * the assigned judges should score or not. The youngest participants
    * should not be judged.
    */
-  @Column({ default: true })
+  @Column('tinyint', { default: true })
   scorable: boolean;
 }
