@@ -18,19 +18,19 @@ describe('GYMSYSTEMS: Configure users', function() {
 
     // console.log('** Starting "users.e2e" setup...');
     const callback = (err?: any) => {
-      if (!err) { browser.ignoreSynchronization = true; }
+      if (!err) { browser.waitForAngularEnabled(true); }
       // console.log('** Setup "users.e2e" complete!');
       done(err);
-    }
+    };
     users.setUp().then(callback).catch(callback);
   });
   afterAll((done: any) => {
     // console.log('** Starting "users.e2e" teardown...');
     const callback = (err?: any) => {
-      browser.ignoreSynchronization = false;
+      browser.waitForAngularEnabled(false);
       // console.log('** Teardown "users.e2e" complete!');
       done(err);
-    }
+    };
     users.tearDown().then(callback).catch(callback);
   });
 
@@ -86,7 +86,7 @@ describe('GYMSYSTEMS: Configure users', function() {
     it('should not be able to elevate users to a highter privilege than itself', () => {
       // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
-    })
+    });
 
     it('should be able to remove users in same club', () => {
       // Remove user
@@ -97,7 +97,7 @@ describe('GYMSYSTEMS: Configure users', function() {
     it('should be able to create users', () => {
       // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
-    })
+    });
   });
 
 

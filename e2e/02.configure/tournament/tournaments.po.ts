@@ -1,7 +1,7 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
 import { ConnectionOptions, createConnection, getConnectionManager, QueryRunner } from 'typeorm';
-import { AppRootPage } from "../../app.po";
-import { Configure } from "../configure.po";
+import { AppRootPage } from '../../app.po';
+import { Configure } from '../configure.po';
 
 export class ConfigureTournaments extends AppRootPage {
   url = '/configure/tournament';
@@ -22,12 +22,12 @@ export class ConfigureTournaments extends AppRootPage {
   setUp(queryRunner?: QueryRunner) {
     if (queryRunner) { this._queryRunner = queryRunner; }
     return new Promise((resolve, reject) => {
-      this.queryRunner.then(queryRunner => {
+      this.queryRunner.then(qr => {
         Promise.all([
-          queryRunner.insert('tournament', {}),
+          qr.insert('tournament', {}),
         ]).then(() => {
           Promise.all([
-            queryRunner.insert('user', { }),
+            qr.insert('user', { }),
           ]).then(() => resolve())
             .catch(err => { console.log(err); reject(); });
         }).catch(err => { console.log(err); reject(err); });
@@ -38,11 +38,11 @@ export class ConfigureTournaments extends AppRootPage {
   tearDown(queryRunner?: QueryRunner) {
     if (queryRunner) { this._queryRunner = queryRunner; }
     return new Promise((resolve, reject) => {
-      this.queryRunner.then(queryRunner => {
+      this.queryRunner.then(qr => {
         Promise.all([
-          queryRunner.delete('user', {name: 'organizer'}),
+          qr.delete('user', {name: 'organizer'}),
         ]).then(() => {
-          queryRunner.query('delete from tournament where id > 0')
+          qr.query('delete from tournament where id > 0')
             .then(() => resolve())
             .catch(err => { console.log(err); reject(err); });
         }).catch(err => { console.log(err); reject(err); });

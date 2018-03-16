@@ -15,10 +15,10 @@ describe('GYMSYSTEMS: Register', function() {
     users = new ConfigureUsers();
 
     register.browserLoad();
-    browser.ignoreSynchronization = true;
+    browser.waitForAngularEnabled(true);
   });
   afterAll(() => {
-    browser.ignoreSynchronization = false;
+    browser.waitForAngularEnabled(false);
   });
 
   describe('deny registration', () => {
@@ -53,7 +53,7 @@ describe('GYMSYSTEMS: Register', function() {
     afterAll((done: any) => {
       // console.log('** Starting "register.e2e" teardown...');
       const callback = (err?: any) => {
-        browser.ignoreSynchronization = false;
+        browser.waitForAngularEnabled(false);
         // console.log('** Teardown "register.e2e" complete!');
         done(err);
       };

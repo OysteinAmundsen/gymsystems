@@ -7,10 +7,10 @@ import { AppRootPage } from '../../app.po';
 import { LoginPage } from '../../01.home/login.po';
 import { Configure } from '../configure.po';
 import { UserEditor } from './user-editor.po';
-import { ConfigureClubs } from "../club/clubs.po";
+import { ConfigureClubs } from '../club/clubs.po';
 
-import { User, Role } from '../../../server/model/User';
-import { Club } from "../../../server/model/Club";
+import { User, Role } from '../../../src/server/model/User';
+import { Club } from '../../../src/server/model/Club';
 
 export class ConfigureUsers extends AppRootPage {
   url = '/configure/users';
@@ -51,21 +51,21 @@ export class ConfigureUsers extends AppRootPage {
     const clubs = new ConfigureClubs();
     if (queryRunner) { this._queryRunner = queryRunner; }
     return new Promise((resolve, reject) => {
-      this.queryRunner.then(queryRunner => {
+      this.queryRunner.then(qr => {
         const pass = bcrypt.hashSync('test', bcrypt.genSaltSync(8));
 
         // Persist users in clubs
-        clubs.setUp(queryRunner).then(() => {
+        clubs.setUp(qr).then(() => {
           // console.log(chalk.yellow('  - users.po: Create users'));
           Promise.all([
-            queryRunner.insert('user', { name: 'organizer',   email: 'organizer@bla.no', password: pass, role: Role.Organizer,   club: 1 }),
-            queryRunner.insert('user', { name: 'secretariat', email: 'secretar@bla.no',  password: pass, role: Role.Secretariat, club: 1 }),
-            queryRunner.insert('user', { name: 'club1',       email: 'club1@bla.no',     password: pass, role: Role.Club,        club: 1 }),
-            queryRunner.insert('user', { name: 'club2',       email: 'club2@bla.no',     password: pass, role: Role.Club,        club: 2 }),
-            queryRunner.insert('user', { name: 'club3',       email: 'club3@bla.no',     password: pass, role: Role.Club,        club: 3 })
+            qr.insert('user', { name: 'organizer',   email: 'organizer@bla.no', password: pass, role: Role.Organizer,   club: 1 }),
+            qr.insert('user', { name: 'secretariat', email: 'secretar@bla.no',  password: pass, role: Role.Secretariat, club: 1 }),
+            qr.insert('user', { name: 'club1',       email: 'club1@bla.no',     password: pass, role: Role.Club,        club: 1 }),
+            qr.insert('user', { name: 'club2',       email: 'club2@bla.no',     password: pass, role: Role.Club,        club: 2 }),
+            qr.insert('user', { name: 'club3',       email: 'club3@bla.no',     password: pass, role: Role.Club,        club: 3 })
           ]).then(() => resolve())
             .catch(err => { console.log(err); reject(err); });
-        }).catch(err => reject(err))
+        }).catch(err => reject(err));
       }).catch(err => { console.log(err); reject(err); });
     });
   }
@@ -73,20 +73,20 @@ export class ConfigureUsers extends AppRootPage {
   tearDown() {
     const clubs = new ConfigureClubs();
     return new Promise((resolve, reject) => {
-      this.queryRunner.then(queryRunner => {
+      this.queryRunner.then(qr => {
         // Remove users
         // console.log(chalk.yellow('  - users.po: Remove users'));
         Promise.all([
-          queryRunner.delete('user', {name: 'organizer'}),
-          queryRunner.delete('user', {name: 'secretariat'}),
-          queryRunner.delete('user', {name: 'club1'}),
-          queryRunner.delete('user', {name: 'club2'}),
-          queryRunner.delete('user', {name: 'club3'}),
+          qr.delete('user', {name: 'organizer'}),
+          qr.delete('user', {name: 'secretariat'}),
+          qr.delete('user', {name: 'club1'}),
+          qr.delete('user', {name: 'club2'}),
+          qr.delete('user', {name: 'club3'}),
         ]).then(() => {
-          clubs.tearDown(queryRunner)
+          clubs.tearDown(qr)
             .then(() => resolve())
             .catch(err => { console.log(err); reject(err); });
-        }).catch(err => reject(err))
+        }).catch(err => reject(err));
       }).catch(err => { console.log(err); reject(err); });
     });
   }

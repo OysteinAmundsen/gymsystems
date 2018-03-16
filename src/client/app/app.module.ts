@@ -87,7 +87,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
       }
     }),
     MarkdownToHtmlModule,
-    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ], { developerMode: !environment.production }),
     AgmCoreModule.forRoot({ apiKey: VenueService.apiKey }),
 
     MatFormFieldModule,

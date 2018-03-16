@@ -1,6 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { RequestMethod } from '@angular/http';
 import {
   HttpInterceptor,
   HttpRequest,
@@ -26,6 +25,15 @@ import { ErrorHandlerService } from './ErrorHandler.service';
 import { AuthStateService } from './auth-state.service';
 import { Logger } from '../Logger';
 
+export declare enum RequestMethod {
+  Get = 0,
+  Post = 1,
+  Put = 2,
+  Delete = 3,
+  Options = 4,
+  Head = 5,
+  Patch = 6,
+}
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

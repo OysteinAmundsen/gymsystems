@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { RequestMethod } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
 import { AuthStateService, HttpAction } from 'app/services/config/auth-state.service';
+import { RequestMethod } from 'app/services/config';
 
 @Component({
   selector: 'app-save-button',

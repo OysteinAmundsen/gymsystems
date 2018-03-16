@@ -48,11 +48,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
     private updates: SwUpdate
   ) {
     // Identify dev mode
-    if (!environment.production) {
-      Logger.debug('%cSetting developerMode', 'color: blue');
-      this.angulartics2.developerMode(true);
-    }
-
     // Set translation defaults
     this.translate.addLangs(['en', 'no']);
     this.translate.setDefaultLang('en');

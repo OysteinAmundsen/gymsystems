@@ -31,7 +31,7 @@ import { dummyVenue } from 'app/services/api/venue/venue.service.spec';
 const club: IClub = <IClub>{
   id          : 0,
   name        : 'HAUGESUND TURNFORENING'
-}
+};
 const user: IUser = <IUser>{
   id    : 0,
   name  : 'admin',
@@ -55,7 +55,7 @@ class WrapperComponent {
       id: 0, createdBy: user, club: user.club, name: 'Landsturnstevnet 2017', description_no: 'Test tekst', description_en: 'Test text',
       venue: dummyVenue, schedule: [], disciplines: [], divisions: []
     },
-  }
+  };
 }
 describe('views.configure.tournament:TeamEditorComponent', () => {
   let component: TeamEditorComponent;

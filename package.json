@@ -55,6 +55,7 @@
   },
   "husky": {
     "hooks": {
+      "pre-commit": "yarn lint",
       "pre-push": "yarn server:test && yarn client:test"
     }
   },

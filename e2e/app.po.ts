@@ -1,5 +1,5 @@
 import { browser, element, by, ExpectedConditions } from 'protractor';
-import { QueryRunner, getConnectionManager } from "typeorm";
+import { QueryRunner, getConnectionManager } from 'typeorm';
 import * as chalk from 'chalk';
 
 export class AppRootPage {
@@ -9,14 +9,8 @@ export class AppRootPage {
   get queryRunner(): Promise<QueryRunner> {
     return new Promise((resolve, reject) => {
       if (!this._queryRunner) {
-        // console.log(chalk.yellow.bold('  -- Create queryRunner'));
-        getConnectionManager().get().driver.createQueryRunner()
-          .then(queryRunner => {
-            // console.log(chalk.yellow.bold('  -- QueryRunner created'));
-            this._queryRunner = queryRunner;
-            resolve(this._queryRunner);
-          })
-          .catch(err => reject(err));
+        this._queryRunner = getConnectionManager().get().driver.createQueryRunner('master');
+        resolve(this._queryRunner);
       } else {
         resolve(this._queryRunner);
       }
@@ -26,12 +20,12 @@ export class AppRootPage {
   // Menu
   get nav() { return element(by.css('app-root nav ul li')); }
   get navHome() { return element(by.css('app-root nav ul li a[href="/"]')); }
-  get navConfigure() { return element(by.css('app-root nav ul li a[href^="/configure"]')); }
-  get navLogin() { return element(by.css('app-root nav ul li a[href^="/login"]')); }
+  get navConfigure() { return element(by.css('app-root nav ul li a[href^="configure"]')); }
+  get navLogin() { return element(by.css('app-root nav ul li a[href^="login"]')); }
 
   // Footer
   get userInfo() { return element(by.css('app-root .user-info > i')); }
-  get navLogout() { return element(by.css('app-root .user-info a[href="/logout"]')); }
+  get navLogout() { return element(by.css('app-root .user-info a[href="logout"]')); }
 
   // Language
   get langNOButton() { return element(by.css('app-root footer .language-selector .flag-icon-no')); }

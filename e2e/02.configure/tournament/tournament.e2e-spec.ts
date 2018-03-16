@@ -1,9 +1,9 @@
 import { browser, ExpectedConditions } from 'protractor';
-import { ConfigureTournaments } from "./tournaments.po";
-import { LoginPage } from "../../01.home/login.po";
-import { RegisterPage } from "../../01.home/register.po";
-import { Configure } from "../configure.po";
-import { ConfigureUsers } from "../users/users.po";
+import { ConfigureTournaments } from './tournaments.po';
+import { LoginPage } from '../../01.home/login.po';
+import { RegisterPage } from '../../01.home/register.po';
+import { Configure } from '../configure.po';
+import { ConfigureUsers } from '../users/users.po';
 
 describe('GYMSYSTEMS: Configure Tournaments', function() {
   let login: LoginPage;
@@ -21,21 +21,21 @@ describe('GYMSYSTEMS: Configure Tournaments', function() {
     tournaments = new ConfigureTournaments();
     configure = new Configure();
 
-    // console.log('** Setup "tournament.e2e"...');
+    // console.log('** Setup 'tournament.e2e'...');
     const callback = (err?: any) => {
-      if (!err) { browser.ignoreSynchronization = true; }
-      // console.log('** Setup "tournament.e2e" complete!');
+      if (!err) { browser.waitForAngularEnabled(true); }
+      // console.log('** Setup 'tournament.e2e' complete!');
       done(err);
-    }
+    };
     users.setUp().then(callback).catch(callback);
   });
   afterAll((done: any) => {
-    // console.log('** Teardown "tournament.e2e"...');
+    // console.log('** Teardown 'tournament.e2e'...');
     const callback = (err?: any) => {
-      browser.ignoreSynchronization = false;
-      // console.log('** Teardown "tournament.e2e" complete!');
+      browser.waitForAngularEnabled(false);
+      // console.log('** Teardown 'tournament.e2e' complete!');
       done(err);
-    }
+    };
     users.tearDown().then(callback).catch(callback);
   });
 
@@ -57,7 +57,7 @@ describe('GYMSYSTEMS: Configure Tournaments', function() {
     });
     afterAll(() => {
       login.logout();
-    })
+    });
 
     it('should be able to create tournaments', () => {
       // TODO: Fill in logic
@@ -141,7 +141,7 @@ describe('GYMSYSTEMS: Configure Tournaments', function() {
     });
     afterAll(() => {
       login.logout();
-    })
+    });
     it('should not be able to create tournaments', () => {
       // TODO: Fill in logic
       expect<any>(true).toBeTruthy();
@@ -188,7 +188,7 @@ describe('GYMSYSTEMS: Configure Tournaments', function() {
     });
     afterAll(() => {
       login.logout();
-    })
+    });
 
     it('should be able to create tournaments', () => {
       // TODO: Fill in logic

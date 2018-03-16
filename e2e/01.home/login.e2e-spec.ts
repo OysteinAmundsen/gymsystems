@@ -10,9 +10,9 @@ describe('GYMSYSTEMS: Login', function() {
   });
 
   beforeEach(() => {
-    browser.ignoreSynchronization = true;
+    browser.waitForAngularEnabled(true);
   });
-  afterEach(() => browser.ignoreSynchronization = false);
+  afterEach(() => browser.waitForAngularEnabled(false));
 
   function getUrl() {
     return browser.getCurrentUrl().then(url => {
