@@ -49,8 +49,8 @@ export class ScorecardsComponent implements OnInit {
    */
   onRenderComplete() {
     setTimeout(() => {
-      window.print();
-      this.router.navigate(['../'], {relativeTo: this.route});
+      // window.print();
+      // this.router.navigate(['../'], {relativeTo: this.route});
     });
   }
 
@@ -64,8 +64,11 @@ export class ScorecardsComponent implements OnInit {
     const cards = scheduleItem.discipline.scoreGroups
       .filter(g => g.operation === Operation.Addition)
       .reduce((scoreCards, scoreGroup) => {
-        scoreGroup.judges
-          .sort((a, b) => a.sortNumber < b.sortNumber ? 1 : -1)
+        const sortedJudges = scoreGroup.judges
+          .sort((a, b) => {
+            return a.sortNumber < b.sortNumber ? -1 : 1;
+          });
+        sortedJudges
           .forEach((judge, j) => {
             const prevCard = scoreCards.find(card => card.name === judge.judge.name);
             if (prevCard) {
@@ -87,7 +90,7 @@ export class ScorecardsComponent implements OnInit {
       cards.push({
         summary:    true,
         name:       mainJudge.name,
-        startNo:    scheduleItem.startNumber,
+        startNo:    scheduleItem.startNumber + 1,
         club:       scheduleItem.team.name,
         division:   this.teamService.getDivisionName(scheduleItem.team),
         discipline: scheduleItem.discipline.name,
@@ -109,7 +112,7 @@ export class ScorecardsComponent implements OnInit {
     return {
       summary:    false,
       name:       judge.name,
-      startNo:    scheduleItem.startNumber,
+      startNo:    scheduleItem.startNumber + 1,
       club:       scheduleItem.team.name,
       division:   this.teamService.getDivisionName(scheduleItem.team),
       discipline: scheduleItem.discipline.name,
