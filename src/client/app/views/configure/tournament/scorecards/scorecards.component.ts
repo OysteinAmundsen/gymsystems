@@ -49,8 +49,8 @@ export class ScorecardsComponent implements OnInit {
    */
   onRenderComplete() {
     setTimeout(() => {
-      // window.print();
-      // this.router.navigate(['../'], {relativeTo: this.route});
+      window.print();
+      this.router.navigate(['../'], {relativeTo: this.route});
     });
   }
 
