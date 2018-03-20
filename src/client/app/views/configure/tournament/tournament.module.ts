@@ -6,7 +6,7 @@ import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { DragulaModule } from 'ng2-dragula';
 import {
   MatSortModule, MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule,
-  MatOptionModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatSlideToggleModule, MatTableModule, MatMenuModule
+  MatOptionModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatSlideToggleModule, MatTableModule, MatMenuModule, MatProgressSpinnerModule
 } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
@@ -21,6 +21,7 @@ import { TeamsComponent, TeamEditorComponent } from './teams';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { InfoComponent } from './info/info.component';
 import { ScorecardsComponent } from './scorecards/scorecards.component';
+import { AwardsComponent } from './awards/awards.component';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { ScorecardsComponent } from './scorecards/scorecards.component';
     MarkdownToHtmlModule,
     DragulaModule,
 
+    MatProgressSpinnerModule,
     MatMenuModule,
     MatCardModule,
     MatTabsModule,
@@ -53,7 +55,7 @@ import { ScorecardsComponent } from './scorecards/scorecards.component';
   ],
   declarations: [
     TournamentComponent, TournamentEditorComponent,
-    TeamsComponent, TeamEditorComponent, ScheduleComponent, InfoComponent, ScorecardsComponent
+    TeamsComponent, TeamEditorComponent, ScheduleComponent, InfoComponent, ScorecardsComponent, AwardsComponent
   ]
 })
 export class TournamentModule { }

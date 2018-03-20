@@ -18,6 +18,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { TroopsComponent } from './troops/troops.component';
 import { TroopEditorComponent } from './troops/troop-editor/troop-editor.component';
 import { MemberStateService } from 'app/views/configure/club/members/member-state.service';
+import { MediaComponent } from './media/media.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { MemberStateService } from 'app/views/configure/club/members/member-stat
     MemberEditorComponent,
     StatisticsComponent,
     TroopsComponent,
-    TroopEditorComponent
+    TroopEditorComponent,
+    MediaComponent
   ],
   providers: [
     MemberStateService

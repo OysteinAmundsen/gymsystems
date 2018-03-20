@@ -69,6 +69,9 @@ export class DisciplineController {
       .where('discipline.tournament=:id', { id: id })
       .leftJoinAndSelect('discipline.tournament', 'tournament')
       .leftJoinAndSelect('discipline.teams', 'teams')
+      .leftJoinAndSelect('discipline.scoreGroups', 'scoreGroups')
+      .leftJoinAndSelect('scoreGroups.judges', 'judges')
+      .leftJoinAndSelect('judges.judge', 'judge')
       .orderBy('discipline.sortOrder', 'ASC')
       .getMany();
   }

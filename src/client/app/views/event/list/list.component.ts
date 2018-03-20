@@ -43,6 +43,7 @@ export class ListComponent implements OnInit, OnDestroy {
   types = ParticipationType;
   _showTraining;
   isLoading = false;
+  hasTraining = false;
 
   get showTraining() {
     if (this._showTraining === undefined) {
@@ -128,6 +129,7 @@ export class ListComponent implements OnInit, OnDestroy {
       schedule => {
         schedule = this.scheduleService.recalculateStartTime(this.tournament, schedule, false);
         this.isLoading = false;
+        this.hasTraining = schedule.filter(s => s.type === ParticipationType.Training).length > 0;
 
         if (!this.selected) {
           this.schedule = schedule;
@@ -328,6 +330,7 @@ export class ListComponent implements OnInit, OnDestroy {
         .map(p => this.stop(p, evt));
 
       participant.startTime = new Date();
+      this.invalidateCache(participant);
       this.scheduleService.start(participant).subscribe(() => {
         const media = this.getMedia(participant);
         this.mediaService.play(media);

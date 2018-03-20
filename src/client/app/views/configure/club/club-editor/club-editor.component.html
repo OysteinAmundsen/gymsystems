@@ -48,6 +48,10 @@
     [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
     <i class="fa fa-fw fa-group"></i> <span translate>Teams</span>
   </a>
+  <a mat-tab-link routerLink="./media" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+    [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
+    <i class="fa fa-fw fa-volume-up"></i> <span translate>Media</span>
+  </a>
   <a mat-tab-link routerLink="./statistics" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
     [routerLinkActive]="['active']" *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id">
     <i class="fa fa-fw fa-line-chart"></i> <span translate>Statistics</span>

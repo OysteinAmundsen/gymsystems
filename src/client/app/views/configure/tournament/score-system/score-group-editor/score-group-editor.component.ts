@@ -127,6 +127,7 @@ export class ScoreGroupEditorComponent implements OnInit {
   onKeyup(evt: KeyboardEvent) {
     if (evt.keyCode === KeyCode.ESCAPE) {
       this.close();
+      return;
     }
     if (this.judgeForm.value.name.length && evt.keyCode === KeyCode.ENTER) {
       this.addJudge();

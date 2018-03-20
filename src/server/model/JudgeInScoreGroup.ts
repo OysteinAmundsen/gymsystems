@@ -10,9 +10,15 @@ import { Judge } from './Judge';
  */
 @Entity({name: 'score_group_judges_judge'})
 export class JudgeInScoreGroup {
+  /**
+   *
+   */
   @ManyToOne(type => ScoreGroup, { nullable: false, primary: true })
   scoreGroup: ScoreGroup;
 
+  /**
+   *
+   */
   @ManyToOne(type => Judge, { nullable: false, primary: true })
   judge: Judge;
 

@@ -1,3 +1,5 @@
+<mat-progress-spinner mode="indeterminate" class="center" *ngIf="isLoading"></mat-progress-spinner>
+
 <mat-table #table [dataSource]="teamSource" role="menu" matSort (matSortChange)="teamSource.sortData($event)">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name' | translate}}</mat-header-cell>

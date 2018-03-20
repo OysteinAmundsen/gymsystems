@@ -1,3 +1,5 @@
+<mat-progress-spinner mode="indeterminate" class="center" *ngIf="!schedule.length"></mat-progress-spinner>
+
 <div class="table-responsive">
   <table role="list">
     <thead>
@@ -14,7 +16,7 @@
     <tbody dragula="schedule-bag" [dragulaModel]="schedule" [dragulaOptions]="dragulaOptions">
       <tr *ngFor="let item of schedule" role="listitem" [title]="title(item)"
         [ngClass]="{'draggable'  : true,
-                    'deleted'    : item.markDeleted === true,
+                    'deleted'    : item.markDeleted === 1,
                     'new'        : !item.id,
                     'day-split'  : isNewDay(item),
                     'unimportant': item.type === participationTypes.Training,
@@ -35,7 +37,7 @@
         </td>
         <td class="visible-medium"><span>{{ division(item.team) }}</span></td>
         <td>
-          <span>
+          <span class="nowrap">
             <i class="fa fa-fw fa-square" [attr.discipline]="item.discipline.sortOrder"></i>
             <b *ngIf="item.team.class === classes.TeamGym">TG: </b>
             {{ item.discipline.name }}

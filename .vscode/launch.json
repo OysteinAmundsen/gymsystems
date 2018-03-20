@@ -8,9 +8,10 @@
       "type": "node",
       "request": "launch",
       "name": "Server",
-      "outFiles": [ "${workspaceRoot}/dist/**/*.js" ],
-      "program": "${workspaceRoot}\\src\\server\\index.ts",
-      "console": "integratedTerminal"
+      "outFiles": [ "${workspaceFolder}/dist/*.js" ],
+      "program": "${workspaceFolder}/src/server/index.ts",
+      "console": "integratedTerminal",
+      "preLaunchTask": "server:build"
     },
     {
       "type": "chrome",

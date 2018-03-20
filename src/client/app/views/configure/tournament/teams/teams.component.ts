@@ -22,6 +22,7 @@ import { debounceTime } from 'rxjs/operators';
 export class TeamsComponent implements OnInit, OnDestroy {
   currentUser: IUser;
   tournament: ITournament;
+  isLoading = false;
 
   teamSource = new SubjectSource<ITeam>(new BehaviorSubject<ITeam[]>([]));
   displayColumns = ['name', 'division', 'disciplines', 'club'];
@@ -67,6 +68,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.userService.getMe().subscribe(user => this.currentUser = user));
     this.configuration.getByname('scheduleExecutionTime').subscribe(res => this.executionTime = res.value);
 
+    this.isLoading = true;
     this.parent.tournamentSubject.subscribe(tournament => {
       this.tournament = tournament;
       this.loadTeams();
@@ -83,11 +85,17 @@ export class TeamsComponent implements OnInit, OnDestroy {
   }
 
   loadTeams() {
+    this.isLoading = true;
     if (this.currentUser.role >= Role.Organizer) {
-      this.teamService.getByTournament(this.tournament.id).subscribe((teams) => this.teamSource.subject.next(teams));
+      this.teamService.getByTournament(this.tournament.id).subscribe((teams) => this.teamsReceived(teams));
     } else {
-      this.teamService.getMyTeamsByTournament(this.tournament.id).subscribe((teams) => this.teamSource.subject.next(teams));
+      this.teamService.getMyTeamsByTournament(this.tournament.id).subscribe((teams) => this.teamsReceived(teams));
     }
+  }
+
+  teamsReceived(teams) {
+    this.isLoading = false;
+    this.teamSource.subject.next(teams);
   }
 
   divisions(team: ITeam) { return this.teamService.getDivisionName(team); }

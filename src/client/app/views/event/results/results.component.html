@@ -2,7 +2,7 @@
   <a [routerLink]="['../signoff']" mat-button><i class="fa fa-fw fa-print"></i> <span>{{'Judge signoff' | translate }}</span></a>
 </div>
 
-<mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="center"></mat-progress-spinner>
 
 <!-- National classes -->
 <mat-card *ngFor="let division of divisions" class="division" [ngClass]="{'collapsed': isCollapsed(division)}">
@@ -20,7 +20,7 @@
         <table role="list">
           <thead>
             <tr><th colspan="3">
-              <h4>
+              <h4 class="nowrap">
                 <i class="fa fa-fw fa-square" [attr.discipline]="discipline.sortOrder"></i>
                 {{discipline.name}}
               </h4>

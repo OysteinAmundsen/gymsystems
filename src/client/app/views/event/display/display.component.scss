@@ -15,33 +15,3 @@ header {
   }
 }
 
-.displayContainer /deep/ {
-  display: table-cell;
-  width: 50%;
-  background: lighten(black, 5%);
-  padding: 0.2rem 0.2rem 30% 0.2rem;
-  position: relative;
-  border-radius: 0.5rem;
-  color: white;
-  box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.3) inset, 20px 20px 96px 20px rgba(255, 255, 255, 0.15) inset;
-  overflow: hidden;
-  font-size: 2rem;
-  @media (max-width: $stop0) {
-    font-size: 3.3vw;
-  }
-  @media (max-width: $stop1) {
-    font-size: 5.6vw;
-    display: block;
-    width: 100%;
-    padding-bottom: 70%;
-    margin-bottom: 0.2rem;
-  }
-  >.display {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: ($padding * 2);
-  }
-}

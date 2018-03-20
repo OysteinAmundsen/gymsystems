@@ -3,18 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { IDiscipline, ITournament } from 'app/model';
+import { IDiscipline, ITournament, IJudgeInScoreGroup } from 'app/model';
 import { DisciplineService } from './discipline.service';
+import { defaultJudge } from '../judge/judge.service.stub';
+import { compositionScoreGroup, defaultScoreGroups } from '../scoregroup/scoregroup.service.stub';
+
+export const dummyDiscipline = <IDiscipline>{
+  id: 0,
+  name: '',
+  sortOrder: 0,
+  tournament: <ITournament>{},
+  scoreGroups: defaultScoreGroups
+};
 
 @Injectable()
 export class DisciplineServiceStub extends DisciplineService {
-  discipline: IDiscipline = <IDiscipline>{
-    id: 0,
-    name: '',
-    sortOrder: 0,
-    tournament: <ITournament>{},
-    scoreGroups: []
-  };
+  discipline: IDiscipline = dummyDiscipline;
   disciplines: IDiscipline[] = [
     this.discipline
   ];

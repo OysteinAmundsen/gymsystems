@@ -1,9 +1,21 @@
 @import '~styles/variables';
 
+:host {
+  position: relative;
+  display: block;
+}
 table[role="list"] {
   tr {
-    &.deleted {
-      text-decoration: line-through;
+    &.deleted td {
+      position: relative;
+      &:not(.icons):after {
+        content: '';
+        position: absolute;
+        border-bottom: 5px double rgba(0,0,0,0.3);
+        left: 0;
+        right: 0;
+        top: 45%;
+      }
     }
     &.new td {
       background-color: rgba(lighten(green, 50%), 0.1);

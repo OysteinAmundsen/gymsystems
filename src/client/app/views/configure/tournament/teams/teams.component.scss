@@ -1,5 +1,9 @@
 @import "~styles/variables";
 
+:host {
+  position: relative;
+  display: block;
+}
 form {
   margin-top: 1rem;
 }

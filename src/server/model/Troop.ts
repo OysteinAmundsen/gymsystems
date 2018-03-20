@@ -50,17 +50,7 @@ export class Troop implements BelongsToClub {
   /**
   * The `Club` which created and is responsible for this troop.
   */
-  @ManyToOne(type => Club, club => club.teams, { nullable: false })
+  @ManyToOne(type => Club, club => club.troops, { nullable: false })
   @JoinColumn({name: 'club'})
   club: Club;
-
-  /**
-  * The media uploaded by this team. This is by default references to
-  * media from the `Troop` object, so one troop can have a default 'theme',
-  * but this can also be changed by the club for a given tournament.
-  *
-  * Media is presented as an array of files, one per discipline.
-  */
-  @OneToMany(type => Media, media => media.team, { cascadeInsert: false, cascadeUpdate: false })
-  media: Media[] = [];
 }

@@ -4,6 +4,7 @@ import { DivisionType } from './Division';
 import { Team } from './Team';
 import { Troop } from './Troop';
 import { Tournament } from './Tournament';
+import { Person } from './Person';
 
  /**
 * Defines the available genders
@@ -26,19 +27,7 @@ export enum Gender {
 */
 @Entity()
 @Index('gymnast_club_name', (gymnast: Gymnast) => [gymnast.name, gymnast.club], { unique: true })
-export class Gymnast implements BelongsToClub {
-  /**
-  * The Gymnast primary key
-  */
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  /**
-  * The full name of the performer
-  */
-  @Column('varchar', { length: 100 })
-  name: string;
-
+export class Gymnast extends Person implements BelongsToClub {
   /**
   * The birth year of the performer will allow
   * the system to automatically calculate which
@@ -56,18 +45,6 @@ export class Gymnast implements BelongsToClub {
   birthDate: Date;
 
   /**
-   * Email address of this gymnast
-   */
-  @Column('varchar', { nullable: true})
-  email: string;
-
-  /**
-   * Phone number of this gymnast
-   */
-  @Column('varchar', { nullable: true})
-  phone: string;
-
-  /**
    * The gender of the performer will allow the system
    * to automatically calculate which Gender divisions
    * this performer can be entered in.
@@ -76,9 +53,6 @@ export class Gymnast implements BelongsToClub {
    */
   @Column('int')
   gender: Gender;
-
-  @Column('varchar', { nullable: true})
-  allergies: string;
 
   /**
    * Name of a parent or a legal guardian for this gymnast

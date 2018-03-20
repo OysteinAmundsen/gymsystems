@@ -70,7 +70,7 @@ export class ConfigurationController {
   @UseBefore(RequireRole.get(Role.Admin))
   create( @Body() configuration: Configuration, @Res() res: Response) {
     return this.repository.save(configuration)
-      .then(persisted => res.send(persisted))
+      .then(persisted => persisted)
       .catch(err => {
         Log.log.error(`Error saving configuration ${configuration.name}`, err);
         return new ErrorResponse(err.code, err.message);

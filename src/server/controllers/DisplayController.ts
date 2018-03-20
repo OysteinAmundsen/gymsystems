@@ -102,16 +102,23 @@ export class DisplayController {
     const schedule = await this.scheduleRepository.getByTournament(tournamentId);
     const template = displayConfig.value[`display${id}`];
 
+    const remaining = schedule
+      .filter(s => !s.markDeleted && !s.endTime && !s.publishTime)
+      .sort((a, b) => a.startTime > b.startTime ? -1 : 1);
+
     // Get current participant from schedule
-    let current = schedule.filter(s => s.startTime != null && !s.publishTime).sort((a, b) => a.startTime > b.startTime ? -1 : 1);
+    let current = remaining.filter(s => s.startTime != null).slice(0, 1);
     // No items found. Assuming this is the start of the tournament. Give in the first participant.
-    if (!current.length) { current = [schedule[0]]; }
+    if (!current.length && remaining.length) { current = [remaining[0]]; }
 
     // Filtered from schedule by not yet started participants
-    const next = schedule.filter(s => !s.startTime).sort((a, b) => a.sortNumber < b.sortNumber ? -1 : 1);
+    const next = remaining.filter(s => s.sortNumber > current[0].sortNumber).sort((a, b) => a.sortNumber < b.sortNumber ? -1 : 1);
 
     // Filtered from schedule by allready published participants
-    const published = schedule.filter(s => s.publishTime != null).sort((a, b) => a.publishTime > b.publishTime ? -1 : 1);
+    const published = schedule
+      .filter(s => s.publishTime != null)
+      .sort((a, b) => a.publishTime > b.publishTime ? -1 : 1)
+      .slice(0, 5);
 
     return Handlebars.compile(template, {noEscape: true})({
       tournament: tournament,

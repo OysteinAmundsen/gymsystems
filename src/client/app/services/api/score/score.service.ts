@@ -36,16 +36,26 @@ export class ScoreService {
     const add = (prev, num) => {prev += num; return prev; };
     const sub = (prev, num) => {prev -= num; return prev; };
     const isAdd = (score) => score.scoreGroup.operation === Operation.Addition;
-    const scores = participant.scores.filter(s => type.indexOf(s.scoreGroup.type) > -1);
-    return this.fixScore(scores.length
+    const scores = participant.scores.filter(s => s.scoreGroup.type === type);
+    const total = this.fixScore(scores.length
       ? scores.reduce((prev: number, score: IScore) => isAdd(score) ? add(prev, score.value) : sub(prev, score.value), 0) / scores.length
       : 0
     );
+    return total;
   }
 
   // Calculate final score
   calculateTotal(participant: ITeamInDiscipline) {
-    return participant.discipline.scoreGroups.reduce((prev, curr) => prev += this.calculateScoreGroupTotal(participant, curr.type), 0);
+    return participant.discipline.scoreGroups.reduce((prev, curr) => {
+      const avg = this.calculateScoreGroupTotal(participant, curr.type);
+      if (curr.operation === Operation.Addition) {
+        prev += avg;
+      } else {
+        prev -= avg;
+      }
+      // console.log(participant.id, curr.type, curr.operation, avg, prev);
+      return prev;
+    }, 0);
   }
 
   fixScore(score) {

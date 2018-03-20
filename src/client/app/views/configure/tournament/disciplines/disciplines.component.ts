@@ -75,6 +75,19 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
     this.disciplineListchanged.emit(this.disciplineList);
   }
 
+  judges(discipline: IDiscipline) {
+    if (!discipline || !discipline.scoreGroups) {
+      return [''];
+    }
+    return Array.from(discipline.scoreGroups.reduce((judges, scoreGroup) => {
+      scoreGroup.judges
+        .sort((a, b) => a.sortNumber < b.sortNumber ? -1 : 1)
+        .map(j => j.judge.name)
+        .forEach(j => {if (j !== 'System') {judges.add(j); }});
+      return judges;
+    }, new Set<string>()));
+  }
+
   saveDisciplines() {
     if (this.tournament) {
       this.disciplineService.saveAll(this.disciplineList).subscribe(() => this.loadDisciplines());

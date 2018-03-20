@@ -4,24 +4,27 @@
     <h2>{{ tournament.name }}</h2>
   </div>
 
-  <div class="buttons">
-    <button mat-raised-button type="button" *appIfAuth="'Organizer'" [routerLink]="['/configure/tournament', tournament.id]">
+  <button mat-icon-button class="buttons" [matMenuTriggerFor]="options">
+    <i class="fa fa-fw fa-ellipsis-v"></i>
+  </button>
+  <mat-menu #options="matMenu">
+    <button mat-menu-item type="button" *appIfAuth="'Organizer'" [routerLink]="['/configure/tournament', tournament.id]">
       <i class="fa fa-fw fa-cog"></i>
       <span translate>Settings </span>
     </button>
-    <button mat-raised-button type="button" class="mat-primary flat" [routerLink]="['./list']" [routerLinkActive]="['active']">
+    <button mat-menu-item type="button" class="mat-primary flat" [routerLink]="['./list']" [routerLinkActive]="['active']">
       <i class="fa fa-fw fa-list"></i>
-      <span translate>List</span>
+      <span translate>Schedule</span>
     </button>
-    <button mat-raised-button type="button" class="mat-primary flat" [routerLink]="['./results']" [routerLinkActive]="['active']">
+    <button mat-menu-item type="button" class="mat-primary flat" [routerLink]="['./results']" [routerLinkActive]="['active']">
       <i class="fa fa-fw fa-trophy"></i>
       <span translate>Results </span>
     </button>
-    <button mat-raised-button type="button" class="mat-primary flat" *appIfAuth="'Secretariat'" [routerLink]="['./display']" [routerLinkActive]="['active']">
+    <button mat-menu-item type="button" class="mat-primary flat" *appIfAuth="'Secretariat'" [routerLink]="['./display']" [routerLinkActive]="['active']">
       <i class="fa fa-fw fa-tv"></i>
       <span translate>Display </span>
     </button>
-  </div>
+  </mat-menu>
 </header>
 
 <router-outlet></router-outlet>

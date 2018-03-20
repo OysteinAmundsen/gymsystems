@@ -13,12 +13,6 @@
         "/*.bundle.css",
         "/*.bundle.js",
         "/*.chunk.js"
-      ],
-      "urls": [
-        "https://fonts.googleapis.com/css?family=Material+Icons",
-        "https://fonts.gstatic.com/s/economica/v5/Qw3fZQZaHCLgIWa29ZBbNsIB.woff2",
-        "https://fonts.googleapis.com/css?family=Economica|Roboto:400,700",
-        "https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxK.woff2"
       ]
     }
   }, {
@@ -28,19 +22,24 @@
     "resources": {
       "files": [
         "/assets/**"
+      ],
+      "urls": [
+        "https://fonts.googleapis.com/**",
+        "https://fonts.gstatic.com/**"
       ]
     }
   }],
   "dataGroups": [{
     "name": "api-freshness",
     "urls": [
-      "/api"
+      "/api/**",
+      "!/api/event"
     ],
     "cacheConfig": {
-      "maxSize": 100,
-      "maxAge": "5m",
-      "timeout": "10s",
-      "strategy": "freshness"
+      "strategy": "freshness",
+      "maxSize": 30,
+      "maxAge": "20m",
+      "timeout": "9s"
     }
   }]
 }

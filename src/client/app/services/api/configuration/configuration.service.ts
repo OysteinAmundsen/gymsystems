@@ -18,7 +18,7 @@ export class ConfigurationService  {
     return this.http.get<IConfiguration>(`${this.url}/${name}`);
   }
 
-  save(configuration: IConfiguration[]) {
+  save(configuration: IConfiguration[] | IConfiguration) {
     return this.http.post<IConfiguration[]>(this.url, configuration);
   }
 

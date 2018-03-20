@@ -1,5 +1,9 @@
 @import "~styles/variables";
 
+:host {
+  position: relative;
+  display: block;
+}
 .buttons {
   text-align: right;
   @media (max-width: $stop1) {
@@ -73,14 +77,6 @@
   background-image: linear-gradient(to bottom, rgba($primary, 0.3) 0px, #fff 1px, #fff 42px, rgba($primary, 0.3) 43px);
   background-size: 100% 42px;
   background-position: 0px -4px;
-}
-
-.mat-progress-spinner {
-  margin: 0 auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
 }
 
 table {

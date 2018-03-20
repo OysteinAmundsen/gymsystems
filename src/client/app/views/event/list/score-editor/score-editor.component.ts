@@ -32,7 +32,7 @@ export class ScoreEditorComponent implements OnInit, OnDestroy {
       if (container.group.operation === Operation.Addition) {
         prev += container.avg;
       } else {
-        prev -= container.avg;
+        // prev -= container.avg;
       }
       return prev;
     }, 0);

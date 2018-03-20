@@ -1,4 +1,4 @@
-<header class="form horizontal flex">
+<header class="form horizontal flex screen-only">
   <mat-form-field *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.club.id))">
     <mat-placeholder for="filter"><i class="fa fa-fw fa-filter"></i><span translate>Choose discipline:</span></mat-placeholder>
     <mat-select id="filter" name="filter" [(ngModel)]="selectedDiscipline">
@@ -7,13 +7,18 @@
     </mat-select>
   </mat-form-field>
   <div class="flex-col"></div>
-  <mat-slide-toggle class="mat-primary" [(ngModel)]="showTraining">
+  <mat-slide-toggle class="mat-primary" *ngIf="hasTraining" [(ngModel)]="showTraining">
     <span *ngIf="showTraining" translate>Training visible</span>
     <span *ngIf="!showTraining" translate>Training hidden</span>
   </mat-slide-toggle>
 </header>
 
-<mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+<header class="center print-only" *ngIf="tournament">
+  <h2>{{ tournament.name }}</h2>
+  <h4>{{ tournament.venue.name }}</h4>
+</header>
+
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="center"></mat-progress-spinner>
 
 <section class="table-responsive">
   <table *ngIf="tournament && schedule.length" role="list">
@@ -25,7 +30,7 @@
         <th class="visible-medium" translate>Division</th>
         <th class="visible-medium" translate>Discipline</th>
         <th translate>Score</th>
-        <th *ngIf="canViewActions()" class="actions"></th>
+        <th *ngIf="canViewActions()" class="actions screen-only"></th>
       </tr>
     </thead>
     <tbody *ngFor="let item of schedule; let i = index;" role="listitem" #row
@@ -44,10 +49,10 @@
         <td class="visible-medium" [innerHtml]="startTime(item)"></td>
         <td>{{ item.team.name }}</td>
         <td class="visible-medium"><b *ngIf="item.team.class === classes.TeamGym && item.type === types.Live">TG: </b>{{ division(item.team) }}</td>
-        <td class="visible-medium"><i class="fa fa-fw fa-square" [attr.discipline]="item.discipline.sortOrder"></i> {{ item.discipline.name }}</td>
+        <td class="visible-medium nowrap"><i class="fa fa-fw fa-square" [attr.discipline]="item.discipline.sortOrder"></i> {{ item.discipline.name }}</td>
         <td *ngIf="item.type === types.Live">{{ score(item) | number:'1.3-3' }}</td>
         <td *ngIf="item.type === types.Training"></td>
-        <td *ngIf="canViewActions()" class="actions" rowspan="2">
+        <td *ngIf="canViewActions()" class="actions screen-only" rowspan="2">
           <button mat-icon-button *ngIf="canStart(item, i)" (click)="start(item, $event)" [title]="'Start' | translate">
             <i class="fa fa-fw fa-play"></i>
           </button>
@@ -61,10 +66,10 @@
       </tr>
 
       <!-- View details narrow screen -->
-      <tr *ngIf="selected !== item && isVisible(item)" (click)="select(item)" class="visible-narrow details">
+      <tr *ngIf="selected !== item && isVisible(item)" (click)="select(item)" class="visible-narrow screen-only details">
         <td>{{ startTime(item) }}</td>
         <td>
-          <small>
+          <small class="nowrap">
             <i class="fa fa-fw fa-square" [attr.discipline]="item.discipline.sortOrder"></i>
             {{ item.discipline.name }}
             -

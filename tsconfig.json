@@ -2,8 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "baseUrl": "./src/client",
-    "mapRoot": "./src/client",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",

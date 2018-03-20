@@ -49,29 +49,33 @@
 
 @include create-cols(12);
 .visible-wide {
-  @media (max-width: $stop0) {
+  @media only screen and (max-width: $stop0) {
     display: none;
   }
 }
 .visible-lt-wide {
-  @media (min-width: $stop0) {
+  @media only screen and (min-width: $stop0) {
     display: none;
   }
 }
 
 .visible-medium {
-  @media (max-width: $stop1) {
+  @media only screen and (max-width: $stop1) {
     display: none;
   }
 }
 .visible-lt-medium {
-  @media (min-width: $stop1) {
+  @media only screen and (min-width: $stop1) {
     display: none;
   }
 }
 
 .visible-narrow {
-  @media (min-width: $stop1) {
+  @media only screen and (min-width: $stop1) {
     display: none;
   }
+}
+
+.nowrap {
+  white-space: nowrap;
 }

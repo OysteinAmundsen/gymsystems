@@ -24,7 +24,7 @@ export class Score {
    * the configured maximum score value this tournament defines.
    * Values can be decimals, but must be rounded upwards to the nearest 0.05
    */
-  @Column('int')
+  @Column('float')
   value: number;
 
   /**

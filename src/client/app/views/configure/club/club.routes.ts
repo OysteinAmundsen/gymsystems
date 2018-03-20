@@ -10,6 +10,7 @@ import { MemberEditorComponent } from './members/member-editor/member-editor.com
 import { TroopsComponent } from './troops/troops.component';
 import { TroopEditorComponent } from './troops/troop-editor/troop-editor.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { MediaComponent } from './media/media.component';
 
 
 export const ClubRoutes: Routes = [
@@ -25,6 +26,7 @@ export const ClubRoutes: Routes = [
         { path: 'troops', component: TroopsComponent, canActivate: [RoleGuard], data: { role: Role.Club} },
         { path: 'troops/add', component: TroopEditorComponent, canActivate: [RoleGuard], data: { role: Role.Club} },
         { path: 'troops/:id', component: TroopEditorComponent, canActivate: [RoleGuard], data: { role: Role.Club} },
+        { path: 'media', component: MediaComponent, canActivate: [RoleGuard], data: { role: Role.Club} },
         { path: 'statistics', component: StatisticsComponent, canActivate: [RoleGuard], data: { role: Role.Club} },
       ] },
     ]

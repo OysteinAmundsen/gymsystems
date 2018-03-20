@@ -11,6 +11,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { InfoComponent } from './info/info.component';
 import { TeamEditorComponent } from './teams';
 import { ScorecardsComponent } from './scorecards/scorecards.component';
+import { AwardsComponent } from './awards/awards.component';
 
 export const TournamentRoutes: Routes = [
   {
@@ -26,6 +27,7 @@ export const TournamentRoutes: Routes = [
           { path: 'teams/add', component: TeamEditorComponent, canActivate: [RoleGuard], data: { role: Role.Club}  },
           { path: 'teams/:id', component: TeamEditorComponent, canActivate: [RoleGuard], data: { role: Role.Club}  },
           { path: 'schedule', component: ScheduleComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
+          { path: 'awards', component: AwardsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
           { path: 'info', component: InfoComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
           { path: 'scorecards', component: ScorecardsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
         ]
