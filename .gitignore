@@ -47,6 +47,6 @@ Thumbs.db
 /log/
 /out/
 
-media/
+./media/
 
 *.pem
