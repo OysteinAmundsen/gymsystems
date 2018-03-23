@@ -15,7 +15,7 @@ declare class EventSource {
 
 @Injectable()
 export class EventService {
-  url = '/api/event';
+  url = '/apievent';
   observable: Observable<any>;
   observer: Observer<any>;
   eventSource: EventSource;

@@ -17,7 +17,7 @@ export class SSEController {
 
   constructor(private app: Express) {
     // Register the route this middleware should respond to
-    this.app.use('/api/event', (req, res) => this.connect(req, res));
+    this.app.use('/apievent', (req, res) => this.connect(req, res));
 
     // Register this class with the TypeDI engine, so we can hook up to the `publish` method here from
     // other places in our application.
@@ -58,7 +58,7 @@ export class SSEController {
       }
       Log.log.debug(`SSE Data published: ${JSON.stringify(data)}`);
       stream.write(`data: ${JSON.stringify(data)}\n\n`);
-    }
+    };
 
     // Register the handler on our dispatcher
     dispatcher.on('message', handler);

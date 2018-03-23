@@ -32,13 +32,23 @@
   "dataGroups": [{
     "name": "api-freshness",
     "urls": [
-      "!/api/event"
+      "/api/**"
     ],
     "cacheConfig": {
       "strategy": "freshness",
       "maxSize": 30,
       "maxAge": "20m",
       "timeout": "9s"
+    }
+  }, {
+    "name": "prevent-sse",
+    "urls": [
+      "/apievent"
+    ],
+    "cacheConfig": {
+      "strategy": "freshness",
+      "maxSize": 0,
+      "maxAge": "0u"
     }
   }]
 }
