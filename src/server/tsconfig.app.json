@@ -2,6 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "",
+    "mapRoot": "../../dist/",
+    "sourceMap": true,
     "noLib": false,
     "rootDir": "./",
     "module": "commonjs",

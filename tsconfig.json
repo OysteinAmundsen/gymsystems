@@ -8,6 +8,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "baseUrl": "./src/client",
+    "mapRoot": "./src/client",
     "typeRoots": [
       "node_modules/@types",
       "**/typings.d"

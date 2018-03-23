@@ -38,4 +38,8 @@ export class EventComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.paramSubscription) { this.paramSubscription.unsubscribe(); }
   }
+
+  printPage() {
+    setTimeout(() => window.print());
+  }
 }

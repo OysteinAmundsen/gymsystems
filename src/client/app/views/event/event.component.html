@@ -4,25 +4,33 @@
     <h2>{{ tournament.name }}</h2>
   </div>
 
-  <button mat-icon-button class="buttons" [matMenuTriggerFor]="options">
+  <button mat-icon-button [matMenuTriggerFor]="options">
     <i class="fa fa-fw fa-ellipsis-v"></i>
   </button>
-  <mat-menu #options="matMenu">
-    <button mat-menu-item type="button" *appIfAuth="'Organizer'" [routerLink]="['/configure/tournament', tournament.id]">
+  <mat-menu #options="matMenu" class="buttons">
+    <a [routerLink]="['/configure/tournament', tournament.id]" mat-menu-item *appIfAuth="'Secretariat'" [routerLinkActive]="['active']">
       <i class="fa fa-fw fa-cog"></i>
       <span translate>Settings </span>
-    </button>
-    <button mat-menu-item type="button" class="mat-primary flat" [routerLink]="['./list']" [routerLinkActive]="['active']">
+    </a>
+    <a [routerLink]="['./list']" mat-menu-item [routerLinkActive]="['active']">
       <i class="fa fa-fw fa-list"></i>
       <span translate>Schedule</span>
-    </button>
-    <button mat-menu-item type="button" class="mat-primary flat" [routerLink]="['./results']" [routerLinkActive]="['active']">
+    </a>
+    <a [routerLink]="['./results']" mat-menu-item [routerLinkActive]="['active']">
       <i class="fa fa-fw fa-trophy"></i>
       <span translate>Results </span>
-    </button>
-    <button mat-menu-item type="button" class="mat-primary flat" *appIfAuth="'Secretariat'" [routerLink]="['./display']" [routerLinkActive]="['active']">
+    </a>
+    <a [routerLink]="['./display']" mat-menu-item *appIfAuth="'Secretariat'" [routerLinkActive]="['active']">
       <i class="fa fa-fw fa-tv"></i>
-      <span translate>Display </span>
+      <span>{{'Display' | translate }}</span>
+    </a>
+    <a [routerLink]="['./signoff']" mat-menu-item *appIfAuth="'Secretariat'">
+      <i class="fa fa-fw fa-print"></i>
+      <span>{{'Judge signoff' | translate }}</span>
+    </a>
+    <button type="button" (click)="printPage()" mat-menu-item>
+      <i class="fa fa-fw fa-print"></i>
+      <span>{{'Print page' | translate }}</span>
     </button>
   </mat-menu>
 </header>

@@ -1,9 +1,3 @@
-@media print{
-  @page {
-    // size: A4 landscape !important;
-  }
-}
-
 section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

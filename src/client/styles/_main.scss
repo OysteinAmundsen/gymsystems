@@ -10,6 +10,15 @@ body {
   position: relative;
   margin: 0;
   padding: 0;
+
+  @media print{
+    @page { size: A4 portrait; }
+  }
+  &.landscape {
+    @media print{
+      @page { size: A4 landscape; }
+    }
+  }
 }
 
 body,

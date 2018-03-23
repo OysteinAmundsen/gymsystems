@@ -17,8 +17,10 @@ const routes: Routes = [
     { path: 'list',               component: ListComponent },
     { path: 'results',            component: ResultsComponent },
     { path: 'signoff',            component: SignoffReportComponent, canActivate: [RoleGuard], data: { role: Role.Secretariat} },
-    { path: 'display',            component: DisplayComponent,       canActivate: [RoleGuard], data: { role: Role.Secretariat} },
-    { path: 'display/:displayId', component: FullscreenComponent,    canActivate: [RoleGuard], data: { role: Role.Secretariat} },
+    // We wont prevent these routes, but we wont display them in menus either. This will enable organizers to display the view on screens without
+    // having to log in to do this.
+    { path: 'display',            component: DisplayComponent},
+    { path: 'display/:displayId', component: FullscreenComponent},
   ]},
   { path: '**', redirectTo: '/' },
 ];

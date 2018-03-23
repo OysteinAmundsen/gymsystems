@@ -32,7 +32,6 @@
   "dataGroups": [{
     "name": "api-freshness",
     "urls": [
-      "/api/**",
       "!/api/event"
     ],
     "cacheConfig": {

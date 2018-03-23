@@ -29,6 +29,9 @@
   }
 }
 .mat-card {
+  page-break-after: always;
+  -webkit-print-color-adjust: exact !important;
+  margin: 0.5cm;
   .collapser {
     cursor: pointer;
     transition: transform 0.2s;
@@ -63,8 +66,10 @@
     transition: max-height 0.2s;
     max-height: 10000px;
   }
-  &.collapsed .mat-card-content {
-    max-height: 0;
+  @media only screen {
+    &.collapsed .mat-card-content {
+      max-height: 0;
+    }
   }
 
   h3 {

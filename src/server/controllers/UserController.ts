@@ -25,7 +25,7 @@ a representative of "<%=club %>", on <a href="www.gymsystems.org">GymSystems</a>
   passwordUpdate: `<h1>Your password is updated</h1>
 <p>You are receiving this email because your password on <a href="www.gymsystems.org">GymSystems</a> has just changed.</p>
 <p>Your new credentials are <b><%=name %></b>/<b><%=password %></b>`
-}
+};
 
 const emailFrom = 'no-reply@gymsystems.org';
 

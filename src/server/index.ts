@@ -107,7 +107,7 @@ export class GymServer {
     // Setup the following only if we are not running tests
     if (!this.isTest) {
       // Setup morgan access Log using winston
-      this.app.use(morgan('combined', { stream: Log.stream }))
+      this.app.use(morgan('combined', { stream: Log.stream }));
       // Setup static resources
       this.app.use(serveStatic(this.clientPath));
 

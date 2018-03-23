@@ -7,18 +7,21 @@
     {
       "type": "node",
       "request": "launch",
+      "protocol": "inspector",
       "name": "Server",
-      "outFiles": [ "${workspaceFolder}/dist/*.js" ],
-      "program": "${workspaceFolder}/src/server/index.ts",
+      "cwd": "${workspaceRoot}",
+      "outFiles": [ "${workspaceRoot}/dist/**/*.js" ],
+      "program": "${workspaceRoot}/src/server/index.ts",
       "console": "integratedTerminal",
-      "preLaunchTask": "server:build"
+      "preLaunchTask": "server:build",
+      "trace": "sm"
     },
     {
       "type": "chrome",
       "request": "launch",
       "name": "Client",
       "url": "http://localhost:4200",
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceRoot}"
     }
   ],
   "compounds": [
