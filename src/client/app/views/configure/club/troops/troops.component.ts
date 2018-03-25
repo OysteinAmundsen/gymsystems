@@ -148,7 +148,6 @@ export class TroopsComponent implements OnInit {
         createTroop(divisionMembers.filter(g => g.gender === Gender.Male));
         createTroop(divisionMembers);
       });
-      console.log(troops);
       this.clubService.saveAllTroops(this.club, troops).subscribe((teams: ITroop[]) => this.onTeamsReceived(teams));
     });
   }

@@ -54,6 +54,7 @@ import { RegisterComponent } from './views/home/register/register.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './i18n/', '.json');
 }
+
 export class MyHammerConfig extends HammerGestureConfig  {
   buildHammer(element: HTMLElement) {
     const mc = new Hammer(element, {
@@ -140,7 +141,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     { provide: LOCALE_ID, useValue: 'nb-NO' },
     { // hammer instantion with custom config
       provide: HAMMER_GESTURE_CONFIG,
-      useClass: MyHammerConfig ,
+      useClass: MyHammerConfig
     }
   ],
   bootstrap: [AppComponent]

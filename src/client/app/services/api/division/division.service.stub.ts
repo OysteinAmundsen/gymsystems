@@ -8,7 +8,7 @@ import { DivisionService } from './division.service';
 
 export const dummyAgeDivision = <IDivision>{
   id: 0,
-  name: '',
+  name: 'Rekrutt',
   sortOrder: 0,
   type: DivisionType.Age,
   teams: [],
@@ -20,7 +20,7 @@ export const dummyAgeDivision = <IDivision>{
 
 export const dummyGenderDivision = <IDivision>{
   id: 0,
-  name: '',
+  name: 'Herrer',
   sortOrder: 0,
   type: DivisionType.Gender,
   teams: [],

@@ -19,6 +19,10 @@ export class UserService {
   constructor(private http: HttpClient) {  }
 
   // AUTH functions
+  /**
+   *
+   * @param user
+   */
   private userReceived(user: IUser) {
     this._isLoadingUser = false;
     if (JSON.stringify(this._currentUser) !== JSON.stringify(user)) {
@@ -35,6 +39,9 @@ export class UserService {
     return this.currentUser;
   }
 
+  /**
+   *
+   */
   private _loadMeInternal() {
     return this.http.get<IUser>('/api/users/me')
       .pipe(
@@ -46,6 +53,9 @@ export class UserService {
       );
   }
 
+  /**
+   *
+   */
   getMe(): Observable<IUser> {
     if (this.currentUser === undefined && !this._isLoadingUser) {
       this._isLoadingUser = true; // Prevent loading if load allready initiated
@@ -55,33 +65,58 @@ export class UserService {
   }
 
   // Standard REST api functions
+  /**
+   *
+   */
   all(): Observable<IUser[]> {
     return this.http.get<IUser[]>('/api/users');
   }
 
+  /**
+   *
+   * @param id
+   */
   getById(id: number): Observable<IUser> {
     return this.http.get<IUser>('/api/users/get/' + id);
   }
 
+  /**
+   *
+   * @param user
+   */
   save(user: IUser): Observable<IUser> {
     return (user.id
       ? this.http.put<IUser>(`/api/users/${user.id}`, Helper.reduceLevels(user))
       : this.http.post<IUser>('/api/users/', user));
   }
 
+  /**
+   *
+   * @param user
+   */
   register(user: IUser): Observable<IUser> {
     return this.http.post<IUser>('/api/users/register', Helper.reduceLevels(user));
   }
 
+  /**
+   *
+   */
   delete(user: IUser) {
     return this.http.delete(`/api/users/${user.id}`);
   }
 
+  /**
+   *
+   * @param credentials
+   */
   login(credentials: { username: string, password: string }): Observable<any> {
     return this.http.post<IUser>('/api/users/login', credentials)
       .pipe(map((res: IUser) => this.userReceived(res)));
   }
 
+  /**
+   *
+   */
   logout() {
     return this.http.post('/api/users/logout', {})
       .pipe(map((res: Response) => {

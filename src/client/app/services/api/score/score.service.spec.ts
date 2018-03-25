@@ -17,4 +17,10 @@ describe('services.api:ScoreService', () => {
   it('should be created', inject([ScoreService], (service: ScoreService) => {
     expect(service).toBeTruthy();
   }));
+
+  // TODO: Create tests for these
+  // calculateTeamTotal(participants: ITeamInDiscipline[])
+  // calculateScoreGroupTotal(participant: ITeamInDiscipline, type: string)
+  // calculateTotal(participant: ITeamInDiscipline)
+  // fixScore(score)
 });

@@ -3,8 +3,14 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { Logger } from 'app/services';
 
+/**
+ *
+ */
 type Callback = (data: any) => void;
 
+/**
+ *
+ */
 declare class EventSource {
   onmessage: Callback;
   onerror: Callback;
@@ -13,6 +19,9 @@ declare class EventSource {
   constructor(name: string);
 }
 
+/**
+ *
+ */
 @Injectable()
 export class EventService {
   url = '/apievent';
@@ -36,10 +45,18 @@ export class EventService {
     });
   }
 
+  /**
+   *
+   * @param msg
+   */
   private onMessage(msg) {
     this.observer.next(msg.data);
   }
 
+  /**
+   *
+   * @param err
+   */
   private onError(err) {
     // Reconnect on error
     this.reconnectCount++;
@@ -56,6 +73,9 @@ export class EventService {
     }
   }
 
+  /**
+   *
+   */
   private createConnection(): EventSource {
     const eventSource = new EventSource(this.url);
     eventSource.addEventListener('message', x => this.onMessage(x));
@@ -63,6 +83,9 @@ export class EventService {
     return eventSource;
   }
 
+  /**
+   *
+   */
   connect(): Observable<any> {
     return this.observable;
   }

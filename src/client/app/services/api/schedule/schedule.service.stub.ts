@@ -22,6 +22,7 @@ export function generateParticipants(amount: number): ITeamInDiscipline[] {
       startNumber: i,
       type: ParticipationType.Live,
       discipline: <IDiscipline>{
+        name: 'Frittstående',
         scoreGroups: defaultScoreGroups
       },
       team: dummyTeam,

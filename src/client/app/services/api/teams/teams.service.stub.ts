@@ -11,7 +11,7 @@ import { dummyAgeDivision, dummyGenderDivision } from '../division/division.serv
 
 export const dummyTeam = <ITeam>{
   id: 0,
-  name: '',
+  name: 'test',
   divisions: [dummyAgeDivision, dummyGenderDivision],
   disciplines: [],
   tournament: dummyTournament,

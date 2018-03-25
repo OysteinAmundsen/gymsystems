@@ -22,48 +22,91 @@ export class ScheduleService {
     this.configService.getByname('scheduleTrainingTime').subscribe(exec => this.trainingTime = +exec.value);
   }
 
+  /**
+   *
+   */
   all(): Observable<ITeamInDiscipline[]> {
     return this.http.get<ITeamInDiscipline[]>(this.url);
   }
 
+  /**
+   *
+   */
   getByTournament(id: number): Observable<ITeamInDiscipline[]> {
     return this.http.get<ITeamInDiscipline[]>(`${this.url}/tournament/${id}`);
   }
 
+  /**
+   *
+   * @param id
+   */
   getById(id: number): Observable<ITeamInDiscipline> {
     return this.http.get<ITeamInDiscipline>(`${this.url}/${id}`);
   }
 
+  /**
+   *
+   * @param participant
+   */
   save(participant: ITeamInDiscipline) {
     return (participant.id)
       ? this.http.put<ITeamInDiscipline>(`${this.url}/${participant.id}`, Helper.reduceLevels(participant))
       : this.http.post<ITeamInDiscipline>(this.url, Helper.reduceLevels(participant));
   }
 
+  /**
+   *
+   * @param participant
+   */
   start(participant: ITeamInDiscipline) {
     return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/start`, {});
   }
 
+  /**
+   *
+   * @param participant
+   */
   stop(participant: ITeamInDiscipline) {
     return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/stop`, {});
   }
 
+  /**
+   *
+   * @param participant
+   */
   publish(participant: ITeamInDiscipline) {
     return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/publish`, {});
   }
 
+  /**
+   *
+   * @param participants
+   */
   saveAll(participants: ITeamInDiscipline[]) {
     return this.http.post<ITeamInDiscipline[]>(this.url, Helper.reduceLevels(participants, 2));
   }
 
+  /**
+   *
+   * @param participant
+   */
   delete(participant: ITeamInDiscipline) {
     return this.http.delete(`${this.url}/${participant.id}`);
   }
 
+  /**
+   *
+   * @param id
+   */
   deleteAll(id: number) {
     return this.http.delete(`${this.url}/tournament/${id}`);
   }
 
+  /**
+   *
+   * @param participant
+   * @param toType
+   */
   stringHash(participant: ITeamInDiscipline, toType?: ParticipationType): string {
     const ageDiv = participant.team.divisions.find(d => d.type === DivisionType.Age);
     const genderDiv = participant.team.divisions.find(d => d.type === DivisionType.Gender);
@@ -74,6 +117,11 @@ export class ScheduleService {
         .replace(' ', '_');
   }
 
+  /**
+   *
+   * @param tournament
+   * @param participant
+   */
   startTime(tournament: ITournament, participant: ITeamInDiscipline): string {
     const time: moment.Moment = (participant.calculatedStartTime)
       ? participant.calculatedStartTime
@@ -83,6 +131,12 @@ export class ScheduleService {
     return '<span class="warning">ERR</span>';
   }
 
+  /**
+   *
+   * @param tournament
+   * @param schedule
+   * @param participant
+   */
   isNewDay(tournament: ITournament, schedule: ITeamInDiscipline[], participant: ITeamInDiscipline): boolean {
     const next = schedule.find(s => s.sortNumber === participant.sortNumber + 1);
     if (next) {
@@ -101,6 +155,11 @@ export class ScheduleService {
     return false;
   }
 
+  /**
+   *
+   * @param tournament
+   * @param participant
+   */
   calculateStartTime(tournament: ITournament, participant: ITeamInDiscipline): moment.Moment {
     let time: moment.Moment;
     let day = 0;
@@ -120,6 +179,13 @@ export class ScheduleService {
     return null;
   }
 
+  /**
+   *
+   * @param tournament
+   * @param schedule
+   * @param resetSort
+   * @param resetStart
+   */
   recalculateStartTime(tournament: ITournament, schedule: ITeamInDiscipline[], resetSort = true, resetStart = false): ITeamInDiscipline[] {
     let startNo = 0;
     const live = schedule.filter(s => s.type === ParticipationType.Live);

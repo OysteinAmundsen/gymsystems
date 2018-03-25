@@ -122,7 +122,6 @@ export class ScoreEditorComponent implements OnInit, OnDestroy {
    * @param event
    */
   onBlur(event: Event) {
-    console.log('Blur');
     const identifier = event.srcElement.id.split('_');
     const group = this.groupedScores.find(g => g.group.type === identifier[1]);
     const score = group.scores.find(s => s.judgeIndex === +identifier[2]);

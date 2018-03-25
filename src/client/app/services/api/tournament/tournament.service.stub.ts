@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import * as moment from 'moment';
 
 import { ITournament, IUser, IClub } from 'app/model';
 import { TournamentService } from './tournament.service';
@@ -14,13 +15,13 @@ export const dummyTournament = <ITournament>{
   name: '',
   description_no: '',
   description_en: '',
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: moment().toDate(),
+  endDate: moment().add(1, 'days').toDate(),
   venue: dummyVenue,
   schedule: [],
   disciplines: [],
   divisions: [],
-  times: [{day: 0, time: '12,18'}]
+  times: [{day: 0, time: '12,13'}, {day: 1, time: '12,13'}]
 };
 
 @Injectable()

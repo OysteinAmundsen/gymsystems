@@ -11,7 +11,7 @@
     </mat-card-header>
     <mat-card-content>
       <fieldset>
-        <div class="row">
+        <div class="flex flex-row">
           <mat-form-field class="col-5" *ngIf="!currentUser.club">
             <input matInput formControlName="club" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead" (blur)="tabOut(clubTypeahead)">
             <mat-autocomplete #clubTypeahead="matAutocomplete" (optionSelected)="setSelectedClub($event)" [displayWith]="clubDisplay">
@@ -50,7 +50,7 @@
                 <i class="fa fa-fw fa-venus-mars"></i>
                 <span translate>Gender group</span>
               </mat-placeholder>
-              <mat-select formControlName="genderDivision" [disabled]="teamForm.value.club == null || teamForm.value.name == null">
+              <mat-select formControlName="genderDivision">
                 <mat-option *ngFor="let division of genderDivisions" [value]="division.id">{{division.name}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -60,7 +60,7 @@
                 <i class="fa fa-fw fa-child"></i>
                 <span translate>Age group</span>
               </mat-placeholder>
-              <mat-select formControlName="ageDivision" [disabled]="teamForm.value.club == null || teamForm.value.name == null">
+              <mat-select formControlName="ageDivision">
                 <mat-option *ngFor="let division of ageDivisions" [value]="division.id">{{division.name}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -74,8 +74,7 @@
               <i class="fa fa-fw fa-heartbeat"></i>
               <span translate>Disciplines</span>
               <mat-slide-toggle class="mat-primary" [checked]="teamForm.value.class === classes.TeamGym"
-                                (change)="$event.checked ? teamForm.controls['class'].setValue(classes.TeamGym) : teamForm.controls['class'].setValue(classes.National)"
-                                [disabled]="teamForm.value.club == null || teamForm.value.name == null">
+                                (change)="$event.checked ? teamForm.controls['class'].setValue(classes.TeamGym) : teamForm.controls['class'].setValue(classes.National)">
                 <span *ngIf="teamForm.value.class === classes.TeamGym" translate>TeamGym</span>
                 <span *ngIf="teamForm.value.class === classes.National" translate>National</span>
               </mat-slide-toggle>

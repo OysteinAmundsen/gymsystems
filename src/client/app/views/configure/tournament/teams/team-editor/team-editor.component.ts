@@ -102,9 +102,9 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       id             : [this.team.id],
       name           : [this.team.name, [Validators.required, this.forbiddenNameValidator()]],
       club           : [this.team.club, [Validators.required]],
-      ageDivision    : [null, [Validators.required]],
-      genderDivision : [null, [Validators.required]],
-      disciplines    : [this.team.disciplines],
+      ageDivision    : [{disable: true}, [Validators.required]],
+      genderDivision : [{disable: true}, [Validators.required]],
+      disciplines    : [{value: this.team.disciplines, disable: true}],
       tournament     : [this.team.tournament || this.tournament],
       gymnasts       : [this.team.gymnasts || []],
       class          : [this.team.class || Classes.TeamGym],
@@ -202,6 +202,10 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     if (this.teamForm) {
       this.teamForm.get('club').setValue(v.option.value);
       this.teamForm.get('gymnasts').setValue([]);
+
+      this.teamForm.get('ageDivision').enable();
+      this.teamForm.get('genderDivision').enable();
+      this.teamForm.get('disciplines').enable();
     }
   }
 

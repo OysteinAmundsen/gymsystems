@@ -1,5 +1,6 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { TournamentService, UserService } from './services/api';
 
@@ -9,6 +10,7 @@ import { ErrorHandlerService } from './services/config/ErrorHandler.service';
 
 import { AppComponent } from './app.component';
 import { AppModuleTest } from 'app/app.module.spec';
+import { environment } from 'environments/environment';
 
 describe('views:AppComponent', () => {
   let component: AppComponent;
@@ -20,7 +22,8 @@ describe('views:AppComponent', () => {
         AppComponent
       ],
       imports: [
-        AppModuleTest
+        AppModuleTest,
+        ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
       ]
     });
     TestBed.compileComponents();

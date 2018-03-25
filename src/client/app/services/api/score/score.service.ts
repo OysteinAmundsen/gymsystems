@@ -11,27 +11,51 @@ export class ScoreService {
 
   constructor(private http: HttpClient) {  }
 
+  /**
+   *
+   * @param participantId
+   */
   getByParticipant(participantId: number): Observable<IScore[]> {
     return this.http.get<IScore[]>(`${this.url}/${participantId}`);
   }
 
+  /**
+   *
+   */
   saveFromParticipant(participantId: number, scores: IScore[]): Observable<IScore[]> {
     return this.http.post<IScore[]>(`${this.url}/${participantId}`, Helper.reduceLevels(scores));
   }
 
+  /**
+   *
+   * @param participantId
+   */
   removeFromParticipant(participantId: number) {
     return this.http.delete(`${this.url}/${participantId}`);
   }
 
+  /**
+   *
+   * @param participantId
+   */
   rollbackToParticipant(participantId: number) {
     return this.http.get(`${this.url}/${participantId}/rollback`);
   }
 
+  /**
+   *
+   * @param participants
+   */
   calculateTeamTotal(participants: ITeamInDiscipline[]) {
     if (!participants || !participants.length) { return 0; }
     return participants.reduce((prev, curr) => prev += this.calculateTotal(curr), 0);
   }
 
+  /**
+   *
+   * @param participant
+   * @param type
+   */
   calculateScoreGroupTotal(participant: ITeamInDiscipline, type: string) {
     const add = (prev, num) => {prev += num; return prev; };
     const sub = (prev, num) => {prev -= num; return prev; };
@@ -44,7 +68,11 @@ export class ScoreService {
     return total;
   }
 
-  // Calculate final score
+  /**
+   * Calculate final score
+   *
+   * @param participant
+   */
   calculateTotal(participant: ITeamInDiscipline) {
     return participant.discipline.scoreGroups.reduce((prev, curr) => {
       const avg = this.calculateScoreGroupTotal(participant, curr.type);
@@ -53,11 +81,14 @@ export class ScoreService {
       } else {
         prev -= avg;
       }
-      // console.log(participant.id, curr.type, curr.operation, avg, prev);
       return prev;
     }, 0);
   }
 
+  /**
+   *
+   * @param score
+   */
   fixScore(score) {
     const fixedVal = (Math.ceil(score * 20) / 20).toFixed(2);
     return parseFloat(fixedVal);

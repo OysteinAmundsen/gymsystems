@@ -22,7 +22,7 @@ import { Team } from '../model/Team';
 import { Troop } from '../model/Troop';
 import { ErrorResponse } from '../utils/ErrorResponse';
 import { GymServer } from '../index';
-import { ExportService } from '../services/ExportService';
+import { ExportService, exportDelimeter } from '../services/ExportService';
 
 /**
  * RESTful controller for all things related to `Club`s.
@@ -282,6 +282,7 @@ export class ClubController {
 
   /**
    * Endpoint for importing members to a club
+   * This will make sure not to add existing members, but it will rewrite data for existing members.
    *
    * **USAGE:** (Club only)
    * POST /clubs/:clubId/import-members
@@ -296,16 +297,19 @@ export class ClubController {
     return new Promise(async (resolve, reject) => {
       const members: Gymnast[] = [];
       const club = await this.get(clubId);
+      const existingMembers: Gymnast[] = await this.getMembers(clubId);
 
       fs.createReadStream(req.file.path)
-        .pipe(csv({ delimiter: ';', ignoreEmpty: true, trim: true, headers: true }))
+        .pipe(csv({ delimiter: exportDelimeter, ignoreEmpty: true, trim: true, headers: true }))
         .on('data', (data: any) => {
           const find = (key: string) => data[Object.keys(data).find((k: string) => k.toLowerCase().indexOf(key.toLowerCase()) > -1)];
-          members.push(<Gymnast>{
-            id: null,
-            name: find('name'),
+          const name = find('name');
+          const member = existingMembers.find(g => g.name === name) || <Gymnast>{};
+          const gymnast = <Gymnast>Object.assign(member, {
+            id: member.id || null,
+            name: name,
             birthYear: find('year'),
-            birthDate: null,
+            birthDate: member.birthDate || null,
             email: find('email'),
             phone: find('phone'),
             gender: ['m', 'male', 'herre', 'herrer', 'gutt', 'boy', '1', 1].indexOf(find('gender').toLowerCase()) > -1 ? 1 : 2,
@@ -316,12 +320,12 @@ export class ClubController {
             guardian2Phone: find('guardian2Phone'),
             guardian1Email: find('guardian1Email'),
             guardian2Email: find('guardian2Email'),
-            troop: null,
-            team: null,
+            troop: member.troop || null,
+            team: member.team || null,
             club: club,
-            lodging: null,
-            transport: null,
-            banquet: null
+            lodging: member.lodging || null,
+            transport: member.team || null,
+            banquet: member.banquet || null
           });
         })
         .on('end', () => {

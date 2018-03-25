@@ -5,7 +5,7 @@ import * as mysqlDump from 'mysqldump';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const json2csv: any = require('json2csv');
+const Json2csvParser: any = require('json2csv').Parser;
 
 import { Log } from '../utils/Logger';
 
@@ -15,6 +15,8 @@ export interface ExportOptions {
   name: string;
 }
 
+export const exportDelimeter = ';';
+
 export class ExportService {
   /**
    *
@@ -22,7 +24,6 @@ export class ExportService {
    */
   static writeExport(res: Response): any {
     const ormData = JSON.parse(fs.readFileSync('./ormconfig.json', 'UTF-8'))[0];
-    console.log(ormData);
     mysqlDump({
         host: ormData.host,
         user: ormData.username,
@@ -45,7 +46,7 @@ export class ExportService {
    */
   static writeCSVExport(opt: ExportOptions, res: Response) {
     // Flatten data to only primitives.
-    opt.data = opt.data.map((d: any) => {
+    const data = opt.data.map((d: any) => {
       return Object.keys(d).reduce((prev: any, curr) => {
         if (!_.isObject(d[curr]) && !_.isArray(d[curr])) {
           prev[curr] = d[curr];
@@ -55,16 +56,17 @@ export class ExportService {
     });
 
     // Set fields if not given
-    opt.fields = opt.fields || Object.keys(opt.data[0]);
+    const fields = opt.fields || Object.keys(opt.data[0]);
 
     // Write data to client
     const now = moment();
+    const parser = new Json2csvParser({ fields, delimiter: exportDelimeter});
     try {
       res.charset = 'utf-8';
       res.status(200)
         .attachment(`${opt.name}.export_${now.format('YYYY.MM.DD')}.csv`)
         .contentType('text/csv')
-        .send(json2csv({ data: opt.data, fields: opt.fields, del: ';' }));
+        .send(parser.parse(data));
     } catch (err) {
       Log.log.error(err);
     }

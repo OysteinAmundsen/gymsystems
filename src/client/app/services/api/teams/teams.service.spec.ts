@@ -15,4 +15,7 @@ describe('services.api:TeamsService', () => {
   it('should be created', inject([TeamsService], (service: TeamsService) => {
     expect(service).toBeTruthy();
   }));
+
+  // TODO: Create tests for these
+  // getDivisionName(team: ITeam)
 });

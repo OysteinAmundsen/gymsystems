@@ -29,7 +29,7 @@ export class ConfigurationServiceStub extends ConfigurationService {
         { name: 'Adjustments', type: 'HJ', operation: 2, judges: [], max: 5,  min: 0 }
       ],
     }},
-    { name: 'scheduleExecutionTime', value: '5' },
+    { name: 'scheduleExecutionTime', value: '4' },
     { name: 'scheduleTrainingTime', value: '3' },
     { name: 'display', value: {
       display1:

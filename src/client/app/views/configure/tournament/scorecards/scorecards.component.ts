@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -6,13 +6,14 @@ import { TournamentEditorComponent } from '../tournament-editor/tournament-edito
 
 import { ITournament, ITeamInDiscipline, DivisionType, Operation, IJudge, IScoreGroup } from 'app/model';
 import { ScheduleService, TeamsService } from 'app/services/api';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-scorecards',
   templateUrl: './scorecards.component.html',
   styleUrls: ['./scorecards.component.scss']
 })
-export class ScorecardsComponent implements OnInit {
+export class ScorecardsComponent implements OnInit, OnDestroy {
   tournament: ITournament;
   schedule: ITeamInDiscipline[] = [];
   subscriptions: Subscription[] = [];
@@ -42,6 +43,9 @@ export class ScorecardsComponent implements OnInit {
         });
       }
     }));
+  }
+
+  ngOnDestroy() {
   }
 
   /**

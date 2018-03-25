@@ -11,18 +11,33 @@ export class ScoreGroupService {
 
   constructor(private http: HttpClient) {  }
 
+  /**
+   *
+   */
   all(): Observable<IScoreGroup[]> {
     return this.http.get<IScoreGroup[]>(this.url);
   }
 
+  /**
+   *
+   * @param id
+   */
   getByDiscipline(id: number): Observable<IScoreGroup[]> {
     return this.http.get<IScoreGroup[]>(`${this.url}/discipline/${id}`);
   }
 
+  /**
+   *
+   * @param id
+   */
   getById(id: number): Observable<IScoreGroup> {
     return this.http.get<IScoreGroup>(`${this.url}/${id}`);
   }
 
+  /**
+   *
+   * @param scoreGroup
+   */
   save(scoreGroup: IScoreGroup) {
     const val = Helper.reduceLevels(scoreGroup, 3);
     return (scoreGroup.id)
@@ -30,10 +45,18 @@ export class ScoreGroupService {
       : this.http.post<IScoreGroup>(this.url, val);
   }
 
+  /**
+   *
+   * @param scoreGroups
+   */
   saveAll(scoreGroups: IScoreGroup[]) {
     return this.http.post<IScoreGroup[]>(this.url, Helper.reduceLevels(scoreGroups));
   }
 
+  /**
+   *
+   * @param scoreGroup
+   */
   delete(scoreGroup: IScoreGroup) {
     return this.http.delete(`${this.url}/${scoreGroup.id}`);
   }

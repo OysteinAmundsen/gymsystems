@@ -1,6 +1,17 @@
 .flex {
   display: flex;
 }
+.flex-row {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-center {
+  text-align: center;
+  justify-content: center;
+}
 
 .flex-col {
   flex: 1;
