@@ -82,7 +82,7 @@
     "@angular/router": "5.2.9",
     "@angular/service-worker": "5.2.9",
     "@ngx-translate/core": "9.1.1",
-    "@ngx-translate/http-loader": "2.0.1",
+    "@ngx-translate/http-loader": "3.0.0",
     "angulartics2": "5.3.0",
     "bcrypt": "1.0.3",
     "body-parser": "1.18.2",
