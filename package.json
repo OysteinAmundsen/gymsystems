@@ -121,7 +121,7 @@
     "routing-controllers": "0.7.7",
     "rxjs": "^5.5.8",
     "sendmail": "1.4.1",
-    "serve-favicon": "2.4.5",
+    "serve-favicon": "2.5.0",
     "session-memory-store": "0.2.2",
     "typedi": "0.7.2",
     "typeorm": "0.1.19",
