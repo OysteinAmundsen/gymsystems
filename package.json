@@ -88,7 +88,7 @@
     "body-parser": "1.18.2",
     "chalk": "2.3.0",
     "cookie-parser": "1.4.3",
-    "core-js": "2.5.4",
+    "core-js": "2.5.5",
     "cors": "2.8.4",
     "dragula": "3.7.2",
     "event-source-polyfill": "0.0.12",
