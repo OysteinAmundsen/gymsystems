@@ -5,7 +5,7 @@ import * as LocalStrategy from 'passport-local';
 
 import { getConnectionManager, Connection, Repository } from 'typeorm';
 import { Container, Service } from 'typedi';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 import { User } from '../model/User';
 import { IVerifyOptions } from 'passport-local';

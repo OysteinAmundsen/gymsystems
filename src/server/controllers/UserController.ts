@@ -7,7 +7,7 @@ import * as auth from 'passport';
 import { RequireAuth, RequireRole } from '../middlewares/RequireAuth';
 import { Log } from '../utils/Logger';
 import { User, Role, RoleNames } from '../model/User';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import * as _ from 'lodash';
 
 import { ClubController } from './ClubController';

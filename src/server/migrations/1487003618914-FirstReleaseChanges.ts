@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner, Connection, EntityManager } from 'typeorm';
 import { DivisionType } from '../model/Division';
 import { Role } from '../model/User';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 export class FirstReleaseChanges1487003618914 implements MigrationInterface {
 
