@@ -102,7 +102,7 @@
     "handlebars": "4.0.11",
     "husky": "1.0.0-rc.1",
     "json2csv": "4.1.2",
-    "lodash": "4.17.5",
+    "lodash": "4.17.9",
     "markdown-to-html-pipe": "1.2.4",
     "marked": "0.3.19",
     "mkdirp": "0.5.1",
