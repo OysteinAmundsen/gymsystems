@@ -133,7 +133,7 @@
     "@angular/compiler-cli": "5.2.10",
     "@biesbjerg/ngx-translate-extract": "2.3.4",
     "@types/bcryptjs": "2.4.1",
-    "@types/body-parser": "1.16.8",
+    "@types/body-parser": "1.17.0",
     "@types/bunyan": "1.8.4",
     "@types/cookie-parser": "1.4.1",
     "@types/express": "4.11.1",
