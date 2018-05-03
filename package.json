@@ -140,7 +140,7 @@
     "@types/express-session": "1.15.8",
     "@types/hammerjs": "2.0.35",
     "@types/handlebars": "4.0.37",
-    "@types/jasmine": "2.8.6",
+    "@types/jasmine": "2.8.7",
     "@types/jasminewd2": "2.0.3",
     "@types/lodash": "4.14.107",
     "@types/mkdirp": "0.5.2",
