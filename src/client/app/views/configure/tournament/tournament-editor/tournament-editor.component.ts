@@ -1,9 +1,8 @@
 import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable, Subscription, ReplaySubject } from 'rxjs';
+import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 import { Title, Meta } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -17,7 +16,6 @@ import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatDatepickerInput, MatAutocomplete } from '@angular/material';
-import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 const Moment: any = (<any>moment).default || moment;
 

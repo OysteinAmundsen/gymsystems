@@ -21,7 +21,7 @@ export enum Role {
  * @export
  * @const RoleNames
  */
-export const RoleNames: [{id: number, name: string}] = [
+export const RoleNames = [
   {id: Role.Admin,       name: 'Admin'},
   {id: Role.Organizer,   name: 'Organizer'},
   {id: Role.Secretariat, name: 'Secretariat'},
@@ -89,12 +89,12 @@ export class User implements BelongsToClub {
   /**
    *
    */
-  @OneToMany(type => Tournament, tournaments => tournaments.createdBy, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => Tournament, tournaments => tournaments.createdBy)
   tournaments: Tournament[];
 
   /**
    *
    */
-  @OneToMany(type => Venue, venues => venues.createdBy, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => Venue, venues => venues.createdBy)
   venues: Venue[];
 }

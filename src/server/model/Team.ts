@@ -66,7 +66,7 @@ export class Team implements BelongsToClub {
    */
   @ManyToMany(type => Division, division => division.teams)
   @JoinTable({name: 'team_divisions_division_id'})
-  divisions: Division[] = [];
+  divisions: Division[];
 
   /**
    * A list of gymnasts present in this team. This is also stamped
@@ -91,14 +91,14 @@ export class Team implements BelongsToClub {
    * Media is presented as an array of files, one per discipline.
    */
   @OneToMany(type => Media, media => media.team)
-  media: Media[] = [];
+  media: Media[];
 
   /**
    * The disciplines this team is to compete in in this tournament
    */
   @ManyToMany(type => Discipline, discipline => discipline.teams)
   @JoinTable({name: 'team_disciplines_discipline_id'})
-  disciplines: Discipline[] = [];
+  disciplines: Discipline[];
 
   /**
    * The tournament this team is to compete in.

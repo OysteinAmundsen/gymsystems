@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable, ReplaySubject, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { Logger } from 'app/services';
 import { IUser } from 'app/model';
 import { Helper } from '../Helper';
-import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
@@ -48,7 +47,7 @@ export class UserService {
         map((res: IUser) => this.userReceived(res)),
         catchError((err: Response) =>  {
           this.userReceived(null);
-          return Observable.throw(err);
+          return throwError(err);
         })
       );
   }

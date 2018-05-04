@@ -110,7 +110,7 @@ export class ConfigurationController {
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Admin))
   async remove( @Param('id') id: string, @Res() res: Response) {
-    const configuration = await this.repository.findOneById(id);
+    const configuration = await this.repository.findOne(id);
     return this.repository.remove(configuration)
       .then(result => res.send(result))
       .catch(err => {

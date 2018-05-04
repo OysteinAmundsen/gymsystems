@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of} from 'rxjs';
 
 import { IConfiguration, DivisionType } from 'app/model';
 import { ConfigurationService } from './configuration.service';
@@ -78,18 +77,18 @@ export class ConfigurationServiceStub extends ConfigurationService {
   }
 
   all(): Observable<IConfiguration[]> {
-    return Observable.of(this.config);
+    return of(this.config);
   }
 
   getByname(name: string): Observable<IConfiguration> {
-    return Observable.of(this.config.find(c => c.name === name));
+    return of(this.config.find(c => c.name === name));
   }
 
   save(configuration: IConfiguration[]) {
-    return Observable.of(null);
+    return of(null);
   }
 
   delete(configuration: IConfiguration) {
-    return Observable.of(null);
+    return of(null);
   }
 }

@@ -14,9 +14,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material';
 
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { _throw } from 'rxjs/observable/throw';
+import { Observable, Subject, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import * as moment from 'moment';
@@ -127,7 +125,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
           // Notify and bubble error
           this.state.notifySubscribers(req, err);
-          return _throw(this.error.error);
+          return throwError(this.error.error);
         })
       );
   }

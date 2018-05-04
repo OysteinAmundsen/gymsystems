@@ -73,7 +73,7 @@ export class JudgeController {
   @Get('/:id')
   @OnUndefined(404)
   get( @Param('id') judgeId: number): Promise<Judge> {
-    return this.repository.findOneById(judgeId);
+    return this.repository.findOne(judgeId);
   }
 
   /**

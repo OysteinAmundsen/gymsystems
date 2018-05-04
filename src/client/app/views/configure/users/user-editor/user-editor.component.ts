@@ -2,7 +2,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
-import { Observable} from 'rxjs/Observable';
+import { Observable} from 'rxjs';
+import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 import { UserService, ClubService } from 'app/services/api';
 import { IUser, RoleNames, Role, IClub } from 'app/model';
@@ -11,7 +12,6 @@ import { ErrorHandlerService } from 'app/services/config';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { MatAutocomplete } from '@angular/material';
-import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-editor',

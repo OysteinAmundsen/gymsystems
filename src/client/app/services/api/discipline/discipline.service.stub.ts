@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of} from 'rxjs';
 
 import { IDiscipline, ITournament, IJudgeInScoreGroup } from 'app/model';
 import { DisciplineService } from './discipline.service';
@@ -27,26 +26,26 @@ export class DisciplineServiceStub extends DisciplineService {
   }
 
   all(): Observable<IDiscipline[]> {
-    return Observable.of(this.disciplines);
+    return of(this.disciplines);
   }
 
   getByTournament(id: number): Observable<IDiscipline[]> {
-    return Observable.of(this.disciplines);
+    return of(this.disciplines);
   }
 
   getById(id: number): Observable<IDiscipline> {
-    return Observable.of(this.discipline);
+    return of(this.discipline);
   }
 
   save(discipline: IDiscipline) {
-    return Observable.of(this.discipline);
+    return of(this.discipline);
   }
 
   saveAll(disciplines: IDiscipline[]) {
-    return Observable.of(this.disciplines);
+    return of(this.disciplines);
   }
 
   delete(discipline: IDiscipline) {
-    return Observable.of(null);
+    return of(null);
   }
 }

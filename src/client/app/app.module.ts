@@ -106,7 +106,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     SharedModule,
 
     // Routes last (!important)
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [
     // API Services

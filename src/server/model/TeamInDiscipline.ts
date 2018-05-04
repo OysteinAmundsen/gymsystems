@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn, OneToMany, Index } from 'typeorm';
 import { Tournament } from './Tournament';
 import { Team, Classes } from './Team';
 import { Discipline } from './Discipline';
@@ -26,6 +26,8 @@ export enum ParticipationType {
  * @class TeamInDiscipline
  */
 @Entity()
+// tslint:disable-next-line:max-line-length
+@Index('tournament_team_discipline', (participant: TeamInDiscipline) => [participant.tournament, participant.team, participant.discipline], { unique: true})
 export class TeamInDiscipline {
   /**
    *
@@ -85,21 +87,21 @@ export class TeamInDiscipline {
   /**
    *
    */
-  @OneToOne(type => Discipline, { nullable: false })
+  @ManyToOne(type => Discipline, { nullable: false })
   @JoinColumn({name: 'discipline'})
   discipline: Discipline;
 
   /**
    *
    */
-  @OneToOne(type => Team, { nullable: false })
+  @ManyToOne(type => Team, { nullable: false })
   @JoinColumn({name: 'team'})
   team: Team;
 
   /**
    *
    */
-  @OneToMany(type => Score, score => score.participant, { cascadeInsert: true, cascadeUpdate: true })
+  @OneToMany(type => Score, score => score.participant, { cascade: ['insert', 'update']})
   scores: Score[];
 
   /**

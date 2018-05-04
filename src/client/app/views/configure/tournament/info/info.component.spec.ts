@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable, ReplaySubject, of } from 'rxjs';
 
 import { AppModuleTest } from 'app/app.module.spec';
 import { TournamentModule } from '../tournament.module';
@@ -39,7 +38,7 @@ describe('views.configure.tournament:InfoComponent', () => {
         {
           provide: ActivatedRoute, useValue: {
             parent: {
-              params: Observable.of({ id: 1 })
+              params: of({ id: 1 })
             }
           }
         }

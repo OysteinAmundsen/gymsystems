@@ -3,13 +3,11 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ScoreGroupService, JudgeService } from 'app/services/api';
-import { IDiscipline, IScoreGroup, Operation } from 'app/model';
+import { IDiscipline, IScoreGroup, Operation, IJudge, Judge, IJudgeInScoreGroup } from 'app/model';
 import { KeyCode } from 'app/shared/KeyCodes';
-import { IJudge, Judge } from 'app/model/IJudge';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
-import { IJudgeInScoreGroup } from '../../../../../model/IJudgeInScoreGroup';
 
 @Component({
   selector: 'app-score-group-editor',

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnDestroy, OnInit, Input, EventEmitter, Output, Injector } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { DivisionService, ConfigurationService, TournamentService } from 'app/services/api';
 import { IDivision, DivisionType, ITournament } from 'app/model';

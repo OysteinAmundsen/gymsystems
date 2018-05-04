@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of} from 'rxjs';
 
 import { IDivision, DivisionType, ITournament } from 'app/model';
 import { DivisionService } from './division.service';
@@ -39,26 +38,26 @@ export class DivisionServiceStub extends DivisionService {
   }
 
   all(): Observable<IDivision[]> {
-    return Observable.of(this.divisions);
+    return of(this.divisions);
   }
 
   getByTournament(id: number): Observable<IDivision[]> {
-    return Observable.of(this.divisions);
+    return of(this.divisions);
   }
 
   getById(id: number): Observable<IDivision> {
-    return Observable.of(this.ageDivision);
+    return of(this.ageDivision);
   }
 
   save(division: IDivision) {
-    return Observable.of(this.ageDivision);
+    return of(this.ageDivision);
   }
 
   saveAll(divisions: IDivision[]) {
-    return Observable.of(this.divisions);
+    return of(this.divisions);
   }
 
   delete(division: IDivision) {
-    return Observable.of(null);
+    return of(null);
   }
 }

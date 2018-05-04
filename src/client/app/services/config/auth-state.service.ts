@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest } from '@angular/common/http';
 import { HttpResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 import { HttpMethod } from './HttpMethod';
 
 

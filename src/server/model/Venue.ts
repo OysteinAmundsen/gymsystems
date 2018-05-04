@@ -62,7 +62,7 @@ export class Venue implements CreatedBy {
   /**
    * A phone number for the contact person registerred as owner of this venue
    */
-  @Column('int', { length: 11 })
+  @Column('int')
   contactPhone: number;
 
   /**
@@ -80,6 +80,6 @@ export class Venue implements CreatedBy {
   /**
    * The tournaments registered to be held at this venue
    */
-  @OneToMany(type => Tournament, tournaments => tournaments.venue, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => Tournament, tournaments => tournaments.venue)
   tournaments: Tournament[];
 }

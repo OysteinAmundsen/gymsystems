@@ -5,6 +5,7 @@
   "description": "Web system for competitive teamgym scoreboarding",
   "theme_color": "#69f",
   "background_color": "#69f",
+  "scope": "/",
   "start_url": "/index.html",
   "display": "standalone",
   "orientation": "portrait",

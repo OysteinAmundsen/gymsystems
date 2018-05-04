@@ -1,7 +1,7 @@
 import { IUser } from './model/IUser';
 import { Component, ElementRef, OnInit, OnDestroy, AfterContentChecked } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { TranslateService } from '@ngx-translate/core';
 import { Angulartics2 } from 'angulartics2';

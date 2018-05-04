@@ -183,7 +183,7 @@ export class ClubController {
   @Delete('/:clubId')
   @UseBefore(RequireRole.get(Role.Admin))
   async remove( @Param('clubId') clubId: number, @Res() res: Response) {
-    const club = await this.repository.findOneById(clubId);
+    const club = await this.repository.findOne(clubId);
     if (club) {
       return this.repository.remove(club)
         .catch(err => {
@@ -519,7 +519,7 @@ export class ClubController {
   @UseBefore(RequireRole.get(Role.Club))
   async removeTroop(@Param('clubId') clubId: number,  @Param('id') id: number) {
     const repo = this.conn.getRepository(Troop);
-    const troop = await repo.findOneById(id);
+    const troop = await repo.findOne(id);
     return repo.remove(troop)
       .catch(err => {
         Log.log.error(`Error removing teams in club ${clubId}`, err);

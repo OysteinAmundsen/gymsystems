@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of} from 'rxjs';
 
 import { ScoreService } from './score.service';
 import { IScore, ITeamInDiscipline } from 'app/model';
@@ -13,18 +12,18 @@ export class ScoreServiceStub extends ScoreService {
   }
 
   getByParticipant(participantId: number) {
-    return Observable.of(null);
+    return of(null);
   }
 
   saveFromParticipant(participantId: number, scores: IScore[]) {
-    return Observable.of(null);
+    return of(null);
   }
 
   removeFromParticipant(participantId: number) {
-    return Observable.of(null);
+    return of(null);
   }
 
   rollbackToParticipant(participantId: number) {
-    return Observable.of(null);
+    return of(null);
   }
 }

@@ -52,7 +52,7 @@ export class Club {
   /**
    * A list of troops configured for this club.
    */
-  @OneToMany(type => Troop, troops => troops.club, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => Troop, troops => troops.club)
   troops: Troop[];
 
   /**
@@ -60,13 +60,13 @@ export class Club {
    * indirectly give information about which tournaments this club
    * has partaken in, as the team is bound to one tournament.
    */
-  @OneToMany(type => Team, teams => teams.club, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => Team, teams => teams.club)
   teams: Team[];
 
   /**
    * A list of tournaments this club has created.
    */
-  @OneToMany(type => Tournament, tournaments => tournaments.club, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => Tournament, tournaments => tournaments.club)
   tournaments: Tournament[];
 
   /**
@@ -75,7 +75,7 @@ export class Club {
    * with other personal entities like `Gymnast`, which does not
    * actually need to be a `User` in the system.
    */
-  @OneToMany(type => User, users => users.club, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => User, users => users.club)
   users: User[];
 
   /**
@@ -87,6 +87,6 @@ export class Club {
    * Not all gymnasts are qualified to end up in a troop or team,
    * but all gymnasts training under the club must be present here.
    */
-  @OneToMany(type => Gymnast, gymnasts => gymnasts.club, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => Gymnast, gymnasts => gymnasts.club)
   gymnasts: Gymnast[];
 }

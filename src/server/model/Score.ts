@@ -36,7 +36,7 @@ export class Score {
   /**
    * The `ScoreGroup` this score affects.
    */
-  @ManyToOne(type => ScoreGroup, { nullable: false, cascadeRemove: false })
+  @ManyToOne(type => ScoreGroup, { nullable: false})
   @JoinColumn({name: 'scoreGroup'})
   scoreGroup: ScoreGroup;
 
@@ -55,9 +55,7 @@ export class Score {
    * The reference back to the schedule. This identifies the `Team`
    * in the given discipline.
    */
-  @ManyToOne(type => TeamInDiscipline, participant => participant.scores, {
-    nullable: false, cascadeInsert: false, cascadeUpdate: false, cascadeRemove: false
-  })
+  @ManyToOne(type => TeamInDiscipline, participant => participant.scores, { nullable: false})
   @JoinColumn({name: 'participant'})
   participant: TeamInDiscipline;
 }

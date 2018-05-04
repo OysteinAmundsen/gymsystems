@@ -1,12 +1,13 @@
-import {MigrationInterface, QueryRunner} from 'typeorm';
+import {MigrationInterface, QueryRunner, getConnection} from 'typeorm';
 import { DivisionType } from '../model/Division';
+import { Judge } from '../model/Judge';
+import { Configuration } from '../model/Configuration';
 
 export class DefaultJudge1521031270029 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
-      const judge = await queryRunner.insert('judge', {
-        name: 'System'
-      });
+      const query = getConnection().createQueryBuilder();
+      const judge = await query.insert().into(Judge).values([{name: 'System'}]).execute();
       const defaultValuesObj = await queryRunner.query(`select value from configuration where name = 'defaultValues'`);
       const defaultValues = JSON.parse(defaultValuesObj[0].value);
       defaultValues.scoreGroup = [
@@ -16,13 +17,11 @@ export class DefaultJudge1521031270029 implements MigrationInterface {
         { name: 'Adjustments', type: 'HJ', operation: 2, judges: [judge], max: 5,  min: 0 }
       ];
 
-      await queryRunner.update('configuration', {
-        value: JSON.stringify(defaultValues)
-      }, {name: 'defaultValues'});
+      await query.update(Configuration).set({value: JSON.stringify(defaultValues)}).where({name: 'defaultValues'}).execute();
      }
 
     public async down(queryRunner: QueryRunner): Promise<any> {
-      await queryRunner.delete('judge', { 'name': '' });
+      await getConnection().createQueryBuilder().delete().from(Judge).where({ 'name': '' }).execute();
     }
 
 }

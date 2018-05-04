@@ -92,7 +92,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * The list is sorted by order of appearence. First in list is first on
    * the floor.
    */
-  @OneToMany(type => TeamInDiscipline, schedule => schedule.tournament, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => TeamInDiscipline, schedule => schedule.tournament)
   schedule: TeamInDiscipline[];
 
   /**
@@ -103,7 +103,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * By default all known disciplines are enabled, but a club can actually
    * also define custom disciplines if they want.
    */
-  @OneToMany(type => Discipline, disciplines => disciplines.tournament, { cascadeInsert: true })
+  @OneToMany(type => Discipline, disciplines => disciplines.tournament, { cascade: ['insert'] })
   disciplines: Discipline[];
 
   /**
@@ -111,19 +111,19 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * in in this tournament. This allows the club arranging the event to
    * limit clubs to enter only senior gymnasts for instance.
    */
-  @OneToMany(type => Division, divisions => divisions.tournament, { cascadeInsert: true })
+  @OneToMany(type => Division, divisions => divisions.tournament, { cascade: ['insert'] })
   divisions: Division[];
 
   /**
    * The list of teams registerred to compete in this tournament.
    */
-  @OneToMany(type => Team, teams => teams.tournament, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => Team, teams => teams.tournament)
   teams: Team[];
 
   /**
    * The media registerred to be played in this tournament.
    */
-  @OneToMany(type => Media, media => media.tournament, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => Media, media => media.tournament)
   media: Media[];
 
   /**
@@ -202,7 +202,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
   /**
    * The list of gymnasts attending the banquet
    */
-  @ManyToMany(type => Gymnast, gymnasts => gymnasts.banquet, { cascadeInsert: false, cascadeUpdate: false })
+  @ManyToMany(type => Gymnast, gymnasts => gymnasts.banquet)
   @JoinTable()
   banquet: Gymnast[];
 

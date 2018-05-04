@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of} from 'rxjs';
 
 import { DisplayService } from './display.service';
 
@@ -13,10 +12,10 @@ export class DisplayServiceStub extends DisplayService {
   }
 
   getAll(tournamentId: number) {
-    return Observable.of(null);
+    return of(null);
   }
 
   getDisplay(tournamentId: number, displayId: number) {
-    return Observable.of(null);
+    return of(null);
   }
 }

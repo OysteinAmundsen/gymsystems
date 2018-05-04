@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of} from 'rxjs';
 
 import * as moment from 'moment';
 
@@ -41,42 +40,42 @@ export class ScheduleServiceStub extends ScheduleService {
   }
 
   all(): Observable<ITeamInDiscipline[]> {
-    return Observable.of(this.schedule);
+    return of(this.schedule);
   }
 
   getByTournament(id: number): Observable<ITeamInDiscipline[]> {
-    return Observable.of(this.schedule);
+    return of(this.schedule);
   }
 
   getById(id: number): Observable<ITeamInDiscipline> {
-    return Observable.of(this.participant);
+    return of(this.participant);
   }
 
   save(participant: ITeamInDiscipline) {
-    return Observable.of(this.participant);
+    return of(this.participant);
   }
 
   start(participant: ITeamInDiscipline) {
-    return Observable.of(this.participant);
+    return of(this.participant);
   }
 
   stop(participant: ITeamInDiscipline) {
-    return Observable.of(this.participant);
+    return of(this.participant);
   }
 
   publish(participant: ITeamInDiscipline) {
-    return Observable.of(this.participant);
+    return of(this.participant);
   }
 
   saveAll(participants: ITeamInDiscipline[]) {
-    return Observable.of(this.schedule);
+    return of(this.schedule);
   }
 
   delete(participant: ITeamInDiscipline) {
-    return Observable.of(null);
+    return of(null);
   }
 
   deleteAll(id: number) {
-    return Observable.of(null);
+    return of(null);
   }
 }

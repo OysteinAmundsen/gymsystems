@@ -44,7 +44,7 @@ export function setupAuthentication(app: Express): auth.PassportStatic {
   passport.serializeUser((user: any, done: Function) => done(null, user));
   passport.deserializeUser(async (id: number, done: Function) => {
     const userRepository: Repository<User> = getConnectionManager().get().getRepository(User);
-    const user = await userRepository.findOneById(id);
+    const user = await userRepository.findOne(id);
     done(null, user);
   });
 

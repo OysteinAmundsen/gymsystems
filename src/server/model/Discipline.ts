@@ -33,7 +33,7 @@ export class Discipline {
   /**
    * A reference to the teams competing in this discipline
    */
-  @ManyToMany(type => Team, team => team.disciplines, { cascadeInsert: false, cascadeUpdate: false })
+  @ManyToMany(type => Team, team => team.disciplines)
   teams: Team[];
 
   /**
@@ -46,6 +46,6 @@ export class Discipline {
   /**
    * The scoregroup configuration for this discipline
    */
-  @OneToMany(type => ScoreGroup, scoreGroup => scoreGroup.discipline, { cascadeInsert: false, cascadeUpdate: false })
+  @OneToMany(type => ScoreGroup, scoreGroup => scoreGroup.discipline)
   scoreGroups: ScoreGroup[];
 }

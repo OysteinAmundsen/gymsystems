@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of} from 'rxjs';
 import * as moment from 'moment';
 
 import { ITournament, IUser, IClub } from 'app/model';
@@ -40,26 +39,26 @@ export class TournamentServiceStub extends TournamentService {
   }
 
   all(): Observable<ITournament[]> {
-    return Observable.of(this.tournaments);
+    return of(this.tournaments);
   }
   past(): Observable<ITournament[]> {
-    return Observable.of([this.previous]);
+    return of([this.previous]);
   }
   current(): Observable<ITournament[]> {
-    return Observable.of([this.present]);
+    return of([this.present]);
   }
   upcoming(): Observable<ITournament[]> {
-    return Observable.of([this.future]);
+    return of([this.future]);
   }
   getById(id: number): Observable<ITournament> {
-    return Observable.of(this.present);
+    return of(this.present);
   }
 
   save(tournament: ITournament) {
-    return Observable.of(this.present);
+    return of(this.present);
   }
 
   delete(tournament: ITournament) {
-    return Observable.of(null);
+    return of(null);
   }
 }

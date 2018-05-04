@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of} from 'rxjs';
 
 import { IJudge } from 'app/model';
 import { JudgeService } from './judge.service';
@@ -17,10 +16,10 @@ export class JudgeServiceStub extends JudgeService {
   }
 
   all(): Observable<IJudge[]> {
-    return Observable.of([defaultJudge]);
+    return of([defaultJudge]);
   }
 
   save(scoreGroup: IJudge) {
-    return Observable.of(null);
+    return of(null);
   }
 }

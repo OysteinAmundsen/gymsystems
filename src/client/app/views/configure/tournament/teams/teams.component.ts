@@ -1,6 +1,5 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subscription, BehaviorSubject } from 'rxjs';
 
 import * as moment from 'moment';
 

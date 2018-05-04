@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { ITeamInDiscipline, IUser, Role, IScore, Operation } from 'app/model';
 import { ScoreContainer } from 'app/views/event/list/IScoreContainer';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 import { UserService, ScoreService } from 'app/services/api';

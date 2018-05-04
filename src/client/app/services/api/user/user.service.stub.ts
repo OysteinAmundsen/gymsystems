@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of} from 'rxjs';
 
 import { IUser, Role, IClub } from 'app/model';
 import { UserService } from 'app/services/api';
@@ -41,35 +40,35 @@ export class UserServiceStub extends UserService {
   }
 
   getMe(): Observable<IUser> {
-    return Observable.of(this.user);
+    return of(this.user);
   }
 
   // Standard REST api functions
   all(): Observable<IUser[]> {
-    return Observable.of([this.user]);
+    return of([this.user]);
   }
 
   getById(id: number): Observable<IUser> {
-    return Observable.of(this.user);
+    return of(this.user);
   }
 
   save(user: IUser): Observable<IUser> {
-    return Observable.of(null);
+    return of(null);
   }
 
   register(user: IUser): Observable<IUser> {
-    return Observable.of(this.user);
+    return of(this.user);
   }
 
   delete(user: IUser) {
-    return Observable.of(null);
+    return of(null);
   }
 
   login(credentials: { username: string, password: string }): Observable<any> {
-    return Observable.of(this.user);
+    return of(this.user);
   }
 
   logout() {
-    return Observable.of(null);
+    return of(null);
   }
 }

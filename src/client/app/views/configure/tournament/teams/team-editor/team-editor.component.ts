@@ -2,7 +2,7 @@ import {
   Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren, OnDestroy, ViewChild
 } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 import * as moment from 'moment';

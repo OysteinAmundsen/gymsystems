@@ -5,7 +5,7 @@ export enum Role {
   Admin = 99, Organizer = 90, Secretariat = 80, Club = 50, User = 10
 }
 
-export const RoleNames: [{id: number, name: string}] = [
+export const RoleNames = [
   {id: Role.Admin,       name: 'Admin'},
   {id: Role.Organizer,   name: 'Organizer'},
   {id: Role.Secretariat, name: 'Secretariat'},

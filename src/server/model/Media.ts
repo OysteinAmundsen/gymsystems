@@ -58,7 +58,7 @@ export class Media {
   /**
    * The reference to the team this media is to be played under
    */
-  @OneToOne(type => Team, { nullable: false, cascadeInsert: false, cascadeUpdate: false })
+  @OneToOne(type => Team, { nullable: false })
   @JoinColumn({name: 'team'})
   team: Team;
 

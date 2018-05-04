@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IJudge } from 'app/model/IJudge';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Helper } from 'app/services/api/Helper';
 import { IScoreGroup } from 'app/model';
