@@ -27,7 +27,7 @@ before_script:
 script:
   - yarn server:build
   - yarn server:test
-  - yarn client:test --prod
+  - yarn client:test
   # - docker build --compress -t gymsystems/client .
 after_success:
   # - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
