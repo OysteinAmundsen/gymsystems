@@ -35,4 +35,4 @@ RUN apk update ; \
     apk add python make g++;
 
 EXPOSE 3000
-ENTRYPOINT npm run migrations && npm run start
+ENTRYPOINT npm run migrations:run && npm run start
