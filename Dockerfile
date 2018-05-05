@@ -5,7 +5,7 @@ FROM node:8-alpine as builder
 WORKDIR /usr/src/app
 
 # Copy in source
-COPY tsconfig.json .snyk .angular-cli.json yarn.lock ./
+COPY tsconfig.json .snyk angular.json yarn.lock ./
 COPY src ./src
 
 # Install packages
@@ -32,8 +32,7 @@ COPY ormconfig.prod.json ormconfig.json
 
 # Rebuild bcrypt to avoid segfault
 RUN apk update ; \
-    apk add python make g++; \
-    npm rebuild bcrypt --build-from-source ;
+    apk add python make g++;
 
 EXPOSE 3000
 ENTRYPOINT npm run migrations && npm run start
