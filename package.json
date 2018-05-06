@@ -175,7 +175,7 @@
     "nodemon": "1.17.3",
     "protractor": "5.3.1",
     "snyk": "1.78.1",
-    "ts-node": "6.0.2",
+    "ts-node": "6.0.3",
     "tslint": "5.10.0",
     "typescript": ">=2.7.0 <2.8.0",
     "wait-on": "2.1.0"
