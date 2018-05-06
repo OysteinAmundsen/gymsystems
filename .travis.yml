@@ -28,10 +28,9 @@ script:
   - yarn server:build
   - yarn server:test
   - yarn client:test
-  # - docker build --compress -t gymsystems/client .
 after_success:
   # - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+  #     docker build --compress -t $DOCKER_USERNAME/gymsystems:latest .
   #     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" ;
-  #     docker tag gymsystems/client $DOCKER_USERNAME/gymsystems:latest
-  #     docker push $DOCKER_USERNAME/gymsystems ;
+  #     docker push $DOCKER_USERNAME/gymsystems:latest ;
   #   fi

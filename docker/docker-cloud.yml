@@ -7,7 +7,7 @@ nginx:
     - "80:80"
     - "443:443"
   links:
-    - client
+    - gymsystems
   volumes:
     - /usr/src/app/cert/ssl:/etc/nginx/ssl:rw
   environment:
