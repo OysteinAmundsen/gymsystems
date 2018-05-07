@@ -101,7 +101,7 @@ export class TeamInDiscipline {
   /**
    *
    */
-  @OneToMany(type => Score, score => score.participant, {cascadeInsert: true, cascadeUpdate: true})
+  @OneToMany(type => Score, score => score.participant, { cascade: ['insert', 'update']})
   scores: Score[];
 
   /**

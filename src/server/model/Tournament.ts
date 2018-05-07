@@ -103,7 +103,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * By default all known disciplines are enabled, but a club can actually
    * also define custom disciplines if they want.
    */
-  @OneToMany(type => Discipline, disciplines => disciplines.tournament, {cascadeInsert: true })
+  @OneToMany(type => Discipline, disciplines => disciplines.tournament, { cascade: ['insert'] })
   disciplines: Discipline[];
 
   /**
@@ -111,7 +111,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
    * in in this tournament. This allows the club arranging the event to
    * limit clubs to enter only senior gymnasts for instance.
    */
-  @OneToMany(type => Division, divisions => divisions.tournament, {cascadeInsert: true })
+  @OneToMany(type => Division, divisions => divisions.tournament, { cascade: ['insert'] })
   divisions: Division[];
 
   /**

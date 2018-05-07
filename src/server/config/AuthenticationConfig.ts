@@ -26,7 +26,7 @@ export function setupAuthentication(app: Express): auth.PassportStatic {
   }, // Verify function with request
     (req: Request, username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) => {
       const userRepository: Repository<User> = getConnectionManager().get().getRepository(User);
-      userRepository.findOneById({ name: username })
+      userRepository.findOne({ name: username })
         .then(user => {
           if (!user) {
             done('No user found.', null, { message: 'No user found'});
@@ -44,7 +44,7 @@ export function setupAuthentication(app: Express): auth.PassportStatic {
   passport.serializeUser((user: any, done: Function) => done(null, user));
   passport.deserializeUser(async (id: number, done: Function) => {
     const userRepository: Repository<User> = getConnectionManager().get().getRepository(User);
-    const user = await userRepository.findOneById(id);
+    const user = await userRepository.findOne(id);
     done(null, user);
   });
 

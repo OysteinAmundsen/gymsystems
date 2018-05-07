@@ -70,7 +70,7 @@ export class ScoreGroupController {
   @Get('/:id')
   @OnUndefined(404)
   get( @Param('id') scoreGroupId: number): Promise<ScoreGroup> {
-    return this.repository.findOneById(scoreGroupId);
+    return this.repository.findOne(scoreGroupId);
   }
 
   /**
@@ -123,7 +123,7 @@ export class ScoreGroupController {
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') scoreGroupId: number) {
-    const scoreGroup = await this.repository.findOneById(scoreGroupId);
+    const scoreGroup = await this.repository.findOne(scoreGroupId);
     return this.removeMany([scoreGroup])
     .catch(err => {
       Log.log.error(`Error removing scoregroup ${scoreGroupId}`, err);
