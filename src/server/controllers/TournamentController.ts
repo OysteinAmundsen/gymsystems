@@ -267,7 +267,7 @@ export class TournamentController {
   @UseBefore(RequireRole.get(Role.Organizer))
   async remove( @Param('id') tournamentId: number, @Req() req: Request, @Res() res: Response) {
     if (isNaN(tournamentId)) { return Promise.reject(null); }
-    const tournament = await this.repository.findOne(tournamentId);
+    const tournament = await this.repository.findOneById(tournamentId);
     const isMe = await isCreatedByMe(tournament, req);
     if (!isMe) {
       res.status(403);

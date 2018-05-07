@@ -9,7 +9,6 @@
     "password": "admin",
     "database": "gymsystem",
     "logging": "error",
-    "extra": { "insecureAuth": true },
     "entities": [
       "dist/model/*.js"
     ],

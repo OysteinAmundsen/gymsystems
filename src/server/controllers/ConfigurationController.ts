@@ -54,7 +54,7 @@ export class ConfigurationController {
   @Get('/:id')
   @OnUndefined(404)
   get( @Param('id') id: string): Promise<Configuration> {
-    return this.repository.findOne({ name: id });
+    return this.repository.findOneById({ name: id });
   }
 
   /**
@@ -110,7 +110,7 @@ export class ConfigurationController {
   @Delete('/:id')
   @UseBefore(RequireRole.get(Role.Admin))
   async remove( @Param('id') id: string, @Res() res: Response) {
-    const configuration = await this.repository.findOne(id);
+    const configuration = await this.repository.findOneById(id);
     return this.repository.remove(configuration)
       .then(result => res.send(result))
       .catch(err => {
