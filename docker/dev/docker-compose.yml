@@ -9,7 +9,7 @@ services:
     depends_on:
       - db
     links:
-      - db:db
+      - db
     environment:
       - DATABASE_HOST=db
     volumes:
@@ -17,7 +17,7 @@ services:
       - ../../log:/usr/src/app/log
       - ../../media:/usr/src/app/media
     ports:
-      - "3000:3000"
+      - 3000:3000
 
   db:
     image: mysql
@@ -30,5 +30,4 @@ services:
       MYSQL_PASSWORD: admin
     volumes:
       - ../../data:/var/lib/mysql
-    ports:
-      - "3306:3306"
+

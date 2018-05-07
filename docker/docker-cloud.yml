@@ -1,24 +1,23 @@
-nginx:
-  autodestroy: on-success
-  autoredeploy: true
-  image: 'oysteinamundsen/gymsystems:nginx'
-  restart: on-failure
-  ports:
-    - "80:80"
-    - "443:443"
-  links:
-    - gymsystems
-  volumes:
-    - /usr/src/app/cert/ssl:/etc/nginx/ssl:rw
+# authorizedkeys:
+#   autodestroy: always
+#   deployment_strategy: every_node
+#   environment:
+#     - AUTHORIZED_KEYS=ssh-rsa AAAAB3NzaC1y...
+#   image: 'dockercloud/authorizedkeys:latest'
+#   volumes:
+#     - '/root:/user'
+db:
   environment:
-    - TZ=UTC
-    - LETSENCRYPT=true
-    - LE_EMAIL=oystein.amundsen@gmail.com
-    - LE_FQDN=www.gymsystems.org
-
+    - MYSQL_DATABASE=gymsystem
+    - MYSQL_PASSWORD=admin
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_USER=system
+  image: 'mysql:latest'
+  restart: on-failure
+  volumes:
+    - '/usr/src/app/data:/var/lib/mysql'
 gymsystems:
   autodestroy: on-success
-  restart: on-failure
   autoredeploy: true
   environment:
     - DATABASE_HOST=db
@@ -26,17 +25,25 @@ gymsystems:
   image: 'oysteinamundsen/gymsystems:latest'
   links:
     - db
+  restart: on-failure
   volumes:
+    - '/usr/src/app/node_modules'
     - '/usr/src/app/log:/usr/src/app/log'
     - '/usr/src/app/media:/usr/src/app/media'
-
-db:
-  restart: on-failure
+nginx:
+  autodestroy: on-success
+  autoredeploy: true
   environment:
-    - MYSQL_DATABASE=gymsystem
-    - MYSQL_PASSWORD=admin
-    - MYSQL_ROOT_PASSWORD=root
-    - MYSQL_USER=system
-  image: 'mysql:latest'
+    - LETSENCRYPT=true
+    - LE_EMAIL=oystein.amundsen@gmail.com
+    - LE_FQDN=www.gymsystems.org
+    - TZ=UTC
+  image: 'oysteinamundsen/gymsystems:nginx'
+  links:
+    - gymsystems
+  ports:
+    - '80:80'
+    - '443:443'
+  restart: on-failure
   volumes:
-    - '/usr/src/app/data:/var/lib/mysql'
+    - '/usr/src/app/cert/ssl:/etc/nginx/ssl'

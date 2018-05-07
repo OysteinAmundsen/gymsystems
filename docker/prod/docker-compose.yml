@@ -8,8 +8,8 @@ services:
     container_name: nginx
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     depends_on:
       - client
     links:
@@ -17,10 +17,10 @@ services:
     volumes:
       - ./cert/ssl:/etc/nginx/ssl
     environment:
-      - TZ=UTC
-      - LETSENCRYPT=true
-      - LE_EMAIL=oystein.amundsen@gmail.com
-      - LE_FQDN=www.gymsystems.org
+      - TZ: UTC
+      - LETSENCRYPT: true
+      - LE_EMAIL: oystein.amundsen@gmail.com
+      - LE_FQDN: www.gymsystems.org
 
   client:
     build: ../../
@@ -30,10 +30,10 @@ services:
     depends_on:
       - db
     links:
-      - db:db
+      - db
     environment:
-      - DATABASE_HOST=db
-      - NODE_ENV=production
+      - DATABASE_HOST: db
+      - NODE_ENV: production
     volumes:
       - /usr/src/app/node_modules
       - ../../log:/usr/src/app/log
@@ -44,8 +44,8 @@ services:
     container_name: gymsystems_db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: gymsystem
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: system
       MYSQL_PASSWORD: admin
     volumes:

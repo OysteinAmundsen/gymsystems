@@ -10,4 +10,4 @@ services:
       MYSQL_USER: system
       MYSQL_PASSWORD: admin
     ports:
-      - "3305:3306"
+      - 3305:3306
