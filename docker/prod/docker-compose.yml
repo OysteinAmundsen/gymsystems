@@ -40,7 +40,7 @@ services:
       - ../../media:/usr/src/app/media
 
   db:
-    image: mysql
+    image: mysql:5.7
     container_name: gymsystems_db
     restart: unless-stopped
     environment:

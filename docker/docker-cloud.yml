@@ -12,7 +12,7 @@ db:
     - MYSQL_PASSWORD=admin
     - MYSQL_ROOT_PASSWORD=root
     - MYSQL_USER=system
-  image: 'mysql:latest'
+  image: 'mysql:5.7'
   restart: on-failure
   volumes:
     - '/usr/src/app/data:/var/lib/mysql'

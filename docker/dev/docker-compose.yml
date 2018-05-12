@@ -20,7 +20,7 @@ services:
       - 3000:3000
 
   db:
-    image: mysql
+    image: mysql:5.7
     container_name: gymsystems_db
     restart: unless-stopped
     environment:

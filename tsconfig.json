@@ -16,6 +16,9 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "app/*": ["./src/client/app/*"]
+    }
   }
 }
