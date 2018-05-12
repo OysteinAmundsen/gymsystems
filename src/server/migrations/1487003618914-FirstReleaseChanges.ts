@@ -13,47 +13,42 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
    * @param queryRunner
    */
   async up(queryRunner: QueryRunner): Promise<any> {
+    // Default judge
     const judgeRepo = getConnection().getRepository(Judge);
     let judge = await judgeRepo.createQueryBuilder('judge').where('judge.name = :name', {name: 'System'}).getOne();
     if (!judge) {
       judge = await judgeRepo.save(<Judge>{name: 'System'});
     }
 
-    /**
-     * Configuration
-     */
-    await getConnection().createQueryBuilder()
-      .insert()
-      .into(Configuration)
-      .values([
-        // Default values
-        { name: 'defaultValues',
-          value: JSON.stringify({
-            division: [
-              { type: DivisionType.Gender, name: 'Kvinner',  sortOrder: 1 },
-              { type: DivisionType.Gender, name: 'Herrer',   sortOrder: 2 },
-              { type: DivisionType.Gender, name: 'Mix',      sortOrder: 0 },
-              { type: DivisionType.Age,    name: 'Aspirant', sortOrder: 0, min: 8, max: 11 },
-              { type: DivisionType.Age,    name: 'Rekrutt',  sortOrder: 1, min: 11, max: 13 },
-              { type: DivisionType.Age,    name: 'Junior',   sortOrder: 2, min: 13, max: 17 },
-              { type: DivisionType.Age,    name: 'Senior',   sortOrder: 3, min: 16, max: 99 }
-              ],
-            discipline: [
-              { name: 'Trampett', sortOrder: 1 }, { name: 'Tumbling', sortOrder: 2 }, { name: 'Frittstående', sortOrder: 0 }
-            ],
-            scoreGroup: [
-              { name: 'Composition', type: 'C',  operation: 1, judges: [judge], max: 5,  min: 0 },
-              { name: 'Execution',   type: 'E',  operation: 1, judges: [judge], max: 10, min: 0 },
-              { name: 'Difficulty',  type: 'D',  operation: 1, judges: [judge], max: 5,  min: 0 },
-              { name: 'Adjustments', type: 'HJ', operation: 2, judges: [judge], max: 5,  min: 0 }
-            ],
-          })
-        },
-
-        // Display
-        { name: 'display',
-          value: JSON.stringify({
-            'display1': `{{~#list current len=1 ~}}
+    // Configuration
+    const configRepo = getConnection().getRepository(Configuration);
+    await configRepo.save(<Configuration>{
+      name: 'defaultValues',
+      value: JSON.stringify({
+        division: [
+          { type: DivisionType.Gender, name: 'Kvinner',  sortOrder: 1 },
+          { type: DivisionType.Gender, name: 'Herrer',   sortOrder: 2 },
+          { type: DivisionType.Gender, name: 'Mix',      sortOrder: 0 },
+          { type: DivisionType.Age,    name: 'Aspirant', sortOrder: 0, min: 8, max: 11 },
+          { type: DivisionType.Age,    name: 'Rekrutt',  sortOrder: 1, min: 11, max: 13 },
+          { type: DivisionType.Age,    name: 'Junior',   sortOrder: 2, min: 13, max: 17 },
+          { type: DivisionType.Age,    name: 'Senior',   sortOrder: 3, min: 16, max: 99 }
+        ],
+        discipline: [
+          { name: 'Trampett', sortOrder: 1 }, { name: 'Tumbling', sortOrder: 2 }, { name: 'Frittstående', sortOrder: 0 }
+        ],
+        scoreGroup: [
+          { name: 'Composition', type: 'C',  operation: 1, judges: [judge], max: 5,  min: 0 },
+          { name: 'Execution',   type: 'E',  operation: 1, judges: [judge], max: 10, min: 0 },
+          { name: 'Difficulty',  type: 'D',  operation: 1, judges: [judge], max: 5,  min: 0 },
+          { name: 'Adjustments', type: 'HJ', operation: 2, judges: [judge], max: 5,  min: 0 }
+        ],
+      })
+    });
+    await configRepo.save(<Configuration>{
+      name: 'display',
+      value: JSON.stringify({
+        'display1': `{{~#list current len=1 ~}}
   {{#center ~}}
     {{~#size 4~}}<em>{{team.name}}</em>{{~/size}}
     {{#size 2~}}
@@ -70,7 +65,7 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
     {{division}} {{disciplineName}}
   {{~/size~}}
 {{~/list}}`,
-            'display2': `{{#list published len=1}}
+        'display2': `{{#list published len=1}}
   {{#center}}
     {{#size 3~}}<em>{{team.name}}</em>{{~/size}}
     {{#size 2~}}
@@ -86,16 +81,19 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
     {{~/size}}
   {{/center}}
 {{/list}}`
-          })
-        },
-        { name: 'scheduleExecutionTime', value: '5' },
-        { name: 'scheduleTrainingTime', value: '3' }
-      ])
-      .execute();
+      })
+    });
+    await configRepo.save(<Configuration>{ name: 'scheduleExecutionTime', value: '5' });
+    await configRepo.save(<Configuration>{ name: 'scheduleTrainingTime', value: '3' });
 
-    await getConnection().createQueryBuilder().insert().into(User).values([{
-      name: 'admin', password: '$2a$08$1L59S.CUKs6Sq23eq8B4xup0QJZ31QLtdQyOyQsvlxf0PqfQeltw6', role: Role.Admin
-    }]).execute();
+    // Admin user
+    const userRepo = getConnection().getRepository(User);
+    let admin = await userRepo.createQueryBuilder('user').where('user.name = :name', {name: 'admin'}).getOne();
+    if (!admin) {
+      admin = await userRepo.save(<User>{
+        name: 'admin', password: '$2a$08$1L59S.CUKs6Sq23eq8B4xup0QJZ31QLtdQyOyQsvlxf0PqfQeltw6', role: Role.Admin
+      });
+    }
   }
 
   /**
