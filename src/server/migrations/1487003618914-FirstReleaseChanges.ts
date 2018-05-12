@@ -13,7 +13,11 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
    * @param queryRunner
    */
   async up(queryRunner: QueryRunner): Promise<any> {
-    const judge = await getConnection().createQueryBuilder().insert().into(Judge).values([{name: 'System'}]).execute();
+    const judgeRepo = getConnection().getRepository(Judge);
+    let judge = await judgeRepo.createQueryBuilder('judge').where('judge.name == :name', {name: 'System'}).getOne();
+    if (!judge) {
+      judge = await judgeRepo.save(<Judge>{name: 'System'});
+    }
 
     /**
      * Configuration
