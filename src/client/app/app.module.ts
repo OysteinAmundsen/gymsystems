@@ -19,7 +19,7 @@ import {
 import 'hammerjs';
 import 'hammer-timejs';
 
-import { environment } from 'environments/environment';
+import { environment } from '../environments/environment';
 
 // Locale
 import { registerLocaleData } from '@angular/common';

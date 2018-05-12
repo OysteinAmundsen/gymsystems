@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { Angulartics2 } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-import { environment } from 'environments/environment';
+import { environment } from '../environments/environment';
 
 import { UserService } from './services/api';
 import { ErrorHandlerService } from './services/config/ErrorHandler.service';
@@ -65,10 +65,16 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
     // });
   }
 
+  /**
+   *
+   */
   ngOnInit(): void {
     this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
   }
 
+  /**
+   *
+   */
   ngAfterContentChecked() {
     const helpBlocks = document.querySelectorAll('app-help-block');
     if (this.currentHelpBlocks !== helpBlocks.length) {
@@ -76,27 +82,46 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked  {
     }
   }
 
+  /**
+   *
+   */
   ngOnDestroy() {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
   }
 
+  /**
+   *
+   * @param evt
+   */
   closeNav(evt: MouseEvent): void {
     if (this.navState) {
       return this.toggleNav(evt);
     }
   }
+
+  /**
+   *
+   * @param evt
+   */
   toggleNav(evt: MouseEvent): void {
     this.navState = !this.navState;
     evt.preventDefault();
     evt.stopPropagation();
   }
 
+  /**
+   *
+   */
   toggleHelp() {
     this.showHelp = !this.showHelp;
   }
 
+  /**
+   *
+   * @param lang
+   */
   changeLang(lang) {
     if (lang.match(/no|nb|no-nb/)) { lang = 'no'; } else { lang = 'en'; }
     this.translate.use(lang);

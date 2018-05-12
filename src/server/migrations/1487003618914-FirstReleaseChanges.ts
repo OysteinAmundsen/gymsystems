@@ -1,18 +1,28 @@
 import { User } from './../model/User';
 import { Configuration } from './../model/Configuration';
 import { MigrationInterface, QueryRunner, getConnection, Connection, EntityManager } from 'typeorm';
+import * as bcrypt from 'bcryptjs';
 import { DivisionType } from '../model/Division';
 import { Role } from '../model/User';
-import * as bcrypt from 'bcryptjs';
-import { Judge } from 'app/model';
+import { Judge } from '../model/Judge';
 export class FirstReleaseChanges1487003618914 implements MigrationInterface {
 
-  async up(queryRunner: QueryRunner): Promise<any> { // Next-gen Typeorm
+  /**
+   * Setting up defaults
+   *
+   * @param queryRunner
+   */
+  async up(queryRunner: QueryRunner): Promise<any> {
     const judge = await getConnection().createQueryBuilder().insert().into(Judge).values([{name: 'System'}]).execute();
+
+    /**
+     * Configuration
+     */
     await getConnection().createQueryBuilder()
       .insert()
       .into(Configuration)
       .values([
+        // Default values
         { name: 'defaultValues',
           value: JSON.stringify({
             division: [
@@ -35,20 +45,48 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
             ],
           })
         },
+
+        // Display
         { name: 'display',
           value: JSON.stringify({
-            'display1' : '{{~#list current len=1 ~}}\n  {{#center ~}}\n    {{~#size 4~}}<em>{{team.name}}</em>{{~/size}}\n    {{#size 2~}}\n      {{division}} {{discipline.name}}\n    {{~/size}}\n  {{~/center~}}\n{{~/list~}}\n{{#if current.length}}{{#center ~}}\n  -----------------------------\n{{~/center~}}{{/if}}\n{{#list next len=2 ~}}\n  {{~#size 1~}}\n    <em>{{team.name}}</em>\n    {{division}} {{disciplineName}}\n  {{~/size~}}\n{{~/list}}',
-            'display2' : '{{#list published len=1}}\n  {{#center}}\n    {{#size 3~}}<em>{{team.name}}</em>{{~/size}}\n    {{#size 2~}}\n      {{division}} {{discipline.name}}\n    {{~/size}}\n  {{~/center~}}\n  {{#if team}}{{#center ~}}\n  -----------------------------\n  {{~/center~}}{{/if}}\n  {{#center ~}}\n    {{#size 5~}}\n      <b>{{#fix total len=3}}{{/fix}}</b>\n    {{~/size}}\n  {{/center}}\n{{/list}}'
+            'display1': `{{~#list current len=1 ~}}
+  {{#center ~}}
+    {{~#size 4~}}<em>{{team.name}}</em>{{~/size}}
+    {{#size 2~}}
+      {{division}} {{discipline.name}}
+    {{~/size}}
+  {{~/center~}}
+{{~/list~}}
+{{#if current.length}}{{#center ~}}
+  -----------------------------
+{{~/center~}}{{/if}}
+{{#list next len=2 ~}}
+  {{~#size 1~}}
+    <em>{{team.name}}</em>
+    {{division}} {{disciplineName}}
+  {{~/size~}}
+{{~/list}}`,
+            'display2': `{{#list published len=1}}
+  {{#center}}
+    {{#size 3~}}<em>{{team.name}}</em>{{~/size}}
+    {{#size 2~}}
+      {{division}} {{discipline.name}}
+    {{~/size}}
+  {{~/center~}}
+  {{#if team}}{{#center ~}}
+  -----------------------------
+  {{~/center~}}{{/if}}
+  {{#center ~}}
+    {{#size 5~}}
+      <b>{{#fix total len=3}}{{/fix}}</b>
+    {{~/size}}
+  {{/center}}
+{{/list}}`
           })
         },
-        {
-          name: 'scheduleExecutionTime',
-          value: '5'
-        },
-        {
-          name: 'scheduleTrainingTime',
-          value: '3'
-        }])
+        { name: 'scheduleExecutionTime', value: '5' },
+        { name: 'scheduleTrainingTime', value: '3' }
+      ])
       .execute();
 
     await getConnection().createQueryBuilder().insert().into(User).values([{
@@ -56,6 +94,10 @@ export class FirstReleaseChanges1487003618914 implements MigrationInterface {
     }]).execute();
   }
 
+  /**
+   *
+   * @param queryRunner
+   */
   async down(queryRunner: QueryRunner): Promise<any> { // Next-gen Typeorm
     await getConnection().createQueryBuilder().delete().from(Configuration).where({ 'name': 'defaultValues' }).execute();
     await getConnection().createQueryBuilder().delete().from(Configuration).where({ 'name': 'display' }).execute();

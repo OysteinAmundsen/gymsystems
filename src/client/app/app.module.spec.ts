@@ -9,7 +9,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
-import { AgmCoreModule } from '@agm/core';
 import { MatCardModule, MatSnackBarModule, MatDialogModule, MatFormFieldModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -54,7 +53,7 @@ import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.se
 import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
 import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 import { EventServiceStub } from 'app/services/api/event/event.service.stub';
-import { environment } from 'environments/environment.prod';
+import { environment } from '../environments/environment.prod';
 
 @NgModule({
   imports: [

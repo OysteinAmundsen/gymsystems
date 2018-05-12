@@ -10,7 +10,7 @@ import { ErrorHandlerService } from './services/config/ErrorHandler.service';
 
 import { AppComponent } from './app.component';
 import { AppModuleTest } from 'app/app.module.spec';
-import { environment } from 'environments/environment';
+import { environment } from '../environments/environment';
 
 describe('views:AppComponent', () => {
   let component: AppComponent;

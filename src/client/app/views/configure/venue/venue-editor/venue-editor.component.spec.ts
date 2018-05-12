@@ -18,9 +18,7 @@ describe('VenueEditorComponent', () => {
         MatAutocompleteModule,
         MatFormFieldModule,
         MatInputModule,
-        AgmCoreModule.forRoot({
-          apiKey: VenueService.apiKey
-        })
+        AgmCoreModule.forRoot({ apiKey: VenueService.apiKey })
       ],
       declarations: [ VenueEditorComponent ]
     }).compileComponents();
