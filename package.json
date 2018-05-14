@@ -88,7 +88,7 @@
     "@ngx-translate/http-loader": "3.0.1",
     "angulartics2": "6.0.0",
     "bcryptjs": "2.4.3",
-    "body-parser": "1.18.2",
+    "body-parser": "1.18.3",
     "chalk": "2.4.1",
     "cookie-parser": "1.4.3",
     "core-js": "2.5.6",
