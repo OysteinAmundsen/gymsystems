@@ -7,10 +7,10 @@
       "jasmine",
       "node"
     ],
-    "baseUrl": "./",
     "paths": {
       "app/*": ["./app/*"]
-    }
+    },
+    "baseUrl": "./"
   },
   "files": [
     "test.ts",

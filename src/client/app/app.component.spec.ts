@@ -6,7 +6,7 @@ import { TournamentService, UserService } from './services/api';
 
 import { UserServiceStub } from './services/api/user/user.service.stub';
 import { TournamentServiceStub } from './services/api/tournament/tournament.service.stub';
-import { ErrorHandlerService } from './services/config/ErrorHandler.service';
+import { ErrorHandlerService } from './services/http/ErrorHandler.service';
 
 import { AppComponent } from './app.component';
 import { AppModuleTest } from 'app/app.module.spec';

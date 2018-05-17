@@ -8,7 +8,7 @@ import { ScoreGroupEditorComponent } from './score-group-editor.component';
 
 import { ScoreGroupService, JudgeService } from 'app/services/api';
 import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
-import { ErrorHandlerService } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/http';
 
 describe('views.configure.tournament:ScoreGroupEditorComponent', () => {
   let component: ScoreGroupEditorComponent;

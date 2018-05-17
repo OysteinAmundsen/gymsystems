@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
-import { AuthStateService, HttpAction } from 'app/services/config/auth-state.service';
-import { HttpMethod } from 'app/services/config/HttpMethod';
+import { AuthStateService, HttpAction } from 'app/services/http';
+import { HttpMethod } from 'app/services/http/HttpMethod';
 
 @Component({
   selector: 'app-save-button',

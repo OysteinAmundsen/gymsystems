@@ -8,7 +8,7 @@ import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 import { UserService, ClubService } from 'app/services/api';
 import { IUser, RoleNames, Role, IClub } from 'app/model';
 import { ValidationService } from 'app/services/validation';
-import { ErrorHandlerService } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/http';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { MatAutocomplete } from '@angular/material';

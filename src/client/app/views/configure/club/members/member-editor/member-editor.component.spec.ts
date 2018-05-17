@@ -10,7 +10,7 @@ import { MembersComponent } from '../members.component';
 import { ConfigurationService, ClubService, UserService } from 'app/services/api';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
-import { ErrorHandlerService } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/http';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 
 describe('views.configure.club:MemberEditorComponent', () => {

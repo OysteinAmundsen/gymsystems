@@ -6,7 +6,7 @@ import { ConfigureModule } from '../../configure.module';
 
 import { UserEditorComponent } from './user-editor.component';
 
-import { ErrorHandlerService } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/http';
 import { UserService, ClubService } from 'app/services/api';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';

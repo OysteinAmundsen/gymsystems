@@ -15,7 +15,7 @@ import { ITournament } from 'app/model/ITournament';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Role } from 'app/model';
-import { KeyCode } from '../../../../shared/KeyCodes';
+import { KeyCode } from 'app/shared/KeyCodes';
 
 /**
  *

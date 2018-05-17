@@ -12,7 +12,7 @@ import * as moment from 'moment';
 import { TournamentService, UserService, ClubService, VenueService } from 'app/services/api';
 import { ITournament, IUser, Role, IClub, IVenue } from 'app/model';
 
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatDatepickerInput, MatAutocomplete } from '@angular/material';

@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { Angulartics2 } from 'angulartics2';
 
 import { UserService } from 'app/services/api';
-import { ErrorHandlerService } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/http';
 import { IUser } from 'app/model';
 
 @Component({

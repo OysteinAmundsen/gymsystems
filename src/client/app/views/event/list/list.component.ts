@@ -11,7 +11,7 @@ import { ContextMenuComponent } from './context-menu/context-menu.component';
 
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
 
 import { ITournament, ITeamInDiscipline, ITeam, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/model';
 

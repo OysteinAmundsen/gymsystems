@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
 import { ITournament, ITeamInDiscipline, IUser, Classes, ParticipationType, DivisionType, IDiscipline } from 'app/model';
 import { EventComponent } from '../event.component';
-import { ErrorHandlerService } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/http';
 
 @Component({
   selector: 'app-results',

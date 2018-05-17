@@ -7,7 +7,7 @@ import { IClub, IGymnast, Gender, IDivision, DivisionType, ITroop } from 'app/mo
 import { ConfigurationService, ClubService } from 'app/services/api';
 
 import * as moment from 'moment';
-import { ErrorHandlerService } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/http';
 import { MembersComponent } from 'app/views/configure/club/members/members.component';
 import { KeyCode } from 'app/shared/KeyCodes';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';

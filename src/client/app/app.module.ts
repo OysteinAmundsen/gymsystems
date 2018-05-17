@@ -35,13 +35,13 @@ import {
   UserService, ScoreService, ScoreGroupService, TournamentService, DisciplineService, DivisionService,
   TeamsService, ConfigurationService, ScheduleService, EventService, DisplayService, ClubService, VenueService, JudgeService
 } from './services/api';
-import { ErrorHandlerService } from './services/config/ErrorHandler.service';
+import { ErrorHandlerService } from './services/http/ErrorHandler.service';
 import { MediaService } from './services/media.service';
 
 // Other services
 import { RoleGuard } from './shared/guards/role-guard';
-import { AuthInterceptor, TimeoutInterceptor, DEFAULT_TIMEOUT, defaultTimeout } from './services/config';
-import { AuthStateService } from './services/config/auth-state.service';
+import { AuthInterceptor, TimeoutInterceptor, DEFAULT_TIMEOUT, defaultTimeout } from './services/http';
+import { AuthStateService } from './services/http/auth-state.service';
 
 // Module components
 import { AppComponent } from './app.component';

@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta } from '@angular/platform-browser';
 
 import { UserService } from 'app/services/api';
-import { ErrorHandlerService } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/http';
 import { Angulartics2 } from 'angulartics2';
 import { AppComponent } from 'app/app.component';
 

@@ -13,7 +13,7 @@ import {
 } from 'app/model';
 import { TeamsService, DisciplineService, DivisionService, ClubService, UserService, ConfigurationService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
 import { Logger } from 'app/services/Logger';
 
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';

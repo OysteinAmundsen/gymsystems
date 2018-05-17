@@ -9,7 +9,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { environment } from '../environments/environment';
 
 import { UserService } from './services/api';
-import { ErrorHandlerService } from './services/config/ErrorHandler.service';
+import { ErrorHandlerService } from './services/http/ErrorHandler.service';
 import { Logger } from './services/Logger';
 import { HelpBlockComponent } from 'app/shared/components';
 import { SwUpdate } from '@angular/service-worker';

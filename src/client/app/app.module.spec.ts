@@ -32,13 +32,13 @@ import {
   ClubService,
   VenueService
 } from './services/api';
-import { ErrorHandlerService } from './services/config/ErrorHandler.service';
+import { ErrorHandlerService } from './services/http/ErrorHandler.service';
 import { MediaService } from './services/media.service';
-import { AuthStateService } from 'app/services/config/auth-state.service';
+import { AuthStateService } from 'app/services/http/auth-state.service';
 
 // Other services
 import { RoleGuard } from './shared/guards/role-guard';
-import { AuthInterceptor } from './services/config/AuthInterceptor';
+import { AuthInterceptor } from 'app/services/http/interceptors/AuthInterceptor';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';

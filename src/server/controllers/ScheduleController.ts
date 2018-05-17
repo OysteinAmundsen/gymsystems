@@ -69,7 +69,6 @@ export class ScheduleController {
   getByTournament( @Param('id') id: number): Promise<TeamInDiscipline[]> {
     return this.repository.createQueryBuilder('participant')
       .where('participant.tournament=:id', { id: id })
-      // .innerJoinAndSelect('participant.tournament', 'tournament')
       .leftJoinAndSelect('participant.discipline', 'discipline')
       .leftJoinAndSelect('participant.team', 'team')
       .leftJoinAndSelect('participant.scores', 'scores')
@@ -98,7 +97,6 @@ export class ScheduleController {
   get( @Param('id') id: number): Promise<TeamInDiscipline> {
     return this.repository.createQueryBuilder('participant')
       .where('participant.id=:id', { id: id })
-      // .innerJoinAndSelect('participant.tournament', 'tournament')
       .leftJoinAndSelect('participant.discipline', 'discipline')
       .innerJoinAndSelect('participant.team', 'team')
       .leftJoinAndSelect('participant.scores', 'scores')

@@ -5,7 +5,7 @@ import { AppModuleTest } from 'app/app.module.spec';
 import { TournamentModule } from '../tournament.module';
 import { TournamentEditorComponent } from './tournament-editor.component';
 
-import { ErrorHandlerService } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/http';
 
 import { UserService, TournamentService, ClubService } from 'app/services/api';
 import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';

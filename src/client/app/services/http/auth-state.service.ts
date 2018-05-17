@@ -3,17 +3,13 @@ import { HttpRequest } from '@angular/common/http';
 import { HttpResponse } from '@angular/common/http';
 
 import { Observable, Subject } from 'rxjs';
+import { HttpAction } from './HttpAction';
 import { HttpMethod } from './HttpMethod';
 
 
-export interface HttpAction {
-  url: string;
-  method: HttpMethod;
-  isComplete?: boolean;
-  failed?: boolean;
-  values?: any;
-}
-
+/**
+ *
+ */
 @Injectable()
 export class AuthStateService {
   public httpAction: Subject<HttpAction> = new Subject();

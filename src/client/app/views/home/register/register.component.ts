@@ -6,7 +6,7 @@ import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 import { UserService, ClubService } from 'app/services/api';
 import { ValidationService } from 'app/services/validation';
-import { ErrorHandlerService } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/http';
 
 import { IUser, Role } from 'app/model/IUser';
 import { IClub } from 'app/model/IClub';

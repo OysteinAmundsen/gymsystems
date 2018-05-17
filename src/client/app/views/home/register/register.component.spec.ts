@@ -5,7 +5,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { RegisterComponent } from './register.component';
 
 import { UserService, ClubService } from 'app/services/api';
-import { ErrorHandlerService } from 'app/services/config';
+import { ErrorHandlerService } from 'app/services/http';
 import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
 

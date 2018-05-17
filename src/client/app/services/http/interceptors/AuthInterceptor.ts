@@ -19,10 +19,10 @@ import { map, catchError } from 'rxjs/operators';
 
 import * as moment from 'moment';
 
-import { ErrorHandlerService } from './ErrorHandler.service';
-import { AuthStateService } from './auth-state.service';
-import { Logger } from '../Logger';
-import { HttpMethod } from './HttpMethod';
+import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
+import { AuthStateService } from 'app/services/http/auth-state.service';
+import { Logger } from 'app/services/Logger';
+import { HttpMethod } from 'app/services/http/HttpMethod';
 
 
 @Injectable()

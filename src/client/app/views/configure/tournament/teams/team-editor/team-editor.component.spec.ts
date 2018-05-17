@@ -11,7 +11,7 @@ import { TeamsComponent } from '../teams.component';
 import { TeamEditorComponent } from './team-editor.component';
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 
-import { ErrorHandlerService } from 'app/services/config/ErrorHandler.service';
+import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
 import { ITeam, ITournament, IClub, IUser, Role, Classes } from 'app/model';
 import {
   TeamsService, TournamentService, ClubService, UserService, DivisionService, DisciplineService, ConfigurationService
