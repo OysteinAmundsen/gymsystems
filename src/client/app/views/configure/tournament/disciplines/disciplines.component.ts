@@ -82,7 +82,7 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
     return Array.from(discipline.scoreGroups.reduce((judges, scoreGroup) => {
       scoreGroup.judges
         .sort((a, b) => a.sortNumber < b.sortNumber ? -1 : 1)
-        .map(j => j.judge.name)
+        .map(j => j && j.judge ? j.judge.name : '')
         .forEach(j => {if (j !== 'System') {judges.add(j); }});
       return judges;
     }, new Set<string>()));

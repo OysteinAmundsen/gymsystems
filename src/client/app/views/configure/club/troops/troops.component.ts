@@ -31,7 +31,7 @@ export class TroopsComponent implements OnInit {
   userSubscription: Subscription;
 
   // selected: ITroop;
-  defaults: IDivision[];
+  defaults: IDivision[] = [];
 
   teamSource = new SubjectSource<ITroop>(new BehaviorSubject<ITroop[]>([]));
   get teams() { return this.teamSource.subject.value || []; }
@@ -75,7 +75,7 @@ export class TroopsComponent implements OnInit {
     const ages: number[] = team.gymnasts.map(g => <number> age(g.birthYear));
     const minAge: number = Math.min(...ages);
     const maxAge: number = Math.max(...ages);
-    const divisionMatch = this.defaults.find(k => maxAge <= k.max && minAge >= k.min);
+    const divisionMatch = this.defaults ? this.defaults.find(k => maxAge <= k.max && minAge >= k.min) : false;
     return divisionMatch ? _.startCase(divisionMatch.name) : `${minAge} - ${maxAge}`;
   }
 

@@ -194,20 +194,23 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.meta.updateTag({property: 'og:title', content: `Configure tournament: ${tournament.name} | GymSystems`});
     this.meta.updateTag({property: 'og:description', content: `Configure tournament settings and contenders for ${tournament.name}`});
 
-    this.tournamentForm.setValue({
-      id: this.tournament.id,
-      name: this.tournament.name,
-      club: this.tournament.club,
-      startDate: this.tournament.startDate,
-      endDate: this.tournament.endDate,
-      venue: this.tournament.venue || null,
-      description: this.tournament['description_' + this.translate.currentLang] || '',
-      createdBy: this.tournament.createdBy,
-      times: this.tournament.times || null,
-      providesLodging: this.tournament.providesLodging,
-      providesTransport: this.tournament.providesTransport,
-      providesBanquet: this.tournament.providesBanquet
-    });
+    if (this.tournamentForm) {
+      // If not, this component is probably terminated before callback is called.
+      this.tournamentForm.setValue({
+        id: this.tournament.id,
+        name: this.tournament.name,
+        club: this.tournament.club,
+        startDate: this.tournament.startDate,
+        endDate: this.tournament.endDate,
+        venue: this.tournament.venue || null,
+        description: this.tournament['description_' + this.translate.currentLang] || '',
+        createdBy: this.tournament.createdBy,
+        times: this.tournament.times || null,
+        providesLodging: this.tournament.providesLodging,
+        providesTransport: this.tournament.providesTransport,
+        providesBanquet: this.tournament.providesBanquet
+      });
+    }
   }
 
   ngOnDestroy() {
