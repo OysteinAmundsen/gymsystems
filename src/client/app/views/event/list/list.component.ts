@@ -13,7 +13,9 @@ import { ScheduleService, TeamsService, EventService, UserService, ScoreService 
 import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
 
-import { ITournament, ITeamInDiscipline, ITeam, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/model';
+import {
+  ITournament, ITeamInDiscipline, ITeam, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes, DivisionType
+} from 'app/model';
 
 /**
  *
@@ -194,8 +196,15 @@ export class ListComponent implements OnInit, OnDestroy {
    */
   startTime(participant: ITeamInDiscipline): string {
     let timeCache = this.cache(participant);
+    if (participant.markDeleted) {
+      return '';
+    }
     if (!timeCache.time) {
-      timeCache = this.cache(participant, { time: this.scheduleService.startTime(this.tournament, participant)});
+      if (participant.startTime) {
+        timeCache = this.cache(participant, { time: moment(participant.startTime).format('HH:mm') });
+      } else {
+        timeCache = this.cache(participant, { time: this.scheduleService.startTime(this.tournament, participant)});
+      }
     }
     return timeCache.time;
   }
@@ -236,10 +245,15 @@ export class ListComponent implements OnInit, OnDestroy {
    */
   division(team: ITeam) { return this.teamService.getDivisionName(team); }
 
+  isScorable(participant: ITeamInDiscipline): boolean {
+    const ageDiv = participant.team.divisions.find(d => d.type === DivisionType.Age);
+    return ageDiv.scorable;
+  }
+
   /**
    *
    */
-  score(participant: ITeamInDiscipline) {
+  score(participant: ITeamInDiscipline): number {
     const score = this.scoreService.calculateTotal(participant);
 
     // Only show score if score is published, OR logged in user is part of the secretariat
@@ -249,7 +263,7 @@ export class ListComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  canEdit(participant: ITeamInDiscipline) {
+  canEdit(participant: ITeamInDiscipline): boolean {
     return this.user && (!participant || !participant.markDeleted) && (
       this.user.role >= Role.Admin
       || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.club.id)
@@ -259,7 +273,7 @@ export class ListComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  canViewActions() {
+  canViewActions(): boolean {
     return this.user
         && (this.user.role >= Role.Admin
           || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.club.id)
