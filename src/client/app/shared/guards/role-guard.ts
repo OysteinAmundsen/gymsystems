@@ -5,7 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { UserService } from 'app/services/api';
 import { Role } from 'app/model';
 
-@Injectable()
+@Injectable({ providedIn: 'root'})
 export class RoleGuard implements CanActivate {
   currentUser;
   constructor(protected router: Router, protected userService: UserService) {

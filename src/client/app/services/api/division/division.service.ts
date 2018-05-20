@@ -5,7 +5,7 @@ import { Observable} from 'rxjs';
 import { IDivision } from 'app/model';
 import { Helper } from '../Helper';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DivisionService {
   url = '/api/divisions';
 

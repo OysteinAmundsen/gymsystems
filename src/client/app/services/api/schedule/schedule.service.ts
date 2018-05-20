@@ -10,7 +10,7 @@ import { ConfigurationService } from '../configuration/configuration.service';
 import { ITeamInDiscipline, ITournament, ParticipationType, DivisionType } from 'app/model';
 import { Helper } from '../Helper';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ScheduleService {
   url = '/api/schedule';
   executionTime: number;

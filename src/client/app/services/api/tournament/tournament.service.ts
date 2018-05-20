@@ -9,7 +9,7 @@ import { ITournament } from 'app/model/ITournament';
 import { Helper } from '../Helper';
 import { HttpParams } from '@angular/common/http';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TournamentService {
   private url = '/api/tournaments';
   selected: ITournament;

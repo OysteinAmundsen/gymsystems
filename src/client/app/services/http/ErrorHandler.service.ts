@@ -5,7 +5,7 @@ import { ErrorDialogComponent } from 'app/shared/components/error-dialog/error-d
 /**
  * Generic error handler. Error message is displayed in app.component
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ErrorHandlerService {
   private dialogRef: MatDialogRef<ErrorDialogComponent>;
 

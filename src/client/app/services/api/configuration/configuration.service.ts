@@ -4,7 +4,7 @@ import { Observable} from 'rxjs';
 
 import { IConfiguration } from 'app/model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ConfigurationService  {
   url = '/api/configuration';
 

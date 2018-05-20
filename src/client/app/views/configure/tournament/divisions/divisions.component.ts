@@ -125,7 +125,7 @@ export class DivisionsComponent implements OnInit, OnDestroy {
     let divisions: IDivision[] = []; // Get currently selected division bin
     if ($event !== 'DELETED') {
       // Copy properties over to selected object
-      Object.keys(this.selected).forEach(k => this.selected[k] = $event[k]);
+      Object.keys($event).forEach(k => this.selected[k] = $event[k]);
 
       switch ($event.type) {
         case DivisionType.Gender: divisions = this.genderDivisions; break;

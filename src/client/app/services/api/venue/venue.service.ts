@@ -8,7 +8,7 @@ import { Helper } from '../Helper';
 import { IVenue, ITournament } from 'app/model';
 import { HttpHeaders } from '@angular/common/http';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class VenueService {
   public static apiKey = 'AIzaSyDIYbCDSYzEF6naFvgkjv297hX7cqS3mBs';
 

@@ -41,7 +41,6 @@ export class DivisionEditorComponent implements OnInit {
     if (this.division.tournament) {
       this.divisionService.save(this.divisionForm.value).subscribe(result => {
         this.divisionChanged.emit(result);
-        // this.divisionForm.setValue(result);
       });
     } else {
       this.divisionChanged.emit(this.divisionForm.value);

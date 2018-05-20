@@ -1,3 +1,4 @@
+import { HttpCacheService } from './../../http/http-cache.service';
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import { Logger } from 'app/services';
@@ -21,7 +22,7 @@ declare class EventSource {
 /**
  *
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EventService {
   url = '/apievent';
   observable: Observable<any>;
@@ -31,7 +32,7 @@ export class EventService {
   reconnectCount = 0;
   timer;
 
-  constructor() {
+  constructor(private cache: HttpCacheService) {
     this.observable = Observable.create((observer: Observer<any>) => {
       this.observer = observer;
       this.eventSource = this.createConnection();
@@ -49,6 +50,7 @@ export class EventService {
    * @param msg
    */
   private onMessage(msg) {
+    this.cache.invalidateAll(); // Force reload of cache after server notified of data updates
     this.observer.next(msg.data);
   }
 

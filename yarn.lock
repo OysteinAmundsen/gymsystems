@@ -353,9 +353,9 @@
   dependencies:
     "@types/jasmine" "*"
 
-"@types/lodash@4.14.108":
-  version "4.14.108"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.108.tgz#02656af3add2e5b3174f830862c47421c00ef817"
+"@types/lodash@4.14.109":
+  version "4.14.109"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.109.tgz#b1c4442239730bf35cabaf493c772b18c045886d"
 
 "@types/marked@^0.0.27":
   version "0.0.27"
@@ -398,9 +398,9 @@
   version "6.0.110"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.110.tgz#6bbfc1c14d671348e3db4f89f3b487785e684684"
 
-"@types/node@10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.1.1.tgz#ca39d8607fa1fcb146b0530420b93f1dd4802f6c"
+"@types/node@10.1.2":
+  version "10.1.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.1.2.tgz#1b928a0baa408fc8ae3ac012cc81375addc147c6"
 
 "@types/passport-local@1.0.33":
   version "1.0.33"
@@ -686,9 +686,9 @@ amqplib@^0.5.2:
     readable-stream "1.x >=1.1.9"
     safe-buffer "^5.0.1"
 
-angulartics2@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-6.0.0.tgz#9c9c360cdbe51e457d9c3460b94296430e550110"
+angulartics2@6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-6.1.0.tgz#4cbeb321f47b08d1063651ff32636ef1ec49e1c1"
   dependencies:
     tslib "^1.9.0"
 

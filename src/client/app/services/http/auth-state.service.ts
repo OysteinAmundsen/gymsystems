@@ -10,7 +10,7 @@ import { HttpMethod } from './HttpMethod';
 /**
  *
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthStateService {
   public httpAction: Subject<HttpAction> = new Subject();
 

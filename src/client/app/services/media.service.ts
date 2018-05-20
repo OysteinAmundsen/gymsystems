@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IMedia } from 'app/model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MediaService {
   private audio = new Audio();
 

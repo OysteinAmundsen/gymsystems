@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Helper } from 'app/services/api/Helper';
 import { IScoreGroup } from 'app/model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class JudgeService {
   url = '/api/judges';
 

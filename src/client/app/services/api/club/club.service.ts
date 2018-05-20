@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { IClub, IBelongsToClub, IGymnast, ITroop } from 'app/model';
 import { Helper } from '../Helper';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ClubService {
   url = '/api/clubs';
   constructor(private http: HttpClient) { }

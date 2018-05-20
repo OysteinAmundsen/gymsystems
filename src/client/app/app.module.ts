@@ -1,6 +1,8 @@
+import { VenueService } from './services/api/venue/venue.service';
+import { HttpCacheInterceptor } from './services/http/interceptors/HttpCacheInterceptor';
 // Framework & libs
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, Injectable } from '@angular/core';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -30,14 +32,6 @@ registerLocaleData(localeNo);
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 
-// Module API services
-import {
-  UserService, ScoreService, ScoreGroupService, TournamentService, DisciplineService, DivisionService,
-  TeamsService, ConfigurationService, ScheduleService, EventService, DisplayService, ClubService, VenueService, JudgeService
-} from './services/api';
-import { ErrorHandlerService } from './services/http/ErrorHandler.service';
-import { MediaService } from './services/media.service';
-
 // Other services
 import { RoleGuard } from './shared/guards/role-guard';
 import { AuthInterceptor, TimeoutInterceptor, DEFAULT_TIMEOUT, defaultTimeout } from './services/http';
@@ -55,6 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './i18n/', '.json');
 }
 
+@Injectable()
 export class MyHammerConfig extends HammerGestureConfig  {
   buildHammer(element: HTMLElement) {
     const mc = new Hammer(element, {
@@ -76,7 +71,6 @@ export class MyHammerConfig extends HammerGestureConfig  {
     // Framework modules
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
@@ -91,6 +85,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ], { developerMode: !environment.production }),
     AgmCoreModule.forRoot({ apiKey: VenueService.apiKey }),
 
+    // Material imports
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
@@ -109,35 +104,11 @@ export class MyHammerConfig extends HammerGestureConfig  {
     AppRoutingModule
   ],
   providers: [
-    // API Services
-    UserService,
-    ScoreService,
-    ScoreGroupService,
-    TournamentService,
-    DisciplineService,
-    DivisionService,
-    TeamsService,
-    ConfigurationService,
-    ScheduleService,
-    DisplayService,
-    ClubService,
-    MediaService,
-    VenueService,
-    JudgeService,
-
-    ErrorHandlerService,
-
-    // SSE Provider
-    EventService,
-
-    // Activation guards
-    RoleGuard,
-
     // Authentication interceptor
-    AuthStateService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: TimeoutInterceptor, multi: true },
     { provide: DEFAULT_TIMEOUT, useValue: defaultTimeout },
+    { provide: HTTP_INTERCEPTORS, useClass: TimeoutInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpCacheInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'nb-NO' },
     { // hammer instantion with custom config
       provide: HAMMER_GESTURE_CONFIG,

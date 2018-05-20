@@ -5,7 +5,7 @@ import { IScore, ITeamInDiscipline, Operation } from 'app/model';
 import { Helper } from '../Helper';
 import { Observable} from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ScoreService {
   url = '/api/score/participant';
 

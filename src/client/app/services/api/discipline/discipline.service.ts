@@ -5,7 +5,7 @@ import { Observable} from 'rxjs';
 import { IDiscipline } from 'app/model';
 import { Helper } from '../Helper';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DisciplineService {
   url = '/api/disciplines';
 

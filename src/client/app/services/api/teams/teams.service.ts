@@ -5,7 +5,7 @@ import { Observable} from 'rxjs';
 import { ITeam, IDiscipline, DivisionType } from 'app/model';
 import { Helper } from '../Helper';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TeamsService {
   url = '/api/teams';
 

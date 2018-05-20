@@ -5,7 +5,7 @@ import { Observable} from 'rxjs';
 import { IScoreGroup } from 'app/model';
 import { Helper } from '../Helper';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ScoreGroupService {
   url = '/api/scoregroups';
 

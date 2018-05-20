@@ -7,7 +7,7 @@ import { Logger } from 'app/services';
 import { IUser } from 'app/model';
 import { Helper } from '../Helper';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UserService {
   private _isLoadingUser = false;
   private _meObservable = new ReplaySubject<IUser>(1);
@@ -42,7 +42,7 @@ export class UserService {
    *
    */
   private _loadMeInternal() {
-    return this.http.get<IUser>('/api/users/me')
+    return this.http.get<IUser>('/api/users/me', {headers: {'noCache': 'true'}})
       .pipe(
         map((res: IUser) => this.userReceived(res)),
         catchError((err: Response) =>  {
