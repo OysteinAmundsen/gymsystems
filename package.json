@@ -107,7 +107,7 @@
     "json2csv": "4.1.2",
     "lodash": "4.17.10",
     "markdown-to-html-pipe": "1.2.4",
-    "marked": "0.3.19",
+    "marked": "0.4.0",
     "mkdirp": "0.5.1",
     "moment": "2.22.1",
     "morgan": "1.9.0",
