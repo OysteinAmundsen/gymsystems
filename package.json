@@ -123,7 +123,7 @@
     "rimraf": "2.6.2",
     "routing-controllers": "0.7.7",
     "rxjs": "6.1.0",
-    "rxjs-compat": "6.1.0",
+    "rxjs-compat": "6.2.0",
     "sendmail": "1.4.1",
     "serve-favicon": "2.5.0",
     "session-memory-store": "0.2.2",
