@@ -136,7 +136,7 @@
     "@angular-devkit/build-angular": "0.6.3",
     "@angular/cli": "6.0.3",
     "@angular/compiler-cli": "6.0.2",
-    "@angular/language-service": "6.0.2",
+    "@angular/language-service": "6.0.3",
     "@biesbjerg/ngx-translate-extract": "2.3.4",
     "@types/bcryptjs": "2.4.1",
     "@types/body-parser": "1.17.0",
