@@ -82,7 +82,7 @@
     "@angular/platform-browser": "6.0.2",
     "@angular/platform-browser-dynamic": "6.0.2",
     "@angular/pwa": "0.6.3",
-    "@angular/router": "6.0.2",
+    "@angular/router": "6.0.3",
     "@angular/service-worker": "6.0.2",
     "@ngx-translate/core": "10.0.1",
     "@ngx-translate/http-loader": "3.0.1",
