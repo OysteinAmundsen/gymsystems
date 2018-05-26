@@ -83,6 +83,15 @@
   background-repeat: repeat-y;
   background-size: 100% 3em;
   background-position: 0 0;
+  @media (max-width: 32rem) {
+    // There's only room for one column. Switch to borders instead of gradient background.
+    background-image: none;
+    table tr {
+      th, td {
+        border-bottom-color: rgba($primary, 0.3);
+      }
+    }
+  }
 }
 
 table {
