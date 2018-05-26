@@ -44,30 +44,6 @@ export class ClubEditorComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.userService.getMe().subscribe(user => {
-        this.user = user;
-        if (user.role < Role.Admin && user.club.id !== +params.id) {
-          // If you are not admin, and this is not your club, you will be
-          // auto-redirected one url-level up to let the ClubComponent handle
-          // placing you where you are supposed to be.
-          return this.goBack();
-        }
-        if (params.id) {
-          // Existing club
-          this.clubService.getById(+params.id)
-            .subscribe(
-              club => this.clubReceived(club),
-              err => this.goBack()
-            );
-        } else {
-          // Creating new club
-          this.isAdding = true;
-          this.isEdit = true;
-        }
-      });
-    });
-
     // Setup form
     this.clubForm = this.fb.group({
       id: [this.club.id],
@@ -89,6 +65,30 @@ export class ClubEditorComponent implements OnInit {
         const name: string = (typeof v === 'string' ? v : v.name);
         this.clubService.findByName(name).subscribe(clubs => this.clubList = clubs);
       });
+
+    this.route.params.subscribe(params => {
+      this.userService.getMe().subscribe(user => {
+        this.user = user;
+        if (!user || (user.role < Role.Admin && user.club.id !== +params.id)) {
+          // If you are not admin, and this is not your club, you will be
+          // auto-redirected one url-level up to let the ClubComponent handle
+          // placing you where you are supposed to be.
+          return this.goBack();
+        }
+        if (params.id) {
+          // Existing club
+          this.clubService.getById(+params.id)
+            .subscribe(
+              club => this.clubReceived(club),
+              err => this.goBack()
+            );
+        } else {
+          // Creating new club
+          this.isAdding = true;
+          this.isEdit = true;
+        }
+      });
+    });
   }
 
   setSelectedClub(v: MatAutocompleteSelectedEvent) {
@@ -104,10 +104,13 @@ export class ClubEditorComponent implements OnInit {
     }
     this.club = club;
     this.clubSubject.next(club);
-    this.clubForm.setValue({
-      id: club.id,
-      name: club.name
-    });
+    if (this.clubForm) {
+      // If not, this callback must be called either pre-init or post-mortem for this component
+      this.clubForm.setValue({
+        id: club.id,
+        name: club.name
+      });
+    }
   }
 
   save() {

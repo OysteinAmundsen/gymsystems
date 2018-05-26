@@ -90,6 +90,22 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   ) {  }
 
   ngOnInit() {
+    // Create the form
+    this.tournamentForm = this.fb.group({
+      id: [this.tournament.id],
+      name: [this.tournament.name, [Validators.required]],
+      club: [this.tournament.club, [Validators.required]],
+      startDate: [this.tournament.startDate, [Validators.required]],
+      endDate: [this.tournament.endDate, [Validators.required]],
+      venue: [this.tournament.venue],
+      description: [this.tournament['description_' + this.translate.currentLang] || ''],
+      createdBy: [this.tournament.createdBy],
+      times: [this.tournament.times],
+      providesLodging: [this.tournament.providesLodging],
+      providesTransport: [this.tournament.providesTransport],
+      providesBanquet: [this.tournament.providesBanquet]
+    });
+
     this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
     this.route.params.subscribe((params: any) => {
       if (params.id) {
@@ -114,22 +130,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
     // Make sure we have translations for weekdays
     this.translate.get(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']).subscribe();
-
-    // Create the form
-    this.tournamentForm = this.fb.group({
-      id: [this.tournament.id],
-      name: [this.tournament.name, [Validators.required]],
-      club: [this.tournament.club, [Validators.required]],
-      startDate: [this.tournament.startDate, [Validators.required]],
-      endDate: [this.tournament.endDate, [Validators.required]],
-      venue: [this.tournament.venue],
-      description: [this.tournament['description_' + this.translate.currentLang] || ''],
-      createdBy: [this.tournament.createdBy],
-      times: [this.tournament.times],
-      providesLodging: [this.tournament.providesLodging],
-      providesTransport: [this.tournament.providesTransport],
-      providesBanquet: [this.tournament.providesBanquet]
-    });
 
     // Filter club in typeahead
     const clubCtrl = this.tournamentForm.controls['club'];

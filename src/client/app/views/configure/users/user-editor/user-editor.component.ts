@@ -46,17 +46,6 @@ export class UserEditorComponent implements OnInit {
   ngOnInit() {
     this.userService.getMe().subscribe(user => this.currentUser = user);
 
-    this.route.params.subscribe((params: any) => {
-      if (params.id) {
-        this.selectedUserId = params.id;
-        this.userService.getById(params.id).subscribe(user => this.userReceived(user));
-      } else {
-        this.title.setTitle(`Add user | GymSystems`);
-        this.meta.updateTag({property: 'og:title', content: `Add user | GymSystems`});
-        this.meta.updateTag({property: 'og:description', content: `Creating a new user in the system`});
-      }
-    });
-
     // Create the form
     this.userForm = this.fb.group({
       id: [this.user.id],
@@ -69,6 +58,17 @@ export class UserEditorComponent implements OnInit {
     }, {validator: (c: AbstractControl) => {
       return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false}};
     }});
+
+    this.route.params.subscribe((params: any) => {
+      if (params.id) {
+        this.selectedUserId = params.id;
+        this.userService.getById(params.id).subscribe(user => this.userReceived(user));
+      } else {
+        this.title.setTitle(`Add user | GymSystems`);
+        this.meta.updateTag({property: 'og:title', content: `Add user | GymSystems`});
+        this.meta.updateTag({property: 'og:description', content: `Creating a new user in the system`});
+      }
+    });
 
     const clubCtrl = this.userForm.controls['club'];
     // Read filtered options

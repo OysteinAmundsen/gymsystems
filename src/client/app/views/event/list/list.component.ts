@@ -264,7 +264,7 @@ export class ListComponent implements OnInit, OnDestroy {
    *
    */
   canEdit(participant: ITeamInDiscipline): boolean {
-    return this.user && (!participant || !participant.markDeleted) && (
+    return this.user && (!participant || !participant.markDeleted) && this.isScorable(participant) && (
       this.user.role >= Role.Admin
       || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.club.id)
     );
@@ -398,7 +398,7 @@ export class ListComponent implements OnInit, OnDestroy {
    *
    */
   closeEditor() {
-    this.select(null);
+    this.selected = null;
   }
 
   /**

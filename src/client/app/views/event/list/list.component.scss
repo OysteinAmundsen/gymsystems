@@ -7,6 +7,13 @@
 header {
   padding: 0 0.5rem;
   align-items: center;
+  @supports(position: sticky) {
+    position: sticky;
+    top: 3.5rem;
+    background-image: linear-gradient(to bottom, white 60%, rgba(white, 0) 100%);
+    border-radius: 5px;
+    z-index: 1;
+  }
 }
 td.editor {
   padding: 0;

@@ -2,7 +2,7 @@
 header {
   padding: 1rem 0.5rem;
   line-height: 3em;
-  @media (min-width: $stop1) {
+  // @media (min-width: $stop1) {
     display: flex;
     .hgroup {
       flex: 1;
@@ -10,7 +10,7 @@ header {
     .buttons {
       margin-top: 0.8rem;
     }
-  }
+  // }
   &::after {
     content: '';
     display: table;

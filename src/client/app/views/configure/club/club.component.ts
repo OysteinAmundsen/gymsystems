@@ -34,7 +34,7 @@ export class ClubComponent implements OnInit, OnDestroy {
     this.meta.updateTag({property: 'og:description', content: `List out all clubs registerred in the system`});
     this.userService.getMe().subscribe(user => {
       this.user = user;
-      if (this.user.role >= Role.Admin) {
+      if (this.user && this.user.role >= Role.Admin) {
         // Only admins should be able to edit any clubs
         this.clubService.all().subscribe(clubs => this.clubSource.subject.next(clubs));
       } else {

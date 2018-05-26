@@ -52,6 +52,7 @@ export class RegisterComponent implements OnInit {
     }, {validator: (c: AbstractControl) => {
       return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false}};
     }});
+
     // Read filtered options
     const clubCtrl = this.registerForm.controls['club'];
     clubCtrl.valueChanges
