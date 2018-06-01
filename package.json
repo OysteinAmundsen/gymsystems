@@ -128,7 +128,7 @@
     "session-memory-store": "0.2.2",
     "typedi": "0.7.3",
     "typeorm": "0.2.6",
-    "winston": "2.4.2",
+    "winston": "3.0.0-rc6",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
