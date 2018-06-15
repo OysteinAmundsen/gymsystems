@@ -155,7 +155,7 @@
     "@types/node-schedule": "1.2.2",
     "@types/passport": "0.4.5",
     "@types/passport-local": "1.0.33",
-    "@types/request": "2.47.0",
+    "@types/request": "2.47.1",
     "@types/rimraf": "2.0.2",
     "@types/serve-favicon": "2.2.30",
     "@types/winston": "2.3.9",
