@@ -126,7 +126,7 @@
     "sendmail": "1.4.1",
     "serve-favicon": "2.5.0",
     "session-memory-store": "0.2.2",
-    "typedi": "0.7.3",
+    "typedi": "0.8.0",
     "typeorm": "0.2.6",
     "winston": "2.4.2",
     "zone.js": "0.8.26"
