@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "gymsystems": {
-      "root": "",
+      "root": "src/client",
       "sourceRoot": "src/client",
       "projectType": "application",
       "prefix": "app",
@@ -35,12 +35,15 @@
               "src/client/manifest.json"
             ],
             "styles": [
-              {
-                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
-              },
-              "src/client/styles.scss",
-              "node_modules/font-awesome/scss/font-awesome.scss"
+              { "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css" },
+              { "input": "node_modules/font-awesome/scss/font-awesome.scss" },
+              "src/client/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/client/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -89,12 +92,15 @@
             "tsConfig": "src/client/tsconfig.spec.json",
             "karmaConfig": "src/client/karma.conf.js",
             "styles": [
-              {
-                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
-              },
-              "styles.scss",
-              "node_modules/font-awesome/scss/font-awesome.scss"
+              { "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css" },
+              { "input": "node_modules/font-awesome/scss/font-awesome.scss" },
+              "styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/client/styles"
+              ]
+            },
             "scripts": [],
             "assets": [
               "src/client/favicon.ico",

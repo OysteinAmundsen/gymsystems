@@ -20,7 +20,7 @@
 
 <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="center"></mat-progress-spinner>
 
-<section class="table-responsive">
+<section [ngClass]="{isSecond: user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.club.id))}">
   <table *ngIf="tournament && schedule.length" role="list">
     <thead>
       <tr>

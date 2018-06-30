@@ -1,4 +1,10 @@
-import { IfAuthDirective } from './if-auth.directive';
+import { Directive, Input } from '@angular/core';
+
+@Directive({ selector: '[appIfAuth]' })
+export class MockIfAuthDirective {
+  @Input() appIfAuth;
+  constructor() {  }
+}
 
 describe('shared.directives:IfAuthDirective', () => {
   it('should create an instance', () => {

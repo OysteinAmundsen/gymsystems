@@ -55,7 +55,7 @@
             <td *ngFor="let discipline of disciplines">
               <small>
                 <i class="fa fa-fw fa-square" [attr.discipline]="discipline.sortOrder"></i>
-                {{discipline.name}}
+                <span>{{discipline.name}}</span>
               </small>
             </td>
             <td translate class="score">Total</td>

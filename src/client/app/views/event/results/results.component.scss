@@ -3,6 +3,23 @@
 :host {
   position: relative;
   display: block;
+  ::ng-deep {
+    .mat-card {
+      &.collapsed {
+        overflow: hidden;
+        .mat-card-header {
+          position: static !important;
+        }
+        table thead th {
+          top: 0 !important;
+        }
+      }
+      .mat-card-header-text {
+        margin: 0;
+        width: 100%;
+      }
+    }
+  }
 }
 .buttons {
   text-align: right;
@@ -19,19 +36,24 @@
   }
 }
 
-.mat-card ::ng-deep {
-  padding: 0;
-  overflow: hidden;
-  margin-bottom: 1rem;
-  .mat-card-header-text {
-    margin: 0;
-    width: 100%;
-  }
-}
-.mat-card {
+.mat-card  {
   page-break-after: always;
   -webkit-print-color-adjust: exact !important;
   margin: 0.5cm;
+  padding: 0;
+  margin-bottom: 1rem;
+  @media (max-width: 32rem) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .mat-card-header {
+    @media only screen {
+      position: sticky;
+      top: 3.4rem;
+      display: block;
+      z-index: 2;
+    }
+  }
   .collapser {
     cursor: pointer;
     transition: transform 0.2s;
@@ -81,7 +103,7 @@
 .flex-col {
   background-image: linear-gradient(to bottom, #fff 99%, rgba($primary,0.9) 100%);
   background-repeat: repeat-y;
-  background-size: 100% 3em;
+  background-size: 100% 2.94em;
   background-position: 0 0;
   @media (max-width: 32rem) {
     // There's only room for one column. Switch to borders instead of gradient background.
@@ -121,10 +143,20 @@ table {
   }
   thead {
     th {
+      @media only screen {
+        position: sticky;
+        top: 5.4rem;
+        z-index: 1;
+      }
       background: lighten($primary, 20%);
     }
     td {
       color: black;
+      @media (max-width: 30rem) {
+        small span {
+          display: none;
+        }
+      }
     }
   }
   tbody tr {

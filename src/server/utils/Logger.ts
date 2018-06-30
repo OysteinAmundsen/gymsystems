@@ -1,4 +1,3 @@
-import { LoggerInstance } from 'winston';
 import * as winston from 'winston';
 import * as morgan from 'morgan';
 import * as fs from 'fs';
@@ -7,6 +6,7 @@ import * as chalk from 'chalk';
 import { LoggerOptions } from 'typeorm/logger/LoggerOptions';
 import { Logger, QueryRunner } from 'typeorm';
 import { PlatformTools } from 'typeorm/platform/PlatformTools';
+import { createLogger, transports, format } from 'winston';
 
 if (!fs.existsSync('./log')) {
   mkdirp('./log', (err, made) => {
@@ -26,45 +26,39 @@ if (!fs.existsSync('./log')) {
  * ```
  */
 export namespace Log {
-  function formatter(logEntry: any) {
-    // Remove ansi coloring from log entries
-    const regexp = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
-    return JSON.stringify({
-      level: logEntry.level,
-      timestamp: new Date().toISOString(),
-      message: logEntry.message.replace(regexp, ''),
-    });
-  }
-  export let log: LoggerInstance = new winston.Logger({
+  export let log: winston.Logger = createLogger({
     transports: [
-      new winston.transports.File({
-        name: 'errorLog',
+      new transports.File({
         level: 'error',
         filename: './log/errors.log',
         handleExceptions: true,
-        json: false,
         maxsize: (1 * 1024 * 1024), // 1MB
         maxFiles: 5,
-        colorize: false,
-        formatter: formatter
+        format: format.combine(
+          format.splat(),
+          format.timestamp(),
+          format.json()
+        )
       }),
-      new winston.transports.File({
-        name: 'info',
+      new transports.File({
         level: 'info',
         filename: './log/all-logs.log',
         handleExceptions: false,
-        json: false,
         maxsize: (1 * 1024 * 1024), // 1MB
         maxFiles: 5,
-        colorize: false,
-        formatter: formatter
+        format: format.combine(
+          format.splat(),
+          format.timestamp(),
+          format.json()
+        )
       }),
-      new winston.transports.Console({
-        name: 'all',
+      new transports.Console({
         level: 'debug',
         handleExceptions: true,
-        json: false,
-        colorize: true
+        format: format.combine(
+          format.colorize(),
+          format.simple()
+        )
       })
     ],
     exitOnError: false
@@ -94,7 +88,7 @@ export class OrmLog implements Logger {
   logQuery(query: string, parameters?: any[], queryRunner?: QueryRunner) {
     if (this.options === 'all' || this.options === true || (this.options instanceof Array && this.options.indexOf('query') !== -1)) {
       const sql = query + (parameters && parameters.length ? ' -- PARAMETERS: ' + this.stringifyParams(parameters) : '');
-      Log.log.verbose(chalk.default.gray.underline('executing query:'), PlatformTools.highlightSql(sql));
+      Log.log.verbose(chalk.default.gray.underline('executing query: ') + PlatformTools.highlightSql(sql));
     }
   }
 
@@ -104,8 +98,8 @@ export class OrmLog implements Logger {
   logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner) {
     if (this.options === 'all' || this.options === true || (this.options instanceof Array && this.options.indexOf('error') !== -1)) {
       const sql = query + (parameters && parameters.length ? ' -- PARAMETERS: ' + this.stringifyParams(parameters) : '');
-      Log.log.error(chalk.default.underline.red(`query failed:`), PlatformTools.highlightSql(sql));
-      Log.log.error(chalk.default.underline.red(`error:`), error);
+      Log.log.error(chalk.default.underline.red(`query failed: `) + PlatformTools.highlightSql(sql));
+      Log.log.error(chalk.default.underline.red(`error: `) + error);
     }
   }
 
@@ -114,8 +108,8 @@ export class OrmLog implements Logger {
    */
   logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: QueryRunner) {
     const sql = query + (parameters && parameters.length ? ' -- PARAMETERS: ' + this.stringifyParams(parameters) : '');
-    Log.log.warn(chalk.default.underline.yellow(`query is slow:`), PlatformTools.highlightSql(sql));
-    Log.log.warn(chalk.default.underline.yellow(`execution time:`), time);
+    Log.log.warn(chalk.default.underline.yellow(`query is slow: `) + PlatformTools.highlightSql(sql));
+    Log.log.warn(chalk.default.underline.yellow(`execution time: `) + time);
   }
 
   /**

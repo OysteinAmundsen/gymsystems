@@ -1,12 +1,12 @@
 // Framework & libs
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2Module, Angulartics2 } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { MatCardModule, MatSnackBarModule, MatDialogModule, MatFormFieldModule } from '@angular/material';
@@ -54,6 +54,15 @@ import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.se
 import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 import { EventServiceStub } from 'app/services/api/event/event.service.stub';
 import { environment } from '../environments/environment.prod';
+
+@Injectable()
+export class DummyProvider {
+  eventSpy: any;
+  constructor(angulartics2: Angulartics2) {
+    this.eventSpy = jasmine.createSpy('eventSpy');
+    angulartics2.pageTrack.subscribe((x) => this.eventSpy(x));
+  }
+}
 
 @NgModule({
   imports: [
