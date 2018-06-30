@@ -1,6 +1,6 @@
 ######################
 ### STAGE 1: Build ###
-FROM node:8-alpine as builder
+FROM node:10-alpine as builder
 
 WORKDIR /usr/src/app
 
@@ -11,18 +11,18 @@ COPY src ./src
 
 # Install packages
 COPY package.json ./
-RUN npm install
+RUN yarn install
 
 # Build to `dist`
-RUN npm run build
+RUN yarn build
 
 # Cleanup! Replace node_modules with production modules
 RUN rm -rf node_modules src
-RUN npm install --production
+RUN yarn install --production
 
 ######################
 ### STAGE 2: Setup ###
-FROM node:8-alpine
+FROM node:10-alpine
 
 # Install app dependencies
 WORKDIR /usr/src/app
@@ -31,4 +31,4 @@ WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app ./
 
 EXPOSE 3000
-ENTRYPOINT npm run db:sync && npm run start
+ENTRYPOINT yarn db:sync && yarn start

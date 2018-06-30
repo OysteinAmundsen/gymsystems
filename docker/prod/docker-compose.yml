@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 services:
   nginx:
@@ -17,10 +17,10 @@ services:
     volumes:
       - ./cert/ssl:/etc/nginx/ssl
     environment:
-      - TZ: UTC
-      - LETSENCRYPT: true
-      - LE_EMAIL: oystein.amundsen@gmail.com
-      - LE_FQDN: www.gymsystems.org
+      TZ: UTC
+      LETSENCRYPT: 'true'
+      LE_EMAIL: oystein.amundsen@gmail.com
+      LE_FQDN: www.gymsystems.org
 
   client:
     build: ../../
@@ -32,8 +32,8 @@ services:
     links:
       - db
     environment:
-      - DATABASE_HOST: db
-      - NODE_ENV: production
+      DATABASE_HOST: db
+      NODE_ENV: production
     volumes:
       - /usr/src/app/node_modules
       - ../../log:/usr/src/app/log

@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 services:
   client:
@@ -11,7 +11,7 @@ services:
     links:
       - db
     environment:
-      - DATABASE_HOST=db
+      DATABASE_HOST: db
     volumes:
       - /usr/src/app/node_modules
       - ../../log:/usr/src/app/log
