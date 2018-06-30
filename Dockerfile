@@ -5,7 +5,7 @@ FROM node:8-alpine as builder
 WORKDIR /usr/src/app
 
 # Copy in source
-COPY tsconfig.json .snyk angular.json yarn.lock ngsw-config.json ./
+COPY tsconfig.json .snyk angular.json yarn.lock ./
 COPY ormconfig.prod.json ormconfig.json
 COPY src ./src
 
