@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.10.2
+version: v1.12.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:lodash:20180130':
@@ -18,3 +18,10 @@ patch:
         patched: '2017-10-27T00:44:10.013Z'
     - markdown-to-html-pipe > marked:
         patched: '2017-10-27T00:44:10.013Z'
+  'npm:lodash:20180130':
+    - json2csv > cli-table2 > lodash:
+        patched: '2018-07-03T01:41:38.730Z'
+    - mysqldump > lodash:
+        patched: '2018-07-03T01:41:38.730Z'
+    - mysqldump > mq-node > lodash:
+        patched: '2018-07-03T01:41:38.730Z'
