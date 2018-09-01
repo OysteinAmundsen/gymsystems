@@ -178,7 +178,7 @@
     "ts-node": "7.0.0",
     "tslint": "5.10.0",
     "typescript": "<2.8.0",
-    "wait-on": "2.1.0"
+    "wait-on": "2.1.1"
   },
   "snyk": true
 }
