@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@agm/core@1.0.0-beta.3":
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@agm/core/-/core-1.0.0-beta.3.tgz#6ec7fd8629134c040f68663b14de3b4a60a8a011"
+"@agm/core@1.0.0-beta.4":
+  version "1.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@agm/core/-/core-1.0.0-beta.4.tgz#44eb7bbf47dfdf7a1731c1fa7c0450c2f0605007"
 
 "@angular-devkit/architect@0.6.8":
   version "0.6.8"
