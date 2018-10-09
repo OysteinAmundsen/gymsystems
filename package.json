@@ -139,7 +139,7 @@
     "@biesbjerg/ngx-translate-extract": "2.3.4",
     "@types/bcryptjs": "2.4.1",
     "@types/body-parser": "1.17.0",
-    "@types/bunyan": "1.8.4",
+    "@types/bunyan": "1.8.5",
     "@types/cookie-parser": "1.4.1",
     "@types/express": "4.16.0",
     "@types/express-session": "1.15.10",
