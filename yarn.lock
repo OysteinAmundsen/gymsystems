@@ -235,9 +235,9 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ngx-translate/http-loader@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@ngx-translate/http-loader/-/http-loader-3.0.1.tgz#20b0f98bc6c25321129d3e3302ab3cc489c0a42a"
+"@ngx-translate/http-loader@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@ngx-translate/http-loader/-/http-loader-4.0.0.tgz#8a555248ad4b7d513460fcec9da25b0447962f1d"
   dependencies:
     tslib "^1.9.0"
 
