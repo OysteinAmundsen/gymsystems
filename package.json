@@ -92,7 +92,7 @@
     "chalk": "2.4.1",
     "cookie-parser": "1.4.3",
     "core-js": "2.5.7",
-    "cors": "2.8.4",
+    "cors": "2.8.5",
     "dragula": "3.7.2",
     "event-source-polyfill": "0.0.12",
     "express": "4.16.3",
