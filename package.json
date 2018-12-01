@@ -167,7 +167,7 @@
     "jasmine-ts": "0.2.1",
     "karma": "2.0.4",
     "karma-chrome-launcher": "2.2.0",
-    "karma-cli": "1.0.1",
+    "karma-cli": "2.0.0",
     "karma-coverage-istanbul-reporter": "2.0.1",
     "karma-jasmine": "1.1.2",
     "karma-jasmine-html-reporter": "1.1.0",
