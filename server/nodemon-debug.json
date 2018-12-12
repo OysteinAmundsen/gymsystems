@@ -1,0 +1,11 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ext": "ts,graphql,json,js",
+  "ignore": [
+    "src/**/*.spec.ts",
+    "src/**/graphql.schema.ts"
+  ],
+  "exec": "node --inspect -r ts-node/register -r tsconfig-paths/register src/main.ts"
+}

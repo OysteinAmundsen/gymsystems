@@ -1,0 +1,36 @@
+type Query {
+  getJudges: [IJudge]
+  judge(id: ID!): IJudge
+}
+
+type Mutation {
+  saveJudge(judge: JudgeInput): IJudge
+  deleteJudge(id: ID): Boolean
+}
+
+type Subscription {
+  judgeCreated: IJudge
+  judgeModified: IJudge
+  judgeDeleted: ID
+}
+
+type IJudge {
+  id: ID!
+  name: String!
+  email: String
+  phone: String
+  allergies: String
+  scoreGroups: [IJudgeInScoreGroup]
+}
+
+input JudgeInput {
+  name: String!
+  email: String
+  phone: String
+  allergies: String
+  scoreGroups: [IDDependencyInput]
+}
+
+input IDDependencyInput {
+  id: ID!
+}

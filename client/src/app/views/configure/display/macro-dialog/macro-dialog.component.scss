@@ -1,0 +1,41 @@
+@import "../../../../../styles/variables";
+ul {
+  li {
+    width: 100%;
+    cursor: pointer;
+    span {
+      display: inline-block;
+    }
+    &.selectable:hover {
+      background: $primaryLight;
+    }
+    &:first-child {
+      .header {
+        padding-top: 0;
+      }
+    }
+  }
+}
+
+:host /deep/ app-dialog {
+  [role="dialogContainer"] {}
+  aside {
+    width: 90%;
+    max-height: 80vh;
+    overflow: auto;
+    @media (min-width: 50rem) {
+      width: 45rem;
+    }
+  }
+}
+
+.header {
+  padding-top: 1rem;
+}
+
+.name {}
+
+.def {
+  font-style: italic;
+  font-size: 0.9rem;
+}

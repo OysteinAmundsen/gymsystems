@@ -1,0 +1,86 @@
+<!-- Header graphics -->
+<svg viewBox="0 0 200 40" preserveAspectRatio="none" class="screen-only site-header-background">
+  <path d="M 0,0 H 200 V 13 c -139,0 -149,1 -200,23 z" />
+  <path d="M 0,0 H 200 V 13 c -139,0 -149,1 -200,17 z" />
+  <path d="M 0,0 H 200 V 13 c -139,0 -149,1 -200,11 z" />
+</svg>
+
+
+<nav class="screen-only">
+  <div class="container">
+    <!-- Logo -->
+    <header>
+      <a class="appLogo" routerLink="/"><span>Gym</span><span>Systems</span></a>
+    </header>
+
+    <div class="spacer"></div>
+
+    <!-- Main application menu -->
+    <ul [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
+      <li *ngIf="hasHelp" [ngClass]="{'active': showHelp, 'visible-wide': true, 'show-help': true}" [title]="'Show all places where help is available on this page' | translate">
+        <a (mouseenter)="toggleHelp()" (mouseleave)="toggleHelp()"><i class="fa fa-fw fa-question"></i></a>
+      </li>
+      <li [title]="'Navigate to the systems frontpage' | translate">
+        <a routerLink="/">
+          <i class="fa fa-fw fa-home"></i> <span translate>Home</span> </a>
+      </li>
+      <li *appIfAuth="false" [title]="'Login to the system if you have an account' | translate">
+        <a routerLink="/login" [queryParams]="{u: locationHref}">
+          <i class="fa fa-fw fa-sign-in"></i> <span translate>Login</span> </a>
+      </li>
+      <li [routerLinkActive]="['active']" *appIfAuth="'Club'" [title]="'You have the privileges to make changes in the system here' | translate">
+        <a routerLink="/configure">
+          <i class="fa fa-fw fa-cogs"></i> <span translate>Configure</span> </a>
+      </li>
+      <li [routerLinkActive]="['active']" *appIfAuth="true" class="visible-narrow" [title]="'Logout of the system' | translate">
+        <a routerLink="/logout">
+          <i class="fa fa-fw fa-sign-out"></i> <span translate>Log out</span> </a>
+      </li>
+    </ul>
+
+    <!-- Mobile nav menu activator -->
+    <button mat-icon-button type="button" class="mobile-menu-toggle">
+      <i class="fa fa-fw fa-bars fa-2x" (click)="toggleNav($event)"></i>
+    </button>
+  </div>
+</nav>
+
+<div [ngClass]="'container' + (showHelp ? ' view-help' : '')">
+  <router-outlet></router-outlet>
+</div>
+
+<footer class="screen-only">
+  <!-- Footer graphics -->
+  <svg viewBox="0 0 200 38" preserveAspectRatio="none" class="site-header-background">
+    <path d="M 200,21 H 0 v -1 C 132,20 149,18 200,0 Z" />
+    <path d="m 200,21 h -200 v -1 c 140,0 155,-1 200,-16 z" />
+    <path d="m 200,21 h -200 v -1 c 140,0 150,1 200,-11 z" />
+  </svg>
+
+  <div class="container">
+    <div class="feedback visible-medium">
+      <a href="https://github.com/OysteinAmundsen/gymsystems/issues/new" target="_blank">
+        <i class="fa fa-fw fa-envelope"></i>
+        {{ 'Register flaws or request features' | translate }}
+      </a>
+    </div>
+    <div class="language-selector">
+      <button mat-icon-button (click)="changeLang('no')">
+        <i [ngClass]="'clickable flag-icon flag-icon-large flag-icon-no ' + (currentLang === 'no' ? 'selected' : '')"></i>
+      </button>
+      <button mat-icon-button (click)="changeLang('en')">
+        <i [ngClass]="'clickable flag-icon flag-icon-large flag-icon-gb ' + (currentLang === 'en' ? 'selected' : '')"></i>
+      </button>
+    </div>
+    <span *ngIf="user" class="user-info">
+      <b translate>Logged in as: </b><i>{{ user.name }}</i><br>
+      <a [routerLink]="['/logout']"><i class="fa fa-fw fa-sign-out"></i><span translate>Logout</span></a>
+    </span>
+    <div class="pull-left logo">
+      <a href="http://www.haugesundturn.no/"><img src="assets/images/Logo-Haugesund-Turnforening.white.svg" height="101"
+          alt="Haugesund Turnforening" title="Haugesund Turnforening"></a>
+      <a href="http://www.gymogturn.no/"><img src="assets/images/NGTF_logo_farger.png" alt="Norges gym- og Turnforening"
+          title="Norges gym- og Turnforening"></a>
+    </div>
+  </div>
+</footer>

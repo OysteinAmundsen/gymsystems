@@ -1,0 +1,70 @@
+apiVersion: apps/v1beta1 # for versions before 1.8.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: gymsystems
+spec:
+  selector:
+    matchLabels:
+      app: gymsystems
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 10%
+      maxSurge: 50%
+  template:
+    metadata:
+      labels:
+        app: gymsystems
+    spec:
+      containers:
+        - name: gymsystems
+          image: torkar2/private:gymsystems/server
+          ports:
+            - containerPort: 3000
+              name: server
+          env:
+            - name: spring.profiles.active
+              value: mysql
+            - name: mysql.host
+              value: mysql.default.svc.cluster.local
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: MY_POD_SERVICE_ACCOUNT
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.serviceAccountName
+          readinessProbe:
+            httpGet:
+              port: 3000
+              path: /
+          livenessProbe:
+            httpGet:
+              port: 3000
+              path: /
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: gymsystems-service
+spec:
+  selector:
+    app: gymsystems
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

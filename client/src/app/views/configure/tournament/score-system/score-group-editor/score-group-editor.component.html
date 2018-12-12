@@ -1,0 +1,65 @@
+<form [formGroup]="scoreForm" (submit)="save()">
+  <mat-card class="mat-elevation-z5">
+    <mat-card-content>
+      <div class="row">
+        <mat-form-field class="col-8">
+          <input matInput type="text" formControlName="name" placeholder="{{'Name' | translate}}" appAutofocus>
+        </mat-form-field>
+        <mat-form-field class="col-2">
+          <input matInput type="text" formControlName="type" placeholder="{{'Type' | translate}}">
+        </mat-form-field>
+        <div class="col-2 material-label">
+          <label translate>Operation</label>
+          <mat-slide-toggle class="mat-primary" [checked]="scoreForm.value.operation === operations.Addition" (change)="$event.checked ? scoreForm.controls['operation'].setValue(operations.Addition) : scoreForm.controls['operation'].setValue(operations.Subtraction)">
+            <span *ngIf="scoreForm.value.operation === operations.Addition" translate>Addition</span>
+            <span *ngIf="scoreForm.value.operation === operations.Subtraction" translate>Subtraction</span>
+          </mat-slide-toggle>
+        </div>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col-4">
+          <input matInput type="number" formControlName="max" placeholder="{{'Max Score' | translate}}">
+        </mat-form-field>
+        <mat-form-field class="col-4">
+          <input matInput type="number" formControlName="min" placeholder="{{'Min Score' | translate}}">
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="discipline">
+      <header><b>{{ 'Judges' | translate }}</b></header>
+
+      <mat-list>
+        <mat-list-item *ngFor="let judge of scoreForm.value.judges; let i=index;">
+          <span matLine>{{ judge.judge.name }}</span>
+          <button mat-icon-button (click)="removeJudge(i)"><i class="fa fa-fw fa-trash"></i></button>
+        </mat-list-item>
+      </mat-list>
+      <div class="flex" [formGroup]="judgeForm">
+        <mat-form-field class="flex-col">
+          <input matInput formControlName="name" placeholder="{{'Add judge' | translate}}" [matAutocomplete]="judgeTypeahead">
+          <mat-autocomplete #judgeTypeahead="matAutocomplete" (optionSelected)="setSelectedJudge($event)" [displayWith]="judgeDisplay">
+            <mat-option *ngFor="let person of filteredJudgeList" [value]="person">
+              {{ person.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <span>
+          <button mat-raised-button type="button" (click)="addJudge()">
+            <i class="fa fa-fw fa-plus"></i>
+            {{'Add' | translate}}
+          </button>
+        </span>
+      </div>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <app-save-button buttonType="submit" [disabled]="scoreForm.invalid || scoreForm.pristine"></app-save-button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="standalone || scoreForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><i
+           class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
+    </mat-card-actions>
+  </mat-card>
+</form>

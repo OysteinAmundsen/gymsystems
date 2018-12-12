@@ -1,0 +1,41 @@
+type Query {
+  getClubs(name: String): [IClub]
+  club(id: ID!): IClub
+}
+
+type Mutation {
+  saveClub(input: ClubInput!): IClub
+  deleteClub(id: ID!): Boolean
+}
+
+type Subscription {
+  clubCreated: IClub
+  clubModified: IClub
+  clubDeleted: ID
+}
+
+type IClub {
+  id: ID
+  name: String!
+  troopCount: Int
+  troops: [ITroop]
+  teams: [ITeam]
+  tournaments: [ITournament]
+  users: [IUser]
+  gymnasts: [IGymnast]
+}
+
+input ClubInput {
+  id: ID
+  name: String!
+  troops: [IDDependencyInput]
+  teams: [IDDependencyInput]
+  tournaments: [IDDependencyInput]
+  users: [IDDependencyInput]
+  gymnasts: [IDDependencyInput]
+}
+
+input IDDependencyInput {
+  id: ID!
+}
+

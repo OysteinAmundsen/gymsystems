@@ -1,0 +1,35 @@
+apiVersion: apps/v1beta1 # for versions before 1.8.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: gymsystems
+spec:
+  selector:
+    matchLabels:
+      app: gymsystems
+  replicas: 1 # tells deployment to run 3 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: gymsystems
+    spec:
+      containers:
+        - name: backendhero
+          image: torkar2/private:gymsystems/client
+          ports:
+            - containerPort: 80
+              name: web
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: gymsystems-service
+spec:
+  type: NodePort
+  selector:
+    app: gymsystems
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 32453

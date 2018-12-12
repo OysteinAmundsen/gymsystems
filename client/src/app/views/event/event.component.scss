@@ -1,0 +1,38 @@
+@import "../../../styles/variables";
+header {
+  padding: 1rem 0.5rem;
+  line-height: 3em;
+  position: sticky;
+  top: 3rem;
+  z-index: 5;
+  pointer-events: none;
+  .mat-icon-button {
+    pointer-events: auto;
+  }
+  // @media (min-width: $stop1) {
+    display: flex;
+    .hgroup {
+      flex: 1;
+    }
+    .buttons {
+      margin-top: 0.8rem;
+    }
+  // }
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  small {
+    font-size: 0.8em;
+    line-height: normal;
+    font-weight: normal;
+    display: block;
+  }
+}
+
+::ng-deep .buttons {
+  .active {
+    display: none;
+  }
+}

@@ -1,0 +1,41 @@
+<mat-progress-spinner mode="indeterminate" class="center" *ngIf="isLoading"></mat-progress-spinner>
+
+<table mat-table #table [dataSource]="teamSource" role="menu" matSort (matSortChange)="teamSource.sortData($event)">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Name" | translate }}</th>
+    <td mat-cell *matCellDef="let team">
+      <div>{{ team.name }}</div>
+      <div class="visible-lt-medium">{{ team.divisionName }}</div>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="division">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="visible-medium">{{ "Division" | translate }}</th>
+    <td mat-cell *matCellDef="let team" class="visible-medium">{{ team.divisionName }}</td>
+  </ng-container>
+  <ng-container matColumnDef="disciplines">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Disciplines" | translate }}</th>
+    <td mat-cell *matCellDef="let team"><span [innerHTML]="disciplines(team)"></span></td>
+  </ng-container>
+  <ng-container matColumnDef="club">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Club" | translate }}</th>
+    <td mat-cell *matCellDef="let team">{{ team.club.name }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+  <tr mat-row *matRowDef="let team; columns: displayColumns; let index = index" #dataRow [routerLink]="['.', team.id]"></tr>
+</table>
+
+<button mat-raised-button type="button" class="mat-accent" [title]="'Add' | translate" (click)="addTeam()" [disabled]="!hasFreeSlots">
+  <i class="fa fa-fw fa-plus"></i> <span translate>Add Team</span>
+</button>
+
+<span [title]="'positions taken / positions available' | translate" *ngIf="hasFreeSlots">{{ takenSlots }} / {{ availableSlots }}</span>
+<span *ngIf="!hasFreeSlots && !hasStarted()" class="warning" [title]="'We\'ve filled all available positions of this tournament.' | translate">
+  <i class="fa fa-fw fa-warning"></i>
+  <span translate>We're sorry, registration is closed!</span>
+</span>
+<span *ngIf="hasStarted()" class="warning">
+  <i class="fa fa-fw fa-warning"></i>
+  <span translate>We're sorry, registration is closed!</span>
+  <span translate>This tournament has allready started</span>
+</span>

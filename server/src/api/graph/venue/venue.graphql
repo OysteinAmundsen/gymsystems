@@ -1,0 +1,49 @@
+type Query {
+  getVenues(name:String): [IVenue]
+  venue(id: ID!): IVenue
+}
+
+type Mutation {
+  saveVenue(input: VenueInput): IVenue
+  deleteVenue(id: ID): Boolean
+}
+
+type Subscription {
+  venueCreated: IVenue
+  venueModified: IVenue
+  venueDeleted: ID
+}
+
+type IVenue {
+  id: ID
+  name: String
+  address: String
+  longitude: String
+  latitude: String
+  rentalCost: Int
+  contact: String
+  contactPhone: String
+  contactEmail: String
+  capacity: Int
+  createdById: ID
+  createdBy: IUser
+  tournaments: [ITournament]
+}
+
+input VenueInput {
+  id: ID
+  name: String
+  address: String
+  longitude: String
+  latitude: String
+  rentalCost: Int
+  contact: String
+  contactPhone: String
+  contactEmail: String
+  capacity: Int
+  tournaments: [IDDependencyInput]
+}
+
+input IDDependencyInput {
+  id: ID!
+}

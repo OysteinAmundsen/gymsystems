@@ -1,0 +1,44 @@
+type Query {
+  getDivisions(tournamentId: ID): [IDivision]
+  division(id: ID!): IDivision
+}
+
+type Mutation {
+  saveDivision(input: DivisionInput): IDivision
+  deleteDivision(id: ID): Boolean
+}
+
+type Subscription {
+  divisionCreated: IDivision
+  divisionModified: IDivision
+  divisionDeleted: ID
+}
+
+type IDivision {
+  id: ID!
+  name: String!
+  sortOrder: Int
+  type: Int!
+  min: Int
+  max: Int
+  scorable: Boolean
+  tournamentId: ID
+  tournament: ITournament
+  teams: [ITeam]
+}
+
+input DivisionInput {
+  id: ID
+  name: String!
+  sortOrder: Int
+  type: Int!
+  min: Int
+  max: Int
+  scorable: Boolean
+  tournamentId: ID
+  teams: [IDDependencyInput]
+}
+
+input IDDependencyInput {
+  id: ID!
+}

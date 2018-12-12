@@ -1,0 +1,180 @@
+@import "./_variables";
+html {
+  background-color: $background;
+}
+@page
+{
+    size: auto;   /* auto is the initial value */
+
+    /* this affects the margin in the printer settings */
+    margin: 1.5mm 1.5mm 2.5mm 1.5mm;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  min-height: 100vh;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+body * {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+  position: relative;
+  width: 100%;
+  .fixed-back {
+    background-image: url(/assets/images/frontpage2.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-origin: content-box;
+    background-position: 50%;
+    position: fixed;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -2;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      background: linear-gradient(to top, rgba(white, 0.8) 60%, rgba(white, 0) 100%);
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: lighten($text-color, 4%);
+}
+
+h1 {
+  margin: 0.8rem 0 1rem 0;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+}
+
+a[disabled] {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.clearfix {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+[role="table"] {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 0.3rem;
+  width: 100%;
+}
+
+div[role="row"] {
+  display: table-row;
+}
+
+ul.unstyled {
+  list-style: none;
+  padding-left: 0;
+}
+
+.warning {
+  color: darken($warning, 10%);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.flag-icon {
+  @media print {
+    display: none;
+  }
+  &.flag-icon-large {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  &.clickable {
+    filter: grayscale(80%) opacity(40%);
+    &.selected {
+      filter: grayscale(0%) opacity(100%);
+    }
+  }
+}
+
+pre {
+  font-family: inherit;
+  white-space: pre-wrap;
+}
+
+.print-only {
+  @media screen {
+    display: none !important;
+  }
+}
+
+.screen-only {
+  @media print {
+    display: none !important;
+  }
+}
+
+.text-muted {
+  color: rgba($text-color, 0.7);
+}
+
+.text-warning {
+  color: rgba($warning, 0.7);
+}
+
+@media print {
+  @page {
+    margin: 0;
+  }
+}
+
+.mat-progress-spinner.center {
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}

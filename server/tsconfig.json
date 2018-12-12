@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    // "rootDir": "./src",
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "noLib": false,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    // "allowJs": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "src/**/*",
+    "ormconfig.js"
+  ],
+  "exclude": [
+    "**/node_modules/*",
+    "**/*.spec.ts"
+  ]
+}

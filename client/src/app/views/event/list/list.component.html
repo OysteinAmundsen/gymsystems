@@ -1,0 +1,105 @@
+<header class="center print-only" *ngIf="tournament">
+  <h2>{{ tournament.name }}</h2>
+  <h4>{{ tournament.venue.name }}</h4>
+</header>
+
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="center"></mat-progress-spinner>
+
+<mat-card [ngClass]="{isSecond: user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.club.id))}">
+  <mat-card-header class="form horizontal flex screen-only">
+    <mat-form-field *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.club.id))">
+      <mat-placeholder for="filter"><i class="fa fa-fw fa-filter"></i><span translate>Choose discipline:</span></mat-placeholder>
+      <mat-select id="filter" name="filter" [(ngModel)]="selectedDiscipline">
+        <mat-option [value]="null" translate>No filter</mat-option>
+        <mat-option *ngFor="let discipline of disciplines" [value]="discipline">
+          <i class="square screen-only" [attr.discipline]="discipline.sortOrder"></i>
+          {{ discipline.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="flex-col"></div>
+    <mat-slide-toggle class="mat-primary" *ngIf="hasTraining" [(ngModel)]="showTraining">
+      <span *ngIf="showTraining" translate>Training visible</span>
+      <span *ngIf="!showTraining" translate>Training hidden</span>
+    </mat-slide-toggle>
+  </mat-card-header>
+  <table *ngIf="tournament && schedule.length" role="list">
+    <thead>
+      <tr>
+        <th translate>Start</th>
+        <th translate class="visible-medium">Time</th>
+        <th translate>Team</th>
+        <th class="visible-medium" translate>Division</th>
+        <th class="visible-medium" translate>Discipline</th>
+        <th translate class="score">Score</th>
+        <th *ngIf="canViewActions()" class="actions screen-only"></th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of schedule; let i = index;" role="listitem" #row (contextmenu)="contextInvoked(item, i, $event)"
+      [ngClass]="{isPublished : item.publishTime != null,
+                       deleted     : item.markDeleted,
+                       isStarted   : item.startTime,
+                       unimportant : item.type === types.Training,
+                       isCurrent   : item.startTime && !item.endTime && !item.publishTime
+                      }">
+
+      <!-- View details wide screen -->
+      <tr *ngIf="selected !== item && isVisible(item)" (click)="select(item)">
+        <td class="start-no" *ngIf="item.type === participationTypes.Training"></td>
+        <td class="start-no" *ngIf="item.type === participationTypes.Live">#{{ item.startNumber + 1 }}</td>
+        <td class="visible-medium start-time" [innerHtml]="startTime(item)"></td>
+        <td class="team">{{ item.team.name }}</td>
+        <td class="visible-medium division"><b *ngIf="item.team.class === classes.TeamGym && item.type === types.Live">TG:
+          </b>{{
+          item.divisionName }}</td>
+        <td class="visible-medium nowrap discipline"><i class="square screen-only" [attr.discipline]="item.disciplineSortOrder"></i>
+          {{ item.disciplineName }}</td>
+        <td *ngIf="item.type === types.Live" class="score">
+          <span *ngIf="item.scorable && !item.markDeleted">{{ score(item) | number:'1.3-3' }}</span>
+        </td>
+        <td *ngIf="item.type === types.Training" class="score"></td>
+        <td *ngIf="canViewActions()" class="actions screen-only" rowspan="2">
+          <button mat-icon-button *ngIf="canStart(item, i)" (click)="start(item, $event)" [title]="'Start' | translate">
+            <i class="fa fa-fw fa-play"></i>
+          </button>
+          <button mat-icon-button *ngIf="item.startTime != null && item.endTime == null && score(item) == 0" (click)="stop(item, $event)"
+            [title]="'Stop' | translate">
+            <i class="fa fa-fw fa-stop"></i>
+          </button>
+          <button mat-icon-button *ngIf="score(item) > 0 && item.publishTime == null" (click)="publish(item, $event)"
+            [title]="'Publish' | translate">
+            <i class="fa fa-fw fa-share"></i>
+          </button>
+        </td>
+      </tr>
+
+      <!-- View details narrow screen -->
+      <tr *ngIf="selected !== item && isVisible(item)" (click)="select(item)" class="visible-narrow screen-only details">
+        <td>{{ startTime(item) }}</td>
+        <td>
+          <small class="nowrap">
+            <i class="square screen-only" [attr.discipline]="item.disciplineSortOrder"></i>
+            {{ item.disciplineName }}
+            -
+            {{ item.divisionName }}
+          </small>
+        </td>
+        <td>&nbsp;</td>
+      </tr>
+
+      <!-- Score editor -->
+      <tr *ngIf="selected === item">
+        <td colspan="7" class="editor">
+          <app-score-editor [participant]="item" (close)="closeEditor($event)"></app-score-editor>
+        </td>
+      </tr>
+
+      <!-- Day divider -->
+      <tr *ngIf="isNewDay(item)">
+        <td colspan="7" class="day-split">
+          {{ startDate(schedule[i+1]) | translate }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</mat-card>

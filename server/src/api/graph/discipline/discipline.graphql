@@ -1,0 +1,39 @@
+type Query {
+  getDisciplines(tournamentId: ID): [IDiscipline]
+  discipline(id: ID!): IDiscipline
+}
+
+type Mutation {
+  saveDiscipline(input: DisciplineInput): IDiscipline
+  deleteDiscipline(id: ID): Boolean
+}
+
+type Subscription {
+  disciplineCreated: IDiscipline
+  disciplineModified: IDiscipline
+  disciplineDeleted: ID
+}
+
+type IDiscipline {
+  id: ID!
+  name: String!
+  sortOrder: Int
+  tournamentId: ID
+  tournament: ITournament
+  teams: [ITeam]
+  scoreGroups: [IScoreGroup]
+  judges: [IJudgeInScoreGroup]
+  judgesPlain: [IJudge]
+}
+
+input DisciplineInput {
+  id: ID
+  name: String!
+  sortOrder: Int
+  tournamentId: ID
+  scoreGroups: [IDDependencyInput]
+}
+
+input IDDependencyInput {
+  id: ID!
+}

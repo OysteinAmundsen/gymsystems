@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gymsystem
+      MYSQL_USER: system
+      MYSQL_PASSWORD: admin
+    # ports:
+    #   - 3306:3306
+    volumes:
+      - gymsystems-data:/var/lib/mysql
+
+  api:
+    image: gymsystems/server
+    hostname: api
+    container_name: api
+    restart: unless-stopped
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      TZ: UTC
+      DATABASE_HOST: db
+      NODE_ENV: production
+
+  client:
+    hostname: client
+    image: gymsystems/client
+    container_name: client
+    restart: unless-stopped
+    depends_on:
+      - api
+    links:
+      - api
+    ports:
+      - 80:80
+    environment:
+      NODE_ENV: production
+      TZ: UTC
+
+volumes:
+  gymsystems-data:
+

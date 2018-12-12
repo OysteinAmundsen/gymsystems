@@ -1,0 +1,35 @@
+@import "variables";
+
+fieldset {
+  border: 0;
+}
+
+form,
+.form {
+  @media (max-width: $stop0) {
+    .row {
+      .mat-form-field {
+        display: contents;
+      }
+    }
+    .material-label > label {
+      color: rgba(0, 0, 0, 0.54);
+      transform: scale(0.8);
+      transform-origin: left;
+      display: block;
+    }
+    .mat-slide-toggle {
+      display: block;
+    }
+  }
+  mat-card-content {
+    fieldset {
+      padding: 0;
+    }
+  }
+  &.horizontal {
+    > * {
+      vertical-align: bottom;
+    }
+  }
+}

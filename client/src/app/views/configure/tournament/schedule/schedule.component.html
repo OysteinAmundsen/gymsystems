@@ -1,0 +1,79 @@
+<mat-progress-spinner mode="indeterminate" class="center" *ngIf="!schedule.length"></mat-progress-spinner>
+
+<div class="table-responsive">
+  <table role="list">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th translate class="visible-wide">Time</th>
+        <th translate>Team</th>
+        <th class="visible-medium" translate>Division</th>
+        <th translate>Discipline</th>
+        <th class="icons"></th>
+      </tr>
+    </thead>
+
+    <tbody cdkDropList [cdkDropListData]="schedule" class='drag-list'>
+      <tr *ngFor="let item of schedule" role="listitem" [title]="title(item)" cdkDrag [ngClass]="{'draggable'  : true,
+                    'deleted'    : item.markDeleted === 1,
+                    'new'        : !item.id,
+                    'day-split'  : isNewDay(item),
+                    'unimportant': item.type === participationTypes.Training,
+                    'isStarted'  : item.startTime,
+                    'isEditing'  : editing != null && editing == item.id,
+                    'drag-box': true
+                   }">
+        <td *ngIf="item.type === participationTypes.Training">Tr</td>
+        <td *ngIf="item.type === participationTypes.Live && (item.id == null || editing != item.id)" (click)="setEdit(item.id, $event)">#{{
+          item.startNumber + 1 }}</td>
+        <td *ngIf="item.type === participationTypes.Live && editing != null && editing == item.id">
+          <mat-form-field>
+            <input matInput #startNo type="number" [value]="item.startNumber + 1" (blur)="editChanged(item, startNo.value)">
+          </mat-form-field>
+        </td>
+        <td class="visible-wide" [innerHtml]="startTime(item)"></td>
+        <td>
+          <span>{{ item.team.name }}</span>
+          <div class="visible-lt-medium"><span>{{ item.divisionName }}</span></div>
+        </td>
+        <td class="visible-medium"><span>{{ item.divisionName }}</span></td>
+        <td>
+          <span class="nowrap">
+            <i class="square" [attr.discipline]="item.disciplineSortOrder"></i>
+            <b *ngIf="item.team.class === classes.TeamGym">TG: </b>
+            {{ item.disciplineName }}
+          </span>
+        </td>
+        <td class="icons">
+          <button mat-icon-button [matMenuTriggerFor]="options" *ngIf="!item.startTime" [matMenuTriggerData]="{item: item}">
+            <i class="fa fa-fw fa-ellipsis-v"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<mat-menu #options="matMenu">
+  <ng-template matMenuContent let-item="item">
+    <button mat-menu-item type="button" (click)="toggleStrikeParticipant(item)">
+      <span *ngIf="!item.markDeleted"><i class="fa fa-fw fa-ban"></i> {{ 'Strike' | translate }}</span>
+      <span *ngIf="item.markDeleted"><i class="fa fa-fw fa-check"></i> {{ 'Unstrike' | translate }}</span>
+    </button>
+    <button mat-menu-item type="button" (click)="deleteParticipant(item)">
+      <span><i class="fa fa-fw fa-trash"></i> {{ 'Delete' | translate }}</span>
+    </button>
+  </ng-template>
+</mat-menu>
+
+<app-save-button buttonType="submit" (click)="saveSchedule()" [disabled]="!hasChanges()"></app-save-button>
+<span *ngIf="haveMissing()">
+  <button mat-raised-button type="button" (click)="calculateSchedule()" *ngIf="haveMissing()">
+    <i class="fa fa-fw fa-calculator"></i>
+    <span translate>Calculate schedule</span>
+  </button>
+  <label><input type="checkbox" [(ngModel)]="shouldCalculateTraining">{{'Include training' | translate }}</label>
+</span>
+
+<button mat-raised-button type="button" *ngIf="canDeleteAll()" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="deleteAll()"><i class="fa fa-fw fa-trash"></i>
+  <span translate>Delete</span></button>

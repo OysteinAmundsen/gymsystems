@@ -1,33 +1,29 @@
 {
-  // Use IntelliSense to learn about possible Node.js debug attributes.
+  // Use IntelliSense to learn about possible attributes.
   // Hover to view descriptions of existing attributes.
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
-      "request": "launch",
-      "protocol": "inspector",
-      "name": "Server",
-      "cwd": "${workspaceRoot}",
-      "outFiles": [ "${workspaceRoot}/dist/**/*.js" ],
-      "program": "${workspaceRoot}/src/server/index.ts",
-      "console": "integratedTerminal",
-      "preLaunchTask": "server:build",
-      "trace": "sm"
-    },
-    {
       "type": "chrome",
       "request": "launch",
-      "name": "Client",
+      "name": "Launch Chrome",
       "url": "http://localhost:4200",
-      "webRoot": "${workspaceRoot}"
-    }
-  ],
-  "compounds": [
+      "webRoot": "${workspaceRoot}/client"
+    },
     {
-      "name": "Server/Client",
-      "configurations": [ "Server", "Client" ]
+      "type": "node",
+      "request": "launch",
+      "name": "Server",
+      "protocol": "inspector",
+      "cwd": "${workspaceRoot}/server",
+      "runtimeExecutable": "${workspaceRoot}/server/node_modules/.bin/nodemon",
+      "runtimeArgs": [
+        "--config",
+        "nodemon-debug.json"
+      ],
+      "restart": true,
+      "console": "integratedTerminal"
     }
   ]
 }

@@ -1,0 +1,38 @@
+type Query {
+  getMedias: [IMedia]
+  media(id: ID!): IMedia
+}
+
+type Mutation {
+  saveMedia(input: MediaInput): IMedia
+  deleteMedia(id: ID): Boolean
+}
+
+type Subscription {
+  mediaCreated: IMedia
+  mediaModified: IMedia
+  mediaDeleted: ID
+}
+
+type IMedia {
+  id: ID
+  fileName: String
+  originalName: String
+  mimeType: String
+  disciplineId: ID
+  discipline: IDiscipline
+  teamId:ID
+  team: ITeam
+  tournamentId: ID
+  tournament: ITournament
+}
+
+input MediaInput {
+  id: ID
+  fileName: String
+  originalName: String
+  mimeType: String
+  disciplineId: ID
+  teamId: ID
+  tournamentId: ID
+}

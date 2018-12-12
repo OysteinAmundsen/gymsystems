@@ -1,0 +1,61 @@
+<div class="row">
+
+  <section class="col-6">
+    <header>
+      <h2>
+        <i class="fa fa-fw fa-venus-mars"></i>
+        <span translate>Gender group</span>
+      </h2>
+    </header>
+    <div class="table-responsive">
+      <table role="list" #gender cdkDropList [cdkDropListData]="genderDivisions" class="editable drag-list">
+        <tbody *ngFor="let division of genderDivisions | orderBy: 'sortOrder'" cdkDrag>
+          <tr *ngIf="division !== selected" (click)="select(division)" role="listitem" class="draggable">
+            <td>{{ division.name }}</td>
+          </tr>
+          <tr *ngIf="division === selected" class="static">
+            <td colspan="1">
+              <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="col-6">
+    <header>
+      <h2>
+        <i class="fa fa-fw fa-child"></i>
+        <span translate>Age group</span>
+      </h2>
+    </header>
+    <div class="table-responsive">
+      <table role="list" #age cdkDropList [cdkDropListData]="ageDivisions" class="editable drag-list">
+        <tbody *ngFor="let division of ageDivisions | orderBy: 'sortOrder'" cdkDrag>
+          <tr *ngIf="division !== selected" (click)="select(division)" role="listitem">
+            <td>{{ division.name }}</td>
+          </tr>
+          <tr *ngIf="division === selected" class="static">
+            <td colspan="1">
+              <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+<div *ngIf="selected && !selected.type">
+  <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor>
+</div>
+
+<button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDivision()">
+  <i class="fa fa-fw fa-plus"></i>
+  <span translate>Add Divisions</span>
+</button>
+<button mat-raised-button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()">
+  <i class="fa fa-fw fa-plus-circle"></i>
+  <span translate>Add Default Divisions</span>
+</button>

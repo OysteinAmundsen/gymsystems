@@ -1,0 +1,43 @@
+type Query {
+  getUsers: [IUser]
+  user(id: ID!): IUser
+}
+
+type Mutation {
+  saveUser(user: UserInput): IUser
+  deleteUser(id: ID): Boolean
+}
+
+type Subscription {
+  userCreated: IUser
+  userModified: IUser
+  userDeleted: ID
+}
+
+type IUser {
+  id: ID!
+  name: String
+  email: String
+  password: String
+  role: Int
+  tournaments: [ITournament]
+  venues: [IVenue]
+  clubId: ID
+  club: IClub
+}
+
+input UserInput {
+  id: ID
+  name: String!
+  email: String
+  password: String
+  role: Int
+  clubId: ID
+  tournaments: [IDDependencyInput]
+  venues: [IDDependencyInput]
+  clubId: ID
+}
+
+input IDDependencyInput {
+  id: ID!
+}

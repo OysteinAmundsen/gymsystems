@@ -1,0 +1,40 @@
+<header *ngIf="tournament" class="screen-only">
+  <div class="hgroup">
+    <small>{{ tournament.startDate | date: 'dd.MM' }} - {{ tournament.endDate | date: 'dd.MM' }} {{ tournament.endDate
+      | date: 'yyyy' }}</small>
+    <h2>{{ tournament.name }}</h2>
+  </div>
+
+  <button mat-icon-button [matMenuTriggerFor]="options">
+    <i class="fa fa-fw fa-ellipsis-v"></i>
+  </button>
+  <mat-menu #options="matMenu" class="buttons">
+    <a [routerLink]="['/configure/tournament', tournament.id]" mat-menu-item *appIfAuth="'Secretariat'"
+      [routerLinkActive]="['active']">
+      <i class="fa fa-fw fa-cog"></i>
+      <span translate>Settings </span>
+    </a>
+    <a [routerLink]="['./list']" mat-menu-item [routerLinkActive]="['active']">
+      <i class="fa fa-fw fa-list"></i>
+      <span translate>Schedule</span>
+    </a>
+    <a [routerLink]="['./results']" mat-menu-item [routerLinkActive]="['active']">
+      <i class="fa fa-fw fa-trophy"></i>
+      <span translate>Results </span>
+    </a>
+    <a [routerLink]="['./display']" mat-menu-item *appIfAuth="'Secretariat'" [routerLinkActive]="['active']">
+      <i class="fa fa-fw fa-tv"></i>
+      <span>{{'Display' | translate }}</span>
+    </a>
+    <a [routerLink]="['./signoff']" mat-menu-item *appIfAuth="'Secretariat'">
+      <i class="fa fa-fw fa-print"></i>
+      <span>{{'Judge signoff' | translate }}</span>
+    </a>
+    <button type="button" (click)="printPage()" mat-menu-item>
+      <i class="fa fa-fw fa-print"></i>
+      <span>{{'Print page' | translate }}</span>
+    </button>
+  </mat-menu>
+</header>
+
+<router-outlet></router-outlet>
