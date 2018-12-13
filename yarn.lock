@@ -5079,9 +5079,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-markdown-to-html-pipe@1.2.4:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/markdown-to-html-pipe/-/markdown-to-html-pipe-1.2.4.tgz#518d3f7e1dd51973e7d1ba21bf3983008970b7b2"
+markdown-to-html-pipe@1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/markdown-to-html-pipe/-/markdown-to-html-pipe-1.2.5.tgz#994d64758e0f403d5113a66b49368f5459b663b8"
+  integrity sha512-FUi4cKMmpUmgUWt0WFrQt7aZdh9/ZU9bG/bCBNOtyGelmmwFXBmS87Bvw+8wnql8F02w02pZta2OUKFJmwT8bA==
   dependencies:
     "@types/marked" "^0.0.27"
     marked "^0.x"
