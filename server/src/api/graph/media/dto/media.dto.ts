@@ -19,11 +19,11 @@ export class MediaDto {
   mimeType: string;
 
   @ApiModelProperty({ description: `The reference to the discipline this media is to be playedunder.` })
-  discipline: { id: number };
+  disciplineId: number;
 
   @ApiModelProperty({ description: `The reference to the team this media is to be played under` })
-  team: { id: number };
+  teamId: number;
 
   @ApiModelProperty({ description: `The reference to the tournament this media is to be played under` })
-  tournament: { id: number };
+  tournamentId: number;
 }

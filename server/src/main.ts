@@ -8,7 +8,7 @@ const startTime = performance.now();
 console.log(`┌────────────────────────────────────────────────────────────┐`);
 console.log(`│    Starting: ${new Date()} │`);
 console.log(`│     Runtime: ${env}                                            │`);
-console.log('└────────────────────────────────────────────────────────────┘');
+console.log(`└────────────────────────────────────────────────────────────┘`);
 
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';

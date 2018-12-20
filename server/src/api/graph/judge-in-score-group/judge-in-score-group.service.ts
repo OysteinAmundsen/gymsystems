@@ -30,7 +30,7 @@ export class JudgeInScoreGroupService {
   }
 
   async remove(input: JudgeInScoreGroupDto): Promise<boolean> {
-    const saved = await this.judgeRepository.delete({ judgeId: input.judge.id, scoreGroupId: input.scoreGroup.id });
+    const saved = await this.judgeRepository.delete({ judgeId: input.judgeId, scoreGroupId: input.scoreGroupId });
     if (saved.affected > 0) {
       this.pubSub.publish('judgeInScoreGroupDeleted', { judgeInScoreGroup: input });
     }

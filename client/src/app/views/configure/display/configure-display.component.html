@@ -27,7 +27,7 @@
   <mat-progress-spinner *ngIf="!display" mode="indeterminate" class="center"></mat-progress-spinner>
 
   <div role="table">
-    <div role="row">
+    <div role="row" *ngIf="display && display.length">
       <section [routerLink]="['./1']" class="displayContainer">
         <pre [innerHtml]="display[0]" class="display"></pre>
       </section>
@@ -36,4 +36,9 @@
       </section>
     </div>
   </div>
+  <footer>
+    <button mat-raised-button type="button" (click)="previous()">&lsaquo; Previous</button>
+    <div class="spacer"></div>
+    <button mat-raised-button type="button" (click)="next()">Next &rsaquo;</button>
+  </footer>
 </div>

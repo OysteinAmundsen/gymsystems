@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { TournamentService } from 'app/services/api';
 import { ITournament } from 'app/model';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
+import { GraphService } from 'app/services/graph.service';
 
 @Component({
   selector: 'app-info',
@@ -18,7 +18,7 @@ export class InfoComponent implements OnInit {
   @ViewChild('infoText') infoText;
   constructor(
     private parent: TournamentEditorComponent,
-    private tournamentService: TournamentService,
+    private graph: GraphService,
     private translate: TranslateService) { }
 
   ngOnInit() {
@@ -37,8 +37,8 @@ export class InfoComponent implements OnInit {
     if (this.tournament.description_no && !this.tournament.description_en) {
       this.tournament.description_en = this.tournament.description_no;
     }
-    this.tournamentService.save(this.tournament).subscribe(res => {
-      this.tournament = res;
+    this.graph.saveData('Tournament', this.tournament, `{id,name,description_en,description_no}`).subscribe(res => {
+      this.tournament = res.saveTournament;
       this.original = JSON.stringify([this.tournament.description_en, this.tournament.description_no]);
     });
   }

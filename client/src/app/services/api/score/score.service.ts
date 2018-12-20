@@ -14,20 +14,6 @@ export class ScoreService {
   /**
    *
    */
-  getByParticipant(participantId: number): Observable<IScore[]> {
-    return this.http.get<IScore[]>(`${this.url}/${participantId}`);
-  }
-
-  /**
-   *
-   */
-  saveFromParticipant(participantId: number, scores: IScore[]): Observable<IScore[]> {
-    return this.http.post<IScore[]>(`${this.url}/${participantId}`, Helper.reduceLevels(scores));
-  }
-
-  /**
-   *
-   */
   removeFromParticipant(participantId: number) {
     return this.http.delete(`${this.url}/${participantId}`);
   }
@@ -37,14 +23,6 @@ export class ScoreService {
    */
   rollbackToParticipant(participantId: number) {
     return this.http.get(`${this.url}/${participantId}/rollback`);
-  }
-
-  /**
-   *
-   */
-  calculateTeamTotal(participants: ITeamInDiscipline[]) {
-    if (!participants || !participants.length) { return 0; }
-    return participants.reduce((prev, curr) => prev += parseFloat(curr.total), 0);
   }
 
   /**

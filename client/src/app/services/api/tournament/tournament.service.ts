@@ -19,50 +19,6 @@ export class TournamentService {
   /**
    *
    */
-  all(): Observable<ITournament[]> {
-    const query = `{getTournaments{id,name,startDate,endDate,description_no,description_en,times{day,time},venue{name,address,capacity}}}`;
-    return this.http.get<ITournament[]>('/api/graph', { params: { query: query } })
-      .pipe(map((res: any) => res.data.getTournaments));
-  }
-
-  /**
-   *
-   */
-  getById(id: number): Observable<ITournament> {
-    const query = `{
-      tournament(id:${id}){
-        id,
-        name,
-        description_no,
-        description_en,
-        startDate,
-        endDate,
-        times{day,time},
-        venue{name,address,capacity}
-      }}`.replace(/ +?|\r?\n|\r/g, '');
-    return this.http.get<ITournament>(`/api/graph?query=${query}`)
-      .pipe(map((res: any) => <ITournament>res.data.tournament));
-  }
-
-  /**
-   *
-   */
-  save(tournament: ITournament): Observable<ITournament | any> {
-    return (tournament.id)
-      ? this.http.put<ITournament>(`${this.url}/${tournament.id}`, Helper.reduceLevels(tournament))
-      : this.http.post<ITournament>(this.url, tournament);
-  }
-
-  /**
-   *
-   */
-  delete(tournament: ITournament) {
-    return this.http.delete(`${this.url}/${tournament.id}`);
-  }
-
-  /**
-   *
-   */
   dateSpan(tournament: ITournament): string {
     const toDate = (date: moment.Moment) => moment(date).format('DD');
     if (tournament && tournament.startDate && tournament.endDate) {

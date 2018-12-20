@@ -1,4 +1,3 @@
-import { VenueService } from './services/api/venue/venue.service';
 import { HttpCacheInterceptor } from './services/http/interceptors/HttpCacheInterceptor';
 // Framework & libs
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
@@ -41,10 +40,16 @@ import { LoginComponent } from './views/home/login/login.component';
 import { LogoutComponent } from './views/home/logout/logout.component';
 import { RegisterComponent } from './views/home/register/register.component';
 import { IUser } from './model/IUser';
+import { GraphQLModule } from './graphql.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './i18n/', '.json');
+}
+
+export function tokenGetter() {
+  const currentUser: IUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  return currentUser ? currentUser.token : null;
 }
 
 @Injectable()
@@ -77,13 +82,10 @@ export class MyHammerConfig extends HammerGestureConfig {
     }),
     MarkdownToHtmlModule,
     Angulartics2Module.forRoot(),
-    AgmCoreModule.forRoot({ apiKey: VenueService.apiKey }),
+    AgmCoreModule.forRoot({ apiKey: environment.geoApiKey }),
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          const currentUser: IUser = JSON.parse(sessionStorage.getItem('currentUser'));
-          return currentUser ? currentUser.token : null;
-        },
+        tokenGetter: tokenGetter,
         skipWhenExpired: true,
         whitelistedDomains: ['localhost', 'gymsystems.org']
       }
@@ -105,7 +107,9 @@ export class MyHammerConfig extends HammerGestureConfig {
     SharedModule,
 
     // Routes last (!important)
-    AppRoutingModule
+    AppRoutingModule,
+
+    GraphQLModule
   ],
   providers: [
     // Authentication interceptor

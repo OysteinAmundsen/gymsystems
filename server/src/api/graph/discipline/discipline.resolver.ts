@@ -21,6 +21,7 @@ import { Judge } from '../judge/judge.model';
 import { JudgeService } from '../judge/judge.service';
 import { JudgeInScoreGroup } from '../judge-in-score-group/judge-in-score-group.model';
 import { JudgeInScoreGroupService } from '../judge-in-score-group/judge-in-score-group.service';
+import { Cleaner } from 'api/common/util/cleaner';
 
 @Resolver('IDiscipline')
 export class DisciplineResolver {
@@ -38,8 +39,8 @@ export class DisciplineResolver {
    *
    * @param id optional id of the tournament to find disciplines for
    */
+  // NOTE: Used by event.list route
   @Query()
-  @UseGuards(RoleGuard())
   async getDisciplines(@Args('tournamentId') id?: number) {
     return id
       ? this.disciplineService.findByTournamentId(id)
@@ -82,6 +83,7 @@ export class DisciplineResolver {
    * @param discipline the discipline assosiated with the scoreGroups to fetch
    */
   @ResolveProperty('judges')
+  @UseGuards(RoleGuard(Role.Secretariat))
   getJudges(discipline: Discipline): Promise<JudgeInScoreGroup[]> {
     return this.judgeInScoreGroupService.findByDiscipline(discipline);
   }
@@ -99,17 +101,17 @@ export class DisciplineResolver {
   /**
    *
    */
-  @UseGuards(RoleGuard(Role.Organizer))
   @Mutation('saveDiscipline')
+  @UseGuards(RoleGuard(Role.Organizer))
   create(@Args('input') input: DisciplineDto): Promise<Discipline> {
-    return this.disciplineService.save(input);
+    return this.disciplineService.save(Cleaner.clean(input));
   }
 
   /**
    *
    */
-  @UseGuards(RoleGuard(Role.Organizer))
   @Mutation('deleteDiscipline')
+  @UseGuards(RoleGuard(Role.Organizer))
   remove(@Args('id') id: number): Promise<boolean> {
     return this.disciplineService.remove(id);
   }

@@ -31,7 +31,8 @@ export class DisciplineEditorComponent implements OnInit {
 
   save() {
     if (this.discipline.tournament) {
-      this.graph.saveData('Discipline', this.disciplineForm.value, `{id}`).subscribe(result => this.disciplineChanged.emit(result));
+      const val = this.disciplineForm.value;
+      this.graph.saveData('Discipline', val, `{id}`).subscribe(result => this.disciplineChanged.emit(result));
     } else {
       this.disciplineChanged.emit(this.disciplineForm.value);
     }

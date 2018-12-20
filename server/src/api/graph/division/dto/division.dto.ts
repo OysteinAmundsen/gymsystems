@@ -8,6 +8,6 @@ export class DivisionDto {
   min?: number;
   max?: number;
   scorable: boolean;
-  tournament: { id: number };
+  tournamentId: number;
   teams?: { id: number }[];
 }

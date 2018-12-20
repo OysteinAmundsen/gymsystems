@@ -24,6 +24,10 @@ export class MediaService {
   }
 
   async save(media: MediaDto): Promise<Media> {
+    if (media.id) {
+      const entity = await this.mediaRepository.findOne({ id: media.id });
+      media = Object.assign(entity, media);
+    }
     const result = await this.mediaRepository.save(<Media>media);
     if (result) {
       this.pubSub.publish(media.id ? 'mediaModified' : 'mediaCreated', { media: result });

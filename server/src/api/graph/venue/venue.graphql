@@ -1,6 +1,7 @@
 type Query {
-  getVenues(name:String): [IVenue]
+  getVenues(clubId: ID, name:String): [IVenue]
   venue(id: ID!): IVenue
+  location(address: String): ILocation
 }
 
 type Mutation {
@@ -47,3 +48,34 @@ input VenueInput {
 input IDDependencyInput {
   id: ID!
 }
+
+# Google map api ------------------------------
+type ILocation {
+  address_components: [IAddressComponent]
+  formatted_address: String
+  geometry: IGeometry
+  place_id: String
+  types: [String]
+}
+
+type IGeometry {
+  location: ILoc
+  location_type: String
+  viewport: IViewPort
+}
+type IViewPort {
+    northeast: ILoc
+    southwest: ILoc
+  }
+
+type IAddressComponent {
+  long_name: String
+  short_name: String
+  types: [String]
+}
+
+type ILoc {
+  lat: Float,
+  lng: Float
+}
+

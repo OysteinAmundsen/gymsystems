@@ -3,9 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta } from '@angular/platform-browser';
 
 import { TournamentService } from 'app/services/api/tournament/tournament.service';
-import { ITournament, IUser } from 'app/model';
-import { UserService } from 'app/services/api';
-import * as moment from 'moment';
+import { ITournament } from 'app/model';
 import { GraphService } from 'app/services/graph.service';
 
 interface TournamentType { name: string; tournaments: ITournament[]; }

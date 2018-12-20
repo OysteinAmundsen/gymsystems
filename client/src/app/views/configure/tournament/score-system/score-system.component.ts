@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 
-import { ScoreGroupService, ConfigurationService } from 'app/services/api';
+import { ConfigurationService } from 'app/services/api';
 import { IDiscipline, IScoreGroup, Operation } from 'app/model';
 import { GraphService } from 'app/services/graph.service';
 

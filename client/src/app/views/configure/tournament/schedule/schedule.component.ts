@@ -3,13 +3,12 @@ import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 
 import * as moment from 'moment';
 
-import { TeamsService, ScheduleService } from 'app/services/api';
+import { ScheduleService } from 'app/services/api';
 import { ITeam } from 'app/model/ITeam';
 import { IDiscipline } from 'app/model/IDiscipline';
 import { ITeamInDiscipline } from 'app/model/ITeamInDiscipline';
 import { Classes } from 'app/model/Classes';
 import { ParticipationType } from 'app/model/ParticipationType';
-import { ITournament } from 'app/model/ITournament';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Role } from 'app/model';
@@ -24,6 +23,22 @@ import { GraphService } from 'app/services/graph.service';
   styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
+  scheduleQuery = `{
+    id,
+    sortNumber,
+    startNumber,
+    markDeleted,
+    startTime,
+    endTime,
+    publishTime,
+    type,
+    team{name,class},
+    disciplineId,
+    disciplineName,
+    disciplineSortOrder,
+    divisionName,
+    scorable
+  }`;
   tournamentId: number;
   schedule: ITeamInDiscipline[] = [];
   teams: ITeam[] = [];
@@ -83,30 +98,11 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   loadSchedule() {
     this.graph.getData(`{
       getTeams(tournamentId:${this.tournamentId}){id,name,divisionName,disciplines{id,name}},
-      getSchedule(tournamentId:${this.tournamentId}){
-        id,
-        sortNumber,
-        startNumber,
-        markDeleted,
-        startTime,
-        endTime,
-        publishTime,
-        type,
-        team{name,class},
-        disciplineId,
-        disciplineName,
-        disciplineSortOrder,
-        divisionName,
-        scorable
-      }
+      getSchedule(tournamentId:${this.tournamentId})${this.scheduleQuery}
     }`).subscribe(res => {
       this.teams = res.getTeams;
       this.schedule = res.getSchedule;
     })
-    // this.teamService.getByTournament(this.tournament.id).subscribe(teams => this.teams = teams);
-    // this.scheduleService.getByTournament(this.tournament.id).subscribe(schedule => {
-    //   this.schedule = this.scheduleService.recalculateStartTime(this.tournament, schedule);
-    // });
   }
 
   /**
@@ -124,7 +120,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    */
   toggleStrikeParticipant(participant: ITeamInDiscipline, force?: boolean) {
     participant.markDeleted = force ? force : !participant.markDeleted;
-    this.scheduleService.save(participant).subscribe(result => this.loadSchedule());
+    this.graph.saveData('Participant', participant, this.scheduleQuery).subscribe(result => this.loadSchedule());
   }
 
   /**

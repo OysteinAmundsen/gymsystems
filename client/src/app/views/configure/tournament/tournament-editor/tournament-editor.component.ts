@@ -10,7 +10,7 @@ import { MatDatepickerInput, MatAutocomplete } from '@angular/material';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-import { TournamentService, UserService } from 'app/services/api';
+import { UserService } from 'app/services/api';
 import { ITournament, IUser, Role, IClub, IVenue } from 'app/model';
 
 import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
@@ -27,6 +27,24 @@ const Moment: any = (<any>moment).default || moment;
 export class TournamentEditorComponent implements OnInit, OnDestroy {
   @ViewChild('startDateInput') startDateInput: MatDatepickerInput<Date>;
   @ViewChild('endDateInput') endDateInput: MatDatepickerInput<Date>;
+  tournamentQuery = `{
+    id,
+    name,
+    description_no,
+    description_en,
+    startDate,
+    endDate,
+    providesLodging,
+    lodingCostPerHead,
+    providesTransport,
+    transportationCostPerHead,
+    providesBanquet,
+    banquetCostPerHead,
+    times{day,time},
+    createdBy{id,name},
+    club{id,name},
+    venue{id,name}
+  }`;
 
   subscriptions: Subscription[] = [];
   tournamentId: number;
@@ -79,7 +97,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private graph: GraphService,
     private userService: UserService,
-    private tournamentService: TournamentService,
     private error: ErrorHandlerService,
     private translate: TranslateService,
     private title: Title,
@@ -96,7 +113,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
       endDate: [null, [Validators.required]],
       venue: [''],
       description: [''],
-      createdBy: [''],
+      createdBy: [this.user],
       times: [new Array()],
       providesLodging: [false],
       providesTransport: [false],
@@ -107,24 +124,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.route.params.subscribe((params: any) => {
       if (params.id) {
         this.tournamentId = +params.id;
-        this.graph.getData(`{tournament(id:${this.tournamentId}){
-            id,
-            name,
-            description_no,
-            description_en,
-            startDate,
-            endDate,
-            providesLodging,
-            lodingCostPerHead,
-            providesTransport,
-            transportationCostPerHead,
-            providesBanquet,
-            banquetCostPerHead,
-            times{day,time},
-            createdBy{id,name},
-            club{id,name},
-            venue{id,name}
-          }}`).subscribe(result => this.tournamentReceived(result.tournament));
+        this.graph.getData(`{tournament(id:${this.tournamentId})${this.tournamentQuery}}`).subscribe(result => this.tournamentReceived(result.tournament));
       } else {
         this.isAdding = true;
         this.isEdit = true;
@@ -183,10 +183,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   }
 
   tournamentReceived(tournament) {
-    // this.tournament = tournament;
-    // this.tournamentService.selected = tournament;
-    // this.tournament.description_no = this.tournament.description_no || '';
-    // this.tournament.description_en = this.tournament.description_en || '';
     this.title.setTitle(`Configure tournament: ${tournament.name} | GymSystems`);
     this.meta.updateTag({ property: 'og:title', content: `Configure tournament: ${tournament.name} | GymSystems` });
     this.meta.updateTag({ property: 'og:description', content: `Configure tournament settings and contenders for ${tournament.name}` });
@@ -244,16 +240,16 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     if (!formVal.club) {
       formVal.club = this.user.club;
     }
-    this.tournamentService.save(formVal).subscribe(tournament => {
-      if (tournament.hasOwnProperty('code')) {
-        this.error.setError(`${tournament.message}`);
-        return false;
-      }
-      this.tournamentReceived(tournament);
+    if (!formVal.createdBy) {
+      formVal.createdBy = this.user;
+    }
+    delete formVal['description'];
+    this.graph.saveData('Tournament', formVal, this.tournamentQuery).subscribe(res => {
+      this.tournamentReceived(res.saveTournament);
       this.isEdit = false;
       if (this.isAdding) {
         this.isAdding = false;
-        this.router.navigate(['../', tournament.id], { relativeTo: this.route });
+        this.router.navigate(['../', this.tournament.id], { relativeTo: this.route });
       }
       // this.tournamentReceived(tournament);
     });

@@ -18,6 +18,10 @@ export class TournamentService {
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
   async save(tournament: TournamentDto): Promise<Tournament> {
+    if (tournament.id) {
+      const entity = await this.tournamentRepository.findOne({ id: tournament.id });
+      tournament = Object.assign(entity, tournament);
+    }
     const result = await this.tournamentRepository.save(<Tournament>tournament);
     if (result) {
       this.pubSub.publish(tournament.id ? 'tournamentModified' : 'tournamentCreated', { tournament: result });

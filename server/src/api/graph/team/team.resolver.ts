@@ -22,6 +22,7 @@ import { ClubService } from '../club/club.service';
 import { Club } from '../club/club.model';
 import { Tournament } from '../tournament/tournament.model';
 import { TournamentService } from '../tournament/tournament.service';
+import { Cleaner } from 'api/common/util/cleaner';
 
 @Resolver('ITeam')
 export class TeamResolver {
@@ -107,12 +108,16 @@ export class TeamResolver {
   }
 
   @Mutation('saveTeam')
+  @UseGuards(RoleGuard(Role.Club))
   save(@Args('input') input: TeamDto): Promise<Team> {
-    return this.teamService.save(input);
+    ClubService.enforceSame(input.clubId);
+    return this.teamService.save(Cleaner.clean(input));
   }
 
   @Mutation('deleteTeam')
-  remove(@Args('id') id: number): Promise<boolean> {
+  @UseGuards(RoleGuard(Role.Club))
+  async remove(@Args('id') id: number): Promise<boolean> {
+    ClubService.enforceSame((await this.teamService.findOneById(id)).clubId);
     return this.teamService.remove(id);
   }
 

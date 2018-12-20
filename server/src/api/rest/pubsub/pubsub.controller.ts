@@ -1,12 +1,13 @@
-import { Controller, Post, Get, Req, Res } from '@nestjs/common';
+import { Controller, Post, Get, Req, Res, Inject } from '@nestjs/common';
 import { Request, Response } from 'express-serve-static-core';
 import { PassThrough } from 'stream';
+import { PubSub } from 'graphql-subscriptions';
 
 @Controller('sse')
 export class PubsubController {
   openConnections: Response[] = [];
 
-  constructor() { }
+  constructor(@Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
   /**
    * Server publishing an event

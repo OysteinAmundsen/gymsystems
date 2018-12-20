@@ -9,6 +9,7 @@ import { Judge } from './judge.model';
 import { JudgeInScoreGroup } from '../judge-in-score-group/judge-in-score-group.model';
 import { JudgeInScoreGroupService } from '../judge-in-score-group/judge-in-score-group.service';
 import { Role } from '../user/user.model';
+import { Cleaner } from 'api/common/util/cleaner';
 
 @Resolver('IJudge')
 export class JudgeResolver {
@@ -36,14 +37,14 @@ export class JudgeResolver {
     return this.judgeInScoreGroupService.findByJudge(judge);
   }
 
-  @UseGuards(RoleGuard(Role.Organizer))
   @Mutation('saveJudge')
-  create(@Args('input') input: JudgeDto): Promise<Judge> {
-    return this.judgeService.save(input);
+  @UseGuards(RoleGuard(Role.Organizer))
+  save(@Args('input') input: JudgeDto): Promise<Judge> {
+    return this.judgeService.save(Cleaner.clean(input));
   }
 
-  @UseGuards(RoleGuard(Role.Organizer))
   @Mutation('deleteJudge')
+  @UseGuards(RoleGuard(Role.Organizer))
   remove(@Args('id') id: number): Promise<boolean> {
     return this.judgeService.remove(id);
   }

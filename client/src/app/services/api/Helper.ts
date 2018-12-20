@@ -5,8 +5,8 @@ export class Helper {
    *
    * This is done to reduce unnecessarily large payloads in update statements
    *
-   * @param {any} obj The object to reduce
-   * @param {number} level [default = 2] specification of how many levels to retain
+   * @param any obj The object to reduce
+   * @param number level [default = 2] specification of how many levels to retain
    */
   static reduceLevels(obj: any, level: number = 2): any {
     if (obj != null && level >= 0) {

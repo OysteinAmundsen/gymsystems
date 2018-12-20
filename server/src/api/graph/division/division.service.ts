@@ -37,6 +37,10 @@ export class DivisionService {
   }
 
   async save(division: DivisionDto): Promise<Division> {
+    if (division.id) {
+      const entity = await this.divisionRepository.findOne({ id: division.id });
+      division = Object.assign(entity, division);
+    }
     const result = await this.divisionRepository.save(<Division>division);
     if (result) {
       delete this.localCahcePromise; // Force empty cache

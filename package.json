@@ -12,7 +12,7 @@
     "build": "yarn build:server && yarn build:client",
     "build:server": "yarn workspace gymsystems_server build",
     "build:client": "yarn workspace gymsystems_client build",
-    "build:docker": "docker-compose --compress -f orchestration/docker-compose.yaml -p docker build",
+    "build:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker build --compress",
     "test": "yarn test:server && yarn test:client",
     "test:server": "yarn workspace gymsystems_server test",
     "test:client": "yarn workspace gymsystems_client test",
@@ -36,7 +36,7 @@
     "concurrently": "^4.1.0",
     "husky": "^1.3.0",
     "prettier": "^1.15.3",
-    "snyk": "^1.118.1"
+    "snyk": "^1.118.2"
   },
   "snyk": true,
   "resolutions": {},

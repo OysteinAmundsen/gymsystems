@@ -1,7 +1,4 @@
 import { ApiModelPropertyOptional, ApiModelProperty } from '@nestjs/swagger';
-import { VenueDto } from '../../venue/dto/venue.dto';
-import { UserDto } from '../../user/dto/user.dto';
-import { ClubDto } from '../../club/dto/club.dto';
 import { TimeSpan } from '../tournament.model';
 
 export class TournamentDto {
@@ -27,13 +24,13 @@ export class TournamentDto {
   times?: TimeSpan[];
 
   @ApiModelProperty({ description: `An object specifying the location of the event.` })
-  venue?: VenueDto;
+  venueId?: number;
 
   @ApiModelProperty({ description: `This field is automatically created when a user creates a newevent.` })
-  createdBy?: UserDto;
+  createdById?: number;
 
   @ApiModelProperty({ description: `A reference to the club this tournament is hosted by` })
-  club?: ClubDto;
+  clubId?: number;
 
   // LODGING -----------------------------------------------------
   @ApiModelProperty({ description: `The number of gymnasts this tournament can be able to provide lodging for.` })

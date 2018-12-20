@@ -22,26 +22,28 @@ export interface ITournament extends IBelongsToClub, ICreatedBy {
   endDate: number;
   times: { day: number, time: string }[];
   venue: IVenue;
+  venueId: number;
+  scheduleCount: number;
   schedule: ITeamInDiscipline[];
   disciplines: IDiscipline[];
   divisions: IDivision[];
   media: IMedia[];
 
 
-  // // LODGING -----------------------------------------------------
+  // LODGING -----------------------------------------------------
   providesLodging: boolean;
-  // lodingCostPerHead: number;
-  // lodging: IGymnast[];
+  lodingCostPerHead: number;
+  lodging: IGymnast[];
 
 
-  // // TRANSPORT ---------------------------------------------------
+  // TRANSPORT ---------------------------------------------------
   providesTransport: boolean;
-  // transportationCostPerHead: number;
-  // transporting: IGymnast[];
+  transportationCostPerHead: number;
+  transporting: IGymnast[];
 
 
-  // // BANQUET -----------------------------------------------------
+  // BANQUET -----------------------------------------------------
   providesBanquet: boolean;
-  // banquetCostPerHead: number;
-  // banquetFor: IGymnast[];
+  banquetCostPerHead: number;
+  banquetFor: IGymnast[];
 }

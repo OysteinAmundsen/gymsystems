@@ -3,8 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { IVenue, Role } from 'app/model';
-import { VenueService, UserService } from 'app/services/api';
+import { UserService } from 'app/services/api';
 import { SubjectSource } from 'app/services/subject-source';
+import { GraphService } from 'app/services/graph.service';
 
 @Component({
   selector: 'app-venue',
@@ -16,20 +17,20 @@ export class VenueComponent implements OnInit {
   displayedColumns = ['name', 'contact', 'rentalCost', 'address'];
 
   constructor(
-    private venueService: VenueService,
+    private graph: GraphService,
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.venueService.all().subscribe(venueList => this.venueSource.subject.next(venueList));
+    this.graph.getData(`{getVenues{id,name,contact,rentalCost,address,createdBy{id,name}}}`).subscribe(res => this.venueSource.subject.next(res.getVenues));
     this.userService.getMe().subscribe(me => me.role >= Role.Admin ? this.displayedColumns.push('createdBy') : null);
   }
 
   @HostListener('keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
     if (evt.key === '+' || evt.key === 'NumpadAdd') {
-      this.router.navigate(['./add'], {relativeTo: this.route});
+      this.router.navigate(['./add'], { relativeTo: this.route });
     }
   }
 }

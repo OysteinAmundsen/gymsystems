@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 
 import { IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender, IGymnast } from 'app/model';
-import { TeamsService, DisciplineService, DivisionService, ClubService, UserService, ConfigurationService } from 'app/services/api';
+import { UserService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
 import { Logger } from 'app/services/Logger';
@@ -31,6 +31,19 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   @ViewChildren('selectedDisciplines') disciplineCheckboxes;
   @ViewChild(MemberSelectorComponent) memberSelector: MemberSelectorComponent;
+
+  teamQuery = `{
+    id,
+    name,
+    class,
+    gymnasts{id,name,gender,birthYear},
+    disciplines{id,name,sortOrder},
+    divisions{id,name,min,max,type},
+    tournament{id,providesLodging,providesBanquet,providesTransport},
+
+    # Load all teams for this club in this tournament
+    club{id,name,teams{id,name,tournamentId}}
+  }`;
 
   subscriptions: Subscription[] = [];
   teamForm: FormGroup;
@@ -81,8 +94,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private tournamentEditor: TournamentEditorComponent,
-    private teamService: TeamsService,
-    private clubService: ClubService,
     private userService: UserService,
     private graph: GraphService,
     private errorHandler: ErrorHandlerService,
@@ -183,7 +194,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const troop = v.option.value;
 
     // Copy all values over from troop blueprint
-    // Apply gender division (TODO: Need a more flexible way of fetching these)
+    // Apply gender division
+    // TODO: Need a more flexible way of fetching these
     let division = null;
     if (troop.gymnasts.every(g => g.gender === troop.gymnasts[0].gender)) {
       if (troop.gymnasts[0].gender === Gender.Female) { // Find female division
@@ -232,10 +244,10 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   fileAdded($event, discipline: IDiscipline) {
     const fileList: FileList = (<HTMLInputElement>event.target).files;
     const upload = () => {
-      this.teamService.uploadMedia(fileList[0], this.teamForm.value, discipline).subscribe(
-        data => this.loadData(this.teamForm.value.id),
-        error => Logger.error(error)
-      );
+      // this.teamService.uploadMedia(fileList[0], this.teamForm.value, discipline).subscribe(
+      //   data => this.loadData(this.teamForm.value.id),
+      //   error => Logger.error(error)
+      // );
     };
     if (fileList.length > 0) {
       if (this.teamForm.dirty) {
@@ -273,18 +285,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       getDisciplines(tournamentId:${this.tournamentEditor.tournamentId}){id,name},`;
 
     if (id) {
-      query += `team(id:${id}){
-        id,
-        name,
-        class,
-        gymnasts{id,name,gender,birthYear},
-        disciplines{id,name,sortOrder},
-        divisions{id,name,min,max,type},
-        tournament{id,providesLodging,providesBanquet,providesTransport},
-
-        # Load all teams for this club in this tournament
-        club{id,name,teams{id,name,tournamentId}}
-      }`;
+      query += `team(id:${id})${this.teamQuery}`;
     }
     this.graph.getData(`{${query}}`).subscribe(res => {
       if (res.getDivisions) { this.divisions = res.getDivisions; }
@@ -321,7 +322,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   removeMedia(discipline: IDiscipline) {
     this.stopMedia(discipline);
-    this.teamService.removeMedia(this.team, discipline).subscribe(() => this.loadData(this.teamForm.value.id));
+    // this.teamService.removeMedia(this.team, discipline).subscribe(() => this.loadData(this.teamForm.value.id));
   }
 
   async save(keepOpen?: boolean) {
@@ -353,13 +354,14 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
     // Save team
     return new Promise((resolve, reject) => {
-      this.teamService.save(team).subscribe(result => {
-        const t: ITeam = Array.isArray(result) ? result[0] : result;
-        this.teamReceived(t);
+      team.clubId = team.club.id;
+      delete team.club;
+      this.graph.saveData('Team', team, this.teamQuery).subscribe(result => {
+        this.teamReceived(result.saveTeam);
         if (!keepOpen) {
-          this.close(t);
+          this.close(this.team);
         }
-        resolve(t);
+        resolve(this.team);
       });
     });
   }
@@ -369,7 +371,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    this.teamService.delete(this.teamForm.value).subscribe(result => {
+    this.graph.deleteData('Team', this.teamForm.value.id).subscribe(result => {
       this.close(result);
     });
   }

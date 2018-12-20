@@ -8,6 +8,8 @@ import { ScoreGroupDto } from './dto/score-group.dto';
 import { ScoreGroup } from './score-group.model';
 import { JudgeInScoreGroup } from '../judge-in-score-group/judge-in-score-group.model';
 import { JudgeInScoreGroupService } from '../judge-in-score-group/judge-in-score-group.service';
+import { Role } from '../user/user.model';
+import { Cleaner } from 'api/common/util/cleaner';
 
 @Resolver('IScoreGroup')
 export class ScoreGroupResolver {
@@ -17,8 +19,9 @@ export class ScoreGroupResolver {
     @Inject('PubSubInstance') private readonly pubSub: PubSub
   ) { }
 
+  // NOTE: Used by score-editor component
   @Query()
-  @UseGuards(RoleGuard())
+  @UseGuards(RoleGuard(Role.Secretariat))
   getScoreGroups(@Args('disciplineId') disciplineId: number) {
     return disciplineId
       ? this.scoreService.findByDisciplineId(disciplineId)
@@ -41,11 +44,13 @@ export class ScoreGroupResolver {
   }
 
   @Mutation('saveScoreGroup')
+  @UseGuards(RoleGuard(Role.Organizer))
   save(@Args('input') input: ScoreGroupDto): Promise<ScoreGroup> {
-    return this.scoreService.save(input);
+    return this.scoreService.save(Cleaner.clean(input));
   }
 
   @Mutation('deleteScoreGroup')
+  @UseGuards(RoleGuard(Role.Organizer))
   remove(@Args('id') id: number): Promise<boolean> {
     return this.scoreService.remove(id);
   }

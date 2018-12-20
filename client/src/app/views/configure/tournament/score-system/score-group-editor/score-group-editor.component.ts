@@ -2,7 +2,6 @@ import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@a
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
-import { ScoreGroupService, JudgeService } from 'app/services/api';
 import { IDiscipline, IScoreGroup, Operation, IJudge } from 'app/model';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { Subscription } from 'rxjs';

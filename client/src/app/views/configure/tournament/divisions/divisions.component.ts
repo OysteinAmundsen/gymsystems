@@ -2,8 +2,8 @@ import { Component, HostListener, OnDestroy, OnInit, Input, EventEmitter, Output
 // import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 
-import { DivisionService, ConfigurationService } from 'app/services/api';
-import { IDivision, DivisionType, ITournament } from 'app/model';
+import { ConfigurationService } from 'app/services/api';
+import { IDivision, DivisionType } from 'app/model';
 import { TournamentEditorComponent } from 'app/views/configure/tournament/tournament-editor/tournament-editor.component';
 import { GraphService } from 'app/services/graph.service';
 
@@ -13,6 +13,16 @@ import { GraphService } from 'app/services/graph.service';
   styleUrls: ['./divisions.component.scss']
 })
 export class DivisionsComponent implements OnInit, OnDestroy {
+  static divisionsQuery = `{
+    id,
+    name,
+    sortOrder,
+    type,
+    min,
+    max,
+    scorable
+  }`;
+
   @Input() standalone = false;
   @Input() divisions: IDivision[] = [];
   tournamentId: number;
@@ -31,7 +41,6 @@ export class DivisionsComponent implements OnInit, OnDestroy {
 
   constructor(
     private graph: GraphService,
-    private divisionService: DivisionService,
     private configService: ConfigurationService,
     private injector: Injector) { }
 
@@ -76,15 +85,7 @@ export class DivisionsComponent implements OnInit, OnDestroy {
 
   loadDivisions() {
     if (this.tournamentId) {
-      this.graph.getData(`{getDivisions(tournamentId:${this.tournamentId}){
-        id,
-        name,
-        sortOrder,
-        type,
-        min,
-        max,
-        scorable
-      }}`).subscribe(res => this.divisionReceived(res.getDivisions));
+      this.graph.getData(`{getDivisions(tournamentId:${this.tournamentId})${DivisionsComponent.divisionsQuery}}`).subscribe(res => this.divisionReceived(res.getDivisions));
     } else if (this.divisions) {
       this.divisionReceived(this.divisions);
     }
@@ -110,7 +111,7 @@ export class DivisionsComponent implements OnInit, OnDestroy {
         group.tournamentId = this.tournamentId;
         return group;
       });
-      this.divisionService.saveAll(divisions).subscribe(result => this.loadDivisions());
+      this.graph.saveData('Division', divisions, DivisionsComponent.divisionsQuery).subscribe(result => this.divisionReceived(result.saveDivision));
     }
   }
 

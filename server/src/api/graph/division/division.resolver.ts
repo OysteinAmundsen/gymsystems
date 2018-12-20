@@ -9,6 +9,7 @@ import { Division } from './division.model';
 import { TeamService } from '../team/team.service';
 import { Team } from '../team/team.model';
 import { Role } from '../user/user.model';
+import { Cleaner } from 'api/common/util/cleaner';
 
 @Resolver('IDivision')
 export class DivisionResolver {
@@ -36,14 +37,14 @@ export class DivisionResolver {
     return this.teamService.findByDivision(division);
   }
 
-  @UseGuards(RoleGuard(Role.Organizer))
   @Mutation('saveDivision')
+  @UseGuards(RoleGuard(Role.Organizer))
   create(@Args('input') input: DivisionDto): Promise<Division> {
-    return this.divisionService.save(<Division>input);
+    return this.divisionService.save(Cleaner.clean(input));
   }
 
-  @UseGuards(RoleGuard(Role.Organizer))
   @Mutation('deleteDivision')
+  @UseGuards(RoleGuard(Role.Organizer))
   remove(@Args('id') id: number): Promise<boolean> {
     return this.divisionService.remove(id);
   }

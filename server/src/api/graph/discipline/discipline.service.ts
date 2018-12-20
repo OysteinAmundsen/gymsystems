@@ -43,6 +43,10 @@ export class DisciplineService {
    * @param discipline The discipline data to persist
    */
   async save(discipline: DisciplineDto): Promise<Discipline> {
+    if (discipline.id) {
+      const entity = await this.disciplineRepository.findOne({ id: discipline.id });
+      discipline = Object.assign(entity, discipline);
+    }
     const result = await this.disciplineRepository.save(<Discipline>discipline);
     if (result) {
       delete this.localCahcePromise; // Force refresh cache

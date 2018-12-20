@@ -9,13 +9,11 @@ import * as moment from 'moment';
 import { EventComponent } from '../event.component';
 import { ContextMenuComponent } from './context-menu/context-menu.component';
 
-import { ScheduleService, TeamsService, EventService, UserService, ScoreService } from 'app/services/api';
+import { ScheduleService, EventService, UserService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
 import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
 
-import {
-  ITournament, ITeamInDiscipline, ITeam, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes, DivisionType
-} from 'app/model';
+import { ITournament, ITeamInDiscipline, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/model';
 import { GraphService } from 'app/services/graph.service';
 
 /**
@@ -156,7 +154,7 @@ export class ListComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.errorHandler.setError(error);
       }
-      );
+    );
   }
 
   /**

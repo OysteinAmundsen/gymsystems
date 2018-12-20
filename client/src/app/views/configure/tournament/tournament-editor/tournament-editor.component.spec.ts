@@ -7,10 +7,8 @@ import { TournamentEditorComponent } from './tournament-editor.component';
 
 import { ErrorHandlerService } from 'app/services/http';
 
-import { UserService, TournamentService, ClubService } from 'app/services/api';
-import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
+import { UserService } from 'app/services/api';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
-import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 
 describe('views.configure.tournament:TournamentEditorComponent', () => {
   let component: TournamentEditorComponent;
@@ -25,12 +23,10 @@ describe('views.configure.tournament:TournamentEditorComponent', () => {
       ],
       providers: [
         ErrorHandlerService,
-        { provide: ClubService, useClass: ClubServiceStub },
         { provide: UserService, useClass: UserServiceStub },
-        { provide: TournamentService, useClass: TournamentServiceStub },
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

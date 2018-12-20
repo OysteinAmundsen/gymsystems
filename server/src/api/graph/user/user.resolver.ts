@@ -10,25 +10,35 @@ import { Tournament } from '../tournament/tournament.model';
 import { TournamentService } from '../tournament/tournament.service';
 import { VenueService } from '../venue/venue.service';
 import { Venue } from '../venue/venue.model';
+import { Club } from '../club/club.model';
+import { ClubService } from '../club/club.service';
+import { Cleaner } from 'api/common/util/cleaner';
 
 @Resolver('IUser')
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
+    private readonly clubService: ClubService,
     private readonly tournamentService: TournamentService,
     private readonly venueService: VenueService,
     @Inject('PubSubInstance') private readonly pubSub: PubSub
   ) { }
 
   @Query()
-  @UseGuards(RoleGuard())
+  @UseGuards(RoleGuard(Role.Organizer))
   getUsers() {
     return this.userService.findAll();
   }
 
   @Query('user')
+  @UseGuards(RoleGuard(Role.Club))
   findOneById(@Args('id') id: number): Promise<User> {
     return this.userService.findOneById(id);
+  }
+
+  @Query('me')
+  findMe(): Promise<User> {
+    return this.userService.findOneById(this.userService.getAuthenticatedUser().id);
   }
 
   @ResolveProperty('tournaments')
@@ -41,14 +51,24 @@ export class UserResolver {
     return this.venueService.findByUser(user);
   }
 
-  @Mutation('saveUser')
-  saveUser(@Args('user') user: UserDto): Promise<User> {
-    return this.userService.save(<User>user);
+  @ResolveProperty('club')
+  async getClub(user: User): Promise<Club> {
+    if (!user.club) {
+      user.club = await this.clubService.findOneById(user.clubId);
+    }
+    return user.club;
   }
 
-  @UseGuards(RoleGuard(Role.Admin))
+  @Mutation('saveUser')
+  save(@Args('user') user: UserDto): Promise<User> {
+    ClubService.enforceSame(user.clubId);
+    return this.userService.save(Cleaner.clean(user));
+  }
+
   @Mutation('deleteUser')
-  deleteUser(@Args('id') id: number): Promise<boolean> {
+  @UseGuards(RoleGuard(Role.Admin))
+  async deleteUser(@Args('id') id: number): Promise<boolean> {
+    ClubService.enforceSame((await this.userService.findOneById(id)).clubId);
     return this.userService.remove(id);
   }
 

@@ -17,6 +17,7 @@ import { User, Role } from '../user/user.model';
 import { UserService } from '../user/user.service';
 import { Gymnast } from '../gymnast/gymnast.model';
 import { GymnastService } from '../gymnast/gymnast.service';
+import { Cleaner } from 'api/common/util/cleaner';
 
 @Resolver('IClub')
 export class ClubResolver {
@@ -51,6 +52,7 @@ export class ClubResolver {
    * @param id The clubs primary key
    */
   @Query('club')
+  @UseGuards(RoleGuard(Role.Club))
   async findOneById(@Args('id') id: number): Promise<Club> {
     return await this.clubService.findOneById(id);
   }
@@ -120,10 +122,10 @@ export class ClubResolver {
    * @param name the name of the club to create
    * @throws HTTP-401 If no valid JWT token is found
    */
-  @UseGuards(RoleGuard(Role.Club))
   @Mutation('saveClub')
+  @UseGuards(RoleGuard(Role.Club))
   save(@Args('input') input: ClubDto): Promise<Club> {
-    return this.clubService.save(input);
+    return this.clubService.save(Cleaner.clean(input));
   }
 
   /**
@@ -133,8 +135,8 @@ export class ClubResolver {
    * @throws HTTP-401 If no valid JWT token is found
    * @throws HTTP-403 If you are not an admin
    */
-  @UseGuards(RoleGuard(Role.Admin))
   @Mutation('deleteClub')
+  @UseGuards(RoleGuard(Role.Admin))
   remove(@Args('deleteClubInput') id: number): Promise<boolean> {
     return this.clubService.remove(id);
   }

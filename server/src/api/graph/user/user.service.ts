@@ -31,15 +31,20 @@ export class UserService {
   }
 
   findOneByEmail(email: string): Promise<User> {
-    return this.userRepository.findOne({ email: email });
+    return this.userRepository.findOne({ where: { email: email }, relations: ['club'] });
   }
 
   findOneByUsername(userName: string): Promise<User> {
-    return this.userRepository.findOne({ name: userName });
+    return this.userRepository.findOne({ where: { name: userName }, relations: ['club'] });
   }
 
-  findOneById(id: number): Promise<User> {
-    return this.userRepository.findOne({ id: id });
+  async findOneById(id: number): Promise<User> {
+    // const me = this.getAuthenticatedUser();
+    const user = await this.userRepository.findOne({ where: { id: id }, relations: ['club'] });
+    // if (me.role < Role.Admin && me.clubId !== user.clubId) {
+    //   throw new ForbiddenException();
+    // }
+    return user;
   }
 
   findAll(): Promise<User[]> {
@@ -96,14 +101,8 @@ export class UserService {
         throw new BadRequestException(ex.message);
       }
     } else {
-      const oldUser = await this.findOneById(user.id);
-      const difference = Object.keys(user).reduce(
-        (diff, key) =>
-          oldUser[key] === user[key] // Compare property equality
-            ? diff // No change
-            : { ...diff, [key]: user[key] },
-        {} // Change detected
-      );
+      const entity = await this.findOneById(user.id);
+      user = Object.assign(entity, user);
     }
 
     // Persist data

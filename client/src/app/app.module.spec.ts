@@ -17,18 +17,9 @@ import { HttpLoaderFactory } from './app.module';
 // Module API services
 import {
   UserService,
-  ScoreService,
-  ScoreGroupService,
-  TournamentService,
-  DisciplineService,
-  DivisionService,
-  TeamsService,
   ConfigurationService,
-  ScheduleService,
   EventService,
-  DisplayService,
-  ClubService,
-  VenueService
+  DisplayService
 } from './services/api';
 import { ErrorHandlerService } from './services/http/ErrorHandler.service';
 import { MediaService } from './services/media.service';
@@ -39,17 +30,8 @@ import { RoleGuard } from './shared/guards/role-guard';
 import { AuthInterceptor } from 'app/services/http/auth/auth.interceptor';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UserServiceStub } from 'app/services/api/user/user.service.stub';
-import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
-import { VenueServiceStub } from 'app/services/api/venue/venue.service.stub';
-import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
 import { DisplayServiceStub } from 'app/services/api/display/display.service.stub';
-import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
-import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
-import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
-import { DisciplineServiceStub } from 'app/services/api/discipline/discipline.service.stub';
-import { ScoreGroupServiceStub } from 'app/services/api/scoregroup/scoregroup.service.stub';
-import { ScoreServiceStub } from 'app/services/api/score/score.service.stub';
 import { EventServiceStub } from 'app/services/api/event/event.service.stub';
 
 @Injectable()
@@ -120,19 +102,10 @@ export class TranslateModuleTest { }
     // API Services
     ErrorHandlerService,
     MediaService,
-    { provide: ScoreService, useClass: ScoreServiceStub },
-    { provide: ScoreGroupService, useClass: ScoreGroupServiceStub },
-    { provide: DisciplineService, useClass: DisciplineServiceStub },
-    { provide: DivisionService, useClass: DivisionServiceStub },
-    { provide: TeamsService, useClass: TeamsServiceStub },
     { provide: ConfigurationService, useClass: ConfigurationServiceStub },
-    { provide: ScheduleService, useClass: ScheduleServiceStub },
     { provide: EventService, useClass: EventServiceStub },
     { provide: DisplayService, useClass: DisplayServiceStub },
-    { provide: ClubService, useClass: ClubServiceStub },
-    { provide: VenueService, useClass: VenueServiceStub },
     { provide: UserService, useClass: UserServiceStub },
-    { provide: TournamentService, useClass: TournamentServiceStub },
 
     // Activation guards
     RoleGuard,

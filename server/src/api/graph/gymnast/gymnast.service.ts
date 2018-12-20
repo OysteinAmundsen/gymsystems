@@ -22,6 +22,10 @@ export class GymnastService {
    * @param gymnast The gymnast data to persist
    */
   async save(gymnast: GymnastDto): Promise<Gymnast> {
+    if (gymnast.id) {
+      const entity = await this.gymnastRepository.findOne({ id: gymnast.id });
+      gymnast = Object.assign(entity, gymnast);
+    }
     const result = await this.gymnastRepository.save(<Gymnast>gymnast);
     if (result) {
       this.pubSub.publish(gymnast.id ? 'gymnastModified' : 'gymnastCreated', { gymnast: result });

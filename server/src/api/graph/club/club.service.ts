@@ -1,4 +1,4 @@
-import { Injectable, HttpService, Inject } from '@nestjs/common';
+import { Injectable, HttpService, Inject, ForbiddenException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PubSub } from 'graphql-subscriptions';
@@ -8,12 +8,22 @@ import * as moment from 'moment';
 import { ClubDto } from './dto/club.dto';
 import { Club } from './club.model';
 import { Config } from '../../common/config';
+import { Role } from '../user/user.model';
+import { RequestContext } from 'api/common/middleware/request-context.model';
 
 @Injectable()
 export class ClubService {
   localCache: Club[] = [];
   localCahcePromise: Promise<Club[]>;
   cacheCreation: moment.Moment;
+
+  static enforceSame(clubId: number): void {
+    const me = RequestContext.currentUser();
+    if (me.role < Role.Admin && me.clubId !== clubId) {
+      throw new ForbiddenException('You do not belong to this club');
+    }
+  }
+
   constructor(
     @InjectRepository(Club) private readonly clubRepository: Repository<Club>,
     @Inject('PubSubInstance') private readonly pubSub: PubSub,
@@ -39,6 +49,10 @@ export class ClubService {
    * @param club The club data to persist
    */
   async save(club: ClubDto): Promise<Club> {
+    if (club.id) {
+      const entity = await this.clubRepository.findOne({ id: club.id });
+      club = Object.assign(entity, club);
+    }
     const result = await this.clubRepository.save(<Club>club);
     if (result) {
       delete this.localCahcePromise; // Force refresh cache

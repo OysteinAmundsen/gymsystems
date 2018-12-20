@@ -30,6 +30,7 @@ type ITournament {
   endDate: Date
   times: [ITimeSpan]
   schedule: [ISchedule]
+  scheduleCount: Int
   disciplines: [IDiscipline]
   divisions: [IDivision]
   teams: [ITeam]
@@ -57,6 +58,7 @@ input CreateTimespanInput {
 }
 
 input TournamentInput {
+  id: ID
   name: String
   description_no: String
   description_en: String

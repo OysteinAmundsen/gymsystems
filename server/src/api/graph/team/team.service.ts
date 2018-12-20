@@ -26,6 +26,10 @@ export class TeamService {
 
 
   async save(team: TeamDto): Promise<Team> {
+    if (team.id) {
+      const entity = await this.teamRepository.findOne({ id: team.id });
+      team = Object.assign(entity, team);
+    }
     const result = await this.teamRepository.save(<Team>team);
     if (result) {
       this.localCahcePromise = {};
@@ -110,8 +114,12 @@ export class TeamService {
   findByGymnast(gymnast: Gymnast): Promise<Team[]> {
     if (this.localCahcePromise['gym' + gymnast.id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
-      this.localCahcePromise['gym' + gymnast.id] = this.teamRepository
-        .find({ where: { gymnasts: [gymnast] }, cache: Config.QueryCache })
+      this.localCahcePromise['gym' + gymnast.id] = this.teamRepository.createQueryBuilder('team')
+        .leftJoinAndSelect('team.gymnasts', 'gymnasts')
+        .where('team.clubId = :clubId', { clubId: gymnast.clubId })
+        .andWhere('gymnasts.id = :gymnastId', { gymnastId: gymnast.id })
+        .cache(Config.QueryCache)
+        .getMany()
         .then(teams => (this.localCache['gym' + gymnast.id] = teams));
     }
     return this.localCahcePromise['gym' + gymnast.id];

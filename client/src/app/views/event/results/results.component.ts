@@ -49,7 +49,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       getDisciplines(tournamentId:${this.parent.tournamentId}){id,name,sortOrder,scoreGroups{type,judgeCount}},
       getSchedule(tournamentId:${this.parent.tournamentId}, type:${ParticipationType.Live}, scorable:true){
         id,
-        team{id,name, class},
+        team{id,name,class},
         sortNumber,
         startNumber,
         markDeleted,
@@ -63,7 +63,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         divisionSortOrder,
         scorable,
         total,
-        totalByScoreGroup{group{type}, total}
+        totalByScoreGroup{group{type},total}
       }}`)
       .subscribe(data => {
         this.disciplines = data.getDisciplines;

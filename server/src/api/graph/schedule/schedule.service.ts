@@ -15,8 +15,12 @@ export class ScheduleService {
     @InjectRepository(TeamInDiscipline) private readonly scheduleRepository: Repository<TeamInDiscipline>,
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
-  save(participant: TeamInDisciplineDto): any {
-    const result = this.scheduleRepository.save(<TeamInDiscipline>participant);
+  async save(participant: TeamInDisciplineDto): Promise<TeamInDiscipline> {
+    if (participant.id) {
+      const entity = await this.scheduleRepository.findOne({ id: participant.id });
+      participant = Object.assign(entity, participant);
+    }
+    const result = await this.scheduleRepository.save(<TeamInDiscipline>participant);
     if (result) {
       this.pubSub.publish(participant.id ? 'teamInDisciplineModified' : 'teamInDisciplineCreated', { teamInDiscipline: result });
     }
@@ -60,5 +64,9 @@ export class ScheduleService {
 
   findByTournament(tournament: Tournament, type?: ParticipationType): Promise<TeamInDiscipline[]> {
     return this.findByTournamentId(tournament.id, type);
+  }
+
+  countByTournament(tournament: Tournament): Promise<number> {
+    return this.scheduleRepository.count({ where: { tournamentId: tournament.id } });
   }
 }

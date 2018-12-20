@@ -12,5 +12,6 @@ export interface IVenue extends ICreatedBy {
   contactPhone: string;
   contactEmail: string;
   capacity: number;
+  tournamentId: number;
   tournaments: ITournament[];
 }

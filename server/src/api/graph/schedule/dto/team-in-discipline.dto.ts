@@ -9,7 +9,7 @@ export class TeamInDisciplineDto {
   endTime?: Date;
   publishTime?: Date;
   type: ParticipationType;
-  tournament: { id: number };
-  discipline: { id: number };
-  team: { id: number };
+  tournamentId: number;
+  disciplineId: number;
+  teamId: number;
 }

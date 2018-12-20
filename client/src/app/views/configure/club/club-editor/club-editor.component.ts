@@ -103,7 +103,8 @@ export class ClubEditorComponent implements OnInit {
   }
 
   save() {
-    this.graph.saveData('Club', this.clubForm.value, `{id,name}`).subscribe(res => {
+    const val = this.clubForm.value;
+    this.graph.saveData('Club', val, `{id,name}`).subscribe(res => {
       this.clubReceived(res.saveClub);
       this.isEdit = false;
       this.router.navigate(['../', this.club.id], { relativeTo: this.route });

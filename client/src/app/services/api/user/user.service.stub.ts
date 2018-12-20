@@ -1,38 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 
-import { IUser, Role, IClub } from 'app/model';
+import { IUser, Role } from 'app/model';
 import { UserService } from 'app/services/api';
-import { dummyClub } from 'app/services/api/club/club.service.stub';
 
 export const dummyAdmin: IUser = <IUser>{
-  id    : 0,
-  name  : 'admin',
-  email : 'admin@admin.no',
-  role  : Role.Admin,
-  club  : dummyClub
+  id: 0,
+  name: 'admin',
+  email: 'admin@admin.no',
+  role: Role.Admin,
+  clubId: 1
 };
 
 export const dummyOrganizer: IUser = <IUser>{
-  id    : 0,
-  name  : 'organizer',
-  email : 'organizer@admin.no',
-  role  : Role.Organizer,
-  club  : dummyClub
+  id: 0,
+  name: 'organizer',
+  email: 'organizer@admin.no',
+  role: Role.Organizer,
+  clubId: 1
 };
 
 export const dummyClubRep: IUser = <IUser>{
-  id    : 0,
-  name  : 'club',
-  email : 'club@admin.no',
-  role  : Role.Club,
-  club  : dummyClub
+  id: 0,
+  name: 'club',
+  email: 'club@admin.no',
+  role: Role.Club,
+  clubId: 1
 };
 
 @Injectable()
 export class UserServiceStub extends UserService {
-  club: IClub = dummyClub;
   user: IUser = dummyAdmin;
 
   constructor(http: HttpClient) {

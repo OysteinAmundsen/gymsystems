@@ -16,6 +16,7 @@ import { GraphService } from 'app/services/graph.service';
   styleUrls: ['./score-editor.component.scss']
 })
 export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
+  scoreQuery = `{id,value,updated,judgeIndex,scoreGroupId}`;
   @Input() participant: ITeamInDiscipline;
   @Output() close: EventEmitter<string> = new EventEmitter<string>();
 
@@ -52,7 +53,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.push(this.userService.getMe().subscribe(user => this.currentUser = user));
     this.graph.getData(`{
       getScoreGroups(disciplineId:${this.participant.disciplineId}){id,name,type,operation,judgeCount,max,min},
-      getScores(participantId:${this.participant.id}){id,value,updated,judgeIndex,scoreGroupId}
+      getScores(participantId:${this.participant.id})${this.scoreQuery}
     }`)
       .subscribe(res => {
         this.scoreGroups = res.getScoreGroups;
@@ -100,7 +101,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    *
    */
-  onClose() {
+  onClose(res?) {
     this.close.emit('');
   }
 
@@ -110,8 +111,8 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   save() {
     // Write back copy
     this.participant.scores = this.groupedScores.reduce((prev, curr) => prev.concat(curr.scores), []);
-    this.scoreService.saveFromParticipant(this.participant.id, this.participant.scores).subscribe(participant => {
-      this.onClose();
+    this.graph.saveData(`Score`, this.participant.scores, this.scoreQuery).subscribe(res => {
+      this.onClose(res.saveScores);
     });
   }
 
@@ -121,7 +122,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   delete() {
     if (this.currentUser.role >= Role.Organizer || this.participant.publishTime == null) {
       this.participant.scores = [];
-      this.scoreService.removeFromParticipant(this.participant.id).subscribe(() => this.onClose());
+      this.graph.deleteData('Score', this.participant.id).subscribe(() => this.onClose());
     }
   }
 

@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription, ResolveProperty } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 
@@ -23,7 +23,9 @@ import { ClubService } from '../club/club.service';
 import { VenueService } from '../venue/venue.service';
 import { Venue } from '../venue/venue.model';
 import { UserService } from '../user/user.service';
-import { User } from '../user/user.model';
+import { User, Role } from '../user/user.model';
+import { RoleGuard } from 'api/common/auth/role.guard';
+import { Cleaner } from 'api/common/util/cleaner';
 
 @Resolver('ITournament')
 export class TournamentResolver {
@@ -41,12 +43,13 @@ export class TournamentResolver {
     @Inject('PubSubInstance') private readonly pubSub: PubSub
   ) { }
 
+  // NOTE: Used by home route
   @Query()
-  // @UseGuards(RoleGuard())
   async getTournaments() {
     return await this.tournamentService.findAll();
   }
 
+  // NOTE: Used by routes: event, event.list
   @Query('tournament')
   async findOneById(@Args('id') id: number): Promise<Tournament> {
     return await this.tournamentService.findOneById(id);
@@ -57,6 +60,7 @@ export class TournamentResolver {
     return this.clubService.findOneById(tournament.clubId);
   }
 
+  // NOTE: Used by routes home, event.list
   @ResolveProperty('venue')
   getVenue(tournament: Tournament): Promise<Venue> {
     return this.venueService.findOneByTournament(tournament);
@@ -70,6 +74,11 @@ export class TournamentResolver {
   @ResolveProperty('schedule')
   getSchedule(tournament: Tournament): Promise<TeamInDiscipline[]> {
     return this.scheduleService.findByTournament(tournament);
+  }
+
+  @ResolveProperty('scheduleCount')
+  getScheduleCount(tournament: Tournament): Promise<number> {
+    return this.scheduleService.countByTournament(tournament);
   }
 
   @ResolveProperty('disciplines')
@@ -108,12 +117,16 @@ export class TournamentResolver {
   }
 
   @Mutation('saveTournament')
+  @UseGuards(RoleGuard(Role.Organizer))
   save(@Args('input') input: TournamentDto): Promise<Tournament> {
-    return this.tournamentService.save(input);
+    ClubService.enforceSame(input.clubId);
+    return this.tournamentService.save(Cleaner.clean(input));
   }
 
   @Mutation('deleteTournament')
-  remove(@Args('id') id: number): Promise<boolean> {
+  @UseGuards(RoleGuard(Role.Organizer))
+  async remove(@Args('id') id: number): Promise<boolean> {
+    ClubService.enforceSame((await this.tournamentService.findOneById(id)).clubId);
     return this.tournamentService.remove(id);
   }
 

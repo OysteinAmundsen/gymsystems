@@ -53,7 +53,7 @@ export class Media {
   @ApiModelProperty({ description: `The reference to the team this media is to be played under` })
   @OneToOne(type => Team, { nullable: false/*, lazy: true*/ })
   @JoinColumn({ name: 'teamId' })
-  team: Team;
+  team?: Team;
 
   @Column('int')
   teamId: number;
@@ -61,7 +61,7 @@ export class Media {
   @ApiModelProperty({ description: `The reference to the tournament this media is to be played under` })
   @ManyToOne(type => Tournament, tournament => tournament.media, { nullable: false/*, lazy: true*/ })
   @JoinColumn({ name: 'tournamentId' })
-  tournament: Tournament;
+  tournament?: Tournament;
 
   @Column('int')
   tournamentId: number;

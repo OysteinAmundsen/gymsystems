@@ -13,11 +13,15 @@ import { TroopService } from '../troop/troop.service';
 import { TeamService } from '../team/team.service';
 import { TournamentService } from '../tournament/tournament.service';
 import { Role } from '../user/user.model';
+import { ClubService } from '../club/club.service';
+import { Club } from '../club/club.model';
+import { Cleaner } from 'api/common/util/cleaner';
 
 @Resolver('IGymnast')
 export class GymnastResolver {
   constructor(
     private readonly gymnastService: GymnastService,
+    private readonly clubService: ClubService,
     private readonly troopService: TroopService,
     private readonly teamService: TeamService,
     private readonly tournamentService: TournamentService,
@@ -32,51 +36,58 @@ export class GymnastResolver {
       : this.gymnastService.findAll();
   }
 
-  @UseGuards(RoleGuard(Role.Organizer))
   @Query('gymnast')
+  @UseGuards(RoleGuard(Role.Organizer))
   findOneById(@Args('id') id: number): Promise<Gymnast> {
     return this.gymnastService.findOneById(id);
   }
 
-  @UseGuards(RoleGuard(Role.Organizer))
   @ResolveProperty('troop')
+  @UseGuards(RoleGuard(Role.Organizer))
   getTroops(gymnast: Gymnast): Promise<Troop[]> {
     return this.troopService.findByGymnast(gymnast);
   }
 
-  @UseGuards(RoleGuard(Role.Organizer))
+  @ResolveProperty('club')
+  getClub(gymnast: Gymnast): Promise<Club> {
+    return this.clubService.findOneById(gymnast.clubId);
+  }
+
   @ResolveProperty('team')
+  @UseGuards(RoleGuard(Role.Organizer))
   getTeams(gymnast: Gymnast): Promise<Team[]> {
     return this.teamService.findByGymnast(gymnast);
   }
 
-  @UseGuards(RoleGuard(Role.Organizer))
   @ResolveProperty('lodging')
+  @UseGuards(RoleGuard(Role.Organizer))
   getLodgingIn(gymnast: Gymnast): Promise<Tournament[]> {
     return this.tournamentService.findLodgingByGymnast(gymnast);
   }
 
-  @UseGuards(RoleGuard(Role.Organizer))
   @ResolveProperty('transport')
+  @UseGuards(RoleGuard(Role.Organizer))
   getTransportIn(gymnast: Gymnast): Promise<Tournament[]> {
     return this.tournamentService.findTransportByGymnast(gymnast);
   }
 
-  @UseGuards(RoleGuard(Role.Organizer))
   @ResolveProperty('banquet')
+  @UseGuards(RoleGuard(Role.Organizer))
   getBanquetIn(gymnast: Gymnast): Promise<Tournament[]> {
     return this.tournamentService.findBanquetByGymnast(gymnast);
   }
 
-  @UseGuards(RoleGuard(Role.Club))
   @Mutation('saveGymnast')
+  @UseGuards(RoleGuard(Role.Club))
   create(@Args('input') input: GymnastDto): Promise<Gymnast> {
-    return this.gymnastService.save(input);
+    ClubService.enforceSame(input.clubId);
+    return this.gymnastService.save(Cleaner.clean(input));
   }
 
-  @UseGuards(RoleGuard(Role.Club))
   @Mutation('deleteGymnast')
-  remove(@Args('id') id: number): Promise<boolean> {
+  @UseGuards(RoleGuard(Role.Club))
+  async remove(@Args('id') id: number): Promise<boolean> {
+    ClubService.enforceSame((await this.gymnastService.findOneById(+id)).clubId);
     return this.gymnastService.remove(id);
   }
 

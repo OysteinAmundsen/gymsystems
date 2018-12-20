@@ -17,8 +17,8 @@ export class TeamDto {
   class: Classes;
 
   @ApiModelProperty({ description: `The 'Club' which created and is responsible for this troop.` })
-  club: { id: number };
+  clubId: number;
 
   @ApiModelProperty({ description: `The tournament this team is to compete in.` })
-  tournament: { id: number };
+  tournamentId: number;
 }

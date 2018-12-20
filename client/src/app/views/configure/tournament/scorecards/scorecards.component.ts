@@ -1,12 +1,11 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
-import { ITournament, ITeamInDiscipline, DivisionType, Operation, IJudge, IScoreGroup } from 'app/model';
-import { ScheduleService, TeamsService } from 'app/services/api';
-import { DOCUMENT } from '@angular/platform-browser';
+import { ITeamInDiscipline, DivisionType, Operation, IJudge, IScoreGroup, IDiscipline, ParticipationType } from 'app/model';
+import { GraphService } from 'app/services/graph.service';
 
 @Component({
   selector: 'app-scorecards',
@@ -14,30 +13,42 @@ import { DOCUMENT } from '@angular/platform-browser';
   styleUrls: ['./scorecards.component.scss']
 })
 export class ScorecardsComponent implements OnInit, OnDestroy {
+
   tournamentId: number;
   schedule: ITeamInDiscipline[] = [];
+  disciplines: IDiscipline[] = [];
   subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private parent: TournamentEditorComponent,
-    private teamService: TeamsService,
-    private scheduleService: ScheduleService
+    private graph: GraphService
   ) { }
 
   ngOnInit() {
     this.tournamentId = this.parent.tournamentId;
     if (this.tournamentId) {
-      this.scheduleService.getByTournament(this.tournamentId).subscribe(schedule => {
-        this.schedule = schedule
-          .filter(s => s.team.divisions.find(d => d.type === DivisionType.Age).scorable)
-          .sort((a, b) => {
-            if (a.discipline.sortOrder !== b.discipline.sortOrder) {
-              return a.discipline.sortOrder > b.discipline.sortOrder ? 1 : -1;
-            }
-            return a.sortNumber > b.sortNumber ? 1 : -1;
-          });
+      this.graph.getData(`{
+        getDisciplines(tournamentId:${this.tournamentId}){id,scoreGroups{id,name,type,operation,judges{sortNumber,judge{id,name}}}},
+        getSchedule(tournamentId:${this.tournamentId},type:${ParticipationType.Live},scorable:true){
+          id,
+          sortNumber,
+          startNumber,
+          type,
+          disciplineId,
+          disciplineName,
+          team{name,class},
+          divisionName
+        }
+      }`).subscribe(res => {
+        this.disciplines = res.getDisciplines;
+        this.schedule = res.getSchedule.sort((a, b) => {
+          if (a.disciplineSortOrder !== b.disciplineSortOrder) {
+            return a.disciplineSortOrder > b.disciplineSortOrder ? 1 : -1;
+          }
+          return a.sortNumber > b.sortNumber ? 1 : -1;
+        });
         this.onRenderComplete();
       });
     }
@@ -61,7 +72,8 @@ export class ScorecardsComponent implements OnInit, OnDestroy {
    * and 1 summary card to be distributed to the secretariat.
    */
   judges(scheduleItem: ITeamInDiscipline) {
-    const cards = scheduleItem.discipline.scoreGroups
+    const discipline = this.disciplines.find(d => d.id === scheduleItem.disciplineId);
+    const cards = discipline.scoreGroups
       .filter(g => g.operation === Operation.Addition)
       .reduce((scoreCards, scoreGroup) => {
         scoreGroup.judges
@@ -81,14 +93,14 @@ export class ScorecardsComponent implements OnInit, OnDestroy {
     // Create the summary card
     const mainJudge = cards.find(c => c.type[0].name === 'E1');
     if (mainJudge) {
-      const types = scheduleItem.discipline.scoreGroups.map(g => ({ name: g.type, op: g.operation === Operation.Addition }));
+      const types = discipline.scoreGroups.map(g => ({ name: g.type, op: g.operation === Operation.Addition }));
       cards.push({
         summary: true,
         name: mainJudge.name,
         startNo: scheduleItem.startNumber + 1,
         club: scheduleItem.team.name,
-        division: this.teamService.getDivisionName(scheduleItem.team),
-        discipline: scheduleItem.discipline.name,
+        division: scheduleItem.divisionName,
+        discipline: scheduleItem.disciplineName,
         type: types,
         scoreType: types.map(t => t.name).join('')
       });
@@ -105,8 +117,8 @@ export class ScorecardsComponent implements OnInit, OnDestroy {
       name: judge.name,
       startNo: scheduleItem.startNumber + 1,
       club: scheduleItem.team.name,
-      division: this.teamService.getDivisionName(scheduleItem.team),
-      discipline: scheduleItem.discipline.name,
+      division: scheduleItem.divisionName,
+      discipline: scheduleItem.disciplineName,
       type: [{ name: scoreGroup.type + (judgeIndex + 1) }],
       scoreType: scoreGroup.type
     };

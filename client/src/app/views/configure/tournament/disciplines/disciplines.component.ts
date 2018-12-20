@@ -2,8 +2,8 @@ import { Component, HostListener, OnDestroy, OnInit, Input, Output, EventEmitter
 // import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 
-import { DisciplineService, ScoreGroupService, ConfigurationService, TournamentService } from 'app/services/api';
-import { IScoreGroup, IDiscipline, ITournament } from 'app/model';
+import { ConfigurationService } from 'app/services/api';
+import { IScoreGroup, IDiscipline } from 'app/model';
 import { TournamentEditorComponent } from 'app/views/configure/tournament/tournament-editor/tournament-editor.component';
 import { GraphService } from 'app/services/graph.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -40,8 +40,6 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
   constructor(
     private injector: Injector,
     private graph: GraphService,
-    private disciplineService: DisciplineService,
-    private scoreService: ScoreGroupService,
     private configService: ConfigurationService
   ) { }
 

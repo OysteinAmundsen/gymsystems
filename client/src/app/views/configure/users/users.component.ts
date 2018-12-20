@@ -3,9 +3,9 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
-import { UserService } from 'app/services/api';
 import { IUser, RoleNames } from 'app/model';
 import { SubjectSource } from 'app/services/subject-source';
+import { GraphService } from 'app/services/graph.service';
 
 @Component({
   selector: 'app-users',
@@ -19,19 +19,19 @@ export class UsersComponent implements OnInit {
 
 
   constructor(
-    private userService: UserService,
+    private graph: GraphService,
     private title: Title,
     private meta: Meta,
     private router: Router,
     private route: ActivatedRoute
   ) {
     title.setTitle('Configure users | GymSystems');
-    this.meta.updateTag({property: 'og:title', content: `Configure users | GymSystems`});
-    this.meta.updateTag({property: 'og:description', content: `List all users by club`});
+    this.meta.updateTag({ property: 'og:title', content: `Configure users | GymSystems` });
+    this.meta.updateTag({ property: 'og:description', content: `List all users by club` });
   }
 
   ngOnInit() {
-    this.userService.all().subscribe(users => this.userSource.subject.next(users));
+    this.graph.getData(`{getUsers{id,name,role,club{id,name}}}`).subscribe(res => this.userSource.subject.next(res.getUsers));
   }
 
   roleName(user: IUser) {
@@ -41,7 +41,7 @@ export class UsersComponent implements OnInit {
   @HostListener('keyup', ['$event'])
   onKeyup(evt: KeyboardEvent) {
     if (evt.key === '+' || evt.key === 'NumpadAdd') {
-      this.router.navigate(['./add'], { relativeTo: this.route});
+      this.router.navigate(['./add'], { relativeTo: this.route });
     }
   }
 }

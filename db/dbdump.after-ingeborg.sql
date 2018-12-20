@@ -8,10 +8,10 @@ INSERT INTO `club` (`id`,`name`) VALUES (8,'SOLA TURN');
 INSERT INTO `club` (`id`,`name`) VALUES (3,'STAVANGER TURNFORENING');
 INSERT INTO `club` (`id`,`name`) VALUES (6,'ÅLGÅRD TURNFORENING');
 
-INSERT INTO `configuration` (`name`,`value`) VALUES ('defaultValues','{\"division\": [{\"name\": \"Kvinner\", \"type\": 2, \"sortOrder\": 1}, {\"name\": \"Herrer\", \"type\": 2, \"sortOrder\": 2}, {\"name\": \"Mix\", \"type\": 2, \"sortOrder\": 0}, {\"max\": 11, \"min\": 8, \"name\": \"Aspirant\", \"type\": 1, \"sortOrder\": 0}, {\"max\": 13, \"min\": 11, \"name\": \"Rekrutt\", \"type\": 1, \"sortOrder\": 1}, {\"max\": 17, \"min\": 13, \"name\": \"Junior\", \"type\": 1, \"sortOrder\": 2}, {\"max\": 99, \"min\": 16, \"name\": \"Senior\", \"type\": 1, \"sortOrder\": 3}], \"discipline\": [{\"name\": \"Frittstående\", \"sortOrder\": 0}, {\"name\": \"Trampett\", \"sortOrder\": 1}, {\"name\": \"Tumbling\", \"sortOrder\": 2}], \"scoreGroup\": [{\"max\": 2, \"min\": 0, \"name\": \"Composition\", \"type\": \"C\", \"judges\": [], \"operation\": 1}, {\"max\": 10, \"min\": 0, \"name\": \"Execution\", \"type\": \"E\", \"judges\": [{\"result\": {\"message\": \"\", \"insertId\": 8, \"fieldCount\": 0, \"protocol41\": true, \"changedRows\": 0, \"affectedRows\": 1, \"serverStatus\": 3, \"warningCount\": 0}, \"generatedMap\": {\"id\": 8}}], \"operation\": 1}, {\"max\": 5, \"min\": 0, \"name\": \"Difficulty\", \"type\": \"D\", \"judges\": [{\"result\": {\"message\": \"\", \"insertId\": 8, \"fieldCount\": 0, \"protocol41\": true, \"changedRows\": 0, \"affectedRows\": 1, \"serverStatus\": 3, \"warningCount\": 0}, \"generatedMap\": {\"id\": 8}}], \"operation\": 1}, {\"max\": 5, \"min\": 0, \"name\": \"Adjustments\", \"type\": \"OD\", \"judges\": [], \"operation\": 2}]}');
-INSERT INTO `configuration` (`name`,`value`) VALUES ('display','{\"display1\": \"{{~#list current len=1 ~}}\\n  {{#center ~}}\\n    {{~#size 4~}}<em>{{team.name}}</em>{{~/size}}\\n    {{#size 2~}}\\n      {{division}} {{discipline.name}}\\n    {{~/size}}\\n  {{~/center~}}\\n{{~/list~}}\\n{{#if current.length}}{{#center ~}}\\n  -----------------------------\\n{{~/center~}}{{/if}}\\n{{#list next len=2 ~}}\\n  {{~#size 1~}}\\n    <em>{{team.name}}</em>\\n    {{division}} {{disciplineName}}\\n  {{~/size~}}\\n{{~/list}}\", \"display2\": \"{{#list published len=1}}\\n  {{#center}}\\n    {{#size 3~}}<em>{{team.name}}</em>{{~/size}}\\n    {{#size 2~}}\\n      {{division}} {{disciplineId.name}}\\n    {{~/size}}\\n  {{~/center~}}\\n  {{#if team}}{{#center ~}}\\n  -----------------------------\\n  {{~/center~}}{{/if}}\\n  {{#center ~}}\\n    {{#size 5~}}\\n      <b>{{#fix total len=3}}{{/fix}}</b>\\n    {{~/size}}\\n  {{/center}}\\n{{/list}}\"}');
-INSERT INTO `configuration` (`name`,`value`) VALUES ('scheduleExecutionTime','4');
-INSERT INTO `configuration` (`name`,`value`) VALUES ('scheduleTrainingTime','3');
+-- INSERT INTO `configuration` (`name`,`value`) VALUES ('defaultValues','{\"division\": [{\"name\": \"Kvinner\", \"type\": 2, \"sortOrder\": 1}, {\"name\": \"Herrer\", \"type\": 2, \"sortOrder\": 2}, {\"name\": \"Mix\", \"type\": 2, \"sortOrder\": 0}, {\"max\": 11, \"min\": 8, \"name\": \"Aspirant\", \"type\": 1, \"sortOrder\": 0}, {\"max\": 13, \"min\": 11, \"name\": \"Rekrutt\", \"type\": 1, \"sortOrder\": 1}, {\"max\": 17, \"min\": 13, \"name\": \"Junior\", \"type\": 1, \"sortOrder\": 2}, {\"max\": 99, \"min\": 16, \"name\": \"Senior\", \"type\": 1, \"sortOrder\": 3}], \"discipline\": [{\"name\": \"Frittstående\", \"sortOrder\": 0}, {\"name\": \"Trampett\", \"sortOrder\": 1}, {\"name\": \"Tumbling\", \"sortOrder\": 2}], \"scoreGroup\": [{\"max\": 2, \"min\": 0, \"name\": \"Composition\", \"type\": \"C\", \"judges\": [], \"operation\": 1}, {\"max\": 10, \"min\": 0, \"name\": \"Execution\", \"type\": \"E\", \"judges\": [{\"result\": {\"message\": \"\", \"insertId\": 8, \"fieldCount\": 0, \"protocol41\": true, \"changedRows\": 0, \"affectedRows\": 1, \"serverStatus\": 3, \"warningCount\": 0}, \"generatedMap\": {\"id\": 8}}], \"operation\": 1}, {\"max\": 5, \"min\": 0, \"name\": \"Difficulty\", \"type\": \"D\", \"judges\": [{\"result\": {\"message\": \"\", \"insertId\": 8, \"fieldCount\": 0, \"protocol41\": true, \"changedRows\": 0, \"affectedRows\": 1, \"serverStatus\": 3, \"warningCount\": 0}, \"generatedMap\": {\"id\": 8}}], \"operation\": 1}, {\"max\": 5, \"min\": 0, \"name\": \"Adjustments\", \"type\": \"OD\", \"judges\": [], \"operation\": 2}]}');
+-- INSERT INTO `configuration` (`name`,`value`) VALUES ('display','{\"display1\": \"{{~#list current len=1 ~}}\\n  {{#center ~}}\\n    {{~#size 4~}}<em>{{team.name}}</em>{{~/size}}\\n    {{#size 2~}}\\n      {{division}} {{discipline.name}}\\n    {{~/size}}\\n  {{~/center~}}\\n{{~/list~}}\\n{{#if current.length}}{{#center ~}}\\n  -----------------------------\\n{{~/center~}}{{/if}}\\n{{#list next len=2 ~}}\\n  {{~#size 1~}}\\n    <em>{{team.name}}</em>\\n    {{division}} {{disciplineName}}\\n  {{~/size~}}\\n{{~/list}}\", \"display2\": \"{{#list published len=1}}\\n  {{#center}}\\n    {{#size 3~}}<em>{{team.name}}</em>{{~/size}}\\n    {{#size 2~}}\\n      {{division}} {{disciplineId.name}}\\n    {{~/size}}\\n  {{~/center~}}\\n  {{#if team}}{{#center ~}}\\n  -----------------------------\\n  {{~/center~}}{{/if}}\\n  {{#center ~}}\\n    {{#size 5~}}\\n      <b>{{#fix total len=3}}{{/fix}}</b>\\n    {{~/size}}\\n  {{/center}}\\n{{/list}}\"}');
+-- INSERT INTO `configuration` (`name`,`value`) VALUES ('scheduleExecutionTime','4');
+-- INSERT INTO `configuration` (`name`,`value`) VALUES ('scheduleTrainingTime','3');
 
 INSERT INTO `discipline` (`id`,`name`,`sortOrder`,`tournamentId`) VALUES (4,'Frittstående',0,2);
 INSERT INTO `discipline` (`id`,`name`,`sortOrder`,`tournamentId`) VALUES (5,'Trampett',1,2);
@@ -1015,14 +1015,14 @@ INSERT INTO `gymnast_troop_troop_id` (`gymnastId`,`troopId`) VALUES (204,102);
 INSERT INTO `gymnast_troop_troop_id` (`gymnastId`,`troopId`) VALUES (215,102);
 INSERT INTO `gymnast_troop_troop_id` (`gymnastId`,`troopId`) VALUES (216,102);
 
-INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (1,'Silje Dueland',NULL,NULL,NULL);
-INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (2,'Lovise',NULL,NULL,NULL);
-INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (3,'Elisabeth',NULL,NULL,NULL);
-INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (4,'Tone Bergsalgel',NULL,NULL,NULL);
-INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (5,'Hege',NULL,NULL,NULL);
-INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (6,'Petter',NULL,NULL,NULL);
-INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (7,'Tone Brede',NULL,NULL,NULL);
-INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (8,'System',NULL,NULL,NULL);
+-- INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (1,'System',NULL,NULL,NULL);
+INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (2,'Silje Dueland',NULL,NULL,NULL);
+INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (3,'Lovise',NULL,NULL,NULL);
+INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (4,'Elisabeth',NULL,NULL,NULL);
+INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (5,'Tone Bergsalgel',NULL,NULL,NULL);
+INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (6,'Hege',NULL,NULL,NULL);
+INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (7,'Petter',NULL,NULL,NULL);
+INSERT INTO `judge` (`id`,`name`,`email`,`phone`,`allergies`) VALUES (8,'Tone Brede',NULL,NULL,NULL);
 
 
 
@@ -1578,26 +1578,26 @@ INSERT INTO `score_group` (`id`,`name`,`type`,`operation`,`max`,`min`,`disciplin
 INSERT INTO `score_group` (`id`,`name`,`type`,`operation`,`max`,`min`,`disciplineId`) VALUES (23,'Difficulty','D',1,5,0,6);
 INSERT INTO `score_group` (`id`,`name`,`type`,`operation`,`max`,`min`,`disciplineId`) VALUES (24,'Adjustments','OD',2,5,0,6);
 
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (13,1,0);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (13,2,1);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (14,3,0);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (14,4,1);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (14,5,2);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (15,6,0);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (15,7,1);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (16,8,0);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (17,7,0);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (18,1,0);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (18,3,1);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (19,7,0);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (20,8,0);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (21,4,0);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (21,5,1);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (22,2,0);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (22,6,1);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (23,4,0);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (23,5,1);
-INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (24,8,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (13,2,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (13,3,1);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (14,4,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (14,5,1);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (14,6,2);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (15,7,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (15,8,1);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (16,9,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (17,8,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (18,2,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (18,4,1);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (19,8,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (20,9,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (21,5,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (21,6,1);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (22,3,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (22,7,1);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (23,5,0);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (23,6,1);
+INSERT INTO `judge_in_score_group` (`scoreGroupId`,`judgeId`,`sortNumber`) VALUES (24,9,0);
 
 INSERT INTO `team` (`id`,`name`,`class`,`clubId`,`tournamentId`) VALUES (9,'Bjørn Isak Hansen',2,1,1);
 INSERT INTO `team` (`id`,`name`,`class`,`clubId`,`tournamentId`) VALUES (10,'Andreas Davidsen Finne',2,1,1);

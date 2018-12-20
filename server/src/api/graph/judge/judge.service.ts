@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as moment from 'moment';
 
 import { JudgeDto } from './dto/judge.dto';
 import { Judge } from './judge.model';
@@ -11,11 +12,19 @@ import { ScoreGroup } from '../score-group/score-group.model';
 
 @Injectable()
 export class JudgeService {
+  localCache: Judge[] = [];
+  localCahcePromise: Promise<Judge[]>;
+  cacheCreation: moment.Moment;
+
   constructor(
     @InjectRepository(Judge) private readonly judgeRepository: Repository<Judge>,
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
   async save(judge: JudgeDto): Promise<Judge> {
+    if (judge.id) {
+      const entity = await this.judgeRepository.findOne({ id: judge.id });
+      judge = Object.assign(entity, judge);
+    }
     const result = await this.judgeRepository.save(<Judge>judge);
     if (result) {
       this.pubSub.publish(judge.id ? 'judgeModified' : 'judgeCreated', { judge: result });
@@ -31,11 +40,20 @@ export class JudgeService {
     return result.affected > 0;
   }
 
-  findOneById(id: number): Promise<Judge> {
-    return this.judgeRepository.findOne({ id: id });
+  private getAllFromCache(): Promise<Judge[]> {
+    if (this.localCahcePromise == null || !this.cacheCreation || this.cacheCreation.add(10, 'minutes').isBefore(moment())) {
+      this.cacheCreation = moment();
+      this.localCahcePromise = this.judgeRepository.createQueryBuilder('judge').getMany()
+        .then(groups => (this.localCache = groups));
+    }
+    return this.localCahcePromise;
+  }
+
+  async findOneById(id: number): Promise<Judge> {
+    return (await this.getAllFromCache()).find(j => j.id === +id);
   }
   findAll(): Promise<Judge[]> {
-    return this.judgeRepository.find();
+    return this.getAllFromCache();
   }
 
   findByDiscipline(discipline: Discipline): Promise<Judge[]> {

@@ -36,6 +36,10 @@ export class ScoreGroupService {
   }
 
   async save(scoreGroup: ScoreGroupDto): Promise<ScoreGroup> {
+    if (scoreGroup.id) {
+      const entity = await this.scoreGroupRepository.findOne({ id: scoreGroup.id });
+      scoreGroup = Object.assign(entity, scoreGroup);
+    }
     const result = await this.scoreGroupRepository.save(<ScoreGroup>scoreGroup);
     if (result) {
       delete this.localCahcePromise; // Force invalidate cache

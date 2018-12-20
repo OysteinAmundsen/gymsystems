@@ -31,8 +31,8 @@ type IGymnast {
   guardian2: String
   guardian2Phone: String
   guardian2Email: String
-  clubId: ID!
-  club: IClub!
+  clubId: ID
+  club: IClub
   troop: [ITroop]
   team: [ITeam]
   lodging: [ITournament]

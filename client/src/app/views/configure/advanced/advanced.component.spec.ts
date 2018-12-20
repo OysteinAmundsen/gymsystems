@@ -6,10 +6,8 @@ import { AppModuleTest } from 'app/app.module.spec';
 import { AdvancedModule } from './advanced.module';
 import { AdvancedComponent } from './advanced.component';
 
-import { ConfigurationService, TournamentService, DivisionService } from 'app/services/api';
+import { ConfigurationService } from 'app/services/api';
 import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
-import { TournamentServiceStub } from 'app/services/api/tournament/tournament.service.stub';
-import { DivisionServiceStub } from 'app/services/api/division/division.service.stub';
 
 describe('views.configure:AdvancedComponent', () => {
   let component: AdvancedComponent;
@@ -24,11 +22,9 @@ describe('views.configure:AdvancedComponent', () => {
       ],
       providers: [
         { provide: ConfigurationService, useClass: ConfigurationServiceStub },
-        { provide: TournamentService, useClass: TournamentServiceStub },
-        { provide: DivisionService, useClass: DivisionServiceStub }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

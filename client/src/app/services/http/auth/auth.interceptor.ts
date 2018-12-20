@@ -46,7 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // Check token expiration
     const user = sessionStorage.getItem('currentUser');
     if (user && this.jwt.isTokenExpired(JSON.parse(user).token)) {
-      this.injector.get('HttpCacheService').invalidateAll();
+      // this.injector.get('HttpCacheService').invalidateAll();
       sessionStorage.removeItem('currentUser');
     }
 

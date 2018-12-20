@@ -26,63 +26,6 @@ export class ScheduleService {
   /**
    *
    */
-  all(): Observable<ITeamInDiscipline[]> {
-    return this.http.get<ITeamInDiscipline[]>(this.url);
-  }
-
-  /**
-   *
-   */
-  getByTournament(id: number): Observable<ITeamInDiscipline[]> {
-    const query = `{
-      getDisciplines(tournamentId:2){id,name}
-      getSchedule(tournamentId:2){
-        id,
-        sortNumber,
-        startNumber,
-        markDeleted,
-        startTime,
-        endTime,
-        publishTime,
-        type,
-        disciplineId,
-        team{class},
-        divisions{name,scorable,type},
-        total
-      }
-    }`.replace(/ +?|\r?\n|\r/g, '');
-    return this.http.get<ITeamInDiscipline[]>(`/api/graph?query=${query}`)
-      .pipe(map((res: any) => {
-        return res.data.getSchedule.map(s => {
-          s.discipline = res.data.getDisciplines.filter(d => d.id === s.disciplineId);
-          return s;
-        });
-      }));
-  }
-
-  getResults(tournamentId: number): Observable<ITeamInDiscipline[]> {
-    return this.http.get<ITeamInDiscipline[]>(`${this.url}/tournament-results/${tournamentId}`);
-  }
-
-  /**
-   *
-   */
-  getById(id: number): Observable<ITeamInDiscipline> {
-    return this.http.get<ITeamInDiscipline>(`${this.url}/${id}`);
-  }
-
-  /**
-   *
-   */
-  save(participant: ITeamInDiscipline) {
-    return (participant.id)
-      ? this.http.put<ITeamInDiscipline>(`${this.url}/${participant.id}`, Helper.reduceLevels(participant))
-      : this.http.post<ITeamInDiscipline>(this.url, Helper.reduceLevels(participant));
-  }
-
-  /**
-   *
-   */
   start(participant: ITeamInDiscipline) {
     return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/start`, {});
   }

@@ -98,6 +98,8 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
 
     // Save team
     return new Promise((resolve, reject) => {
+      troop.clubId = troop.club.id;
+      delete troop.club;
       this.graph.saveData('Troop', troop, `{id,name,gymnasts{id,name,gender,birthYear}}`).subscribe(result => {
         this.troopReceived(result.saveTroop);
         this.close(result.saveTroop);

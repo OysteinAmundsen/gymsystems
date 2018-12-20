@@ -6,10 +6,10 @@ import * as _ from 'lodash';
 
 import { IVenue } from 'app/model';
 import { TranslateService } from '@ngx-translate/core';
-import { VenueService } from 'app/services/api';
 import { ValidationService } from 'app/services/validation';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { GraphService } from 'app/services/graph.service';
 
 @Component({
   selector: 'app-venue-editor',
@@ -20,6 +20,19 @@ export class VenueEditorComponent implements OnInit {
   venueForm: FormGroup;
   selectedVenue: IVenue = <IVenue>{};
   adressList = [];
+  venueQuery = `{
+    id,
+    name,
+    longitude,
+    latitude,
+    address,
+    rentalCost,
+    contact,
+    contactPhone,
+    contactEmail,
+    capacity,
+    createdBy{id,name}
+  }`;
 
   get venueName() {
     let venueName = this.venueForm && this.venueForm.getRawValue().name ? this.venueForm.getRawValue().name : this.selectedVenue.name;
@@ -46,22 +59,22 @@ export class VenueEditorComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private translate: TranslateService,
-    private venueService: VenueService
+    private graph: GraphService
   ) { }
 
   ngOnInit() {
     this.venueForm = this.fb.group({
-      id           : [null, []],
-      createdBy    : [null, []],
-      name         : ['', [Validators.required]],
-      address      : ['', [Validators.required]],
-      longitude    : [{value: 0.0, disabled: true}, [Validators.required]],
-      latitude     : [{value: 0.0, disabled: true}, [Validators.required]],
-      contact      : ['', [Validators.required]],
-      contactPhone : ['', [Validators.required, Validators.minLength(8)]],
-      contactEmail : ['', [Validators.required, ValidationService.emailValidator]],
-      capacity     : [0, []],
-      rentalCost   : [0, []],
+      id: [null, []],
+      createdBy: [null, []],
+      name: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      longitude: [{ value: 0.0, disabled: true }, [Validators.required]],
+      latitude: [{ value: 0.0, disabled: true }, [Validators.required]],
+      contact: ['', [Validators.required]],
+      contactPhone: ['', [Validators.required, Validators.minLength(8)]],
+      contactEmail: ['', [Validators.required, ValidationService.emailValidator]],
+      capacity: [0, []],
+      rentalCost: [0, []],
     });
     // Read filtered options
     const addressCtrl = this.venueForm.controls['address'];
@@ -69,11 +82,11 @@ export class VenueEditorComponent implements OnInit {
       .pipe(
         distinctUntilChanged(),
         debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      ).subscribe(v => this.venueService.findLocationByAddress(v).subscribe(address => this.adressList = address));
+      ).subscribe(v => this.graph.getData(`{location(address:${v}){formatted{address},geometry{location{lat,lng}}}}`).subscribe(address => this.adressList = address));
 
     this.route.params.subscribe(params => {
       if (params.id) {
-        this.venueService.getById(+params.id).subscribe(venue => this.venueReceived(venue));
+        this.graph.getData(`{venue(id:${+params.id})${this.venueQuery}}`).subscribe(res => this.venueReceived(res.venue));
       }
     });
     this.route.queryParams.subscribe(params => {
@@ -85,7 +98,8 @@ export class VenueEditorComponent implements OnInit {
 
   venueReceived(venue: IVenue) {
     this.selectedVenue = venue;
-    this.venueForm.setValue(this.selectedVenue);
+    const val = Object.keys(this.venueForm.controls).reduce((obj, k) => { obj[k] = venue[k]; return obj; }, {});
+    this.venueForm.setValue(val);
   }
 
   setSelectedAddress(v: MatAutocompleteSelectedEvent) {
@@ -100,11 +114,11 @@ export class VenueEditorComponent implements OnInit {
   }
 
   createTournament() {
-    this.router.navigate([`../../tournament/add`], { queryParams: { fromVenue: this.venueForm.value.id}, relativeTo: this.route });
+    this.router.navigate([`../../tournament/add`], { queryParams: { fromVenue: this.venueForm.value.id }, relativeTo: this.route });
   }
 
   save() {
-    this.venueService.save(this.venueForm.getRawValue()).subscribe(res => this.cancel());
+    this.graph.saveData('Venue', this.venueForm.getRawValue(), this.venueQuery).subscribe(res => this.cancel());
   }
 
   cancel() {
@@ -112,7 +126,7 @@ export class VenueEditorComponent implements OnInit {
   }
 
   delete() {
-    this.venueService.delete(this.venueForm.value).subscribe(res => this.cancel);
+    this.graph.deleteData('Venue', this.venueForm.value.id).subscribe(res => this.cancel);
   }
 
   tabOut(typeahead: MatAutocomplete) {

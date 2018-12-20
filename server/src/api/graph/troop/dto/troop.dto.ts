@@ -2,6 +2,6 @@
 export class TroopDto {
   id: number;
   name: string;
-  club: { id: number };
+  clubId: number;
   gymnasts?: { id: number }[];
 }

@@ -110,7 +110,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
   @ApiModelProperty({ description: `A reference to the club this tournament is hosted by` })
   @ManyToOne(type => Club, club => club.tournaments, { nullable: true/*, lazy: true*/ })
   @JoinColumn({ name: 'clubId' })
-  club: Club;
+  club?: Club;
 
   @Column('int')
   clubId: number;

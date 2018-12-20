@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 
-import { ConfigurationService, TournamentService, DisplayService } from 'app/services/api';
+import { ConfigurationService, DisplayService } from 'app/services/api';
 import { ITournament } from '../../../model';
 import { MatSelectChange } from '@angular/material';
+import { GraphService } from 'app/services/graph.service';
 
 @Component({
   selector: 'app-configure-display',
@@ -15,22 +16,25 @@ export class ConfigureDisplayComponent implements OnInit {
   tournaments: ITournament[];
   preview: ITournament;
   display: string[];
+  currentIndex = 0;
 
   constructor(
     private config: ConfigurationService,
-    private tournamentService: TournamentService,
+    private graph: GraphService,
     private displayService: DisplayService,
     private title: Title,
     private meta: Meta
-  ) {
-    title.setTitle('Configure display | GymSystems');
-    meta.updateTag({ property: 'og:title', content: 'Configure display | GymSystems' });
-    meta.updateTag({ property: 'og:description', content: 'Configuring global display settings' });
-  }
+  ) { }
 
   ngOnInit() {
+    this.title.setTitle('Configure display | GymSystems');
+    this.meta.updateTag({ property: 'og:title', content: 'Configure display | GymSystems' });
+    this.meta.updateTag({ property: 'og:description', content: 'Configuring global display settings' });
+
     this.config.getByname('display').subscribe((res: any) => this.configReceived(res));
-    this.tournamentService.all().subscribe(tournaments => this.tournaments = tournaments);
+    this.graph.getData(`{
+      getTournaments{id,name,scheduleCount}
+    }`).subscribe(res => this.tournaments = res.getTournaments);
   }
 
   configReceived(res: any) {
@@ -56,11 +60,26 @@ export class ConfigureDisplayComponent implements OnInit {
 
   previewSelected($event: MatSelectChange) {
     this.preview = $event.value;
+    this.currentIndex = 0;
     this.loadPreview();
   }
 
   loadPreview() {
     this.display = null;
-    this.displayService.getAll(this.preview.id).subscribe(display => this.display = display);
+    this.displayService.getAll(this.preview.id, this.currentIndex).subscribe(display => this.display = display);
+  }
+
+  previous() {
+    if (this.currentIndex > 0) {
+      --this.currentIndex;
+      this.loadPreview();
+    }
+  }
+
+  next() {
+    if (this.currentIndex < this.preview.scheduleCount) {
+      ++this.currentIndex;
+      this.loadPreview()
+    }
   }
 }

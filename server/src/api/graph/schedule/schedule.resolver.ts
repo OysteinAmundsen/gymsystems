@@ -19,6 +19,8 @@ import { Team } from '../team/team.model';
 import { Division, DivisionType } from '../division/division.model';
 import { DivisionService } from '../division/division.service';
 import { TotalByScoreGroup } from '../score/dto/total-by-scoregroup.dto';
+import { Role } from '../user/user.model';
+import { Cleaner } from 'api/common/util/cleaner';
 
 @Resolver('ISchedule')
 export class ScheduleResolver {
@@ -32,14 +34,20 @@ export class ScheduleResolver {
     @Inject('PubSubInstance') private readonly pubSub: PubSub
   ) { }
 
+  // NOTE: Used by event.list route
   @Query()
-  @UseGuards(RoleGuard())
   getSchedule(@Args('tournamentId') id?: number, @Args('type') type?: number, @Args('scorable') scorable?: boolean) {
     return id
       ? this.scheduleService.findByTournamentId(id, type, scorable)
       : this.scheduleService.findAll(type, scorable);
   }
 
+  @Query('schedule')
+  findOneById(@Args('id') id: number): Promise<TeamInDiscipline> {
+    return this.scheduleService.findOneById(id);
+  }
+
+  @UseGuards(RoleGuard(Role.Secretariat))
   @ResolveProperty('scores')
   getScores(scheduleItem: TeamInDiscipline): Promise<Score[]> {
     return this.scoreService.findByParticipant(scheduleItem);
@@ -50,10 +58,9 @@ export class ScheduleResolver {
     return this.scoreService.getTotalScore(scheduleItem);
   }
 
+  // NOTE: Used by results.component
   @ResolveProperty('totalByScoreGroup')
-  getTotalByScoreGroup(
-    scheduleItem: TeamInDiscipline
-  ): Promise<TotalByScoreGroup[]> {
+  getTotalByScoreGroup(scheduleItem: TeamInDiscipline): Promise<TotalByScoreGroup[]> {
     return this.scoreService.getTotalByScoreGroup(scheduleItem);
   }
 
@@ -71,9 +78,7 @@ export class ScheduleResolver {
   }
 
   @ResolveProperty('disciplineSortOrder')
-  async getDisciplineSortOrder(
-    scheduleItem: TeamInDiscipline
-  ): Promise<number> {
+  async getDisciplineSortOrder(scheduleItem: TeamInDiscipline): Promise<number> {
     if (!scheduleItem.disciplineSortOrder) {
       scheduleItem.disciplineSortOrder = (await this.getDiscipline(scheduleItem)).sortOrder;
     }
@@ -117,6 +122,7 @@ export class ScheduleResolver {
     return scheduleItem.tournament;
   }
 
+  // NOTE: Used by event.list route
   @ResolveProperty('team')
   async getTeam(scheduleItem: TeamInDiscipline): Promise<Team> {
     if (!scheduleItem.team) {
@@ -125,17 +131,14 @@ export class ScheduleResolver {
     return scheduleItem.team;
   }
 
-  @Query('schedule')
-  findOneById(@Args('id') id: number): Promise<TeamInDiscipline> {
-    return this.scheduleService.findOneById(id);
-  }
-
   @Mutation('saveSchedule')
-  create(@Args('input') input: TeamInDisciplineDto): Promise<TeamInDiscipline> {
-    return this.scheduleService.save(input);
+  @UseGuards(RoleGuard(Role.Organizer))
+  save(@Args('input') input: TeamInDisciplineDto): Promise<TeamInDiscipline> {
+    return this.scheduleService.save(Cleaner.clean(input));
   }
 
   @Mutation('deleteSchedule')
+  @UseGuards(RoleGuard(Role.Organizer))
   remove(@Args('id') id: number): Promise<boolean> {
     return this.scheduleService.remove(id);
   }

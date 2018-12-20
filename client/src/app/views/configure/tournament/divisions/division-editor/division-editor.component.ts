@@ -1,8 +1,9 @@
 import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { DivisionService } from 'app/services/api';
 import { IDivision, DivisionType } from 'app/model';
+import { GraphService } from 'app/services/graph.service';
+import { DivisionsComponent } from '../divisions.component';
 
 @Component({
   selector: 'app-division-editor',
@@ -20,7 +21,7 @@ export class DivisionEditorComponent implements OnInit {
     { id: DivisionType.Gender, name: 'Gender' }
   ];
 
-  constructor(private fb: FormBuilder, private divisionService: DivisionService) { }
+  constructor(private fb: FormBuilder, private graph: GraphService) { }
 
   ngOnInit() {
     this.divisionForm = this.fb.group({
@@ -38,7 +39,7 @@ export class DivisionEditorComponent implements OnInit {
 
   save() {
     if (this.division.tournament) {
-      this.divisionService.save(this.divisionForm.value).subscribe(result => {
+      this.graph.saveData('Division', this.divisionForm.value, DivisionsComponent.divisionsQuery).subscribe(result => {
         this.divisionChanged.emit(result);
       });
     } else {
@@ -48,7 +49,7 @@ export class DivisionEditorComponent implements OnInit {
 
   delete() {
     if (!this.standalone) {
-      this.divisionService.delete(this.divisionForm.value).subscribe(result => {
+      this.graph.deleteData('Division', this.divisionForm.value.id).subscribe(result => {
         this.divisionChanged.emit(result);
       });
     } else {

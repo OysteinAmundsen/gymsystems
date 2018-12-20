@@ -1,6 +1,7 @@
 type Query {
   getUsers: [IUser]
   user(id: ID!): IUser
+  me: IUser
 }
 
 type Mutation {

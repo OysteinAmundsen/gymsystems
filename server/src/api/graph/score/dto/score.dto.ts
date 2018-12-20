@@ -4,6 +4,6 @@ export class ScoreDto {
   value: number;
   updated: Date;
   judgeIndex?: number;
-  scoreGroup: { id: number };
-  participant: { id: number };
+  scoreGroupId: number;
+  participantId: number;
 }

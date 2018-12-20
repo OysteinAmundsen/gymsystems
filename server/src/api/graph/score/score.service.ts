@@ -26,6 +26,10 @@ export class ScoreService {
   ) { }
 
   async save(score: ScoreDto): Promise<Score> {
+    if (score.id) {
+      const entity = await this.scoreRepository.findOne({ id: score.id });
+      score = Object.assign(entity, score);
+    }
     const result = await this.scoreRepository.save(<Score>score);
     if (result) {
       this.pubSub.publish(score.id ? 'scoreModified' : 'scoreCreated', { score: result });

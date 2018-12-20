@@ -76,17 +76,9 @@ export class MembersComponent implements OnInit, OnDestroy {
     this.graph.getData(`{getGymnasts(clubId:${this.club.id}){
       id,
       name,
-      email,
-      phone,
       allergies,
       birthYear,
-      gender,
-      guardian1,
-      guardian1Phone,
-      guardian1Email,
-      guardian2,
-      guardian2Phone,
-      guardian2Email
+      gender
     }}`).subscribe(res => this.onMembersReceived(res.getGymnasts));
   }
   onMembersReceived(members: IGymnast[]) {
