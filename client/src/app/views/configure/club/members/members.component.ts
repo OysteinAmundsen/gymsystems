@@ -4,7 +4,6 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 
 import { Logger } from 'app/services/Logger';
 
-import { ClubService } from 'app/services/api';
 import { IClub, IGymnast, Gender } from 'app/model';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { SubjectSource } from 'app/services/subject-source';

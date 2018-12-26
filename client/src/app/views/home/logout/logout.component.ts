@@ -24,21 +24,17 @@ export class LogoutComponent {
     private meta: Meta,
     private angulartics: Angulartics2
   ) {
-    title.setTitle('Logout | GymSystems');
-    this.meta.updateTag({property: 'og:title', content: `Logout | GymSystems`});
-    this.meta.updateTag({property: 'og:description', content: `Loging out of GymSystems`});
+    this.title.setTitle('Logout | GymSystems');
+    this.meta.updateTag({ property: 'og:title', content: `Logout | GymSystems` });
+    this.meta.updateTag({ property: 'og:description', content: `Loging out of GymSystems` });
     this.angulartics.eventTrack.next(
-      {action: 'logout', properties: {
-        category: 'auth', label: 'logout', value: userService.currentUser ? userService.currentUser.name : null}
+      {
+        action: 'logout', properties: {
+          category: 'auth', label: 'logout', value: userService.currentUser ? userService.currentUser.name : null
+        }
       }
     );
-    userService.logout().subscribe(
-      res => {
-        this.reroute();
-      },
-      err => {
-        this.reroute(err);
-      });
+    userService.logout().subscribe(res => this.reroute(), err => this.reroute(err));
   }
 
   reroute(err?: string) {

@@ -143,9 +143,27 @@ export class ScheduleResolver {
     return this.scheduleService.remove(id);
   }
 
+  @Mutation('rollback')
+  @UseGuards(RoleGuard(Role.Organizer))
+  rollback(@Args('tournamentId') tournamentId: number, @Args('participantId') participantId: number): Promise<boolean> {
+    return this.scheduleService.rollbackTo(tournamentId, participantId);
+  }
+
   @Subscription('teamInDisciplineCreated') teamInDisciplineCreated() {
     return {
       subscribe: () => this.pubSub.asyncIterator('teamInDisciplineCreated')
+    };
+  }
+
+  @Subscription('teamInDisciplineModified') teamInDisciplineModified() {
+    return {
+      subscribe: () => this.pubSub.asyncIterator('teamInDisciplineModified')
+    };
+  }
+
+  @Subscription('teamInDisciplineDeleted') teamInDisciplineDeleted() {
+    return {
+      subscribe: () => this.pubSub.asyncIterator('teamInDisciplineDeleted')
     };
   }
 }

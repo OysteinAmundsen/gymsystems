@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 import * as moment from 'moment';
 
 import { Logger } from 'app/services';
 
 import { ConfigurationService } from '../configuration/configuration.service';
-import { ITeamInDiscipline, ITournament, ParticipationType, DivisionType } from 'app/model';
+import { ITeamInDiscipline, ITournament, ParticipationType } from 'app/model';
 import { Helper } from '../Helper';
-import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ScheduleService {

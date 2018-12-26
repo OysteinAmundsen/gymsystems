@@ -4,7 +4,7 @@ import { ScoreContainer } from 'app/views/event/list/IScoreContainer';
 import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
-import { UserService, ScoreService } from 'app/services/api';
+import { UserService } from 'app/services/api';
 import { GraphService } from 'app/services/graph.service';
 
 /**
@@ -42,7 +42,6 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private elm: ElementRef,
     private graph: GraphService,
-    private scoreService: ScoreService,
     private userService: UserService
   ) { }
 
@@ -131,7 +130,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   rollback() {
     if (this.currentUser.role >= Role.Organizer) {
-      this.scoreService.rollbackToParticipant(this.participant.id).subscribe(() => this.onClose());
+      this.graph.post(`{rollback(tournamentId: ${this.participant.tournamentId}, participantId: ${+this.participant.id})}`).subscribe(() => this.onClose());
     }
   }
 
@@ -148,7 +147,8 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
       const prev = group.scores.find(s => s.judgeIndex === score.judgeIndex - 1);
       if (prev) { score.value = prev.value; }
     }
-    score.value = this.scoreService.fixScore(score.value);
+    const fixedVal = (Math.ceil(score.value * 20) / 20).toFixed(2);
+    score.value = parseFloat(fixedVal);
   }
 
   /**

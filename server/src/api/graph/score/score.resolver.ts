@@ -46,8 +46,14 @@ export class ScoreResolver {
 
   @Mutation('deleteScore')
   @UseGuards(RoleGuard(Role.Organizer))
-  removeEventListener(@Args('id') id: number): Promise<boolean> {
+  remove(@Args('id') id: number): Promise<boolean> {
     return this.scoreService.remove(id);
+  }
+
+  @Mutation('deleteParticipantScores')
+  @UseGuards(RoleGuard(Role.Organizer))
+  removeByParticipant(@Args('participantId') id: number): Promise<boolean> {
+    return this.scoreService.removeAllByParticipant(id);
   }
 
   @Subscription('scoreCreated') scoreCreated() {

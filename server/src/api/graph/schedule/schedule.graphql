@@ -8,6 +8,7 @@ type Query {
 type Mutation {
   saveSchedule(input: ScheduleInput): ISchedule
   deleteSchedule(id: ID): Boolean
+  rollback(tournamentId: ID, participantId: ID!): Boolean
 }
 
 type Subscription {

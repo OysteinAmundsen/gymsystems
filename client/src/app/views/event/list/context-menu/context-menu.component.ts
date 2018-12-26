@@ -1,8 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer2, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Role, ParticipationType, ITeamInDiscipline, IUser, ITournament } from 'app/model';
-import { ScoreService } from 'app/services/api';
-import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { GraphService } from 'app/services/graph.service';
 
 @Component({
   selector: 'app-context-menu',
@@ -30,7 +29,7 @@ export class ContextMenuComponent implements OnInit/*, AfterViewInit*/ {
   get hasEnded() { return this.participant.endTime != null; }
   get hasStarted() { return this.participant.startTime == null; }
   get hasScores() {
-    const score = this.scoreService.calculateTotal(this.participant);
+    const score = parseFloat(this.participant.total);
     return this.participant.scores && this.participant.scores.length && score > 0;
   }
 
@@ -38,7 +37,7 @@ export class ContextMenuComponent implements OnInit/*, AfterViewInit*/ {
     public elmRef: ElementRef,
     private dialogRef: MatDialogRef<ContextMenuComponent>,
     private renderer: Renderer2,
-    private scoreService: ScoreService,
+    private graph: GraphService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
@@ -53,13 +52,13 @@ export class ContextMenuComponent implements OnInit/*, AfterViewInit*/ {
   delete() {
     if (this.currentUser.role >= Role.Organizer || this.participant.publishTime == null) {
       this.participant.scores = [];
-      this.scoreService.removeFromParticipant(this.participant.id).subscribe(() => this.close());
+      return this.graph.deleteData('ParticipantScores', this.participant.id).subscribe(() => this.close());
     }
   }
 
   rollback() {
     if (this.currentUser.role >= Role.Organizer) {
-      this.scoreService.rollbackToParticipant(this.participant.id).subscribe(() => this.close());
+      this.graph.post(`{rollback(tournamentId: ${this.participant.tournamentId}, participantId: ${+this.participant.id})}`).subscribe(() => this.close());
     }
   }
 

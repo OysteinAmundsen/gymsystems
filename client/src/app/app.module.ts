@@ -40,7 +40,7 @@ import { LoginComponent } from './views/home/login/login.component';
 import { LogoutComponent } from './views/home/logout/logout.component';
 import { RegisterComponent } from './views/home/register/register.component';
 import { IUser } from './model/IUser';
-import { GraphQLModule } from './graphql.module';
+// import { GraphQLModule } from './graphql.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -109,7 +109,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     // Routes last (!important)
     AppRoutingModule,
 
-    GraphQLModule
+    // GraphQLModule
   ],
   providers: [
     // Authentication interceptor

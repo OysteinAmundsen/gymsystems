@@ -8,6 +8,7 @@ type Query {
 type Mutation {
   saveScore(input: [ScoreInput]): [IScore]
   deleteScore(id: ID): Boolean
+  deleteParticipantScores(participantId: ID): Boolean
 }
 
 type Subscription {

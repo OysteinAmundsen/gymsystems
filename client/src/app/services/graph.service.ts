@@ -17,15 +17,25 @@ export class GraphService {
   }
 
   deleteData(type: string, id: number): Observable<any> {
-    const query = `mutation { delete${type}(id:${id}) }`;
-    return this.http.delete<any>(`/api/graph/?query=${query.replace(/#.+| +?|\r?\n|\r/gm, '')}`).pipe(map(res => res.data));
+    const query = `{ delete${type}(id:${id}) }`;
+    return this.delete(query);
     // return this.apollo.mutate<any>(gql`${query}`).pipe(map(res => res.data));
   }
 
   saveData(type: string, data: any, returnVal: string): Observable<any> {
-    const query = `mutation {save${type} (input:${this.jsonToGql(data)}) ${returnVal}}`;
-    return this.http.post<any>(`/api/graph`, { query: query }).pipe(map(res => res.data));
+    const query = `{save${type} (input:${this.jsonToGql(data)}) ${returnVal}}`;
+    return this.post(query);
     // return this.apollo.mutate(gql`${query}`).pipe(map(res => res.data));
+  }
+
+  post(query: string) {
+    const queryStr = `mutation ${query}`;
+    return this.http.post<any>(`/api/graph`, { query: queryStr }).pipe(map(res => res.data));
+  }
+
+  delete(query: string) {
+    const queryStr = `mutation ${query}`;
+    return this.http.delete<any>(`/api/graph/?query=${queryStr.replace(/#.+| +?|\r?\n|\r/gm, '')}`).pipe(map(res => res.data));
   }
 
   jsonToGql(val: any): string {

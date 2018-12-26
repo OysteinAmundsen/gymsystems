@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { Logger } from 'app/services';
@@ -121,9 +121,10 @@ export class UserService {
    *
    */
   logout() {
-    return this.http.post('/api/user/logout', {})
-      .pipe(map((res: Response) => {
-        return this.currentUserReceived(null);
-      }));
+    return of(this.currentUserReceived(null));
+    // return this.http.post('/api/user/logout', {})
+    //   .pipe(map((res: Response) => {
+    //     return this.currentUserReceived(null);
+    //   }));
   }
 }

@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
-import { UserService, ClubService } from 'app/services/api';
+import { UserService } from 'app/services/api';
 import { ValidationService } from 'app/services/validation';
 import { ErrorHandlerService } from 'app/services/http';
 
@@ -12,6 +12,7 @@ import { IUser, Role } from 'app/model/IUser';
 import { IClub } from 'app/model/IClub';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocomplete } from '@angular/material';
+import { GraphService } from 'app/services/graph.service';
 
 enum Type {
   Organizer = 0 + Role.Organizer, Club = 0 + Role.Club
@@ -24,7 +25,7 @@ enum Type {
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  user: IUser = <IUser>{role: Role.Club};
+  user: IUser = <IUser>{ role: Role.Club };
   clubList = [];
 
   get Organizer(): string { return this.translate.instant('Organizer'); }
@@ -36,7 +37,7 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private clubService: ClubService,
+    private graph: GraphService,
     private errorHandler: ErrorHandlerService,
     private translate: TranslateService) { }
 
@@ -49,26 +50,27 @@ export class RegisterComponent implements OnInit {
       club: [this.user.club, [Validators.required]],
       password: [this.user.password, [Validators.required]],
       repeatPassword: [this.user.password, [Validators.required]]
-    }, {validator: (c: AbstractControl) => {
-      return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false}};
-    }});
+    }, {
+        validator: (c: AbstractControl) => {
+          return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false } };
+        }
+      });
 
     // Read filtered options
     const clubCtrl = this.registerForm.controls['club'];
     clubCtrl.valueChanges
       .pipe(
         distinctUntilChanged(),
-        map((v: string | IClub) => {
+        map(v => {
           // Patch to uppercase
           if (typeof v === 'string') {
-            clubCtrl.patchValue(toUpperCaseTransformer(<string> v));
+            clubCtrl.patchValue(toUpperCaseTransformer(<string>v));
           }
           return v;
         }),
         debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      ).subscribe((v: string | IClub) => {
-        const name: string = (typeof v === 'string' ? v : v.name);
-        this.clubService.findByName(name).subscribe(clubs => this.clubList = clubs);
+      ).subscribe(v => {
+        this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(clubs => this.clubList = clubs);
       });
   }
 

@@ -1,11 +1,11 @@
-import { Component, OnInit, EventEmitter, Output, Input, HostListener, ElementRef, ViewChildren, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, HostListener, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import * as _ from 'lodash';
 
-import { ITroop, IClub, IUser, IMedia, ITournament, IGymnast } from 'app/model';
-import { ClubService, UserService } from 'app/services/api';
+import { ITroop, IClub, IUser } from 'app/model';
+import { UserService } from 'app/services/api';
 
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { ActivatedRoute, Router } from '@angular/router';

@@ -45,6 +45,15 @@ export class ScoreService {
     return result.affected > 0;
   }
 
+  async removeAllByParticipant(id: number): Promise<boolean> {
+    const scoreIds = await this.scoreRepository.find({ participantId: id });
+    const result = await this.scoreRepository.delete({ participantId: id });
+    if (result.affected > 0) {
+      this.pubSub.publish('scoreDeleted', { scoreId: scoreIds.map(s => s.id) });
+    }
+    return result.affected > 0;
+  }
+
   findOneById(id: number): Promise<Score> {
     return this.scoreRepository.findOne({ id: id });
   }

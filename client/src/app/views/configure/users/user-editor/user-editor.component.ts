@@ -4,12 +4,13 @@ import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/fo
 import { Title, Meta } from '@angular/platform-browser';
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
-import { UserService, ClubService } from 'app/services/api';
+import { UserService } from 'app/services/api';
 import { IUser, RoleNames, Role, IClub } from 'app/model';
 import { ValidationService } from 'app/services/validation';
 import { ErrorHandlerService } from 'app/services/http';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocomplete } from '@angular/material';
+import { GraphService } from 'app/services/graph.service';
 
 @Component({
   selector: 'app-user-editor',
@@ -17,6 +18,7 @@ import { MatAutocomplete } from '@angular/material';
   styleUrls: ['./user-editor.component.scss']
 })
 export class UserEditorComponent implements OnInit {
+  userQuery = `{id,name,email,role,password,club{id,name}}`;
 
   currentUser: IUser;
   userForm: FormGroup;
@@ -35,8 +37,8 @@ export class UserEditorComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private graph: GraphService,
     private userService: UserService,
-    private clubService: ClubService,
     private title: Title,
     private meta: Meta,
     private errorHandler: ErrorHandlerService) { }
@@ -46,23 +48,23 @@ export class UserEditorComponent implements OnInit {
 
     // Create the form
     this.userForm = this.fb.group({
-      id: [this.user.id],
-      name: [this.user.name, [Validators.required]],
-      role: [this.user.role, [Validators.required]],
-      email: [this.user.email, [Validators.required, ValidationService.emailValidator]],
-      club: [this.user.club, []],
-      password: [this.user.password, [Validators.required]],
-      repeatPassword: [this.user.password, [Validators.required]]
+      id: [null],
+      name: ['', [Validators.required]],
+      role: [Role.User, [Validators.required]],
+      email: ['', [Validators.required, ValidationService.emailValidator]],
+      club: [null, []],
+      password: ['', [Validators.required]],
+      repeatPassword: ['', [Validators.required]]
     }, {
-      validator: (c: AbstractControl) => {
-        return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false } };
-      }
+        validator: (c: AbstractControl) => {
+          return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false } };
+        }
       });
 
     this.route.params.subscribe((params: any) => {
       if (params.id) {
         this.selectedUserId = params.id;
-        this.userService.getById(params.id).subscribe(user => this.userReceived(user));
+        this.graph.getData(`{user(id:${+params.id})${this.userQuery}}`).subscribe(res => this.userReceived(res.user));
       } else {
         this.title.setTitle(`Add user | GymSystems`);
         this.meta.updateTag({ property: 'og:title', content: `Add user | GymSystems` });
@@ -77,7 +79,7 @@ export class UserEditorComponent implements OnInit {
         distinctUntilChanged(),
         map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }), // Patch to uppercase
         debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      ).subscribe(v => this.clubService.findByName(encodeURIComponent(v && v.name ? v.name : v)).subscribe(clubs => this.clubList = clubs));
+      ).subscribe(v => this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(clubs => this.clubList = clubs));
   }
 
   clubDisplay(club: IClub) {
@@ -119,7 +121,7 @@ export class UserEditorComponent implements OnInit {
       If you belive your role should be different, contact a person with a higher or equal role.`);
       return;
     }
-    this.userService.save(formVal).subscribe(result => {
+    this.graph.saveData('User', formVal, this.userQuery).subscribe(result => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }
@@ -127,7 +129,7 @@ export class UserEditorComponent implements OnInit {
   delete() {
     this.errorHandler.clearError();
     if (this.userForm.value.id !== this.currentUser.id) {
-      this.userService.delete(this.userForm.value).subscribe(result => {
+      this.graph.deleteData('User', this.userForm.value.id).subscribe(result => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });
     }

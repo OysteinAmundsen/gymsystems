@@ -6,13 +6,11 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
-import { ITroop, IUser, Role, IGymnast, Gender, DivisionType, IDivision } from 'app/model';
-import { UserService, ClubService, ConfigurationService } from 'app/services/api';
+import { ITroop, IUser, Role, IGymnast, Gender, IDivision } from 'app/model';
+import { UserService, ConfigurationService } from 'app/services/api';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
-import { ExpansionSource, ExpansionRow } from 'app/services/expansion-source';
 import { SubjectSource } from 'app/services/subject-source';
 import { Router, ActivatedRoute } from '@angular/router';
-import { noop } from 'app/services';
 import { GraphService } from 'app/services/graph.service';
 
 @Component({

@@ -6,7 +6,7 @@ import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 import * as _ from 'lodash';
 
-import { ClubService, UserService } from 'app/services/api';
+import { UserService } from 'app/services/api';
 import { IUser, Role, IClub } from 'app/model';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
