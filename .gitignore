@@ -80,3 +80,5 @@ Thumbs.db
 server/dist/
 
 server/src/api/graph/graphql\.schema\.ts
+
+deploy\.sh
