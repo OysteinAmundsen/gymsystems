@@ -3,7 +3,8 @@ import { IMedia } from 'app/model';
 
 @Injectable({ providedIn: 'root' })
 export class MediaService {
-  private audio = new Audio();
+  private _audio = new Audio();
+  get audio() { return this._audio; }
 
   private _whatsPlaying: IMedia;
   get whatsPlaying() { return this._whatsPlaying; }
@@ -16,27 +17,27 @@ export class MediaService {
   play(media?: IMedia) {
     if (media) {
       this._whatsPlaying = media;
-      this.audio.src = `/api/media/${media.team.id}/${media.discipline.id}`;
-      this.audio.load();
+      this._audio.src = `/api/media/${media.team.id}/${media.discipline.id}`;
+      this._audio.load();
     }
-    if (this.audio.src) {
-      this.audio.play();
+    if (this._audio.src) {
+      this._audio.play();
       this._isPaused = false;
     }
   }
 
   stop() {
-    this.audio.pause();
+    this._audio.pause();
     this._whatsPlaying = null;
   }
 
   pause() {
-    this.audio.pause();
+    this._audio.pause();
     this._isPaused = true;
   }
 
   restart() {
-    this.audio.currentTime = 0; // Restart media from 0 playback position
+    this._audio.currentTime = 0; // Restart media from 0 playback position
     this.play();
   }
 

@@ -1,13 +1,12 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import * as Handlebars from 'handlebars';
-import { ConfigurationService } from '../administration/configuration.service';
-import { TournamentService } from 'api/graph/tournament/tournament.service';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TeamInDiscipline } from 'api/graph/schedule/team-in-discipline.model';
 import { Repository, Not } from 'typeorm';
-import { ScoreService } from 'api/graph/score/score.service';
-import { RoleGuard } from 'api/common/auth/role.guard';
-import { Role } from 'api/graph';
+
+import { ConfigurationService } from '../administration/configuration.service';
+import { TournamentService } from '../../graph/tournament/tournament.service';
+import { TeamInDiscipline } from '../../graph/schedule/team-in-discipline.model';
+import { ScoreService } from '../../graph/score/score.service';
 
 @Controller('display')
 export class DisplayController {

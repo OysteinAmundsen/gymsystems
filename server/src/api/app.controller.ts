@@ -1,4 +1,4 @@
-import { Get, Controller, Res, HttpCode, Req } from '@nestjs/common';
+import { Get, Controller } from '@nestjs/common';
 import { ApiOperation, ApiUseTags, ApiResponse } from '@nestjs/swagger';
 const pkg = require('api/../../package.json');
 
@@ -16,9 +16,4 @@ export class AppController {
       version: pkg.version
     };
   }
-
-  // @Get('/backup')
-  // backup(@Res() res: Response) {
-
-  // }
 }

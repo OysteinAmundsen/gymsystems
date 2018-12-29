@@ -1,25 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import * as moment from 'moment';
 
 import { ITournament } from 'app/model/ITournament';
-import { Helper } from '../Helper';
-import { HttpParams } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
-export class TournamentService {
-  private url = '/api/tournaments';
-  selected: ITournament;
+export class CommonService {
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   /**
    *
    */
-  dateSpan(tournament: ITournament): string {
+  static dateSpan(tournament: ITournament): string {
     const toDate = (date: moment.Moment) => moment(date).format('DD');
     if (tournament && tournament.startDate && tournament.endDate) {
       const start = moment(tournament.startDate);
@@ -32,5 +24,9 @@ export class TournamentService {
       return `${toDate(start)}. ${month} ${year}`;
     }
     return '';
+  }
+
+  static compressString(str: string) {
+    return str.replace(/#.+| +?|\r?\n|\r/gm, '');
   }
 }

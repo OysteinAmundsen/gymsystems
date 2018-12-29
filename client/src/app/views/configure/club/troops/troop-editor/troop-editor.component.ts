@@ -50,8 +50,7 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private graph: GraphService,
     private userService: UserService,
-    private clubComponent: ClubEditorComponent/* ,
-    private troopsComponent: TroopsComponent */) { }
+    private clubComponent: ClubEditorComponent) { }
 
   ngOnInit() {
     this.subscriptions.push(this.userService.getMe().subscribe(user => this.currentUser = user));

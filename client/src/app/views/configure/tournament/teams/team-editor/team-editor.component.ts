@@ -11,7 +11,7 @@ import * as _ from 'lodash';
 import { IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender, IGymnast } from 'app/model';
 import { UserService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
-import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
+import { ErrorHandlerService } from 'app/services/http/error-handler.service';
 import { Logger } from 'app/services/Logger';
 
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';

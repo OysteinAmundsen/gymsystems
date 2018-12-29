@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ValidationService } from 'app/services/validation';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from '../../../../services/graph.service';
 
 @Component({
   selector: 'app-venue-editor',

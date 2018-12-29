@@ -44,7 +44,7 @@
           </app-help-block>
         </mat-form-field>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <mat-form-field class="col-xs-6 help-available">
           <input matInput type="password" formControlName="password" placeholder="{{'Password' | translate}}">
           <app-help-block>
@@ -58,13 +58,14 @@
             <p translate>This needs to be exactly the same text as entered in the password field. Just to make sure you did not make any typos. :-)</p>
           </app-help-block>
         </mat-form-field>
-      </div>
+      </div> -->
     </mat-card-content>
 
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="userForm.invalid || userForm.pristine"></app-save-button>
       <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="userForm.value.id && userForm.value.id !== currentUser.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><i class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" *ngIf="userForm.value.id && userForm.value.id !== currentUser.id" [title]="'Delete' | translate" class="pull-right mat-warn"
+              (click)="delete()"><i class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>
 </form>

@@ -11,9 +11,9 @@ describe('shared.components:DialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogComponent ]
+      declarations: [DialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -44,7 +44,7 @@ describe('shared.components:DialogComponent', () => {
   it('user can close dialog by clicking "OK"', () => {
     component.noButtons = false;
     component.isOpen = true;
-    spyOn(component.onVerify, 'emit');
+    spyOn(component.verify, 'emit');
 
     // Dialog is open
     fixture.detectChanges();
@@ -53,13 +53,13 @@ describe('shared.components:DialogComponent', () => {
     // Dialog is clicked closed
     const button = fixture.debugElement.nativeElement.querySelector('footer button[type="submit"]');
     button.click();
-    expect(component.onVerify.emit).toHaveBeenCalled();
+    expect(component.verify.emit).toHaveBeenCalled();
   });
 
   it('user can close dialog by clicking "CANCEL"', () => {
     component.noButtons = false;
     component.isOpen = true;
-    spyOn(component.onCancel, 'emit');
+    spyOn(component.cancel, 'emit');
 
     // Dialog is open
     fixture.detectChanges();
@@ -68,6 +68,6 @@ describe('shared.components:DialogComponent', () => {
     // Dialog is clicked closed
     const button = fixture.debugElement.nativeElement.querySelector('footer button:first-of-type');
     button.click();
-    expect(component.onCancel.emit).toHaveBeenCalled();
+    expect(component.cancel.emit).toHaveBeenCalled();
   });
 });

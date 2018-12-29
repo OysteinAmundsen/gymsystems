@@ -25,9 +25,10 @@ export class UsersComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    title.setTitle('Configure users | GymSystems');
-    this.meta.updateTag({ property: 'og:title', content: `Configure users | GymSystems` });
+    title.setTitle('GymSystems | Configure users');
+    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure users` });
     this.meta.updateTag({ property: 'og:description', content: `List all users by club` });
+    this.meta.updateTag({ property: 'description', content: `List all users by club` });
   }
 
   ngOnInit() {

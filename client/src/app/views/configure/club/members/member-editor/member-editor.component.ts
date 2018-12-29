@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { IClub, IGymnast, Gender, ITroop } from 'app/model';
@@ -40,7 +40,7 @@ export class MemberEditorComponent implements OnInit {
 
   gender = Gender;
   troopList = [];
-  troopSelector: string;
+  troopSelector = new FormControl('');
 
   minYear = moment().subtract(60, 'year').year();
   maxYear = moment().subtract(8, 'year').year();
@@ -98,6 +98,14 @@ export class MemberEditorComponent implements OnInit {
         }
       });
     });
+
+    this.troopSelector.valueChanges.subscribe(val => {
+      if (this.club.id) {
+        this.graph.getData(`{getTroops(clubId:${this.club.id},name:"${encodeURIComponent(val)}"){id,name}}`).subscribe(res => {
+          this.troopList = res.getTroops.filter(t => this.memberForm.value.troop.findIndex(troop => troop.id === t.id) < 0);
+        });
+      }
+    });
   }
 
   memberReceived(member: IGymnast) {
@@ -114,14 +122,6 @@ export class MemberEditorComponent implements OnInit {
     });
   }
 
-  onTroopSelectorChange($event) {
-    if (this.club.id) {
-      this.graph.getData(`{getTroops(clubId:${this.club.id},name:"${encodeURIComponent($event)}"){id,name}}`).subscribe(res => {
-        this.troopList = res.getTroops.filter(t => this.memberForm.value.troop.findIndex(troop => troop.id === t.id) < 0);
-      });
-    }
-  }
-
   troopDisplay(troop: ITroop) {
     return troop && troop.name ? troop.name : troop;
   }
@@ -129,7 +129,7 @@ export class MemberEditorComponent implements OnInit {
   addToTeam($event: MatAutocompleteSelectedEvent) {
     const troop = $event.option.value;
     this.memberForm.value.troop.push(troop);
-    this.troopSelector = '';
+    this.troopSelector.setValue('');
     this.memberForm.markAsDirty();
   }
 

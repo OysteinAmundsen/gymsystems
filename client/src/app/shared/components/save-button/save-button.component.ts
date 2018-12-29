@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, noop } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
@@ -18,25 +18,25 @@ export class SaveButtonComponent implements OnInit, OnDestroy {
   success = false;
   isListening = false; // Only listen for http events if this button has actually been clicked.
 
-  actionSubscription: Subscription;
+  subscriptions: Subscription[] = [];
 
   constructor(private authState: HttpStateService, private translate: TranslateService) { }
 
   ngOnInit() {
     // Make sure language texts exist
     this.translate.get(['Saved', 'Deleted', 'SUCCESS']).subscribe();
-    this.actionSubscription = this.authState.httpAction.subscribe((action: HttpAction) => {
+    this.subscriptions.push(this.authState.httpAction.subscribe((action: HttpAction) => {
       if (this.isListening && (action.method === HttpMethod.Post || action.method === HttpMethod.Put)) {
         this.isSaving = !(action.isComplete);
         if (action.isComplete) {
           this.isListening = false;
         }
       }
-    });
+    }));
   }
 
   ngOnDestroy() {
-    this.actionSubscription.unsubscribe();
+    this.subscriptions.forEach(s => s && s.unsubscribe ? s.unsubscribe() : noop());
   }
 
   click() {

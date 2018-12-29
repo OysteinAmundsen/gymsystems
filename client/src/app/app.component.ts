@@ -1,17 +1,14 @@
 import { IUser } from './model/IUser';
-import { Component, ElementRef, OnInit, OnDestroy, AfterContentChecked } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import { Component, OnInit, OnDestroy, AfterContentChecked } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { TranslateService } from '@ngx-translate/core';
-import { Angulartics2 } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { environment } from '../environments/environment';
 
 import { UserService } from './services/api';
-import { ErrorHandlerService } from './services/http/ErrorHandler.service';
 import { Logger } from './services/Logger';
-import { HelpBlockComponent } from 'app/shared/components';
 import { SwUpdate } from '@angular/service-worker';
 
 @Component({
@@ -44,6 +41,12 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     private angulartics: Angulartics2GoogleAnalytics,
     private updates: SwUpdate
   ) {
+  }
+
+  /**
+   *
+   */
+  ngOnInit(): void {
     // Identify dev mode
     // Set translation defaults
     this.translate.addLangs(['en', 'no']);
@@ -55,7 +58,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     // For debugging routes (only visible in dev mode)
     this.router.events.subscribe(event => Logger.debug(event));
     if (environment.production) {
-      angulartics.startTracking();
+      this.angulartics.startTracking();
     }
 
     // updates.available.subscribe(event => {
@@ -63,13 +66,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     //     updates.activateUpdate().then(() => document.location.reload());
     //   }
     // });
-  }
 
-  /**
-   *
-   */
-  ngOnInit(): void {
-    this.userSubscription = this.userService.getMe().subscribe(user => this.user = user);
+    this.userSubscription = this.userService.getMe(true).subscribe(user => this.user = user);
   }
 
   /**

@@ -1,12 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MediaService } from './media.service';
+import { Repository } from 'typeorm';
+import { Media } from './media.model';
+import { PubSub } from 'graphql-subscriptions';
+
+export class MediaRepository extends Repository<Media> { }
 
 describe('MediaService', () => {
   let service: MediaService;
-  
+
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MediaService],
+      providers: [
+        MediaService,
+        { provide: 'MediaRepository', useClass: MediaRepository },
+        { provide: 'PubSubInstance', useValue: new PubSub() }
+      ],
     }).compile();
     service = module.get<MediaService>(MediaService);
   });

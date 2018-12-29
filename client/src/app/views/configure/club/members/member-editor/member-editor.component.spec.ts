@@ -1,49 +1,124 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
+import { ClubEditorComponent } from "app/views/configure/club/club-editor/club-editor.component";
+import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from "@angular/material";
+import { GraphService } from "app/services/graph.service";
+import { MemberEditorComponent } from "./member-editor.component";
+import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
+import { Gender } from 'app/model/Gender';
 
-import { AppModuleTest } from 'app/app.module.spec';
-import { ClubModule } from '../../club.module';
-import { ClubEditorComponent } from '../../club-editor/club-editor.component';
-import { MemberEditorComponent } from './member-editor.component';
-import { MembersComponent } from '../members.component';
-
-import { ConfigurationService, ClubService, UserService } from 'app/services/api';
-import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
-import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
-import { ErrorHandlerService } from 'app/services/http';
-import { UserServiceStub } from 'app/services/api/user/user.service.stub';
-
-describe('views.configure.club:MemberEditorComponent', () => {
+describe("views.configure.club:MemberEditorComponent", () => {
   let component: MemberEditorComponent;
   let fixture: ComponentFixture<MemberEditorComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        AppModuleTest,
-        ClubModule,
-        RouterTestingModule,
-      ],
-      providers: [
-        MembersComponent,
-        ClubEditorComponent,
-        ErrorHandlerService,
-        { provide: ClubService, useClass: ClubServiceStub },
-        { provide: UserService, useClass: UserServiceStub },
-        { provide: ConfigurationService, useClass: ConfigurationServiceStub },
-      ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
+    const activatedRouteStub = { params: of({ id: 1 }) };
+    const iTroopStub = { id: 1, name: "Test troop" };
+    const iGymnastStub = {
+      id: 1,
+      name: "Test gymnast",
+      email: "somewhere@someone.no",
+      phone: "99999999",
+      birthDate: new Date().getTime(),
+      birthYear: 2004,
+      club: { id: 1, name: "Test club" },
+      troop: iTroopStub,
+      gender: Gender.Male,
+      allergies: '',
+      guardian1: null,
+      guardian1Phone: null,
+      guardian1Email: null,
+      guardian2: null,
+      guardian2Phone: null,
+      guardian2Email: null
+    };
+    const clubEditorComponentStub = { clubSubject: of({}) };
+    const matAutocompleteSelectedEventStub = { option: { value: {} } };
+    const graphServiceStub = {
+      getData: () => (of({ gymnast: iGymnastStub })),
+      saveData: () => (of({ saveGymnast: iGymnastStub })),
+      deleteData: () => (of({}))
+    };
+
+    TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule,
+        MatAutocompleteModule,
+        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
+      ],
+      declarations: [MemberEditorComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: ClubEditorComponent, useValue: clubEditorComponentStub },
+        { provide: MatAutocompleteSelectedEvent, useValue: matAutocompleteSelectedEventStub },
+        { provide: GraphService, useValue: graphServiceStub }
+      ]
+    });
     fixture = TestBed.createComponent(MemberEditorComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should be created', () => {
-    // expect(component).toBeTruthy();
-    expect(true).toBeTruthy();
+  it("can load instance", () => {
+    expect(component).toBeTruthy();
+  });
+
+  it("troopList defaults to: []", () => {
+    expect(component.troopList).toEqual([]);
+  });
+
+  describe("ngOnInit", () => {
+    it("makes expected calls", () => {
+      const formBuilderStub: FormBuilder = fixture.debugElement.injector.get(FormBuilder);
+      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+      spyOn(formBuilderStub, "group").and.callThrough();
+      spyOn(graphServiceStub, "getData").and.callThrough();
+      spyOn(component, "memberReceived");
+      component.ngOnInit();
+      expect(formBuilderStub.group).toHaveBeenCalled();
+      expect(graphServiceStub.getData).toHaveBeenCalled();
+      expect(component.memberReceived).toHaveBeenCalled();
+    });
+  });
+
+  describe("save", () => {
+    it("makes expected calls", () => {
+      component.ngOnInit();
+
+      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+      spyOn(graphServiceStub, "saveData").and.callThrough();
+      spyOn(component, "close");
+      component.save();
+      expect(graphServiceStub.saveData).toHaveBeenCalled();
+      expect(component.close).toHaveBeenCalled();
+    });
+  });
+
+  describe("delete", () => {
+    it("makes expected calls", () => {
+      component.ngOnInit();
+
+      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+      spyOn(graphServiceStub, "deleteData").and.callThrough();
+      spyOn(component, "close");
+      component.delete();
+      expect(graphServiceStub.deleteData).toHaveBeenCalled();
+      expect(component.close).toHaveBeenCalled();
+    });
+  });
+
+  describe("close", () => {
+    it("makes expected calls", () => {
+      const routerStub: Router = fixture.debugElement.injector.get(Router);
+      spyOn(routerStub, "navigate");
+      component.close();
+      expect(routerStub.navigate).toHaveBeenCalled();
+    });
   });
 });

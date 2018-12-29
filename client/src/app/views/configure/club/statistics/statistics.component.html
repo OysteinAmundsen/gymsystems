@@ -11,7 +11,7 @@
     <tbody *ngFor="let team of teamList">
       <tr role="listitem">
         <td>{{ team.tournament.name }}</td>
-        <td>{{ team.name }}</td>
+        <td>{{ team.team.name }}</td>
         <td>{{ score(team) }}</td>
         <td>{{ position(team) }}</td>
       </tr>

@@ -29,9 +29,10 @@ export class ClubComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.title.setTitle('Configure clubs | GymSystems');
-    this.meta.updateTag({ property: 'og:title', content: `Configure clubs | GymSystems` });
+    this.title.setTitle('GymSystems | Configure clubs');
+    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure clubs` });
     this.meta.updateTag({ property: 'og:description', content: `List out all clubs registerred in the system` });
+    this.meta.updateTag({ property: 'description', content: `List out all clubs registerred in the system` });
     this.userService.getMe().subscribe(user => {
       this.user = user;
       if (this.user && this.user.role >= Role.Admin) {

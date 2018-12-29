@@ -4,7 +4,7 @@ type Query {
 }
 
 type Mutation {
-  saveJudge(judge: JudgeInput): IJudge
+  saveJudge(input: JudgeInput): IJudge
   deleteJudge(id: ID): Boolean
 }
 

@@ -12,8 +12,8 @@ export class DialogComponent implements OnInit {
   set isOpen(value) { this._isOpen = value; value ? this.openDialog() : this.closeDialog(); }
   get isOpen() { return this._isOpen; }
 
-  @Output() onCancel = new EventEmitter();
-  @Output() onVerify = new EventEmitter();
+  @Output() cancel = new EventEmitter();
+  @Output() verify = new EventEmitter();
 
   constructor(private element: ElementRef) { }
 
@@ -29,7 +29,7 @@ export class DialogComponent implements OnInit {
   }
 
   okClicked() {
-    this.onVerify.emit();
+    this.verify.emit();
     this.closeDialog();
   }
 
@@ -48,7 +48,7 @@ export class DialogComponent implements OnInit {
   }
 
   cancelClicked() {
-    this.onCancel.emit();
+    this.cancel.emit();
     this.closeDialog();
   }
 }

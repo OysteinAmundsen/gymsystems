@@ -12,7 +12,7 @@ import { Gymnast } from '../gymnast/gymnast.model';
 import { GymnastService } from '../gymnast/gymnast.service';
 import { Role } from '../user/user.model';
 import { ClubService } from '../club/club.service';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('ITroop')
 export class TroopResolver {
@@ -43,7 +43,7 @@ export class TroopResolver {
 
   @Mutation('saveTroop')
   @UseGuards(RoleGuard(Role.Club))
-  create(@Args('input') input: TroopDto): Promise<Troop> {
+  save(@Args('input') input: TroopDto): Promise<Troop> {
     ClubService.enforceSame(input.clubId);
     return this.troopService.save(Cleaner.clean(input));
   }

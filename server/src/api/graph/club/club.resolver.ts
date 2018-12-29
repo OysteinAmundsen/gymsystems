@@ -1,4 +1,4 @@
-import { UseGuards, Inject, Req } from '@nestjs/common';
+import { UseGuards, Inject } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription, ResolveProperty } from '@nestjs/graphql';
 import { isEmpty, isString } from 'lodash';
 import { PubSub } from 'graphql-subscriptions';
@@ -17,7 +17,7 @@ import { User, Role } from '../user/user.model';
 import { UserService } from '../user/user.service';
 import { Gymnast } from '../gymnast/gymnast.model';
 import { GymnastService } from '../gymnast/gymnast.service';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('IClub')
 export class ClubResolver {

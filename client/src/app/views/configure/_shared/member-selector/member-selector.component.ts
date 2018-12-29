@@ -16,8 +16,14 @@ export type FilterFn = (g: IGymnast) => boolean;
   styleUrls: ['./member-selector.component.scss']
 })
 export class MemberSelectorComponent implements OnInit, OnDestroy {
-  _club: IClub;
+  @Input() troopName = '';
+  @Input() memberListHidden = true;
+  @Input() memberTemplate: TemplateRef<any>;
+  @Output() gymnastsChange = new EventEmitter<IGymnast[]>();
+
   filterFn: { [name: string]: FilterFn } = {};
+
+  private _club: IClub;
   @Input() set club(v) {
     if (v) {
       this._club = v;
@@ -25,10 +31,8 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
     }
   }
   get club() { return this._club; }
-  @Input() troopName: string;
-  @Input() memberListHidden = true;
-  @Output() gymnastsChange = new EventEmitter<IGymnast[]>();
-  _gymnasts: IGymnast[] = [];
+
+  private _gymnasts: IGymnast[] = [];
   @Input() set gymnasts(v) {
     this._gymnasts = v;
     if (v) {
@@ -37,15 +41,13 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
   }
   get gymnasts() { return this._gymnasts; }
 
-  @Input() memberTemplate: TemplateRef<any>;
 
-
-  availableMembers: IGymnast[];
-  filteredMembers: IGymnast[];
+  availableMembers: IGymnast[] = [];
+  filteredMembers: IGymnast[] = [];
   genders = Gender;
   isLoadingMembers = false;
 
-  subscription: Subscription[] = [];
+  private subscription: Subscription[] = [];
 
   get toggleTitle() {
     return this.memberListHidden
@@ -82,7 +84,8 @@ export class MemberSelectorComponent implements OnInit, OnDestroy {
     if (this.club) {
       if (!this.isLoadingMembers) {
         this.isLoadingMembers = true;
-        this.graph.getData(`{getGymnasts(clubId:${this.club.id}){id,name,birthYear,gender}}`)
+        const query = `{ getGymnasts (clubId:${this.club.id}) {id,name,birthYear,gender}}`
+        this.graph.getData(query)
           .subscribe(res => {
             this.availableMembers = this.filteredMembers = res.getGymnasts;
             if (res.getGymnasts && res.getGymnasts.length && this.gymnasts && this.gymnasts.length) {

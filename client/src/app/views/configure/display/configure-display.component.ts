@@ -27,9 +27,10 @@ export class ConfigureDisplayComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title.setTitle('Configure display | GymSystems');
-    this.meta.updateTag({ property: 'og:title', content: 'Configure display | GymSystems' });
+    this.title.setTitle('GymSystems | Configure display');
+    this.meta.updateTag({ property: 'og:title', content: 'GymSystems | Configure display' });
     this.meta.updateTag({ property: 'og:description', content: 'Configuring global display settings' });
+    this.meta.updateTag({ property: 'description', content: 'Configuring global display settings' });
 
     this.config.getByname('display').subscribe((res: any) => this.configReceived(res));
     this.graph.getData(`{

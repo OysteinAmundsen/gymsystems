@@ -22,7 +22,7 @@ import { ClubService } from '../club/club.service';
 import { Club } from '../club/club.model';
 import { Tournament } from '../tournament/tournament.model';
 import { TournamentService } from '../tournament/tournament.service';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('ITeam')
 export class TeamResolver {

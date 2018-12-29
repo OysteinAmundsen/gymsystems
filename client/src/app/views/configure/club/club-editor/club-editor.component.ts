@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
-import * as _ from 'lodash';
+import { startCase, lowerCase, } from 'lodash';
 
 import { UserService } from 'app/services/api';
 import { IUser, Role, IClub } from 'app/model';
@@ -33,7 +33,7 @@ export class ClubEditorComponent implements OnInit {
 
   get clubName() {
     const name = this.clubForm && this.clubForm.value.name ? this.clubForm.value.name : this.club.name;
-    return _.startCase(_.lowerCase(name));
+    return startCase(lowerCase(name));
   }
 
   constructor(

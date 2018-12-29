@@ -18,11 +18,11 @@ export class JudgeInScoreGroupService {
   cacheCreation: moment.Moment;
 
   constructor(
-    @InjectRepository(JudgeInScoreGroup) private readonly judgeRepository: Repository<JudgeInScoreGroup>,
+    @InjectRepository(JudgeInScoreGroup) private readonly judgeInScoreGroupRepository: Repository<JudgeInScoreGroup>,
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
   async save(input: JudgeInScoreGroupDto): Promise<JudgeInScoreGroup> {
-    const result = await this.judgeRepository.save(<JudgeInScoreGroup>input);
+    const result = await this.judgeInScoreGroupRepository.save(<JudgeInScoreGroup>input);
     if (result) {
       this.pubSub.publish('judgeInScoreGroupSaved', { judgeInScoreGroup: result });
     }
@@ -30,7 +30,7 @@ export class JudgeInScoreGroupService {
   }
 
   async remove(input: JudgeInScoreGroupDto): Promise<boolean> {
-    const saved = await this.judgeRepository.delete({ judgeId: input.judgeId, scoreGroupId: input.scoreGroupId });
+    const saved = await this.judgeInScoreGroupRepository.delete({ judgeId: input.judgeId, scoreGroupId: input.scoreGroupId });
     if (saved.affected > 0) {
       this.pubSub.publish('judgeInScoreGroupDeleted', { judgeInScoreGroup: input });
     }
@@ -41,7 +41,7 @@ export class JudgeInScoreGroupService {
   private getAllFromCache(): Promise<JudgeInScoreGroup[]> {
     if (this.localCahcePromise == null || !this.cacheCreation || this.cacheCreation.add(10, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
-      this.localCahcePromise = this.judgeRepository
+      this.localCahcePromise = this.judgeInScoreGroupRepository
         .createQueryBuilder()
         .orderBy('sortNumber', 'ASC')
         .cache(Config.QueryCache)
@@ -77,7 +77,7 @@ export class JudgeInScoreGroupService {
   }
 
   findByDiscipline(discipline: Discipline): Promise<JudgeInScoreGroup[]> {
-    return this.judgeRepository.createQueryBuilder('judgeInScoreGroup')
+    return this.judgeInScoreGroupRepository.createQueryBuilder('judgeInScoreGroup')
       .leftJoinAndSelect(Judge, 'judge', 'judgeInScoreGroup.judgeId = judge.id')
       .leftJoin(ScoreGroup, 'scoreGroup', 'scoreGroup.id = judgeInScoreGroup.scoreGroupId')
       .where('scoreGroup.disciplineId = :disciplineId', { disciplineId: discipline.id })

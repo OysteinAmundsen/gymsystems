@@ -11,7 +11,7 @@ import { ContextMenuComponent } from './context-menu/context-menu.component';
 
 import { ScheduleService, EventService, UserService } from 'app/services/api';
 import { MediaService } from 'app/services/media.service';
-import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
+import { ErrorHandlerService } from 'app/services/http/error-handler.service';
 
 import { ITournament, ITeamInDiscipline, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/model';
 import { GraphService } from 'app/services/graph.service';
@@ -93,7 +93,7 @@ export class ListComponent implements OnInit, OnDestroy {
         this.loadSchedule();
       }
     }));
-    this.subscriptions.push(this.userService.getMe().subscribe(user => this.user = user));
+    this.subscriptions.push(this.userService.getMe(true).subscribe(user => this.user = user));
     this.loadSchedule();
   }
 
@@ -110,7 +110,7 @@ export class ListComponent implements OnInit, OnDestroy {
   loadSchedule() {
     this.isLoading = true;
     this.graph.getData(`{
-      tournament(id:${this.parent.tournamentId}){name,venue{name},times{day,time}},
+      tournament(id:${this.parent.tournamentId}){id,name,venue{id,name},times{day,time}},
       getDisciplines(tournamentId:${this.parent.tournamentId}){id,name,sortOrder},
       getSchedule(tournamentId:${this.parent.tournamentId}){
         id,
@@ -328,7 +328,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
       participant.startTime = new Date();
       this.invalidateCache(participant);
-      this.scheduleService.start(participant).subscribe(() => {
+      this.graph.post(`{start(id: ${participant.id}){id,startTime}}`).subscribe(() => {
         const media = this.getMedia(participant);
         this.mediaService.play(media);
       });

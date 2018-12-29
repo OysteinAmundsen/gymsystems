@@ -9,7 +9,7 @@ import { Division } from './division.model';
 import { TeamService } from '../team/team.service';
 import { Team } from '../team/team.model';
 import { Role } from '../user/user.model';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('IDivision')
 export class DivisionResolver {
@@ -39,7 +39,7 @@ export class DivisionResolver {
 
   @Mutation('saveDivision')
   @UseGuards(RoleGuard(Role.Organizer))
-  create(@Args('input') input: DivisionDto): Promise<Division> {
+  save(@Args('input') input: DivisionDto): Promise<Division> {
     return this.divisionService.save(Cleaner.clean(input));
   }
 

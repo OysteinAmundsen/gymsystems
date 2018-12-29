@@ -1,23 +1,23 @@
 import { Injectable, Inject, HttpService } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { PubSub } from 'graphql-subscriptions';
+import { AxiosResponse } from 'axios';
+
 import { VenueDto } from './dto/venue.dto';
 import { Tournament } from '../tournament/tournament.model';
 import { Venue } from './venue.model';
 import { User } from '../user/user.model';
-import { PubSub } from 'graphql-subscriptions';
 import { Club } from '../club/club.model';
-import { AxiosResponse } from 'axios';
-import { Config } from 'api/common/config';
 import { LocationDto } from './dto/location.dto';
+import { Config } from '../../common/config';
 
 @Injectable()
 export class VenueService {
   private geoApiKey = this.config.get('geoApiKey');
 
   constructor(
-    @InjectRepository(Venue)
-    private readonly venueRepository: Repository<Venue>,
+    @InjectRepository(Venue) private readonly venueRepository: Repository<Venue>,
     private readonly http: HttpService,
     private readonly config: Config,
     @Inject('PubSubInstance') private readonly pubSub: PubSub

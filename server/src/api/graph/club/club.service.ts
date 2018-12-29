@@ -9,7 +9,7 @@ import { ClubDto } from './dto/club.dto';
 import { Club } from './club.model';
 import { Config } from '../../common/config';
 import { Role } from '../user/user.model';
-import { RequestContext } from 'api/common/middleware/request-context.model';
+import { RequestContext } from '../../common/middleware/request-context.model';
 
 @Injectable()
 export class ClubService {
@@ -19,7 +19,7 @@ export class ClubService {
 
   static enforceSame(clubId: number): void {
     const me = RequestContext.currentUser();
-    if (me.role < Role.Admin && me.clubId !== clubId) {
+    if (me && me.role < Role.Admin && me.clubId !== clubId) {
       throw new ForbiddenException('You do not belong to this club');
     }
   }
@@ -126,7 +126,7 @@ export class ClubService {
    * @param name Lookup in our own registry for a club by this name
    */
   async findOwnClubByName(name: string): Promise<Club[]> {
-    return (await this.getAllFromCache()).filter(s => s.name.toLowerCase() === name.toLowerCase());
+    return (await this.getAllFromCache()).filter(s => s.name.toLowerCase().indexOf(name.toLowerCase()) > -1);
   }
 
   /**

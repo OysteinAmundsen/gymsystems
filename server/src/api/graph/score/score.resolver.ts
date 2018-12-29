@@ -9,7 +9,7 @@ import { Score } from './score.model';
 import { ScoreGroup } from '../score-group/score-group.model';
 import { ScoreGroupService } from '../score-group/score-group.service';
 import { Role } from '../user/user.model';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('IScore')
 export class ScoreResolver {

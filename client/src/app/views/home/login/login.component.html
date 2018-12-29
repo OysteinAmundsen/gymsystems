@@ -8,12 +8,12 @@
     <fieldset>
       <div class="row">
         <mat-form-field class="col-xs-12">
-          <input matInput type="text" formControlName="username" placeholder="{{'Username' | translate}}" appAutofocus autocomplete="off" />
+          <input matInput type="text" formControlName="username" placeholder="{{'Username' | translate}}" appAutofocus autocomplete="username" />
         </mat-form-field>
       </div>
       <div class="row">
         <mat-form-field class="col-xs-12">
-          <input matInput type="password" formControlName="password" placeholder="{{'Password' | translate}}"/>
+          <input matInput type="password" formControlName="password" placeholder="{{'Password' | translate}}" autocomplete="current-password"/>
         </mat-form-field>
       </div>
     </fieldset>

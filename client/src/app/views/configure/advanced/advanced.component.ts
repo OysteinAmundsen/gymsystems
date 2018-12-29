@@ -24,17 +24,19 @@ export class AdvancedComponent implements OnInit {
   }
 
   constructor(private config: ConfigurationService, private fb: FormBuilder, private title: Title, private meta: Meta) {
-    // SEO
-    title.setTitle('Advanced configuration | GymSystems');
-    meta.updateTag({property: 'og:title', content: 'Advanced configuration | GymSystems'});
-    meta.updateTag({property: 'og:description', content: 'Configuring advanced system properties'});
   }
 
   ngOnInit() {
+    // SEO
+    this.title.setTitle('GymSystems | Advanced configuration');
+    this.meta.updateTag({ property: 'og:title', content: 'GymSystems | Advanced configuration' });
+    this.meta.updateTag({ property: 'og:description', content: 'Configuring advanced system properties' });
+    this.meta.updateTag({ property: 'description', content: 'Configuring advanced system properties' });
+
     this.isLoading = true;
     this.configForm = this.fb.group({
-      'executionTime'        : [0],
-      'trainingTime'         : [0],
+      'executionTime': [0],
+      'trainingTime': [0],
     });
 
     this.config.all().subscribe(res => {
@@ -46,8 +48,8 @@ export class AdvancedComponent implements OnInit {
       const trainingTime = this.configuration.find(c => c.name === 'scheduleTrainingTime');
 
       this.configForm.setValue({
-        'executionTime'        : executionTime ? executionTime.value : 0,
-        'trainingTime'         : trainingTime ? trainingTime.value : 0,
+        'executionTime': executionTime ? executionTime.value : 0,
+        'trainingTime': trainingTime ? trainingTime.value : 0,
       });
     });
   }
@@ -66,9 +68,9 @@ export class AdvancedComponent implements OnInit {
 
   save() {
     const newConfig = <IConfiguration[]>[
-      {name: 'scheduleExecutionTime', value: this.configForm.value.executionTime },
-      {name: 'scheduleTrainingTime', value: this.configForm.value.trainingTime },
-      {name: 'defaultValues', value: this.defaultValues }
+      { name: 'scheduleExecutionTime', value: this.configForm.value.executionTime },
+      { name: 'scheduleTrainingTime', value: this.configForm.value.trainingTime },
+      { name: 'defaultValues', value: this.defaultValues }
     ];
     this.config.save(newConfig).subscribe(res => this.configuration = res);
   }

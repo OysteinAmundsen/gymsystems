@@ -1,4 +1,4 @@
-import { UseGuards, Inject } from '@nestjs/common';
+import { UseGuards, Inject, ForbiddenException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription, ResolveProperty } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 
@@ -12,7 +12,7 @@ import { VenueService } from '../venue/venue.service';
 import { Venue } from '../venue/venue.model';
 import { Club } from '../club/club.model';
 import { ClubService } from '../club/club.service';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('IUser')
 export class UserResolver {
@@ -38,7 +38,9 @@ export class UserResolver {
 
   @Query('me')
   findMe(): Promise<User> {
-    return this.userService.findOneById(this.userService.getAuthenticatedUser().id);
+    const me = this.userService.getAuthenticatedUser();
+    if (!me) { throw new ForbiddenException('Not authorized to query users'); }
+    return this.userService.findOneById(me.id);
   }
 
   @ResolveProperty('tournaments')
@@ -60,15 +62,14 @@ export class UserResolver {
   }
 
   @Mutation('saveUser')
-  save(@Args('user') user: UserDto): Promise<User> {
-    ClubService.enforceSame(user.clubId);
-    return this.userService.save(Cleaner.clean(user));
+  save(@Args('input') input: UserDto): Promise<User> {
+    ClubService.enforceSame(input.club ? input.club.id : input.clubId);
+    return this.userService.save(Cleaner.clean(input));
   }
 
   @Mutation('deleteUser')
   @UseGuards(RoleGuard(Role.Admin))
   async deleteUser(@Args('id') id: number): Promise<boolean> {
-    ClubService.enforceSame((await this.userService.findOneById(id)).clubId);
     return this.userService.remove(id);
   }
 

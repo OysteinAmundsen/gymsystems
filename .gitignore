@@ -74,11 +74,12 @@ Thumbs.db
 
 *.pem
 
-/*.sql
+**/*.sql
 .angulardoc.json
 
 server/dist/
 
 server/src/api/graph/graphql\.schema\.ts
 
-deploy\.sh
+deploy.sh
+build.sh

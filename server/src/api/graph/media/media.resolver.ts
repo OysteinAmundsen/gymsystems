@@ -7,7 +7,7 @@ import { MediaDto } from './dto/media.dto';
 import { Media } from './media.model';
 import { PubSub } from 'graphql-subscriptions';
 import { Role } from '../user/user.model';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('IMedia')
 export class MediaResolver {

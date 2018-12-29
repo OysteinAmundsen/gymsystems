@@ -20,7 +20,7 @@ import { Division, DivisionType } from '../division/division.model';
 import { DivisionService } from '../division/division.service';
 import { TotalByScoreGroup } from '../score/dto/total-by-scoregroup.dto';
 import { Role } from '../user/user.model';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('ISchedule')
 export class ScheduleResolver {

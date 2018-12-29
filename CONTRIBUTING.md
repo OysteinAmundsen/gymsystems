@@ -50,10 +50,6 @@ We want to fix all the issues as soon as possible, but before fixing a bug we ne
 
 A minimal reproduce scenario using allows us to quickly confirm a bug (or point out coding problem) as well as confirm that we are fixing the right problem.
 
-We will be insisting on a minimal reproduce scenario in order to save maintainers time and ultimately be able to fix more bugs. Interestingly, from our experience users often find coding problems themselves while preparing a minimal repository. We understand that sometimes it might be hard to extract essentials bits of code from a larger code-base but we really need to isolate the problem before we can fix it.
-
-Unfortunately we are not able to investigate / fix bugs without a minimal reproduction, so if we don't hear back from you we are going to close an issue that don't have enough info to be reproduced.
-
 You can file new issues by filling out our [new issue form](https://github.com/OysteinAmundsen/gymsystems/issues/new).
 
 
@@ -192,6 +188,5 @@ reference GitHub issues that this commit **Closes**.
 **Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines. The rest of the commit message is then used for this.
 
 
-[coc]: https://github.com/OysteinAmundsen/gymsystems/blob/master/CODE_OF_CONDUCT.md
+[coc]: https://github.com/OysteinAmundsen/gymsystems/CODE_OF_CONDUCT.md
 [GitHub]: https://github.com/OysteinAmundsen/gymsystems
-[stackoverflow]: http://stackoverflow.com/questions/tagged/gymsystems

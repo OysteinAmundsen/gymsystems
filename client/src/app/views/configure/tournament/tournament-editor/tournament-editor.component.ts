@@ -13,7 +13,7 @@ import * as moment from 'moment';
 import { UserService } from 'app/services/api';
 import { ITournament, IUser, Role, IClub, IVenue } from 'app/model';
 
-import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
+import { ErrorHandlerService } from 'app/services/http/error-handler.service';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { GraphService } from 'app/services/graph.service';
 
@@ -183,9 +183,10 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   }
 
   tournamentReceived(tournament) {
-    this.title.setTitle(`Configure tournament: ${tournament.name} | GymSystems`);
-    this.meta.updateTag({ property: 'og:title', content: `Configure tournament: ${tournament.name} | GymSystems` });
+    this.title.setTitle(`GymSystems | Configure tournament: ${tournament.name}`);
+    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure tournament: ${tournament.name}` });
     this.meta.updateTag({ property: 'og:description', content: `Configure tournament settings and contenders for ${tournament.name}` });
+    this.meta.updateTag({ property: 'description', content: `Configure tournament settings and contenders for ${tournament.name}` });
 
     if (this.tournamentForm) {
       // If not, this component is probably terminated before callback is called.

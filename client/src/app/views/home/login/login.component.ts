@@ -34,9 +34,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     private meta: Meta,
     private angulartics: Angulartics2
   ) {
-    title.setTitle('Login | GymSystems');
-    this.meta.updateTag({property: 'og:title', content: `Login | GymSystems`});
-    this.meta.updateTag({property: 'og:description', content: `Login to increase your privileges in the system`});
+    title.setTitle('GymSystems | Login');
+    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Login` });
+    this.meta.updateTag({ property: 'og:description', content: `Login to increase your privileges in the system` });
+    this.meta.updateTag({ property: 'description', content: `Login to increase your privileges in the system` });
   }
 
   ngOnInit() {
@@ -57,11 +58,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    const me = this;
-    me.userService.login(me.loginForm.value).subscribe(
+    this.userService.login(this.loginForm.value).subscribe(
       (result: IUser) => {
-        this.angulartics.eventTrack.next({action: 'login', properties: {category: 'auth', label: 'login', value: result.name}});
-        me.router.navigate([me.redirectTo]);
+        this.angulartics.eventTrack.next({ action: 'login', properties: { category: 'auth', label: 'login', value: result.name } });
+        this.router.navigate([this.redirectTo]);
       },
       error => this.errorHandler.setError('Wrong username or password')
     );

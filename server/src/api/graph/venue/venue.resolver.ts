@@ -11,7 +11,7 @@ import { TournamentService } from '../tournament/tournament.service';
 import { UserService } from '../user/user.service';
 import { User, Role } from '../user/user.model';
 import { getLocation } from 'graphql';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('IVenue')
 export class VenueResolver {

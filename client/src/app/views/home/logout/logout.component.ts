@@ -24,9 +24,10 @@ export class LogoutComponent {
     private meta: Meta,
     private angulartics: Angulartics2
   ) {
-    this.title.setTitle('Logout | GymSystems');
-    this.meta.updateTag({ property: 'og:title', content: `Logout | GymSystems` });
+    this.title.setTitle('GymSystems | Logout');
+    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Logout` });
     this.meta.updateTag({ property: 'og:description', content: `Loging out of GymSystems` });
+    this.meta.updateTag({ property: 'description', content: `Loging out of GymSystems` });
     this.angulartics.eventTrack.next(
       {
         action: 'logout', properties: {

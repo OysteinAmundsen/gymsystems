@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-// import { DragulaModule } from 'ng2-dragula';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTabsModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
@@ -16,7 +15,6 @@ import { AdvancedComponent } from './advanced.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    // DragulaModule.forRoot(),
 
     DragDropModule,
     MatTabsModule,

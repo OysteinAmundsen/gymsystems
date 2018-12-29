@@ -5,8 +5,8 @@ import { Subscription } from 'rxjs';
 import { EventComponent } from '../event.component';
 
 import { ITeamInDiscipline, ITournament, IScoreGroup, ParticipationType, Operation, IDiscipline } from 'app/model';
-import { TournamentService } from 'app/services/api';
 import { GraphService } from 'app/services/graph.service';
+import { CommonService } from 'app/shared/common.service';
 
 @Component({
   selector: 'app-signoff-report',
@@ -28,13 +28,12 @@ export class SignoffReportComponent implements OnInit {
   }
 
   get dateSpan() {
-    return this.tournamentService.dateSpan(this.tournament);
+    return CommonService.dateSpan(this.tournament);
   }
 
   constructor(
     private parent: EventComponent,
     private graph: GraphService,
-    private tournamentService: TournamentService,
     private router: Router,
     private route: ActivatedRoute,
   ) { }
@@ -58,18 +57,18 @@ export class SignoffReportComponent implements OnInit {
         total,
         totalByScoreGroup{group{id,type},total}
       }}`).subscribe(res => {
-        this.tournament = res.tournament;
-        this.disciplines = res.getDisciplines;
-        const scoreGroups = this.disciplines.reduce((set, discipline) => { discipline.scoreGroups.forEach(group => set.add(group)); return set; }, new Set());
-        this.schedule = res.getSchedule.map(participant => {
-          participant.scores = participant.scores.map(s => {
-            s.scoreGroup = Array.from(scoreGroups).find(g => g.id === s.scoreGroupId);
-            return s;
-          });
-          return participant;
+      this.tournament = res.tournament;
+      this.disciplines = res.getDisciplines;
+      const scoreGroups = this.disciplines.reduce((set, discipline) => { discipline.scoreGroups.forEach(group => set.add(group)); return set; }, new Set());
+      this.schedule = res.getSchedule.map(participant => {
+        participant.scores = participant.scores.map(s => {
+          s.scoreGroup = Array.from(scoreGroups).find(g => g.id === s.scoreGroupId);
+          return s;
         });
-        this.onRenderComplete();
+        return participant;
       });
+      this.onRenderComplete();
+    });
   }
 
   onRenderComplete() {

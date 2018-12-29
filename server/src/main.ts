@@ -6,41 +6,33 @@ process.env.RUNTIME = __filename.split('\\').pop().split('.').pop();
 const env = process.env.RUNTIME;
 const startTime = performance.now();
 console.log(`┌────────────────────────────────────────────────────────────┐`);
-console.log(`│    Starting: ${new Date()} │`);
+console.log(`│    Starting: ${new Date().toUTCString()}                 │`);
 console.log(`│     Runtime: ${env}                                            │`);
 console.log(`└────────────────────────────────────────────────────────────┘`);
 
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { SwaggerModule, DocumentBuilder, SwaggerDocument } from '@nestjs/swagger';
 import 'reflect-metadata';
-import * as express from 'express';
-import * as helmet from 'helmet';
-import * as morganBody from 'morgan-body';
-import * as morgan from 'morgan';
-import * as bodyParser from 'body-parser';
 import * as fs from 'fs';
-import rfs from 'rotating-file-stream';
-
-const pkg = require('../package.json');
 
 import { AppModule } from './api/app.module';
 import { Config } from './api/common/config';
 import { HttpExceptionFilter } from './api/common/filters/http-exception.filter';
 
 async function bootstrap() {
-  const expressInstance = express();
+  const expressInstance = require('express')();
   // Configure Express Instance
-  expressInstance.use(helmet()); //Helmet
+  expressInstance.use(require('helmet')()); //Helmet
+  const bodyParser = await import('body-parser');
   expressInstance.use(bodyParser.urlencoded({ extended: false }));
   expressInstance.use(bodyParser.json()); //Body Parser
 
   // Logs
   const logDirectory = './log';
   fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory); // ensure log directory exists
-  const accessLogStream = rfs('access.log', { interval: '7d', path: logDirectory }); // rotate weekly
-  expressInstance.use(morgan('combined', { stream: accessLogStream }));
-  morganBody(expressInstance); // Log every request body/response
+  const accessLogStream = require('rotating-file-stream')('access.log', { interval: '7d', path: logDirectory }); // rotate weekly
+  expressInstance.use(require('morgan')('combined', { stream: accessLogStream }));
+  require('morgan-body')(expressInstance); // Log every request body/response
 
   // Create NestJS APP
   const app = await NestFactory.create(AppModule, expressInstance, { cors: true });
@@ -62,7 +54,10 @@ async function bootstrap() {
 
   // Swagger
   if (!Config.isProd()) {
-    const options = new DocumentBuilder()
+    const pkg = require('../package.json');
+
+    const swagger = await import('@nestjs/swagger');
+    const options = new swagger.DocumentBuilder()
       .setBasePath(Config.GlobalRoutePrefix)
       .setTitle(pkg.name)
       .setDescription(pkg.description)
@@ -70,9 +65,15 @@ async function bootstrap() {
       .setContactEmail(pkg.author)
       .addBearerAuth(Config.JwtHeaderName, 'header', 'jwt')
       .build();
-    const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup(`/${Config.GlobalRoutePrefix}${Config.DocsRoute}`, app, document);
-    generateSwaggerJSONFile(document); // Generate .json API Documentation (easly import to Restlet Studio etc...)
+    const document = swagger.SwaggerModule.createDocument(app, options);
+    swagger.SwaggerModule.setup(`/${Config.GlobalRoutePrefix}${Config.DocsRoute}`, app, document);
+
+    // Generate .json API Documentation (easly import to Restlet Studio etc...)
+    const apiDirectory = './api-docs';
+    fs.existsSync(apiDirectory) || fs.mkdirSync(apiDirectory); // ensure api documentation directory exists
+    await fs.writeFile(`${apiDirectory}/swagger2.json`, JSON.stringify(document, null, 4), (err: NodeJS.ErrnoException) => {
+      if (err) throw err;
+    });
   }
 
   // Start listening
@@ -84,18 +85,10 @@ async function bootstrap() {
       console.log(`│     GraphQL Playground: ${Config.ApiUrl}${Config.GraphRoute}    │`);
     }
     console.log('├────────────────────────────────────────────────────────────┤');
-    console.log(`│     Launch: ${new Date()}  │`);
-    console.log(`│         Time to start: ${performance.now() - startTime}                   │`);
+    console.log(`│     Launch: ${new Date().toUTCString()}                  │`);
+    console.log(`│         Time to start: ${(performance.now() - startTime).toFixed(3)}ms                         │`);
     console.log('└────────────────────────────────────────────────────────────┘');
   });
 }
 
 bootstrap();
-
-async function generateSwaggerJSONFile(swaggerDocument: SwaggerDocument): Promise<void> {
-  const apiDirectory = './api-docs';
-  fs.existsSync(apiDirectory) || fs.mkdirSync(apiDirectory); // ensure api documentation directory exists
-  await fs.writeFile(`${apiDirectory}/swagger2.json`, JSON.stringify(swaggerDocument, null, 4), (err: NodeJS.ErrnoException) => {
-    if (err) throw err;
-  });
-}

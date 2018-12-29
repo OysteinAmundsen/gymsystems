@@ -1,50 +1,56 @@
 {
   "index": "/index.html",
-  "assetGroups": [{
-    "name": "app",
-    "installMode": "prefetch",
-    "resources": {
-      "files": [
-        "/favicon.ico",
-        "/index.html",
-        "/*.css",
-        "/*.js"
-      ]
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/**",
+          "https://fonts.gstatic.com/**"
+        ]
+      }
     }
-  }, {
-    "name": "assets",
-    "installMode": "lazy",
-    "updateMode": "prefetch",
-    "resources": {
-      "files": [
-        "/assets/**"
-      ],
+  ],
+  "dataGroups": [
+    {
+      "name": "prevent-sse",
       "urls": [
-        "https://fonts.googleapis.com/**",
-        "https://fonts.gstatic.com/**"
-      ]
+        "/api/sse"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 0,
+        "maxAge": "0u"
+      }
+    },
+    {
+      "name": "api-freshness",
+      "urls": [
+        "/api/**"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 30,
+        "maxAge": "20m",
+        "timeout": "9s"
+      }
     }
-  }],
-  "dataGroups": [{
-    "name": "api-freshness",
-    "urls": [
-      "/api/**"
-    ],
-    "cacheConfig": {
-      "strategy": "freshness",
-      "maxSize": 30,
-      "maxAge": "20m",
-      "timeout": "9s"
-    }
-  }, {
-    "name": "prevent-sse",
-    "urls": [
-      "/apievent"
-    ],
-    "cacheConfig": {
-      "strategy": "freshness",
-      "maxSize": 0,
-      "maxAge": "0u"
-    }
-  }]
+  ]
 }

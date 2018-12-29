@@ -3,6 +3,7 @@
 
 <mat-dialog-content>
   {{ data.message }}
+  <pre *ngIf="data.stack">{{ data.stack }}</pre>
 </mat-dialog-content>
 
 <mat-dialog-actions>

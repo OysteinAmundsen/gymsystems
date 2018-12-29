@@ -1,63 +1,74 @@
-import { Component, ViewChild } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ComponentFixture, TestBed, flush, fakeAsync } from "@angular/core/testing";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { TranslateModule, TranslateLoader, TranslateFakeLoader } from "@ngx-translate/core";
+import { Angulartics2GoogleAnalytics } from "angulartics2/ga";
+import { UserService } from "./services/api";
+import { SwUpdate } from "@angular/service-worker";
+import { AppComponent } from "./app.component";
+import { IfAuthDirective } from './shared/directives';
+import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { MatDialogModule } from '@angular/material';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga/angulartics2-ga';
 
-import { MockIfAuthDirective } from 'app/shared/directives/auth/if-auth.directive.spec';
-import { Angulartics2Module } from 'angulartics2';
+describe("AppComponent", () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
 
-import { TranslateModuleTest, DummyProvider } from 'app/app.module.spec';
-import { TestContext, initContext } from 'src/testing/test-context.spec';
-import { AppComponent } from 'app/app.component';
+  beforeEach(() => {
+    const angulartics2GoogleAnalyticsStub = { startTracking: () => ({}) };
+    const userServiceStub = { getMe: () => of({}) };
+    const swUpdateStub = {};
+    TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        RouterTestingModule,
+        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
+      ],
+      declarations: [AppComponent, IfAuthDirective],
+      providers: [
+        { provide: Angulartics2GoogleAnalytics, useValue: angulartics2GoogleAnalyticsStub },
+        { provide: UserService, useValue: userServiceStub },
+        { provide: SwUpdate, useValue: swUpdateStub }
+      ]
+    });
 
-@Component({ template: `<app-root></app-root>` })
-class TestComponent { }
-
-describe('views:AppComponent', () => {
-  type Context = TestContext<AppComponent, TestComponent>;
-  initContext(AppComponent, TestComponent, {
-    declarations: [
-      MockIfAuthDirective
-    ],
-    imports: [
-      RouterTestingModule,
-      TranslateModuleTest,
-      Angulartics2Module.forRoot([DummyProvider]),
-      ServiceWorkerModule.register('/ngsw-worker.js', { enabled: false }),
-      MatDialogModule,
-      NoopAnimationsModule
-    ],
-    providers: [
-      { provide: Angulartics2GoogleAnalytics, useClass: DummyProvider }
-    ]
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
   });
 
-  it('should create the app', function (this: Context) {
-    expect(this.testedDirective).toBeTruthy();
+  it("can load instance", () => {
+    expect(component).toBeTruthy();
   });
 
-  describe('language', function () {
-    let originalTimeout;
-    beforeEach(function () {
-      originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-      jasmine.DEFAULT_TIMEOUT_INTERVAL = 90000;
-    });
-    afterEach(function () {
-      jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-    });
+  it("navState defaults to: false", () => {
+    expect(component.navState).toEqual(false);
+  });
 
-    it('can change', async function (this: Context) {
-      await this.testedDirective.changeLang('no').toPromise();
-      this.detectChanges();
-      expect(this.testedDirective.currentLang).toBe('no');
-    });
+  it("showHelp defaults to: false", () => {
+    expect(component.showHelp).toEqual(false);
+  });
 
-    it('can reset', async function (this: Context) {
-      await this.testedDirective.changeLang('en').toPromise();
-      this.detectChanges();
-      expect(this.testedDirective.currentLang).toBe('en');
+  describe("ngOnInit", () => {
+    it("makes expected calls", () => {
+      const userServiceStub: UserService = fixture.debugElement.injector.get(UserService);
+      spyOn(component, "changeLang");
+      spyOn(userServiceStub, "getMe").and.callThrough();
+      component.ngOnInit();
+      expect(component.changeLang).toHaveBeenCalled();
+      expect(userServiceStub.getMe).toHaveBeenCalled();
     });
+  });
+
+  describe('language', () => {
+    it('can change', fakeAsync(() => {
+      component.changeLang('no').toPromise();
+      flush();
+      expect(component.currentLang).toBe('no');
+    }));
+
+    it('can reset', fakeAsync(() => {
+      component.changeLang('en').toPromise();
+      flush();
+      expect(component.currentLang).toBe('en');
+    }));
   });
 });

@@ -1,41 +1,89 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { Router } from "@angular/router";
+import { Title } from "@angular/platform-browser";
+import { Meta } from "@angular/platform-browser";
+import { UserService } from "app/services/api";
+import { GraphService } from "app/services/graph.service";
+import { ClubComponent } from "./club.component";
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
+import { Role, IUser } from 'app/model';
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { MatTableModule } from '@angular/material';
+import { IfAuthDirective } from 'app/shared/directives';
 
-import { AppModuleTest } from 'app/app.module.spec';
-import { ClubModule } from './club.module';
-import { ClubComponent } from './club.component';
-
-import { ClubService, UserService } from 'app/services/api';
-import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
-import { UserServiceStub } from 'app/services/api/user/user.service.stub';
-
-describe('views.configure.club:ClubComponent', () => {
+describe("views.configure.club:ClubComponent", () => {
   let component: ClubComponent;
   let fixture: ComponentFixture<ClubComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        AppModuleTest,
-        ClubModule,
-        RouterTestingModule,
-      ],
-      providers: [
-        { provide: ClubService, useClass: ClubServiceStub },
-        { provide: UserService, useClass: UserServiceStub },
-      ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
+    const userServiceStub = { getMe: () => of({ id: 1, name: 'Test user', role: Role.Organizer, club: { id: 1 } }) };
+    const graphServiceStub = { getData: () => of({}) };
+
+    TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        MatTableModule,
+        RouterTestingModule,
+        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
+      ],
+      declarations: [ClubComponent, IfAuthDirective],
+      providers: [
+        { provide: UserService, useValue: userServiceStub },
+        { provide: GraphService, useValue: graphServiceStub }
+      ]
+    });
     fixture = TestBed.createComponent(ClubComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it("can load instance", () => {
     expect(component).toBeTruthy();
+  });
+
+  it("subscriptions defaults to: []", () => {
+    expect(component.subscriptions).toEqual([]);
+  });
+
+  describe("ngOnInit", () => {
+    it("only admins can view this panel", () => {
+      const routerStub: Router = fixture.debugElement.injector.get(Router);
+      const userServiceStub: UserService = fixture.debugElement.injector.get(UserService);
+      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+
+      spyOn(userServiceStub, "getMe").and.callThrough();
+      spyOn(routerStub, "navigate");
+      spyOn(graphServiceStub, "getData");
+      component.ngOnInit();
+      expect(userServiceStub.getMe).toHaveBeenCalled();
+      expect(routerStub.navigate).toHaveBeenCalled();
+      expect(graphServiceStub.getData).not.toHaveBeenCalled();
+    });
+
+    it("makes expected calls when admin", () => {
+      const routerStub: Router = fixture.debugElement.injector.get(Router);
+      const userServiceStub: UserService = fixture.debugElement.injector.get(UserService);
+      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+
+      userServiceStub.getMe = () => of(<IUser>{ id: 1, name: 'Admin user', role: Role.Admin }); // Me is now an admin
+
+      spyOn(userServiceStub, "getMe").and.callThrough();
+      spyOn(routerStub, "navigate");
+      spyOn(graphServiceStub, "getData").and.callThrough();
+      component.ngOnInit();
+      expect(userServiceStub.getMe).toHaveBeenCalled();
+      expect(routerStub.navigate).not.toHaveBeenCalled();
+      expect(graphServiceStub.getData).toHaveBeenCalled();
+    });
+  });
+
+  describe("addClub", () => {
+    it("makes expected calls", () => {
+      const routerStub: Router = fixture.debugElement.injector.get(Router);
+      spyOn(routerStub, "navigate");
+      component.addClub();
+      expect(routerStub.navigate).toHaveBeenCalled();
+    });
   });
 });

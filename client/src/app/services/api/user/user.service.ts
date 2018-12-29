@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { Logger } from 'app/services';
 import { IUser } from 'app/model';
 import { Helper } from '../Helper';
+import { GraphService } from 'app/services/graph.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -13,7 +14,7 @@ export class UserService {
   private _$currentUserObservable = new BehaviorSubject<IUser>(JSON.parse(sessionStorage.getItem('currentUser')));
   public get currentUser(): IUser { return this._$currentUserObservable.getValue(); }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private graph: GraphService) { }
 
   // AUTH functions
   /**
@@ -49,11 +50,12 @@ export class UserService {
   /**
    *
    */
-  private _loadMeInternal() {
-    return this.http.get<IUser>('/api/user/me', { headers: { 'noCache': 'true' }, observe: 'response' })
-      .pipe(
-        map((res: HttpResponse<IUser>) => this.currentUserReceived(res)),
-        catchError((err: Response) => {
+  private _loadMeInternal(noReport?: boolean) {
+    const options = {};
+    if (noReport) { options['context'] = { headers: { noReport: true } }; }
+    return this.graph.get(`{me {id, name, role, email, club {id, name}}}`, options)
+      .pipe(map(res => this.currentUserReceived(res.me)),
+        catchError(err => {
           this.currentUserReceived(null);
           return throwError(err);
         })
@@ -63,52 +65,15 @@ export class UserService {
   /**
    *
    */
-  getMe(): Observable<IUser> {
+  getMe(noReport?: boolean): Observable<IUser> {
     if (!this.currentUser && !this._isLoadingUser) {
       this._isLoadingUser = true; // Prevent loading if load allready initiated
-      this._loadMeInternal().subscribe();
+      this._loadMeInternal(noReport).subscribe();
     }
     return this._$currentUserObservable;
   }
 
   // Standard REST api functions
-  /**
-   *
-   */
-  all(): Observable<IUser[]> {
-    return this.http.get<IUser[]>('/api/user');
-  }
-
-  /**
-   *
-   */
-  getById(id: number): Observable<IUser> {
-    return this.http.get<IUser>('/api/user/' + id);
-  }
-
-  /**
-   *
-   */
-  save(user: IUser): Observable<IUser> {
-    return (user.id
-      ? this.http.put<IUser>(`/api/user/${user.id}`, Helper.reduceLevels(user))
-      : this.http.post<IUser>('/api/user/', user));
-  }
-
-  /**
-   *
-   */
-  register(user: IUser): Observable<IUser> {
-    return this.http.post<IUser>('/api/user/register', Helper.reduceLevels(user));
-  }
-
-  /**
-   *
-   */
-  delete(user: IUser) {
-    return this.http.delete(`/api/user/${user.id}`);
-  }
-
   /**
    *
    */
@@ -122,9 +87,5 @@ export class UserService {
    */
   logout() {
     return of(this.currentUserReceived(null));
-    // return this.http.post('/api/user/logout', {})
-    //   .pipe(map((res: Response) => {
-    //     return this.currentUserReceived(null);
-    //   }));
   }
 }

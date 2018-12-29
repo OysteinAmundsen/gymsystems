@@ -18,7 +18,7 @@ import { GraphService } from 'app/services/graph.service';
   styleUrls: ['./user-editor.component.scss']
 })
 export class UserEditorComponent implements OnInit {
-  userQuery = `{id,name,email,role,password,club{id,name}}`;
+  userQuery = `{id,name,email,role,club{id,name}}`;
 
   currentUser: IUser;
   userForm: FormGroup;
@@ -53,22 +53,24 @@ export class UserEditorComponent implements OnInit {
       role: [Role.User, [Validators.required]],
       email: ['', [Validators.required, ValidationService.emailValidator]],
       club: [null, []],
-      password: ['', [Validators.required]],
-      repeatPassword: ['', [Validators.required]]
-    }, {
+      // TODO: Create a change-password functionality
+      // password: ['', [Validators.required]],
+      // repeatPassword: ['', [Validators.required]]
+    }/*, {
         validator: (c: AbstractControl) => {
           return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false } };
         }
-      });
+      }*/);
 
     this.route.params.subscribe((params: any) => {
       if (params.id) {
         this.selectedUserId = params.id;
         this.graph.getData(`{user(id:${+params.id})${this.userQuery}}`).subscribe(res => this.userReceived(res.user));
       } else {
-        this.title.setTitle(`Add user | GymSystems`);
-        this.meta.updateTag({ property: 'og:title', content: `Add user | GymSystems` });
+        this.title.setTitle(`GymSystems | Add user`);
+        this.meta.updateTag({ property: 'og:title', content: `GymSystems | Add user` });
         this.meta.updateTag({ property: 'og:description', content: `Creating a new user in the system` });
+        this.meta.updateTag({ property: 'description', content: `Creating a new user in the system` });
       }
     });
 
@@ -79,7 +81,7 @@ export class UserEditorComponent implements OnInit {
         distinctUntilChanged(),
         map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }), // Patch to uppercase
         debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      ).subscribe(v => this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(clubs => this.clubList = clubs));
+      ).subscribe(v => this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(res => this.clubList = res.getClubs));
   }
 
   clubDisplay(club: IClub) {
@@ -88,17 +90,19 @@ export class UserEditorComponent implements OnInit {
 
   userReceived(user: IUser) {
     this.user = JSON.parse(JSON.stringify(user)); // Clone user object
-    this.title.setTitle(`Configure user: ${this.user.name} | GymSystems`);
-    this.meta.updateTag({ property: 'og:title', content: `Configure user: ${this.user.name} | GymSystems` });
+    this.title.setTitle(`GymSystems | Configure user: ${this.user.name}`);
+    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure user: ${this.user.name}` });
     this.meta.updateTag({ property: 'og:description', content: `Editing user` });
+    this.meta.updateTag({ property: 'description', content: `Editing user` });
+    this.clubList = [this.user.club];
     this.userForm.setValue({
       id: this.user.id,
       name: this.user.name,
       role: this.user.role,
       email: this.user.email || '',
       club: this.user.club || null,
-      password: this.user.password,
-      repeatPassword: this.user.password
+      // password: this.user.password,
+      // repeatPassword: this.user.password
     });
   }
 
@@ -106,10 +110,10 @@ export class UserEditorComponent implements OnInit {
     const formVal = this.userForm.value;
 
     // Cleanup password
-    if (this.user.password === formVal.password) {
-      delete formVal.password;
-    }
-    delete formVal.repeatPassword;
+    // if (this.user.password === formVal.password) {
+    //   delete formVal.password;
+    // }
+    // delete formVal.repeatPassword;
 
     // If no club, just copy our own
     formVal.club = formVal.club || this.currentUser.club;

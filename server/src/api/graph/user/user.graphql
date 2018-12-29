@@ -5,7 +5,7 @@ type Query {
 }
 
 type Mutation {
-  saveUser(user: UserInput): IUser
+  saveUser(input: UserInput): IUser
   deleteUser(id: ID): Boolean
 }
 
@@ -33,7 +33,7 @@ input UserInput {
   email: String
   password: String
   role: Int
-  clubId: ID
+  club: IDDependencyInput
   tournaments: [IDDependencyInput]
   venues: [IDDependencyInput]
   clubId: ID

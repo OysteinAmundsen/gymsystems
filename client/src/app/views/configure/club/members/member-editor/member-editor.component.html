@@ -1,12 +1,16 @@
 <form [formGroup]="memberForm" (submit)="save()">
   <mat-card class="mat-elevation-z4">
+
     <mat-card-header>
       <div class="card-actions">
         <button type="button" mat-icon-button (click)="close()"><i class="fa fa-fw fa-close"></i></button>
       </div>
       <i class="fa fa-fw fa-address-card-o fa-2x" mat-card-avatar></i>
-      <mat-card-title><h3>{{memberForm.value.name}}</h3></mat-card-title>
+      <mat-card-title>
+        <h3>{{memberForm.value.name}}</h3>
+      </mat-card-title>
     </mat-card-header>
+
     <mat-card-content>
       <section class="gymnast-data">
         <div class="row">
@@ -14,7 +18,8 @@
             <input matInput type="text" formControlName="name" placeholder="{{'Name' | translate}}" appAutofocus>
           </mat-form-field>
           <mat-form-field class="col-4">
-            <input matInput type="number" formControlName="birthYear" placeholder="{{'Birth year' | translate}}" [min]="minYear" [max]="maxYear" minlength="4" maxlength="4">
+            <input matInput type="number" formControlName="birthYear" placeholder="{{'Birth year' | translate}}" [min]="minYear" [max]="maxYear" minlength="4"
+                   maxlength="4">
           </mat-form-field>
           <div class="col-2 material-label">
             <label translate>Gender</label>
@@ -72,8 +77,7 @@
       <section class="teams">
         <h4><i class="fa fa-fw fa-group"></i> {{'Teams' | translate}}</h4>
         <mat-form-field>
-          <input matInput [(ngModel)]="troopSelector" [ngModelOptions]="{standalone: true}" (ngModelChange)="onTroopSelectorChange($event)"
-                 placeholder="{{'Add to Team' | translate}}" [matAutocomplete]="troopTypeahead">
+          <input matInput [formControl]="troopSelector" placeholder="{{'Add to Team' | translate}}" [matAutocomplete]="troopTypeahead">
           <mat-autocomplete #troopTypeahead="matAutocomplete" (optionSelected)="addToTeam($event)" [displayWith]="troopDisplay">
             <mat-option *ngFor="let troop of troopList" [value]="troop">
               {{ troop.name }}
@@ -92,7 +96,8 @@
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="memberForm.invalid || memberForm.pristine"></app-save-button>
       <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="memberForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><i class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" *ngIf="memberForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><i
+           class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>
 </form>

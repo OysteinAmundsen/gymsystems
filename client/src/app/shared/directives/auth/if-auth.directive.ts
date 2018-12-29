@@ -31,7 +31,7 @@ export class IfAuthDirective implements OnDestroy {
     });
   }
 
-  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef, private userService: UserService) {  }
+  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef, private userService: UserService) { }
 
   ngOnDestroy() {
     if (this.userSubscription) { this.userSubscription.unsubscribe(); }

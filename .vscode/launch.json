@@ -7,23 +7,54 @@
     {
       "type": "chrome",
       "request": "launch",
-      "name": "Launch Chrome",
-      "url": "http://localhost:4200",
-      "webRoot": "${workspaceRoot}/client"
+      "name": "Client",
+      "sourceMaps": true,
+      "webRoot": "${workspaceRoot}/client",
+      "url": "http://localhost:4200"
     },
     {
       "type": "node",
       "request": "launch",
       "name": "Server",
+      "preLaunchTask": "Server build",
       "protocol": "inspector",
       "cwd": "${workspaceRoot}/server",
-      "runtimeExecutable": "${workspaceRoot}/server/node_modules/.bin/nodemon",
-      "runtimeArgs": [
-        "--config",
-        "nodemon-debug.json"
+      "outFiles": [
+        "${workspaceRoot}/server/dist/**/*.js"
       ],
+      "program": "${workspaceRoot}/server/src/main.ts",
       "restart": true,
-      "console": "integratedTerminal"
+      "console": "internalConsole",
+      "envFile": "${workspaceRoot}/server/.env"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Server Test",
+      "cwd": "${workspaceFolder}/server",
+      "program": "${workspaceRoot}/node_modules/.bin/jest",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "windows": {
+        "program": "${workspaceRoot}/node_modules/jest/bin/jest",
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Server Test Current File",
+      "cwd": "${workspaceFolder}/server",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+        "${relativeFile}"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
     }
   ]
 }

@@ -18,28 +18,28 @@
     <!-- Main application menu -->
     <ul [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
       <li *ngIf="hasHelp" [ngClass]="{'active': showHelp, 'visible-wide': true, 'show-help': true}" [title]="'Show all places where help is available on this page' | translate">
-        <a (mouseenter)="toggleHelp()" (mouseleave)="toggleHelp()"><i class="fa fa-fw fa-question"></i></a>
+        <a (mouseenter)="toggleHelp()" (mouseleave)="toggleHelp()" aria-hidden="true"><i class="fa fa-fw fa-question"></i></a>
       </li>
       <li [title]="'Navigate to the systems frontpage' | translate">
-        <a routerLink="/">
+        <a routerLink="/" aria-label="Go to homepage">
           <i class="fa fa-fw fa-home"></i> <span translate>Home</span> </a>
       </li>
       <li *appIfAuth="false" [title]="'Login to the system if you have an account' | translate">
-        <a routerLink="/login" [queryParams]="{u: locationHref}">
+        <a routerLink="/login" [queryParams]="{u: locationHref}" aria-label="Login">
           <i class="fa fa-fw fa-sign-in"></i> <span translate>Login</span> </a>
       </li>
       <li [routerLinkActive]="['active']" *appIfAuth="'Club'" [title]="'You have the privileges to make changes in the system here' | translate">
-        <a routerLink="/configure">
+        <a routerLink="/configure" aria-label="Configuration">
           <i class="fa fa-fw fa-cogs"></i> <span translate>Configure</span> </a>
       </li>
       <li [routerLinkActive]="['active']" *appIfAuth="true" class="visible-narrow" [title]="'Logout of the system' | translate">
-        <a routerLink="/logout">
+        <a routerLink="/logout" aria-label="Logout">
           <i class="fa fa-fw fa-sign-out"></i> <span translate>Log out</span> </a>
       </li>
     </ul>
 
     <!-- Mobile nav menu activator -->
-    <button mat-icon-button type="button" class="mobile-menu-toggle">
+    <button mat-icon-button type="button" class="mobile-menu-toggle" aria-label="Navigation menu">
       <i class="fa fa-fw fa-bars fa-2x" (click)="toggleNav($event)"></i>
     </button>
   </div>
@@ -77,10 +77,12 @@
       <a [routerLink]="['/logout']"><i class="fa fa-fw fa-sign-out"></i><span translate>Logout</span></a>
     </span>
     <div class="pull-left logo">
-      <a href="http://www.haugesundturn.no/"><img src="assets/images/Logo-Haugesund-Turnforening.white.svg" height="101"
-          alt="Haugesund Turnforening" title="Haugesund Turnforening"></a>
-      <a href="http://www.gymogturn.no/"><img src="assets/images/NGTF_logo_farger.png" alt="Norges gym- og Turnforening"
-          title="Norges gym- og Turnforening"></a>
+      <a href="http://www.haugesundturn.no/" rel="noreferrer">
+        <img src="assets/images/Logo-Haugesund-Turnforening.white.svg" height="101" alt="Haugesund Turnforening" title="Haugesund Turnforening">
+      </a>
+      <a href="http://www.gymogturn.no/" rel="noreferrer">
+        <img src="assets/images/NGTF_logo_farger.png" alt="Norges gym- og Turnforening" title="Norges gym- og Turnforening">
+      </a>
     </div>
   </div>
 </footer>

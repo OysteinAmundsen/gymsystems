@@ -15,7 +15,7 @@ import { TournamentService } from '../tournament/tournament.service';
 import { Role } from '../user/user.model';
 import { ClubService } from '../club/club.service';
 import { Club } from '../club/club.model';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('IGymnast')
 export class GymnastResolver {
@@ -79,7 +79,7 @@ export class GymnastResolver {
 
   @Mutation('saveGymnast')
   @UseGuards(RoleGuard(Role.Club))
-  create(@Args('input') input: GymnastDto): Promise<Gymnast> {
+  save(@Args('input') input: GymnastDto): Promise<Gymnast> {
     ClubService.enforceSame(input.clubId);
     return this.gymnastService.save(Cleaner.clean(input));
   }

@@ -24,13 +24,6 @@ export class ScheduleService {
   /**
    *
    */
-  start(participant: ITeamInDiscipline) {
-    return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/start`, {});
-  }
-
-  /**
-   *
-   */
   stop(participant: ITeamInDiscipline) {
     return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/stop`, {});
   }

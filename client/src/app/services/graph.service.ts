@@ -1,41 +1,47 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+import { CommonService } from 'app/shared/common.service';
 
-// import { Apollo } from 'apollo-angular';
-// import gql from 'graphql-tag';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+import { QueryOptions, MutationOptions } from 'apollo-angular/types';
 
 @Injectable({ providedIn: 'root' })
 export class GraphService {
-  constructor(private http: HttpClient/*, private apollo: Apollo*/) { }
+  constructor(private http: HttpClient, private apollo: Apollo) { }
 
   getData(queryStr: string): Observable<any> {
-    return this.http.get<any>(`/api/graph/?query=${queryStr.replace(/#.+| +?|\r?\n|\r/gm, '')}`).pipe(map(res => res.data));
-    // return this.apollo.query<any>({ query: gql`${queryStr}` }).pipe(map(res => res.data));
+    return this.get(queryStr).pipe(map(res => res.data));
   }
 
   deleteData(type: string, id: number): Observable<any> {
     const query = `{ delete${type}(id:${id}) }`;
-    return this.delete(query);
-    // return this.apollo.mutate<any>(gql`${query}`).pipe(map(res => res.data));
+    return this.delete(query).pipe(map(res => res.data));
   }
 
   saveData(type: string, data: any, returnVal: string): Observable<any> {
-    const query = `{save${type} (input:${this.jsonToGql(data)}) ${returnVal}}`;
-    return this.post(query);
-    // return this.apollo.mutate(gql`${query}`).pipe(map(res => res.data));
+    const query = `{ save${type} (input:${this.jsonToGql(data)}) ${returnVal}}`;
+    return this.post(query).pipe(map(res => res.data));
   }
 
-  post(query: string) {
-    const queryStr = `mutation ${query}`;
-    return this.http.post<any>(`/api/graph`, { query: queryStr }).pipe(map(res => res.data));
+  get(query: string, options?: QueryOptions<any>): Observable<any> {
+    // return this.http.get<any>(`/api/graph/?query=${CommonService.compressString(query)}`, options);
+    return this.apollo.query<any>(Object.assign({ query: gql`${query}` }, options));
   }
 
-  delete(query: string) {
+  post(query: string, options?: MutationOptions<any, any>): Observable<any> {
     const queryStr = `mutation ${query}`;
-    return this.http.delete<any>(`/api/graph/?query=${queryStr.replace(/#.+| +?|\r?\n|\r/gm, '')}`).pipe(map(res => res.data));
+    // return this.http.post<any>(`/api/graph`, Object.assign({ query: queryStr }, options));
+    return this.apollo.mutate(Object.assign({ mutation: gql`${queryStr}` }, options));
+  }
+
+  delete(query: string): Observable<any> {
+    const queryStr = `mutation ${query}`;
+    // return this.http.delete<any>(`/api/graph/?query=${CommonService.compressString(queryStr)}`);
+    return this.apollo.mutate<any>(gql`${queryStr}`);
   }
 
   jsonToGql(val: any): string {
@@ -68,14 +74,14 @@ export class GraphService {
       }
 
 
-      else if (typeof obj[k] === 'object' && obj[k]['id']) {
-        return str += `${k}Id: "${obj[k]['id']}"`;
-        // return str += `${k}: {id: "${obj[k]['id']}"}`;
+      else if (typeof obj[k] === 'object') {
+        if (obj[k]['id']) { return str += `${k}Id: "${obj[k]['id']}"`; }
+        return str += `${k}: ${this.mapFromObject(obj[k])}`;
       }
 
 
       // Default value
-      return str += `${k}: ${typeof obj[k] === 'string' || k === 'id' ? `"${obj[k].replace(/\n/gm, '\\n')}"` : obj[k]}`;
+      return str += `${k}: ${typeof obj[k] === 'string' || k === 'id' ? `"${('' + obj[k]).replace(/\n/gm, '\\n')}"` : obj[k]}`;
     }, '')}}`;
   }
 

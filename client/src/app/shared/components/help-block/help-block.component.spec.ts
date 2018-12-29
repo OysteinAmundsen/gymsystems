@@ -1,28 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { HelpBlockComponent } from "./help-block.component";
 
-import { SharedModule } from 'app/shared/shared.module';
-import { HelpBlockComponent } from './help-block.component';
-
-describe('shared.components:HelpBlockComponent', () => {
+describe("shared.components:HelpBlockComponent", () => {
   let component: HelpBlockComponent;
   let fixture: ComponentFixture<HelpBlockComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        SharedModule
-      ]
-    })
-    .compileComponents();
-  }));
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [HelpBlockComponent]
+    });
     fixture = TestBed.createComponent(HelpBlockComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
-
-  it('should be created', () => {
+  it("can load instance", () => {
     expect(component).toBeTruthy();
   });
 });

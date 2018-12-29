@@ -1,9 +1,4 @@
-import {
-  Module,
-  NestModule,
-  MiddlewareConsumer,
-  RequestMethod
-} from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { GraphQLModule, GqlModuleOptions } from '@nestjs/graphql';
 
 import { join } from 'path';
@@ -29,6 +24,7 @@ import { TroopModule } from './graph/troop/troop.module';
 import { UserModule } from './graph/user/user.module';
 import { VenueModule } from './graph/venue/venue.module';
 import { JudgeInScoreGroupModule } from './graph/judge-in-score-group/judge-in-score-group.module';
+
 import { AppController } from './app.controller';
 import { RequestContextMiddleware } from './common/middleware/request-context.middleware';
 
@@ -81,7 +77,7 @@ import { RequestContextMiddleware } from './common/middleware/request-context.mi
   ]
 })
 export class AppModule implements NestModule {
-  constructor() {}
+  constructor() { }
 
   configure(consumer: MiddlewareConsumer) {
     consumer

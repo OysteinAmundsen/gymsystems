@@ -12,9 +12,9 @@ export class ErrorHandlerService {
   private _error: string;
   get error() { return this._error; }
 
-  constructor(private dialog: MatDialog) {  }
+  constructor(private dialog: MatDialog) { }
 
-  setError(value: string, header?: string) {
+  setError(value: string, header?: string, stack?: string) {
     this.clearError();
     if (value) {
       if (typeof value === 'string') {
@@ -23,8 +23,9 @@ export class ErrorHandlerService {
         this._error = value['message'] ? value['message'] : value[0];
       }
       const opts = {
-        message: this._error,
         header: header,
+        message: this._error,
+        stack: stack,
         autocloseAfter: 10 * 1000
       };
       this.dialogRef = this.dialog.open(ErrorDialogComponent, { data: opts });

@@ -9,7 +9,7 @@ import { ScoreGroup } from './score-group.model';
 import { JudgeInScoreGroup } from '../judge-in-score-group/judge-in-score-group.model';
 import { JudgeInScoreGroupService } from '../judge-in-score-group/judge-in-score-group.service';
 import { Role } from '../user/user.model';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('IScoreGroup')
 export class ScoreGroupResolver {

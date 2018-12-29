@@ -4,7 +4,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
-import { UserService } from 'app/services/api';
 import { ValidationService } from 'app/services/validation';
 import { ErrorHandlerService } from 'app/services/http';
 
@@ -36,20 +35,19 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private userService: UserService,
     private graph: GraphService,
     private errorHandler: ErrorHandlerService,
     private translate: TranslateService) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      id: [this.user.id],
-      name: [this.user.name, [Validators.required]],
-      email: [this.user.email, [Validators.required, ValidationService.emailValidator]],
-      role: [this.user.role, [Validators.required]],
-      club: [this.user.club, [Validators.required]],
-      password: [this.user.password, [Validators.required]],
-      repeatPassword: [this.user.password, [Validators.required]]
+      id: [null],
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, ValidationService.emailValidator]],
+      role: [Role.Club, [Validators.required]],
+      club: [null, [Validators.required]],
+      password: ['', [Validators.required]],
+      repeatPassword: ['', [Validators.required]]
     }, {
         validator: (c: AbstractControl) => {
           return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false } };
@@ -70,7 +68,7 @@ export class RegisterComponent implements OnInit {
         }),
         debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
       ).subscribe(v => {
-        this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(clubs => this.clubList = clubs);
+        this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(res => this.clubList = res.getClubs);
       });
   }
 
@@ -84,9 +82,10 @@ export class RegisterComponent implements OnInit {
       this.errorHandler.setError('No club set. Cannot register!');
       return;
     }
+    delete user.repeatPassword;
 
-    this.userService.register(this.registerForm.value).subscribe(
-      res => this.registrationComplete(res),
+    this.graph.saveData('User', user, '{id}').subscribe(
+      res => this.registrationComplete(res.saveUser),
       err => this.registrationComplete(err)
     );
   }

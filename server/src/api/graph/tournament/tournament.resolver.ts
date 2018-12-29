@@ -24,8 +24,8 @@ import { VenueService } from '../venue/venue.service';
 import { Venue } from '../venue/venue.model';
 import { UserService } from '../user/user.service';
 import { User, Role } from '../user/user.model';
-import { RoleGuard } from 'api/common/auth/role.guard';
-import { Cleaner } from 'api/common/util/cleaner';
+import { RoleGuard } from '../../common/auth/role.guard';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('ITournament')
 export class TournamentResolver {

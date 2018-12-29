@@ -11,7 +11,7 @@ import { ScoreGroupService } from '../score-group/score-group.service';
 import { JudgeService } from '../judge/judge.service';
 import { Judge } from '../judge/judge.model';
 import { Role } from '../user/user.model';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('IJudgeInScoreGroup')
 export class JudgeInScoreGroupResolver {
@@ -53,7 +53,7 @@ export class JudgeInScoreGroupResolver {
     return this.judgeInScoreGroupService.save(Cleaner.clean(input));
   }
 
-  @Mutation('removeJudgeFromScoreGroup')
+  @Mutation('deleteJudgeFromScoreGroup')
   @UseGuards(RoleGuard(Role.Organizer))
   remove(@Args('input') input: JudgeInScoreGroupDto): Promise<boolean> {
     return this.judgeInScoreGroupService.remove(input);

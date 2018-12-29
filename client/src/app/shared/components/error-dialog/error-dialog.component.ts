@@ -28,6 +28,7 @@ export class ErrorDialogComponent implements OnInit {
 
   countDown() {
     const totalTime = this.data.autocloseAfter;
+    clearTimeout(this.counter);
     this.counter = setTimeout(() => {
       this.timeRemaining += (this.step * 100 / totalTime);
       if (this.timeRemaining < 100) {

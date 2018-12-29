@@ -14,7 +14,6 @@ import { AutofocusDirective } from './directives/autofocus/autofocus.directive';
 import { IfAuthDirective } from './directives/auth/if-auth.directive';
 
 // Shared pipes
-import { ToUpperPipe } from './pipes/to-upper.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { MultirangeComponent } from './components/multirange/multirange.component';
 import { SaveButtonComponent } from './components/save-button/save-button.component';
@@ -23,6 +22,7 @@ import { HelpBlockComponent } from './components/help-block/help-block.component
 import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directive';
 import { MatButtonModule, MatProgressBarModule, MatDialogModule } from '@angular/material';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
+import { LoadSpinnerComponent } from './components/load-spinner/load-spinner.component';
 
 @NgModule({
   imports: [
@@ -46,12 +46,12 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     MultirangeComponent,
     SaveButtonComponent,
     HelpBlockComponent,
+    LoadSpinnerComponent,
 
     ToCaseDirective,
     AutofocusDirective,
     IfAuthDirective,
 
-    ToUpperPipe,
     OrderByPipe,
     UtcDatePipe,
   ],
@@ -66,12 +66,12 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     MultirangeComponent,
     SaveButtonComponent,
     HelpBlockComponent,
+    LoadSpinnerComponent,
 
     ToCaseDirective,
     AutofocusDirective,
     IfAuthDirective,
 
-    ToUpperPipe,
     OrderByPipe,
     UtcDatePipe,
   ],

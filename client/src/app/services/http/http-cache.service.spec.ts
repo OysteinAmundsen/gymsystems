@@ -1,15 +1,13 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
+import { HttpCacheService } from "./http-cache.service";
 
-import { HttpCacheService } from './http-cache.service';
-
-describe('HttpCacheService', () => {
+describe("HttpCacheService", () => {
+  let service: HttpCacheService;
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [HttpCacheService]
-    });
+    TestBed.configureTestingModule({ providers: [HttpCacheService] });
+    service = TestBed.get(HttpCacheService);
   });
-
-  it('should be created', inject([HttpCacheService], (service: HttpCacheService) => {
+  it("can load instance", () => {
     expect(service).toBeTruthy();
-  }));
+  });
 });

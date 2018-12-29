@@ -5,7 +5,7 @@ type Query {
 
 type Mutation {
   saveJudgeInScoreGroup(input: JudgeInScoreGroupInput): IJudgeInScoreGroup
-  removeJudgeFromScoreGroup(input: JudgeInScoreGroupInput): IJudgeInScoreGroup
+  deleteJudgeFromScoreGroup(input: JudgeInScoreGroupInput): IJudgeInScoreGroup
 }
 
 type Subscription {

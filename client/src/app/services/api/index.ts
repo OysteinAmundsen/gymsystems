@@ -1,5 +1,4 @@
 export * from './display/display.service';
-export * from './tournament/tournament.service';
 export * from './user/user.service';
 export * from './configuration/configuration.service';
 export * from './schedule/schedule.service';

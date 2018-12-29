@@ -1,41 +1,51 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { RouterTestingModule } from '@angular/router/testing';
 
-import { SharedModule } from 'app/shared/shared.module';
-import { RegisterComponent } from './register.component';
+// import { SharedModule } from 'app/shared/shared.module';
+// import { RegisterComponent } from './register.component';
 
-import { UserService, ClubService } from 'app/services/api';
-import { ErrorHandlerService } from 'app/services/http';
-import { ClubServiceStub } from 'app/services/api/club/club.service.stub';
-import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+// import { UserService } from 'app/services/api';
+// import { ErrorHandlerService } from 'app/services/http';
+// import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+// import { GraphService } from 'app/services/graph.service';
+// import { GraphServiceApi } from 'app/services/graph.service.api';
+// import { of } from 'rxjs';
 
-describe('views.home:RegisterComponent', () => {
-  let component: RegisterComponent;
-  let fixture: ComponentFixture<RegisterComponent>;
+// class MockGraph implements GraphServiceApi {
+//   getData(queryStr: string) { return of(); }
+//   deleteData(type: string, id: number) { return of(); }
+//   saveData(type: string, data: any, returnVal: string) { return of(); }
+//   post(query: string) { return of(); }
+//   delete(query: string) { return of(); }
+// }
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        SharedModule,
-        RouterTestingModule,
-      ],
-      providers: [
-        {provide: UserService, useClass: UserServiceStub},
-        {provide: ClubService, useClass: ClubServiceStub},
-        ErrorHandlerService,
+// describe('views.home:RegisterComponent', () => {
+//   let component: RegisterComponent;
+//   let fixture: ComponentFixture<RegisterComponent>;
 
-      ]
-    })
-    .compileComponents();
-  }));
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       imports: [
+//         SharedModule,
+//         RouterTestingModule,
+//       ],
+//       providers: [
+//         { provide: UserService, useClass: UserServiceStub },
+//         { provide: GraphService, useClass: MockGraph },
+//         ErrorHandlerService,
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RegisterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//       ]
+//     })
+//       .compileComponents();
+//   }));
 
-  // it('should be created', () => {
-  //   expect(component).toBeTruthy();
-  // });
-});
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(RegisterComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
+
+//   // it('should be created', () => {
+//   //   expect(component).toBeTruthy();
+//   // });
+// });

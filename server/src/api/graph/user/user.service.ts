@@ -9,7 +9,7 @@ import { Club } from '../club/club.model';
 import { ClubService } from '../club/club.service';
 import { PubSub } from 'graphql-subscriptions';
 import { UserDto } from './dto/user.dto';
-import { RequestContext } from 'api/common/middleware/request-context.model';
+import { RequestContext } from '../../common/middleware/request-context.model';
 
 @Injectable()
 export class UserService {
@@ -95,10 +95,15 @@ export class UserService {
       }
 
       // Validate club
-      try {
-        user.club = await this.clubService.findOrCreateClub(user.club);
-      } catch (ex) {
-        throw new BadRequestException(ex.message);
+      if (user.clubId || (user.club && user.club.id)) {
+        const club = await this.clubService.findOneById(user.clubId || user.club.id);
+        if (!club) { throw new BadRequestException(); }
+      } else if (user.club) {
+        try {
+          user.club = await this.clubService.findOrCreateClub(user.club);
+        } catch (ex) {
+          throw new BadRequestException(ex.message);
+        }
       }
     } else {
       const entity = await this.findOneById(user.id);

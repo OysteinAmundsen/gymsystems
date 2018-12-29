@@ -1,12 +1,5 @@
 import { UseGuards, Inject } from '@nestjs/common';
-import {
-  Args,
-  Mutation,
-  Query,
-  Resolver,
-  Subscription,
-  ResolveProperty
-} from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver, Subscription, ResolveProperty } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { DisciplineService } from './discipline.service';
 import { RoleGuard } from '../../common/auth/role.guard';
@@ -21,7 +14,7 @@ import { Judge } from '../judge/judge.model';
 import { JudgeService } from '../judge/judge.service';
 import { JudgeInScoreGroup } from '../judge-in-score-group/judge-in-score-group.model';
 import { JudgeInScoreGroupService } from '../judge-in-score-group/judge-in-score-group.service';
-import { Cleaner } from 'api/common/util/cleaner';
+import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('IDiscipline')
 export class DisciplineResolver {
@@ -103,7 +96,7 @@ export class DisciplineResolver {
    */
   @Mutation('saveDiscipline')
   @UseGuards(RoleGuard(Role.Organizer))
-  create(@Args('input') input: DisciplineDto): Promise<Discipline> {
+  save(@Args('input') input: DisciplineDto): Promise<Discipline> {
     return this.disciplineService.save(Cleaner.clean(input));
   }
 
