@@ -120,7 +120,7 @@
     "passport-local": "1.0.0",
     "reflect-metadata": "0.1.12",
     "request": "2.87.0",
-    "rimraf": "2.6.2",
+    "rimraf": "2.6.3",
     "routing-controllers": "0.7.7",
     "rxjs": "6.2.1",
     "sendmail": "1.4.1",
