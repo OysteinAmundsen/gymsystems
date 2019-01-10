@@ -174,7 +174,7 @@
     "karma-spec-reporter": "0.0.32",
     "nodemon": "1.17.5",
     "protractor": "5.3.2",
-    "snyk": "1.88.0",
+    "snyk": "1.122.0",
     "ts-node": "7.0.0",
     "tslint": "5.10.0",
     "typescript": "<2.8.0",
