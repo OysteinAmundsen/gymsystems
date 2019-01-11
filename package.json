@@ -86,7 +86,7 @@
     "@angular/service-worker": "6.0.7",
     "@ngx-translate/core": "10.0.2",
     "@ngx-translate/http-loader": "3.0.1",
-    "angulartics2": "6.1.1",
+    "angulartics2": "7.4.0",
     "bcryptjs": "2.4.3",
     "body-parser": "1.18.3",
     "chalk": "2.4.1",
