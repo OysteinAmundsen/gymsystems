@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, fakeAsync, flush } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from "@ngx-translate/core";
-import { HttpStateService, HttpAction, HttpMethod } from "app/services/http";
+import { HttpStateService, HttpAction, HttpMethod } from "app/shared/interceptors";
 import { SaveButtonComponent } from "./save-button.component";
 import { of, ReplaySubject } from 'rxjs';
 

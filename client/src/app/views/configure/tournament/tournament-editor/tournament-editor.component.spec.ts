@@ -5,10 +5,10 @@
 // import { TournamentModule } from '../tournament.module';
 // import { TournamentEditorComponent } from './tournament-editor.component';
 
-// import { ErrorHandlerService } from 'app/services/http';
+// import { ErrorHandlerService } from 'app/shared/services/http';
 
-// import { UserService } from 'app/services/api';
-// import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+// import { UserService } from 'app/shared/services/api';
+// import { UserServiceStub } from 'app/shared/services/api/user/user.service.stub';
 
 // describe('views.configure.tournament:TournamentEditorComponent', () => {
 //   let component: TournamentEditorComponent;

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 
-import { ConfigurationService } from 'app/services/api';
+import { ConfigurationService } from 'app/shared/services/api';
 import { IDiscipline, IScoreGroup, Operation } from 'app/model';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-score-system',

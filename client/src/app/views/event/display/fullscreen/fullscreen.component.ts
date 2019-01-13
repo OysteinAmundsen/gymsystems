@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, OnDestroy, OnInit } from '@angular
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { EventService, DisplayService } from 'app/services/api';
+import { EventService, DisplayService } from 'app/shared/services/api';
 import { EventComponent } from '../../event.component';
 
 @Component({

@@ -39,6 +39,14 @@ export class ScheduleService {
     return (result.affected > 0);
   }
 
+  async removeByTournament(tournamentId: number): Promise<boolean> {
+    const result = await this.scheduleRepository.delete({ tournamentId: tournamentId });
+    if (result.affected > 0) {
+      this.pubSub.publish('teamInDisciplineDeleted', { tournamentId: tournamentId });
+    }
+    return (result.affected > 0);
+  }
+
   async rollbackTo(tournamentId: number, participantId: number): Promise<boolean> {
     const me = await this.userService.getAuthenticatedUser();
     const p = await this.scheduleRepository.findOne(participantId);
@@ -62,6 +70,24 @@ export class ScheduleService {
       // return new OkResponse();
       return true;
     });
+  }
+
+  async publish(id: number): Promise<TeamInDiscipline> {
+    const p = await this.scheduleRepository.findOne(id);
+    p.publishTime = new Date();
+    return this.scheduleRepository.save(p);
+  }
+
+  async stop(id: number): Promise<TeamInDiscipline> {
+    const p = await this.scheduleRepository.findOne(id);
+    p.endTime = new Date();
+    return this.scheduleRepository.save(p);
+  }
+
+  async start(id: number): Promise<TeamInDiscipline> {
+    const p = await this.scheduleRepository.findOne(id);
+    p.startTime = new Date();
+    return this.scheduleRepository.save(p);
   }
 
   findOneById(id: number): Promise<TeamInDiscipline> {

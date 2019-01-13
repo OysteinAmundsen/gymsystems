@@ -3,7 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import { CommonService } from 'app/shared/common.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -30,6 +30,7 @@ export class GraphService {
   get(query: string, options?: QueryOptions<any>): Observable<any> {
     // return this.http.get<any>(`/api/graph/?query=${CommonService.compressString(query)}`, options);
     return this.apollo.query<any>(Object.assign({ query: gql`${query}` }, options));
+    // return this.apollo.watchQuery<any>(Object.assign({ query: gql`${query}` }, options)).valueChanges;
   }
 
   post(query: string, options?: MutationOptions<any, any>): Observable<any> {
@@ -41,7 +42,7 @@ export class GraphService {
   delete(query: string): Observable<any> {
     const queryStr = `mutation ${query}`;
     // return this.http.delete<any>(`/api/graph/?query=${CommonService.compressString(queryStr)}`);
-    return this.apollo.mutate<any>(gql`${queryStr}`);
+    return this.apollo.mutate<any>({ mutation: gql`${queryStr}` });
   }
 
   jsonToGql(val: any): string {

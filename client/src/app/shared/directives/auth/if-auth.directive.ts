@@ -1,7 +1,7 @@
 import { Directive, Input, TemplateRef, ViewContainerRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { UserService } from 'app/services/api';
+import { UserService } from 'app/shared/services/api';
 import { Role } from 'app/model';
 
 @Directive({

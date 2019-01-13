@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1 # for versions before 1.8.0 use apps/v1beta1
+apiVersion: apps/v1 # for versions before 1.8.0 use apps/v1beta1
 kind: Deployment
 metadata:
   name: gymsystems
@@ -6,23 +6,35 @@ spec:
   selector:
     matchLabels:
       app: gymsystems
-  replicas: 1 # tells deployment to run 3 pods matching the template
+  replicas: 1 # tells deployment to run 1 pods matching the template
   template: # create pods using pod definition in this template
     metadata:
       labels:
         app: gymsystems
     spec:
       containers:
-        - name: backendhero
-          image: torkar2/private:gymsystems/client
+        - name: client
+          image: gymsystems/client
           ports:
             - containerPort: 80
               name: web
+          env:
+            - name: TZ
+              value: UTC
+            - name: NODE_ENV
+              value: production
+          volumeMounts:
+            - name: gymsystems-media
+              mountPath: /usr/share/nginx/html/media
+      volumes:
+        - name: gymsystems-media
+          persistentVolumeClaim:
+            claimName: media-pv-claim
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: gymsystems-service
+  name: gymsystems-client
 spec:
   type: NodePort
   selector:

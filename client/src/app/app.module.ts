@@ -1,4 +1,4 @@
-import { HttpCacheInterceptor } from './services/http/interceptors/HttpCacheInterceptor';
+import { HttpCacheInterceptor } from './shared/interceptors/http-cache.interceptor';
 // Framework & libs
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID, Injectable } from '@angular/core';
@@ -31,7 +31,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 
 // Other services
-import { AuthInterceptor } from './services/http';
+import { AuthInterceptor } from './shared/interceptors';
 
 // Module components
 import { AppComponent } from './app.component';

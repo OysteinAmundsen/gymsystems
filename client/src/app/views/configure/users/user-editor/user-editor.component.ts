@@ -4,13 +4,13 @@ import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/fo
 import { Title, Meta } from '@angular/platform-browser';
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
-import { UserService } from 'app/services/api';
+import { UserService } from 'app/shared/services/api';
 import { IUser, RoleNames, Role, IClub } from 'app/model';
-import { ValidationService } from 'app/services/validation';
-import { ErrorHandlerService } from 'app/services/http';
+import { ValidationService } from 'app/shared/services/validation';
+import { ErrorHandlerService } from 'app/shared/interceptors';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocomplete } from '@angular/material';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-user-editor',

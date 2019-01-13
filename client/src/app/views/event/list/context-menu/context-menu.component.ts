@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer2, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Role, ParticipationType, ITeamInDiscipline, IUser, ITournament } from 'app/model';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-context-menu',

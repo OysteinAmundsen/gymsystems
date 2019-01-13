@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 import { ITournament } from 'app/model/ITournament';
+import { ITeamInDiscipline, ParticipationType } from 'app/model';
 
 @Injectable({ providedIn: 'root' })
 export class CommonService {
@@ -29,4 +30,16 @@ export class CommonService {
   static compressString(str: string) {
     return str.replace(/#.+| +?|\r?\n|\r/gm, '');
   }
+
+  /**
+   *
+   */
+  static stringHash(participant: ITeamInDiscipline, toType?: ParticipationType): string {
+    return (participant.team.name
+      + participant.divisionName
+      + participant.disciplineName
+      + (toType ? toType : participant.type))
+      .replace(' ', '_');
+  }
+
 }

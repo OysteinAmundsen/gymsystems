@@ -7,11 +7,11 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 
 import { ITroop, IUser, Role, IGymnast, Gender, IDivision } from 'app/model';
-import { UserService, ConfigurationService } from 'app/services/api';
+import { UserService, ConfigurationService } from 'app/shared/services/api';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
-import { SubjectSource } from 'app/services/subject-source';
+import { SubjectSource } from 'app/shared/services/subject-source';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-troops',

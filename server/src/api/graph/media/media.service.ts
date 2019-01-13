@@ -1,6 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as mkdirp from 'mkdirp';
+import * as rimraf from 'rimraf';
+import * as schedule from 'node-schedule';
 
 import { MediaDto } from './dto/media.dto';
 import { Config } from '../../common/config';
@@ -56,5 +59,56 @@ export class MediaService {
 
   listAll(): Promise<Media[]> {
     return this.mediaRepository.find();
+  }
+
+  /**
+   * Create a media storage space for this tournament
+   */
+  createArchive(tournamentId: number, expire: Date): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      mkdirp(`./media/${tournamentId}`, (err) => {
+        if (err) {
+          reject(err);
+        }
+        this.expireArchive(tournamentId, expire); // Register for expiration
+        resolve(true);
+      });
+    });
+  }
+
+  /**
+   * Remove the storage space for this tournament
+   */
+  removeArchive(tournamentId: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      rimraf(`./media/${tournamentId}`, async (err: Error) => {
+        if (err) {
+          // Log.log.error(`Error removing media folder ./media/${id}`, err.message);
+          reject(err);
+        }
+        // Log.log.info(`Tournament media folder './media/${id}' removed!`);
+
+        // Remove cronjob registered to this removal
+        schedule.cancelJob(tournamentId.toString());
+
+        // Remove persisted media pointers
+        const result = await this.mediaRepository.delete({ tournamentId: tournamentId });
+        if (result.affected > 0) {
+          this.pubSub.publish('mediaDeleted', { tournamentId: tournamentId });
+        }
+        resolve(result.affected > 0);
+      });
+    });
+  }
+
+  /**
+   * Register cronjob to remove storage space at a specific datestamp
+   */
+  expireArchive(tournamentId: number, expire: Date) {
+    schedule.cancelJob(tournamentId.toString()); // If cronjob allready exists, remove old one first.
+
+    // Create cronjob
+    schedule.scheduleJob(tournamentId.toString(), expire, () => this.removeArchive(tournamentId))
+    // Log.log.info(`Tournament media folder './media/${id}' registered for expiration at ${moment(expire).format('DD.MM.YYYY HH:mm')}`);
   }
 }

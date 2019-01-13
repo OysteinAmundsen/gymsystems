@@ -3,10 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 
-import { UserService } from 'app/services/api';
+import { UserService } from 'app/shared/services/api';
 import { ITournament, Role } from 'app/model';
-import { SubjectSource } from 'app/services/subject-source';
-import { GraphService } from 'app/services/graph.service';
+import { SubjectSource } from 'app/shared/services/subject-source';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-tournament',
@@ -45,7 +45,7 @@ export class TournamentComponent implements OnInit {
         club{name},
         createdById,
         createdBy{id,name},
-        venue{name,address,capacity}
+        venue{id,name,address,capacity}
       }}`).subscribe(data => this.tournamentSource.subject.next(data.getTournaments));
   }
 

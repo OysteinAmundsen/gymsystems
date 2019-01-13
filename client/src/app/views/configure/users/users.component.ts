@@ -4,8 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { IUser, RoleNames } from 'app/model';
-import { SubjectSource } from 'app/services/subject-source';
-import { GraphService } from 'app/services/graph.service';
+import { SubjectSource } from 'app/shared/services/subject-source';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-users',

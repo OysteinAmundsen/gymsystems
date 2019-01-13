@@ -2,10 +2,10 @@ import { Component, HostListener, OnDestroy, OnInit, Input, EventEmitter, Output
 // import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 
-import { ConfigurationService } from 'app/services/api';
+import { ConfigurationService } from 'app/shared/services/api';
 import { IDivision, DivisionType } from 'app/model';
 import { TournamentEditorComponent } from 'app/views/configure/tournament/tournament-editor/tournament-editor.component';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-divisions',

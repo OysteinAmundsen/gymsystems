@@ -6,11 +6,11 @@
 // import { AppModuleTest } from 'app/app.module.spec';
 // import { TournamentModule } from '../tournament.module';
 // import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
-// import { dummyTournament } from 'app/services/api/tournament/tournament.service.stub';
+// import { dummyTournament } from 'app/shared/services/api/tournament/tournament.service.stub';
 // import { ITournament } from 'app/model';
-// import { TeamsService, ScheduleService } from 'app/services/api';
-// import { TeamsServiceStub } from 'app/services/api/teams/teams.service.stub';
-// import { ScheduleServiceStub } from 'app/services/api/schedule/schedule.service.stub';
+// import { TeamsService, ScheduleService } from 'app/shared/services/api';
+// import { TeamsServiceStub } from 'app/shared/services/api/teams/teams.service.stub';
+// import { ScheduleServiceStub } from 'app/shared/services/api/schedule/schedule.service.stub';
 
 // class DummyParent {
 //   tournamentSubject = new ReplaySubject<ITournament>(1);

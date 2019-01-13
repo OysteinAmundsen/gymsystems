@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { ClubEditorComponent } from "app/views/configure/club/club-editor/club-editor.component";
 import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from "@angular/material";
-import { GraphService } from "app/services/graph.service";
+import { GraphService } from "app/shared/services/graph.service";
 import { MemberEditorComponent } from "./member-editor.component";
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';

@@ -5,12 +5,14 @@ import { DisciplineService } from './discipline.service';
 import { TeamModule } from '../team/team.module';
 import { ScoreGroupModule } from '../score-group/score-group.module';
 import { Discipline } from './discipline.model';
+import { AdministrationModule } from '../../rest/administration/administration.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Discipline]),
     forwardRef(() => TeamModule),
-    ScoreGroupModule
+    ScoreGroupModule,
+    AdministrationModule
   ],
   // controllers: [DisciplineController],
   providers: [DisciplineResolver, DisciplineService],

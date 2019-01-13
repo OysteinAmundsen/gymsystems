@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 
 import { EventComponent } from '../event.component';
 import { ITeamInDiscipline, Classes, ParticipationType, IDiscipline, TotalByScoreGroup } from 'app/model';
-import { GraphService } from 'app/services/graph.service';
-import { EventService } from 'app/services/api/event/event.service';
+import { GraphService } from 'app/shared/services/graph.service';
+import { EventService } from 'app/shared/services/api/event/event.service';
 
 @Component({
   selector: 'app-results',

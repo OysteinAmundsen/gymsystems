@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 import { TemplateRef } from "@angular/core";
 import { ViewContainerRef } from "@angular/core";
-import { UserService } from "app/services/api";
+import { UserService } from "app/shared/services/api";
 import { Role } from "app/model";
 import { IfAuthDirective } from "./if-auth.directive";
 

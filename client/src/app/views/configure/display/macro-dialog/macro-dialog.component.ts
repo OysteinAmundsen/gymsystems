@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Logger } from 'app/services';
+import { Logger } from 'app/shared/services';
 
 import { DialogComponent } from 'app/shared/components';
 

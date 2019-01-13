@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { TranslateService, TranslateModule, TranslateLoader, TranslateFakeLoader } from "@ngx-translate/core";
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { GraphService } from "app/services/graph.service";
+import { GraphService } from "app/shared/services/graph.service";
 import { MemberSelectorComponent } from "./member-selector.component";
 import { IClub } from 'app/model/IClub';
 import { of } from 'rxjs';

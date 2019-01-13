@@ -9,6 +9,7 @@ import { Tournament } from '../tournament/tournament.model';
 import { Config } from '../../common/config';
 import { DivisionDto } from './dto/division.dto';
 import { PubSub } from 'graphql-subscriptions';
+import { ConfigurationService } from '../../rest/administration/configuration.service';
 
 @Injectable()
 export class DivisionService {
@@ -17,6 +18,7 @@ export class DivisionService {
   cacheCreation: moment.Moment;
 
   constructor(
+    private readonly configService: ConfigurationService,
     @InjectRepository(Division) private readonly divisionRepository: Repository<Division>,
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
@@ -47,7 +49,10 @@ export class DivisionService {
       this.pubSub.publish(division.id ? 'divisionModified' : 'divisionCreated', { division: result });
     }
     return result;
+  }
 
+  saveAll(divisions: DivisionDto[]): Promise<Division[]> {
+    return Promise.all(divisions.map(d => this.save(d)));
   }
 
   async remove(id: number): Promise<boolean> {
@@ -73,6 +78,7 @@ export class DivisionService {
   findByTournamentId(id: number): Promise<Division[]> {
     return this.divisionRepository.find({ where: { tournamentId: id }, cache: Config.QueryCache, order: { sortOrder: 'ASC' } });
   }
+
   findByTournament(tournament: Tournament): Promise<Division[]> {
     return this.findByTournamentId(tournament.id);
   }
@@ -80,4 +86,21 @@ export class DivisionService {
   findAll(): Promise<Division[]> {
     return this.getAllFromCache();
   }
+
+  removeByTournament(tournamentId: number): any {
+    return this.divisionRepository.delete({ tournamentId: tournamentId });
+  }
+
+  /**
+   * Service method for creating default divisions
+   *
+   * This is only useful when creating tournaments.
+   */
+  async createDefaults(tournamentId: number): Promise<Boolean> {
+    const values = JSON.parse((await this.configService.getOneById('defaultValues')).value);
+    const newDivs = values.division.map((d: Division) => { d.tournamentId = tournamentId; return d; });
+    const divisions = await this.saveAll(newDivs);
+    return divisions && divisions.length > 0 && divisions.every(d => d.id !== null);
+  }
 }
+

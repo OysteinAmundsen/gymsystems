@@ -7,9 +7,9 @@
     "ng": "yarn workspace gymsystems_client ng",
     "nest": "yarn workspace gymsystems_server nest",
     "typeorm": "yarn workspace gymsystems_server typeorm",
-    "prettier": "prettier --write \"**/*.{js,json,css,md,ts,html,component.html}\"",
     "bump": "utils/bump.sh",
     "build": "yarn build:server && yarn build:client",
+    "lint": "yarn workspace gymsystems_server lint && yarn workspace gymsystems_client lint",
     "build:server": "yarn workspace gymsystems_server build",
     "build:client": "yarn workspace gymsystems_client build",
     "build:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker build --compress",
@@ -42,7 +42,7 @@
   "resolutions": {},
   "husky": {
     "hooks": {
-      "pre-commit": ""
+      "pre-commit": "yarn lint"
     }
   }
 }

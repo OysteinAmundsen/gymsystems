@@ -6,8 +6,8 @@
 
 // import { ConfigureComponent } from './configure.component';
 
-// import { UserService } from 'app/services/api';
-// import { UserServiceStub } from 'app/services/api/user/user.service.stub';
+// import { UserService } from 'app/shared/services/api';
+// import { UserServiceStub } from 'app/shared/services/api/user/user.service.stub';
 
 // describe('views.configure:ConfigureComponent', () => {
 

@@ -5,7 +5,7 @@ import { ClubEditorComponent } from "app/views/configure/club/club-editor/club-e
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from "@ngx-translate/core";
 import { Router } from "@angular/router";
 import { MemberStateService } from "app/views/configure/club/members/member-state.service";
-import { GraphService } from "app/services/graph.service";
+import { GraphService } from "app/shared/services/graph.service";
 import { Gender } from "app/model";
 import { MembersComponent } from "./members.component";
 import { RouterTestingModule } from '@angular/router/testing';

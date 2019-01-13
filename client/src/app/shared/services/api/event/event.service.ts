@@ -1,7 +1,7 @@
-import { HttpCacheService } from './../../http/http-cache.service';
+import { HttpCacheService } from '../../../interceptors/http-cache.service';
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
-import { Logger } from 'app/services';
+import { Logger } from 'app/shared/services';
 
 /**
  *

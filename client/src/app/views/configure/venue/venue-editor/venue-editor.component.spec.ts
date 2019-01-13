@@ -7,7 +7,7 @@
 // import { TranslateService, TranslateModule } from "@ngx-translate/core";
 // import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from "@angular/material";
 // import { MatAutocomplete } from "@angular/material";
-// import { GraphService } from "../../../../services/graph.service";
+// import { GraphService } from "../../../../shared/services/graph.service";
 // import { VenueEditorComponent } from "./venue-editor.component";
 // import { of } from 'rxjs';
 

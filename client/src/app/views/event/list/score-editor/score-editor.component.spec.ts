@@ -5,8 +5,8 @@
 // import { ScoreEditorComponent } from './score-editor.component';
 // import { AppModuleTest } from 'app/app.module.spec';
 // import { ITeamInDiscipline, IScoreGroup, IScore, Operation, Classes } from 'app/model';
-// import { GraphService } from 'app/services/graph.service';
-// import { GraphServiceApi } from 'app/services/graph.service.api';
+// import { GraphService } from 'app/shared/services/graph.service';
+// import { GraphServiceApi } from 'app/shared/services/graph.service.api';
 // import { of } from 'rxjs';
 
 // class MockGraph implements GraphServiceApi {

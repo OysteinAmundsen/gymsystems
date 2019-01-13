@@ -3,8 +3,8 @@ import { Subscription, noop } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
-import { HttpStateService, HttpAction } from 'app/services/http';
-import { HttpMethod } from 'app/services/http/http-method.enum';
+import { HttpStateService, HttpAction } from 'app/shared/interceptors';
+import { HttpMethod } from 'app/shared/interceptors/http-method';
 
 @Component({
   selector: 'app-save-button',

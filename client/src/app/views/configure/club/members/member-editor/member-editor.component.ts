@@ -7,7 +7,7 @@ import { IClub, IGymnast, Gender, ITroop } from 'app/model';
 import * as moment from 'moment';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-member-editor',

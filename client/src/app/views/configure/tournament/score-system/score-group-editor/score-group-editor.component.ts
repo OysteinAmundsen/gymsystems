@@ -6,7 +6,7 @@ import { IDiscipline, IScoreGroup, Operation, IJudge } from 'app/model';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-score-group-editor',

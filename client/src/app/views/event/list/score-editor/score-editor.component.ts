@@ -4,8 +4,8 @@ import { ScoreContainer } from 'app/views/event/list/IScoreContainer';
 import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
-import { UserService } from 'app/services/api';
-import { GraphService } from 'app/services/graph.service';
+import { UserService } from 'app/shared/services/api';
+import { GraphService } from 'app/shared/services/graph.service';
 
 /**
  *
@@ -138,6 +138,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
    *
    */
   onBlur(event: Event) {
+    // tslint:disable-next-line:deprecation
     const identifier = event.srcElement.id.split('_');
     const group = this.groupedScores.find(g => g.group.type === identifier[1]);
     const score = group.scores.find(s => s.judgeIndex === +identifier[2]);
@@ -156,7 +157,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   @HostListener('window:keydown', ['$event'])
   onKeydown(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' || event.key === 'Esc') {
       this.onClose();
     }
     if (event.ctrlKey) {
@@ -167,7 +168,9 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // Only applicable when focus is on the input fields
+    // tslint:disable-next-line:deprecation
     if (event.srcElement.nodeName === 'INPUT') {
+      // tslint:disable-next-line:deprecation
       const identifier = event.srcElement.id.split('_');
       const group = this.groupedScores.find(g => g.group.type === identifier[1]);
       const score = group.scores.find(s => s.judgeIndex === +identifier[2]);

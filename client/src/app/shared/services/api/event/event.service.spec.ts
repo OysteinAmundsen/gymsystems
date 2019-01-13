@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpCacheService } from './../../http/http-cache.service';
+import { HttpCacheService } from '../../../interceptors/http-cache.service';
 import { EventService } from './event.service';
 
 describe('services.api:EventService', () => {

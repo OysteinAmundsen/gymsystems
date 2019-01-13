@@ -7,8 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { environment } from '../environments/environment';
 
-import { UserService } from './services/api';
-import { Logger } from './services/Logger';
+import { UserService } from './shared/services/api';
+import { Logger } from './shared/services/Logger';
 import { SwUpdate } from '@angular/service-worker';
 
 @Component({

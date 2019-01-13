@@ -3,9 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { IVenue, Role } from 'app/model';
-import { UserService } from 'app/services/api';
-import { SubjectSource } from 'app/services/subject-source';
-import { GraphService } from 'app/services/graph.service';
+import { UserService } from 'app/shared/services/api';
+import { SubjectSource } from 'app/shared/services/subject-source';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-venue',

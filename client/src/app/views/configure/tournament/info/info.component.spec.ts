@@ -9,9 +9,9 @@
 // import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
 // import { ITournament } from 'app/model';
-// import { ConfigurationService } from 'app/services/api';
+// import { ConfigurationService } from 'app/shared/services/api';
 
-// import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+// import { ConfigurationServiceStub } from 'app/shared/services/api/configuration/configuration.service.stub';
 
 // class DummyParent {
 //   tournamentSubject = new ReplaySubject<ITournament>(1);

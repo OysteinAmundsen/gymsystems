@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeleteResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { PubSub } from 'graphql-subscriptions';
 import * as moment from 'moment';
 
@@ -10,6 +10,9 @@ import { DisciplineDto } from './dto/discipline.dto';
 import { Team } from '../team/team.model';
 import { Config } from '../../common/config';
 import { TeamInDiscipline } from '../schedule/team-in-discipline.model';
+import { ConfigurationService } from '../../rest/administration/configuration.service';
+import { ScoreGroup } from '../score-group/score-group.model';
+import { ScoreGroupService } from '../score-group/score-group.service';
 
 @Injectable()
 export class DisciplineService {
@@ -18,6 +21,8 @@ export class DisciplineService {
   cacheCreation: moment.Moment;
 
   constructor(
+    private readonly configService: ConfigurationService,
+    private readonly scoreGroupService: ScoreGroupService,
     @InjectRepository(Discipline) private readonly disciplineRepository: Repository<Discipline>,
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
@@ -53,7 +58,10 @@ export class DisciplineService {
       this.pubSub.publish(discipline.id ? 'disciplineModified' : 'disciplineCreated', { discipline: result });
     }
     return result;
+  }
 
+  async saveAll(disciplineArr: DisciplineDto[]): Promise<Discipline[]> {
+    return Promise.all(disciplineArr.map(d => this.save(d)));
   }
 
   /**
@@ -99,5 +107,31 @@ export class DisciplineService {
 
   findAll(): Promise<Discipline[]> {
     return this.getAllFromCache();
+  }
+
+  removeByTournament(id: number): any {
+    return this.disciplineRepository.delete({ tournamentId: id });
+  }
+
+  /**
+   * Service method for creating default disciplines
+   *
+   * This is only useful when creating tournaments.
+   */
+  async createDefaults(tournamentId: number): Promise<Boolean> {
+    const defaultValues = JSON.parse((await this.configService.getOneById('defaultValues')).value);
+    const newDis = defaultValues.discipline.map((d: Discipline) => { d.tournamentId = tournamentId; return d; });
+    const disciplines = await this.saveAll(newDis);
+
+    // Create default scoregroups
+    const scoreGroups = disciplines.reduce((groups: ScoreGroup[], d: Discipline) => {
+      const defaults = JSON.parse(JSON.stringify(defaultValues.scoreGroup)); // Create a clean copy
+      return groups.concat(defaults.map((s: ScoreGroup) => {
+        s.disciplineId = d.id;
+        return s;
+      }));
+    }, []);
+    const result = await this.scoreGroupService.saveAll(scoreGroups);
+    return disciplines.length > 0 && disciplines.every(d => d.id !== null);
   }
 }

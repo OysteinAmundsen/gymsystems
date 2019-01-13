@@ -35,13 +35,14 @@ export class DialogComponent implements OnInit {
 
   @HostListener('keyup', ['$event'])
   onKey(event: KeyboardEvent) {
-    if (event.keyCode === 27) {
+    if (event.key === 'Escape' || event.key === 'Esc') {
       this.cancelClicked();
     }
   }
 
   @HostListener('click', ['$event'])
   genericClickHandler(event: MouseEvent) {
+    // tslint:disable-next-line:deprecation
     if (event.srcElement.getAttribute('role') === 'dialogContainer') {
       this.cancelClicked();
     }

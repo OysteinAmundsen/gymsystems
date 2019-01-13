@@ -1,4 +1,4 @@
-import { HttpCacheService } from './../http-cache.service';
+import { HttpCacheService } from './http-cache.service';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
  */
 @Injectable()
 export class HttpCacheInterceptor implements HttpInterceptor {
-  constructor(private cache: HttpCacheService) {}
+  constructor(private cache: HttpCacheService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (['PUT', 'POST', 'DELETE'].indexOf(req.method) > -1) {

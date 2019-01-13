@@ -1,4 +1,4 @@
-# [Gymsystems](../)/Server
+# [Gymsystems](../README.md)/Server
 
 This project is using the brilliant [`NestJS Framework`](https://nestjs.com/), which is based on Node Express and is greatly inspired by Angular. The database connection is handled by [`TypeORM`](https://typeorm.github.io), and we are utilizing both REST controllers and GraphQL for our API.
 

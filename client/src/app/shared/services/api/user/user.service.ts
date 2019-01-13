@@ -3,10 +3,9 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-import { Logger } from 'app/services';
+import { Logger } from 'app/shared/services';
 import { IUser } from 'app/model';
-import { Helper } from '../Helper';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {

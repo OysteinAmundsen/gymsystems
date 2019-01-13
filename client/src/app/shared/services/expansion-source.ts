@@ -1,7 +1,7 @@
 import { DataSource } from '@angular/cdk/table';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Sort } from '@angular/material';
-import { SubjectSource } from 'app/services/subject-source';
+import { SubjectSource } from 'app/shared/services/subject-source';
 
 export interface ExpansionRow<T> {
   detailRow: boolean;

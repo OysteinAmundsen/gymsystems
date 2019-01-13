@@ -131,6 +131,24 @@ export class ScheduleResolver {
     return scheduleItem.team;
   }
 
+  @Mutation('start')
+  @UseGuards(RoleGuard(Role.Secretariat))
+  start(@Args('id') id: number): Promise<TeamInDiscipline> {
+    return this.scheduleService.start(id);
+  }
+
+  @Mutation('stop')
+  @UseGuards(RoleGuard(Role.Secretariat))
+  stop(@Args('id') id: number): Promise<TeamInDiscipline> {
+    return this.scheduleService.stop(id);
+  }
+
+  @Mutation('publish')
+  @UseGuards(RoleGuard(Role.Secretariat))
+  publish(@Args('id') id: number): Promise<TeamInDiscipline> {
+    return this.scheduleService.publish(id);
+  }
+
   @Mutation('saveSchedule')
   @UseGuards(RoleGuard(Role.Organizer))
   save(@Args('input') input: TeamInDisciplineDto): Promise<TeamInDiscipline> {

@@ -1,48 +1,34 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PubSub } from 'graphql-subscriptions';
-import { Repository } from 'typeorm';
-
-import { DisplayController } from './display.controller';
-
+import { Repository } from "typeorm";
+import { ConfigurationService } from "../administration/configuration.service";
+import { TournamentService } from "../../graph/tournament/tournament.service";
+import { ScoreService } from "../../graph/score/score.service";
+import { DisplayController } from "./display.controller";
 import { TeamInDiscipline } from '../../graph/schedule/team-in-discipline.model';
-import { Tournament } from '../../graph/tournament/tournament.model';
-import { Configuration } from '../administration/configuration.model';
-import { Score } from '../../graph/score/score.model';
-import { ScoreGroup } from '../../graph/score-group/score-group.model';
-
-import { ConfigurationService } from '../administration/configuration.service';
-import { TournamentService } from '../../graph/tournament/tournament.service';
-import { ScoreService } from '../../graph/score/score.service';
-import { ScoreGroupService } from '../../graph/score-group/score-group.service';
 
 export class TeamInDisciplineRepository extends Repository<TeamInDiscipline> { }
-export class TournamentRepository extends Repository<Tournament> { }
-export class ConfigurationRepository extends Repository<Configuration> { }
-export class ScoreRepository extends Repository<Score> { }
-export class ScoreGroupRepository extends Repository<ScoreGroup> { }
 
-describe('Display Controller', () => {
-  let module: TestingModule;
+describe("DisplayController", () => {
+  let testModule: TestingModule;
+  let controller: DisplayController;
 
   beforeAll(async () => {
-    module = await Test.createTestingModule({
-      controllers: [DisplayController],
+    const configurationServiceStub = { getOneById: () => ({ value: {} }) };
+    const tournamentServiceStub = { findOneById: () => ({}) };
+    const scoreServiceStub = { getTotalScore: () => ({ then: () => ({}) }) };
+
+    testModule = await Test.createTestingModule({
       providers: [
-        ConfigurationService,
-        TournamentService,
-        ScoreService,
-        ScoreGroupService,
-        { provide: 'ScoreRepository', useClass: ScoreRepository },
-        { provide: 'ScoreGroupRepository', useClass: ScoreGroupRepository },
-        { provide: 'TournamentRepository', useClass: TournamentRepository },
+        DisplayController,
         { provide: 'TeamInDisciplineRepository', useClass: TeamInDisciplineRepository },
-        { provide: 'ConfigurationRepository', useClass: ConfigurationRepository },
-        { provide: 'PubSubInstance', useValue: new PubSub() }
+        { provide: ConfigurationService, useValue: configurationServiceStub },
+        { provide: TournamentService, useValue: tournamentServiceStub },
+        { provide: ScoreService, useValue: scoreServiceStub }
       ]
     }).compile();
+    controller = testModule.get<DisplayController>(DisplayController);
   });
-  it('should be defined', () => {
-    const controller: DisplayController = module.get<DisplayController>(DisplayController);
-    expect(controller).toBeDefined();
+  it("can load instance", () => {
+    expect(controller).toBeTruthy();
   });
 });

@@ -29,6 +29,9 @@ services:
       TZ: UTC
       DATABASE_HOST: db
       NODE_ENV: production
+    volumes:
+      - ../log:/usr/local/nub-api/log
+      - gymsystems-media:/usr/local/nub-api/media
 
   client:
     build: ../client
@@ -45,7 +48,10 @@ services:
     environment:
       NODE_ENV: production
       TZ: UTC
+    volumes:
+      - gymsystems-media:/usr/share/nginx/html/media
 
 volumes:
   gymsystems-data:
+  gymsystems-media:
 

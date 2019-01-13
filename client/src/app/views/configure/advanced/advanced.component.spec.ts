@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { Meta } from "@angular/platform-browser";
 import { ReactiveFormsModule } from "@angular/forms";
-import { ConfigurationService } from "app/services/api";
+import { ConfigurationService } from "app/shared/services/api";
 import { AdvancedComponent } from "./advanced.component";
 import { of } from 'rxjs';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';

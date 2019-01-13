@@ -8,14 +8,14 @@
 // import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
 // import { ITournament } from 'app/model/ITournament';
-// import { ScheduleService, ConfigurationService } from 'app/services/api';
+// import { ScheduleService, ConfigurationService } from 'app/shared/services/api';
 
-// import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
-// import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
+// import { ConfigurationServiceStub } from 'app/shared/services/api/configuration/configuration.service.stub';
+// import { ErrorHandlerService } from 'app/shared/services/http/ErrorHandler.service';
 // import { IUser } from 'app/model';
-// import { dummyAdmin } from 'app/services/api/user/user.service.stub';
-// import { GraphService } from 'app/services/graph.service';
-// import { GraphServiceApi } from 'app/services/graph.service.api';
+// import { dummyAdmin } from 'app/shared/services/api/user/user.service.stub';
+// import { GraphService } from 'app/shared/services/graph.service';
+// import { GraphServiceApi } from 'app/shared/services/graph.service.api';
 
 
 // class MockGraph implements GraphServiceApi {

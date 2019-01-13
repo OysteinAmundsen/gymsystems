@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 
 import { ITeamInDiscipline, DivisionType, Operation, IJudge, IScoreGroup, IDiscipline, ParticipationType } from 'app/model';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-scorecards',

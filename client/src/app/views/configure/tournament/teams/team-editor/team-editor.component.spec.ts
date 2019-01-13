@@ -11,13 +11,13 @@
 // import { TeamEditorComponent } from './team-editor.component';
 // import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 
-// import { ErrorHandlerService } from 'app/services/http/ErrorHandler.service';
+// import { ErrorHandlerService } from 'app/shared/services/http/ErrorHandler.service';
 // import { ITeam, ITournament, IClub, IUser, Role, Classes } from 'app/model';
-// import { UserService, ConfigurationService } from 'app/services/api';
-// import { MediaService } from 'app/services/media.service';
+// import { UserService, ConfigurationService } from 'app/shared/services/api';
+// import { MediaService } from 'app/shared/services/media.service';
 
-// import { UserServiceStub } from 'app/services/api/user/user.service.stub';
-// import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+// import { UserServiceStub } from 'app/shared/services/api/user/user.service.stub';
+// import { ConfigurationServiceStub } from 'app/shared/services/api/configuration/configuration.service.stub';
 
 // const club: IClub = <IClub>{
 //   id: 0,

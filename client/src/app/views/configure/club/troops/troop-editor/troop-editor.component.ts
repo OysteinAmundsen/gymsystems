@@ -5,11 +5,11 @@ import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 import { ITroop, IClub, IUser } from 'app/model';
-import { UserService } from 'app/services/api';
+import { UserService } from 'app/shared/services/api';
 
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-troop-editor',

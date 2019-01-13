@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta } from '@angular/platform-browser';
 
-import { UserService } from 'app/services/api';
-import { ErrorHandlerService } from 'app/services/http';
+import { UserService } from 'app/shared/services/api';
+import { ErrorHandlerService } from 'app/shared/interceptors';
 import { Angulartics2 } from 'angulartics2';
 import { AppComponent } from 'app/app.component';
 
@@ -31,16 +31,17 @@ export class LogoutComponent {
     this.angulartics.eventTrack.next(
       {
         action: 'logout', properties: {
-          category: 'auth', label: 'logout', value: userService.currentUser ? userService.currentUser.name : null
+          category: 'auth', label: 'logout', value: this.userService.currentUser ? this.userService.currentUser.name : null
         }
       }
     );
-    userService.logout().subscribe(res => this.reroute(), err => this.reroute(err));
+    this.userService.logout().subscribe(res => this.reroute(), err => this.reroute(err));
   }
 
   reroute(err?: string) {
     this.errorHandler.setError(err ? err : this.translate.instant('Logged out'), '');
     if (err) {
+      // tslint:disable-next-line:deprecation
       window.location.reload(true);
     }
     this.router.navigate(['/']);

@@ -6,9 +6,9 @@
 // import { ScoreSystemModule } from '../score-system.module';
 // import { ScoreGroupEditorComponent } from './score-group-editor.component';
 
-// import { ErrorHandlerService } from 'app/services/http';
-// import { GraphService } from 'app/services/graph.service';
-// import { GraphServiceApi } from 'app/services/graph.service.api';
+// import { ErrorHandlerService } from 'app/shared/services/http';
+// import { GraphService } from 'app/shared/services/graph.service';
+// import { GraphServiceApi } from 'app/shared/services/graph.service.api';
 // import { of } from 'rxjs';
 
 // class MockGraph implements GraphServiceApi {

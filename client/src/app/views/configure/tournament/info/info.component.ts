@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { ITournament } from 'app/model';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-info',

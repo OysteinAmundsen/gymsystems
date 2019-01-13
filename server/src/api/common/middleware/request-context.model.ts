@@ -1,5 +1,5 @@
 import { IncomingMessage } from 'http';
-import { User } from 'api/graph/user/user.model';
+import { User } from '../../graph/user/user.model';
 import { getNamespace } from 'cls-hooked';
 
 export class RequestContext {

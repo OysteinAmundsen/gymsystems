@@ -8,6 +8,7 @@ type Query {
 type Mutation {
   saveTournament(input: TournamentInput): ITournament
   deleteTournament(id: ID): Boolean
+  deleteTournamentSchedule(id: ID): Boolean
 }
 
 type Subscription {

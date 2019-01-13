@@ -87,6 +87,6 @@ export class ScoreGroup {
        - C - 2 judges
 
       All judges can enter 'HJ' scores (withdrawls), but usually don't.` })
-  @OneToMany(type => JudgeInScoreGroup, judge => judge.scoreGroup, { cascade: ['insert', 'update'] })
+  @OneToMany(type => JudgeInScoreGroup, judge => judge.scoreGroup)
   judges?: JudgeInScoreGroup[];
 }

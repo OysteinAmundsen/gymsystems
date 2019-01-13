@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 
 import { IGymnast, IClub, Gender } from 'app/model';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 export type FilterFn = (g: IGymnast) => boolean;
 

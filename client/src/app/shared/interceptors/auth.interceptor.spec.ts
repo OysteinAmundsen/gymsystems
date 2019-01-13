@@ -4,13 +4,13 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { HttpRequest, HttpHandler, HttpResponse } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material";
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { ErrorHandlerService } from "app/services/http/error-handler.service";
-import { HttpStateService } from "app/services/http/http-state.service";
+import { ErrorHandlerService } from "app/shared/interceptors/error-handler.service";
+import { HttpStateService } from "app/shared/interceptors/http-state.service";
 import { AuthInterceptor } from "./auth.interceptor";
 import { of } from 'rxjs';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 import { Role } from 'app/model';
-import { HttpMethod } from '../http-method.enum';
+import { HttpMethod } from './http-method';
 
 describe("AuthInterceptor", () => {
   let service: AuthInterceptor;

@@ -4,7 +4,7 @@ import { JwtPayload } from './dto/jwt-payload.dto';
 import { UserService } from '../../graph/user/user.service';
 import { Config } from '../config';
 import { User } from '../../graph/user/user.model';
-import { TokenUserDto } from 'api/graph/user/dto/token-user.dto';
+import { TokenUserDto } from '../../graph/user/dto/token-user.dto';
 import { Response } from 'express';
 
 /**

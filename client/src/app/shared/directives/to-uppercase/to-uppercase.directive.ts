@@ -3,6 +3,7 @@ import { NG_VALUE_ACCESSOR, DefaultValueAccessor } from '@angular/forms';
 
 const CASE_INPUT_CONTROL_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
+  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => ToCaseDirective),
   multi: true,
 };

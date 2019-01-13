@@ -4,14 +4,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
-import { ValidationService } from 'app/services/validation';
-import { ErrorHandlerService } from 'app/services/http';
+import { ValidationService } from 'app/shared/services/validation';
+import { ErrorHandlerService } from 'app/shared/interceptors';
 
 import { IUser, Role } from 'app/model/IUser';
 import { IClub } from 'app/model/IClub';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocomplete } from '@angular/material';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 enum Type {
   Organizer = 0 + Role.Organizer, Club = 0 + Role.Club

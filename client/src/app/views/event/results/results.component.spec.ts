@@ -2,8 +2,8 @@
 // import { NO_ERRORS_SCHEMA } from '@angular/core';
 // import { EventComponent } from '../event.component';
 // import { ITeamInDiscipline, IDiscipline } from 'app/model';
-// import { GraphService } from 'app/services/graph.service';
-// import { EventService } from 'app/services/api/event/event.service';
+// import { GraphService } from 'app/shared/services/graph.service';
+// import { EventService } from 'app/shared/services/api/event/event.service';
 // import { ResultsComponent } from './results.component';
 // import { of } from 'rxjs';
 

@@ -2,7 +2,7 @@ import { TestBed } from "@angular/core/testing";
 import { HttpClient } from "@angular/common/http";
 import { GraphService } from "./graph.service";
 import { of } from 'rxjs';
-import { CommonService } from 'app/shared/common.service';
+import { CommonService } from 'app/shared/services/common.service';
 import { Apollo } from 'apollo-angular';
 
 describe("services:GraphService", () => {

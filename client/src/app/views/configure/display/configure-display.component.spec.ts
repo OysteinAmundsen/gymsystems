@@ -7,8 +7,8 @@
 // import { ConfigureModule } from '../configure.module';
 // import { ConfigureDisplayComponent } from './configure-display.component';
 
-// import { ConfigurationService } from 'app/services/api';
-// import { ConfigurationServiceStub } from 'app/services/api/configuration/configuration.service.stub';
+// import { ConfigurationService } from 'app/shared/services/api';
+// import { ConfigurationServiceStub } from 'app/shared/services/api/configuration/configuration.service.stub';
 
 // describe('views.configure.display:ConfigureDisplayComponent', () => {
 //   let component: ConfigureDisplayComponent;

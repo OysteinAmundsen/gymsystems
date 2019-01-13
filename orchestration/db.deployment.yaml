@@ -30,19 +30,24 @@ spec:
     spec:
       containers:
         - image: mysql:5.7
-          name: mysql
+          name: db
           env:
-            # Use secret in real usage
-            - name: MYSQL_ROOT_PASSWORD
-              value: password
+            - name: MYSQL_ROOT_PASSWORD:
+              value: root
+            - name: MYSQL_DATABASE:
+              value: gymsystem
+            - name: MYSQL_USER:
+              value: system
+            - name: MYSQL_PASSWORD:
+              value: admin
           ports:
             - containerPort: 3306
               name: mysql
           volumeMounts:
-            - name: mysql-persistent-storage
+            - name: gymsystems-data
               mountPath: /var/lib/mysql
       volumes:
-        - name: mysql-persistent-storage
+        - name: gymsystems-data
           persistentVolumeClaim:
             claimName: mysql-pv-claim
 ---
@@ -58,8 +63,6 @@ spec:
     storage: 20Gi
   accessModes:
     - ReadWriteOnce
-  hostPath:
-    path: '/mnt/data'
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

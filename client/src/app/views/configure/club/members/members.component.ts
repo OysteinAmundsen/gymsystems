@@ -2,15 +2,15 @@ import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Subscription, BehaviorSubject } from 'rxjs';
 
-import { Logger } from 'app/services/Logger';
+import { Logger } from 'app/shared/services/Logger';
 
 import { IClub, IGymnast, Gender } from 'app/model';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
-import { SubjectSource } from 'app/services/subject-source';
+import { SubjectSource } from 'app/shared/services/subject-source';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MemberStateService } from 'app/views/configure/club/members/member-state.service';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-members',

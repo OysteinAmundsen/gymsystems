@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, flush, fakeAsync } from "@angular/core/testi
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from "@ngx-translate/core";
 import { Angulartics2GoogleAnalytics } from "angulartics2/ga";
-import { UserService } from "./services/api";
+import { UserService } from "./shared/services/api";
 import { SwUpdate } from "@angular/service-worker";
 import { AppComponent } from "./app.component";
 import { IfAuthDirective } from './shared/directives';

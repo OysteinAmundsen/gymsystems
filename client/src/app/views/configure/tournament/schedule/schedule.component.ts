@@ -3,7 +3,6 @@ import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 
 import * as moment from 'moment';
 
-import { ScheduleService } from 'app/services/api';
 import { ITeam } from 'app/model/ITeam';
 import { IDiscipline } from 'app/model/IDiscipline';
 import { ITeamInDiscipline } from 'app/model/ITeamInDiscipline';
@@ -12,7 +11,8 @@ import { ParticipationType } from 'app/model/ParticipationType';
 import { TournamentEditorComponent } from '../tournament-editor/tournament-editor.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Role } from 'app/model';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 /**
  *
@@ -53,7 +53,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   constructor(
     private parent: TournamentEditorComponent,
     private graph: GraphService,
-    private scheduleService: ScheduleService,
     private translate: TranslateService) { }
 
   /**
@@ -87,7 +86,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   @HostListener('keyup', ['$event'])
   onKey($event: KeyboardEvent) {
-    if ($event.key === 'Escape') {
+    if ($event.key === 'Escape' || $event.key === 'Esc') {
       this.setEdit(null);
     }
   }
@@ -109,7 +108,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    *
    */
   saveSchedule() {
-    this.scheduleService.saveAll(this.schedule).subscribe(result => {
+    this.graph.saveData('Schedule', this.schedule, this.scheduleQuery).subscribe(result => {
       this.isDirty = false;
       this.loadSchedule();
     });
@@ -131,7 +130,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       if (this.parent.hasStarted) {
         this.toggleStrikeParticipant(participant, true);
       } else {
-        this.scheduleService.delete(participant).subscribe(result => this.loadSchedule());
+        this.graph.deleteData('Schedule', participant.id).subscribe(result => this.loadSchedule());
       }
     } else {
       const hash = this.stringHash(participant);
@@ -154,7 +153,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   deleteAll() {
     const schedules = this.schedule.filter(s => s.id != null);
     if (schedules.length) {
-      this.scheduleService.deleteAll(this.tournamentId).subscribe(result => this.loadSchedule());
+      this.graph.deleteData('TournamentSchedule', this.tournamentId).subscribe(result => this.loadSchedule());
     } else {
       this.loadSchedule();
     }
@@ -221,7 +220,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    *
    */
   stringHash(participant: ITeamInDiscipline): string {
-    return this.scheduleService.stringHash(participant);
+    return CommonService.stringHash(participant);
   }
 
   /**

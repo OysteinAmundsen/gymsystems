@@ -1,4 +1,4 @@
-import { ScoreGroup } from 'api/graph/score-group/score-group.model';
+import { ScoreGroup } from '../../../graph/score-group/score-group.model';
 
 export interface TotalByScoreGroup {
   group: ScoreGroup,

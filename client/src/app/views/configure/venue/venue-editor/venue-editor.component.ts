@@ -6,10 +6,10 @@ import * as _ from 'lodash';
 
 import { IVenue } from 'app/model';
 import { TranslateService } from '@ngx-translate/core';
-import { ValidationService } from 'app/services/validation';
+import { ValidationService } from 'app/shared/services/validation';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
-import { GraphService } from '../../../../services/graph.service';
+import { GraphService } from '../../../../shared/services/graph.service';
 
 @Component({
   selector: 'app-venue-editor',

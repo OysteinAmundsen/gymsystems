@@ -9,16 +9,16 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 
 import { IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender, IGymnast } from 'app/model';
-import { UserService } from 'app/services/api';
-import { MediaService } from 'app/services/media.service';
-import { ErrorHandlerService } from 'app/services/http/error-handler.service';
-import { Logger } from 'app/services/Logger';
+import { UserService } from 'app/shared/services/api';
+import { MediaService } from 'app/shared/services/media.service';
+import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
+import { Logger } from 'app/shared/services/Logger';
 
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { MemberSelectorComponent } from 'app/views/configure/_shared/member-selector/member-selector.component';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-team-editor',

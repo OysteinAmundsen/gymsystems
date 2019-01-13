@@ -9,12 +9,12 @@ import * as moment from 'moment';
 import { EventComponent } from '../event.component';
 import { ContextMenuComponent } from './context-menu/context-menu.component';
 
-import { ScheduleService, EventService, UserService } from 'app/services/api';
-import { MediaService } from 'app/services/media.service';
-import { ErrorHandlerService } from 'app/services/http/error-handler.service';
+import { ScheduleService, EventService, UserService } from 'app/shared/services/api';
+import { MediaService } from 'app/shared/services/media.service';
+import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 
 import { ITournament, ITeamInDiscipline, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/model';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 /**
  *

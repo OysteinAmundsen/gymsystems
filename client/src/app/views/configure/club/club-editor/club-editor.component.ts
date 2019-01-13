@@ -6,11 +6,11 @@ import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 import { startCase, lowerCase, } from 'lodash';
 
-import { UserService } from 'app/services/api';
+import { UserService } from 'app/shared/services/api';
 import { IUser, Role, IClub } from 'app/model';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-club-editor',

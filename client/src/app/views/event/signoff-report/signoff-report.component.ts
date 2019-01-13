@@ -5,8 +5,8 @@ import { Subscription } from 'rxjs';
 import { EventComponent } from '../event.component';
 
 import { ITeamInDiscipline, ITournament, IScoreGroup, ParticipationType, Operation, IDiscipline } from 'app/model';
-import { GraphService } from 'app/services/graph.service';
-import { CommonService } from 'app/shared/common.service';
+import { GraphService } from 'app/shared/services/graph.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-signoff-report',

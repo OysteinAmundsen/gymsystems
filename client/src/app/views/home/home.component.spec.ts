@@ -2,14 +2,14 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from "@ngx-translate/core";
 import { ITournament } from "app/model";
-import { GraphService } from "app/services/graph.service";
+import { GraphService } from "app/shared/services/graph.service";
 import { HomeComponent } from "./home.component";
 import { RouterTestingModule } from '@angular/router/testing';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { of } from 'rxjs';
 import { IfAuthDirective } from 'app/shared/directives';
 import * as moment from 'moment';
-import { CommonService } from 'app/shared/common.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 describe("HomeComponent", () => {
   let component: HomeComponent;

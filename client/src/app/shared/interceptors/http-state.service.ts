@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpRequest } from '@angular/common/http';
 import { HttpResponse } from '@angular/common/http';
 
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { HttpAction } from './http-action.model';
-import { HttpMethod } from './http-method.enum';
+import { HttpMethod } from './http-method';
 import { graphqlUri } from 'app/graphql.module';
-import { CommonService } from 'app/shared/common.service';
+import { CommonService } from '../services/common.service';
 
 
 /**
@@ -31,7 +31,7 @@ export class HttpStateService {
       case 'OPTIONS': method = HttpMethod.Options; break;
     }
 
-    if (req.url !== graphqlUri) {
+    if (req.url === graphqlUri) {
       const q = CommonService.compressString(req.body.query);
       if (q.indexOf('mutation{save') > -1) {
         operation = 'save';

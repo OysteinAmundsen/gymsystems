@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input, HostListener } from '@a
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { IDiscipline } from 'app/model';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-discipline-editor',

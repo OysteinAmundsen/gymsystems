@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 
-import { ConfigurationService, DisplayService } from 'app/services/api';
+import { ConfigurationService, DisplayService } from 'app/shared/services/api';
 import { ITournament } from '../../../model';
 import { MatSelectChange } from '@angular/material';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({
   selector: 'app-configure-display',

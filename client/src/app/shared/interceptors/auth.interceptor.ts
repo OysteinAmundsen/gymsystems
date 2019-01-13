@@ -9,13 +9,13 @@ import { map, catchError } from 'rxjs/operators';
 
 import * as moment from 'moment';
 
-import { ErrorHandlerService } from 'app/services/http/error-handler.service';
-import { HttpStateService } from 'app/services/http/http-state.service';
-import { Logger } from 'app/services/Logger';
-import { HttpMethod } from 'app/services/http/http-method.enum';
-import { UserService } from 'app/services/api';
+import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
+import { HttpStateService } from 'app/shared/interceptors/http-state.service';
+import { Logger } from 'app/shared/services/Logger';
+import { HttpMethod } from 'app/shared/interceptors/http-method';
+import { UserService } from 'app/shared/services/api';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { CommonService } from 'app/shared/common.service';
+import { CommonService } from 'app/shared/services/common.service';
 import { graphqlUri } from 'app/graphql.module';
 
 

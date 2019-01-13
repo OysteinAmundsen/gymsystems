@@ -1,7 +1,7 @@
 // import { ComponentFixture, TestBed } from "@angular/core/testing";
 // import { NO_ERRORS_SCHEMA } from "@angular/core";
 // import { FormBuilder } from "@angular/forms";
-// import { GraphService } from "app/services/graph.service";
+// import { GraphService } from "app/shared/services/graph.service";
 // import { DivisionType } from "app/model";
 // import { DivisionEditorComponent } from "./division-editor.component";
 // import { of } from 'rxjs';

@@ -1,4 +1,4 @@
-# [Gymsystems](../)/Client
+# [Gymsystems](../README.md)/Client
 
 This project is using [Angular Framework](https://angular.io/). We use [angular-cli](https://cli.angular.io/) for both scaffolding and building our project. This seems to be the best and most efficient way of reaching our goal.
 

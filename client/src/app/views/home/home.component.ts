@@ -3,8 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta } from '@angular/platform-browser';
 
 import { ITournament } from 'app/model';
-import { GraphService } from 'app/services/graph.service';
-import { CommonService } from 'app/shared/common.service';
+import { GraphService } from 'app/shared/services/graph.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 interface TournamentType { name: string; tournaments: ITournament[]; }
 

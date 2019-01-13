@@ -48,6 +48,10 @@ export class ScoreGroupService {
     return result;
   }
 
+  async saveAll(scoreGroups: ScoreGroup[]): Promise<ScoreGroup[]> {
+    return Promise.all(scoreGroups.map(s => this.save(s)));
+  }
+
   async remove(id: number): Promise<boolean> {
     const result = await this.scoreGroupRepository.delete({ id: id });
     if (result.affected > 0) {

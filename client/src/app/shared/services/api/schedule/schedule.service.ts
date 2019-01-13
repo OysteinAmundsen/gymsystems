@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 
 import * as moment from 'moment';
 
-import { Logger } from 'app/services';
+import { Logger } from 'app/shared/services';
 
 import { ConfigurationService } from '../configuration/configuration.service';
 import { ITeamInDiscipline, ITournament, ParticipationType } from 'app/model';
-import { Helper } from '../Helper';
+import { CommonService } from '../../common.service';
 
 @Injectable({ providedIn: 'root' })
 export class ScheduleService {
@@ -33,38 +33,6 @@ export class ScheduleService {
    */
   publish(participant: ITeamInDiscipline) {
     return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/publish`, {});
-  }
-
-  /**
-   *
-   */
-  saveAll(participants: ITeamInDiscipline[]) {
-    return this.http.post<ITeamInDiscipline[]>(this.url, Helper.reduceLevels(participants, 2));
-  }
-
-  /**
-   *
-   */
-  delete(participant: ITeamInDiscipline) {
-    return this.http.delete(`${this.url}/${participant.id}`);
-  }
-
-  /**
-   *
-   */
-  deleteAll(id: number) {
-    return this.http.delete(`${this.url}/tournament/${id}`);
-  }
-
-  /**
-   *
-   */
-  stringHash(participant: ITeamInDiscipline, toType?: ParticipationType): string {
-    return (participant.team.name
-      + participant.divisionName
-      + participant.disciplineName
-      + (toType ? toType : participant.type))
-      .replace(' ', '_');
   }
 
   /**
@@ -144,7 +112,7 @@ export class ScheduleService {
       const timesMoment = startDate.clone().add(day, 'days');
       const startHour = timesMoment.clone().hour(+timesForDay.time.split(',')[0]).subtract(10, 'minutes');
       const trainingDay = training.filter(t => {
-        const livePerformance = schedule.find(l => this.stringHash(t, ParticipationType.Live) === this.stringHash(l));
+        const livePerformance = schedule.find(l => CommonService.stringHash(t, ParticipationType.Live) === CommonService.stringHash(l));
         if (livePerformance) {
           return livePerformance.calculatedStartTime.isSame(timesMoment, 'day');
         } else {

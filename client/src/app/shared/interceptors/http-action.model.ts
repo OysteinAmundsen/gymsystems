@@ -1,4 +1,4 @@
-import { HttpMethod } from './http-method.enum';
+import { HttpMethod } from './http-method';
 
 export interface HttpAction {
   url: string;

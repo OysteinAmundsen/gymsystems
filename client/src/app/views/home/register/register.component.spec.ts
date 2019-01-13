@@ -4,11 +4,11 @@
 // import { SharedModule } from 'app/shared/shared.module';
 // import { RegisterComponent } from './register.component';
 
-// import { UserService } from 'app/services/api';
-// import { ErrorHandlerService } from 'app/services/http';
-// import { UserServiceStub } from 'app/services/api/user/user.service.stub';
-// import { GraphService } from 'app/services/graph.service';
-// import { GraphServiceApi } from 'app/services/graph.service.api';
+// import { UserService } from 'app/shared/services/api';
+// import { ErrorHandlerService } from 'app/shared/services/http';
+// import { UserServiceStub } from 'app/shared/services/api/user/user.service.stub';
+// import { GraphService } from 'app/shared/services/graph.service';
+// import { GraphServiceApi } from 'app/shared/services/graph.service.api';
 // import { of } from 'rxjs';
 
 // class MockGraph implements GraphServiceApi {

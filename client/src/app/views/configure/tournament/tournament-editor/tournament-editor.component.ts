@@ -10,12 +10,12 @@ import { MatDatepickerInput, MatAutocomplete } from '@angular/material';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-import { UserService } from 'app/services/api';
+import { UserService } from 'app/shared/services/api';
 import { ITournament, IUser, Role, IClub, IVenue } from 'app/model';
 
-import { ErrorHandlerService } from 'app/services/http/error-handler.service';
+import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 import { toUpperCaseTransformer } from 'app/shared/directives';
-import { GraphService } from 'app/services/graph.service';
+import { GraphService } from 'app/shared/services/graph.service';
 
 const Moment: any = (<any>moment).default || moment;
 

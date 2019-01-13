@@ -1,14 +1,16 @@
 require('v8-compile-cache');
 import { performance } from 'perf_hooks';
+import { Log } from 'api/common/util/logger/log';
 
 // Set current runtime (nescessary to set proper typeorm config)
 process.env.RUNTIME = __filename.split('\\').pop().split('.').pop();
 const env = process.env.RUNTIME;
 const startTime = performance.now();
-console.log(`┌────────────────────────────────────────────────────────────┐`);
-console.log(`│    Starting: ${new Date().toUTCString()}                 │`);
-console.log(`│     Runtime: ${env}                                            │`);
-console.log(`└────────────────────────────────────────────────────────────┘`);
+
+Log.log.info(`┌────────────────────────────────────────────────────────────┐`);
+Log.log.info(`│    Starting: ${new Date().toUTCString()}                 │`);
+Log.log.info(`│     Runtime: ${env}                                            │`);
+Log.log.info(`└────────────────────────────────────────────────────────────┘`);
 
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
@@ -18,6 +20,7 @@ import * as fs from 'fs';
 import { AppModule } from './api/app.module';
 import { Config } from './api/common/config';
 import { HttpExceptionFilter } from './api/common/filters/http-exception.filter';
+import { LogService } from 'api/common/util/logger/log.service';
 
 async function bootstrap() {
   const expressInstance = require('express')();
@@ -27,15 +30,15 @@ async function bootstrap() {
   expressInstance.use(bodyParser.urlencoded({ extended: false }));
   expressInstance.use(bodyParser.json()); //Body Parser
 
-  // Logs
+  // Logging
   const logDirectory = './log';
   fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory); // ensure log directory exists
-  const accessLogStream = require('rotating-file-stream')('access.log', { interval: '7d', path: logDirectory }); // rotate weekly
-  expressInstance.use(require('morgan')('combined', { stream: accessLogStream }));
+  expressInstance.use(require('morgan')('combined', { stream: Log.stream(logDirectory) }));
   require('morgan-body')(expressInstance); // Log every request body/response
 
   // Create NestJS APP
-  const app = await NestFactory.create(AppModule, expressInstance, { cors: true });
+  const app = await NestFactory.create(AppModule, expressInstance, { cors: true, logger: false });
+  app.useLogger(app.get(LogService));
 
   // Global Route Prefix
   app.setGlobalPrefix(Config.GlobalRoutePrefix);
@@ -78,16 +81,16 @@ async function bootstrap() {
 
   // Start listening
   await app.listen(Config.Port, Config.IP, () => {
-    console.log(`┌────────────────────────────────────────────────────────────┐`);
-    console.log(`│       Server listening: ${Config.ApiUrl}          │`);
+    Log.log.info(`┌────────────────────────────────────────────────────────────┐`);
+    Log.log.info(`│       Server listening: ${Config.ApiUrl}          │`);
     if (!Config.isProd()) {
-      console.log(`│  Swagger Documentation: ${Config.ApiUrl}${Config.DocsRoute}     │`);
-      console.log(`│     GraphQL Playground: ${Config.ApiUrl}${Config.GraphRoute}    │`);
+      Log.log.info(`│  Swagger Documentation: ${Config.ApiUrl}${Config.DocsRoute}     │`);
+      Log.log.info(`│     GraphQL Playground: ${Config.ApiUrl}${Config.GraphRoute}    │`);
     }
-    console.log('├────────────────────────────────────────────────────────────┤');
-    console.log(`│     Launch: ${new Date().toUTCString()}                  │`);
-    console.log(`│         Time to start: ${(performance.now() - startTime).toFixed(3)}ms                         │`);
-    console.log('└────────────────────────────────────────────────────────────┘');
+    Log.log.info('├────────────────────────────────────────────────────────────┤');
+    Log.log.info(`│     Launch: ${new Date().toUTCString()}                  │`);
+    Log.log.info(`│         Time to start: ${(performance.now() - startTime).toFixed(3)}ms                         │`);
+    Log.log.info('└────────────────────────────────────────────────────────────┘');
   });
 }
 

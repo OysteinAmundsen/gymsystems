@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ConfigurationService } from 'app/services/api';
+import { ConfigurationService } from 'app/shared/services/api';
 import { IConfiguration } from 'app/model';
 
 @Component({

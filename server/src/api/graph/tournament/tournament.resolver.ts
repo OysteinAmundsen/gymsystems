@@ -130,6 +130,13 @@ export class TournamentResolver {
     return this.tournamentService.remove(id);
   }
 
+  @Mutation('deleteTournamentSchedule')
+  @UseGuards(RoleGuard(Role.Organizer))
+  async removeSchedule(@Args('id') id: number): Promise<boolean> {
+    ClubService.enforceSame((await this.tournamentService.findOneById(id)).clubId);
+    return this.tournamentService.removeSchedule(id);
+  }
+
   @Subscription('tournamentCreated') tournamentCreated() {
     return { subscribe: () => this.pubSub.asyncIterator('tournamentCreated') };
   }
