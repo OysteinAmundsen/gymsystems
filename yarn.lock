@@ -709,9 +709,10 @@ amqplib@^0.5.2:
     readable-stream "1.x >=1.1.9"
     safe-buffer "^5.0.1"
 
-angulartics2@6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-6.1.1.tgz#86095d7d147ed63c0f469159b67eb660acad8175"
+angulartics2@7.4.1:
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-7.4.1.tgz#94455160b4e0440acf6004f2be4c21389a3a54e0"
+  integrity sha512-b+H7KrC6flwRKbQhP6Fa1M85MYNfRamUlaNnpDnCgXXJHB45J8iFHQ9P1MPd7zfIDq3XMMOw94D0kUcP42Zs+A==
   dependencies:
     tslib "^1.9.0"
 
