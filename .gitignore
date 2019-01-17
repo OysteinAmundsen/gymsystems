@@ -81,5 +81,4 @@ server/dist/
 
 server/src/api/graph/graphql\.schema\.ts
 
-deploy.sh
-build.sh
+/*.sh
