@@ -31,8 +31,8 @@
     "src"
   ],
   "dependencies": {
-    "@nestjs/common": "^5.5.0",
-    "@nestjs/core": "^5.5.0",
+    "@nestjs/common": "^5.6.2",
+    "@nestjs/core": "^5.6.2",
     "@nestjs/graphql": "^5.5.1",
     "@nestjs/jwt": "^0.2.1",
     "@nestjs/passport": "^5.1.0",
@@ -73,7 +73,7 @@
   },
   "devDependencies": {
     "@nestjs/cli": "^5.7.1",
-    "@nestjs/testing": "^5.5.0",
+    "@nestjs/testing": "^5.6.2",
     "@types/bcrypt": "^3.0.0",
     "@types/cls-hooked": "^4.2.1",
     "@types/dotenv": "^6.1.0",
