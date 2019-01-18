@@ -72,10 +72,10 @@
         <i [ngClass]="'clickable flag-icon flag-icon-large flag-icon-gb ' + (currentLang === 'en' ? 'selected' : '')"></i>
       </button>
     </div>
-    <span *ngIf="user" class="user-info">
-      <b translate>Logged in as: </b><i>{{ user.name }}</i><br>
-      <a [routerLink]="['/logout']"><i class="fa fa-fw fa-sign-out"></i><span translate>Logout</span></a>
-    </span>
+    <div class="user-info">
+      <div *ngIf="user"><b translate>Logged in as: </b><a [routerLink]="['/configure/users/', user.id]"><i>{{ user.name }}</i></a></div>
+      <div>v: {{ version }}</div>
+    </div>
     <div class="pull-left logo">
       <a href="http://www.haugesundturn.no/" rel="noreferrer">
         <img src="assets/images/Logo-Haugesund-Turnforening.white.svg" height="101" alt="Haugesund Turnforening" title="Haugesund Turnforening">

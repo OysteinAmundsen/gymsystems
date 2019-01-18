@@ -5,8 +5,8 @@ COPY *.json /app/
 RUN yarn install
 COPY ./src /app/src
 RUN yarn build --prod
-# RUN rm -rf node_modules yarn.lock
-# RUN yarn install --production
+RUN rm -rf node_modules yarn.lock
+RUN yarn install --production
 
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
 FROM nginx:1.15

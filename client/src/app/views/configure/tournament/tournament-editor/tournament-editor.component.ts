@@ -58,7 +58,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   isEdit = false;
   isAdding = false;
 
-  clubList = []; // Club typeahead
   venueList = []; // Venue typeahead
 
   private get startDate(): Moment {
@@ -88,7 +87,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     return moment(this.tournament.startDate).isBefore(now);
   }
 
-  clubDisplay = (club: IClub) => (club && club.name ? club.name : club);
   venueDisplay = (venue: IVenue) => (venue && venue.name ? venue.name : venue);
 
   constructor(
@@ -146,18 +144,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     // Make sure we have translations for weekdays
     this.subscriptions.push(this.translate.get(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']).subscribe());
 
-    // Filter club in typeahead
-    const clubCtrl = this.tournamentForm.controls['club'];
-    clubCtrl.valueChanges.pipe(
-      distinctUntilChanged(),
-      debounceTime(200), // Do not hammer http request. Wait until user has typed a bit
-      map(v => {
-        clubCtrl.patchValue(toUpperCaseTransformer(v));
-        return v;
-      }) // Patch to uppercase
-    )
-      .subscribe(v => this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(result => (this.clubList = result.getClubs)));
-
     // Filter venues in typeahead
     const venueCtrl = this.tournamentForm.controls['venue'];
     venueCtrl.valueChanges.pipe(distinctUntilChanged(), debounceTime(200)).subscribe(async v =>
@@ -204,7 +190,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
         providesTransport: tournament.providesTransport,
         providesBanquet: tournament.providesBanquet
       }, { emitEvent: false });
-      this.clubList = [tournament.club];
       this.venueList = [tournament.venue];
       this.tournamentSubject.next(tournament);
     }

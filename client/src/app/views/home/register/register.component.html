@@ -40,17 +40,12 @@
             <p translate>We may also contact you if a tournament opens up for registration, so you can enter your club to join</p>
           </app-help-block>
         </mat-form-field>
-        <mat-form-field class="col-5 help-available">
-          <input matInput formControlName="club" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead" (blur)="tabOut(clubTypeahead)">
-          <mat-autocomplete #clubTypeahead="matAutocomplete" [displayWith]="clubDisplay">
-            <mat-option *ngFor="let club of clubList" [value]="club">
-              {{ club.name }}
-            </mat-option>
-          </mat-autocomplete>
+        <div class="col-5 help-available">
+          <app-club-lookup formControlName="club"></app-club-lookup>
           <app-help-block>
             <p translate>We need to know which club you represent in order to provide you with the appropriate privileges.</p>
           </app-help-block>
-        </mat-form-field>
+        </div>
       </div>
       <div class="row">
         <mat-form-field class="col-6 help-available">
@@ -81,7 +76,3 @@
     </mat-card-actions>
   </mat-card>
 </form>
-
-<pre>
-  {{ registerForm.value | json}}
-</pre>

@@ -8,6 +8,7 @@ import { AppComponent } from "./app.component";
 import { IfAuthDirective } from './shared/directives';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClient } from '@angular/common/http';
 
 describe("AppComponent", () => {
   let component: AppComponent;
@@ -17,6 +18,9 @@ describe("AppComponent", () => {
     const angulartics2GoogleAnalyticsStub = { startTracking: () => ({}) };
     const userServiceStub = { getMe: () => of({}) };
     const swUpdateStub = {};
+    const httpClientStub = {
+      get: () => of({})
+    };
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
@@ -25,6 +29,7 @@ describe("AppComponent", () => {
       ],
       declarations: [AppComponent, IfAuthDirective],
       providers: [
+        { provide: HttpClient, useValue: httpClientStub },
         { provide: Angulartics2GoogleAnalytics, useValue: angulartics2GoogleAnalyticsStub },
         { provide: UserService, useValue: userServiceStub },
         { provide: SwUpdate, useValue: swUpdateStub }

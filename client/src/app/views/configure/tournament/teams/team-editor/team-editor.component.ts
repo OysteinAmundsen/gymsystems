@@ -49,7 +49,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   teamForm: FormGroup;
   currentUser: IUser;
 
-  clubList = [];
   troopList = [];
   configuredTroops = [];
   disciplines: IDiscipline[];
@@ -115,18 +114,9 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       media: [null]
     });
 
-    const clubCtrl = this.teamForm.get('club');
     const nameCtrl = this.teamForm.get('name');
     const ageCtrl = this.teamForm.get('ageDivision');
     const genderCtrl = this.teamForm.get('genderDivision');
-
-    // Club typeahead
-    this.subscriptions.push(clubCtrl.valueChanges.pipe(
-      distinctUntilChanged(),
-      debounceTime(200),  // Do not hammer http request. Wait until user has typed a bit
-      map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }), // Patch to uppercase
-      map(v => { (v.length <= 0) ? nameCtrl.disable() : nameCtrl.enable(); return v; }) // Disable 'name' control if club is empty
-    ).subscribe(v => this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(result => this.clubList = result.getClubs)));
 
     // Troopname typeahead
     this.subscriptions.push(nameCtrl.valueChanges.pipe(
@@ -231,10 +221,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         .findIndex(t => t.name === control.value) > -1;
       return check ? { 'forbiddenName': { value: control.value } } : null;
     };
-  }
-
-  clubDisplay(club: IClub) {
-    return club && club.name ? club.name : club;
   }
 
   troopDisplay(troop: ITroop) {

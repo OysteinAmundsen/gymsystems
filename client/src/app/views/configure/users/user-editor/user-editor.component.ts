@@ -22,8 +22,6 @@ export class UserEditorComponent implements OnInit {
 
   currentUser: IUser;
   userForm: FormGroup;
-  clubList = [];
-  selectedClub: IClub;
   selectedUserId: number;
   user: IUser = <IUser>{};
   get roleNames() {
@@ -31,7 +29,6 @@ export class UserEditorComponent implements OnInit {
   }
 
   roles = Role;
-  clubTransformer = toUpperCaseTransformer;
 
   constructor(
     private fb: FormBuilder,
@@ -73,15 +70,6 @@ export class UserEditorComponent implements OnInit {
         this.meta.updateTag({ property: 'description', content: `Creating a new user in the system` });
       }
     });
-
-    const clubCtrl = this.userForm.controls['club'];
-    // Read filtered options
-    clubCtrl.valueChanges
-      .pipe(
-        distinctUntilChanged(),
-        map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }), // Patch to uppercase
-        debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      ).subscribe(v => this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(res => this.clubList = res.getClubs));
   }
 
   clubDisplay(club: IClub) {
@@ -94,7 +82,6 @@ export class UserEditorComponent implements OnInit {
     this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure user: ${this.user.name}` });
     this.meta.updateTag({ property: 'og:description', content: `Editing user` });
     this.meta.updateTag({ property: 'description', content: `Editing user` });
-    this.clubList = [this.user.club];
     this.userForm.setValue({
       id: this.user.id,
       name: this.user.name,
@@ -141,14 +128,6 @@ export class UserEditorComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
-  }
-
-  tabOut(typeahead: MatAutocomplete) {
-    const active = typeahead.options.find(o => o.active);
-    if (active) {
-      active.select();
-      typeahead._emitSelectEvent(active);
-    }
   }
 
   @HostListener('keyup', ['$event'])

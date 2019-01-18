@@ -61,6 +61,11 @@ export class UserResolver {
     return user.club;
   }
 
+  @Mutation('changePassword')
+  async changePassword(@Args('password') password: string): Promise<boolean> {
+    return this.userService.changePassword(password);
+  }
+
   @Mutation('saveUser')
   save(@Args('input') input: UserDto): Promise<User> {
     ClubService.enforceSame(input.club ? input.club.id : input.clubId);

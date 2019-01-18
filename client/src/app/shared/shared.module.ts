@@ -20,9 +20,10 @@ import { SaveButtonComponent } from './components/save-button/save-button.compon
 import { UtcDatePipe } from './pipes/utc-date.pipe';
 import { HelpBlockComponent } from './components/help-block/help-block.component';
 import { ToCaseDirective } from './directives/to-uppercase/to-uppercase.directive';
-import { MatButtonModule, MatProgressBarModule, MatDialogModule } from '@angular/material';
+import { MatButtonModule, MatProgressBarModule, MatDialogModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { LoadSpinnerComponent } from './components/load-spinner/load-spinner.component';
+import { ClubLookupComponent } from './components/club-lookup/club-lookup.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,9 @@ import { LoadSpinnerComponent } from './components/load-spinner/load-spinner.com
     MatDialogModule,
     MatButtonModule,
     MatProgressBarModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
 
     RouterModule,
   ],
@@ -54,6 +58,7 @@ import { LoadSpinnerComponent } from './components/load-spinner/load-spinner.com
 
     OrderByPipe,
     UtcDatePipe,
+    ClubLookupComponent,
   ],
   exports: [
     // Export common modules
@@ -67,6 +72,7 @@ import { LoadSpinnerComponent } from './components/load-spinner/load-spinner.com
     SaveButtonComponent,
     HelpBlockComponent,
     LoadSpinnerComponent,
+    ClubLookupComponent,
 
     ToCaseDirective,
     AutofocusDirective,

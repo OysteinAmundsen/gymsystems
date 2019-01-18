@@ -136,9 +136,7 @@ export class ClubService {
   async findByFilter(name: string): Promise<Club[]> {
     const dbResult = await this.findOwnClubByName(name);
     const brregResult = name.length > 1 ? await this.brregLookup(name) : [];
-    const result = plainToClass(
-      Club, dbResult.concat(brregResult.reduce((allClubs, club) => allClubs.concat(...(dbResult.findIndex(d => d.name === club.name) < 0 ? [club] : [])), []))
-    );
+    const result = dbResult.concat(brregResult.reduce((allClubs, club) => allClubs.concat(...(dbResult.findIndex(d => d.name === club.name) < 0 ? [club] : [])), []));
     return result;
   }
 
@@ -165,7 +163,7 @@ export class ClubService {
    *
    * @param name the name to lookup
    */
-  private async brregLookup(name: string): Promise<ClubDto[]> {
+  async brregLookup(name: string): Promise<ClubDto[]> {
     // Fail fast if this is test or name is not given or name is too short
     // if (!Container.get(GymServer).isTest || !name || name.length < 2) { return Promise.resolve([]); }
 

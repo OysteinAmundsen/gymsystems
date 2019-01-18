@@ -105,6 +105,7 @@ describe("AuthInterceptor", () => {
       };
 
       spyOn(service, "handleError");
+      // FIXME: Don't know why this throws a warning: You provided 'undefined' where a stream was expected.
       service.intercept(TestBed.get(HttpRequest), httpHandlerStub).subscribe(
         data => fail('Should have failed with 400 error'),
         error => {

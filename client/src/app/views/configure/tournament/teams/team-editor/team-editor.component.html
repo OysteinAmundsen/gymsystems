@@ -12,14 +12,9 @@
     <mat-card-content>
       <fieldset>
         <div class="flex flex-row">
-          <mat-form-field class="col-5" *ngIf="!currentUser?.club">
-            <input matInput formControlName="club" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead" (blur)="tabOut(clubTypeahead)">
-            <mat-autocomplete #clubTypeahead="matAutocomplete" (optionSelected)="setSelectedClub($event)" [displayWith]="clubDisplay">
-              <mat-option *ngFor="let club of clubList" [value]="club">
-                {{ club.name }}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
+          <div class="col-5" *ngIf="!currentUser?.club">
+            <app-club-lookup formControlName="club"></app-club-lookup>
+          </div>
           <mat-form-field [ngClass]="{'col-7': !currentUser?.club, 'col-12': currentUser?.club, 'help-available': teamForm.value.club != null}">
             <input matInput formControlName="name" placeholder="{{'Name' | translate}}" [matAutocomplete]="troopTypeahead" (blur)="tabOut(troopTypeahead)">
             <mat-autocomplete #troopTypeahead="matAutocomplete" (optionSelected)="setSelectedTroop($event)" [displayWith]="troopDisplay">
@@ -129,8 +124,8 @@
       <div class="row">
 
         <!-- Members -->
-        <app-member-selector [club]="teamForm.value.club && teamForm.value.club.id ? teamForm.value.club : null" [troopName]="teamForm.value.name"
-                             [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()" [memberTemplate]="memberContent">
+        <app-member-selector [club]="teamForm.value.club && teamForm.value.club.id ? teamForm.value.club : null" [troopName]="teamForm.value.name" [gymnasts]="teamForm.value.gymnasts"
+                             (gymnastsChange)="teamForm.markAsDirty()" [memberTemplate]="memberContent">
           <span class="flex-col" *ngIf="teamForm.value.gymnasts != null && teamForm.value.gymnasts.length > 0">
             <label [title]="'Require lodging' | translate" *ngIf="tournament.providesLodging">
               <input type="checkbox" [(ngModel)]="isAllLodged" [ngModelOptions]="{standalone: true}" />

@@ -17,14 +17,14 @@ export class DisciplineRepository extends Repository<Discipline> { }
 describe("DisciplineService", () => {
   let service: DisciplineService;
   let testModule: TestingModule;
-  const tournamentStub = <Tournament>{ id: {} };
+  const tournamentStub = <Tournament>{ id: 1 };
   const teamStub = <Team>{};
-  const teamInDisciplineStub = <TeamInDiscipline>{ discipline: {}, disciplineId: {} };
+  const teamInDisciplineStub = <TeamInDiscipline>{ discipline: {}, disciplineId: 1 };
 
   beforeAll(async () => {
     const configurationServiceStub = {
-      getOneById: () => ({
-        value: { discipline: { map: () => ({}) }, scoreGroup: {} }
+      getOneById: () => Promise.resolve({
+        value: JSON.stringify({ discipline: [], scoreGroup: {} })
       })
     };
     const scoreGroupServiceStub = { saveAll: () => ({}) };
@@ -68,8 +68,9 @@ describe("DisciplineService", () => {
     it("makes expected calls", () => {
       const repositoryStub = testModule.get<DisciplineRepository>(DisciplineRepository);
       spyOn(repositoryStub, "find");
-      service.findByTeam(teamStub);
-      expect(repositoryStub.find).toHaveBeenCalled();
+      service.findByTeam(teamStub).then(result => {
+        expect(repositoryStub.find).toHaveBeenCalled();
+      });
     });
   });
 

@@ -93,7 +93,7 @@ export class ScoreService {
   }
 
   async getTotalByScoreGroup(participant: TeamInDiscipline): Promise<TotalByScoreGroup[]> {
-    const allScores = await this.findByTournamentId(participant.tournamentId);
+    const allScores = participant.scores ? participant.scores : (await this.findByTournamentId(participant.tournamentId));
     const sg = await this.scoreGroupService.findByDisciplineId(participant.disciplineId);
     return sg.map((curr: ScoreGroup) => {
       const isAdd = curr.operation === Operation.Addition;

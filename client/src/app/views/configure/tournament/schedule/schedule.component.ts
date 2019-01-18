@@ -32,7 +32,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     endTime,
     publishTime,
     type,
-    team{name,class},
+    team{id,name,class},
     disciplineId,
     disciplineName,
     disciplineSortOrder,

@@ -42,7 +42,7 @@ export class ClubResolver {
   @Query()
   getClubs(@Args('name') name: string): Promise<Club[]> {
     return !isEmpty(name) && isString(name)
-      ? this.clubService.findByFilter(name)
+      ? this.clubService.findByFilter(decodeURIComponent(name).toUpperCase())
       : this.clubService.findAll();
   }
 

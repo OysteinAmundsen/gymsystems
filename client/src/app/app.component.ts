@@ -10,6 +10,7 @@ import { environment } from '../environments/environment';
 import { UserService } from './shared/services/api';
 import { Logger } from './shared/services/Logger';
 import { SwUpdate } from '@angular/service-worker';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
 
   userSubscription: Subscription;
   user: IUser;
+  version = '';
   get locationHref() {
     return encodeURIComponent(window.location.pathname);
   }
@@ -37,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   constructor(
     private userService: UserService,
     private translate: TranslateService,
+    private http: HttpClient,
     private router: Router,
     private angulartics: Angulartics2GoogleAnalytics,
     private updates: SwUpdate
@@ -68,6 +71,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     // });
 
     this.userSubscription = this.userService.getMe(true).subscribe(user => this.user = user);
+    this.http.get('/api').subscribe((res: any) => this.version = res.version);
   }
 
   /**

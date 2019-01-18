@@ -60,17 +60,12 @@
     <mat-card-content>
       <fieldset>
         <div class="row">
-          <mat-form-field class="col-5 help-available" *appIfAuth="'Admin'">
-            <input matInput formControlName="club" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead" (blur)="tabOut(clubTypeahead)">
-            <mat-autocomplete #clubTypeahead="matAutocomplete" [displayWith]="clubDisplay">
-              <mat-option *ngFor="let club of clubList" [value]="club">
-                {{ club.name }}
-              </mat-option>
-            </mat-autocomplete>
+          <div class="col-5 help-available" *appIfAuth="'Admin'">
+            <app-club-lookup formControlName="club"></app-club-lookup>
             <app-help-block>
               <p translate>Admins do not belong to any club. We need to know which club you are creating this tournament for.</p>
             </app-help-block>
-          </mat-form-field>
+          </div>
           <mat-form-field [ngClass]="(user.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12')">
             <input matInput type="text" formControlName="name" appAutofocus placeholder="{{'Name' | translate}}">
             <app-help-block>
@@ -81,7 +76,8 @@
 
         <div class="row">
           <mat-form-field class="col-xs-4">
-            <input matInput formControlName="startDate" [matDatepicker]="startDate" placeholder="{{'Start date' | translate}}" [max]="tournamentForm.value.endDate" #startDateInput>
+            <input matInput formControlName="startDate" [matDatepicker]="startDate" placeholder="{{'Start date' | translate}}" [max]="tournamentForm.value.endDate"
+                   #startDateInput>
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate></mat-datepicker>
             <app-help-block>
@@ -89,7 +85,8 @@
             </app-help-block>
           </mat-form-field>
           <mat-form-field class="col-xs-4">
-            <input matInput formControlName="endDate" [matDatepicker]="endDate" placeholder="{{'End date' | translate}}" [min]="tournamentForm.value.startDate" #endDateInput>
+            <input matInput formControlName="endDate" [matDatepicker]="endDate" placeholder="{{'End date' | translate}}" [min]="tournamentForm.value.startDate"
+                   #endDateInput>
             <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
             <mat-datepicker #endDate></mat-datepicker>
             <app-help-block>
@@ -107,7 +104,8 @@
               </mat-option>
             </mat-autocomplete>
             <app-help-block>
-              <p translate>Search in pre-configured venues. This will be used to inform participants of the location, and calculate the entry cost per team in this tournament.</p>
+              <p translate>Search in pre-configured venues. This will be used to inform participants of the location, and calculate the entry cost per team in
+                this tournament.</p>
             </app-help-block>
           </mat-form-field>
         </div>
@@ -118,7 +116,8 @@
         <legend class="help-available">
           <i class="fa fa-fw fa-clock-o"></i><span translate>Time</span>
           <app-help-block>
-            <p translate>When a start and end date is selected, timeslots will appear as sliders below. Use these to adjust when the tournament starts and ends during each of these days.</p>
+            <p translate>When a start and end date is selected, timeslots will appear as sliders below. Use these to adjust when the tournament starts and ends
+              during each of these days.</p>
           </app-help-block>
         </legend>
         <div class="row start-stop" *ngFor="let obj of selectedDays; let i = index">
@@ -146,20 +145,21 @@
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="tournamentForm.invalid || tournamentForm.pristine"></app-save-button>
       <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="tournamentForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><i class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" *ngIf="tournamentForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><i
+           class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>
 </form>
 
 <menu mat-tab-nav-bar *ngIf="tournamentForm.value.id" class="screen-only">
-  <a mat-tab-link *ngIf="canEdit" routerLink="./divisions" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
-    [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
+  <a mat-tab-link *ngIf="canEdit" routerLink="./divisions" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
+     [title]="menuTitle()">
     <i class="fa fa-fw fa-cubes"></i>&nbsp;
     <span translate>Divisions</span>
   </a>
 
-  <a mat-tab-link *ngIf="canEdit" routerLink="./disciplines" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
-    [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
+  <a mat-tab-link *ngIf="canEdit" routerLink="./disciplines" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
+     [title]="menuTitle()">
     <i class="fa fa-fw fa-heartbeat"></i>&nbsp;
     <span translate>Disciplines</span>
   </a>
@@ -174,14 +174,14 @@
     <span translate>Schedule</span>
   </a>
 
-  <a mat-tab-link *ngIf="canEdit" routerLink="./awards" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
-    [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
+  <a mat-tab-link *ngIf="canEdit" routerLink="./awards" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
+     [title]="menuTitle()">
     <i class="fa fa-fw fa-trophy"></i>&nbsp;
     <span translate>Awards</span>
   </a>
 
-  <a mat-tab-link *ngIf="canEdit" routerLink="./info" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
-    [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()">
+  <a mat-tab-link *ngIf="canEdit" routerLink="./info" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
+     [title]="menuTitle()">
     <i class="fa fa-fw fa-info"></i>&nbsp;
     <span translate>Info</span>
   </a>

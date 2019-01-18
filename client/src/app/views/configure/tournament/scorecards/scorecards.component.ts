@@ -38,7 +38,7 @@ export class ScorecardsComponent implements OnInit, OnDestroy {
           type,
           disciplineId,
           disciplineName,
-          team{name,class},
+          team{id,name,class},
           divisionName
         }
       }`).subscribe(res => {

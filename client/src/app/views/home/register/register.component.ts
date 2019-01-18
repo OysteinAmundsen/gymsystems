@@ -25,7 +25,7 @@ enum Type {
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   user: IUser = <IUser>{ role: Role.Club };
-  clubList = [];
+  // clubList = [];
 
   get Organizer(): string { return this.translate.instant('Organizer'); }
   get Club(): string { return this.translate.instant('Club'); }
@@ -55,26 +55,26 @@ export class RegisterComponent implements OnInit {
       });
 
     // Read filtered options
-    const clubCtrl = this.registerForm.controls['club'];
-    clubCtrl.valueChanges
-      .pipe(
-        distinctUntilChanged(),
-        map(v => {
-          // Patch to uppercase
-          if (typeof v === 'string') {
-            clubCtrl.patchValue(toUpperCaseTransformer(<string>v));
-          }
-          return v;
-        }),
-        debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      ).subscribe(v => {
-        this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(res => this.clubList = res.getClubs);
-      });
+    // const clubCtrl = this.registerForm.controls['club'];
+    // clubCtrl.valueChanges
+    //   .pipe(
+    //     distinctUntilChanged(),
+    //     map(v => {
+    //       // Patch to uppercase
+    //       if (typeof v === 'string') {
+    //         clubCtrl.patchValue(toUpperCaseTransformer(<string>v));
+    //       }
+    //       return v;
+    //     }),
+    //     debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+    //   ).subscribe(v => {
+    //     this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(res => this.clubList = res.getClubs);
+    //   });
   }
 
-  clubDisplay(club: IClub) {
-    return club && club.name ? club.name : club;
-  }
+  // clubDisplay(club: IClub) {
+  //   return club && club.name ? club.name : club;
+  // }
 
   async register() {
     const user = this.registerForm.value;

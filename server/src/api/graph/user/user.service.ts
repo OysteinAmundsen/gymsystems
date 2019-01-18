@@ -61,6 +61,15 @@ export class UserService {
     return this.findByClubId(club.id);
   }
 
+  async changePassword(password: string): Promise<boolean> {
+    // TODO: Create some password validation here perhaps?
+    const me = this.getAuthenticatedUser();
+    if (!me) { throw new ForbiddenException('You must log on to change password'); }
+    password = this.createPasswordHash(password);
+    return this.userRepository.update({ id: me.id }, { password: password })
+      .then(res => true);
+  }
+
   async save(user: UserDto): Promise<User> {
     // TODO: Implement logic preventing users from elevating their role
     // TODO: Implement logic preventing users from changing usernames
@@ -86,7 +95,7 @@ export class UserService {
       }
 
       // Validate and sanitize user data
-      user.password = this.createPasswordHash(user.password);
+      delete user.password;
       if (await this.findOneByUsername(user.name)) {
         throw new BadRequestException('Username is taken');
       }
@@ -97,13 +106,15 @@ export class UserService {
       // Validate club
       if (user.clubId || (user.club && user.club.id)) {
         const club = await this.clubService.findOneById(user.clubId || user.club.id);
-        if (!club) { throw new BadRequestException(); }
-      } else if (user.club) {
+        if (!club) { throw new BadRequestException('A Club is required'); }
+      } else if (typeof user.club === 'string') {
         try {
           user.club = await this.clubService.findOrCreateClub(user.club);
         } catch (ex) {
           throw new BadRequestException(ex.message);
         }
+      } else if (user.role < Role.Admin) {
+        throw new BadRequestException('A Club is required');
       }
     } else {
       const entity = await this.findOneById(user.id);

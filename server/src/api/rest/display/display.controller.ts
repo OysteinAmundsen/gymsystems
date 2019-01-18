@@ -74,7 +74,7 @@ export class DisplayController {
     const template = displayConfig[`display${id}`];
 
     let current, next, published;
-    if (idx) {
+    if (idx != null) {
       // Used for testing display
       current = [schedule[+idx]];
       next = schedule.slice(+idx + 1, +idx + 6);
@@ -101,7 +101,7 @@ export class DisplayController {
     }
 
     return Promise.all(published.map(p => {
-      return this.scoreService.getTotalScore(p).then(total => p.total = total);
+      return this.scoreService.getTotalScore(p).then(total => { p.total = total; return p });
     })).then(res => {
       return Handlebars.compile(template, { noEscape: true })({
         tournament: tournament,

@@ -5,6 +5,7 @@ type Query {
 }
 
 type Mutation {
+  changePassword(password: String): Boolean
   saveUser(input: UserInput): IUser
   deleteUser(id: ID): Boolean
 }

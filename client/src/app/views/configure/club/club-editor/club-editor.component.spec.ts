@@ -15,7 +15,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 describe("views.configure.club:ClubEditorComponent", () => {
   let component: ClubEditorComponent;
   let fixture: ComponentFixture<ClubEditorComponent>;
-  const testClub = { id: 1, name: 'Test club' };
+  const testClub = <IClub>{ id: 1, name: 'Test club' };
   const matAutocompleteSelectedEventStub = <MatAutocompleteSelectedEvent>{ option: { value: testClub } };
 
   beforeEach(() => {
@@ -56,10 +56,6 @@ describe("views.configure.club:ClubEditorComponent", () => {
 
   it("can load instance", () => {
     expect(component).toBeTruthy();
-  });
-
-  it("clubList defaults to: []", () => {
-    expect(component.clubList).toEqual([]);
   });
 
   it("isAdding defaults to: false", () => {
@@ -121,18 +117,8 @@ describe("views.configure.club:ClubEditorComponent", () => {
     it("makes expected calls", () => {
       component.ngOnInit();
       spyOn(component, "clubReceived").and.callThrough();
-      component.setSelectedClub(matAutocompleteSelectedEventStub);
+      component.setSelectedClub(testClub);
       expect(component.clubReceived).toHaveBeenCalled();
-    });
-  });
-
-  describe("tabOut", () => {
-    it("makes expected calls", () => {
-      component.ngOnInit();
-      const matAutocompleteStub: MatAutocomplete = fixture.debugElement.injector.get(MatAutocomplete);
-      spyOn(matAutocompleteStub, "_emitSelectEvent").and.callThrough();
-      component.tabOut(matAutocompleteStub);
-      expect(matAutocompleteStub._emitSelectEvent).toHaveBeenCalled();
     });
   });
 

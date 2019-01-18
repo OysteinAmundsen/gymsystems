@@ -1,6 +1,6 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
@@ -19,8 +19,8 @@ import { GraphService } from 'app/shared/services/graph.service';
 })
 export class ClubEditorComponent implements OnInit {
   user: IUser;
-  clubList = []; // Typeahead values
 
+  clubCtrl = new FormControl();
   club: IClub = <IClub>{};
   clubSubject = new ReplaySubject<IClub>(1);
 
@@ -49,12 +49,12 @@ export class ClubEditorComponent implements OnInit {
       id: [this.club.id],
       name: [this.club.name, [Validators.required]]
     });
-    const clubCtrl = this.clubForm.controls['name'];
-    clubCtrl.valueChanges.pipe(
-      distinctUntilChanged(),
-      debounceTime(200),    // Do not hammer http request. Wait until user has typed a bit
-      map(v => { clubCtrl.patchValue(toUpperCaseTransformer(v)); return v; }) // Patch to uppercase
-    ).subscribe(v => this.graph.getData(`{getClubs(name:"${encodeURIComponent(v && v.name ? v.name : v)}"){id,name}}`).subscribe(res => this.clubList = res.getClubs));
+    this.clubCtrl.valueChanges.subscribe(club => {
+      this.setSelectedClub(club);
+    });
+    this.clubForm.valueChanges.subscribe(club => {
+      this.clubCtrl.patchValue(club, { emitEvent: false });
+    });
 
     this.route.params.subscribe(params => {
       this.userService.getMe().subscribe(user => {
@@ -80,9 +80,8 @@ export class ClubEditorComponent implements OnInit {
     });
   }
 
-  setSelectedClub(v: MatAutocompleteSelectedEvent) {
-    v.option.value.id = v.option.value.id || null;
-    this.clubReceived(v.option.value);
+  setSelectedClub(club: IClub) {
+    this.clubReceived(club);
     this.clubForm.markAsDirty();
   }
 
@@ -133,14 +132,6 @@ export class ClubEditorComponent implements OnInit {
   edit() {
     if (this.user && (this.user.role >= Role.Admin || this.club.id === this.user.club.id)) {
       this.isEdit = true;
-    }
-  }
-
-  tabOut(typeahead: MatAutocomplete) {
-    const active = typeahead.options.find(o => o.active);
-    if (active) {
-      active.select();
-      typeahead._emitSelectEvent(active);
     }
   }
 

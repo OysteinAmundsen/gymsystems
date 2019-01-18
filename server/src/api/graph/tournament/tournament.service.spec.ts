@@ -85,7 +85,7 @@ describe("TournamentService", () => {
       const newTournamentStub = <Tournament>{ name: 'Test turnering' };
       spyOn(repositoryStub, "findOne");
       spyOn(repositoryStub, "save").and.callFake(() => tournamentDtoStub);
-      spyOn(service, "createDefaults");
+      spyOn(service, "createDefaults").and.callFake(() => true);
       spyOn(mediaServiceStub, "createArchive");
       spyOn(pubSubStub, "publish");
       service.save(newTournamentStub).then(result => {
