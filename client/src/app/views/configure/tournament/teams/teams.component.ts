@@ -48,9 +48,9 @@ export class TeamsComponent implements OnInit, OnDestroy {
   get takenSlots(): number {
     return this.teamSource.subject.value.length > 0
       ? this.teamSource.subject.value.reduce(
-          (prev, curr) => prev + curr.disciplines.length,
-          0
-        )
+        (prev, curr) => prev + curr.disciplines.length,
+        0
+      )
       : 0;
   }
 
@@ -58,7 +58,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
     return !this.tournament || this.teamSource.subject.value.length < 1
       ? true
       : this.availableSlots - this.takenSlots >=
-          this.tournament.disciplines.length;
+      this.tournament.disciplines.length;
   }
 
   constructor(
@@ -70,7 +70,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private translate: TranslateService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subscriptions.push(
@@ -107,7 +107,7 @@ export class TeamsComponent implements OnInit, OnDestroy {
         id,
         name,
         class,
-        club{name},
+        club{id,name},
         media{disciplineId},
         divisionName,
         disciplines{id,name}

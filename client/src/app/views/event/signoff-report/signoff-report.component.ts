@@ -40,7 +40,7 @@ export class SignoffReportComponent implements OnInit {
 
   ngOnInit() {
     this.graph.getData(`{
-      tournament(id:${this.parent.tournamentId}){id,name,startDate,endDate,venue{name}},
+      tournament(id:${this.parent.tournamentId}){id,name,startDate,endDate,venue{id,name}},
       getDisciplines(tournamentId:${this.parent.tournamentId}){id,name,scoreGroups{id,type,judgeCount,operation,judges{sortNumber,judge{id,name}}}},
       getSchedule(tournamentId:${this.parent.tournamentId},type:${ParticipationType.Live},scorable:true){
         id,
@@ -52,7 +52,7 @@ export class SignoffReportComponent implements OnInit {
         endTime,
         publishTime,
         disciplineName,
-        team{name},
+        team{id,name},
         scores{judgeIndex,value,scoreGroupId},
         total,
         totalByScoreGroup{group{id,type},total}

@@ -63,7 +63,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         divisionSortOrder,
         scorable,
         total,
-        totalByScoreGroup{group{type},total}
+        totalByScoreGroup{group{id,type},total}
       }}`)
       .subscribe(data => {
         this.disciplines = data.getDisciplines;

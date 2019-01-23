@@ -42,7 +42,7 @@ export class TournamentComponent implements OnInit {
         description_no,
         description_en,
         times{day,time},
-        club{name},
+        club{id,name},
         createdById,
         createdBy{id,name},
         venue{id,name,address,capacity}

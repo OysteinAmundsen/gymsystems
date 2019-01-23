@@ -69,7 +69,7 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
           this.graph.getData(`{troop(id:${+params.id}){id,name,gymnasts{id,name,gender,birthYear}}}`).subscribe(res => this.troopReceived(res.troop));
         } else {
           this.troopForm.get('club').setValue(this.club);
-          this.graph.getData(`{club(id:${this.club.id}){troopCount}}`).subscribe(result => {
+          this.graph.getData(`{club(id:${this.club.id}){id,troopCount}}`).subscribe(result => {
             this.troopsCount = result.club.troopCount;
             this.troopForm.get('name').setValue(this.troopSuggestion);
           });
