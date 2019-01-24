@@ -30,7 +30,7 @@
     "@angular/platform-browser": "^7.2.2",
     "@angular/platform-browser-dynamic": "^7.2.2",
     "@angular/platform-server": "^7.2.2",
-    "@angular/pwa": "^0.12.2",
+    "@angular/pwa": "^0.12.3",
     "@angular/router": "^7.2.2",
     "@angular/service-worker": "^7.2.2",
     "@auth0/angular-jwt": "^2.1.0",
@@ -57,8 +57,8 @@
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.12.2",
-    "@angular/cli": "^7.2.2",
+    "@angular-devkit/build-angular": "^0.12.3",
+    "@angular/cli": "^7.2.3",
     "@angular/compiler-cli": "^7.2.2",
     "@angular/language-service": "^7.2.2",
     "@biesbjerg/ngx-translate-extract": "^2.3.4",
@@ -72,7 +72,7 @@
     "codelyzer": "^4.5.0",
     "jasmine-core": "^3.3.0",
     "jasmine-spec-reporter": "^4.2.1",
-    "karma": "^3.1.4",
+    "karma": "^4.0.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage-istanbul-reporter": "^2.0.4",
     "karma-jasmine": "^2.0.1",

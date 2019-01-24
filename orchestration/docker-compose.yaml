@@ -6,10 +6,10 @@ services:
     container_name: db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: gymsystem
-      MYSQL_USER: system
-      MYSQL_PASSWORD: admin
+      NODE_ENV: production
+      TZ: UTC
+    env_file:
+      - ../server/.env
     # ports:
     #   - 3306:3306
     volumes:
@@ -26,9 +26,11 @@ services:
     links:
       - db
     environment:
-      TZ: UTC
-      DATABASE_HOST: db
       NODE_ENV: production
+      TZ: UTC
+      DB_HOSTNAME: db
+    env_file:
+      - ../server/.env
     volumes:
       - ../log:/usr/local/nub-api/log
       - gymsystems-media:/usr/local/nub-api/media

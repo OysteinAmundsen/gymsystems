@@ -10,7 +10,7 @@
     <mat-card-content>
       <div class="row">
         <mat-form-field class="col-7 help-available">
-          <input matInput type="text" formControlName="name" autocomplete="username" appAutofocus placeholder="{{'Username' | translate}}" />
+          <input matInput type="text" autocomplete="username" formControlName="name" autocomplete="username" appAutofocus placeholder="{{'Username' | translate}}" />
           <app-help-block>
             <p translate>The name you want to use for logging in to your account</p>
           </app-help-block>
@@ -34,17 +34,18 @@
       </div>
       <div class="row">
         <mat-form-field class="col-7 help-available">
-          <input matInput type="email" formControlName="email" placeholder="{{'Email' | translate}}">
+          <input matInput type="email" autocomplete="email" formControlName="email" placeholder="{{'Email' | translate}}">
           <app-help-block>
             <p translate>The email address you provide for us will be used to contact you in regards to activity on your account.</p>
             <p translate>We may also contact you if a tournament opens up for registration, so you can enter your club to join</p>
           </app-help-block>
         </mat-form-field>
         <div class="col-5 help-available">
-          <app-club-lookup formControlName="club"></app-club-lookup>
-          <app-help-block>
-            <p translate>We need to know which club you represent in order to provide you with the appropriate privileges.</p>
-          </app-help-block>
+          <app-club-lookup formControlName="club">
+            <app-help-block>
+              <p translate>We need to know which club you represent in order to provide you with the appropriate privileges.</p>
+            </app-help-block>
+          </app-club-lookup>
         </div>
       </div>
       <div class="row">
@@ -65,7 +66,8 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-raised-button class="mat-primary" type="submit" [title]="'Login' | translate" [disabled]="registerForm.invalid || registerForm.pristine" aria-label="Register">
+      <button mat-raised-button class="mat-primary" type="submit" [title]="'Login' | translate" [disabled]="registerForm.invalid || registerForm.pristine"
+              aria-label="Register">
         <i class="fa fa-fw fa-sign-in"></i>
         <span translate>Register</span>
       </button>

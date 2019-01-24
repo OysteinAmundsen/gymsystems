@@ -11,6 +11,7 @@ import { User } from '../user/user.model';
 import { Club } from '../club/club.model';
 import { LocationDto } from './dto/location.dto';
 import { Config } from '../../common/config';
+import { Log } from '../../common/util/logger/log';
 
 @Injectable()
 export class VenueService {
@@ -82,7 +83,7 @@ export class VenueService {
     return query.getMany();
   }
 
-  findLocationByAddress(address: string): Promise<AxiosResponse<LocationDto>> {
-    return this.http.get<LocationDto>(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${this.geoApiKey}`).toPromise();
+  findLocationByAddress(address: string): Promise<AxiosResponse<LocationDto[]>> {
+    return this.http.get<LocationDto[]>(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${this.geoApiKey}`).toPromise();
   }
 }

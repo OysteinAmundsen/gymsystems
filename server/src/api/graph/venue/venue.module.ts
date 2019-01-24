@@ -4,6 +4,7 @@ import { Venue } from './venue.model';
 import { VenueResolver } from './venue.resolver';
 import { VenueService } from './venue.service';
 import { TournamentModule } from '../tournament/tournament.module';
+import { VenueController } from './venue.controller';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { TournamentModule } from '../tournament/tournament.module';
     forwardRef(() => TournamentModule)
   ],
   providers: [VenueResolver, VenueService],
-  exports: [VenueService]
+  exports: [VenueService],
+  controllers: [VenueController]
 })
 export class VenueModule { }

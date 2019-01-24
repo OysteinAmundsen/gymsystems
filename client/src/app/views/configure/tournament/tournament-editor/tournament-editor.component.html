@@ -61,10 +61,11 @@
       <fieldset>
         <div class="row">
           <div class="col-5 help-available" *appIfAuth="'Admin'">
-            <app-club-lookup formControlName="club"></app-club-lookup>
-            <app-help-block>
-              <p translate>Admins do not belong to any club. We need to know which club you are creating this tournament for.</p>
-            </app-help-block>
+            <app-club-lookup formControlName="club">
+              <app-help-block>
+                <p translate>Admins do not belong to any club. We need to know which club you are creating this tournament for.</p>
+              </app-help-block>
+            </app-club-lookup>
           </div>
           <mat-form-field [ngClass]="(user.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12')">
             <input matInput type="text" formControlName="name" appAutofocus placeholder="{{'Name' | translate}}">
@@ -76,7 +77,7 @@
 
         <div class="row">
           <mat-form-field class="col-xs-4">
-            <input matInput formControlName="startDate" [matDatepicker]="startDate" placeholder="{{'Start date' | translate}}" [max]="tournamentForm.value.endDate"
+            <input matInput formControlName="startDate" autocomplete="off" [matDatepicker]="startDate" placeholder="{{'Start date' | translate}}" [max]="tournamentForm.value.endDate" (focus)="startDate.open()"
                    #startDateInput>
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate></mat-datepicker>
@@ -85,7 +86,7 @@
             </app-help-block>
           </mat-form-field>
           <mat-form-field class="col-xs-4">
-            <input matInput formControlName="endDate" [matDatepicker]="endDate" placeholder="{{'End date' | translate}}" [min]="tournamentForm.value.startDate"
+            <input matInput formControlName="endDate" autocomplete="off" [matDatepicker]="endDate" placeholder="{{'End date' | translate}}" [min]="tournamentForm.value.startDate" (focus)="endDate.open()"
                    #endDateInput>
             <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
             <mat-datepicker #endDate></mat-datepicker>
@@ -144,8 +145,10 @@
 
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="tournamentForm.invalid || tournamentForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="tournamentForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()" aria-label="Delete">
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span
+              translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="tournamentForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"
+              aria-label="Delete">
         <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
       </button>
     </mat-card-actions>

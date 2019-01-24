@@ -14,7 +14,7 @@
     <mat-card-content>
       <div class="row">
         <mat-form-field class="col-5">
-          <input matInput type="text" id="name" formControlName="name" placeholder="{{'Name' | translate}}"/>
+          <input matInput type="text" id="name" formControlName="name" placeholder="{{'Name' | translate}}" />
           <app-help-block>
             <p translate>This name will be displayed everywhere this venue is referred.</p>
           </app-help-block>
@@ -23,7 +23,8 @@
 
       <div class="row">
         <mat-form-field class="col-6">
-          <input matInput formControlName="address" placeholder="{{'Address' | translate}}" [matAutocomplete]="addressTypeahead" (blur)="tabOut(addressTypeahead)">
+          <input matInput formControlName="address" placeholder="{{'Address' | translate}}" [matAutocomplete]="addressTypeahead" (blur)="tabOut(addressTypeahead)"
+                 [attr.autocomplete]="'off'">
           <mat-autocomplete #addressTypeahead="matAutocomplete" (optionSelected)="setSelectedAddress($event)">
             <mat-option *ngFor="let address of adressList" [value]="address">
               {{ address.formatted_address }}
@@ -36,13 +37,13 @@
         <div class="col-6">
           <div class="row">
             <mat-form-field class="col-6">
-              <input matInput type="number" formControlName="longitude" placeholder="{{'Longitude' | translate}}"/>
+              <input matInput type="number" formControlName="longitude" placeholder="{{'Longitude' | translate}}" />
               <app-help-block>
                 <p translate>The longitude of the venue. This is 1/2 of the results from the geo-lookup made by typing in the address.</p>
               </app-help-block>
             </mat-form-field>
             <mat-form-field class="col-6">
-              <input matInput type="number" formControlName="latitude" placeholder="{{'Latitude' | translate}}"/>
+              <input matInput type="number" formControlName="latitude" placeholder="{{'Latitude' | translate}}" />
               <app-help-block>
                 <p translate>The latitude of the venue. This is 1/2 of the results from the geo-lookup made by typing in the address.</p>
               </app-help-block>
@@ -53,19 +54,19 @@
 
       <div class="row">
         <mat-form-field class="col-5">
-          <input matInput type="text" id="contact" formControlName="contact" placeholder="{{'Contact Name' | translate}}"/>
+          <input matInput type="text" id="contact" formControlName="contact" placeholder="{{'Contact Name' | translate}}" />
           <app-help-block>
             <p translate>The name of a person responsible for this venue. This is the person you want to contact if you want to rent this venue for events.</p>
           </app-help-block>
         </mat-form-field>
         <mat-form-field class="col-3">
-          <input matInput type="tel" id="contactPhone" formControlName="contactPhone" placeholder="{{'Phone' | translate}}"/>
+          <input matInput type="tel" id="contactPhone" formControlName="contactPhone" placeholder="{{'Phone' | translate}}" />
           <app-help-block>
             <p translate>Phone number of the contact</p>
           </app-help-block>
         </mat-form-field>
         <mat-form-field class="col-4">
-          <input matInput type="email" id="contactEmail" formControlName="contactEmail" placeholder="{{'Email' | translate}}"/>
+          <input matInput type="email" id="contactEmail" formControlName="contactEmail" placeholder="{{'Email' | translate}}" />
           <app-help-block>
             <p translate>The email address of the contact</p>
           </app-help-block>
@@ -74,7 +75,7 @@
 
       <div class="row">
         <mat-form-field class="col-5">
-          <input matInput type="number" id="rentalCost" formControlName="rentalCost" placeholder="{{'Rental cost' | translate}}"/>
+          <input matInput type="number" id="rentalCost" formControlName="rentalCost" placeholder="{{'Rental cost' | translate}}" />
           <app-help-block>
             <p translate>This is the rental cost for the venue, as negotiated.</p>
           </app-help-block>
@@ -83,7 +84,7 @@
 
       <div class="row">
         <mat-form-field class="col-5">
-          <input matInput type="number" id="capacity" formControlName="capacity" placeholder="{{'Capacity' | translate}}"/>
+          <input matInput type="number" id="capacity" formControlName="capacity" placeholder="{{'Capacity' | translate}}" />
           <app-help-block>
             <p translate>The audience capacity for this venue. This will play a part in calculating cost and revenue.</p>
           </app-help-block>
@@ -93,11 +94,13 @@
 
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="venueForm.invalid || venueForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span
+              translate>Cancel</span></button>
       <button mat-raised-button type="button" *ngIf="venueForm.value.id" [title]="'Create tournament here' | translate" (click)="createTournament()" aria-label="Create tournament here">
         <i class="fa fa-fw fa-trophy"></i> <span translate>Create tournament here</span>
       </button>
-      <button mat-raised-button type="button" *ngIf="venueForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()" aria-label="Delete">
+      <button mat-raised-button type="button" *ngIf="venueForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"
+              aria-label="Delete">
         <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
       </button>
     </mat-card-actions>
@@ -113,4 +116,3 @@
     </mat-card-footer>
   </mat-card>
 </form>
-

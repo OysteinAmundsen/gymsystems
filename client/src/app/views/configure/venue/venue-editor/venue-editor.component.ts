@@ -10,6 +10,7 @@ import { ValidationService } from 'app/shared/services/validation';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { GraphService } from '../../../../shared/services/graph.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-venue-editor',
@@ -59,7 +60,8 @@ export class VenueEditorComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private translate: TranslateService,
-    private graph: GraphService
+    private graph: GraphService,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -82,7 +84,8 @@ export class VenueEditorComponent implements OnInit {
       .pipe(
         distinctUntilChanged(),
         debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
-      ).subscribe(v => this.graph.getData(`{location(address:${v}){formatted{address},geometry{location{lat,lng}}}}`).subscribe(address => this.adressList = address));
+      ).subscribe(v => this.http.get(`/api/venue/location/${encodeURIComponent(v)}`)
+        .subscribe((result: any) => this.adressList = result.results.map(r => ({ formatted_address: r.formatted_address, geometry: r.geometry }))));
 
     this.route.params.subscribe(params => {
       if (params.id) {

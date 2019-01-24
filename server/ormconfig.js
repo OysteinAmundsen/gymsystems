@@ -1,10 +1,14 @@
 const dotenv = require('dotenv');
 const fs = require('fs');
 
-const env = Object.assign({}, process.env, fs.existsSync(`${process.env.NODE_ENV || ''}.env`)
-  ? dotenv.parse(fs.readFileSync(`${process.env.NODE_ENV || ''}.env`))
-  : {}
-);
+function readEnv() {
+  const base = process.env;
+  const env_filename = (base.NODE_ENV && fs.existsSync(`${base.NODE_ENV}.env`)) ? `${base.NODE_ENV}.env` : '.env';  // `{mode}.env` or just `.env`
+  return Object.assign({}, base, fs.existsSync(env_filename) ? dotenv.parse(fs.readFileSync(env_filename)) : {});   // Concatenate .env file with system env IF exists.
+}
+
+
+const env = readEnv();
 const runtime = env.RUNTIME;
 const isProd = env.NODE_ENV === 'production';
 
@@ -13,7 +17,7 @@ module.exports = [
     type: 'mysql',
     logging: isProd ? ['error'] : ['query', 'error'],
     logger: 'advanced-console',
-    host: env.HOSTNAME,
+    host: env.DB_HOSTNAME,
     port: 3306,
     entities: [`./**/**.model.${runtime}`],
     migrations: [`./**/migrations/*.${runtime}`],
@@ -24,8 +28,8 @@ module.exports = [
       entitiesDir: './src/api/graph',
       migrationsDir: './src/migrations'
     },
-    username: env.DB_USER,
-    password: env.DB_PASS,
-    database: env.DB
+    username: env.MYSQL_USER,
+    password: env.MYSQL_PASSWORD,
+    database: env.MYSQL_DATABASE
   }
 ]

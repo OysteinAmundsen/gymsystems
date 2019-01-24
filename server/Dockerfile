@@ -1,10 +1,14 @@
 FROM node:11.4-alpine as dist
 WORKDIR /tmp/
+# Setup builder system
 RUN apk add python make g++
-COPY tsconfig.json tsconfig.json ormconfig.js production.env ./
+
+# Copy source and install
 COPY src src/
 COPY package.json ./
 RUN yarn install
+
+COPY tsconfig.json ormconfig.js ./
 RUN yarn build
 RUN rm -rf node_modules
 RUN yarn install --production

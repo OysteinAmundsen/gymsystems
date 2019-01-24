@@ -2,10 +2,14 @@ import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import { Injectable } from '@nestjs/common';
 
-const env = Object.assign({}, process.env, fs.existsSync(`${process.env.NODE_ENV || ''}.env`)
-  ? dotenv.parse(fs.readFileSync(`${process.env.NODE_ENV || ''}.env`))
-  : {}
-);
+/**
+ * Read system environment and concatenate with .env file if exists.
+ */
+export function readEnv() {
+  const base = process.env;
+  const env_filename = (base.NODE_ENV && fs.existsSync(`${base.NODE_ENV}.env`)) ? `${base.NODE_ENV}.env` : '.env';  // `{mode}.env` or just `.env`
+  return Object.assign({}, base, fs.existsSync(env_filename) ? dotenv.parse(fs.readFileSync(env_filename)) : {});   // Concatenate .env file with system env IF exists.
+}
 
 @Injectable()
 export class Config {
@@ -24,11 +28,10 @@ export class Config {
   public static readonly yellowLog: string = '\x1b[33m';
   public static readonly magentaLog: string = '\x1b[35m';
   public static readonly cyanLog: string = '\x1b[36m';
-
-  private readonly envConfig: { [key: string]: string } = env;
+  private static readonly env: { [key: string]: string } = readEnv();
 
   public static isProd() {
-    return env['NODE_ENV'] === 'prod' || env['NODE_ENV'] === 'production';
+    return Config.env['NODE_ENV'] === 'prod' || Config.env['NODE_ENV'] === 'production';
   }
 
   isProd(): boolean {
@@ -36,6 +39,6 @@ export class Config {
   }
 
   get(key: string): string {
-    return this.envConfig[key];
+    return Config.env[key];
   }
 }
