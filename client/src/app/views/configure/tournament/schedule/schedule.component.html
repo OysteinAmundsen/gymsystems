@@ -45,7 +45,7 @@
           </span>
         </td>
         <td class="icons">
-          <button mat-icon-button [matMenuTriggerFor]="options" *ngIf="!item.startTime" [matMenuTriggerData]="{item: item}">
+          <button mat-icon-button [matMenuTriggerFor]="options" *ngIf="!item.startTime" [matMenuTriggerData]="{item: item}" aria-label="Options">
             <i class="fa fa-fw fa-ellipsis-v"></i>
           </button>
         </td>
@@ -56,11 +56,11 @@
 
 <mat-menu #options="matMenu">
   <ng-template matMenuContent let-item="item">
-    <button mat-menu-item type="button" (click)="toggleStrikeParticipant(item)">
+    <button mat-menu-item type="button" (click)="toggleStrikeParticipant(item)" aria-label="Toggle strike participant">
       <span *ngIf="!item.markDeleted"><i class="fa fa-fw fa-ban"></i> {{ 'Strike' | translate }}</span>
       <span *ngIf="item.markDeleted"><i class="fa fa-fw fa-check"></i> {{ 'Unstrike' | translate }}</span>
     </button>
-    <button mat-menu-item type="button" (click)="deleteParticipant(item)">
+    <button mat-menu-item type="button" (click)="deleteParticipant(item)" aria-label="Delete participant">
       <span><i class="fa fa-fw fa-trash"></i> {{ 'Delete' | translate }}</span>
     </button>
   </ng-template>
@@ -68,12 +68,13 @@
 
 <app-save-button buttonType="submit" (click)="saveSchedule()" [disabled]="!hasChanges()"></app-save-button>
 <span *ngIf="haveMissing()">
-  <button mat-raised-button type="button" (click)="calculateSchedule()" *ngIf="haveMissing()">
+  <button mat-raised-button type="button" (click)="calculateSchedule()" *ngIf="haveMissing()" aria-label="Calculate schedule">
     <i class="fa fa-fw fa-calculator"></i>
     <span translate>Calculate schedule</span>
   </button>
   <label><input type="checkbox" [(ngModel)]="shouldCalculateTraining">{{'Include training' | translate }}</label>
 </span>
 
-<button mat-raised-button type="button" *ngIf="canDeleteAll()" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="deleteAll()"><i class="fa fa-fw fa-trash"></i>
-  <span translate>Delete</span></button>
+<button mat-raised-button type="button" *ngIf="canDeleteAll()" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="deleteAll()" aria-label="Delete entire schedule">
+  <i class="fa fa-fw fa-trash"></i><span translate>Delete</span>
+</button>

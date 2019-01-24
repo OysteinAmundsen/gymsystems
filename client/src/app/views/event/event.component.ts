@@ -33,7 +33,7 @@ export class EventComponent implements OnInit, OnDestroy {
         this.title.setTitle(`GymSystems | ${this.tournament.name}`);
         this.meta.updateTag({ property: 'og:title', content: `GymSystems | ${this.tournament.name}` });
         this.meta.updateTag({ property: 'og:description', content: `${this.tournament.description_en}` });
-        this.meta.updateTag({ property: 'description', content: `${this.tournament.description_en}` });
+        this.meta.updateTag({ property: 'Description', content: `${this.tournament.description_en}` });
       });
     }));
   }

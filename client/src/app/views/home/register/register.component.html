@@ -52,7 +52,7 @@
           <input matInput type="password" formControlName="password" autocomplete="new-password" placeholder="{{'Password' | translate}}">
           <app-help-block>
             <p translate>Any password will do. We do not set restrictions. But please make sure it is not too easy.</p>
-            <p translate>We suggest using a password generator for this: <a href="https://xkpasswd.net/s/" target="_blank">https://xkpasswd.net/s/</a></p>
+            <p translate>We suggest using a password generator for this: <a href="https://xkpasswd.net/s/" target="_blank" rel="noreferrer">https://xkpasswd.net/s/</a></p>
           </app-help-block>
         </mat-form-field>
         <mat-form-field class="col-6 help-available">
@@ -65,11 +65,11 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-raised-button class="mat-primary" type="submit" [title]="'Login' | translate" [disabled]="registerForm.invalid || registerForm.pristine">
+      <button mat-raised-button class="mat-primary" type="submit" [title]="'Login' | translate" [disabled]="registerForm.invalid || registerForm.pristine" aria-label="Register">
         <i class="fa fa-fw fa-sign-in"></i>
         <span translate>Register</span>
       </button>
-      <a mat-raised-button [title]="'Login' | translate" [routerLink]="['../login']">
+      <a mat-raised-button [title]="'Login' | translate" [routerLink]="['../login']" aria-label="Go to login">
         <i class="fa fa-fw fa-sign-in"></i>
         <span translate>Back to login</span>
       </a>

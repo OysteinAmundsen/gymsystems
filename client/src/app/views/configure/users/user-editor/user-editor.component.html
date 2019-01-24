@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-header>
       <div class="card-actions">
-        <button type="button" mat-icon-button (click)="cancel()"><i class="fa fa-fw fa-close"></i></button>
+        <button type="button" mat-icon-button (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-close"></i></button>
       </div>
       <i class="fa fa-fw fa-user fa-2x" mat-card-avatar></i>
       <mat-card-title>
@@ -58,9 +58,10 @@
 
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="userForm.invalid || userForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="userForm.value.id && userForm.value.id !== currentUser.id" [title]="'Delete' | translate" class="pull-right mat-warn"
-              (click)="delete()"><i class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="userForm.value.id && userForm.value.id !== currentUser.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()" aria-label="Delete">
+        <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>

@@ -4,8 +4,8 @@
       <ng-content></ng-content>
     </div>
     <footer *ngIf="noButtons !== true">
-      <button (click)="cancelClicked()">Cancel</button>
-      <button type="submit" (click)="okClicked()">Ok</button>
+      <button (click)="cancelClicked()" aria-label="Cancel">Cancel</button>
+      <button type="submit" (click)="okClicked()" aria-label="Ok">Ok</button>
     </footer>
   </aside>
 </div>

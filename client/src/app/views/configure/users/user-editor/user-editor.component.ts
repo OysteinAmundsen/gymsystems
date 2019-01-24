@@ -67,7 +67,7 @@ export class UserEditorComponent implements OnInit {
         this.title.setTitle(`GymSystems | Add user`);
         this.meta.updateTag({ property: 'og:title', content: `GymSystems | Add user` });
         this.meta.updateTag({ property: 'og:description', content: `Creating a new user in the system` });
-        this.meta.updateTag({ property: 'description', content: `Creating a new user in the system` });
+        this.meta.updateTag({ property: 'Description', content: `Creating a new user in the system` });
       }
     });
   }
@@ -81,7 +81,7 @@ export class UserEditorComponent implements OnInit {
     this.title.setTitle(`GymSystems | Configure user: ${this.user.name}`);
     this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure user: ${this.user.name}` });
     this.meta.updateTag({ property: 'og:description', content: `Editing user` });
-    this.meta.updateTag({ property: 'description', content: `Editing user` });
+    this.meta.updateTag({ property: 'Description', content: `Editing user` });
     this.userForm.setValue({
       id: this.user.id,
       name: this.user.name,

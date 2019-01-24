@@ -29,7 +29,7 @@
   <mat-row *matRowDef="let venue; columns: displayedColumns; let index=index" #dataRow [routerLink]="['.', venue.id]"></mat-row>
 </mat-table>
 
-<button mat-raised-button type="button" class="mat-accent" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'">
+<button mat-raised-button type="button" class="mat-accent" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'" aria-label="Add venue">
   <i class="fa fa-fw fa-plus"></i>
   <span translate>Add Venue</span>
 </button>

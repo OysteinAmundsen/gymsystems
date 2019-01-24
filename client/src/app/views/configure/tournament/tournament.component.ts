@@ -30,7 +30,7 @@ export class TournamentComponent implements OnInit {
     this.title.setTitle('GymSystems | Configure tournaments');
     this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure tournaments` });
     this.meta.updateTag({ property: 'og:description', content: `List all tournaments registerred` });
-    this.meta.updateTag({ property: 'description', content: `List all tournaments registerred` });
+    this.meta.updateTag({ property: 'Description', content: `List all tournaments registerred` });
 
     this.userService.getMe().subscribe(me => me && me.role >= Role.Admin ? this.displayColumns.push('createdBy') : null);
     this.graph.getData(`{

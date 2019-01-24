@@ -8,11 +8,11 @@
   </header>
 
   <div><pre [innerHtml]="getDescription(tournament) | MarkdownToHtml"></pre></div>
-  <a [routerLink]="['/event', tournament.id, 'list']" mat-raised-button class="mat-primary" *appIfAuth="true">
+  <a [routerLink]="['/event', tournament.id, 'list']" mat-raised-button class="mat-primary" *appIfAuth="true" aria-label="Go to scoreboard">
     <i class="fa fa-fw fa-arrow-right"></i>
     <span translate>Go to scoreboard</span>
   </a>
-  <a [routerLink]="['/event', tournament.id, 'results']" mat-raised-button class="mat-primary" *appIfAuth="false">
+  <a [routerLink]="['/event', tournament.id, 'results']" mat-raised-button class="mat-primary" *appIfAuth="false" aria-label="Go to results">
     <i class="fa fa-fw fa-arrow-right"></i>
     <span translate>Go to results</span>
   </a>

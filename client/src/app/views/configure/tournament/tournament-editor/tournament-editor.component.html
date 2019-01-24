@@ -4,24 +4,24 @@
     <span>{{ tournamentForm.value.name || 'Tournament' }}</span>
   </h1>
 
-  <button mat-icon-button class="buttons" [matMenuTriggerFor]="options">
+  <button mat-icon-button class="buttons" [matMenuTriggerFor]="options" aria-label="Options">
     <i class="fa fa-fw fa-ellipsis-v"></i>
   </button>
 
   <mat-menu #options="matMenu">
-    <button mat-menu-item type="button" *appIfAuth="'Organizer'" [routerLink]="['./scorecards']">
+    <button mat-menu-item type="button" *appIfAuth="'Organizer'" [routerLink]="['./scorecards']" aria-label="Judge scorecards">
       <i class="fa fa-fw fa-print"></i>
       <span>{{'Judge scorecards' | translate}}</span>
     </button>
-    <button mat-menu-item type="button" [routerLink]="['/event', tournament.id, 'list']">
+    <button mat-menu-item type="button" [routerLink]="['/event', tournament.id, 'list']" aria-label="Schedule">
       <i class="fa fa-fw fa-list"></i>
       <span translate>Schedule</span>
     </button>
-    <button mat-menu-item type="button" [routerLink]="['/event', tournament.id, 'results']">
+    <button mat-menu-item type="button" [routerLink]="['/event', tournament.id, 'results']" aria-label="Results">
       <i class="fa fa-fw fa-trophy"></i>
       <span translate>Results </span>
     </button>
-    <button mat-menu-item type="button" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'display']">
+    <button mat-menu-item type="button" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'display']" aria-label="Display">
       <i class="fa fa-fw fa-tv"></i>
       <span translate>Display </span>
     </button>
@@ -47,7 +47,7 @@
       <th *ngIf="tournament.venue" translate>Location</th>
       <td *ngIf="tournament.venue">
         <span>{{ tournament.venue.name }}</span>
-        <a class="marker" [routerLink]="['../../venue', tournament.venue.id]" [title]="'View location info' | translate">
+        <a class="marker" [routerLink]="['../../venue', tournament.venue.id]" [title]="'View location info' | translate" aria-label="View location info">
           <i class="fa fa-fw fa-map-marker"></i>
         </a>
       </td>
@@ -144,44 +144,45 @@
 
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="tournamentForm.invalid || tournamentForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="tournamentForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><i
-           class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="tournamentForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()" aria-label="Delete">
+        <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>
 
 <menu mat-tab-nav-bar *ngIf="tournamentForm.value.id" class="screen-only">
   <a mat-tab-link *ngIf="canEdit" routerLink="./divisions" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
-     [title]="menuTitle()">
+     [title]="menuTitle()" aria-label="Divisions">
     <i class="fa fa-fw fa-cubes"></i>&nbsp;
     <span translate>Divisions</span>
   </a>
 
   <a mat-tab-link *ngIf="canEdit" routerLink="./disciplines" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
-     [title]="menuTitle()">
+     [title]="menuTitle()" aria-label="Disciplines">
     <i class="fa fa-fw fa-heartbeat"></i>&nbsp;
     <span translate>Disciplines</span>
   </a>
 
-  <a mat-tab-link *appIfAuth="'Club'" routerLink="./teams" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()">
+  <a mat-tab-link *appIfAuth="'Club'" routerLink="./teams" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()" aria-label="Teams">
     <i class="fa fa-fw fa-users"></i>&nbsp;
     <span translate>Teams</span>
   </a>
 
-  <a mat-tab-link *ngIf="canEdit" routerLink="./schedule" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()">
+  <a mat-tab-link *ngIf="canEdit" routerLink="./schedule" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()" aria-label="Schedule">
     <i class="fa fa-fw fa-sort-numeric-asc"></i>&nbsp;
     <span translate>Schedule</span>
   </a>
 
   <a mat-tab-link *ngIf="canEdit" routerLink="./awards" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
-     [title]="menuTitle()">
+     [title]="menuTitle()" aria-label="Awards">
     <i class="fa fa-fw fa-trophy"></i>&nbsp;
     <span translate>Awards</span>
   </a>
 
   <a mat-tab-link *ngIf="canEdit" routerLink="./info" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
-     [title]="menuTitle()">
+     [title]="menuTitle()" aria-label="Info">
     <i class="fa fa-fw fa-info"></i>&nbsp;
     <span translate>Info</span>
   </a>

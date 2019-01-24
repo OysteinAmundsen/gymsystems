@@ -31,7 +31,7 @@ export class AdvancedComponent implements OnInit {
     this.title.setTitle('GymSystems | Advanced configuration');
     this.meta.updateTag({ property: 'og:title', content: 'GymSystems | Advanced configuration' });
     this.meta.updateTag({ property: 'og:description', content: 'Configuring advanced system properties' });
-    this.meta.updateTag({ property: 'description', content: 'Configuring advanced system properties' });
+    this.meta.updateTag({ property: 'Description', content: 'Configuring advanced system properties' });
 
     this.isLoading = true;
     this.configForm = this.fb.group({

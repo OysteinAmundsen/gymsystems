@@ -5,32 +5,31 @@
     <h2>{{ tournament.name }}</h2>
   </div>
 
-  <button mat-icon-button [matMenuTriggerFor]="options">
+  <button mat-icon-button [matMenuTriggerFor]="options" aria-label="Options">
     <i class="fa fa-fw fa-ellipsis-v"></i>
   </button>
   <mat-menu #options="matMenu" class="buttons">
-    <a [routerLink]="['/configure/tournament', tournament.id]" mat-menu-item *appIfAuth="'Secretariat'"
-      [routerLinkActive]="['active']">
+    <a [routerLink]="['/configure/tournament', tournament.id]" mat-menu-item *appIfAuth="'Secretariat'" [routerLinkActive]="['active']" aria-label="Settings">
       <i class="fa fa-fw fa-cog"></i>
       <span translate>Settings </span>
     </a>
-    <a [routerLink]="['./list']" mat-menu-item [routerLinkActive]="['active']">
+    <a [routerLink]="['./list']" mat-menu-item [routerLinkActive]="['active']" aria-label="Schedule">
       <i class="fa fa-fw fa-list"></i>
       <span translate>Schedule</span>
     </a>
-    <a [routerLink]="['./results']" mat-menu-item [routerLinkActive]="['active']">
+    <a [routerLink]="['./results']" mat-menu-item [routerLinkActive]="['active']" aria-label="Results">
       <i class="fa fa-fw fa-trophy"></i>
       <span translate>Results </span>
     </a>
-    <a [routerLink]="['./display']" mat-menu-item *appIfAuth="'Secretariat'" [routerLinkActive]="['active']">
+    <a [routerLink]="['./display']" mat-menu-item *appIfAuth="'Secretariat'" [routerLinkActive]="['active']" aria-label="Display">
       <i class="fa fa-fw fa-tv"></i>
       <span>{{'Display' | translate }}</span>
     </a>
-    <a [routerLink]="['./signoff']" mat-menu-item *appIfAuth="'Secretariat'">
+    <a [routerLink]="['./signoff']" mat-menu-item *appIfAuth="'Secretariat'" aria-label="Judge signoff report">
       <i class="fa fa-fw fa-print"></i>
       <span>{{'Judge signoff' | translate }}</span>
     </a>
-    <button type="button" (click)="printPage()" mat-menu-item>
+    <button type="button" (click)="printPage()" mat-menu-item aria-label="Print page" aria-label="Print this page">
       <i class="fa fa-fw fa-print"></i>
       <span>{{'Print page' | translate }}</span>
     </button>

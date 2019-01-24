@@ -57,8 +57,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     // Page meta tags
     this.title.setTitle('GymSystems');
     this.meta.updateTag({ property: 'og:title', content: `GymSystems` });
-    this.meta.updateTag({ property: 'og:description', content: `Web system for competitive teamgym scoreboarding` });
-    this.meta.updateTag({ property: 'description', content: `Web system for competitive teamgym scoreboarding` });
+    this.meta.updateTag({ property: 'og:description', content: `A complete web based system for managing the secretariat for Team Gymnastic sports.` });
+    this.meta.updateTag({ property: 'Description', content: `A complete web based system for managing the secretariat for Team Gymnastic sports.` });
 
     // Make sure texts exists and are translated
     this.translate.get(['Future', 'Past']).subscribe();

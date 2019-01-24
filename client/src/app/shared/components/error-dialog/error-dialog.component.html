@@ -7,7 +7,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button (click)="close()">{{'Ok' | translate}}</button>
+  <button mat-button (click)="close()" aria-label="Confirm and close">{{'Ok' | translate}}</button>
 </mat-dialog-actions>
 <footer>
   <mat-progress-bar mode="determinate" [value]="timeRemaining"></mat-progress-bar>

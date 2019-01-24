@@ -28,7 +28,7 @@ export class UsersComponent implements OnInit {
     title.setTitle('GymSystems | Configure users');
     this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure users` });
     this.meta.updateTag({ property: 'og:description', content: `List all users by club` });
-    this.meta.updateTag({ property: 'description', content: `List all users by club` });
+    this.meta.updateTag({ property: 'Description', content: `List all users by club` });
   }
 
   ngOnInit() {

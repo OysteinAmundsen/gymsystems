@@ -1,34 +1,34 @@
 <menu role="menu" *appIfAuth="true" class="screen-only">
   <mat-nav-list>
-    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Club'" routerLink="./tournament">
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Club'" routerLink="./tournament" aria-label="Tournaments">
       <i matListIcon class="fa fa-fw fa-trophy"></i>
       <span matLine translate>Tournaments</span>
     </a>
-    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Club'" routerLink="./club">
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Club'" routerLink="./club" aria-label="Club">
       <i matListIcon class="fa fa-fw fa-university"></i>
       <span matLine translate>Club</span>
     </a>
-    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Organizer'" routerLink="./venue">
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Organizer'" routerLink="./venue" aria-label="Venue">
       <i matListIcon class="fa fa-fw fa-map-marker"></i>
       <span matLine translate>Venue</span>
     </a>
 
     <mat-divider *appIfAuth="'Organizer'"></mat-divider>
-    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Organizer'" routerLink="./users">
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Organizer'" routerLink="./users" aria-label="Users">
       <i matListIcon class="fa fa-fw fa-users"></i>
       <span matLine translate>Users</span>
     </a>
-    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'" routerLink="./display">
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'" routerLink="./display" aria-label="Display">
       <i matListIcon class="fa fa-fw fa-tv"></i>
       <span matLine translate>Display</span>
     </a>
-    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'" routerLink="./advanced">
+    <a mat-list-item role="menuitem" [routerLinkActive]="['active']" *appIfAuth="'Admin'" routerLink="./advanced" aria-label="Advanced">
       <i matListIcon class="fa fa-fw fa-cogs"></i>
       <span matLine translate>Advanced settings</span>
     </a>
 
     <mat-divider></mat-divider>
-    <a mat-list-item role="menuitem" routerLink="/logout">
+    <a mat-list-item role="menuitem" routerLink="/logout" aria-label="Logout">
       <i matListIcon class="fa fa-fw fa-sign-out"></i>
       <span matLine translate>Log out</span>
     </a>

@@ -47,27 +47,27 @@
           [ngClass]="{'male': member.gender == genders.Male, 'female': member.gender == genders.Female, collapsed: selected == member}"></mat-row>
 </mat-table>
 
-<button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()">
+<button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()" aria-label="Add">
   <i class="fa fa-fw fa-plus"></i>
   <span translate>Add Member</span>
 </button>
-<a mat-raised-button class="file-upload btn" *ngIf="selected == null" [title]="'Import' | translate">
+<a mat-raised-button class="file-upload btn" *ngIf="selected == null" [title]="'Import' | translate" aria-label="Import members">
   <input type="file" (change)="importMember($event)" accept=".csv">
   <i class="fa fa-fw fa-upload"></i>
   <span translate>Import Members</span>
 </a>
-<a mat-raised-button href="/api/clubs/{{ club.id }}/export-members" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0" [title]="'Import' | translate">
+<a mat-raised-button href="/api/clubs/{{ club.id }}/export-members" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0" [title]="'Export' | translate" aria-label="Export members">
   <i class="fa fa-fw fa-download"></i>
   <span translate>Export Members</span>
 </a>
 <ng-container *ngIf="!selectMode">
-  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete all' | translate" (click)="deleteAll()" *appIfAuth="'Admin'">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete all' | translate" (click)="deleteAll()" *appIfAuth="'Admin'" aria-label="Delete all members">
     <i class="fa fa-fw fa-trash"></i>
     <span translate>Delete all</span>
   </button>
 </ng-container>
 <ng-container *ngIf="selectMode">
-  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteSelected()" *appIfAuth="'Organizer'">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteSelected()" *appIfAuth="'Organizer'" aria-label="Delete selected member">
     <i class="fa fa-fw fa-trash"></i>
     <span translate>Delete selected</span>
   </button>

@@ -172,7 +172,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.title.setTitle(`GymSystems | Configure tournament: ${tournament.name}`);
     this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure tournament: ${tournament.name}` });
     this.meta.updateTag({ property: 'og:description', content: `Configure tournament settings and contenders for ${tournament.name}` });
-    this.meta.updateTag({ property: 'description', content: `Configure tournament settings and contenders for ${tournament.name}` });
+    this.meta.updateTag({ property: 'Description', content: `Configure tournament settings and contenders for ${tournament.name}` });
 
     if (this.tournamentForm) {
       // If not, this component is probably terminated before callback is called.

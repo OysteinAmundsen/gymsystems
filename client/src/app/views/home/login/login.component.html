@@ -18,7 +18,9 @@
       </div>
     </fieldset>
     <footer>
-      <button mat-raised-button class="mat-primary" type="submit" [title]="'Login' | translate" [disabled]="loginForm.invalid || loginForm.pristine"><i class="fa fa-fw fa-sign-in"></i> <span translate>Login</span></button>
+      <button mat-raised-button class="mat-primary" type="submit" [title]="'Login' | translate" [disabled]="loginForm.invalid || loginForm.pristine" aria-label="Login">
+        <i class="fa fa-fw fa-sign-in"></i> <span translate>Login</span>
+      </button>
     </footer>
   </section>
 
@@ -32,7 +34,7 @@
       </span>
     </div>
     <footer>
-      <a mat-button [title]="'Register' | translate" [routerLink]="['../register']">
+      <a mat-button [title]="'Register' | translate" [routerLink]="['../register']" aria-label="Register new user">
         <i class="fa fa-fw fa-user-plus"></i> <span translate>Register</span></a>
     </footer>
   </section>

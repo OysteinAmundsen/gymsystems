@@ -59,15 +59,13 @@
         </td>
         <td *ngIf="item.type === types.Training" class="score"></td>
         <td *ngIf="canViewActions()" class="actions screen-only" rowspan="2">
-          <button mat-icon-button *ngIf="canStart(item, i)" (click)="start(item, $event)" [title]="'Start' | translate">
+          <button mat-icon-button *ngIf="canStart(item, i)" (click)="start(item, $event)" [title]="'Start' | translate" aria-label="Start">
             <i class="fa fa-fw fa-play"></i>
           </button>
-          <button mat-icon-button *ngIf="item.startTime != null && item.endTime == null && score(item) == 0" (click)="stop(item, $event)"
-            [title]="'Stop' | translate">
+          <button mat-icon-button *ngIf="item.startTime != null && item.endTime == null && score(item) == 0" (click)="stop(item, $event)" [title]="'Stop' | translate" aria-label="Stop">
             <i class="fa fa-fw fa-stop"></i>
           </button>
-          <button mat-icon-button *ngIf="score(item) > 0 && item.publishTime == null" (click)="publish(item, $event)"
-            [title]="'Publish' | translate">
+          <button mat-icon-button *ngIf="score(item) > 0 && item.publishTime == null" (click)="publish(item, $event)" [title]="'Publish' | translate" aria-label="Publish">
             <i class="fa fa-fw fa-share"></i>
           </button>
         </td>

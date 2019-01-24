@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-header>
       <div class="card-actions">
-        <button type="button" mat-icon-button (click)="close()"><i class="fa fa-fw fa-close"></i></button>
+        <button type="button" mat-icon-button (click)="close()" aria-label="Close"><i class="fa fa-fw fa-close"></i></button>
       </div>
       <i class="fa fa-fw fa-group fa-2x" mat-card-avatar></i>
       <mat-card-title>
@@ -24,7 +24,7 @@
             </mat-autocomplete>
             <app-help-block *ngIf="teamForm.value.club != null">
               <p translate>You cannot enter a team name before you've selected which club it belongs to</p>
-              <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="['/configure/club']">Club</a>
+              <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="['/configure/club']" aria-label="Configure club">Club</a>
                 section</p>
             </app-help-block>
           </mat-form-field>
@@ -100,13 +100,16 @@
                   <td class="media">
                     <div class="flex">
                       <div class="action-buttons">
-                        <button mat-icon-button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)"
-                                [title]="'Play media' | translate"><i class="fa fa-fw fa-play"></i></button>
-                        <button mat-icon-button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)"
-                                [title]="'Stop playing' | translate"><i class="fa fa-fw fa-stop"></i></button>
-                        <button mat-icon-button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate"><i
-                             class="fa fa-fw fa-trash"></i></button>
-                        <a mat-icon-button class="file-upload" *ngIf="!hasMedia(discipline) && !teamForm.invalid && selectedDisciplines.checked" [title]="'Upload media' | translate">
+                        <button mat-icon-button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)" [title]="'Play media' | translate" aria-label="Play media">
+                          <i class="fa fa-fw fa-play"></i>
+                        </button>
+                        <button mat-icon-button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" [title]="'Stop playing' | translate" aria-label="Stop playing">
+                          <i class="fa fa-fw fa-stop"></i>
+                        </button>
+                        <button mat-icon-button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate" aria-label="Remove media">
+                          <i class="fa fa-fw fa-trash"></i>
+                        </button>
+                        <a mat-icon-button class="file-upload" *ngIf="!hasMedia(discipline) && !teamForm.invalid && selectedDisciplines.checked" [title]="'Upload media' | translate" aria-label="Upload media">
                           <input type="file" (change)="fileAdded($event, discipline)" accept=".mp3,.wav">
                           <i class="fa fa-fw fa-upload"></i>
                         </a>
@@ -145,8 +148,8 @@
     </mat-card-content>
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="teamForm.invalid || teamForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"><i class="fa fa-fw fa-trash"></i>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()" aria-label="Delete"><i class="fa fa-fw fa-trash"></i>
         <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>

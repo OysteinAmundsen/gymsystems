@@ -37,22 +37,22 @@
   <mat-row *matRowDef="let team; columns: displayedColumns; let index=index" #dataRow (click)="select(team, index)" (press)="onPress($event)"></mat-row>
 </mat-table>
 
-<button mat-raised-button class="mat-accent" type="button" [title]="'Add' | translate" (click)="addTeam()">
+<button mat-raised-button class="mat-accent" type="button" [title]="'Add' | translate" (click)="addTeam()" aria-label="Add">
   <i class="fa fa-fw fa-plus"></i>
   <span translate>Add Team</span>
 </button>
-<button mat-raised-button type="button" [title]="'Generate' | translate" (click)="generateTeams()">
+<button mat-raised-button type="button" [title]="'Generate' | translate" (click)="generateTeams()" aria-label="Generate teams from members">
   <i class="fa fa-fw fa-magic"></i>
   <span translate>Generate teams from members</span>
 </button>
 <ng-container *ngIf="!selectMode">
-  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete all' | translate" (click)="deleteAllTeams()" *appIfAuth="'Admin'">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete all' | translate" (click)="deleteAllTeams()" *appIfAuth="'Admin'" aria-label="Delete all teams">
     <i class="fa fa-fw fa-trash"></i>
     <span translate>Delete all teams</span>
   </button>
 </ng-container>
 <ng-container *ngIf="selectMode">
-  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteAllTeams()" *appIfAuth="'Organizer'">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteAllTeams()" *appIfAuth="'Organizer'" aria-label="Delete selected team">
     <i class="fa fa-fw fa-trash"></i>
     <span translate>Delete selected teams</span>
   </button>

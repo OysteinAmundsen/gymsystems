@@ -25,7 +25,7 @@
   <tr mat-row *matRowDef="let team; columns: displayColumns; let index = index" #dataRow [routerLink]="['.', team.id]"></tr>
 </table>
 
-<button mat-raised-button type="button" class="mat-accent" [title]="'Add' | translate" (click)="addTeam()" [disabled]="!hasFreeSlots">
+<button mat-raised-button type="button" class="mat-accent" [title]="'Add' | translate" (click)="addTeam()" [disabled]="!hasFreeSlots" aria-label="Add team">
   <i class="fa fa-fw fa-plus"></i> <span translate>Add Team</span>
 </button>
 
