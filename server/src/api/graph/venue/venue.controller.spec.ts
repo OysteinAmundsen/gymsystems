@@ -1,18 +1,25 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { VenueController } from './venue.controller';
+import { VenueService } from "./venue.service";
+import { VenueController } from "./venue.controller";
 
-describe('Venue Controller', () => {
+describe("VenueController", () => {
   let controller: VenueController;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const venueServiceStub = {
+      findLocationByAddress: () => Promise.resolve({})
+    };
+    const testModule: TestingModule = await Test.createTestingModule({
       controllers: [VenueController],
+      providers: [
+        { provide: VenueService, useValue: venueServiceStub }
+      ]
     }).compile();
 
-    controller = module.get<VenueController>(VenueController);
+    controller = testModule.get<VenueController>(VenueController);
   });
 
-  it('should be defined', () => {
+  it("can load instance", () => {
     expect(controller).toBeDefined();
   });
 });

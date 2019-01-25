@@ -1,7 +1,8 @@
 {
   "compileOnSave": false,
   "noAngularCompilerOptions": {
-    "enableIvy": true
+    "target": "application",
+    "enableIvy": "ngtsc"
   },
   "compilerOptions": {
     "baseUrl": "./src",

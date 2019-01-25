@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
 
   // Lazy loaded modules
-  { path: 'configure', loadChildren: './views/configure/configure.module#ConfigureModule' },
-  { path: 'event', loadChildren: './views/event/event.module#EventModule' },
+  { path: 'configure', loadChildren: 'app/views/configure/configure.module#ConfigureModule' },
+  { path: 'event', loadChildren: 'app/views/event/event.module#EventModule' },
 
   // Catch all redirect to home
   { path: '**', redirectTo: '' },
