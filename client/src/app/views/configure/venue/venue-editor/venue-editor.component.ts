@@ -2,8 +2,6 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import * as _ from 'lodash';
-
 import { IVenue } from 'app/model';
 import { TranslateService } from '@ngx-translate/core';
 import { ValidationService } from 'app/shared/services/validation';

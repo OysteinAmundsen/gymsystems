@@ -1,0 +1,16 @@
+config:
+  target: 'https://www.gymsystems.org'
+  phases:
+    - duration: 20
+      arrivalRate: 0
+      rampTo: 100
+scenarios:
+  - flow:
+    - get:
+        url: "/"
+    - think: 3
+    - get:
+        url: "/event/2/results"
+    - think: 5
+    - get:
+        url: "/event/2/list"

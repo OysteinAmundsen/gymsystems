@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import * as Handlebars from 'handlebars';
+import { registerHelper, compile } from 'handlebars';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Not } from 'typeorm';
 
@@ -16,7 +16,7 @@ export class DisplayController {
     private readonly scoreService: ScoreService,
     @InjectRepository(TeamInDiscipline) private readonly scheduleRepository: Repository<TeamInDiscipline>
   ) {
-    Handlebars.registerHelper('list', function (context: any, options: any) {
+    registerHelper('list', function (context: any, options: any) {
       let ret = '';
       if (options) {
         // Use given `len` attribute, or default to entire contexts length.
@@ -27,17 +27,17 @@ export class DisplayController {
       }
       return ret;
     });
-    Handlebars.registerHelper('fix', function (context: any, options: any) {
+    registerHelper('fix', function (context: any, options: any) {
       if (options && context != null) {
         const len = options.hash ? options.hash.len : 0;
         return `${parseFloat(context).toFixed(len)}`;
       }
       return context;
     });
-    Handlebars.registerHelper('center', function (options: any) {
+    registerHelper('center', function (options: any) {
       return `<div class="center">${options.fn(this)}</div>`;
     });
-    Handlebars.registerHelper('size', function (context: any, options: any) {
+    registerHelper('size', function (context: any, options: any) {
       const size = context || 0;
       return `<span class="size-${size}">${options.fn(this)}</span>`;
     });
@@ -103,7 +103,7 @@ export class DisplayController {
     return Promise.all(published.map(p => {
       return this.scoreService.getTotalScore(p).then(total => { p.total = total; return p });
     })).then(res => {
-      return Handlebars.compile(template, { noEscape: true })({
+      return compile(template, { noEscape: true })({
         tournament: tournament,
         current: current,
         next: next,

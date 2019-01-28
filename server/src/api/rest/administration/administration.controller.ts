@@ -1,7 +1,7 @@
 import { Controller, Get, Res, BadRequestException, Post, FileInterceptor, UseInterceptors, UploadedFile, Param, UseGuards, Body, Put, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiImplicitFile, ApiImplicitParam, ApiImplicitBody } from '@nestjs/swagger';
 import { Response } from 'express-serve-static-core';
-import * as path from 'path';
+import { resolve } from 'path';
 
 import { RoleGuard } from '../../common/auth/role.guard';
 import { Configuration } from './configuration.model';
@@ -29,7 +29,7 @@ export class AdministrationController {
     }
     return res.status(200)
       .attachment('dbdump.sql')
-      .sendFile(path.resolve('./dbdump.sql'));
+      .sendFile(resolve('./dbdump.sql'));
   }
 
   @ApiOperation({ title: 'Import database', description: 'This is a non-destructive import, which means it will not overwrite existing data.' })

@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input, HostListener, OnDestroy
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import * as _ from 'lodash';
+import { upperCase } from 'lodash';
 
 import { ITroop, IClub, IUser } from 'app/model';
 import { UserService } from 'app/shared/services/api';
@@ -35,7 +35,7 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
   troopsCount = 0;
 
   get clubName() {
-    return _.upperCase(this.troop.club ? this.troop.club.name : this.clubComponent.clubName);
+    return upperCase(this.troop.club ? this.troop.club.name : this.clubComponent.clubName);
   }
 
   get troopSuggestion() {

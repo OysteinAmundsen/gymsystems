@@ -3,19 +3,16 @@ import { FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn } from
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 import * as moment from 'moment';
-import * as _ from 'lodash';
 
 import { IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender, IGymnast } from 'app/model';
 import { UserService } from 'app/shared/services/api';
 import { MediaService } from 'app/shared/services/media.service';
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
-import { Logger } from 'app/shared/services/Logger';
 
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
-import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { MemberSelectorComponent } from 'app/views/configure/_shared/member-selector/member-selector.component';
 import { GraphService } from 'app/shared/services/graph.service';
@@ -204,10 +201,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const minAge: number = Math.min(...ages);
     const maxAge: number = Math.max(...ages);
     division = this.divisions.find(k => maxAge <= k.max && minAge >= k.min);
-    // if (divisionMatch) {
-    // division = this.ageDivisions.find(d => d.name === _.startCase(divisionMatch.name));
     this.teamForm.get('ageDivision').setValue(division ? division.id : null);
-    // }
 
     // Set gymnasts
     this.teamForm.get('gymnasts').setValue(troop.gymnasts);

@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import {Moment } from 'moment';
 
 import { ITournament } from './ITournament';
 import { IDiscipline } from './IDiscipline';
@@ -19,7 +19,7 @@ export interface ITeamInDiscipline {
   sortNumber: number;
   startTime: Date;
   markDeleted: boolean;
-  calculatedStartTime?: moment.Moment; // Exists only on client side
+  calculatedStartTime?: Moment; // Exists only on client side
   endTime: Date;
   publishTime: Date;
   type: ParticipationType;

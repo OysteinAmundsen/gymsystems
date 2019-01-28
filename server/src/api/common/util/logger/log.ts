@@ -1,9 +1,9 @@
-import * as winston from 'winston';
-import * as morgan from 'morgan';
+import { Logger as WLogger } from 'winston';
+import { StreamOptions } from 'morgan';
 import { createLogger, transports, format } from 'winston';
 
 export namespace Log {
-  export let log: winston.Logger = createLogger({
+  export let log: WLogger = createLogger({
     transports: [
       new transports.File({
         level: 'error',
@@ -44,7 +44,7 @@ export namespace Log {
   /**
   * This is the options object we relay to `morgan`
   */
-  export function stream(logDirectory): morgan.StreamOptions {
+  export function stream(logDirectory): StreamOptions {
     return require('rotating-file-stream')('access.log', {
       interval: '7d', // rotate weekly
       path: logDirectory

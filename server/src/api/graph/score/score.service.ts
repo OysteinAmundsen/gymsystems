@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PubSub } from 'graphql-subscriptions';
-import * as moment from 'moment';
+import moment, { Moment } from 'moment';
 
 import { ScoreDto } from './dto/score.dto';
 import { Score } from './score.model';
@@ -17,7 +17,7 @@ import { TotalByScoreGroup } from './dto/total-by-scoregroup.dto';
 export class ScoreService {
   localCache: { [id: string]: Score[] } = {};
   localCahcePromise: { [id: string]: Promise<Score[]> } = {};
-  cacheCreation: moment.Moment;
+  cacheCreation: Moment;
 
   constructor(
     @InjectRepository(Score) private readonly scoreRepository: Repository<Score>,

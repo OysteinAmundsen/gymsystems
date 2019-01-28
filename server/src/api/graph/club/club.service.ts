@@ -2,8 +2,7 @@ import { Injectable, HttpService, Inject, ForbiddenException } from '@nestjs/com
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PubSub } from 'graphql-subscriptions';
-import { plainToClass } from 'class-transformer';
-import * as moment from 'moment';
+import moment, { Moment } from 'moment';
 
 import { ClubDto } from './dto/club.dto';
 import { Club } from './club.model';
@@ -15,7 +14,7 @@ import { RequestContext } from '../../common/middleware/request-context.model';
 export class ClubService {
   localCache: Club[] = [];
   localCahcePromise: Promise<Club[]>;
-  cacheCreation: moment.Moment;
+  cacheCreation: Moment;
 
   static enforceSame(clubId: number): void {
     const me = RequestContext.currentUser();

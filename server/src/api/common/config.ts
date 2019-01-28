@@ -1,5 +1,5 @@
-import * as dotenv from 'dotenv';
-import * as fs from 'fs';
+import { parse } from 'dotenv';
+import { existsSync, readFileSync } from 'fs';
 import { Injectable } from '@nestjs/common';
 
 /**
@@ -7,8 +7,8 @@ import { Injectable } from '@nestjs/common';
  */
 export function readEnv() {
   const base = process.env;
-  const env_filename = (base.NODE_ENV && fs.existsSync(`${base.NODE_ENV}.env`)) ? `${base.NODE_ENV}.env` : '.env';  // `{mode}.env` or just `.env`
-  return Object.assign({}, base, fs.existsSync(env_filename) ? dotenv.parse(fs.readFileSync(env_filename)) : {});   // Concatenate .env file with system env IF exists.
+  const env_filename = (base.NODE_ENV && existsSync(`${base.NODE_ENV}.env`)) ? `${base.NODE_ENV}.env` : '.env';  // `{mode}.env` or just `.env`
+  return Object.assign({}, base, existsSync(env_filename) ? parse(readFileSync(env_filename)) : {});   // Concatenate .env file with system env IF exists.
 }
 
 @Injectable()

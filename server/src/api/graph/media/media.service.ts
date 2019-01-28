@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as mkdirp from 'mkdirp';
 import * as rimraf from 'rimraf';
-import * as schedule from 'node-schedule';
+import { cancelJob, scheduleJob } from 'node-schedule';
 
 import { MediaDto } from './dto/media.dto';
 import { Config } from '../../common/config';
@@ -89,7 +89,7 @@ export class MediaService {
         // Log.log.info(`Tournament media folder './media/${id}' removed!`);
 
         // Remove cronjob registered to this removal
-        schedule.cancelJob(tournamentId.toString());
+        cancelJob(tournamentId.toString());
 
         // Remove persisted media pointers
         const result = await this.mediaRepository.delete({ tournamentId: tournamentId });
@@ -105,10 +105,10 @@ export class MediaService {
    * Register cronjob to remove storage space at a specific datestamp
    */
   expireArchive(tournamentId: number, expire: Date) {
-    schedule.cancelJob(tournamentId.toString()); // If cronjob allready exists, remove old one first.
+    cancelJob(tournamentId.toString()); // If cronjob allready exists, remove old one first.
 
     // Create cronjob
-    schedule.scheduleJob(tournamentId.toString(), expire, () => this.removeArchive(tournamentId))
+    scheduleJob(tournamentId.toString(), expire, () => this.removeArchive(tournamentId))
     // Log.log.info(`Tournament media folder './media/${id}' registered for expiration at ${moment(expire).format('DD.MM.YYYY HH:mm')}`);
   }
 }

@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PubSub } from 'graphql-subscriptions';
-import * as moment from 'moment';
+import moment, { Moment } from 'moment';
 
 import { Tournament } from '../tournament/tournament.model';
 import { Discipline } from './discipline.model';
@@ -18,7 +18,7 @@ import { ScoreGroupService } from '../score-group/score-group.service';
 export class DisciplineService {
   localCache: Discipline[] = [];
   localCahcePromise: Promise<Discipline[]>;
-  cacheCreation: moment.Moment;
+  cacheCreation: Moment;
 
   constructor(
     private readonly configService: ConfigurationService,

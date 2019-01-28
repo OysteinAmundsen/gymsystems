@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription, noop } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import * as moment from 'moment';
 
 import { HttpStateService, HttpAction } from 'app/shared/interceptors';
 import { HttpMethod } from 'app/shared/interceptors/http-method';

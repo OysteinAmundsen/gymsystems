@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, HostListener
 import { ITeamInDiscipline, IUser, Role, IScore, Operation, IScoreGroup, Classes } from 'app/model';
 import { ScoreContainer } from 'app/views/event/list/IScoreContainer';
 import { Subscription } from 'rxjs';
-import * as _ from 'lodash';
+import { clone } from 'lodash';
 
 import { UserService } from 'app/shared/services/api';
 import { GraphService } from 'app/shared/services/graph.service';
@@ -73,7 +73,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
           return new ScoreContainer(group, this.participant.scores // Create a container for the scores
             .filter(s => s.scoreGroupId === group.id)              // ... grouped by scoregroup
             .sort((a, b) => a.judgeIndex < b.judgeIndex ? -1 : 1)  // ... and make sure it's sorted according to judgeindex
-            .map(s => _.clone(s))                                  // Apply using a copy so we can cancel the edit.
+            .map(s => clone(s))                                  // Apply using a copy so we can cancel the edit.
           );
         });
       });

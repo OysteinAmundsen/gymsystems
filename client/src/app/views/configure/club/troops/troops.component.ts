@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription, BehaviorSubject } from 'rxjs';
 
 import * as moment from 'moment';
-import * as _ from 'lodash';
+import { startCase } from 'lodash';
 
 import { ITroop, IUser, Role, IGymnast, Gender, IDivision } from 'app/model';
 import { UserService, ConfigurationService } from 'app/shared/services/api';
@@ -75,7 +75,7 @@ export class TroopsComponent implements OnInit {
     const minAge: number = Math.min(...ages);
     const maxAge: number = Math.max(...ages);
     const divisionMatch = this.defaults ? this.defaults.find(k => maxAge <= k.max && minAge >= k.min) : false;
-    return divisionMatch ? _.startCase(divisionMatch.name) : `${minAge} - ${maxAge}`;
+    return divisionMatch ? startCase(divisionMatch.name) : `${minAge} - ${maxAge}`;
   }
 
   genderDivision(team: ITroop): string {

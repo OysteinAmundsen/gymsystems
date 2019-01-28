@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as moment from 'moment';
+import moment, { Moment } from 'moment';
 
 import { JudgeInScoreGroupDto } from './dto/judge-in-score-group.dto';
 import { JudgeInScoreGroup } from './judge-in-score-group.model';
@@ -15,7 +15,7 @@ import { Discipline } from '../discipline/discipline.model';
 export class JudgeInScoreGroupService {
   localCache: JudgeInScoreGroup[] = [];
   localCahcePromise: Promise<JudgeInScoreGroup[]>;
-  cacheCreation: moment.Moment;
+  cacheCreation: Moment;
 
   constructor(
     @InjectRepository(JudgeInScoreGroup) private readonly judgeInScoreGroupRepository: Repository<JudgeInScoreGroup>,

@@ -15,7 +15,7 @@ Log.log.info(`└─────────────────────
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import 'reflect-metadata';
-import * as fs from 'fs';
+import { existsSync, mkdirSync, writeFile } from 'fs';
 
 import { AppModule } from './api/app.module';
 import { Config } from './api/common/config';
@@ -32,7 +32,7 @@ async function bootstrap() {
 
   // Logging
   const logDirectory = './log';
-  fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory); // ensure log directory exists
+  existsSync(logDirectory) || mkdirSync(logDirectory); // ensure log directory exists
   expressInstance.use(require('morgan')('combined', { stream: Log.stream(logDirectory) }));
   require('morgan-body')(expressInstance); // Log every request body/response
 
@@ -73,8 +73,8 @@ async function bootstrap() {
 
     // Generate .json API Documentation (easly import to Restlet Studio etc...)
     const apiDirectory = './api-docs';
-    fs.existsSync(apiDirectory) || fs.mkdirSync(apiDirectory); // ensure api documentation directory exists
-    await fs.writeFile(`${apiDirectory}/swagger2.json`, JSON.stringify(document, null, 4), (err: NodeJS.ErrnoException) => {
+    existsSync(apiDirectory) || mkdirSync(apiDirectory); // ensure api documentation directory exists
+    await writeFile(`${apiDirectory}/swagger2.json`, JSON.stringify(document, null, 4), (err: NodeJS.ErrnoException) => {
       if (err) throw err;
     });
   }

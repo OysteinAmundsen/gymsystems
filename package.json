@@ -22,7 +22,8 @@
     "start:client": "yarn workspace gymsystems_client start",
     "start:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker up -d",
     "stop:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker down",
-    "stop:db": "docker-compose -f ./db/docker/docker-compose.yml rm -s -f"
+    "stop:db": "docker-compose -f ./db/docker/docker-compose.yml rm -s -f",
+    "stress": "artillery run ./utils/artillery.yml"
   },
   "private": true,
   "repository": {
@@ -33,15 +34,17 @@
     "server"
   ],
   "devDependencies": {
+    "artillery": "^1.6.0-26",
     "concurrently": "^4.1.0",
     "husky": "^1.3.1",
-    "snyk": "^1.122.3"
+    "snyk": "^1.122.4"
   },
   "snyk": true,
   "resolutions": {},
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint"
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn test"
     }
   }
 }

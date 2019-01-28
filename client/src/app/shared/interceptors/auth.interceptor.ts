@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpResponse, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpResponse } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material';
 
@@ -11,12 +11,8 @@ import * as moment from 'moment';
 
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 import { HttpStateService } from 'app/shared/interceptors/http-state.service';
-import { Logger } from 'app/shared/services/Logger';
-import { HttpMethod } from 'app/shared/interceptors/http-method';
 import { UserService } from 'app/shared/services/api';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { CommonService } from 'app/shared/services/common.service';
-import { graphqlUri } from 'app/graphql.module';
 
 
 @Injectable()

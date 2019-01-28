@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException, ForbiddenException, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+import { hashSync, genSaltSync, compareSync } from 'bcrypt';
 
 import { Config } from '../../common/config';
 import { User, Role } from './user.model';
@@ -23,11 +23,11 @@ export class UserService {
    * Hash up password
    */
   createPasswordHash(password: string) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
+    return hashSync(password, genSaltSync(8));
   }
 
   isPasswordCorrect(user: User, password: string): boolean {
-    return bcrypt.compareSync(password, user.password);
+    return compareSync(password, user.password);
   }
 
   findOneByEmail(email: string): Promise<User> {
