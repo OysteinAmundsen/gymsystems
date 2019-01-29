@@ -12,6 +12,7 @@ import { DateScalar } from './scalars/date.scalar';
 import { OrmLog } from './util/logger/orm-log';
 import { getConnectionOptions } from 'typeorm';
 import { LogService } from './util/logger/log.service';
+import { Log } from './util/logger/log';
 
 
 export const pubSub = new PubSub();
@@ -25,6 +26,7 @@ export const pubSub = new PubSub();
     // Database configuration
     TypeOrmModule.forRootAsync({
       useFactory: async () => {
+        Log.log.debug(` * ${new Date().toISOString()}: Setting up TypeORM`);
         const config = await getConnectionOptions('default');
         return Object.assign(config, {
           logger: new OrmLog('all')
@@ -36,10 +38,13 @@ export const pubSub = new PubSub();
     forwardRef(() => UserModule),
     JwtModule.registerAsync({
       imports: [CommonModule], // Circular dependency, but this is async so it will resolve after this module is created
-      useFactory: async (config: Config) => ({
-        secretOrPrivateKey: config.get('SECRET'),
-        signOptions: { expiresIn: 3600 }
-      }),
+      useFactory: async (config: Config) => {
+        Log.log.debug(` * ${new Date().toISOString()}: Setting up JWT`);
+        return {
+          secretOrPrivateKey: config.get('SECRET'),
+          signOptions: { expiresIn: 3600 }
+        }
+      },
       inject: [Config]
     }),
     PassportModule.register({ defaultStrategy: 'jwt' })
@@ -55,4 +60,8 @@ export const pubSub = new PubSub();
   ],
   exports: [AuthService, JwtStrategy, LocalStrategy, Config, 'PubSubInstance', LogService]
 })
-export class CommonModule { }
+export class CommonModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: CommonModule initialized`);
+  }
+}

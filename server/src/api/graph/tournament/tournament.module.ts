@@ -12,6 +12,7 @@ import { TournamentResolver } from './tournament.resolver';
 import { Tournament } from './tournament.model';
 import { ClubModule } from '../club/club.module';
 import { VenueModule } from '../venue/venue.module';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -28,4 +29,8 @@ import { VenueModule } from '../venue/venue.module';
   providers: [TournamentService, TournamentResolver],
   exports: [TournamentService]
 })
-export class TournamentModule { }
+export class TournamentModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: TournamentModule initialized`);
+  }
+}

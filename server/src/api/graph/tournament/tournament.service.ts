@@ -14,11 +14,13 @@ import { ScheduleService } from '../schedule/schedule.service';
 import { DisciplineService } from '../discipline/discipline.service';
 import { DivisionService } from '../division/division.service';
 import { MediaService } from '../media/media.service';
+import { ClubService } from '../club/club.service';
 
 @Injectable()
 export class TournamentService {
   constructor(
     @InjectRepository(Tournament) private readonly tournamentRepository: Repository<Tournament>,
+    private readonly clubService: ClubService,
     private readonly mediaService: MediaService,
     private readonly scheduleService: ScheduleService,
     private readonly divisionService: DivisionService,
@@ -27,6 +29,13 @@ export class TournamentService {
 
   async save(tournament: TournamentDto): Promise<Tournament> {
     const isNew = !tournament.id;
+    // Make sure we have a proper club
+    if (tournament.club && (tournament.club.id === null || tournament.club.id === 0) && tournament.club.name != null) {
+      const club = await this.clubService.findOrCreateClub(tournament.club);
+      tournament.clubId = club.id;
+      tournament.club = club;
+    }
+
     if (tournament.id) {
       const entity = await this.tournamentRepository.findOne({ id: tournament.id });
       tournament = Object.assign(entity, tournament);

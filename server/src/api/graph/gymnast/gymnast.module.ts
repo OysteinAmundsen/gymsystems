@@ -6,6 +6,7 @@ import { TroopModule } from '../troop/troop.module';
 import { TeamModule } from '../team/team.module';
 import { TournamentModule } from '../tournament/tournament.module';
 import { Gymnast } from './gymnast.model';
+import { Log } from '../../common/util/logger/log';
 
 
 @Module({
@@ -18,4 +19,8 @@ import { Gymnast } from './gymnast.model';
   providers: [GymnastResolver, GymnastService],
   exports: [GymnastService]
 })
-export class GymnastModule { }
+export class GymnastModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: GymnastModule initialized`);
+  }
+}

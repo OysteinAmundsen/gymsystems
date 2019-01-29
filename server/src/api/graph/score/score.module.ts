@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Score } from './score.model';
 import { ScoreResolver } from './score.resolver';
 import { ScoreGroupModule } from '../score-group/score-group.module';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -13,4 +14,8 @@ import { ScoreGroupModule } from '../score-group/score-group.module';
   providers: [ScoreService, ScoreResolver],
   exports: [ScoreService]
 })
-export class ScoreModule { }
+export class ScoreModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: ScoreModule initialized`);
+  }
+}

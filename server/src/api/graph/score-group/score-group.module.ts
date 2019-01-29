@@ -4,6 +4,7 @@ import { ScoreGroupService } from './score-group.service';
 import { ScoreGroupResolver } from './score-group.resolver';
 import { ScoreGroup } from './score-group.model';
 import { JudgeInScoreGroupModule } from '../judge-in-score-group/judge-in-score-group.module';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -13,4 +14,8 @@ import { JudgeInScoreGroupModule } from '../judge-in-score-group/judge-in-score-
   providers: [ScoreGroupService, ScoreGroupResolver],
   exports: [ScoreGroupService]
 })
-export class ScoreGroupModule { }
+export class ScoreGroupModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: ScoreGroupModule initialized`);
+  }
+}

@@ -7,7 +7,6 @@ import { Title, Meta } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDatepickerInput, MatAutocomplete } from '@angular/material';
 
-import { Moment } from 'moment';
 import * as moment from 'moment';
 
 import { UserService } from 'app/shared/services/api';
@@ -60,11 +59,11 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
   venueList = []; // Venue typeahead
 
-  private get startDate(): Moment {
+  private get startDate(): moment.Moment {
     return moment(this.tournament.startDate);
   }
 
-  private get endDate(): Moment {
+  private get endDate(): moment.Moment {
     return moment(this.tournament.endDate);
   }
 
@@ -106,10 +105,10 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     this.tournamentForm = this.fb.group({
       id: [null],
       name: ['', [Validators.required]],
-      club: ['', [Validators.required]],
+      club: [null, [Validators.required]],
       startDate: [null, [Validators.required]],
       endDate: [null, [Validators.required]],
-      venue: [''],
+      venue: [null],
       description: [''],
       createdBy: [this.user],
       times: [new Array()],

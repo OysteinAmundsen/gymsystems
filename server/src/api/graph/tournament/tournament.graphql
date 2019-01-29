@@ -68,8 +68,10 @@ input TournamentInput {
   times: [CreateTimespanInput]
   disciplines: [IDDependencyInput]
   divisions: [IDDependencyInput]
+  venue: VenueInput
   venueId: ID
   createdById: ID
+  club: ClubInput
   clubId: ID
   providesLodging: Boolean
   lodingCostPerHead: Int

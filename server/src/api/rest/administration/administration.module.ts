@@ -7,6 +7,7 @@ import { ImportService } from './import.service';
 import { ConfigurationService } from './configuration.service';
 
 import { Configuration } from './configuration.model';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -18,4 +19,8 @@ import { Configuration } from './configuration.model';
   providers: [ExportService, ImportService, ConfigurationService],
   exports: [ConfigurationService]
 })
-export class AdministrationModule { }
+export class AdministrationModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: AdministrationModule initialized`);
+  }
+}

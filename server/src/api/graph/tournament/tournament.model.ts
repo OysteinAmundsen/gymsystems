@@ -94,17 +94,17 @@ export class Tournament implements CreatedBy, BelongsToClub {
   @ApiModelProperty({ description: `An object specifying the location of the event.` })
   @ManyToOne(type => Venue, venue => venue.tournaments, { lazy: true })
   @JoinColumn({ name: 'venueId' })
-  venue: Venue;
+  venue?: Venue;
 
-  @Column('int')
-  venueId: number;
+  @Column({ type: 'int', nullable: true })
+  venueId?: number;
 
   @ApiModelProperty({ description: `This field is automatically created when a user creates a newevent.` })
   @ManyToOne(type => User, user => user.tournaments, { nullable: false/*, lazy: true*/ })
   @JoinColumn({ name: 'createdById' })
   createdBy: User;
 
-  @Column('int')
+  @Column({ type: 'int' })
   createdById: number;
 
   @ApiModelProperty({ description: `A reference to the club this tournament is hosted by` })

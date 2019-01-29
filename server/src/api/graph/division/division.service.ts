@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import moment, { Moment } from 'moment';
+import * as moment from 'moment';
 
 import { Division } from './division.model';
 import { Team } from '../team/team.model';
@@ -15,7 +15,7 @@ import { ConfigurationService } from '../../rest/administration/configuration.se
 export class DivisionService {
   localCache: Division[] = [];
   localCahcePromise: Promise<Division[]>;
-  cacheCreation: Moment;
+  cacheCreation: moment.Moment;
 
   constructor(
     private readonly configService: ConfigurationService,

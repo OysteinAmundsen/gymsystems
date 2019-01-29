@@ -21,7 +21,9 @@ export function createApollo(httpLink: HttpBatchLink) {
   // Create the apollo client
   return {
     link: headerLink.concat(link),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache(/*{
+      addTypename: false
+    }*/),
     defaultOptions: {
       watchQuery: {
         fetchPolicy: 'cache-and-network',

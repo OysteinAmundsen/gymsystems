@@ -9,46 +9,16 @@
       "command": "yarn",
       "args": [
         "--silent",
-        "run",
-        "build:server"
+        "tsc"
       ],
       "group": {
         "kind": "build",
         "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
       }
-    },
-    {
-      "label": "Watch and Compile Project",
-      "type": "shell",
-      "command": "yarn",
-      "args": [
-        "--silent",
-        "run",
-        "build"
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "problemMatcher": "$tsc-watch"
-    },
-    {
-      "label": "Build, Test and Lint",
-      "type": "shell",
-      "command": "yarn",
-      "args": [
-        "--silent",
-        "run",
-        "test:dev"
-      ],
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      },
-      "problemMatcher": [
-        "$tsc",
-        "$tslint5"
-      ]
     }
   ]
 }

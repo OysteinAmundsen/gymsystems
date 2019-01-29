@@ -5,6 +5,7 @@ import { VenueResolver } from './venue.resolver';
 import { VenueService } from './venue.service';
 import { TournamentModule } from '../tournament/tournament.module';
 import { VenueController } from './venue.controller';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -15,4 +16,8 @@ import { VenueController } from './venue.controller';
   exports: [VenueService],
   controllers: [VenueController]
 })
-export class VenueModule { }
+export class VenueModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: VenueModule initialized`);
+  }
+}

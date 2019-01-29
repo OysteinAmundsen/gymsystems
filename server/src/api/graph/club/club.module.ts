@@ -8,6 +8,7 @@ import { TeamModule } from '../team/team.module';
 import { TournamentModule } from '../tournament/tournament.module';
 import { UserModule } from '../user/user.module';
 import { GymnastModule } from '../gymnast/gymnast.module';
+import { Log } from '../../common/util/logger/log';
 
 
 @Module({
@@ -23,4 +24,8 @@ import { GymnastModule } from '../gymnast/gymnast.module';
   providers: [ClubResolver, ClubService],
   exports: [ClubService]
 })
-export class ClubModule { }
+export class ClubModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: ClubModule initialized`);
+  }
+}

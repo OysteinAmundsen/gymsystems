@@ -14,7 +14,12 @@
     "noImplicitAny": false,
     "removeComments": true,
     // "allowJs": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "api/*": [
+        "./api/*"
+      ]
+    }
   },
   "include": [
     "src/**/*",
@@ -23,10 +28,5 @@
   "exclude": [
     "**/node_modules/*",
     "**/*.spec.ts"
-  ],
-  "paths": {
-    "api/*": [
-      "./api/*"
-    ]
-  }
+  ]
 }

@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 import { UserResolver } from './user.resolver';
 import { UserController } from './user.controller';
 import { User } from './user.model';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -22,4 +23,8 @@ import { User } from './user.model';
   providers: [UserResolver, UserService],
   exports: [UserService]
 })
-export class UserModule { }
+export class UserModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: UserModule initialized`);
+  }
+}

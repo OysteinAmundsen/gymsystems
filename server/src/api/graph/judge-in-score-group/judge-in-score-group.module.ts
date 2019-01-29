@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JudgeInScoreGroup } from './judge-in-score-group.model';
 import { JudgeModule } from '../judge/judge.module';
 import { ScoreGroupModule } from '../score-group/score-group.module';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -15,4 +16,8 @@ import { ScoreGroupModule } from '../score-group/score-group.module';
   providers: [JudgeInScoreGroupService, JudgeInScoreGroupResolver],
   exports: [JudgeInScoreGroupService]
 })
-export class JudgeInScoreGroupModule { }
+export class JudgeInScoreGroupModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: JudgeInScoreGroupModule initialized`);
+  }
+}

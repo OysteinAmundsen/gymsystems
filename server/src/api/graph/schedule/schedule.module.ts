@@ -10,6 +10,7 @@ import { DivisionModule } from '../division/division.module';
 import { ScheduleService } from './schedule.service';
 import { TeamInDiscipline } from './team-in-discipline.model';
 import { ScheduleResolver } from './schedule.resolver';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -23,4 +24,8 @@ import { ScheduleResolver } from './schedule.resolver';
   providers: [ScheduleService, ScheduleResolver],
   exports: [ScheduleService]
 })
-export class ScheduleModule { }
+export class ScheduleModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: ScheduleModule initialized`);
+  }
+}

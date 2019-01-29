@@ -8,6 +8,7 @@
       "type": "chrome",
       "request": "launch",
       "name": "Client",
+      "preLaunchTask": "Client serve",
       "sourceMaps": true,
       "webRoot": "${workspaceRoot}/client",
       "url": "http://localhost:4200"
@@ -16,15 +17,17 @@
       "type": "node",
       "request": "launch",
       "name": "Server",
-      "preLaunchTask": "Server build",
+      "preLaunchTask": "Server watch",
       "protocol": "inspector",
       "cwd": "${workspaceRoot}/server",
+      "sourceMaps": true,
       "outFiles": [
         "${workspaceRoot}/server/dist/**/*.js"
       ],
-      "program": "${workspaceRoot}/server/src/main.ts",
+      "program": "${workspaceRoot}/server/dist/main.js",
       "restart": true,
-      "console": "internalConsole",
+      "console": "integratedTerminal",
+      "outputCapture": "console",
       "envFile": "${workspaceRoot}/server/.env"
     },
     {
@@ -55,6 +58,15 @@
       "windows": {
         "program": "${workspaceFolder}/node_modules/jest/bin/jest",
       }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Server/Client",
+      "configurations": [
+        "Server",
+        "Client"
+      ]
     }
   ]
 }

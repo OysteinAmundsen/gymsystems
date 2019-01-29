@@ -1,5 +1,7 @@
 import { ApiModelPropertyOptional, ApiModelProperty } from '@nestjs/swagger';
 import { TimeSpan } from '../tournament.model';
+import { VenueDto } from 'api/graph/venue/dto/venue.dto';
+import { ClubDto } from 'api/graph/club/dto/club.dto';
 
 export class TournamentDto {
   @ApiModelProperty({ description: `The tournament primary key` })
@@ -23,11 +25,15 @@ export class TournamentDto {
   @ApiModelPropertyOptional({ description: `An array of timespans, describing the start and end time for each day in the event.` })
   times?: TimeSpan[];
 
+  venue?: VenueDto;
+
   @ApiModelProperty({ description: `An object specifying the location of the event.` })
   venueId?: number;
 
   @ApiModelProperty({ description: `This field is automatically created when a user creates a newevent.` })
   createdById?: number;
+
+  club: ClubDto;
 
   @ApiModelProperty({ description: `A reference to the club this tournament is hosted by` })
   clubId?: number;

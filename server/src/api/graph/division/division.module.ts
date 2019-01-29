@@ -4,6 +4,7 @@ import { DivisionResolver } from './division.resolver';
 import { DivisionService } from './division.service';
 import { TeamModule } from '../team/team.module';
 import { Division } from './division.model';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -13,6 +14,10 @@ import { Division } from './division.model';
   providers: [DivisionResolver, DivisionService],
   exports: [DivisionService]
 })
-export class DivisionModule { }
+export class DivisionModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: DivisionModule initialized`);
+  }
+}
 
 

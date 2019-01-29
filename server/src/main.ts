@@ -1,43 +1,81 @@
-require('v8-compile-cache');
+// require('v8-compile-cache');
 import { performance } from 'perf_hooks';
-import { Log } from 'api/common/util/logger/log';
 
 // Set current runtime (nescessary to set proper typeorm config)
 process.env.RUNTIME = __filename.split('\\').pop().split('.').pop();
 const env = process.env.RUNTIME;
 const startTime = performance.now();
 
-Log.log.info(`┌────────────────────────────────────────────────────────────┐`);
-Log.log.info(`│    Starting: ${new Date().toUTCString()}                 │`);
-Log.log.info(`│     Runtime: ${env}                                            │`);
-Log.log.info(`└────────────────────────────────────────────────────────────┘`);
+import { Log } from './api/common/util/logger/log';
+const lineLength = 75;
+Log.log.info(padRight(`┌`, lineLength, '─') + `┐`);
+Log.log.info(padRight(`│    Starting: ${new Date().toISOString()}`, lineLength, ' ') + `│`);
+Log.log.info(padRight(`│      Memory: ${readMem()}`, lineLength, ' ') + `│`);
+Log.log.info(padRight(`│     Runtime: ${env}`, lineLength, ' ') + `│`);
+Log.log.info(padRight(`└`, lineLength, '─') + `┘`);
 
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import 'reflect-metadata';
 import { existsSync, mkdirSync, writeFile } from 'fs';
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import * as helmet from 'helmet';
+import * as morgan from 'morgan';
+import * as morganBody from 'morgan-body';
 
-import { AppModule } from './api/app.module';
 import { Config } from './api/common/config';
 import { HttpExceptionFilter } from './api/common/filters/http-exception.filter';
-import { LogService } from 'api/common/util/logger/log.service';
+import { LogService } from './api/common/util/logger/log.service';
 
+// This one takes up the most time on startup
+import { AppModule } from './api/app.module';
+Log.log.debug(` * ${new Date().toISOString()}: imports done in ${(performance.now() - startTime).toFixed(3)}ms`);
+Log.log.debug(` * Memory: ${readMem()}`);
+
+let bootTime;
+
+function padRight(str, length, character) {
+  while (str.length < length) {
+    str += character;
+  }
+  return str;
+}
+
+/**
+ * Prints out a human readable compillation of the current memory usage
+ * of the running process.
+ */
+function readMem() {
+  const mem = process.memoryUsage();
+  const convert = { Kb: n => (n / 1024), Mb: n => convert.Kb(n) / 1024 };
+  const toHuman = (n, t) => `${convert[t](n).toFixed(2)}${t}`;
+  return `Used ${toHuman(mem.heapUsed, 'Mb')} of ${toHuman(mem.heapTotal, 'Mb')} - RSS: ${toHuman(mem.rss, 'Mb')}`;
+}
+
+/**
+ * Bootstrap the application
+ */
 async function bootstrap() {
-  const expressInstance = require('express')();
+  Log.log.debug(` * ${new Date().toISOString()}: Bootstrapping application`);
+  bootTime = performance.now();
+
+  const expressInstance = express();
   // Configure Express Instance
-  expressInstance.use(require('helmet')()); //Helmet
-  const bodyParser = await import('body-parser');
+  expressInstance.use(helmet()); //Helmet
   expressInstance.use(bodyParser.urlencoded({ extended: false }));
   expressInstance.use(bodyParser.json()); //Body Parser
 
   // Logging
   const logDirectory = './log';
   existsSync(logDirectory) || mkdirSync(logDirectory); // ensure log directory exists
-  expressInstance.use(require('morgan')('combined', { stream: Log.stream(logDirectory) }));
-  require('morgan-body')(expressInstance); // Log every request body/response
+  expressInstance.use(morgan('combined', { stream: Log.stream(logDirectory) }));
+  morganBody(expressInstance); // Log every request body/response
 
   // Create NestJS APP
+  Log.log.debug(` * ${new Date().toISOString()}: Creating NestJS app`);
   const app = await NestFactory.create(AppModule, expressInstance, { cors: true, logger: false });
+  Log.log.debug(` * ${new Date().toISOString()}: Configuring NestJS app`);
   app.useLogger(app.get(LogService));
 
   // Global Route Prefix
@@ -57,6 +95,7 @@ async function bootstrap() {
 
   // Swagger
   if (!Config.isProd()) {
+    Log.log.debug(` * ${new Date().toISOString()}: Setting up swagger`);
     const pkg = require('../package.json');
 
     const swagger = await import('@nestjs/swagger');
@@ -81,16 +120,18 @@ async function bootstrap() {
 
   // Start listening
   await app.listen(Config.Port, Config.IP, () => {
-    Log.log.info(`┌────────────────────────────────────────────────────────────┐`);
-    Log.log.info(`│       Server listening: ${Config.ApiUrl}          │`);
+    Log.log.info(padRight(`┌`, lineLength, '─') + `┐`);
+    Log.log.info(padRight(`│       Server listening: ${Config.ApiUrl}`, lineLength, ' ') + `│`);
     if (!Config.isProd()) {
-      Log.log.info(`│  Swagger Documentation: ${Config.ApiUrl}${Config.DocsRoute}     │`);
-      Log.log.info(`│     GraphQL Playground: ${Config.ApiUrl}${Config.GraphRoute}    │`);
+      Log.log.info(padRight(`│  Swagger Documentation: ${Config.ApiUrl}${Config.DocsRoute}`, lineLength, ' ') + `│`);
+      Log.log.info(padRight(`│     GraphQL Playground: ${Config.ApiUrl}${Config.GraphRoute}`, lineLength, ' ') + `│`);
     }
-    Log.log.info('├────────────────────────────────────────────────────────────┤');
-    Log.log.info(`│     Launch: ${new Date().toUTCString()}                  │`);
-    Log.log.info(`│         Time to start: ${(performance.now() - startTime).toFixed(3)}ms                         │`);
-    Log.log.info('└────────────────────────────────────────────────────────────┘');
+    Log.log.info(padRight(`├`, lineLength, '─') + `┤`);
+    Log.log.info(padRight(`│             Memory: ${readMem()}`, lineLength, ' ') + `│`);
+    Log.log.info(padRight(`│             Launch: ${new Date().toISOString()}`, lineLength, ' ') + `│`);
+    Log.log.info(padRight(`│      Time to start: ${(performance.now() - startTime).toFixed(3)}ms`, lineLength, ' ') + `│`);
+    Log.log.info(padRight(`│     Bootstrap time: ${(performance.now() - bootTime).toFixed(3)}ms`, lineLength, ' ') + `│`);
+    Log.log.info(padRight(`└`, lineLength, '─') + `┘`);
   });
 }
 

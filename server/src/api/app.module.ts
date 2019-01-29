@@ -27,26 +27,30 @@ import { JudgeInScoreGroupModule } from './graph/judge-in-score-group/judge-in-s
 
 import { AppController } from './app.controller';
 import { RequestContextMiddleware } from './common/middleware/request-context.middleware';
+import { Log } from './common/util/logger/log';
 
 @Module({
   imports: [
     GraphQLModule.forRootAsync({
       imports: [CommonModule],
-      useFactory: async (config: Config) =>
-        <GqlModuleOptions>{
+      useFactory: async (config: Config) => {
+        Log.log.debug(` * ${new Date().toISOString()}: Setting up GraphQL`);
+
+        return <GqlModuleOptions>{
           typePaths: ['./**/*.graphql'],
           debug: !config.isProd(),
           tracing: !config.isProd(),
           playground: !config.isProd(),
           installSubscriptionHandlers: true,
           path: `/${Config.GlobalRoutePrefix}${Config.GraphRoute}`,
-
+          addTypename: false,
           definitions: {
             path: join(__dirname, `./graph/graphql.schema.ts`),
             outputAs: 'class'
           },
           context: ({ req }) => ({ req })
-        },
+        }
+      },
       inject: [Config]
     }),
     CommonModule,
@@ -71,13 +75,12 @@ import { RequestContextMiddleware } from './common/middleware/request-context.mi
     UserModule,
     VenueModule
   ],
-  controllers: [AppController],
-  providers: [
-    // { provide: APP_INTERCEPTOR, useClass: AuthInterceptor }
-  ]
+  controllers: [AppController]
 })
 export class AppModule implements NestModule {
-  constructor() { }
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: AppModule initialized`);
+  }
 
   configure(consumer: MiddlewareConsumer) {
     consumer

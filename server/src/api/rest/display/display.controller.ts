@@ -7,6 +7,7 @@ import { ConfigurationService } from '../administration/configuration.service';
 import { TournamentService } from '../../graph/tournament/tournament.service';
 import { TeamInDiscipline } from '../../graph/schedule/team-in-discipline.model';
 import { ScoreService } from '../../graph/score/score.service';
+import { Log } from '../../common/util/logger/log';
 
 @Controller('display')
 export class DisplayController {
@@ -41,6 +42,7 @@ export class DisplayController {
       const size = context || 0;
       return `<span class="size-${size}">${options.fn(this)}</span>`;
     });
+    Log.log.debug(` * ${new Date().toISOString()}: DisplayController initialized`);
   }
 
   /**

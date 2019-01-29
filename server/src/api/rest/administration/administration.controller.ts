@@ -9,12 +9,15 @@ import { Role } from '../../graph/user/user.model';
 
 import { ExportService } from './export.service';
 import { ConfigurationService } from './configuration.service';
+import { Log } from '../../common/util/logger/log';
 
 @ApiUseTags('Administration')
 @Controller('administration')
 export class AdministrationController {
 
-  constructor(private readonly exportService: ExportService, private readonly configuration: ConfigurationService) { }
+  constructor(private readonly exportService: ExportService, private readonly configuration: ConfigurationService) {
+    Log.log.debug(` * ${new Date().toISOString()}: AdministrationController initialized`);
+  }
 
   @ApiOperation({ title: 'Export the entire database', description: 'This is a security measure to avoid data-loss.' })
   @ApiResponse({ status: 400, description: 'If the server was unable to export' })

@@ -46,12 +46,22 @@ export class AuthInterceptor implements HttpInterceptor {
       sessionStorage.removeItem('currentUser');
     }
 
+    req = this.stripTypeNames(req);
+
     // Execute request
     this.state.notifySubscribers(req);
     return next.handle(req).pipe(
       map(res => res.type !== 0 ? this.validateResponse(req, <HttpResponse<any>>res) : res),
       catchError(err => this.handleError(req, err))
     );
+  }
+
+  stripTypeNames(req: HttpRequest<any>): HttpRequest<any> {
+    if (req.body && req.body.query) {
+      // https://github.com/apollographql/react-apollo/issues/741
+      req.body.query = req.body.query.replace(/,.?__typename:.?"[a-zA-Z]+"/gm, '');
+    }
+    return req;
   }
 
   /**

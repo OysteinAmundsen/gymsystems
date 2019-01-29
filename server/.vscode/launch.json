@@ -11,12 +11,14 @@
       "preLaunchTask": "Server build",
       "protocol": "inspector",
       "cwd": "${workspaceRoot}",
+      "sourceMaps": true,
       "outFiles": [
         "${workspaceRoot}/dist/**/*.js"
       ],
-      "program": "${workspaceRoot}/src/main.ts",
+      "program": "${workspaceRoot}/dist/main.js",
       "restart": true,
-      "console": "internalConsole",
+      "console": "integratedTerminal",
+      "outputCapture": "console",
       "envFile": "${workspaceRoot}/.env"
     },
     {

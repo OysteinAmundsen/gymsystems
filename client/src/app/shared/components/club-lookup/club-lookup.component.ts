@@ -40,14 +40,17 @@ export class ClubLookupComponent implements OnInit, OnDestroy, ControlValueAcces
 
   ngOnInit() {
     this.subscriptions.push(this.childControl.valueChanges.pipe(
+      map(v => {
+        // Patch to uppercase
+        if (typeof v === 'string') {
+          v = toUpperCaseTransformer(<string>v);
+          this.childControl.patchValue(v, { emitEvent: false });
+        }
+        return v;
+      }),
       distinctUntilChanged(),
       debounceTime(200),  // Do not hammer http request. Wait until user has typed a bit
     ).subscribe(v => {
-      // Patch to uppercase
-      if (typeof v === 'string') {
-        v = toUpperCaseTransformer(<string>v);
-        this.childControl.patchValue(v);
-      }
       const name = encodeURIComponent(v && v.name ? v.name : v);
       if (name.length > 2) { // Only query if we have 2 characters or more in the input
         this.graph.get(`{getClubs(name:"${name}"){id,name}}`, { fetchPolicy: 'no-cache' }).subscribe(res => {

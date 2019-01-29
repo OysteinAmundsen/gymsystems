@@ -4,6 +4,7 @@ import { TroopResolver } from './troop.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Troop } from './troop.model';
 import { GymnastModule } from '../gymnast/gymnast.module';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -13,4 +14,8 @@ import { GymnastModule } from '../gymnast/gymnast.module';
   providers: [TroopService, TroopResolver],
   exports: [TroopService]
 })
-export class TroopModule { }
+export class TroopModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: TroopModule initialized`);
+  }
+}

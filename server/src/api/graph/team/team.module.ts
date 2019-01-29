@@ -7,6 +7,7 @@ import { GymnastModule } from '../gymnast/gymnast.module';
 import { MediaModule } from '../media/media.module';
 import { DisciplineModule } from '../discipline/discipline.module';
 import { DivisionModule } from '../division/division.module';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -19,4 +20,8 @@ import { DivisionModule } from '../division/division.module';
   providers: [TeamService, TeamResolver],
   exports: [TeamService]
 })
-export class TeamModule { }
+export class TeamModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: TeamModule initialized`);
+  }
+}

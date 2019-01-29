@@ -4,6 +4,7 @@ import { MediaResolver } from './media.resolver';
 import { MediaService } from './media.service';
 import { Media } from './media.model';
 import { MediaController } from './media.controller';
+import { Log } from '../../common/util/logger/log';
 
 @Module({
   imports: [
@@ -14,4 +15,8 @@ import { MediaController } from './media.controller';
   exports: [MediaService],
   controllers: [MediaController]
 })
-export class MediaModule { }
+export class MediaModule {
+  constructor() {
+    Log.log.debug(` * ${new Date().toISOString()}: MediaModule initialized`);
+  }
+}
