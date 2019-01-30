@@ -1,6 +1,6 @@
 <header class="center print-only" *ngIf="tournament">
   <h2>{{ tournament.name }}</h2>
-  <h4>{{ tournament.venue.name }}</h4>
+  <h4>{{ tournament.venue?.name }}</h4>
 </header>
 
 <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="center"></mat-progress-spinner>
@@ -35,8 +35,7 @@
         <th *ngIf="canViewActions()" class="actions screen-only"></th>
       </tr>
     </thead>
-    <tbody *ngFor="let item of schedule; let i = index;" role="listitem" #row (contextmenu)="contextInvoked(item, i, $event)"
-      [ngClass]="{isPublished : item.publishTime != null,
+    <tbody *ngFor="let item of schedule; let i = index;" role="listitem" #row (contextmenu)="contextInvoked(item, i, $event)" [ngClass]="{isPublished : item.publishTime != null,
                        deleted     : item.markDeleted,
                        isStarted   : item.startTime,
                        unimportant : item.type === types.Training,
@@ -62,10 +61,12 @@
           <button mat-icon-button *ngIf="canStart(item, i)" (click)="start(item, $event)" [title]="'Start' | translate" aria-label="Start">
             <i class="fa fa-fw fa-play"></i>
           </button>
-          <button mat-icon-button *ngIf="item.startTime != null && item.endTime == null && score(item) == 0" (click)="stop(item, $event)" [title]="'Stop' | translate" aria-label="Stop">
+          <button mat-icon-button *ngIf="item.startTime != null && item.endTime == null && score(item) == 0" (click)="stop(item, $event)" [title]="'Stop' | translate"
+                  aria-label="Stop">
             <i class="fa fa-fw fa-stop"></i>
           </button>
-          <button mat-icon-button *ngIf="score(item) > 0 && item.publishTime == null" (click)="publish(item, $event)" [title]="'Publish' | translate" aria-label="Publish">
+          <button mat-icon-button *ngIf="score(item) > 0 && item.publishTime == null" (click)="publish(item, $event)" [title]="'Publish' | translate"
+                  aria-label="Publish">
             <i class="fa fa-fw fa-share"></i>
           </button>
         </td>

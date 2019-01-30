@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GraphService } from 'app/shared/services/graph.service';
 import { ITournament } from 'app/model/ITournament';
+import { BrowserService } from 'app/shared/browser.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class EventComponent implements OnInit, OnDestroy {
   tournament: ITournament;
   subscriptions: Subscription[] = [];
 
-  constructor(private route: ActivatedRoute, private graph: GraphService, private title: Title, private meta: Meta) { }
+  constructor(private route: ActivatedRoute, private graph: GraphService, private title: Title, private meta: Meta, private browser: BrowserService) { }
 
   ngOnInit() {
     this.subscriptions.push(this.route.params.subscribe((params: any) => {
@@ -43,6 +44,6 @@ export class EventComponent implements OnInit, OnDestroy {
   }
 
   printPage() {
-    setTimeout(() => window.print());
+    setTimeout(() => this.browser.window().print());
   }
 }

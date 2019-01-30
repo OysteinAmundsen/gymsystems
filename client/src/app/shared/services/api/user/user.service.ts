@@ -6,14 +6,15 @@ import { map, catchError } from 'rxjs/operators';
 import { Logger } from 'app/shared/services';
 import { IUser } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
+import { BrowserService } from 'app/shared/browser.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private _isLoadingUser = false;
-  private _$currentUserObservable = new BehaviorSubject<IUser>(JSON.parse(sessionStorage.getItem('currentUser')));
+  private _$currentUserObservable = new BehaviorSubject<IUser>(JSON.parse(this.browser.sessionStorage().getItem('currentUser')));
   public get currentUser(): IUser { return this._$currentUserObservable.getValue(); }
 
-  constructor(private http: HttpClient, private graph: GraphService) { }
+  constructor(private http: HttpClient, private graph: GraphService, private browser: BrowserService) { }
 
   // AUTH functions
   /**
@@ -27,7 +28,7 @@ export class UserService {
     if (JSON.stringify(this.currentUser) !== JSON.stringify(user)) {
       Logger.debug('%c** Changing user to', 'font-size: 1.1em; font-weight: bold; color: green', user);
       this._$currentUserObservable.next(user);
-      sessionStorage.removeItem('currentUser');
+      this.browser.sessionStorage().removeItem('currentUser');
     }
 
     // Store token from header
@@ -42,7 +43,7 @@ export class UserService {
     if (this.currentUser) {
       this.currentUser.token = token;
       this.currentUser.expire = expiration;
-      sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+      this.browser.sessionStorage().setItem('currentUser', JSON.stringify(this.currentUser));
     }
   }
 

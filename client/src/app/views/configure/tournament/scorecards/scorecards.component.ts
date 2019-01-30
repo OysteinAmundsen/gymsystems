@@ -6,6 +6,7 @@ import { TournamentEditorComponent } from '../tournament-editor/tournament-edito
 
 import { ITeamInDiscipline, DivisionType, Operation, IJudge, IScoreGroup, IDiscipline, ParticipationType } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
+import { BrowserService } from 'app/shared/browser.service';
 
 @Component({
   selector: 'app-scorecards',
@@ -23,7 +24,8 @@ export class ScorecardsComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private parent: TournamentEditorComponent,
-    private graph: GraphService
+    private graph: GraphService,
+    private browser: BrowserService
   ) { }
 
   ngOnInit() {
@@ -62,7 +64,7 @@ export class ScorecardsComponent implements OnInit, OnDestroy {
    */
   onRenderComplete() {
     setTimeout(() => {
-      window.print();
+      this.browser.window().print();
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }

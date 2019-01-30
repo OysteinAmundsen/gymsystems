@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Title, Meta } from '@angular/platform-browser';
@@ -7,6 +8,7 @@ import { UserService } from 'app/shared/services/api';
 import { ErrorHandlerService } from 'app/shared/interceptors';
 import { Angulartics2 } from 'angulartics2';
 import { AppComponent } from 'app/app.component';
+import { BrowserService } from 'app/shared/browser.service';
 
 @Component({
   selector: 'app-logout',
@@ -22,7 +24,8 @@ export class LogoutComponent {
     private translate: TranslateService,
     private title: Title,
     private meta: Meta,
-    private angulartics: Angulartics2
+    private angulartics: Angulartics2,
+    private browser: BrowserService
   ) {
     this.title.setTitle('GymSystems | Logout');
     this.meta.updateTag({ property: 'og:title', content: `GymSystems | Logout` });
@@ -42,7 +45,7 @@ export class LogoutComponent {
     this.errorHandler.setError(err ? err : this.translate.instant('Logged out'), '');
     if (err) {
       // tslint:disable-next-line:deprecation
-      window.location.reload(true);
+      this.browser.window().location.reload(true);
     }
     this.router.navigate(['/']);
   }

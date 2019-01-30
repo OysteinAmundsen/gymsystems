@@ -5,6 +5,7 @@ import { EventComponent } from '../event.component';
 import { ITeamInDiscipline, Classes, ParticipationType, IDiscipline, TotalByScoreGroup } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
 import { EventService } from 'app/shared/services/api/event/event.service';
+import { BrowserService } from 'app/shared/browser.service';
 
 @Component({
   selector: 'app-results',
@@ -28,7 +29,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
   constructor(
     private parent: EventComponent,
     private graph: GraphService,
-    private eventService: EventService) { }
+    private eventService: EventService,
+    private browser: BrowserService) { }
 
   ngOnInit() {
 
@@ -73,7 +75,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         });
 
         // Parse expansion preference, pre-expanded is default
-        const expanded = JSON.parse(sessionStorage.getItem('resultsCollapse')) || {};
+        const expanded = JSON.parse(this.browser.sessionStorage().getItem('resultsCollapse')) || {};
         this.divisions.forEach(d => expanded && expanded[d] !== undefined ? this.expanded[d] = expanded[d] : this.expanded[d] = true);
         this.expanded['teamgym'] = expanded && expanded['teamgym'] !== undefined ? expanded['teamgym'] : true;
         this.isLoading = false;
@@ -135,7 +137,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   onExpandedChange() {
-    setTimeout(() => sessionStorage.setItem('resultsCollapse', JSON.stringify(this.expanded)));
+    setTimeout(() => this.browser.sessionStorage().setItem('resultsCollapse', JSON.stringify(this.expanded)));
   }
 
   isCollapsed(division: string) {

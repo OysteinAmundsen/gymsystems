@@ -6,6 +6,7 @@ import { clone } from 'lodash';
 
 import { UserService } from 'app/shared/services/api';
 import { GraphService } from 'app/shared/services/graph.service';
+import { BrowserService } from 'app/shared/browser.service';
 
 /**
  *
@@ -42,7 +43,8 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private elm: ElementRef,
     private graph: GraphService,
-    private userService: UserService
+    private userService: UserService,
+    private browser: BrowserService
   ) { }
 
   /**
@@ -81,10 +83,10 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     const rect: DOMRect = this.elm.nativeElement.getBoundingClientRect();
-    if (rect.top > document.documentElement.clientHeight || rect.top < 180) {
-      document.documentElement.scrollTo({
+    if (rect.top > this.browser.document().documentElement.clientHeight || rect.top < 180) {
+      this.browser.document().documentElement.scrollTo({
         left: 0,
-        top: document.documentElement.scrollTop + (rect.y - (document.documentElement.clientHeight / 2)),
+        top: this.browser.document().documentElement.scrollTop + (rect.y - (this.browser.document().documentElement.clientHeight / 2)),
         behavior: 'smooth'
       });
     }

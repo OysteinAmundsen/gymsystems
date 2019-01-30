@@ -7,6 +7,7 @@ import { EventComponent } from '../event.component';
 import { ITeamInDiscipline, ITournament, IScoreGroup, ParticipationType, Operation, IDiscipline } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
 import { CommonService } from 'app/shared/services/common.service';
+import { BrowserService } from 'app/shared/browser.service';
 
 @Component({
   selector: 'app-signoff-report',
@@ -36,6 +37,7 @@ export class SignoffReportComponent implements OnInit {
     private graph: GraphService,
     private router: Router,
     private route: ActivatedRoute,
+    private browser: BrowserService
   ) { }
 
   ngOnInit() {
@@ -73,7 +75,7 @@ export class SignoffReportComponent implements OnInit {
 
   onRenderComplete() {
     setTimeout(() => {
-      window.print();
+      this.browser.window().print();
       this.router.navigate(['../results'], { relativeTo: this.route });
     });
   }

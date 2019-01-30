@@ -5,8 +5,8 @@
     "enableIvy": "ngtsc"
   },
   "compilerOptions": {
-    "baseUrl": "./src",
-    "outDir": "./dist",
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "module": "es2015",
@@ -24,7 +24,7 @@
     ],
     "paths": {
       "app/*": [
-        "./app/*"
+        "./src/app/*"
       ]
     }
   }

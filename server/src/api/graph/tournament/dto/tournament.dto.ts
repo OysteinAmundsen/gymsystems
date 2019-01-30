@@ -33,7 +33,7 @@ export class TournamentDto {
   @ApiModelProperty({ description: `This field is automatically created when a user creates a newevent.` })
   createdById?: number;
 
-  club: ClubDto;
+  club?: ClubDto;
 
   @ApiModelProperty({ description: `A reference to the club this tournament is hosted by` })
   clubId?: number;

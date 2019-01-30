@@ -17,7 +17,6 @@ import {
   MatCardModule, MatSnackBarModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule,
   MatOptionModule, MatSlideToggleModule, MatButtonModule, MatDialogModule, MatListModule
 } from '@angular/material';
-import 'hammerjs';
 
 import { environment } from '../environments/environment';
 
@@ -41,6 +40,7 @@ import { LogoutComponent } from './views/home/logout/logout.component';
 import { RegisterComponent } from './views/home/register/register.component';
 import { IUser } from './model/IUser';
 import { GraphQLModule } from './graphql.module';
+import { BrowserService } from './shared/browser.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -48,7 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 export function tokenGetter() {
-  const currentUser: IUser = JSON.parse(sessionStorage.getItem('currentUser'));
+  const currentUser: IUser = JSON.parse(BrowserService.sessionStorage().getItem('currentUser'));
   return currentUser ? currentUser.token : null;
 }
 
@@ -72,7 +72,7 @@ export class MyHammerConfig extends HammerGestureConfig {
   ],
   imports: [
     // Framework modules
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({ appId: 'gymsystems' }),
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,

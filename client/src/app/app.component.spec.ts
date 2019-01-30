@@ -17,7 +17,10 @@ describe("AppComponent", () => {
   beforeEach(() => {
     const angulartics2GoogleAnalyticsStub = { startTracking: () => ({}) };
     const userServiceStub = { getMe: () => of({}) };
-    const swUpdateStub = {};
+    const swUpdateStub = {
+      available: of({}),
+      activateUpdate: () => Promise.resolve()
+    };
     const httpClientStub = {
       get: () => of({})
     };

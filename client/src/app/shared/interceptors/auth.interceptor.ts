@@ -13,6 +13,7 @@ import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.servi
 import { HttpStateService } from 'app/shared/interceptors/http-state.service';
 import { UserService } from 'app/shared/services/api';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { BrowserService } from '../browser.service';
 
 
 @Injectable()
@@ -33,7 +34,8 @@ export class AuthInterceptor implements HttpInterceptor {
     private error: ErrorHandlerService,
     private state: HttpStateService,
     private injector: Injector,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private browser: BrowserService
   ) { }
 
   /**
@@ -41,9 +43,9 @@ export class AuthInterceptor implements HttpInterceptor {
    */
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Check token expiration
-    const user = sessionStorage.getItem('currentUser');
+    const user = this.browser.sessionStorage().getItem('currentUser');
     if (user && this.jwt.isTokenExpired(JSON.parse(user).token)) {
-      sessionStorage.removeItem('currentUser');
+      this.browser.sessionStorage().removeItem('currentUser');
     }
 
     req = this.stripTypeNames(req);
@@ -142,7 +144,7 @@ export class AuthInterceptor implements HttpInterceptor {
         // Analyze status
         if (error.status === 401) {
           // We should be logged in, but aren't. Redirect
-          this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(window.location.pathname) } });
+          this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(this.browser.window().location.pathname) } });
         } else if (error.status === 403) {
           // We are in a place we aren't supposed to be. Go up a level and see if that remedies the situation.
           this.router.navigate(['../'], { relativeTo: this.route });

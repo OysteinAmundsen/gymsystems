@@ -11,6 +11,7 @@ import { DivisionService } from "../division/division.service";
 import { MediaService } from "../media/media.service";
 import { TournamentService } from "./tournament.service";
 import { Tournament } from './tournament.model';
+import { ClubService } from '../club/club.service';
 
 const tournamentDtoStub = <Tournament>{ id: 1, name: 'Test turnering', endDate: new Date() };
 
@@ -41,10 +42,15 @@ describe("TournamentService", () => {
       removeArchive: () => ({})
     };
 
+    const clubServiceStub = {
+      findOrCreateClub: () => ({})
+    };
+
     testModule = await Test.createTestingModule({
       providers: [
         TournamentService,
         { provide: 'TournamentRepository', useClass: TournamentRepository },
+        { provide: ClubService, useValue: clubServiceStub },
         { provide: MediaService, useValue: mediaServiceStub },
         { provide: ScheduleService, useValue: scheduleServiceStub },
         { provide: DivisionService, useValue: divisionServiceStub },
