@@ -7,6 +7,7 @@ import { enableProdMode } from '@angular/core';
 import * as express from 'express';
 import * as proxy from 'http-proxy-middleware';
 import { join } from 'path';
+import * as process from 'process';
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -18,7 +19,7 @@ const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist');
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/main');
+import { AppServerModuleNgFactory, LAZY_MODULE_MAP } from './dist/server/main';
 
 // Express Engine
 import { ngExpressEngine } from '@nguniversal/express-engine';

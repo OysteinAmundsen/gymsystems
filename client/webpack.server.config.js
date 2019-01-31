@@ -6,15 +6,22 @@ module.exports = {
   entry: { server: './server.ts' },
   resolve: { extensions: ['.js', '.ts'] },
   target: 'node',
-  mode: 'development',
   // this makes sure we include node_modules and other 3rd party libraries
-  externals: [nodeExternals()],
+  externals: [nodeExternals({
+    whitelist: [
+      /^@angular\/material/,
+      /^@ngx-translate\/core/,
+      /^@agm\/core/,
+      /^@auth0\/angular-jwt/,
+      /^@angular/,
+    ]
+  })],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js'
   },
   module: {
-    rules: [{ test: /\.ts$/, loader: 'ts-loader', options: { configFile: path.join(__dirname, '/src/tsconfig.server.json') } }]
+    rules: [{ test: /\.ts$/, loader: 'ts-loader', options: { configFile: path.join(__dirname, 'src/tsconfig.server.json') } }]
   },
   plugins: [
     // Temporary Fix for issue: https://github.com/angular/angular/issues/11580
