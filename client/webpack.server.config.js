@@ -9,11 +9,15 @@ module.exports = {
   // this makes sure we include node_modules and other 3rd party libraries
   externals: [nodeExternals({
     whitelist: [
-      /^@angular\/material/,
-      /^@ngx-translate\/core/,
-      /^@agm\/core/,
-      /^@auth0\/angular-jwt/,
       /^@angular/,
+      /^@ngx-translate/,
+      /^@agm/,
+      /^@auth0/,
+      /^apollo/,
+      /^core-js/,
+      /^graph/,
+      /^rxjs/,
+      /^zone.js/,
     ]
   })],
   output: {
