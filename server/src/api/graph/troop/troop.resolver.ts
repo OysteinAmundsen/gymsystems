@@ -13,12 +13,15 @@ import { GymnastService } from '../gymnast/gymnast.service';
 import { Role } from '../user/user.model';
 import { ClubService } from '../club/club.service';
 import { Cleaner } from '../../common/util/cleaner';
+import { Division } from '..';
+import { DivisionService } from '../division/division.service';
 
 @Resolver('ITroop')
 export class TroopResolver {
   constructor(
     private readonly troopService: TroopService,
     private readonly gymnastService: GymnastService,
+    private readonly divisionService: DivisionService,
     @Inject('PubSubInstance') private readonly pubSub: PubSub
   ) { }
 
@@ -39,6 +42,14 @@ export class TroopResolver {
       troop.gymnasts = await this.gymnastService.findByTroop(troop);
     }
     return troop.gymnasts;
+  }
+
+  @ResolveProperty('divisions')
+  async getDivisions(troop: Troop): Promise<Division[]> {
+    if (!troop.divisions) {
+      troop.divisions = await this.divisionService.findByTroop(troop);
+    }
+    return troop.divisions;
   }
 
   @Mutation('saveTroop')

@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinColu
 import { BelongsToClub, Club } from '../club/club.model';
 import { Gymnast } from '../gymnast/gymnast.model';
 import { ApiModelProperty } from '@nestjs/swagger';
+import { Division } from '../division/division.model';
 
 
 /**
@@ -43,4 +44,8 @@ export class Troop implements BelongsToClub {
   @ApiModelProperty({ description: `A list of gymnasts present in this troop.` })
   @ManyToMany(type => Gymnast, gymnasts => gymnasts.troop)
   gymnasts?: Gymnast[];
+
+  @ApiModelProperty({ description: `This will change if gymnasts are entered, but we'll keep this here in case users want to create troops and not add gymnasts to them` })
+  @ManyToMany(type => Division, divisions => divisions.troops)
+  divisions: Division[]
 }

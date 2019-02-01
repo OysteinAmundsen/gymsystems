@@ -10,6 +10,7 @@ import { Config } from '../../common/config';
 import { DivisionDto } from './dto/division.dto';
 import { PubSub } from 'graphql-subscriptions';
 import { ConfigurationService } from '../../rest/administration/configuration.service';
+import { Troop } from '../troop/troop.model';
 
 @Injectable()
 export class DivisionService {
@@ -66,6 +67,14 @@ export class DivisionService {
 
   findOneById(id: number): Promise<Division> {
     return this.getFromCache(id);
+  }
+
+  async findByTroopId(troopId: number): Promise<Division[]> {
+    return (await this.getAllFromCache()).filter(d => d.troops.find(t => t.id === troopId));
+  }
+
+  findByTroop(troop: Troop): Division[] | PromiseLike<Division[]> {
+    return this.findByTroopId(troop.id);
   }
 
   async findByTeamId(teamId: number): Promise<Division[]> {

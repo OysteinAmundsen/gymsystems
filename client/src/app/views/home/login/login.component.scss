@@ -4,7 +4,9 @@
 :host {
   .fixed-back {
     +* {
-      margin-top: 10%;
+      @media (min-width: $stop1) {
+        margin-top: 10%;
+      }
     }
   }
 }
@@ -37,12 +39,13 @@ form {
     content: '';
     display: block;
     position: absolute;
-    top: 0;
+    top: -7px;
     right: 0;
     left: 0;
-    bottom: -4px;
+    bottom: -16px;
     background: $primary;
-    box-shadow: 0px 10px 30px -15px black inset
+    box-shadow: 0px 10px 30px -15px black inset;
+    transform: skewY(-2.6deg);
   }
   @media (min-width: $stop1) {
     &:before {

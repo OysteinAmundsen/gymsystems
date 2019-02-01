@@ -10,12 +10,15 @@ import { TeamService } from '../team/team.service';
 import { Team } from '../team/team.model';
 import { Role } from '../user/user.model';
 import { Cleaner } from '../../common/util/cleaner';
+import { Troop } from '../troop/troop.model';
+import { TroopService } from '../troop/troop.service';
 
 @Resolver('IDivision')
 export class DivisionResolver {
   constructor(
     private readonly divisionService: DivisionService,
     private readonly teamService: TeamService,
+    private readonly troopService: TroopService,
     @Inject('PubSubInstance') private readonly pubSub: PubSub
   ) { }
 
@@ -35,6 +38,11 @@ export class DivisionResolver {
   @ResolveProperty('teams')
   getTeams(division: Division): Promise<Team[]> {
     return this.teamService.findByDivision(division);
+  }
+
+  @ResolveProperty('troops')
+  getTroops(division: Division): Promise<Troop[]> {
+    return this.troopService.findByDivision(division);
   }
 
   @Mutation('saveDivision')

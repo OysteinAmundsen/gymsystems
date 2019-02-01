@@ -7,6 +7,11 @@
     position: relative;
     white-space: initial;
   }
+  .help > hr {
+    padding: 0;
+    margin: $padding 0;
+    border-color: rgba(0,0,0,0.2);
+  }
 }
 
 .help-available {

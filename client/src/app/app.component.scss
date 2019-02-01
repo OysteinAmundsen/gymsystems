@@ -108,6 +108,11 @@ nav {
 
 }
 
+.main-content {
+  @media (max-width: 720px) {
+    padding: 10px;
+  }
+}
 
 // Help functionality
 .show-help {

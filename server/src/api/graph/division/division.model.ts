@@ -2,6 +2,7 @@ import { PrimaryGeneratedColumn, Column, Entity, ManyToMany, ManyToOne, Index, J
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import { Tournament } from '../tournament/tournament.model';
 import { Team } from '../team/team.model';
+import { Troop } from '../troop/troop.model';
 
 
 /**
@@ -75,4 +76,8 @@ export class Division {
   @ApiModelPropertyOptional({ description: `A reference to the teams competing in this division` })
   @ManyToMany(type => Team, teams => teams.divisions)
   teams?: Team[];
+
+  @ApiModelPropertyOptional({ description: `A reference to the troops configured for this division` })
+  @ManyToMany(type => Troop, troops => troops.divisions)
+  troops?: Troop[];
 }

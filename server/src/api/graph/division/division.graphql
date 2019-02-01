@@ -25,6 +25,7 @@ type IDivision {
   tournamentId: ID
   tournament: ITournament
   teams: [ITeam]
+  troops: [ITroop]
 }
 
 input DivisionInput {
@@ -37,6 +38,7 @@ input DivisionInput {
   scorable: Boolean
   tournamentId: ID
   teams: [IDDependencyInput]
+  troops: [IDDependencyInput]
 }
 
 input IDDependencyInput {

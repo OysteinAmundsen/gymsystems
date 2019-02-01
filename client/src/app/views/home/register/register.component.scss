@@ -2,7 +2,9 @@
 :host {
   .fixed-back {
     +* {
-      margin-top: 10%;
+      @media (min-width: $stop1) {
+        margin-top: 10%;
+      }
     }
   }
 }

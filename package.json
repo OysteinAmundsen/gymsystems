@@ -19,7 +19,7 @@
     "test:client": "yarn workspace gymsystems_client test --watch=false",
     "start": "yarn start:db && concurrently --kill-others --exitcrash -p \"[{name}]\" -n \"SERVER,CLIENT\" -c \"bgBlue.bold,bgGreen.bold\" \"yarn start:server\" \"yarn start:client\"",
     "start:db": "docker-compose -f ./db/docker/docker-compose.yml -p docker up -d",
-    "start:server": "yarn workspace gymsystems_server start:dev",
+    "start:server": "yarn build:server && yarn workspace gymsystems_server start:prod",
     "start:client": "yarn workspace gymsystems_client start",
     "start:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker up -d",
     "stop:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker down",

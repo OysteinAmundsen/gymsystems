@@ -19,6 +19,7 @@ type ITroop {
   name: String
   clubId: ID
   club: IClub
+  divisions: [IDivision]
   gymnasts: [IGymnast]
 }
 

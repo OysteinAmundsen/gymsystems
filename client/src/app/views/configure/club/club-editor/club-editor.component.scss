@@ -23,7 +23,9 @@ table {
     border-bottom: 0;
   }
   th {
-    width: 8rem;
+    @media (min-width: $stop1) {
+      width: 8rem;
+    }
     text-align: right;
   }
 }

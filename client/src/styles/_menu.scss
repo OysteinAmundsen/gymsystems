@@ -29,7 +29,8 @@ menu[role="menu"] {
     }
     .mat-divider {
       @media (max-width: $stop1) {
-        display: none;
+        display: inline-block;
+        width: 8px;
       }
     }
     .mat-list-item {
@@ -38,6 +39,7 @@ menu[role="menu"] {
         width: auto;
         display: table-cell;
         @include btn();
+        margin-right: -6px;
         padding: 0;
         background: $primary;
         color: rgba(white, 0.8);
@@ -78,9 +80,9 @@ menu[role="menu"] {
     }
     &:hover {
       background: darken($primaryDark, 5%);
-      @media (max-width: $stop1) {
-        background: transparent;
-      }
+      // @media (max-width: $stop1) {
+      //   background: transparent;
+      // }
     }
     &:active {
       background: $primaryDark;

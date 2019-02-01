@@ -8,9 +8,15 @@ import { Troop } from './troop.model';
 import { Club } from '../club/club.model';
 import { Gymnast } from '../gymnast/gymnast.model';
 import { Config } from '../../common/config';
+import { Division } from '../division/division.model';
+import moment = require('moment');
 
 @Injectable()
 export class TroopService {
+  localCache: { [id: string]: Troop[] } = {};
+  localCahcePromise: { [id: string]: Promise<Troop[]> } = {};
+  cacheCreation: moment.Moment;
+
   constructor(
     @InjectRepository(Troop) private readonly troopRepository: Repository<Troop>,
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
@@ -54,6 +60,20 @@ export class TroopService {
   }
   findTroopCountByClub(club: Club): Promise<number> {
     return this.troopRepository.count({ where: { clubId: club.id } });
+  }
+
+  findByDivision(division: Division): Promise<Troop[]> {
+    if (this.localCahcePromise['div' + division.id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
+      this.cacheCreation = moment();
+      this.localCahcePromise['div' + division.id] = this.troopRepository
+        .createQueryBuilder('troop')
+        .leftJoin('troop_divisions_division_id', 'tddid', 'troop.id = tddid.troopId')
+        .where('tddid.divisionId = :divisionId', { divisionId: division.id })
+        .cache(Config.QueryCache)
+        .getMany()
+        .then(troops => (this.localCache['div' + division.id] = troops));
+    }
+    return this.localCahcePromise['div' + division.id];
   }
 
   findAll(clubId: number, name?: string): Promise<Troop[]> {
