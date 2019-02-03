@@ -36,13 +36,21 @@ export class GraphService {
   post(query: string, options?: MutationOptions<any, any>): Observable<any> {
     const queryStr = `mutation ${query}`;
     // return this.http.post<any>(`/api/graph`, Object.assign({ query: queryStr }, options));
-    return this.apollo.mutate(Object.assign({ mutation: gql`${queryStr}` }, options));
+    return this.apollo.mutate(Object.assign({ mutation: gql`${queryStr}` }, options))
+      .pipe(map(res => {
+        this.apollo.getClient().clearStore(); // Clear cache immediatelly after a save operation
+        return res;
+      }));
   }
 
   delete(query: string): Observable<any> {
     const queryStr = `mutation ${query}`;
     // return this.http.delete<any>(`/api/graph/?query=${CommonService.compressString(queryStr)}`);
-    return this.apollo.mutate<any>({ mutation: gql`${queryStr}` });
+    return this.apollo.mutate<any>({ mutation: gql`${queryStr}` })
+      .pipe(map(res => {
+        this.apollo.getClient().clearStore(); // Clear cache immediatelly after a delete operation
+        return res;
+      }));
   }
 
   jsonToGql(val: any): string {

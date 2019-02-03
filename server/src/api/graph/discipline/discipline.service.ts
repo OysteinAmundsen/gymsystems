@@ -90,7 +90,7 @@ export class DisciplineService {
   }
 
   async findByTeam(team: Team): Promise<Discipline[]> {
-    return this.disciplineRepository.find({ where: { teams: [team] }, cache: Config.QueryCache, order: { sortOrder: 'ASC' } })
+    return this.disciplineRepository.find({ where: { teams: [team] }, order: { sortOrder: 'ASC' } })
   }
 
   async findByParticipant(participant: TeamInDiscipline) {

@@ -67,7 +67,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     this.router.events.subscribe(event => Logger.debug(event));
 
     this.updates.available.subscribe(event => {
-      if (prompt(`A new version is available. Do you want to upgrade?`)) {
+      if (confirm(`A new version is available. Do you want to upgrade?`)) {
         this.updates.activateUpdate().then(() => this.browser.document().location.reload());
       }
     });
