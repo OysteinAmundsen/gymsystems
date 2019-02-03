@@ -24,7 +24,8 @@
             </mat-autocomplete>
             <app-help-block *ngIf="teamForm.value.club != null">
               <p translate>You cannot enter a team name before you've selected which club it belongs to</p>
-              <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="['/configure/club']" aria-label="Configure club">Club</a>
+              <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="['/configure/club']"
+                   aria-label="Configure club">Club</a>
                 section</p>
             </app-help-block>
           </mat-form-field>
@@ -41,19 +42,10 @@
             </h2>
           </header>
           <fieldset>
-            <mat-form-field class="col-12">
-              <mat-placeholder><i class="fa fa-fw fa-venus-mars"></i><span translate>Gender group</span></mat-placeholder>
-              <mat-select formControlName="genderDivision">
-                <mat-option *ngFor="let division of genderDivisions" [value]="division.id">{{division.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="col-12">
-              <mat-placeholder><i class="fa fa-fw fa-child"></i><span translate>Age group</span></mat-placeholder>
-              <mat-select formControlName="ageDivision">
-                <mat-option *ngFor="let division of ageDivisions" [value]="division.id">{{division.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <app-division-lookup formControlName="genderDivision" icon="venus-mars" placeholder="{{'Gender group' | translate}}" type="Gender" [tournamentId]="tournamentId"
+                                 class="col-12"></app-division-lookup>
+            <app-division-lookup formControlName="ageDivision" icon="child" placeholder="{{'Age group' | translate}}" type="Age" [tournamentId]="tournamentId"
+                                 class="col-12"></app-division-lookup>
           </fieldset>
         </div>
 
@@ -89,32 +81,36 @@
                   </app-help-block>
                 </td>
               </tr>
-              <tbody *ngFor="let discipline of disciplines">
-                <tr role="listitem">
+              <tbody formArrayName="disciplines">
+                <tr role="listitem" *ngFor="let discipline of teamDiscipline.controls; let i = index;" [formGroupName]="i">
                   <td class="disciplines">
                     <label>
-                      <input type="checkbox" #selectedDisciplines [attr.data]="discipline.id" (change)="disciplinesChanged()" [disabled]="teamForm.value.class === classes.TeamGym">
-                      {{ discipline.name }}
+                      <input type="checkbox" formControlName="checked">
+                      {{ discipline.value.name }}
                     </label>
                   </td>
                   <td class="media">
                     <div class="flex">
                       <div class="action-buttons">
-                        <button mat-icon-button *ngIf="hasMedia(discipline) && !isPlaying(getMedia(discipline))" type="button" (click)="previewMedia(discipline)" [title]="'Play media' | translate" aria-label="Play media">
+                        <button mat-icon-button *ngIf="hasMedia(discipline.value) && !isPlaying(getMedia(discipline.value))" type="button" (click)="previewMedia(discipline.value)"
+                                [title]="'Play media' | translate" aria-label="Play media">
                           <i class="fa fa-fw fa-play"></i>
                         </button>
-                        <button mat-icon-button *ngIf="hasMedia(discipline) && isPlaying(getMedia(discipline))" type="button" (click)="stopMedia(discipline)" [title]="'Stop playing' | translate" aria-label="Stop playing">
+                        <button mat-icon-button *ngIf="hasMedia(discipline.value) && isPlaying(getMedia(discipline.value))" type="button" (click)="stopMedia(discipline.value)"
+                                [title]="'Stop playing' | translate" aria-label="Stop playing">
                           <i class="fa fa-fw fa-stop"></i>
                         </button>
-                        <button mat-icon-button *ngIf="hasMedia(discipline)" type="button" (click)="removeMedia(discipline)" class="warning" [title]="'Remove media' | translate" aria-label="Remove media">
+                        <button mat-icon-button *ngIf="hasMedia(discipline.value)" type="button" (click)="removeMedia(discipline.value)" class="warning"
+                                [title]="'Remove media' | translate" aria-label="Remove media">
                           <i class="fa fa-fw fa-trash"></i>
                         </button>
-                        <a mat-icon-button class="file-upload" *ngIf="!hasMedia(discipline) && !teamForm.invalid && selectedDisciplines.checked" [title]="'Upload media' | translate" aria-label="Upload media">
-                          <input type="file" (change)="fileAdded($event, discipline)" accept=".mp3,.wav">
+                        <a mat-icon-button class="file-upload" *ngIf="!hasMedia(discipline.value) && !teamForm.invalid && discipline.value.checked" [title]="'Upload media' | translate"
+                           aria-label="Upload media">
+                          <input type="file" (change)="fileAdded($event, discipline.value)" accept=".mp3,.wav">
                           <i class="fa fa-fw fa-upload"></i>
                         </a>
                       </div>
-                      <label *ngIf="hasMedia(discipline)" class="flex-col media-name"><small>{{ getMedia(discipline).originalName }}</small></label>
+                      <label *ngIf="hasMedia(discipline.value)" class="flex-col media-name"><small>{{ getMedia(discipline.value).originalName }}</small></label>
                     </div>
                   </td>
                 </tr>
@@ -148,8 +144,10 @@
     </mat-card-content>
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="teamForm.invalid || teamForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()" aria-label="Delete"><i class="fa fa-fw fa-trash"></i>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span
+              translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"
+              aria-label="Delete"><i class="fa fa-fw fa-trash"></i>
         <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>

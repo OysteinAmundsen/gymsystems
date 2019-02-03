@@ -30,6 +30,11 @@ export class GymnastService {
     if (result) {
       this.pubSub.publish(gymnast.id ? 'gymnastModified' : 'gymnastCreated', { gymnast: result });
     }
+
+    delete result.club;
+    delete result.team;
+    delete result.troop;
+
     return result;
   }
 

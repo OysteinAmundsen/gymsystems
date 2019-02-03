@@ -4,7 +4,7 @@ import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { GraphService } from 'app/shared/services/graph.service';
 import { IClub } from 'app/model';
-import { MatAutocomplete, MatFormFieldControl } from '@angular/material';
+import { MatAutocomplete } from '@angular/material';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,27 +12,26 @@ import { Subscription } from 'rxjs';
   templateUrl: './club-lookup.component.html',
   styleUrls: ['./club-lookup.component.scss'],
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ClubLookupComponent), multi: true },
-    { provide: MatFormFieldControl, useExisting: ClubLookupComponent, multi: true }
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ClubLookupComponent), multi: true }
   ]
 })
 export class ClubLookupComponent implements OnInit, OnDestroy, ControlValueAccessor {
   @Input() formControl: FormControl;
 
-  _value: IClub;
-  get value() { return this._value; }
-  set value(club: IClub | null) {
-    this._value = club;
-    if (club) {
-      this.childControl.patchValue(club.name);
-    }
-    this.propagateValueChange(this.value);
-  }
 
   private subscriptions: Subscription[] = [];
   clubList = [];
   childControl = new FormControl();
 
+  _value: IClub;
+  get value() { return this._value; }
+  set value(val: IClub | null) {
+    this._value = val;
+    if (val) {
+      this.childControl.patchValue(val.name);
+    }
+    this.propagateValueChange(this.value);
+  }
   propagateValueChange: (value: IClub) => void; // Fired when value changes
 
 

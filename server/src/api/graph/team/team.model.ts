@@ -87,8 +87,8 @@ export class Team implements BelongsToClub {
   disciplines?: Discipline[];
 
   @ApiModelPropertyOptional({
-    description: `The divisions this team is to compete in. This can only be an array
-      in the following format: '[ GenderDivision, AgeDivision ]'` })
+    description: `The divisions this team is to compete in.
+      This can only be an array in the following format: '[ GenderDivision, AgeDivision ]'` })
   @ManyToMany(type => Division, division => division.teams)
   @JoinTable({ name: 'team_divisions_division_id' })
   divisions?: Division[];

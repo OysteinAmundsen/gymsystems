@@ -35,6 +35,10 @@ export class MediaService {
     if (result) {
       this.pubSub.publish(media.id ? 'mediaModified' : 'mediaCreated', { media: result });
     }
+    delete result.discipline;
+    delete result.team;
+    delete result.tournament;
+
     return result;
   }
 

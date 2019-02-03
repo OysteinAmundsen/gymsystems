@@ -57,6 +57,11 @@ export class ClubService {
       delete this.localCahcePromise; // Force refresh cache
       this.pubSub.publish(club.id ? 'clubModified' : 'clubCreated', { club: result });
     }
+    delete result.gymnasts;
+    delete result.teams;
+    delete result.tournaments;
+    delete result.troops;
+    delete result.users;
     return result;
   }
 

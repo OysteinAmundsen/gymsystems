@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as moment from 'moment';
 
-import { Division } from './division.model';
+import { Division, DivisionType } from './division.model';
 import { Team } from '../team/team.model';
 import { Tournament } from '../tournament/tournament.model';
 import { Config } from '../../common/config';
@@ -49,6 +49,9 @@ export class DivisionService {
       delete this.localCahcePromise; // Force empty cache
       this.pubSub.publish(division.id ? 'divisionModified' : 'divisionCreated', { division: result });
     }
+    delete result.teams;
+    delete result.tournament;
+    delete result.troops;
     return result;
   }
 
@@ -84,16 +87,22 @@ export class DivisionService {
     return this.findByTeamId(team.id);
   }
 
-  findByTournamentId(id: number): Promise<Division[]> {
-    return this.divisionRepository.find({ where: { tournamentId: id }, cache: Config.QueryCache, order: { sortOrder: 'ASC' } });
+  findByTournamentId(id: number, type?: DivisionType): Promise<Division[]> {
+    const whereClause = { tournamentId: id };
+    if (type) { whereClause['type'] = type; };
+    return this.divisionRepository.find({ where: whereClause, cache: Config.QueryCache, order: { sortOrder: 'ASC' } });
   }
 
   findByTournament(tournament: Tournament): Promise<Division[]> {
     return this.findByTournamentId(tournament.id);
   }
 
-  findAll(): Promise<Division[]> {
-    return this.getAllFromCache();
+  async findAll(type?: DivisionType): Promise<Division[]> {
+    const all = await this.getAllFromCache();
+    if (type) {
+      return all.filter(d => d.type === type);
+    }
+    return all;
   }
 
   removeByTournament(tournamentId: number): any {

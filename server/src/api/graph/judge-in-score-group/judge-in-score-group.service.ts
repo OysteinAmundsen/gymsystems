@@ -26,6 +26,7 @@ export class JudgeInScoreGroupService {
     if (result) {
       this.pubSub.publish('judgeInScoreGroupSaved', { judgeInScoreGroup: result });
     }
+
     return result;
   }
 

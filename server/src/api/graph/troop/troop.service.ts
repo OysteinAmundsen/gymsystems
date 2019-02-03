@@ -30,6 +30,10 @@ export class TroopService {
     if (result) {
       this.pubSub.publish(troop.id ? 'troopModified' : 'troopCreated', { troop: result });
     }
+    delete result.club;
+    delete result.divisions;
+    delete result.gymnasts;
+
     return result;
   }
 

@@ -28,6 +28,12 @@ export class ScheduleService {
     if (result) {
       this.pubSub.publish(participant.id ? 'teamInDisciplineModified' : 'teamInDisciplineCreated', { teamInDiscipline: result });
     }
+    delete result.divisions;
+    delete result.scores;
+    delete result.team;
+    delete result.tournament;
+    delete result.discipline;
+
     return result;
   }
 

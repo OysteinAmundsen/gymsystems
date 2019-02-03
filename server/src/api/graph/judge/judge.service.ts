@@ -29,6 +29,9 @@ export class JudgeService {
     if (result) {
       this.pubSub.publish(judge.id ? 'judgeModified' : 'judgeCreated', { judge: result });
     }
+
+    delete result.scoreGroups;
+
     return result;
 
   }

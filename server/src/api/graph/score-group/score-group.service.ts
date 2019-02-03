@@ -45,6 +45,9 @@ export class ScoreGroupService {
       delete this.localCahcePromise; // Force invalidate cache
       this.pubSub.publish(scoreGroup.id ? 'scoreGroupModified' : 'scoreGroupCreated', { score: result });
     }
+    delete result.discipline;
+    delete result.judges;
+
     return result;
   }
 

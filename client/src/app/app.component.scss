@@ -109,6 +109,10 @@ nav {
 }
 
 .main-content {
+  > * {
+    position: relative;
+    z-index: 1;
+  }
   @media (max-width: 720px) {
     padding: 10px;
   }

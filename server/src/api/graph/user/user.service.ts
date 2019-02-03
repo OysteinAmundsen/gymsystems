@@ -126,6 +126,10 @@ export class UserService {
     if (result) {
       this.pubSub.publish(user.id ? 'userModified' : 'userCreated', { user: result });
     }
+    delete result.club;
+    delete result.tournaments;
+    delete result.venues;
+
     return result;
   }
 

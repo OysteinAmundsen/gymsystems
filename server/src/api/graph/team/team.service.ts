@@ -36,6 +36,13 @@ export class TeamService {
       this.localCache = {};
       this.pubSub.publish(team.id ? 'teamModified' : 'teamCreated', { team: result });
     }
+    // Remove relations from returned entity to allow a full reload
+    delete result.club;
+    delete result.tournament;
+    delete result.disciplines;
+    delete result.divisions;
+    delete result.gymnasts;
+    delete result.media;
     return result;
   }
 
@@ -53,7 +60,7 @@ export class TeamService {
     return tournamentId
       // tslint:disable-next-line:triple-equals
       ? (await this.findByTournamentId(tournamentId)).find(t => t.id == id)
-      : this.teamRepository.findOne({ where: { id: id }, cache: Config.QueryCache });
+      : this.teamRepository.findOne({ where: { id: id }, relations: ['disciplines', 'media'], cache: Config.QueryCache });
   }
 
   findByTournamentId(id: number): Promise<Team[]> {

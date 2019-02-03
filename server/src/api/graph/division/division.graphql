@@ -1,5 +1,5 @@
 type Query {
-  getDivisions(tournamentId: ID): [IDivision]
+  getDivisions(tournamentId: ID, type: Int): [IDivision]
   division(id: ID!): IDivision
 }
 

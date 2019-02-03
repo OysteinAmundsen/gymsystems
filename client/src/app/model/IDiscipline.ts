@@ -5,8 +5,6 @@ import { IJudge } from './IJudge';
 import { IJudgeInScoreGroup } from './IJudgeInScoreGroup';
 
 export interface IDiscipline {
-  judges: IJudgeInScoreGroup[];
-  judgesPlain: IJudge[];
   id: number;
   name: string;
   sortOrder?: number;
@@ -14,4 +12,6 @@ export interface IDiscipline {
   tournamentId: number;
   tournament: ITournament;
   scoreGroups: IScoreGroup[];
+  judges: IJudgeInScoreGroup[];
+  judgesPlain: IJudge[];
 }

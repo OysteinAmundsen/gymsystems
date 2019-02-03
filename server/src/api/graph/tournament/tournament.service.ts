@@ -49,6 +49,14 @@ export class TournamentService {
       }
       this.pubSub.publish(tournament.id ? 'tournamentModified' : 'tournamentCreated', { tournament: result });
     }
+    delete result.schedule;
+    delete result.teams;
+    delete result.venue;
+    delete result.club;
+    delete result.createdBy;
+    delete result.disciplines;
+    delete result.divisions;
+    delete result.media;
     return result;
   }
 

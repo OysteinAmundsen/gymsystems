@@ -57,6 +57,10 @@ export class DisciplineService {
       delete this.localCahcePromise; // Force refresh cache
       this.pubSub.publish(discipline.id ? 'disciplineModified' : 'disciplineCreated', { discipline: result });
     }
+
+    delete result.scoreGroups;
+    delete result.teams;
+    delete result.tournament;
     return result;
   }
 

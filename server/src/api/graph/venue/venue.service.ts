@@ -33,6 +33,8 @@ export class VenueService {
     if (result) {
       this.pubSub.publish(venue.id ? 'venueModified' : 'venueCreated', { venue: result });
     }
+    delete result.tournaments;
+    delete result.createdBy;
     return result;
   }
 

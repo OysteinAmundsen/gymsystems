@@ -1,0 +1,6 @@
+<mat-form-field>
+  <mat-placeholder><i class="fa fa-fw fa-{{ icon }}"></i><span>{{ placeholder }}</span></mat-placeholder>
+  <mat-select [formControl]="childControl" [compareWith]="compareWith">
+    <mat-option *ngFor="let division of divisions" [value]="division">{{division.name}}</mat-option>
+  </mat-select>
+</mat-form-field>

@@ -5,7 +5,7 @@ import { PubSub } from 'graphql-subscriptions';
 import { DivisionService } from './division.service';
 import { RoleGuard } from '../../common/auth/role.guard';
 import { DivisionDto } from './dto/division.dto';
-import { Division } from './division.model';
+import { Division, DivisionType } from './division.model';
 import { TeamService } from '../team/team.service';
 import { Team } from '../team/team.model';
 import { Role } from '../user/user.model';
@@ -24,10 +24,10 @@ export class DivisionResolver {
 
   @Query()
   @UseGuards(RoleGuard())
-  getDivisions(@Args('tournamentId') id?: number) {
+  getDivisions(@Args('tournamentId') id?: number, @Args('type') type?: DivisionType) {
     return id
-      ? this.divisionService.findByTournamentId(id)
-      : this.divisionService.findAll();
+      ? this.divisionService.findByTournamentId(id, type)
+      : this.divisionService.findAll(type);
   }
 
   @Query('division')

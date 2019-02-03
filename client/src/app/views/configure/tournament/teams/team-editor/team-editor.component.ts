@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, HostListener, ElementRef, ViewChildren, OnDestroy, ViewChild } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn, FormControl, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -50,39 +50,39 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   configuredTroops = [];
   disciplines: IDiscipline[];
   divisions: IDivision[] = [];
-  // defaults: IDivision[];
+  defaults: IDivision[];
 
+  get tournamentId() { return this.tournamentEditor.tournamentId; }
+  get value() { return this.teamForm.getRawValue(); }
 
   get ageDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Age); }
   get genderDivisions(): IDivision[] { return this.divisions.filter(d => d.type === DivisionType.Gender); }
 
   get allChecked() {
-    if (this.disciplineCheckboxes && this.disciplineCheckboxes.length) {
-      const team = this.teamForm.value;
-      const checked = this.disciplineCheckboxes.filter((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked);
-      return checked.length === this.disciplineCheckboxes.length;
-    }
-    return false;
+    return this.value.disciplines.every(c => c.checked === true);
   }
 
   classes = Classes;
 
   get teamName() {
-    const form = this.teamForm.value;
-    if (form && form.name) {
-      return typeof form.name === 'string' ? form.name : form.name.name;
+    if (this.value && this.value.name) {
+      return typeof this.value.name === 'string' ? this.value.name : this.value.name.name;
     }
     return '';
   }
 
-  get isAllLodged() { return this.teamForm.value.gymnasts ? this.teamForm.value.gymnasts.every(g => g.lodging) : false; }
-  set isAllLodged($event) { this.teamForm.value.gymnasts.forEach(g => g.lodging = $event); }
+  get isAllLodged() { return this.value.gymnasts ? this.value.gymnasts.every(g => g.lodging) : false; }
+  set isAllLodged($event) { this.value.gymnasts.forEach(g => g.lodging = $event); }
 
-  get isAllTransport() { return this.teamForm.value.gymnasts ? this.teamForm.value.gymnasts.every(g => g.transport) : false; }
-  set isAllTransport($event) { this.teamForm.value.gymnasts.forEach(g => g.transport = $event); }
+  get isAllTransport() { return this.value.gymnasts ? this.value.gymnasts.every(g => g.transport) : false; }
+  set isAllTransport($event) { this.value.gymnasts.forEach(g => g.transport = $event); }
 
-  get isAllBanquet() { return this.teamForm.value.gymnasts ? this.teamForm.value.gymnasts.every(g => g.banquet) : false; }
-  set isAllBanquet($event) { this.teamForm.value.gymnasts.forEach(g => g.banquet = $event); }
+  get isAllBanquet() { return this.value.gymnasts ? this.value.gymnasts.every(g => g.banquet) : false; }
+  set isAllBanquet($event) { this.value.gymnasts.forEach(g => g.banquet = $event); }
+
+  get teamDiscipline(): FormArray {
+    return <FormArray>this.teamForm.get('disciplines');
+  }
 
 
   constructor(
@@ -96,6 +96,15 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private mediaService: MediaService) { }
 
+  createDisciplineGroup(d: IDiscipline): FormGroup {
+    const group = this.fb.group({ id: d.id, name: d.name, checked: true });
+    this.subscriptions.push(group.get('checked').statusChanges.subscribe(val => {
+      if (group.get('checked').dirty) {
+        this.teamForm.markAsDirty();
+      }
+    }));
+    return group;
+  }
   ngOnInit() {
     // Create form controls
     this.teamForm = this.fb.group({
@@ -104,7 +113,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       club: [null, [Validators.required]],
       ageDivision: [{ disable: true }, [Validators.required]],
       genderDivision: [{ disable: true }, [Validators.required]],
-      disciplines: [{ disable: true }],
+      disciplines: this.fb.array([]),
       tournamentId: [this.tournamentEditor.tournamentId],
       gymnasts: [null || []],
       class: [Classes.TeamGym],
@@ -120,14 +129,13 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       distinctUntilChanged(),
       debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
     ).subscribe(v => this.graph
-      .getData(`{getTroops(name:"${encodeURIComponent(v && v.name ? v.name : v)}",clubId:${this.teamForm.value.club.id}){id,name,gymnasts{id,name,gender,birthYear}}}`)
+      .getData(`{getTroops(name:"${encodeURIComponent(v && v.name ? v.name : v)}",clubId:${this.value.club.id}){id,name,gymnasts{id,name,gender,birthYear}}}`)
       .subscribe(result => (this.troopList = result.getTroops.filter(t => this.configuredTroops.findIndex(l => l.name === t.name) < 0)))));
 
     // Filter available gymnasts by age
     this.subscriptions.push(ageCtrl.valueChanges
       .pipe(distinctUntilChanged())
-      .subscribe((v: number) => this.memberSelector.addFilter('age', (g: IGymnast) => {
-        const div = this.divisions.find((d: IDivision) => d.id === v);
+      .subscribe((div: IDivision) => this.memberSelector.addFilter('age', (g: IGymnast) => {
         const age = moment().diff(moment(g.birthYear, 'YYYY'), 'years');
         return age <= div.max && age >= div.min;
       })));
@@ -135,8 +143,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     // Filter available gymnasts by gender
     this.subscriptions.push(genderCtrl.valueChanges
       .pipe(distinctUntilChanged())
-      .subscribe((v: number) => this.memberSelector.addFilter('gender', (g: IGymnast) => {
-        const div = this.divisions.find((d: IDivision) => d.id === v);
+      .subscribe((div: IDivision) => this.memberSelector.addFilter('gender', (g: IGymnast) => {
         switch (div.name) {
           case 'Kvinner': return g.gender === Gender.Female;
           case 'Herrer': return g.gender === Gender.Male;
@@ -211,7 +218,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     return (control: AbstractControl): { [key: string]: any } => {
       if (!this.teamForm) { return null; }
       const check = this.configuredTroops
-        .filter(t => t.club && t.club.name === this.teamForm.value.club && (!t.id || t.id !== this.teamForm.value.id))
+        .filter(t => t.club && t.club.name === this.value.club && (!t.id || t.id !== this.value.id))
         .findIndex(t => t.name === control.value) > -1;
       return check ? { 'forbiddenName': { value: control.value } } : null;
     };
@@ -224,8 +231,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   fileAdded($event, discipline: IDiscipline) {
     const fileList: FileList = (<HTMLInputElement>event.target).files;
     const upload = () => {
-      // this.teamService.uploadMedia(fileList[0], this.teamForm.value, discipline).subscribe(
-      //   data => this.loadData(this.teamForm.value.id),
+      // this.teamService.uploadMedia(fileList[0], this.value, discipline).subscribe(
+      //   data => this.loadData(this.value.id),
       //   error => Logger.error(error)
       // );
     };
@@ -238,42 +245,48 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   teamReceived(team: ITeam) {
     this.team = team;
-    const ageDivision = this.team.divisions.find(d => d.type === DivisionType.Age);
-    const genderDivision = this.team.divisions.find(d => d.type === DivisionType.Gender);
     if (team && team.id) {
+      while (this.teamDiscipline.controls.length) { this.teamDiscipline.removeAt(0); } // Reset the disciplines
       this.teamForm.setValue({
         id: team.id,
         name: team.name,
         club: team.club,
-        ageDivision: ageDivision ? ageDivision.id : null,
-        genderDivision: genderDivision ? genderDivision.id : null,
-        disciplines: team.disciplines,
-        tournamentId: this.tournamentEditor.tournamentId,
+        ageDivision: team.divisions.find(d => d.type === DivisionType.Age),
+        genderDivision: team.divisions.find(d => d.type === DivisionType.Gender),
+        disciplines: [],
+        tournamentId: this.tournamentId,
         gymnasts: team.gymnasts || [],
         class: team.class,
         media: team.media || null
       }, { emitEvent: false });
     }
+    // Create discipline array
+    this.disciplines.forEach(d => this.teamDiscipline.controls.push(this.createDisciplineGroup(d)));
+    this.teamDiscipline.controls.forEach(c => c.get('checked').setValue(team.disciplines.find(d => d.id === c.value.id) != null));
+    this.classChanged();
   }
 
   loadData(id?: number) {
     let query = `
       # Load tournaments divisions
-      getDivisions(tournamentId:${this.tournamentEditor.tournamentId}){id,name,min,max,type},
+      getDivisions(tournamentId:${this.tournamentId}){id,name,min,max,type},
 
       # Load tournaments disciplines
-      getDisciplines(tournamentId:${this.tournamentEditor.tournamentId}){id,name},`;
+      getDisciplines(tournamentId:${this.tournamentId}){id,name},`;
 
     if (id) {
       query += `team(id:${id})${this.teamQuery}`;
     }
     this.graph.getData(`{${query}}`).subscribe(res => {
       if (res.getDivisions) { this.divisions = res.getDivisions; }
-      if (res.getDisciplines) { this.disciplines = res.getDisciplines; }
+      if (res.getDisciplines) {
+        this.disciplines = res.getDisciplines;
+        this.disciplines.forEach(d => this.teamDiscipline.controls.push(this.createDisciplineGroup(d)));
+      }
       if (res.team) {
         this.teamReceived(res.team);
         this.tournament = res.team.tournament;
-        this.configuredTroops = res.team.club.teams.filter(t => t.tournamentId === this.tournamentEditor.tournamentId);
+        this.configuredTroops = res.team.club.teams.filter(t => t.tournamentId === this.tournamentId);
       }
     });
   }
@@ -283,7 +296,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   }
 
   getMedia(discipline: IDiscipline): IMedia {
-    return this.teamForm.value.media ? this.teamForm.value.media.find(m => m.discipline.id === discipline.id) : null;
+    return this.value.media ? this.value.media.find(m => m.discipline.id === discipline.id) : null;
   }
 
   isPlaying(media: IMedia) {
@@ -302,21 +315,20 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   removeMedia(discipline: IDiscipline) {
     this.stopMedia(discipline);
-    // this.teamService.removeMedia(this.team, discipline).subscribe(() => this.loadData(this.teamForm.value.id));
+    // this.teamService.removeMedia(this.team, discipline).subscribe(() => this.loadData(this.value.id));
   }
 
   async save(keepOpen?: boolean) {
-    const team = JSON.parse(JSON.stringify(this.teamForm.value)); // Clone form values
+    const team = JSON.parse(JSON.stringify(this.value)); // Clone form values, because we delete values here later on
 
     // Troop name
     if (team.name.id) { team.name = team.name.name; }
 
     // Compute division set
-    const ageDivision = this.divisions.find(d => d.id === team.ageDivision);
-    const genderDivision = this.divisions.find(d => d.id === team.genderDivision);
-    team.divisions = [JSON.parse(JSON.stringify(ageDivision)), JSON.parse(JSON.stringify(genderDivision))];
+    team.divisions = [team.ageDivision, team.genderDivision];
     delete team.ageDivision;
     delete team.genderDivision;
+    delete team.media; // This is uploaded and attached to team elsewhere
 
     // Get club
     if (!team.club) {
@@ -325,12 +337,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     }
 
     // Compute discipline set
-    team.disciplines = this.disciplineCheckboxes
-      .filter((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked)
-      .map((elm: ElementRef) => {
-        const disciplineId = (<HTMLInputElement>elm.nativeElement).attributes.getNamedItem('data').nodeValue;
-        return this.disciplines.find(d => d.id === +disciplineId);
-      });
+    team.disciplines = this.value.disciplines.filter(d => d.checked).map(d => ({ id: d.id, name: d.name }));
 
     // Save team
     return new Promise((resolve, reject) => {
@@ -346,12 +353,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  disciplinesChanged() {
-    this.teamForm.markAsDirty();
-  }
-
   delete() {
-    this.graph.deleteData('Team', this.teamForm.value.id).subscribe(result => {
+    this.graph.deleteData('Team', this.value.id).subscribe(result => {
       this.close(result);
     });
   }
@@ -361,20 +364,19 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   }
 
   classChanged() {
-    if (this.teamForm.value.class === Classes.TeamGym) {
-      // Force all checked for TeamGym
-      this.disciplineCheckboxes.forEach((element: ElementRef) => {
-        const el = <HTMLInputElement>element.nativeElement;
-        el.checked = true;
-      });
-    } else {
-      // Reflect model in view
-      this.disciplineCheckboxes.forEach((element: ElementRef) => {
-        const el = <HTMLInputElement>element.nativeElement;
-        const disciplineId = el.attributes.getNamedItem('data').nodeValue;
-        el.checked = this.teamForm.value.disciplines.findIndex(dis => +dis.id === +disciplineId) > -1;
-      });
-    }
+    this.teamDiscipline.controls.forEach(c => {
+      if (this.value.class === Classes.TeamGym) {
+        const ctrl = c.get('checked');
+        ctrl.markAsDirty();
+        ctrl.setValue(this.value.class === Classes.TeamGym);
+      }
+      if (this.value.class === Classes.TeamGym || this.value.club == null || this.value.name == null) {
+        c.disable();
+      } else {
+        // Reflect model in view
+        c.enable();
+      }
+    });
   }
 
   tabOut(typeahead: MatAutocomplete) {
@@ -386,8 +388,12 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   }
 
   toggleChecked() {
-    const state = this.allChecked;
-    this.disciplineCheckboxes.forEach((elm: ElementRef) => (<HTMLInputElement>elm.nativeElement).checked = !state);
+    const checked = !this.allChecked;
+    this.teamDiscipline.controls.forEach(c => {
+      const ctrl = c.get('checked');
+      ctrl.markAsDirty();
+      ctrl.setValue(checked);
+    });
   }
 
   @HostListener('keyup', ['$event'])

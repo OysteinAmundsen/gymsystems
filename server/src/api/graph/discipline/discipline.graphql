@@ -28,7 +28,7 @@ type IDiscipline {
 
 input DisciplineInput {
   id: ID
-  name: String!
+  name: String
   sortOrder: Int
   tournamentId: ID
   scoreGroups: [IDDependencyInput]

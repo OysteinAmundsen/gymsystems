@@ -34,6 +34,9 @@ export class ScoreService {
     if (result) {
       this.pubSub.publish(score.id ? 'scoreModified' : 'scoreCreated', { score: result });
     }
+    delete result.participant;
+    delete result.scoreGroup;
+
     return result;
   }
 
