@@ -8,13 +8,17 @@ export class TeamRepository extends Repository<Team> { }
 
 describe('TeamService', () => {
   let service: TeamService;
+  const divisionServiceStub = {
+    findByTeam: () => Promise.resolve({})
+  };
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         TeamService,
         { provide: 'TeamRepository', useClass: TeamRepository },
-        { provide: 'PubSubInstance', useValue: new PubSub()}
+        { provide: 'DivisionService', useValue: divisionServiceStub },
+        { provide: 'PubSubInstance', useValue: new PubSub() }
       ],
     }).compile();
     service = module.get<TeamService>(TeamService);

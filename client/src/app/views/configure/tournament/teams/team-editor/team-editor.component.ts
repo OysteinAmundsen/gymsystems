@@ -16,6 +16,7 @@ import { TournamentEditorComponent } from '../../tournament-editor/tournament-ed
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { MemberSelectorComponent } from 'app/views/configure/_shared/member-selector/member-selector.component';
 import { GraphService } from 'app/shared/services/graph.service';
+import { Logger } from 'app/shared/services/Logger';
 
 @Component({
   selector: 'app-team-editor',
@@ -37,6 +38,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     disciplines{id,name,sortOrder},
     divisions{id,name,min,max,type},
     tournament{id,providesLodging,providesBanquet,providesTransport},
+    media{id,fileName,originalName,disciplineId,teamId,tournamentId},
 
     # Load all teams for this club in this tournament
     club{id,name,teams{id,name,tournamentId}}
@@ -231,10 +233,10 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   fileAdded($event, discipline: IDiscipline) {
     const fileList: FileList = (<HTMLInputElement>event.target).files;
     const upload = () => {
-      // this.teamService.uploadMedia(fileList[0], this.value, discipline).subscribe(
-      //   data => this.loadData(this.value.id),
-      //   error => Logger.error(error)
-      // );
+      this.mediaService.upload(fileList[0], this.value.id, discipline.id).subscribe(
+        data => this.loadData(this.value.id),
+        error => Logger.error(error)
+      );
     };
     if (fileList.length > 0) {
       if (this.teamForm.dirty) {
@@ -296,7 +298,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   }
 
   getMedia(discipline: IDiscipline): IMedia {
-    return this.value.media ? this.value.media.find(m => m.discipline.id === discipline.id) : null;
+    return this.value.media ? this.value.media.find(m => m.disciplineId === discipline.id) : null;
   }
 
   isPlaying(media: IMedia) {

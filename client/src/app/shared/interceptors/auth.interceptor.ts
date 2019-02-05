@@ -118,7 +118,7 @@ export class AuthInterceptor implements HttpInterceptor {
    */
   checkError(req: HttpRequest<any>, res: HttpResponse<any>) {
     const body = res.body;
-    if (res.status !== 200 || (body && body.errors && body.errors.some(e => e.message.statusCode !== 200))) {
+    if (res.status >= 400 || (body && body.errors && body.errors.some(e => e.message.statusCode !== 200))) {
       if (res.body && res.body.errors && res.body.errors.length > 0) {
         // GraphQL Error
         const message = res.body.errors[0].message;

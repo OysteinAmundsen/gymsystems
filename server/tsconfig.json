@@ -9,7 +9,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es6",
-    "noLib": false,
     "skipLibCheck": true,
     "noImplicitAny": false,
     "removeComments": true,
@@ -19,7 +18,13 @@
       "api/*": [
         "./api/*"
       ]
-    }
+    },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es6",
+      "es2017.string"
+    ]
   },
   "include": [
     "src/**/*",

@@ -28,12 +28,6 @@ export class MediaResolver {
     return this.mediaService.findOneById(id);
   }
 
-  @Mutation('saveMedia')
-  @UseGuards(RoleGuard(Role.Club))
-  save(@Args('input') input: MediaDto): Promise<Media> {
-    return this.mediaService.save(Cleaner.clean(input));
-  }
-
   @Mutation('deleteMedia')
   @UseGuards(RoleGuard(Role.Club))
   remove(@Args('id') id: number): Promise<boolean> {

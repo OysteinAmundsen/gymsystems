@@ -1,15 +1,21 @@
 import { TestBed } from "@angular/core/testing";
 import { IMedia } from "app/model";
 import { MediaService } from "./media.service";
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 describe("services:MediaService", () => {
   let service: MediaService;
-  const iMediaStub = <IMedia>{ team: { id: 1 }, discipline: { id: 1 } };
+  const iMediaStub = <IMedia>{ teamId: 1, disciplineId: 1 };
 
   beforeEach(() => {
+    const httpClientStub = {
+      post: () => of({})
+    };
     TestBed.configureTestingModule({
       providers: [
-        MediaService
+        MediaService,
+        { provide: HttpClient, useValue: httpClientStub },
       ]
     });
     service = TestBed.get(MediaService);
@@ -27,7 +33,7 @@ describe("services:MediaService", () => {
     it("makes expected calls", () => {
       service.play(iMediaStub);
       expect(service.whatsPlaying).toBe(iMediaStub);
-      expect(service.audio.src).toContain(`/api/media/${iMediaStub.team.id}/${iMediaStub.discipline.id}`)
+      expect(service.audio.src).toContain(`/api/media/${iMediaStub.teamId}/${iMediaStub.disciplineId}`)
     });
   });
 

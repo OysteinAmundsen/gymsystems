@@ -4,7 +4,7 @@ import { ITournament } from './ITournament';
 
 export interface IMedia {
   id: number;
-  filename: string;
+  fileName: string;
   originalName: string;
   mimeType: string;
   disciplineId: number;

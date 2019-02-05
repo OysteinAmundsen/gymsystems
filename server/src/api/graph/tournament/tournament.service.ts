@@ -45,7 +45,7 @@ export class TournamentService {
       // New tournament. Create defaults
       if (isNew && (await this.createDefaults(result.id))) {
         // Create media folder for this tournament
-        const archiveCreated = await this.mediaService.createArchive(result.id, result.endDate);
+        const archiveCreated = await this.mediaService.createMediaArchive(result.id, result.endDate);
       }
       this.pubSub.publish(tournament.id ? 'tournamentModified' : 'tournamentCreated', { tournament: result });
     }

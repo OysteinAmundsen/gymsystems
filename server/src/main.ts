@@ -8,11 +8,11 @@ const startTime = performance.now();
 
 import { Log } from './api/common/util/logger/log';
 const lineLength = 75;
-Log.log.info(padRight(`┌`, lineLength, '─') + `┐`);
-Log.log.info(padRight(`│    Starting: ${new Date().toISOString()}`, lineLength, ' ') + `│`);
-Log.log.info(padRight(`│      Memory: ${readMem()}`, lineLength, ' ') + `│`);
-Log.log.info(padRight(`│     Runtime: ${env}`, lineLength, ' ') + `│`);
-Log.log.info(padRight(`└`, lineLength, '─') + `┘`);
+Log.log.info(`┌`.padEnd(lineLength, '─') + `┐`);
+Log.log.info(`│    Starting: ${new Date().toISOString()}`.padEnd(lineLength, ' ') + `│`);
+Log.log.info(`│      Memory: ${readMem()}`.padEnd(lineLength, ' ') + `│`);
+Log.log.info(`│     Runtime: ${env}`.padEnd(lineLength, ' ') + `│`);
+Log.log.info(`└`.padEnd(lineLength, '─') + `┘`);
 
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
@@ -34,13 +34,6 @@ Log.log.debug(` * ${new Date().toISOString()}: imports done in ${(performance.no
 Log.log.debug(` * Memory: ${readMem()}`);
 
 let bootTime;
-
-function padRight(str, length, character) {
-  while (str.length < length) {
-    str += character;
-  }
-  return str;
-}
 
 /**
  * Prints out a human readable compillation of the current memory usage
@@ -120,18 +113,18 @@ async function bootstrap() {
 
   // Start listening
   await app.listen(Config.Port, Config.IP, () => {
-    Log.log.info(padRight(`┌`, lineLength, '─') + `┐`);
-    Log.log.info(padRight(`│       Server listening: ${Config.ApiUrl}`, lineLength, ' ') + `│`);
+    Log.log.info(`┌`.padEnd(lineLength, '─') + `┐`);
+    Log.log.info(`│       Server listening: ${Config.ApiUrl}`.padEnd(lineLength, ' ') + `│`);
     if (!Config.isProd()) {
-      Log.log.info(padRight(`│  Swagger Documentation: ${Config.ApiUrl}${Config.DocsRoute}`, lineLength, ' ') + `│`);
-      Log.log.info(padRight(`│     GraphQL Playground: ${Config.ApiUrl}${Config.GraphRoute}`, lineLength, ' ') + `│`);
+      Log.log.info(`│  Swagger Documentation: ${Config.ApiUrl}${Config.DocsRoute}`.padEnd(lineLength, ' ') + `│`);
+      Log.log.info(`│     GraphQL Playground: ${Config.ApiUrl}${Config.GraphRoute}`.padEnd(lineLength, ' ') + `│`);
     }
-    Log.log.info(padRight(`├`, lineLength, '─') + `┤`);
-    Log.log.info(padRight(`│             Memory: ${readMem()}`, lineLength, ' ') + `│`);
-    Log.log.info(padRight(`│             Launch: ${new Date().toISOString()}`, lineLength, ' ') + `│`);
-    Log.log.info(padRight(`│      Time to start: ${(performance.now() - startTime).toFixed(3)}ms`, lineLength, ' ') + `│`);
-    Log.log.info(padRight(`│     Bootstrap time: ${(performance.now() - bootTime).toFixed(3)}ms`, lineLength, ' ') + `│`);
-    Log.log.info(padRight(`└`, lineLength, '─') + `┘`);
+    Log.log.info(`├`.padEnd(lineLength, '─') + `┤`);
+    Log.log.info(`│             Memory: ${readMem()}`.padEnd(lineLength, ' ') + `│`);
+    Log.log.info(`│             Launch: ${new Date().toISOString()}`.padEnd(lineLength, ' ') + `│`);
+    Log.log.info(`│      Time to start: ${(performance.now() - startTime).toFixed(3)}ms`.padEnd(lineLength, ' ') + `│`);
+    Log.log.info(`│     Bootstrap time: ${(performance.now() - bootTime).toFixed(3)}ms`.padEnd(lineLength, ' ') + `│`);
+    Log.log.info(`└`.padEnd(lineLength, '─') + `┘`);
   });
 }
 

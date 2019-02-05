@@ -4,7 +4,7 @@ type Query {
 }
 
 type Mutation {
-  saveMedia(input: MediaInput): IMedia
+  # saveMedia(input: MediaInput): IMedia
   deleteMedia(id: ID): Boolean
 }
 

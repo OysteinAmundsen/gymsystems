@@ -87,19 +87,13 @@ export class TeamResolver {
   }
 
   @ResolveProperty('divisions')
-  async getDivisions(team: Team): Promise<Division[]> {
-    if (!team.divisions) {
-      team.divisions = await this.divisionService.findByTeam(team);
-    }
-    return team.divisions;
+  getDivisions(team: Team): Promise<Division[]> {
+    return this.teamService.getDivisions(team);
   }
 
   @ResolveProperty('divisionName')
-  async getDivisionName(team: Team): Promise<string> {
-    const divisions = await this.getDivisions(team);
-    const ageDiv = divisions.find(d => d.type === DivisionType.Age);
-    const genderDiv = divisions.find(d => d.type === DivisionType.Gender);
-    return `${(genderDiv ? genderDiv.name : '')} ${(ageDiv ? ageDiv.name : '')}`;
+  getDivisionName(team: Team): Promise<string> {
+    return this.teamService.getDivisionName(team);
   }
 
   @ResolveProperty('tournament')

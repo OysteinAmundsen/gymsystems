@@ -1,24 +1,25 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MediaController } from './media.controller';
 import { MediaService } from './media.service';
-import { MediaRepository } from './media.service.spec';
-import { PubSub } from 'graphql-subscriptions';
 
 describe('Media Controller', () => {
-  let module: TestingModule;
+  let testModule: TestingModule;
+  const mediaServiceStub = {
+    save: () => { },
+    findByTeamAndDiscipline: () => { },
+    remove: () => { }
+  };
 
   beforeAll(async () => {
-    module = await Test.createTestingModule({
+    testModule = await Test.createTestingModule({
       controllers: [MediaController],
       providers: [
-        MediaService,
-        { provide: 'MediaRepository', useClass: MediaRepository },
-        { provide: 'PubSubInstance', useValue: new PubSub() }
+        { provide: MediaService, useValue: mediaServiceStub }
       ]
     }).compile();
   });
   it('should be defined', () => {
-    const controller: MediaController = module.get<MediaController>(MediaController);
+    const controller: MediaController = testModule.get<MediaController>(MediaController);
     expect(controller).toBeDefined();
   });
 });

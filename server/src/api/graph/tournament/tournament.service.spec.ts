@@ -38,7 +38,7 @@ describe("TournamentService", () => {
       createDefaults: () => ({})
     };
     const mediaServiceStub = {
-      createArchive: () => ({}),
+      createMediaArchive: () => ({}),
       removeArchive: () => ({})
     };
 
@@ -73,13 +73,13 @@ describe("TournamentService", () => {
       spyOn(repositoryStub, "findOne").and.callFake(() => tournamentDtoStub);
       spyOn(repositoryStub, "save").and.callFake(() => tournamentDtoStub);
       spyOn(service, "createDefaults");
-      spyOn(mediaServiceStub, "createArchive");
+      spyOn(mediaServiceStub, "createMediaArchive");
       spyOn(pubSubStub, "publish");
       service.save(tournamentDtoStub).then(result => {
         expect(repositoryStub.findOne).toHaveBeenCalled();
         expect(repositoryStub.save).toHaveBeenCalled();
         expect(service.createDefaults).not.toHaveBeenCalled();
-        expect(mediaServiceStub.createArchive).not.toHaveBeenCalled();
+        expect(mediaServiceStub.createMediaArchive).not.toHaveBeenCalled();
         expect(pubSubStub.publish).toHaveBeenCalled();
       });
     });
@@ -92,13 +92,13 @@ describe("TournamentService", () => {
       spyOn(repositoryStub, "findOne");
       spyOn(repositoryStub, "save").and.callFake(() => tournamentDtoStub);
       spyOn(service, "createDefaults").and.callFake(() => true);
-      spyOn(mediaServiceStub, "createArchive");
+      spyOn(mediaServiceStub, "createMediaArchive");
       spyOn(pubSubStub, "publish");
       service.save(newTournamentStub).then(result => {
         expect(repositoryStub.findOne).not.toHaveBeenCalled();
         expect(repositoryStub.save).toHaveBeenCalled();
         expect(service.createDefaults).toHaveBeenCalled();
-        expect(mediaServiceStub.createArchive).toHaveBeenCalled();
+        expect(mediaServiceStub.createMediaArchive).toHaveBeenCalled();
         expect(pubSubStub.publish).toHaveBeenCalled();
       });
     });

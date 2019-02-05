@@ -9,9 +9,10 @@ import { Team } from './team.model';
 import { Tournament } from '../tournament/tournament.model';
 import { Club } from '../club/club.model';
 import { Discipline } from '../discipline/discipline.model';
-import { Division } from '../division/division.model';
+import { Division, DivisionType } from '../division/division.model';
 import { Gymnast } from '../gymnast/gymnast.model';
 import { PubSub } from 'graphql-subscriptions';
+import { DivisionService } from '../division/division.service';
 
 @Injectable()
 export class TeamService {
@@ -21,6 +22,7 @@ export class TeamService {
 
   constructor(
     @InjectRepository(Team) private readonly teamRepository: Repository<Team>,
+    private readonly divisionService: DivisionService,
     @Inject('PubSubInstance') private readonly pubSub: PubSub
   ) { }
 
@@ -61,6 +63,10 @@ export class TeamService {
       // tslint:disable-next-line:triple-equals
       ? (await this.findByTournamentId(tournamentId)).find(t => t.id == id)
       : this.teamRepository.findOne({ where: { id: id }, relations: ['disciplines', 'media'], cache: Config.QueryCache });
+  }
+
+  async findOneByIdWithTournament(id: number): Promise<Team> {
+    return this.teamRepository.findOne({ where: { id: id }, relations: ['tournament'] });
   }
 
   findByTournamentId(id: number): Promise<Team[]> {
@@ -135,4 +141,19 @@ export class TeamService {
   findAll(): Promise<Team[]> {
     return this.teamRepository.find();
   }
+
+  async getDivisions(team: Team): Promise<Division[]> {
+    if (!team.divisions) {
+      team.divisions = await this.divisionService.findByTeam(team);
+    }
+    return team.divisions;
+  }
+
+  async getDivisionName(team: Team): Promise<string> {
+    const divisions = await this.getDivisions(team);
+    const ageDiv = divisions.find(d => d.type === DivisionType.Age);
+    const genderDiv = divisions.find(d => d.type === DivisionType.Gender);
+    return `${(genderDiv ? genderDiv.name : '')} ${(ageDiv ? ageDiv.name : '')}`;
+  }
+
 }
