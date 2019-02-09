@@ -46,7 +46,7 @@ export class ScoreGroupEditorComponent implements OnInit {
       min: [this.scoreGroup.min],
       type: [this.scoreGroup.type, [Validators.required]],
       operation: [this.scoreGroup.operation],
-      disciplineId: [this.discipline.id]
+      disciplineId: [this.discipline ? this.discipline.id : null]
     });
     if (this.discipline) {
       const judgeArray = this.fb.array(this.scoreGroup.judges.map(judge => this.fb.group(judge)));

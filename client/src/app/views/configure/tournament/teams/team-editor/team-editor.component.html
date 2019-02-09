@@ -42,8 +42,8 @@
             </h2>
           </header>
           <fieldset>
-            <app-division-lookup formControlName="genderDivision" icon="venus-mars" placeholder="{{'Gender group' | translate}}" type="Gender" [tournamentId]="tournamentId"
-                                 class="col-12"></app-division-lookup>
+            <app-division-lookup formControlName="genderDivision" icon="venus-mars" placeholder="{{'Gender group' | translate}}" type="Gender"
+                                 [tournamentId]="tournamentId" class="col-12"></app-division-lookup>
             <app-division-lookup formControlName="ageDivision" icon="child" placeholder="{{'Age group' | translate}}" type="Age" [tournamentId]="tournamentId"
                                  class="col-12"></app-division-lookup>
           </fieldset>
@@ -55,7 +55,8 @@
             <h2>
               <i class="fa fa-fw fa-heartbeat"></i>
               <span translate>Disciplines</span>
-              <mat-slide-toggle class="mat-primary" [checked]="teamForm.value.class === classes.TeamGym" (change)="$event.checked ? teamForm.controls['class'].setValue(classes.TeamGym) : teamForm.controls['class'].setValue(classes.National)">
+              <mat-slide-toggle class="mat-primary" [checked]="teamForm.value.class === classes.TeamGym"
+                                (change)="$event.checked ? teamForm.controls['class'].setValue(classes.TeamGym) : teamForm.controls['class'].setValue(classes.National)">
                 <span *ngIf="teamForm.value.class === classes.TeamGym" translate>TeamGym</span>
                 <span *ngIf="teamForm.value.class === classes.National" translate>National</span>
               </mat-slide-toggle>
@@ -66,7 +67,8 @@
               <tr role="listitem">
                 <td class="disciplines">
                   <label>
-                    <input type="checkbox" [checked]="allChecked" (click)="toggleChecked()" [disabled]="teamForm.value.class === classes.TeamGym || teamForm.value.club == null || teamForm.value.name == null">
+                    <input type="checkbox" [checked]="allChecked" (click)="toggleChecked()"
+                           [disabled]="teamForm.value.class === classes.TeamGym || teamForm.value.club == null || teamForm.value.name == null">
                     <span translate>All</span>
                   </label>
                 </td>
@@ -92,20 +94,20 @@
                   <td class="media">
                     <div class="flex">
                       <div class="action-buttons">
-                        <button mat-icon-button *ngIf="hasMedia(discipline.value) && !isPlaying(getMedia(discipline.value))" type="button" (click)="previewMedia(discipline.value)"
-                                [title]="'Play media' | translate" aria-label="Play media">
+                        <button mat-icon-button *ngIf="hasMedia(discipline.value) && !isPlaying(getMedia(discipline.value))" type="button"
+                                (click)="previewMedia(discipline.value)" [title]="'Play media' | translate" aria-label="Play media">
                           <i class="fa fa-fw fa-play"></i>
                         </button>
-                        <button mat-icon-button *ngIf="hasMedia(discipline.value) && isPlaying(getMedia(discipline.value))" type="button" (click)="stopMedia(discipline.value)"
-                                [title]="'Stop playing' | translate" aria-label="Stop playing">
+                        <button mat-icon-button *ngIf="hasMedia(discipline.value) && isPlaying(getMedia(discipline.value))" type="button"
+                                (click)="stopMedia(discipline.value)" [title]="'Stop playing' | translate" aria-label="Stop playing">
                           <i class="fa fa-fw fa-stop"></i>
                         </button>
                         <button mat-icon-button *ngIf="hasMedia(discipline.value)" type="button" (click)="removeMedia(discipline.value)" class="warning"
                                 [title]="'Remove media' | translate" aria-label="Remove media">
                           <i class="fa fa-fw fa-trash"></i>
                         </button>
-                        <a mat-icon-button class="file-upload" *ngIf="!hasMedia(discipline.value) && !teamForm.invalid && discipline.value.checked" [title]="'Upload media' | translate"
-                           aria-label="Upload media">
+                        <a mat-icon-button class="file-upload" *ngIf="!hasMedia(discipline.value) && !teamForm.invalid && discipline.value.checked"
+                           [title]="'Upload media' | translate" aria-label="Upload media">
                           <input type="file" (change)="fileAdded($event, discipline.value)" accept=".mp3,.wav">
                           <i class="fa fa-fw fa-upload"></i>
                         </a>
@@ -123,8 +125,8 @@
       <div class="row">
 
         <!-- Members -->
-        <app-member-selector [club]="teamForm.value.club && teamForm.value.club.id ? teamForm.value.club : null" [troopName]="teamForm.value.name" [gymnasts]="teamForm.value.gymnasts"
-                             (gymnastsChange)="teamForm.markAsDirty()" [memberTemplate]="memberContent">
+        <app-member-selector [club]="teamForm.value.club && teamForm.value.club.id ? teamForm.value.club : null" [troopName]="teamForm.value.name"
+                             [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()" [memberTemplate]="memberContent">
           <span class="flex-col" *ngIf="teamForm.value.gymnasts != null && teamForm.value.gymnasts.length > 0">
             <label [title]="'Require lodging' | translate" *ngIf="tournament.providesLodging">
               <input type="checkbox" [(ngModel)]="isAllLodged" [ngModelOptions]="{standalone: true}" />
@@ -155,9 +157,11 @@
 
 <ng-template #memberContent let-member="member">
   <div class="member-extras flex-col">
-    <label *ngIf="tournament.providesLodging" [title]="'Require lodging' | translate"><input type="checkbox" [(ngModel)]="member.lodging" /> <i class="fa fa-fw fa-bed"></i></label>
+    <label *ngIf="tournament.providesLodging" [title]="'Require lodging' | translate"><input type="checkbox" [(ngModel)]="member.lodging" /> <i
+         class="fa fa-fw fa-bed"></i></label>
     <label *ngIf="tournament.providesTransport" [title]="'Require transportation' | translate"><input type="checkbox" [(ngModel)]="member.transport" /> <i
          class="fa fa-fw fa-bus"></i></label>
-    <label *ngIf="tournament.providesBanquet" [title]="'Joining banquet' | translate"><input type="checkbox" [(ngModel)]="member.banquet" /> <i class="fa fa-fw fa-cutlery"></i></label>
+    <label *ngIf="tournament.providesBanquet" [title]="'Joining banquet' | translate"><input type="checkbox" [(ngModel)]="member.banquet" /> <i
+         class="fa fa-fw fa-cutlery"></i></label>
   </div>
 </ng-template>

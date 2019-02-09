@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit, Input, Output, EventEmitter, Injector } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, Input, Output, EventEmitter, Injector, OnChanges, SimpleChanges } from '@angular/core';
 // import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 
@@ -7,13 +7,14 @@ import { IScoreGroup, IDiscipline } from 'app/model';
 import { TournamentEditorComponent } from 'app/views/configure/tournament/tournament-editor/tournament-editor.component';
 import { GraphService } from 'app/shared/services/graph.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Logger } from 'app/shared/services/Logger';
 
 @Component({
   selector: 'app-disciplines',
   templateUrl: './disciplines.component.html',
   styleUrls: ['./disciplines.component.scss']
 })
-export class DisciplinesComponent implements OnInit, OnDestroy {
+export class DisciplinesComponent implements OnInit, OnDestroy, OnChanges {
   @Input() standalone = false;
   @Input() disciplineList: IDiscipline[] = [];
   @Output() disciplineListchanged = new EventEmitter<IDiscipline[]>();
@@ -44,16 +45,18 @@ export class DisciplinesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.configService.getByname('defaultValues').subscribe(config => {
+    this.configService.getByname('defaultValues').toPromise().then(config => {
       this.defaultDisciplines = config.value.discipline;
       this.defaultScoreGroups = config.value.scoreGroup;
     });
-    if (this.standalone) {
-      this.loadDisciplines();
-    } else {
+    if (!this.standalone) {
       this.tournamentId = this.injector.get(TournamentEditorComponent).tournamentId;
       this.loadDisciplines();
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.disciplineList) { }
   }
 
   drop(event: CdkDragDrop<IDiscipline[]>) {

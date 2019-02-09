@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit, Input, EventEmitter, Output, Injector } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, Input, EventEmitter, Output, Injector, OnChanges, SimpleChanges } from '@angular/core';
 // import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { GraphService } from 'app/shared/services/graph.service';
   templateUrl: './divisions.component.html',
   styleUrls: ['./divisions.component.scss']
 })
-export class DivisionsComponent implements OnInit, OnDestroy {
+export class DivisionsComponent implements OnInit, OnDestroy, OnChanges {
   static divisionsQuery = `{
     id,
     name,
@@ -45,10 +45,8 @@ export class DivisionsComponent implements OnInit, OnDestroy {
     private injector: Injector) { }
 
   ngOnInit() {
-    this.configService.getByname('defaultValues').subscribe(config => this.defaultDivisions = config.value.division);
-    if (this.standalone) {
-      this.loadDivisions();
-    } else {
+    this.configService.getByname('defaultValues').toPromise().then(config => this.defaultDivisions = config.value.division);
+    if (!this.standalone) {
       this.tournamentId = this.injector.get(TournamentEditorComponent).tournamentId;
       this.loadDivisions();
     }
@@ -77,6 +75,12 @@ export class DivisionsComponent implements OnInit, OnDestroy {
     // };
     // this.subscriptions.push(this.dragulaService.dropModel('gender-bag').subscribe(modelListener));
     // this.subscriptions.push(this.dragulaService.dropModel('age-bag').subscribe(modelListener));
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.divisions) {
+      this.divisionReceived(this.divisions);
+    }
   }
 
   ngOnDestroy() {

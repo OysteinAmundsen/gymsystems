@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { GraphService } from 'app/shared/services/graph.service';
+import { ConfigurationService } from 'app/shared/services/api';
+import { IDiscipline } from 'app/model/IDiscipline';
 
 @Component({
   selector: 'app-media',
@@ -6,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./media.component.scss']
 })
 export class MediaComponent implements OnInit {
+  disciplines: IDiscipline[] = [];
 
-  constructor() { }
+  constructor(private graph: GraphService, private configService: ConfigurationService) { }
 
   ngOnInit() {
+    this.configService.getByname('defaultValues').subscribe(config => this.disciplines = config.value.discipline);
   }
 }

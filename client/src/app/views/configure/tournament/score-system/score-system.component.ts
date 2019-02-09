@@ -1,15 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, HostListener, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ConfigurationService } from 'app/shared/services/api';
 import { IDiscipline, IScoreGroup, Operation } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-score-system',
   templateUrl: './score-system.component.html',
   styleUrls: ['./score-system.component.scss']
 })
-export class ScoreSystemComponent implements OnInit {
+export class ScoreSystemComponent implements OnInit, OnDestroy, OnChanges {
   @Input() discipline: IDiscipline;
   @Input() standalone = false;
   @Output() editModeChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -26,6 +27,8 @@ export class ScoreSystemComponent implements OnInit {
     judgeCount
   }`;
 
+  subscriptions: Subscription[] = [];
+
   defaultScoreGroups: IScoreGroup[];
 
   _selected: IScoreGroup;
@@ -39,11 +42,23 @@ export class ScoreSystemComponent implements OnInit {
   constructor(private graph: GraphService, private configService: ConfigurationService) { }
 
   ngOnInit() {
-    this.configService.getByname('defaultValues').subscribe(config => this.defaultScoreGroups = config.value.scoreGroup);
-
-    // Setup scoregroup list either from given Input, or from given discipline
-    this.loadScoreGroups();
+    this.configService.getByname('defaultValues').toPromise().then(config => {
+      this.defaultScoreGroups = config.value.scoreGroup;
+    });
+    if (!this.standalone) {
+      // Setup scoregroup list either from given Input, or from given discipline
+      this.loadScoreGroups();
+    }
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.scoreGroupList) { }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s ? s.unsubscribe() : null);
+  }
+
 
   loadScoreGroups() {
     if (this.discipline) {

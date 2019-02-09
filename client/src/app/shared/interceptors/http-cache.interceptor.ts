@@ -24,8 +24,9 @@ export class HttpCacheInterceptor implements HttpInterceptor {
     // Execute request
     return next.handle(req).pipe(
       map(result => {
+        const done = !(Object.keys(result).length === 1 && result.type === 0);
         // Cache result
-        if (req.method === 'GET' && !req.headers.has('noCache')) {
+        if (done && req.method === 'GET' && !req.headers.has('noCache')) {
           this.cache.add(req.urlWithParams, result);
         }
         // Return original result

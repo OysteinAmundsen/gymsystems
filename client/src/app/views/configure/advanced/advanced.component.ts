@@ -16,8 +16,12 @@ export class AdvancedComponent implements OnInit {
   selected;
   isLoading = false;
   configForm: FormGroup = null;
+  _defaultValues = null;
   get defaultValues() {
-    return this.configuration ? this.configuration.find(c => c.name === 'defaultValues').value : {};
+    if (this.configuration && !this._defaultValues) {
+      this._defaultValues = this.configuration.find(c => c.name === 'defaultValues').value;
+    }
+    return this._defaultValues;
   }
   get defaultValueKeys() {
     return this.configuration ? Object.keys(this.defaultValues) : null;

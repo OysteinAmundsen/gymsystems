@@ -10,7 +10,8 @@
         </mat-form-field>
         <div class="col-2 material-label">
           <label translate>Operation</label>
-          <mat-slide-toggle class="mat-primary" [checked]="scoreForm.value.operation === operations.Addition" (change)="$event.checked ? scoreForm.controls['operation'].setValue(operations.Addition) : scoreForm.controls['operation'].setValue(operations.Subtraction)">
+          <mat-slide-toggle class="mat-primary" [checked]="scoreForm.value.operation === operations.Addition"
+                            (change)="$event.checked ? scoreForm.controls['operation'].setValue(operations.Addition) : scoreForm.controls['operation'].setValue(operations.Subtraction)">
             <span *ngIf="scoreForm.value.operation === operations.Addition" translate>Addition</span>
             <span *ngIf="scoreForm.value.operation === operations.Subtraction" translate>Subtraction</span>
           </mat-slide-toggle>
@@ -57,8 +58,10 @@
 
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="scoreForm.invalid || scoreForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="standalone || scoreForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()" aria-label="Delete">
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span
+              translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="standalone || scoreForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn"
+              (click)="delete()" aria-label="Delete">
         <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
       </button>
     </mat-card-actions>
