@@ -15,6 +15,7 @@ import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.servi
 
 import { ITournament, ITeamInDiscipline, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
+import { BrowserService } from 'app/shared/browser.service';
 
 /**
  *
@@ -48,13 +49,13 @@ export class ListComponent implements OnInit, OnDestroy {
 
   get showTraining() {
     if (this._showTraining === undefined) {
-      const show = localStorage.getItem('showTraining') || !!this.user ? 'false' : 'true';
+      const show = this.browser.localStorage().getItem('showTraining') || !!this.user ? 'false' : 'true';
       this._showTraining = show !== 'false';
     }
     return this._showTraining;
   }
   set showTraining(v) {
-    localStorage.setItem('showTraining', v);
+    this.browser.localStorage().setItem('showTraining', v);
     this._showTraining = v;
   }
 
@@ -79,7 +80,8 @@ export class ListComponent implements OnInit, OnDestroy {
     private eventService: EventService,
     private userService: UserService,
     private mediaService: MediaService,
-    private errorHandler: ErrorHandlerService) { }
+    private errorHandler: ErrorHandlerService,
+    private browser: BrowserService) { }
 
   /**
    *

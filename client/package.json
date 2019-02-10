@@ -9,7 +9,7 @@
     "start": "ng serve",
     "start:ssr": "node dist/server.js",
     "build": "ng --version && ng build",
-    "build:ssr": "ng run gymsystems:server && webpack --config webpack.server.config.js --progress --colors",
+    "build:ssr": "ng run gymsystems:server -c=production && webpack --config webpack.server.config.js --progress --colors",
     "test": "ng test --progress=false",
     "coverage": "yarn test --watch=false --code-coverage",
     "lint": "ng lint",

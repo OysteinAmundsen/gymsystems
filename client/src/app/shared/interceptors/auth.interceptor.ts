@@ -139,7 +139,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // Compile a human readable version of server sent error message
     let error = errorMessage.message.indexOf('{') > -1 ? JSON.parse(errorMessage.message) : errorMessage;
 
-    if (!(req.headers.has('noReport') || (req.body.extensions && req.body.extensions.noReport))) {
+    if (!(req.headers.has('noReport') || (req.body && req.body.extensions && req.body.extensions.noReport))) {
       if (error.status) {
         // Analyze status
         if (error.status === 401) {

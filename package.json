@@ -13,7 +13,7 @@
     "lint": "yarn workspace gymsystems_server lint && yarn workspace gymsystems_client lint",
     "build:server": "yarn workspace gymsystems_server build",
     "build:client": "yarn workspace gymsystems_client build",
-    "build:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker build --compress",
+    "build:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker build --compress --parallel",
     "test": "yarn test:server && yarn test:client",
     "test:server": "yarn workspace gymsystems_server test",
     "test:client": "yarn workspace gymsystems_client test --watch=false",

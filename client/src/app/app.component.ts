@@ -26,7 +26,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
   user: IUser;
   version = '';
   get locationHref() {
-    return encodeURIComponent(this.browser.window().location.pathname);
+    const loc = this.browser.window().location;
+    return (loc ? encodeURIComponent(loc.pathname) : '');
   }
 
   get currentLang() { return this.translate.currentLang; }
@@ -60,7 +61,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
     this.translate.addLangs(['en', 'no']);
     this.translate.setDefaultLang('en');
     const browserLang: string = this.translate.getBrowserLang();
-    const newLang = localStorage.getItem('lang') || browserLang;
+    const newLang = this.browser.localStorage().getItem('lang') || browserLang;
     this.changeLang(newLang ? newLang : 'en');
 
     // For debugging routes (only visible in dev mode)
@@ -80,8 +81,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
    *
    */
   ngAfterContentChecked() {
-    const helpBlocks = this.browser.document().querySelectorAll('app-help-block');
-    if (this.currentHelpBlocks !== helpBlocks.length) {
+    const helpBlocks = this.browser.document().querySelectorAll('app-help-block') || [];
+    if (helpBlocks && this.currentHelpBlocks !== helpBlocks.length) {
       this.currentHelpBlocks = helpBlocks.length;
     }
   }
@@ -125,7 +126,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterContentChecked {
    */
   changeLang(lang) {
     if (lang.match(/no|nb|no-nb/)) { lang = 'no'; } else { lang = 'en'; }
-    localStorage.setItem('lang', lang);
+    this.browser.localStorage().setItem('lang', lang);
     Logger.debug('%c** Changing language: ', 'font-size: 1.1em; font-weight: bold; color: green', this.currentLang, lang);
     return this.translate.use(lang);
   }

@@ -15,7 +15,7 @@ export class Logger {
   }
 
   private static _log(type: string, ...args) {
-    if (window.console) {
+    if (typeof window !== 'undefined' && window.console) {
       console[type](...args);
     }
   }

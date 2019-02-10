@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private meta: Meta,
     private angulartics: Angulartics2
   ) {
-    title.setTitle('GymSystems | Login');
+    this.title.setTitle('GymSystems | Login');
     this.meta.updateTag({ property: 'og:title', content: `GymSystems | Login` });
     this.meta.updateTag({ property: 'og:description', content: `Login to increase your privileges in the system` });
     this.meta.updateTag({ property: 'Description', content: `Login to increase your privileges in the system` });

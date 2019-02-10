@@ -12,6 +12,7 @@ import { IClub } from 'app/model/IClub';
 import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocomplete } from '@angular/material';
 import { GraphService } from 'app/shared/services/graph.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 enum Type {
   Organizer = 0 + Role.Organizer, Club = 0 + Role.Club
@@ -32,11 +33,18 @@ export class RegisterComponent implements OnInit {
   type = Type;
 
   constructor(
+    private title: Title,
+    private meta: Meta,
     private fb: FormBuilder,
     private router: Router,
     private graph: GraphService,
     private errorHandler: ErrorHandlerService,
-    private translate: TranslateService) { }
+    private translate: TranslateService) {
+      this.title.setTitle('GymSystems | Register');
+      this.meta.updateTag({ property: 'og:title', content: `GymSystems | Register` });
+      this.meta.updateTag({ property: 'og:description', content: `Register to gain access to the system` });
+      this.meta.updateTag({ property: 'Description', content: `Register to gain access to the system` });
+    }
 
   ngOnInit() {
     this.registerForm = this.fb.group({

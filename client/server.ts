@@ -1,6 +1,6 @@
 // These are important and needed before anything else
-import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
+import 'zone.js/dist/zone-node';
 
 import { enableProdMode } from '@angular/core';
 
@@ -8,6 +8,7 @@ import * as express from 'express';
 import * as proxy from 'http-proxy-middleware';
 import { join } from 'path';
 import * as process from 'process';
+import * as fs from 'fs';
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -16,10 +17,14 @@ enableProdMode();
 const app = express();
 
 const PORT = process.env.PORT || 4000;
-const DIST_FOLDER = join(process.cwd(), 'dist');
+let DIST_FOLDER = process.cwd();
+if (fs.existsSync(join(process.cwd(), 'dist'))) {
+  // We are most likelly in dev mode. The dist folder does not exist on container.
+  DIST_FOLDER = join(process.cwd(), 'dist');
+}
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
-import { AppServerModuleNgFactory, LAZY_MODULE_MAP } from './dist/server/main';
+const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/main.js');
 
 // Express Engine
 import { ngExpressEngine } from '@nguniversal/express-engine';
