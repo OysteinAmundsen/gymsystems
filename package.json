@@ -90,7 +90,7 @@
     "bcryptjs": "2.4.3",
     "body-parser": "1.18.3",
     "chalk": "2.4.1",
-    "cookie-parser": "1.4.3",
+    "cookie-parser": "1.4.4",
     "core-js": "2.5.7",
     "cors": "2.8.4",
     "dragula": "3.7.2",
