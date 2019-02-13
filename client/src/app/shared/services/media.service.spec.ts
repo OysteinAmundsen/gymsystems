@@ -3,19 +3,25 @@ import { IMedia } from "app/model";
 import { MediaService } from "./media.service";
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
+import { GraphService } from './graph.service';
 
 describe("services:MediaService", () => {
   let service: MediaService;
-  const iMediaStub = <IMedia>{ teamId: 1, disciplineId: 1 };
+  const iMediaStub = <IMedia>{ id: 1, teamId: 1, disciplineId: 1 };
 
   beforeEach(() => {
     const httpClientStub = {
       post: () => of({})
     };
+    const graphServiceStub = {
+      getData: () => of({}),
+      deleteData: () => of({})
+    };
     TestBed.configureTestingModule({
       providers: [
         MediaService,
         { provide: HttpClient, useValue: httpClientStub },
+        { provide: GraphService, useValue: graphServiceStub }
       ]
     });
     service = TestBed.get(MediaService);
@@ -33,7 +39,7 @@ describe("services:MediaService", () => {
     it("makes expected calls", () => {
       service.play(iMediaStub);
       expect(service.whatsPlaying).toBe(iMediaStub);
-      expect(service.audio.src).toContain(`/api/media/${iMediaStub.teamId}/${iMediaStub.disciplineId}`)
+      expect(service.audio.src).toContain(`/api/media?id=${iMediaStub.id}`)
     });
   });
 

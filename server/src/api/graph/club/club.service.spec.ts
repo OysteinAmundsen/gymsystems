@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HttpService } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { PubSub } from "graphql-subscriptions";
 import { ClubDto } from "./dto/club.dto";
@@ -20,7 +19,7 @@ describe("ClubService", () => {
     testModule = await Test.createTestingModule({
       providers: [
         ClubService,
-        { provide: HttpService, useValue: httpServiceStub },
+        { provide: 'HttpService', useValue: httpServiceStub },
         { provide: 'ClubRepository', useClass: ClubRepository },
         { provide: 'PubSubInstance', useValue: new PubSub() }
       ]

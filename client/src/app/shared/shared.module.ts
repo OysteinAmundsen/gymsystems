@@ -24,6 +24,7 @@ import { MatButtonModule, MatProgressBarModule, MatDialogModule, MatAutocomplete
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { LoadSpinnerComponent } from './components/load-spinner/load-spinner.component';
 import { ClubLookupComponent } from './components/club-lookup/club-lookup.component';
+import { MediaControlComponent } from './components/media-control/media-control.component';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { ClubLookupComponent } from './components/club-lookup/club-lookup.compon
     OrderByPipe,
     UtcDatePipe,
     ClubLookupComponent,
+    MediaControlComponent,
   ],
   exports: [
     // Export common modules
@@ -73,6 +75,7 @@ import { ClubLookupComponent } from './components/club-lookup/club-lookup.compon
     HelpBlockComponent,
     LoadSpinnerComponent,
     ClubLookupComponent,
+    MediaControlComponent,
 
     ToCaseDirective,
     AutofocusDirective,

@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Repository } from "typeorm";
 import { User, Role } from "./user.model";
 import { Club } from "../club/club.model";
-import { ClubService } from "../club/club.service";
 import { PubSub } from "graphql-subscriptions";
 import { UserDto } from "./dto/user.dto";
 import { UserService } from "./user.service";
@@ -34,7 +33,7 @@ describe("UserService", () => {
     testModule = await Test.createTestingModule({
       providers: [
         UserService,
-        { provide: ClubService, useValue: clubServiceStub },
+        { provide: 'ClubService', useValue: clubServiceStub },
         { provide: 'UserRepository', useClass: UserRepository },
         { provide: 'ClubRepository', useClass: ClubRepository },
         { provide: 'PubSubInstance', useValue: new PubSub() }
@@ -69,7 +68,7 @@ describe("UserService", () => {
     });
 
     it("will update user entity with encrypted password", () => {
-      const repositoryStub = testModule.get<UserRepository>(UserRepository);
+      const repositoryStub = testModule.get(UserRepository);
       spyOn(service, "getAuthenticatedUser").and.callFake(() => ({ id: 1, name: 'Test user' }));
       spyOn(repositoryStub, "update");
       service.changePassword('NewPassword');
@@ -127,8 +126,8 @@ describe("UserService", () => {
 
     // FIXME: UnhandledPromiseRejection (Don't know why I get this here)
     it('Should try to find or create a club when its given as a string', () => {
-      const clubServiceStub: ClubService = testModule.get(ClubService);
-      const repositoryStub = testModule.get<UserRepository>(UserRepository);
+      const clubServiceStub = testModule.get('ClubService');
+      const repositoryStub = testModule.get(UserRepository);
 
       spyOn(service, "findOneByUsername").and.callFake(() => undefined);
       spyOn(service, "findOneByEmail").and.callFake(() => undefined);
@@ -141,7 +140,7 @@ describe("UserService", () => {
     });
 
     it("Can update an existing user", () => {
-      const repositoryStub = testModule.get<UserRepository>(UserRepository);
+      const repositoryStub = testModule.get(UserRepository);
       spyOn(service, "findOneById").and.callFake(id => ({ id: id, name: 'Old name' }));
       spyOn(repositoryStub, "save");
       service.save(<UserDto>{ id: 1, name: 'Test user' }).then(res => {
@@ -155,7 +154,7 @@ describe("UserService", () => {
    */
   describe("findAll", () => {
     it("makes expected calls", () => {
-      const repositoryStub = testModule.get<UserRepository>(UserRepository);
+      const repositoryStub = testModule.get(UserRepository);
       spyOn(repositoryStub, "find");
       service.findAll();
       expect(repositoryStub.find).toHaveBeenCalled();

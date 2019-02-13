@@ -45,7 +45,7 @@ export class TournamentService {
       // New tournament. Create defaults
       if (isNew && (await this.createDefaults(result.id))) {
         // Create media folder for this tournament
-        const archiveCreated = await this.mediaService.createMediaArchive(result.id, result.endDate);
+        const archiveCreated = await this.mediaService.createMediaArchive(`tournament/${result.id}`, result.endDate);
       }
       this.pubSub.publish(tournament.id ? 'tournamentModified' : 'tournamentCreated', { tournament: result });
     }
@@ -62,10 +62,10 @@ export class TournamentService {
 
   remove(id: number): Promise<boolean> {
     return Promise.all([
-      this.mediaService.removeArchive(id),          // Remove media
-      this.scheduleService.removeByTournament(id),  // Remove schedule
-      this.divisionService.removeByTournament(id),  // Remove divisions
-      this.disciplineService.removeByTournament(id) // Remove disciplines
+      this.mediaService.removeArchive(`tournament/${id}`), // Remove media
+      this.scheduleService.removeByTournament(id),         // Remove schedule
+      this.divisionService.removeByTournament(id),         // Remove divisions
+      this.disciplineService.removeByTournament(id)        // Remove disciplines
     ]).then(async res => {
       // Lastly remove the tournament if all above worked.
       const result = await this.tournamentRepository.delete({ id: id });

@@ -92,28 +92,9 @@
                     </label>
                   </td>
                   <td class="media">
-                    <div class="flex">
-                      <div class="action-buttons">
-                        <button mat-icon-button *ngIf="hasMedia(discipline.value) && !isPlaying(getMedia(discipline.value))" type="button"
-                                (click)="previewMedia(discipline.value)" [title]="'Play media' | translate" aria-label="Play media">
-                          <i class="fa fa-fw fa-play"></i>
-                        </button>
-                        <button mat-icon-button *ngIf="hasMedia(discipline.value) && isPlaying(getMedia(discipline.value))" type="button"
-                                (click)="stopMedia(discipline.value)" [title]="'Stop playing' | translate" aria-label="Stop playing">
-                          <i class="fa fa-fw fa-stop"></i>
-                        </button>
-                        <button mat-icon-button *ngIf="hasMedia(discipline.value)" type="button" (click)="removeMedia(discipline.value)" class="warning"
-                                [title]="'Remove media' | translate" aria-label="Remove media">
-                          <i class="fa fa-fw fa-trash"></i>
-                        </button>
-                        <a mat-icon-button class="file-upload" *ngIf="!hasMedia(discipline.value) && !teamForm.invalid && discipline.value.checked"
-                           [title]="'Upload media' | translate" aria-label="Upload media">
-                          <input type="file" (change)="fileAdded($event, discipline.value)" accept=".mp3,.wav">
-                          <i class="fa fa-fw fa-upload"></i>
-                        </a>
-                      </div>
-                      <label *ngIf="hasMedia(discipline.value)" class="flex-col media-name"><small>{{ getMedia(discipline.value).originalName }}</small></label>
-                    </div>
+                    <app-media-control *ngIf="discipline.value.checked" [media]="getMedia(discipline.value.id)" [clubId]="teamForm.value.club.id"
+                                       [disciplineId]="discipline.value.id" [disciplineName]="discipline.value.name" [teamId]="teamForm.value.id"
+                                       [canUpload]="true"></app-media-control>
                   </td>
                 </tr>
               </tbody>

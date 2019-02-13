@@ -9,7 +9,6 @@ import * as moment from 'moment';
 
 import { IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender, IGymnast } from 'app/model';
 import { UserService } from 'app/shared/services/api';
-import { MediaService } from 'app/shared/services/media.service';
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
@@ -49,6 +48,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   currentUser: IUser;
 
   troopList = [];
+  media = [];
   configuredTroops = [];
   disciplines: IDiscipline[];
   divisions: IDivision[] = [];
@@ -95,8 +95,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private graph: GraphService,
     private errorHandler: ErrorHandlerService,
-    private translate: TranslateService,
-    private mediaService: MediaService) { }
+    private translate: TranslateService) { }
 
   createDisciplineGroup(d: IDiscipline): FormGroup {
     const group = this.fb.group({ id: d.id, name: d.name, checked: true });
@@ -118,8 +117,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       disciplines: this.fb.array([]),
       tournamentId: [this.tournamentEditor.tournamentId],
       gymnasts: [null || []],
-      class: [Classes.TeamGym],
-      media: [null]
+      class: [Classes.TeamGym]
     });
 
     const nameCtrl = this.teamForm.get('name');
@@ -230,23 +228,9 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     return troop && troop.name ? troop.name : troop;
   }
 
-  fileAdded($event, discipline: IDiscipline) {
-    const fileList: FileList = (<HTMLInputElement>event.target).files;
-    const upload = () => {
-      this.mediaService.upload(fileList[0], this.value.id, discipline.id).subscribe(
-        data => this.loadData(this.value.id),
-        error => Logger.error(error)
-      );
-    };
-    if (fileList.length > 0) {
-      if (this.teamForm.dirty) {
-        this.save(true).then(upload);
-      } else { upload(); }
-    }
-  }
-
   teamReceived(team: ITeam) {
     this.team = team;
+    this.media = team.media;
     if (team && team.id) {
       while (this.teamDiscipline.controls.length) { this.teamDiscipline.removeAt(0); } // Reset the disciplines
       this.teamForm.setValue({
@@ -258,14 +242,17 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         disciplines: [],
         tournamentId: this.tournamentId,
         gymnasts: team.gymnasts || [],
-        class: team.class,
-        media: team.media || null
+        class: team.class
       }, { emitEvent: false });
     }
     // Create discipline array
     this.disciplines.forEach(d => this.teamDiscipline.controls.push(this.createDisciplineGroup(d)));
     this.teamDiscipline.controls.forEach(c => c.get('checked').setValue(team.disciplines.find(d => d.id === c.value.id) != null));
     this.classChanged();
+  }
+
+  getMedia(disciplineId: number) {
+    return this.media.find(m => m.disciplineId === disciplineId);
   }
 
   loadData(id?: number) {
@@ -293,33 +280,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  hasMedia(discipline: IDiscipline) {
-    return this.getMedia(discipline) != null;
-  }
-
-  getMedia(discipline: IDiscipline): IMedia {
-    return this.value.media ? this.value.media.find(m => m.disciplineId === discipline.id) : null;
-  }
-
-  isPlaying(media: IMedia) {
-    return this.mediaService.whatsPlaying ? this.mediaService.whatsPlaying.id === media.id : false;
-  }
-
-  previewMedia(discipline: IDiscipline) {
-    const media = this.getMedia(discipline);
-    this.mediaService.play(media);
-  }
-
-  stopMedia(discipline: IDiscipline) {
-    const media = this.getMedia(discipline);
-    this.mediaService.stop();
-  }
-
-  removeMedia(discipline: IDiscipline) {
-    this.stopMedia(discipline);
-    // this.teamService.removeMedia(this.team, discipline).subscribe(() => this.loadData(this.value.id));
-  }
-
   async save(keepOpen?: boolean) {
     const team = JSON.parse(JSON.stringify(this.value)); // Clone form values, because we delete values here later on
 
@@ -330,7 +290,6 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     team.divisions = [team.ageDivision, team.genderDivision];
     delete team.ageDivision;
     delete team.genderDivision;
-    delete team.media; // This is uploaded and attached to team elsewhere
 
     // Get club
     if (!team.club) {

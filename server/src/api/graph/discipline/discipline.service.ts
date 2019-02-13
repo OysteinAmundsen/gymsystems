@@ -89,6 +89,14 @@ export class DisciplineService {
     return (await this.getAllFromCache()).find(s => s.id === id);
   }
 
+  /**
+   *
+   * @param id the id of the discipline to fetch
+   */
+  async findOneByIdWithTournament(id: number): Promise<Discipline> {
+    return this.disciplineRepository.findOne(id, { relations: ['tournament'] });
+  }
+
   async findByTeam(team: Team): Promise<Discipline[]> {
     return this.disciplineRepository.find({ where: { teams: [team] }, order: { sortOrder: 'ASC' } })
   }

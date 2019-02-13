@@ -3,11 +3,9 @@ import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 
 import { MediaService } from './media.service';
 import { RoleGuard } from '../../common/auth/role.guard';
-import { MediaDto } from './dto/media.dto';
 import { Media } from './media.model';
 import { PubSub } from 'graphql-subscriptions';
 import { Role } from '../user/user.model';
-import { Cleaner } from '../../common/util/cleaner';
 
 @Resolver('IMedia')
 export class MediaResolver {
@@ -24,8 +22,13 @@ export class MediaResolver {
 
   @Query('media')
   @UseGuards(RoleGuard(Role.Club))
-  findOneById(@Args('id') id: number): Promise<Media> {
-    return this.mediaService.findOneById(id);
+  findOne(
+    @Args('id') id: number,
+    @Args('clubId') clubId: number,
+    @Args('teamId') teamId: number,
+    @Args('disciplineId') disciplineId: number,
+    @Args('disciplineName') disciplineName): Promise<Media> {
+    return (id != null ? this.mediaService.findOneById(id) : this.mediaService.findOneBy(clubId, teamId, disciplineId, disciplineName));
   }
 
   @Mutation('deleteMedia')

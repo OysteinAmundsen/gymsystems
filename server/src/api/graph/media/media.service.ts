@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { cancelJob, scheduleJob } from 'node-schedule';
@@ -17,12 +17,18 @@ import * as mkdirp from 'mkdirp';
 import * as rimraf from 'rimraf';
 import * as moment from 'moment';
 import { ClubService } from '../club/club.service';
+import { DisciplineService } from '../discipline/discipline.service';
+import { Discipline } from '../discipline/discipline.model';
+import { Club } from '../club/club.model';
 
 @Injectable()
 export class MediaService {
   constructor(
     @InjectRepository(Media) private readonly mediaRepository: Repository<Media>,
     private readonly teamService: TeamService,
+    private readonly disciplineService: DisciplineService,
+    private readonly clubService: ClubService,
+    // private readonly tournamentService: TournamentService, // Cannot depend on this service. This will create a circular dependency loop which will make the server crash.
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
   /**
@@ -30,23 +36,60 @@ export class MediaService {
    * cannot be modified afterwards, because the media object only contains metadata
    * for the actual uploaded file.
    */
-  async save(teamId: number, disciplineId: number, file): Promise<Media> {
+  async save(file, clubId?: number, teamId?: number, disciplineId?: number, disciplineName?: string): Promise<Media> {
+    let team: Team, discipline: Discipline, club: Club, tournament: Tournament, tournamentId: number, archiveId: string;
+    if (teamId) {
+      // Media is for a specific tournament
+      team = await this.teamService.findOneByIdWithTournament(teamId);
+      tournament = team.tournament;
+      tournamentId = team.tournamentId;
+      clubId = clubId || team.clubId;
+    }
+    if (disciplineId) {
+      // Media is for a specific discipline in a tournament
+      discipline = await this.disciplineService.findOneByIdWithTournament(disciplineId);
+      disciplineName = disciplineName || discipline.name;
+      tournamentId = discipline.tournamentId;
+      tournament = discipline.tournament;
+    }
+    if (clubId) {
+      // If neither team or discipline is specified, this is a default club track
+      club = await this.clubService.findOneById(clubId);
+      ClubService.enforceSame(clubId);  // Uploader must belong to the same club.
+      archiveId = `club/${clubId}`;     // Set archive folder
+    }
 
-    // Validate club
-    const team = await this.teamService.findOneByIdWithTournament(teamId);
-    const tournament = team.tournament;
-    ClubService.enforceSame(team.clubId);
+    if (tournamentId) {
+      archiveId = `tournament/${tournamentId}`; // A tournament is given, replace pointer to archive folder
+    }
 
-    // Create media container
-    const media = await this.createMediaContainer(tournament.id, teamId, disciplineId, file);
-
-    // Make sure media folder exists. This should be created when tournament is created,
-    // but in case that did not complete, we give it another shot here. In case it allready
-    // exists, this wont do anything.
-    this.createMediaArchive(tournament.id, tournament.endDate);
+    // Make sure media folder exists. In case it allready exists, this wont do anything.
+    await this.createMediaArchive(archiveId, tournament ? tournament.endDate : null);
 
     // Store uploaded data in media folder
-    const fileName = await this.storeMediaInArchive(media.tournamentId, media.fileName, file);
+    const newPath = `./media/${archiveId}/${file.filename}`;
+    Log.log.info(`Storing '${newPath}'`);
+    fs.rename(file.path, `${newPath}`, (err) => {
+      if (err) {
+        // Move failed. Try to remove temporary file.
+        fs.unlink(file.path, unlinkErr => { if (unlinkErr) { Logger.error(err.message); } });
+        throw new Error(err.message);
+      }
+    });
+
+    // Create media entity
+    const media = <Media>{
+      id: null,
+      archiveId: archiveId,
+      fileName: file.filename,
+      originalName: file.originalname,
+      mimeType: file.mimetype,
+      clubId: clubId,
+      teamId: teamId,
+      disciplineId: disciplineId,
+      disciplineName: disciplineName,
+      tournamentId: tournamentId,
+    };
 
     // Create a media link for this entry
     const result = await this.mediaRepository.save(<Media>media);
@@ -60,16 +103,42 @@ export class MediaService {
     return new Promise(async (resolve, reject) => {
       const media = await this.findOneById(id);
       if (media) {
-        rimraf(`${media.fileName}`, async (err: Error) => {
+        rimraf(`./media/${media.archiveId}/${media.fileName}`, async (err: Error) => {
           if (err) { return reject(err.message); }
           const result = await this.mediaRepository.delete({ id: id });
-          if (result.affected > 0) {
+          if (result.raw.affectedRows > 0) {
             this.pubSub.publish('mediaDeleted', { mediaId: id });
           }
-          resolve(result.affected > 0);
+          resolve(result.raw.affectedRows > 0);
         });
       }
     })
+  }
+
+
+  async findOneBy(clubId: number, teamId: number, disciplineId: number, disciplineName: string): Promise<Media> {
+    // Query data
+    let query = this.mediaRepository.createQueryBuilder('media');
+    if (clubId !== undefined) { query = query.andWhere(`media.clubId ${clubId ? '=' : 'is'} :clubId`, { clubId: clubId }); }
+    if (teamId !== undefined) { query = query.orWhere(`media.teamId ${teamId ? '=' : 'is'} :teamId`, { teamId: teamId }); }
+    if (disciplineId !== undefined) { query = query.orWhere(`media.disciplineId ${disciplineId ? '=' : 'is'} :disciplineId`, { disciplineId: disciplineId }); }
+    if (disciplineName) { query = query.orWhere(`media.disciplineName ${disciplineName ? '=' : 'is'} :disciplineName`, { disciplineName: disciplineName }); }
+    const medias = await query.getMany();
+
+    // Calculate result score based on direct or indirect matches between given input and persisted data
+    const tracks = medias
+      .map((media, idx) => {
+        let score = 0;
+        if ((clubId && media.clubId === +clubId) || (!clubId && !media.clubId)) { score += 1; }
+        if (disciplineName && media.disciplineName === disciplineName) { score += 2; }
+        if ((teamId && media.teamId === +teamId) || (!teamId && !media.teamId)) { score += 3; }
+        if ((disciplineId && media.disciplineId === +disciplineId) || (!disciplineId && !media.disciplineId)) { score += 4; }
+        return { media: media, idx: idx, score: score };
+      })
+      .sort((a, b) => a.score > b.score ? -1 : 1);
+
+    // ...and return the highest ranking result
+    return tracks.length ? tracks.shift().media : null;
   }
 
   findByTournament(tournament: Tournament): Promise<Media[]> {
@@ -99,42 +168,18 @@ export class MediaService {
     return this.mediaRepository.findOne({ teamId: teamId, disciplineId: disciplineId });
   }
 
-  private createMediaContainer(tournamentId: number, teamId: number, disciplineId: number, file?): MediaDto {
-    const name = file ? file.originalname : '';
-    const extension = name.substring(name.lastIndexOf('.') + 1);
-
-    return {
-      id: null,
-      tournamentId: tournamentId,
-      fileName: file.filename,
-      originalName: file.originalname,
-      mimeType: file.mimetype,
-      teamId: teamId,
-      disciplineId: disciplineId
-    }
-  }
-
-  private storeMediaInArchive(archiveId: number, fileName: string, file: any): Promise<any> {
-    const newPath = `./media/${archiveId}/${fileName}`;
-
-    return new Promise((resolve, reject) => {
-      Log.log.info(`Storing '${newPath}'`);
-      fs.rename(file.path, `${newPath}`, (err) => {
-        (err ? reject(err) : resolve(newPath));
-      });
-    });
-  }
-
   /**
    * Create a media storage space for this tournament
    */
-  createMediaArchive(tournamentId: number, expire: Date): Promise<boolean> {
+  createMediaArchive(archiveId: string, expire?: Date): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      mkdirp(`./media/${tournamentId}`, (err) => {
+      mkdirp(`./media/${archiveId}`, (err) => {
         if (err) {
           reject(err);
         }
-        this.expireArchive(tournamentId, expire); // Register for expiration
+        if (expire) {
+          this.expireArchive(archiveId, expire); // Register for expiration
+        }
         resolve(true);
       });
     });
@@ -143,22 +188,31 @@ export class MediaService {
   /**
    * Remove the storage space for this tournament
    */
-  removeArchive(tournamentId: number): Promise<any> {
+  removeArchive(archiveId: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      rimraf(`./media/${tournamentId}`, async (err: Error) => {
+      rimraf(`./media/${archiveId}`, async (err: Error) => {
         if (err) {
-          Log.log.error(`Error removing media folder ./media/${tournamentId}`, err.message);
+          Log.log.error(`Error removing media folder ./media/${archiveId}`, err.message);
           reject(err);
         }
-        Log.log.info(`Tournament media folder './media/${tournamentId}' removed!`);
+        Log.log.info(`Media folder './media/${archiveId}' removed!`);
 
         // Remove cronjob registered to this removal
-        cancelJob(tournamentId.toString());
+        cancelJob(archiveId.toString());
+
+        // Determine archive type
+        const [type, id] = archiveId.split('/');
+        let config;
+        switch (type) {
+          case 'tournament': config = { tournamentId: id }; break;
+          case 'club': config = { clubId: id }; break;
+          default: reject('Unknown archive type');
+        }
 
         // Remove persisted media pointers
-        const result = await this.mediaRepository.delete({ tournamentId: tournamentId });
+        const result = await this.mediaRepository.delete(config);
         if (result.affected > 0) {
-          this.pubSub.publish('mediaDeleted', { tournamentId: tournamentId });
+          this.pubSub.publish('mediaDeleted', config);
         }
         resolve(result.affected > 0);
       });
@@ -168,11 +222,11 @@ export class MediaService {
   /**
    * Register cronjob to remove storage space at a specific datestamp
    */
-  expireArchive(tournamentId: number, expire: Date) {
-    cancelJob(tournamentId.toString()); // If cronjob allready exists, remove old one first.
+  expireArchive(archiveId: string, expire: Date) {
+    cancelJob(archiveId.toString()); // If cronjob allready exists, remove old one first.
 
     // Create cronjob
-    scheduleJob(tournamentId.toString(), expire, () => this.removeArchive(tournamentId))
-    Log.log.info(`Tournament media folder './media/${tournamentId}' registered for expiration at ${moment(expire).format('DD.MM.YYYY HH:mm')}`);
+    scheduleJob(archiveId, expire, () => this.removeArchive(archiveId))
+    Log.log.info(`Tournament media folder './media/${archiveId}' registered for expiration at ${moment(expire).format('DD.MM.YYYY HH:mm')}`);
   }
 }

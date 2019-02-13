@@ -5,13 +5,8 @@ import { Club } from "../club/club.model";
 import { Venue } from "../venue/venue.model";
 import { Gymnast } from "../gymnast/gymnast.model";
 import { PubSub } from "graphql-subscriptions";
-import { ScheduleService } from "../schedule/schedule.service";
-import { DisciplineService } from "../discipline/discipline.service";
-import { DivisionService } from "../division/division.service";
-import { MediaService } from "../media/media.service";
 import { TournamentService } from "./tournament.service";
 import { Tournament } from './tournament.model';
-import { ClubService } from '../club/club.service';
 
 const tournamentDtoStub = <Tournament>{ id: 1, name: 'Test turnering', endDate: new Date() };
 
@@ -50,11 +45,11 @@ describe("TournamentService", () => {
       providers: [
         TournamentService,
         { provide: 'TournamentRepository', useClass: TournamentRepository },
-        { provide: ClubService, useValue: clubServiceStub },
-        { provide: MediaService, useValue: mediaServiceStub },
-        { provide: ScheduleService, useValue: scheduleServiceStub },
-        { provide: DivisionService, useValue: divisionServiceStub },
-        { provide: DisciplineService, useValue: disciplineServiceStub },
+        { provide: 'ClubService', useValue: clubServiceStub },
+        { provide: 'MediaService', useValue: mediaServiceStub },
+        { provide: 'ScheduleService', useValue: scheduleServiceStub },
+        { provide: 'DivisionService', useValue: divisionServiceStub },
+        { provide: 'DisciplineService', useValue: disciplineServiceStub },
         { provide: 'PubSubInstance', useValue: new PubSub() },
       ]
     }).compile();
@@ -67,9 +62,9 @@ describe("TournamentService", () => {
 
   describe("save", () => {
     it("updating makes expected calls", () => {
-      const repositoryStub = testModule.get<TournamentRepository>(TournamentRepository);
-      const pubSubStub = testModule.get<PubSub>('PubSubInstance');
-      const mediaServiceStub = testModule.get<MediaService>(MediaService);
+      const repositoryStub = testModule.get(TournamentRepository);
+      const pubSubStub = testModule.get('PubSubInstance');
+      const mediaServiceStub = testModule.get('MediaService');
       spyOn(repositoryStub, "findOne").and.callFake(() => tournamentDtoStub);
       spyOn(repositoryStub, "save").and.callFake(() => tournamentDtoStub);
       spyOn(service, "createDefaults");
@@ -85,9 +80,9 @@ describe("TournamentService", () => {
     });
 
     it("inserting makes expected calls", () => {
-      const repositoryStub = testModule.get<TournamentRepository>(TournamentRepository);
-      const pubSubStub = testModule.get<PubSub>('PubSubInstance');
-      const mediaServiceStub = testModule.get<MediaService>(MediaService);
+      const repositoryStub = testModule.get(TournamentRepository);
+      const pubSubStub = testModule.get('PubSubInstance');
+      const mediaServiceStub = testModule.get('MediaService');
       const newTournamentStub = <Tournament>{ name: 'Test turnering' };
       spyOn(repositoryStub, "findOne");
       spyOn(repositoryStub, "save").and.callFake(() => tournamentDtoStub);
@@ -130,7 +125,7 @@ describe("TournamentService", () => {
 
   describe("findBanquetByGymnast", () => {
     it("makes expected calls", () => {
-      const repositoryStub = testModule.get<TournamentRepository>(TournamentRepository);
+      const repositoryStub = testModule.get(TournamentRepository);
       spyOn(repositoryStub, "find");
       service.findBanquetByGymnast(gymnastStub);
       expect(repositoryStub.find).toHaveBeenCalled();
@@ -139,7 +134,7 @@ describe("TournamentService", () => {
 
   describe("findTransportByGymnast", () => {
     it("makes expected calls", () => {
-      const repositoryStub = testModule.get<TournamentRepository>(TournamentRepository);
+      const repositoryStub = testModule.get(TournamentRepository);
       spyOn(repositoryStub, "find");
       service.findTransportByGymnast(gymnastStub);
       expect(repositoryStub.find).toHaveBeenCalled();
@@ -148,7 +143,7 @@ describe("TournamentService", () => {
 
   describe("findLodgingByGymnast", () => {
     it("makes expected calls", () => {
-      const repositoryStub = testModule.get<TournamentRepository>(TournamentRepository);
+      const repositoryStub = testModule.get(TournamentRepository);
       spyOn(repositoryStub, "find");
       service.findLodgingByGymnast(gymnastStub);
       expect(repositoryStub.find).toHaveBeenCalled();
@@ -157,7 +152,7 @@ describe("TournamentService", () => {
 
   describe("findAll", () => {
     it("makes expected calls", () => {
-      const repositoryStub = testModule.get<TournamentRepository>(TournamentRepository);
+      const repositoryStub = testModule.get(TournamentRepository);
       spyOn(repositoryStub, "find");
       service.findAll();
       expect(repositoryStub.find).toHaveBeenCalled();
@@ -166,8 +161,8 @@ describe("TournamentService", () => {
 
   describe("createDefaults", () => {
     it("fails if a dependency fails", () => {
-      const disciplineStub = testModule.get<DisciplineService>(DisciplineService);
-      const divisionStub = testModule.get<DivisionService>(DivisionService);
+      const disciplineStub = testModule.get('DisciplineService');
+      const divisionStub = testModule.get('DivisionService');
 
       spyOn(disciplineStub, "createDefaults").and.callFake(() => false);
       spyOn(divisionStub, "createDefaults").and.callFake(() => true);
@@ -177,8 +172,8 @@ describe("TournamentService", () => {
     });
 
     it("succeeds if all dependencies succeed", () => {
-      const disciplineStub = testModule.get<DisciplineService>(DisciplineService);
-      const divisionStub = testModule.get<DivisionService>(DivisionService);
+      const disciplineStub = testModule.get('DisciplineService');
+      const divisionStub = testModule.get('DivisionService');
 
       spyOn(disciplineStub, "createDefaults").and.callFake(() => true);
       spyOn(divisionStub, "createDefaults").and.callFake(() => true);

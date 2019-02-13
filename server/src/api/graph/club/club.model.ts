@@ -6,6 +6,7 @@ import { Tournament } from '../tournament/tournament.model';
 import { User } from '../user/user.model';
 import { Gymnast } from '../gymnast/gymnast.model';
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { Media } from '../media/media.model';
 
 
 /**
@@ -77,4 +78,8 @@ export class Club {
   })
   @OneToMany(type => Gymnast, gymnasts => gymnasts.club)
   gymnasts?: Gymnast[];
+
+  @ApiModelPropertyOptional({ description: `The media this club has uploaded.` })
+  @OneToMany(type => Media, media => media.tournament)
+  media: Media[];
 }

@@ -1,0 +1,32 @@
+@import '../../../../styles/variables';
+
+:host {
+  display: flex;
+  align-items: center;
+}
+
+label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgba($text-color, 0.5);
+  &.primary {
+    color: $text-color;
+  }
+}
+.file-upload {
+  position: relative;
+  max-width: 40px;
+  padding-top: 0;
+  input[type="file"] {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    z-index: 999;
+    margin: 0;
+    padding: 0;
+  }
+}

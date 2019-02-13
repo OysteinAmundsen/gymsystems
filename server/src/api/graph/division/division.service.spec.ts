@@ -4,7 +4,6 @@ import { Team } from "../team/team.model";
 import { Tournament } from "../tournament/tournament.model";
 import { DivisionDto } from "./dto/division.dto";
 import { PubSub } from "graphql-subscriptions";
-import { ConfigurationService } from "../../rest/administration/configuration.service";
 import { DivisionService } from "./division.service";
 import { Division, DivisionType } from './division.model';
 
@@ -39,7 +38,7 @@ describe("DivisionService", () => {
         DivisionService,
         { provide: 'DivisionRepository', useClass: DivisionRepository },
         { provide: 'PubSubInstance', useValue: new PubSub() },
-        { provide: ConfigurationService, useValue: configurationServiceStub }
+        { provide: 'ConfigurationService', useValue: configurationServiceStub }
       ]
     }).compile();
     service = testModule.get<DivisionService>(DivisionService);

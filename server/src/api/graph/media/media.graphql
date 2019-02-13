@@ -1,6 +1,6 @@
 type Query {
   getMedias: [IMedia]
-  media(id: ID!): IMedia
+  media(id: ID, clubId: ID, teamId: ID, disciplineId: ID, disciplineName: String): IMedia
 }
 
 type Mutation {
@@ -17,14 +17,18 @@ type Subscription {
 type IMedia {
   id: ID
   fileName: String
+  archiveId: String
   originalName: String
   mimeType: String
   disciplineId: ID
   discipline: IDiscipline
+  disciplineName: String
   teamId:ID
   team: ITeam
   tournamentId: ID
   tournament: ITournament
+  clubId: ID
+  club: IClub
 }
 
 input MediaInput {

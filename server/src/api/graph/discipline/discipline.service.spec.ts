@@ -2,11 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Repository } from "typeorm";
 import { PubSub } from "graphql-subscriptions";
 import { Tournament } from "../tournament/tournament.model";
-import { DisciplineDto } from "./dto/discipline.dto";
 import { Team } from "../team/team.model";
 import { TeamInDiscipline } from "../schedule/team-in-discipline.model";
-import { ConfigurationService } from "../../rest/administration/configuration.service";
-import { ScoreGroupService } from "../score-group/score-group.service";
 import { DisciplineService } from "./discipline.service";
 import { Discipline } from './discipline.model';
 
@@ -34,8 +31,8 @@ describe("DisciplineService", () => {
         DisciplineService,
         { provide: 'DisciplineRepository', useClass: DisciplineRepository },
         { provide: 'PubSubInstance', useValue: new PubSub() },
-        { provide: ConfigurationService, useValue: configurationServiceStub },
-        { provide: ScoreGroupService, useValue: scoreGroupServiceStub }
+        { provide: 'ConfigurationService', useValue: configurationServiceStub },
+        { provide: 'ScoreGroupService', useValue: scoreGroupServiceStub }
       ]
     }).compile();
     service = testModule.get<DisciplineService>(DisciplineService);

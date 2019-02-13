@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MediaController } from './media.controller';
-import { MediaService } from './media.service';
 
 describe('Media Controller', () => {
   let testModule: TestingModule;
@@ -14,12 +13,12 @@ describe('Media Controller', () => {
     testModule = await Test.createTestingModule({
       controllers: [MediaController],
       providers: [
-        { provide: MediaService, useValue: mediaServiceStub }
+        { provide: 'MediaService', useValue: mediaServiceStub }
       ]
     }).compile();
   });
   it('should be defined', () => {
-    const controller: MediaController = testModule.get<MediaController>(MediaController);
+    const controller: MediaController = testModule.get(MediaController);
     expect(controller).toBeDefined();
   });
 });
