@@ -388,11 +388,11 @@
   dependencies:
     "@types/express" "*"
 
-"@types/node-schedule@1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@types/node-schedule/-/node-schedule-1.2.2.tgz#bb5beae99b7327b4f2ddc1834f1fdae4378891b0"
+"@types/node-schedule@1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@types/node-schedule/-/node-schedule-1.2.3.tgz#614ba775c4c9b200e5f939a4eeef6727eb0ed6b7"
+  integrity sha512-pmuGe7xlx4hnUnOeGk2G46xxGKesF8reddLPiQu0tEIOQePMjDezjaOXFLfRPFBDWm03Aj8FoqPTuFxQt9LDaw==
   dependencies:
-    "@types/events" "*"
     "@types/node" "*"
 
 "@types/node@*", "@types/node@10.5.1":
