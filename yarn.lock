@@ -306,11 +306,11 @@
     "@types/node" "*"
     "@types/range-parser" "*"
 
-"@types/express-session@1.15.10":
-  version "1.15.10"
-  resolved "https://registry.yarnpkg.com/@types/express-session/-/express-session-1.15.10.tgz#d0ae7d3d2fee26512574306333ac272a37430c86"
+"@types/express-session@1.15.12":
+  version "1.15.12"
+  resolved "https://registry.yarnpkg.com/@types/express-session/-/express-session-1.15.12.tgz#1126704826e80f8381da4fbbb35a199f550d1433"
+  integrity sha512-DHZXzWy6Nu5Ng0syXUiVFRpZ6/1DOXoTCWa6RG3itGrub2ioBYvgtDbkT6VHHNo3iOdHRROyWANsMBJVaflblQ==
   dependencies:
-    "@types/events" "*"
     "@types/express" "*"
     "@types/node" "*"
 
