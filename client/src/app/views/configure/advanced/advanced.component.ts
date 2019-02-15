@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ConfigurationService } from 'app/shared/services/api';
 import { IConfiguration } from 'app/model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-advanced',
@@ -19,7 +20,8 @@ export class AdvancedComponent implements OnInit {
   _defaultValues = null;
   get defaultValues() {
     if (this.configuration && !this._defaultValues) {
-      this._defaultValues = this.configuration.find(c => c.name === 'defaultValues').value;
+      const values = this.configuration.find(c => c.name === 'defaultValues').value;
+      this._defaultValues = (typeof values === 'string' ? JSON.parse(values) : values);
     }
     return this._defaultValues;
   }
@@ -27,8 +29,7 @@ export class AdvancedComponent implements OnInit {
     return this.configuration ? Object.keys(this.defaultValues) : null;
   }
 
-  constructor(private config: ConfigurationService, private fb: FormBuilder, private title: Title, private meta: Meta) {
-  }
+  constructor(private config: ConfigurationService, private fb: FormBuilder, private title: Title, private meta: Meta, private http: HttpClient) { }
 
   ngOnInit() {
     // SEO
@@ -77,5 +78,16 @@ export class AdvancedComponent implements OnInit {
       { name: 'defaultValues', value: this.defaultValues }
     ];
     this.config.save(newConfig).subscribe(res => this.configuration = res);
+  }
+
+  backup() {
+    this.http.get('/api/administration/backup', { responseType: 'arraybuffer' }).subscribe(res => {
+      const blob = new Blob([res], { type: '' });
+      const url = window.URL.createObjectURL(blob);
+      const pwa = window.open(url);
+      if (!pwa || pwa.closed || typeof pwa.closed === 'undefined') {
+        alert('Please disable your Pop-up blocker and try again.');
+      }
+    });
   }
 }

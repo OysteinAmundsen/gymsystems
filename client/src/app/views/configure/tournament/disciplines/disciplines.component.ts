@@ -56,7 +56,7 @@ export class DisciplinesComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.disciplineList) { }
+    if (changes.disciplineList && changes.disciplineList.currentValue) { }
   }
 
   drop(event: CdkDragDrop<IDiscipline[]>) {

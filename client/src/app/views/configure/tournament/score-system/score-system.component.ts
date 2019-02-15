@@ -41,10 +41,9 @@ export class ScoreSystemComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(private graph: GraphService, private configService: ConfigurationService) { }
 
-  ngOnInit() {
-    this.configService.getByname('defaultValues').toPromise().then(config => {
-      this.defaultScoreGroups = config.value.scoreGroup;
-    });
+  async ngOnInit() {
+    const config = await this.configService.getByname('defaultValues').toPromise();
+    this.defaultScoreGroups = (typeof config.value === 'string' ? JSON.parse(config.value) : config.value).scoreGroup;
     if (!this.standalone) {
       // Setup scoregroup list either from given Input, or from given discipline
       this.loadScoreGroups();
@@ -52,7 +51,7 @@ export class ScoreSystemComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.scoreGroupList) { }
+    if (changes.scoreGroupList && changes.scoreGroupList.currentValue) { }
   }
 
   ngOnDestroy() {

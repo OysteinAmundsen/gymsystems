@@ -18,10 +18,10 @@ export class ExportService {
   async dumpDb(): Promise<DumpReturn> {
     return await mysqldump({
       connection: {
-        host: ormData.host,
-        user: ormData.username,
-        password: ormData.password,
-        database: ormData.database,
+        host: ormData[0].host,
+        user: ormData[0].username,
+        password: ormData[0].password,
+        database: ormData[0].database,
       },
       dumpToFile: './dbdump.sql', // destination file
       dump: {

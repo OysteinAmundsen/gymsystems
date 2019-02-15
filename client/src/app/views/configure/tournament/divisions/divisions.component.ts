@@ -44,41 +44,17 @@ export class DivisionsComponent implements OnInit, OnDestroy, OnChanges {
     private configService: ConfigurationService,
     private injector: Injector) { }
 
-  ngOnInit() {
-    this.configService.getByname('defaultValues').toPromise().then(config => this.defaultDivisions = config.value.division);
+  async ngOnInit() {
+    const defaults = await this.configService.getByname('defaultValues').toPromise();
+    this.defaultDivisions = (typeof defaults.value === 'string' ? JSON.parse(defaults.value) : defaults.value).division;
     if (!this.standalone) {
       this.tournamentId = this.injector.get(TournamentEditorComponent).tournamentId;
       this.loadDivisions();
     }
-
-    // if (!this.dragulaService.find('gender-bag')) {
-    //   this.dragulaService.createGroup('gender-bag', { invalid: (el: HTMLElement, handle) => el.classList.contains('static') });
-    // }
-    // if (!this.dragulaService.find('age-bag')) {
-    //   this.dragulaService.createGroup('age-bag', { invalid: (el: HTMLElement, handle) => el.classList.contains('static') });
-    // }
-
-    // const me = this;
-    // const modelListener = (value) => {
-    //   let divisions;
-    //   switch (value[0]) {
-    //     case 'gender-bag': divisions = me.genderDivisions; break;
-    //     case 'age-bag': divisions = me.ageDivisions; break;
-    //   }
-    //   setTimeout(() => { // Sometimes dragula is not finished syncing model
-    //     divisions.forEach((div, idx) => div.sortOrder = idx);
-    //     if (me.tournament && me.tournament.id) {
-    //       me.divisionService.saveAll(divisions).subscribe(() => me.loadDivisions());
-    //     }
-    //     me.divisionsChanged.emit(me.genderDivisions.concat(me.ageDivisions));
-    //   });
-    // };
-    // this.subscriptions.push(this.dragulaService.dropModel('gender-bag').subscribe(modelListener));
-    // this.subscriptions.push(this.dragulaService.dropModel('age-bag').subscribe(modelListener));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.divisions) {
+    if (changes.divisions && changes.divisions.currentValue) {
       this.divisionReceived(this.divisions);
     }
   }

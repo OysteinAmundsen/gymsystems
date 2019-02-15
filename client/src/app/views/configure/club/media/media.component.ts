@@ -21,8 +21,9 @@ export class MediaComponent implements OnInit {
     private configService: ConfigurationService,
     private parent: ClubEditorComponent) { }
 
-  ngOnInit() {
-    this.configService.getByname('defaultValues').subscribe(config => this.disciplines = config.value.discipline);
+  async ngOnInit() {
+    const defaults = await this.configService.getByname('defaultValues').toPromise();
+    this.disciplines = (typeof defaults.value === 'string' ? JSON.parse(defaults.value) : defaults.value).discipline;
     this.parent.clubSubject.subscribe(club => this.club = club);
   }
 }

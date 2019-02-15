@@ -55,9 +55,10 @@ export class TroopsComponent implements OnInit {
     private translate: TranslateService,
     private clubComponent: ClubEditorComponent) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.userSubscription = this.userService.getMe().subscribe(user => this.currentUser = user);
-    this.configuration.getByname('defaultValues').subscribe(defaults => this.defaults = defaults.value.division);
+    const defaults = await this.configuration.getByname('defaultValues').toPromise();
+    this.defaults = (typeof defaults.value === 'string' ? JSON.parse(defaults.value) : defaults.value).division;
     this.clubComponent.clubSubject.subscribe(club => this.loadTeams());
   }
 

@@ -7,6 +7,7 @@ import { ConfigurationService } from "app/shared/services/api";
 import { AdvancedComponent } from "./advanced.component";
 import { of } from 'rxjs';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 
 describe("views.configure:AdvancedComponent", () => {
   let component: AdvancedComponent;
@@ -23,6 +24,7 @@ describe("views.configure:AdvancedComponent", () => {
       ]),
       save: () => of({})
     };
+    const httpClientStub = { get: () => of({}) };
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
@@ -33,7 +35,8 @@ describe("views.configure:AdvancedComponent", () => {
       providers: [
         { provide: Title, useValue: titleStub },
         { provide: Meta, useValue: metaStub },
-        { provide: ConfigurationService, useValue: configurationServiceStub }
+        { provide: ConfigurationService, useValue: configurationServiceStub },
+        { provide: HttpClient, useValue: httpClientStub }
       ]
     });
     fixture = TestBed.createComponent(AdvancedComponent);

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatTabsModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatTabsModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { DisciplinesModule } from '../tournament/disciplines/disciplines.module';
@@ -20,6 +20,7 @@ import { AdvancedComponent } from './advanced.component';
     MatTabsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
 
     SharedModule,
     DisciplinesModule,
