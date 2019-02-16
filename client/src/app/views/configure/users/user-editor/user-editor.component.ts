@@ -1,16 +1,15 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
-import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 import { UserService } from 'app/shared/services/api';
 import { IUser, RoleNames, Role, IClub } from 'app/model';
 import { ValidationService } from 'app/shared/services/validation';
 import { ErrorHandlerService } from 'app/shared/interceptors';
-import { toUpperCaseTransformer } from 'app/shared/directives';
-import { MatAutocomplete } from '@angular/material';
 import { GraphService } from 'app/shared/services/graph.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { PasswordComponent } from '../password/password.component';
 
 @Component({
   selector: 'app-user-editor',
@@ -30,6 +29,8 @@ export class UserEditorComponent implements OnInit {
 
   roles = Role;
 
+  dialogRef: MatDialogRef<PasswordComponent>;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -38,7 +39,8 @@ export class UserEditorComponent implements OnInit {
     private userService: UserService,
     private title: Title,
     private meta: Meta,
-    private errorHandler: ErrorHandlerService) { }
+    private errorHandler: ErrorHandlerService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.userService.getMe().subscribe(user => this.currentUser = user);
@@ -50,14 +52,7 @@ export class UserEditorComponent implements OnInit {
       role: [Role.User, [Validators.required]],
       email: ['', [Validators.required, ValidationService.emailValidator]],
       club: [null, []],
-      // TODO: Create a change-password functionality
-      // password: ['', [Validators.required]],
-      // repeatPassword: ['', [Validators.required]]
-    }/*, {
-        validator: (c: AbstractControl) => {
-          return c.get('password').value === c.get('repeatPassword').value ? null : { repeatPassword: { valid: false } };
-        }
-      }*/);
+    });
 
     this.route.params.subscribe((params: any) => {
       if (params.id) {
@@ -87,20 +82,18 @@ export class UserEditorComponent implements OnInit {
       name: this.user.name,
       role: this.user.role,
       email: this.user.email || '',
-      club: this.user.club || null,
-      // password: this.user.password,
-      // repeatPassword: this.user.password
+      club: this.user.club || null
+    });
+  }
+
+  changePassword() {
+    this.dialogRef = this.dialog.open(PasswordComponent, {
+      panelClass: 'allow-overflow'
     });
   }
 
   async save() {
     const formVal = this.userForm.value;
-
-    // Cleanup password
-    // if (this.user.password === formVal.password) {
-    //   delete formVal.password;
-    // }
-    // delete formVal.repeatPassword;
 
     // If no club, just copy our own
     formVal.club = formVal.club || this.currentUser.club;

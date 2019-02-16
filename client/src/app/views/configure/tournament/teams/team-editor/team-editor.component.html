@@ -1,4 +1,4 @@
-<form [formGroup]="teamForm" (submit)="save()">
+<form [formGroup]="teamForm" (ngSubmit)="save()">
   <mat-card>
     <mat-card-header>
       <div class="card-actions">
@@ -92,7 +92,7 @@
                     </label>
                   </td>
                   <td class="media">
-                    <app-media-control *ngIf="discipline.value.checked" [media]="getMedia(discipline.value.id)" [clubId]="teamForm.value.club.id"
+                    <app-media-control *ngIf="discipline.value.checked" [media]="getMedia(discipline.value.id)" [clubId]="teamForm.value.club?.id"
                                        [disciplineId]="discipline.value.id" [disciplineName]="discipline.value.name" [teamId]="teamForm.value.id"
                                        [canUpload]="true"></app-media-control>
                   </td>
@@ -109,15 +109,15 @@
         <app-member-selector [club]="teamForm.value.club && teamForm.value.club.id ? teamForm.value.club : null" [troopName]="teamForm.value.name"
                              [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()" [memberTemplate]="memberContent">
           <span class="flex-col" *ngIf="teamForm.value.gymnasts != null && teamForm.value.gymnasts.length > 0">
-            <label [title]="'Require lodging' | translate" *ngIf="tournament.providesLodging">
+            <label [title]="'Require lodging' | translate" *ngIf="tournament?.providesLodging">
               <input type="checkbox" [(ngModel)]="isAllLodged" [ngModelOptions]="{standalone: true}" />
               <i class="fa fa-fw fa-bed"></i>
             </label>
-            <label [title]="'Require transportation' | translate" *ngIf="tournament.providesTransport">
+            <label [title]="'Require transportation' | translate" *ngIf="tournament?.providesTransport">
               <input type="checkbox" [(ngModel)]="isAllTransport" [ngModelOptions]="{standalone: true}" />
               <i class="fa fa-fw fa-bus"></i>
             </label>
-            <label [title]="'Joining banquet' | translate" *ngIf="tournament.providesBanquet">
+            <label [title]="'Joining banquet' | translate" *ngIf="tournament?.providesBanquet">
               <input type="checkbox" [(ngModel)]="isAllBanquet" [ngModelOptions]="{standalone: true}" />
               <i class="fa fa-fw fa-cutlery"></i>
             </label>
@@ -138,11 +138,11 @@
 
 <ng-template #memberContent let-member="member">
   <div class="member-extras flex-col">
-    <label *ngIf="tournament.providesLodging" [title]="'Require lodging' | translate"><input type="checkbox" [(ngModel)]="member.lodging" /> <i
+    <label *ngIf="tournament?.providesLodging" [title]="'Require lodging' | translate"><input type="checkbox" [(ngModel)]="member.lodging" /> <i
          class="fa fa-fw fa-bed"></i></label>
-    <label *ngIf="tournament.providesTransport" [title]="'Require transportation' | translate"><input type="checkbox" [(ngModel)]="member.transport" /> <i
+    <label *ngIf="tournament?.providesTransport" [title]="'Require transportation' | translate"><input type="checkbox" [(ngModel)]="member.transport" /> <i
          class="fa fa-fw fa-bus"></i></label>
-    <label *ngIf="tournament.providesBanquet" [title]="'Joining banquet' | translate"><input type="checkbox" [(ngModel)]="member.banquet" /> <i
+    <label *ngIf="tournament?.providesBanquet" [title]="'Joining banquet' | translate"><input type="checkbox" [(ngModel)]="member.banquet" /> <i
          class="fa fa-fw fa-cutlery"></i></label>
   </div>
 </ng-template>

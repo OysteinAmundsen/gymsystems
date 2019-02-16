@@ -65,6 +65,7 @@ describe("views.configure:AdvancedComponent", () => {
       component.ngOnInit();
       const configurationServiceStub: ConfigurationService = fixture.debugElement.injector.get(ConfigurationService);
       spyOn(configurationServiceStub, "save").and.callThrough();
+      component.configuration = [{ name: "defaultValues", value: JSON.stringify({ disciplines: [], divisions: [] }) }];
       component.save();
       expect(configurationServiceStub.save).toHaveBeenCalled();
     });

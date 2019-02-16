@@ -1,4 +1,4 @@
-<form [formGroup]="disciplineForm" (submit)="save()">
+<form [formGroup]="disciplineForm" (ngSubmit)="save()">
   <mat-card>
     <mat-card-content>
       <fieldset>
@@ -20,8 +20,10 @@
     </mat-card-content>
     <mat-card-actions *ngIf="!editingScore">
       <app-save-button buttonType="submit" [disabled]="disciplineForm.invalid || disciplineForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Go back"><i class="fa fa-fw fa-arrow-left"></i> <span translate>Go back</span></button>
-      <button mat-raised-button type="button" *ngIf="standalone || disciplineForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()" aria-label="Delete"><i class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Go back"><i class="fa fa-fw fa-arrow-left"></i>
+        <span translate>Go back</span></button>
+      <button mat-raised-button type="button" *ngIf="standalone || disciplineForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn"
+              (click)="delete()" aria-label="Delete"><i class="fa fa-fw fa-trash"></i> <span translate>Delete</span></button>
     </mat-card-actions>
   </mat-card>
 </form>

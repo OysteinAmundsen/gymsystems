@@ -4,12 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
   MatSortModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule,
-  MatOptionModule, MatAutocompleteModule, MatButtonModule, MatTableModule
+  MatOptionModule, MatAutocompleteModule, MatButtonModule, MatTableModule, MatDialogModule
 } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { UsersComponent } from './users.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
+import { PasswordComponent } from './password/password.component';
 
 @NgModule({
   imports: [
@@ -26,12 +27,17 @@ import { UserEditorComponent } from './user-editor/user-editor.component';
     MatOptionModule,
     MatButtonModule,
     MatTableModule,
+    MatDialogModule,
 
     SharedModule
   ],
   declarations: [
     UsersComponent,
-    UserEditorComponent
+    UserEditorComponent,
+    PasswordComponent
+  ],
+  entryComponents: [
+    PasswordComponent
   ]
 })
 export class UsersModule { }

@@ -1,5 +1,3 @@
-<mat-progress-spinner mode="indeterminate" class="center" *ngIf="!schedule.length"></mat-progress-spinner>
-
 <div class="table-responsive">
   <table role="list">
     <thead>
@@ -75,6 +73,7 @@
   <label><input type="checkbox" [(ngModel)]="shouldCalculateTraining">{{'Include training' | translate }}</label>
 </span>
 
-<button mat-raised-button type="button" *ngIf="canDeleteAll()" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="deleteAll()" aria-label="Delete entire schedule">
+<button mat-raised-button type="button" *ngIf="canDeleteAll()" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="deleteAll()"
+        aria-label="Delete entire schedule">
   <i class="fa fa-fw fa-trash"></i><span translate>Delete</span>
 </button>

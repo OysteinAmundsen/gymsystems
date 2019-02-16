@@ -290,7 +290,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
     [ParticipationType.Training, ParticipationType.Live].forEach(type => {
       let currentSchedule = schedule.filter(s => s.type === type);
-      while (currentSchedule.length) {
+      while (currentSchedule.length > 0) {
         // Filter by classes first if we are in Live participation type
         let scheduleByClass = [].concat(currentSchedule);
         if (type === ParticipationType.Live) {

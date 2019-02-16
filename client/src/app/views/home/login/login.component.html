@@ -1,6 +1,6 @@
 <div class="fixed-back"></div>
 
-<form class="panel" [formGroup]="loginForm" (submit)="login()">
+<form class="panel" [formGroup]="loginForm" (ngSubmit)="login()">
   <section class="col-6 login">
     <header>
       <h3 translate>Login</h3>
@@ -13,12 +13,13 @@
       </div>
       <div class="row">
         <mat-form-field class="col-xs-12">
-          <input matInput type="password" formControlName="password" placeholder="{{'Password' | translate}}" autocomplete="current-password"/>
+          <input matInput type="password" formControlName="password" placeholder="{{'Password' | translate}}" autocomplete="current-password" />
         </mat-form-field>
       </div>
     </fieldset>
     <footer>
-      <button mat-raised-button class="mat-primary" type="submit" [title]="'Login' | translate" [disabled]="loginForm.invalid || loginForm.pristine" aria-label="Login">
+      <button mat-raised-button class="mat-primary" type="submit" [title]="'Login' | translate" [disabled]="loginForm.invalid || loginForm.pristine"
+              aria-label="Login">
         <i class="fa fa-fw fa-sign-in"></i> <span translate>Login</span>
       </button>
     </footer>

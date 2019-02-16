@@ -178,3 +178,7 @@ pre {
   left: 0;
   right: 0;
 }
+
+.allow-overflow .mat-dialog-container {
+  overflow: visible;
+}

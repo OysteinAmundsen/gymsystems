@@ -1,4 +1,4 @@
-import { UseGuards, Inject, ForbiddenException } from '@nestjs/common';
+import { UseGuards, Inject, ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription, ResolveProperty } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 
@@ -62,8 +62,15 @@ export class UserResolver {
   }
 
   @Mutation('changePassword')
-  async changePassword(@Args('password') password: string): Promise<boolean> {
-    return this.userService.changePassword(password);
+  async changePassword(@Args('old') oldPassword: string, @Args('password') password: string): Promise<boolean> {
+    const me = this.userService.getAuthenticatedUser();
+    if (!me) { throw new UnauthorizedException(); }
+
+    const user = await this.userService.findOneById(me.id);
+    if (this.userService.isPasswordCorrect(user, oldPassword)) {
+      return this.userService.changePassword(password);
+    }
+    return false;
   }
 
   @Mutation('saveUser')

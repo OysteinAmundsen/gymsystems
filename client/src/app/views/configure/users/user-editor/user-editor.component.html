@@ -1,4 +1,4 @@
-<form [formGroup]="userForm" (submit)="save()">
+<form [formGroup]="userForm" (ngSubmit)="save()">
   <mat-card>
     <mat-card-header>
       <div class="card-actions">
@@ -12,7 +12,7 @@
     <mat-card-content>
       <div class="row">
         <mat-form-field [ngClass]="(userForm.value.id !== currentUser.id ? 'col-xs-8' : 'col-xs-12') + ' help-available'">
-          <input matInput type="text" autocomplete="name" formControlName="name" appAutofocus placeholder="{{'Name' | translate}}">
+          <input matInput type="text" autocomplete="username" formControlName="name" appAutofocus placeholder="{{'Name' | translate}}">
           <app-help-block>
             <p translate>The name you want to use for logging in to your account</p>
           </app-help-block>
@@ -40,31 +40,18 @@
           </app-club-lookup>
         </div>
       </div>
-      <!-- <div class="row">
-        <mat-form-field class="col-xs-6 help-available">
-          <input matInput type="password" formControlName="password" placeholder="{{'Password' | translate}}">
-          <app-help-block>
-            <p translate>Any password will do. We do not set restrictions. But please make sure it is not too easy.</p>
-            <p translate>We suggest using a password generator for this: <a href="https://xkpasswd.net/s/" target="_blank">https://xkpasswd.net/s/</a></p>
-          </app-help-block>
-        </mat-form-field>
-        <mat-form-field class="col-xs-6 help-available">
-          <input matInput type="password" formControlName="repeatPassword" placeholder="{{'Repeat password' | translate}}">
-          <app-help-block>
-            <p translate>This needs to be exactly the same text as entered in the password field. Just to make sure you did not make any typos. :-)</p>
-          </app-help-block>
-        </mat-form-field>
-      </div> -->
     </mat-card-content>
 
     <mat-card-actions>
       <app-save-button buttonType="submit" [disabled]="userForm.invalid || userForm.pristine"></app-save-button>
-      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span
-              translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="userForm.value.id && userForm.value.id !== currentUser.id" [title]="'Delete' | translate" class="pull-right mat-warn"
-              (click)="delete()" aria-label="Delete">
+      <button mat-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i>
+        <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="userForm.value.id && userForm.value.id !== currentUser.id" [title]="'Delete' | translate"
+              class="pull-right mat-warn" (click)="delete()" aria-label="Delete">
         <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
       </button>
+      <button mat-button type="button" class="pull-right" (click)="changePassword()">{{ 'Change password' | translate }}</button>
     </mat-card-actions>
   </mat-card>
+
 </form>

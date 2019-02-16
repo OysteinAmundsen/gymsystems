@@ -1,5 +1,5 @@
 <!-- Edit data -->
-<form [formGroup]="venueForm" (submit)="save()">
+<form [formGroup]="venueForm" (ngSubmit)="save()">
   <mat-card>
     <mat-card-header>
       <div class="card-actions">
@@ -23,8 +23,8 @@
 
       <div class="row">
         <mat-form-field class="col-6">
-          <input matInput formControlName="address" placeholder="{{'Address' | translate}}" [matAutocomplete]="addressTypeahead" (blur)="tabOut(addressTypeahead)"
-                 [attr.autocomplete]="'off'">
+          <input matInput formControlName="address" placeholder="{{'Address' | translate}}" [matAutocomplete]="addressTypeahead"
+                 (blur)="tabOut(addressTypeahead)" [attr.autocomplete]="'off'">
           <mat-autocomplete #addressTypeahead="matAutocomplete" (optionSelected)="setSelectedAddress($event)">
             <mat-option *ngFor="let address of adressList" [value]="address">
               {{ address.formatted_address }}
@@ -96,7 +96,8 @@
       <app-save-button buttonType="submit" [disabled]="venueForm.invalid || venueForm.pristine"></app-save-button>
       <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span
               translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="venueForm.value.id" [title]="'Create tournament here' | translate" (click)="createTournament()" aria-label="Create tournament here">
+      <button mat-raised-button type="button" *ngIf="venueForm.value.id" [title]="'Create tournament here' | translate" (click)="createTournament()"
+              aria-label="Create tournament here">
         <i class="fa fa-fw fa-trophy"></i> <span translate>Create tournament here</span>
       </button>
       <button mat-raised-button type="button" *ngIf="venueForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"

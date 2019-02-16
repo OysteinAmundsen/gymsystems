@@ -55,7 +55,7 @@
   </table>
 </div>
 
-<form [formGroup]="tournamentForm" (submit)="save()" *ngIf="isEdit" class="screen-only">
+<form [formGroup]="tournamentForm" (ngSubmit)="save()" *ngIf="isEdit" class="screen-only">
   <mat-card>
     <mat-card-content>
       <fieldset>
@@ -77,8 +77,8 @@
 
         <div class="row">
           <mat-form-field class="col-xs-4">
-            <input matInput formControlName="startDate" autocomplete="off" [matDatepicker]="startDate" placeholder="{{'Start date' | translate}}" [max]="tournamentForm.value.endDate" (focus)="startDate.open()"
-                   #startDateInput>
+            <input matInput formControlName="startDate" autocomplete="off" [matDatepicker]="startDate" placeholder="{{'Start date' | translate}}"
+                   [max]="tournamentForm.value.endDate" (focus)="startDate.open()" #startDateInput>
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate></mat-datepicker>
             <app-help-block>
@@ -86,8 +86,8 @@
             </app-help-block>
           </mat-form-field>
           <mat-form-field class="col-xs-4">
-            <input matInput formControlName="endDate" autocomplete="off" [matDatepicker]="endDate" placeholder="{{'End date' | translate}}" [min]="tournamentForm.value.startDate" (focus)="endDate.open()"
-                   #endDateInput>
+            <input matInput formControlName="endDate" autocomplete="off" [matDatepicker]="endDate" placeholder="{{'End date' | translate}}"
+                   [min]="tournamentForm.value.startDate" (focus)="endDate.open()" #endDateInput>
             <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
             <mat-datepicker #endDate></mat-datepicker>
             <app-help-block>
@@ -100,7 +100,8 @@
               <mat-option *ngFor="let venue of venueList" [value]="venue">
                 {{ venue.name }}
               </mat-option>
-              <mat-option *ngIf="venueList.length < 1 && tournamentForm.value.venue != null" [routerLink]="['../../venue/add']" [queryParams]="{fromName: tournamentForm.value.venue}">
+              <mat-option *ngIf="venueList.length < 1 && tournamentForm.value.venue != null" [routerLink]="['../../venue/add']"
+                          [queryParams]="{fromName: tournamentForm.value.venue}">
                 <span translate>Create new venue</span>
               </mat-option>
             </mat-autocomplete>
@@ -156,36 +157,38 @@
 </form>
 
 <menu mat-tab-nav-bar *ngIf="tournamentForm.value.id" class="screen-only">
-  <a mat-tab-link *ngIf="canEdit" routerLink="./divisions" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
-     [title]="menuTitle()" aria-label="Divisions">
+  <a mat-tab-link *ngIf="canEdit" routerLink="./divisions" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Divisions">
     <i class="fa fa-fw fa-cubes"></i>&nbsp;
     <span translate>Divisions</span>
   </a>
 
-  <a mat-tab-link *ngIf="canEdit" routerLink="./disciplines" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
-     [title]="menuTitle()" aria-label="Disciplines">
+  <a mat-tab-link *ngIf="canEdit" routerLink="./disciplines" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Disciplines">
     <i class="fa fa-fw fa-heartbeat"></i>&nbsp;
     <span translate>Disciplines</span>
   </a>
 
-  <a mat-tab-link *appIfAuth="'Club'" routerLink="./teams" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()" aria-label="Teams">
+  <a mat-tab-link *appIfAuth="'Club'" routerLink="./teams" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()"
+     aria-label="Teams">
     <i class="fa fa-fw fa-users"></i>&nbsp;
     <span translate>Teams</span>
   </a>
 
-  <a mat-tab-link *ngIf="canEdit" routerLink="./schedule" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()" aria-label="Schedule">
+  <a mat-tab-link *ngIf="canEdit" routerLink="./schedule" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()"
+     aria-label="Schedule">
     <i class="fa fa-fw fa-sort-numeric-asc"></i>&nbsp;
     <span translate>Schedule</span>
   </a>
 
-  <a mat-tab-link *ngIf="canEdit" routerLink="./awards" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
-     [title]="menuTitle()" aria-label="Awards">
+  <a mat-tab-link *ngIf="canEdit" routerLink="./awards" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Awards">
     <i class="fa fa-fw fa-trophy"></i>&nbsp;
     <span translate>Awards</span>
   </a>
 
-  <a mat-tab-link *ngIf="canEdit" routerLink="./info" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null"
-     [title]="menuTitle()" aria-label="Info">
+  <a mat-tab-link *ngIf="canEdit" routerLink="./info" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Info">
     <i class="fa fa-fw fa-info"></i>&nbsp;
     <span translate>Info</span>
   </a>
