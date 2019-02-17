@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 import { IMedia } from 'app/model/IMedia';
 
-describe("MediaControlComponent", () => {
+describe("shared.components:MediaControlComponent", () => {
   let component: MediaControlComponent;
   let fixture: ComponentFixture<MediaControlComponent>;
 
@@ -105,18 +105,17 @@ describe("MediaControlComponent", () => {
 
   describe("remove", () => {
     it("makes expected calls", () => {
-      const mediaServiceStub: MediaService = fixture.debugElement.injector.get(MediaService);
-      spyOn(component, "stop");
-      spyOn(component, "loadData");
-      spyOn(mediaServiceStub, "remove").and.callFake(() => Promise.resolve(true));
+      component.canUpload = true;
+      expect(component.canUpload).toBeFalsy();
+
       component.clubId = 1;
       component.teamId = 1;
-      component.canUpload = true;
-      component.remove().then(() => {
-        expect(component.stop).toHaveBeenCalled();
-        expect(mediaServiceStub.remove).toHaveBeenCalled();
-        expect(component.loadData).toHaveBeenCalled();
-      });
+      expect(component.canUpload).toBeTruthy();
+
+      const mediaServiceStub: MediaService = fixture.debugElement.injector.get(MediaService);
+      spyOn(mediaServiceStub, "remove").and.callThrough();
+      component.remove();
+      expect(mediaServiceStub.remove).toHaveBeenCalled();
     });
   });
 });

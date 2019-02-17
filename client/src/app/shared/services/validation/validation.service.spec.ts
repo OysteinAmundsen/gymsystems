@@ -3,12 +3,12 @@ import { TestBed, inject } from '@angular/core/testing';
 import { ValidationService } from './validation.service';
 import { FormBuilder, FormControl } from '@angular/forms';
 
-describe('services.validation:ValidationService', () => {
+describe('shared.services.validation:ValidationService', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({ });
+    TestBed.configureTestingModule({});
   });
 
-  const ERR_RESPONSE = JSON.stringify({ validateEmail: { valid: false }});
+  const ERR_RESPONSE = JSON.stringify({ validateEmail: { valid: false } });
   const testEmail = (ctrl: FormControl) => {
     const res = ValidationService.emailValidator(ctrl);
     return res ? JSON.stringify(res) : null;

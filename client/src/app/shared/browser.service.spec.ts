@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { BrowserService } from './browser.service';
 
-describe('Service: Browser', () => {
+describe('shared: Browser', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [BrowserService]

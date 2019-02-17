@@ -6,7 +6,7 @@ import { MatAutocomplete, MatAutocompleteModule } from "@angular/material";
 import { ClubLookupComponent } from "./club-lookup.component";
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 
-describe("ClubLookupComponent", () => {
+describe("shared.components:ClubLookupComponent", () => {
   let component: ClubLookupComponent;
   let fixture: ComponentFixture<ClubLookupComponent>;
   const iClubStub = { name: {} };

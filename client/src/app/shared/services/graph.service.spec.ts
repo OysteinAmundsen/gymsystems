@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { CommonService } from 'app/shared/services/common.service';
 import { Apollo } from 'apollo-angular';
 
-describe("services:GraphService", () => {
+describe("shared.services:GraphService", () => {
   let service: GraphService;
 
   beforeEach(() => {

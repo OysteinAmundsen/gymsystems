@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { GraphService } from './graph.service';
 
-describe("services:MediaService", () => {
+describe("shared.services:MediaService", () => {
   let service: MediaService;
   const iMediaStub = <IMedia>{ id: 1, teamId: 1, disciplineId: 1 };
 

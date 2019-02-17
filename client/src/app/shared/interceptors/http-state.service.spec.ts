@@ -3,7 +3,7 @@ import { HttpRequest } from "@angular/common/http";
 import { HttpResponse } from "@angular/common/http";
 import { HttpStateService } from "./http-state.service";
 
-describe("HttpStateService", () => {
+describe("shared.interceptors:HttpStateService", () => {
   let service: HttpStateService;
   beforeEach(() => {
     const httpRequestStub = { method: {} };

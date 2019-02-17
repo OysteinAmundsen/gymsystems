@@ -2,7 +2,7 @@ import { TestBed } from "@angular/core/testing";
 import { MatDialog } from "@angular/material";
 import { ErrorHandlerService } from "./error-handler.service";
 
-describe("ErrorHandlerService", () => {
+describe("shared.interceptors:ErrorHandlerService", () => {
   let service: ErrorHandlerService;
 
   beforeEach(() => {

@@ -13,6 +13,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Role } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
 import { CommonService } from 'app/shared/services/common.service';
+import { ScheduleService } from 'app/shared/services/api/schedule/schedule.service';
+import { FormControl } from '@angular/forms';
 
 /**
  *
@@ -47,12 +49,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   participationTypes = ParticipationType;
   // dragulaSubscription;
   isDirty = false;
-  shouldCalculateTraining = false;
+  shouldCalculateTraining = new FormControl(false);
   editing: number;
 
   constructor(
     private parent: TournamentEditorComponent,
     private graph: GraphService,
+    private scheduleService: ScheduleService,
     private translate: TranslateService) { }
 
   /**
@@ -61,20 +64,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.tournamentId = this.parent.tournamentId;
     this.loadSchedule();
-    // this.dragulaService.createGroup('scheduleBag', {
-    //   invalid: (el: HTMLElement, handle) => {
-    //     if ('ontouchstart' in document.documentElement) {
-    //       return true;
-    //     }
-    //     return el.classList.contains('isStarted') || el.classList.contains('isEditing');
-    //   }
-    // });
-    // this.dragulaSubscription = this.dragulaService.dropModel('scheduleBag').subscribe((value) => {
-    //   setTimeout(() => { // Sometimes dragula is not finished syncing model
-    //     this.scheduleService.recalculateStartTime(this.tournament, this.schedule, true, !this.parent.hasStarted);
-    //     this.isDirty = true;
-    //   });
-    // });
   }
 
   /**
@@ -96,7 +85,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    */
   loadSchedule() {
     this.graph.getData(`{
-      getTeams(tournamentId:${this.tournamentId}){id,name,divisionName,disciplines{id,name}},
+      getTeams(tournamentId:${this.tournamentId}){id,class,name,divisionName,disciplines{id,name,sortOrder}},
       getSchedule(tournamentId:${this.tournamentId})${this.scheduleQuery}
     }`).subscribe(res => {
       this.teams = res.getTeams;
@@ -135,7 +124,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     } else {
       const hash = this.stringHash(participant);
       this.schedule.splice(this.schedule.findIndex(s => this.stringHash(s) === hash), 1);
-      // this.schedule = this.scheduleService.recalculateStartTime(this.tournament, this.schedule, true, !this.parent.hasStarted);
+      this.schedule = this.scheduleService.recalculateStartTime(this.parent.tournament, this.schedule, true, !this.parent.hasStarted);
     }
   }
 
@@ -176,7 +165,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   editChanged(item: ITeamInDiscipline, startNo: number) {
     this.setEdit(null);
     this.schedule.splice(startNo - 1, 0, this.schedule.splice(this.schedule.findIndex(i => i.id === item.id), 1)[0]);
-    // this.scheduleService.recalculateStartTime(this.tournament, this.schedule, true, true);
+    this.scheduleService.recalculateStartTime(this.parent.tournament, this.schedule, true, true);
     this.isDirty = true;
   }
 
@@ -201,20 +190,15 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    *
    */
   startTime(participant: ITeamInDiscipline) {
-    // return this.scheduleService.startTime(this.tournament, participant);
+    return this.scheduleService.startTime(this.parent.tournament, participant);
   }
 
   /**
    *
    */
   isNewDay(participant: ITeamInDiscipline) {
-    // return this.scheduleService.isNewDay(this.tournament, this.schedule, participant);
+    return this.scheduleService.isNewDay(this.parent.tournament, this.schedule, participant);
   }
-
-  /**
-   *
-   */
-  // division(team: ITeam) { return this.teamService.getDivisionName(team); }
 
   /**
    *
@@ -235,7 +219,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    */
   calculateSchedule() {
     this.schedule = this.schedule.concat(this.sortSchedule(this.calculateMissing()));
-    // this.scheduleService.recalculateStartTime(this.tournament, this.schedule, true, !this.parent.hasStarted);
+    this.scheduleService.recalculateStartTime(this.parent.tournament, this.schedule, true, !this.parent.hasStarted);
   }
 
   /**
@@ -254,7 +238,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     const schedule: ITeamInDiscipline[] = [];
     const divisions = this.teams.reduce((prev, team) => prev.add(team.divisionName), new Set<string>());
     const types = [ParticipationType.Live];
-    if (this.shouldCalculateTraining) { types.unshift(ParticipationType.Training); }
+    if (this.shouldCalculateTraining.value) { types.unshift(ParticipationType.Training); }
     types.forEach(type => {
       divisions.forEach(div => {            // For each division...
         const teamsInDivision = this.teams.filter(t => t.divisionName === div);
@@ -262,7 +246,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
           team.disciplines.forEach(dis => { // ...and each discipline, create a participant object
             disciplines.add(dis);
 
-            const participant = <ITeamInDiscipline>{ id: null, disciplineId: dis.id, disciplineName: dis.name, teamId: team.id, team: team, tournamentId: this.tournamentId, type: type };
+            const participant = <ITeamInDiscipline>{ id: null, disciplineId: dis.id, disciplineName: dis.name, disciplineSortOrder: dis.sortOrder, teamId: team.id, team: team, tournamentId: this.tournamentId, type: type };
             if (this.schedule.findIndex(s => this.stringHash(s) === this.stringHash(participant)) < 0) {
               // Only push if participant is not allready registerred
               schedule.push(participant);

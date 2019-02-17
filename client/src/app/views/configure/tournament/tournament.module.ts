@@ -8,7 +8,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import {
   MatSortModule, MatCardModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule,
-  MatOptionModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatSlideToggleModule, MatTableModule, MatMenuModule, MatProgressSpinnerModule, MatToolbarModule
+  MatOptionModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatSlideToggleModule, MatTableModule, MatMenuModule, MatProgressSpinnerModule, MatToolbarModule, MatCheckboxModule
 } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
@@ -51,6 +51,7 @@ import { AwardsComponent } from './awards/awards.component';
     MatButtonModule,
     MatSlideToggleModule,
     MatTableModule,
+    MatCheckboxModule,
 
     SharedModule,
     DisciplinesModule,

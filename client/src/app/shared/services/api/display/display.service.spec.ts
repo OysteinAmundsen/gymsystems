@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { DisplayService } from './display.service';
 
-describe('services.api:DisplayService', () => {
+describe('shared.services.api:DisplayService', () => {
   let service: DisplayService;
 
   beforeEach(() => {

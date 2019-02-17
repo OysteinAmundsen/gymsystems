@@ -10,13 +10,10 @@ import { MatDatepickerInput, MatAutocomplete } from '@angular/material';
 import * as moment from 'moment';
 
 import { UserService } from 'app/shared/services/api';
-import { ITournament, IUser, Role, IClub, IVenue } from 'app/model';
+import { ITournament, IUser, Role, IVenue } from 'app/model';
 
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
-import { toUpperCaseTransformer } from 'app/shared/directives';
 import { GraphService } from 'app/shared/services/graph.service';
-
-const Moment: any = (<any>moment).default || moment;
 
 @Component({
   selector: 'app-tournament-editor',

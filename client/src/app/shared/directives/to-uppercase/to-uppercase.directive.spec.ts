@@ -6,20 +6,20 @@ import { FormsModule } from '@angular/forms';
 import { async } from '@angular/core/testing';
 
 @Component({
-  selector  : 'app-cmp',
-  template  : `
+  selector: 'app-cmp',
+  template: `
     <input [appToCase]="'lower'" [(ngModel)]="lowerCase" #lower=toCase>
     <input [appToCase]="'upper'" [(ngModel)]="upperCase" #upper=toCase>
   `
- })
- class WrapperComponent {
+})
+class WrapperComponent {
   @ViewChildren(ToCaseDirective) caseChildren;
   @ViewChild('lower') lower: ToCaseDirective;
   @ViewChild('upper') upper: ToCaseDirective;
   lowerCase: string;
   upperCase: string;
- }
- describe('ToCaseDirective', () => {
+}
+describe('shared.directives:ToCaseDirective', () => {
   let component: WrapperComponent;
   let fixture: ComponentFixture<WrapperComponent>;
 
@@ -37,8 +37,8 @@ import { async } from '@angular/core/testing';
   });
 
   it('should convert to correct case', () => {
-    component.lower.onInput({target: { value: 'TEST VALUE'}});
-    component.upper.onInput({target: { value: 'test value'}});
+    component.lower.onInput({ target: { value: 'TEST VALUE' } });
+    component.upper.onInput({ target: { value: 'test value' } });
 
     expect(component.lowerCase).toBe('test value');
     expect(component.upperCase).toBe('TEST VALUE');

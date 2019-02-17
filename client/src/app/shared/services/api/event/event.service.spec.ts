@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpCacheService } from '../../../interceptors/http-cache.service';
 import { EventService } from './event.service';
 
-describe('services.api:EventService', () => {
+describe('shared.services.api:EventService', () => {
   let service: EventService;
   beforeEach(() => {
     const httpCacheServiceStub = { invalidateAll: () => ({}) };

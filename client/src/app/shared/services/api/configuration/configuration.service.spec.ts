@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigurationService } from './configuration.service';
 import { IConfiguration } from 'app/model';
 
-describe('services.api:ConfigurationService', () => {
+describe('shared.services.api:ConfigurationService', () => {
   let service: ConfigurationService;
   const iConfigurationStub = <IConfiguration>{ name: {} };
 
