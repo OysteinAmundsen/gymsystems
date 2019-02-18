@@ -106,8 +106,8 @@
               </mat-option>
             </mat-autocomplete>
             <app-help-block>
-              <p translate>Search in pre-configured venues. This will be used to inform participants of the location, and calculate the entry cost per team in
-                this tournament.</p>
+              <p translate>Search in pre-configured venues.</p>
+              <p translate>This will be used to inform participants of the location, and calculate the entry cost per team in this tournament.</p>
             </app-help-block>
           </mat-form-field>
         </div>
@@ -118,8 +118,8 @@
         <legend class="help-available">
           <i class="fa fa-fw fa-clock-o"></i><span translate>Time</span>
           <app-help-block>
-            <p translate>When a start and end date is selected, timeslots will appear as sliders below. Use these to adjust when the tournament starts and ends
-              during each of these days.</p>
+            <span translate>When a start and end date is selected, timeslots will appear as sliders below.</span>
+            <span translate>Use these to adjust when the tournament starts and ends during each of these days.</span>
           </app-help-block>
         </legend>
         <div class="row start-stop" *ngFor="let obj of selectedDays; let i = index">

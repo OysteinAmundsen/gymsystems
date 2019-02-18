@@ -12,9 +12,10 @@
       <i class="fa fa-fw fa-address-book"></i>
       <span translate>Available</span>
     </h3>
-    <ul cdkDropList #available="cdkDropList" (cdkDropListDropped)="drop($event)" [cdkDropListData]="filteredMembers" [cdkDropListConnectedTo]="[added]" class="available drag-list">
-      <li [ngClass]="{'drag-box': true, 'male': member.gender == genders.Male, 'female': member.gender == genders.Female}" *ngFor="let member of filteredMembers"
-          cdkDrag>
+    <ul cdkDropList #available="cdkDropList" (cdkDropListDropped)="drop($event)" [cdkDropListData]="filteredMembers" [cdkDropListConnectedTo]="[added]"
+        class="available drag-list">
+      <li [ngClass]="{'drag-box': true, 'male': member.gender == genders.Male, 'female': member.gender == genders.Female}"
+          *ngFor="let member of filteredMembers" cdkDrag>
         <span>{{ member.name }}</span>
         <small>{{ age(member.birthYear) }}</small>
       </li>
@@ -34,11 +35,12 @@
         <p translate>You can then drag and drop members into the team.</p>
       </app-help-block>
       <app-help-block *ngIf="!availableMembers || availableMembers.length <= 0">
-        <p translate>You have assigned all your members into teams. If you want to re-assign members, you must drag them back to "Available", or recruit more
-          members.</p>
+        <p translate>You have assigned all your members into teams.</p>
+        <p translate>If you want to re-assign members, you must drag them back to "Available", or recruit more members.</p>
       </app-help-block>
     </div>
-    <ul cdkDropList #added="cdkDropList" (cdkDropListDropped)="drop($event)" [cdkDropListData]="gymnasts" [cdkDropListConnectedTo]="[available]" class="added drag-list">
+    <ul cdkDropList #added="cdkDropList" (cdkDropListDropped)="drop($event)" [cdkDropListData]="gymnasts" [cdkDropListConnectedTo]="[available]"
+        class="added drag-list">
       <li [ngClass]="{'drag-box': true, 'male': member.gender === genders.Male, 'female': member.gender === genders.Female}" *ngFor="let member of gymnasts"
           cdkDrag>
         <div class="flex">

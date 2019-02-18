@@ -33,7 +33,7 @@
   "dependencies": {
     "@nestjs/common": "^5.7.2",
     "@nestjs/core": "^5.7.2",
-    "@nestjs/graphql": "^5.5.2",
+    "@nestjs/graphql": "^5.5.3",
     "@nestjs/jwt": "^0.3.0",
     "@nestjs/passport": "^5.1.0",
     "@nestjs/swagger": "^2.5.1",
@@ -81,7 +81,7 @@
     "@types/graphql": "^14.0.7",
     "@types/handlebars": "^4.0.40",
     "@types/helmet": "0.0.42",
-    "@types/jest": "^24.0.5",
+    "@types/jest": "^24.0.6",
     "@types/json2csv": "^4.2.0",
     "@types/lodash": "^4.14.121",
     "@types/morgan": "^1.7.35",
