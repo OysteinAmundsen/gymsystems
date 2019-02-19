@@ -16,6 +16,7 @@ import { Role } from '../user/user.model';
 import { ClubService } from '../club/club.service';
 import { Club } from '../club/club.model';
 import { Cleaner } from '../../common/util/cleaner';
+import { RequestContext } from '../../common/middleware/request-context.model';
 
 @Resolver('IGymnast')
 export class GymnastResolver {
@@ -29,21 +30,27 @@ export class GymnastResolver {
   ) { }
 
   @Query()
-  @UseGuards(RoleGuard())
+  @UseGuards(RoleGuard(Role.Club))
   getGymnasts(@Args('clubId') id?: number) {
-    return id
-      ? this.gymnastService.findByClubId(id)
-      : this.gymnastService.findAll();
+    if (id) {
+      // Gymnasts for a specific club is asked for.
+      ClubService.enforceSame(id);  // Requestor must be in the same club to get results.
+      return this.gymnastService.findByClubId(id);
+    }
+    const me = RequestContext.currentUser();
+    if (me.role === Role.Admin) {
+      this.gymnastService.findAll();
+    }
   }
 
   @Query('gymnast')
-  @UseGuards(RoleGuard(Role.Organizer))
+  @UseGuards(RoleGuard(Role.Club))
   findOneById(@Args('id') id: number): Promise<Gymnast> {
     return this.gymnastService.findOneById(id);
   }
 
   @ResolveProperty('troop')
-  @UseGuards(RoleGuard(Role.Organizer))
+  @UseGuards(RoleGuard(Role.Club))
   getTroops(gymnast: Gymnast): Promise<Troop[]> {
     return this.troopService.findByGymnast(gymnast);
   }

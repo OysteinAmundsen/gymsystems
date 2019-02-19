@@ -18,7 +18,7 @@ export class ClubService {
 
   static enforceSame(clubId: number): void {
     const me = RequestContext.currentUser();
-    if (me && me.role < Role.Admin && me.clubId !== clubId) {
+    if (me && me.role < Role.Admin && me.clubId !== +clubId) {
       throw new ForbiddenException('You do not belong to this club');
     }
   }

@@ -122,7 +122,15 @@ export class AuthInterceptor implements HttpInterceptor {
       if (res.body && res.body.errors && res.body.errors.length > 0) {
         // GraphQL Error
         const message = res.body.errors[0].message;
-        throw new Error(JSON.stringify({ status: message.statusCode, statusText: message.error, error: message.message }));
+        let url = req.url;
+        const m = req.body.query.match(/([\w\d]+\([\w\s:\d]+\))/); // match gql query
+        if (m) {
+          url += '{' + m.reduce((prev, curr) => {
+            if (prev.indexOf(curr) < 0) { prev += curr; }
+            return prev;
+          }, '') + '}';
+        }
+        throw new Error(JSON.stringify({ status: message.statusCode, statusText: message.error, error: message.message || url }));
       }
 
       // Something else has gone wrong (should really never happen).
@@ -147,7 +155,7 @@ export class AuthInterceptor implements HttpInterceptor {
           this.router.navigate(['/login'], { queryParams: { u: encodeURIComponent(this.browser.window().location.pathname) } });
         } else if (error.status === 403) {
           // We are in a place we aren't supposed to be. Go up a level and see if that remedies the situation.
-          this.router.navigate(['../'], { relativeTo: this.route });
+          this.router.navigate(['/' + this.router.url.split('/').slice(1, -1).join('/')]);
         } else {
           // For everything else...
           if (error.error) {

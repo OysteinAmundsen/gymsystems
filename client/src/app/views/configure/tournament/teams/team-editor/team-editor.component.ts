@@ -12,7 +12,7 @@ import { UserService } from 'app/shared/services/api';
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 
 import { TournamentEditorComponent } from '../../tournament-editor/tournament-editor.component';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatAutocomplete, MatSlideToggleChange } from '@angular/material';
 import { MemberSelectorComponent } from 'app/views/configure/_shared/member-selector/member-selector.component';
 import { GraphService } from 'app/shared/services/graph.service';
 import { Logger } from 'app/shared/services/Logger';
@@ -166,6 +166,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         params.id ? this.loadData(+params.id) : this.loadData();
       }));
     }));
+    this.classChanged();
   }
 
   ngOnDestroy() {
@@ -271,6 +272,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
       if (res.getDisciplines) {
         this.disciplines = res.getDisciplines;
         this.disciplines.forEach(d => this.teamDiscipline.controls.push(this.createDisciplineGroup(d)));
+        this.classChanged();
       }
       if (res.team) {
         this.teamReceived(res.team);
@@ -322,6 +324,10 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
 
   close(result?) {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  classChange($event: MatSlideToggleChange) {
+    this.teamForm.controls['class'].setValue($event.checked ? Classes.TeamGym : Classes.National);
   }
 
   classChanged() {

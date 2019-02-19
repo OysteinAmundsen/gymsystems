@@ -1,8 +1,5 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { Router } from "@angular/router";
-import { Title } from "@angular/platform-browser";
-import { Meta } from "@angular/platform-browser";
 import { UserService } from "app/shared/services/api";
 import { GraphService } from "app/shared/services/graph.service";
 import { ClubComponent } from "./club.component";
@@ -12,6 +9,7 @@ import { Role, IUser } from 'app/model';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material';
 import { IfAuthDirective } from 'app/shared/directives';
+import { Router } from '@angular/router';
 
 describe("views.configure.club:ClubComponent", () => {
   let component: ClubComponent;
@@ -48,9 +46,9 @@ describe("views.configure.club:ClubComponent", () => {
 
   describe("ngOnInit", () => {
     it("only admins can view this panel", () => {
-      const routerStub: Router = fixture.debugElement.injector.get(Router);
-      const userServiceStub: UserService = fixture.debugElement.injector.get(UserService);
-      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+      const routerStub = fixture.debugElement.injector.get(Router);
+      const userServiceStub = fixture.debugElement.injector.get(UserService);
+      const graphServiceStub = fixture.debugElement.injector.get(GraphService);
 
       spyOn(userServiceStub, "getMe").and.callThrough();
       spyOn(routerStub, "navigate");
@@ -62,9 +60,9 @@ describe("views.configure.club:ClubComponent", () => {
     });
 
     it("makes expected calls when admin", () => {
-      const routerStub: Router = fixture.debugElement.injector.get(Router);
-      const userServiceStub: UserService = fixture.debugElement.injector.get(UserService);
-      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+      const routerStub = fixture.debugElement.injector.get(Router);
+      const userServiceStub = fixture.debugElement.injector.get(UserService);
+      const graphServiceStub = fixture.debugElement.injector.get(GraphService);
 
       userServiceStub.getMe = () => of(<IUser>{ id: 1, name: 'Admin user', role: Role.Admin }); // Me is now an admin
 
@@ -80,7 +78,7 @@ describe("views.configure.club:ClubComponent", () => {
 
   describe("addClub", () => {
     it("makes expected calls", () => {
-      const routerStub: Router = fixture.debugElement.injector.get(Router);
+      const routerStub = fixture.debugElement.injector.get(Router);
       spyOn(routerStub, "navigate");
       component.addClub();
       expect(routerStub.navigate).toHaveBeenCalled();

@@ -1,6 +1,5 @@
 import { TestBed } from "@angular/core/testing";
 import { Injector } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
 import { HttpRequest, HttpHandler, HttpResponse } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material";
 import { JwtHelperService } from "@auth0/angular-jwt";
@@ -11,6 +10,7 @@ import { of } from 'rxjs';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 import { Role } from 'app/model';
 import { HttpMethod } from './http-method';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe("shared.interceptors:AuthInterceptor", () => {
   let service: AuthInterceptor;
@@ -20,8 +20,6 @@ describe("shared.interceptors:AuthInterceptor", () => {
 
   beforeEach(() => {
     const injectorStub = {};
-    const routerStub = { navigate: () => ({}) };
-    const activatedRouteStub = {};
 
     const httpRequestStub = { headers: { has: () => false } };
     const httpResponseStub = new HttpResponse({
@@ -43,13 +41,12 @@ describe("shared.interceptors:AuthInterceptor", () => {
 
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
       ],
       providers: [
         AuthInterceptor,
         { provide: Injector, useValue: injectorStub },
-        { provide: Router, useValue: routerStub },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: HttpRequest, useValue: httpRequestStub },
         { provide: HttpHandler, useValue: httpHandlerStub },
         { provide: HttpResponse, useValue: httpResponseStub },
@@ -146,7 +143,7 @@ describe("shared.interceptors:AuthInterceptor", () => {
 
   describe("handleError", () => {
     // it("handles http 401 request", () => {
-    //   const routerStub: Router = TestBed.get(Router);
+    //   const routerStub = TestBed.get('Router');
 
     //   const httpHandlerStub = {
     //     handle: () => of(new HttpResponse({
@@ -167,7 +164,7 @@ describe("shared.interceptors:AuthInterceptor", () => {
     // });
 
     // it("should not redirect if request header 'noReport' is set", () => {
-    //   const routerStub: Router = TestBed.get(Router);
+    //   const routerStub = TestBed.get('Router');
 
     //   const httpHandlerStub = {
     //     handle: () => of(new HttpResponse({

@@ -20,7 +20,7 @@ type IUser {
   id: ID!
   name: String
   email: String
-  password: String
+  # password: String
   role: Int
   tournaments: [ITournament]
   venues: [IVenue]

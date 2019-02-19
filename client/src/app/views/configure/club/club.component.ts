@@ -40,7 +40,7 @@ export class ClubComponent implements OnInit, OnDestroy {
         this.graph.getData(`{getClubs{id,name}}`).subscribe(res => this.clubSource.subject.next(res.getClubs));
       } else {
         // If you are not admin, you will be auto-redirected to your club page
-        this.router.navigate(['./', this.user.club.id], { relativeTo: this.route });
+        this.router.navigate(['./', this.user.clubId], { relativeTo: this.route });
       }
     });
   }

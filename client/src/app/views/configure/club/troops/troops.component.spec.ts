@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { TranslateService, TranslateFakeLoader, TranslateModule, TranslateLoader } from "@ngx-translate/core";
-import { ITroop, Gender, Role } from "app/model";
+import { TranslateFakeLoader, TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { Gender, Role } from "app/model";
 import { UserService } from "app/shared/services/api";
 import { ConfigurationService } from "app/shared/services/api";
 import { ClubEditorComponent } from "app/views/configure/club/club-editor/club-editor.component";
-import { Router } from "@angular/router";
-import { ActivatedRoute } from "@angular/router";
 import { GraphService } from "app/shared/services/graph.service";
 import { TroopsComponent } from "./troops.component";
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { MatTableModule } from '@angular/material';
 import { IfAuthDirective } from 'app/shared/directives';
+import { Router } from '@angular/router';
 
 describe("views.configure.club:TroopsComponent", () => {
   let component: TroopsComponent;
@@ -91,8 +90,8 @@ describe("views.configure.club:TroopsComponent", () => {
 
   // describe("ngOnInit", () => {
   //   it("makes expected calls", () => {
-  //     const userServiceStub: UserService = fixture.debugElement.injector.get(UserService);
-  //     const configurationServiceStub: ConfigurationService = fixture.debugElement.injector.get(ConfigurationService);
+  //     const userServiceStub = fixture.debugElement.injector.get(UserService);
+  //     const configurationServiceStub = fixture.debugElement.injector.get(ConfigurationService);
   //     spyOn(userServiceStub, "getMe").and.callThrough();
   //     spyOn(component, "loadTeams").and.callThrough();
   //     spyOn(configurationServiceStub, "getByname").and.callThrough();
@@ -107,7 +106,7 @@ describe("views.configure.club:TroopsComponent", () => {
     it("makes expected calls", () => {
       component.ngOnInit();
 
-      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+      const graphServiceStub = fixture.debugElement.injector.get(GraphService);
       spyOn(graphServiceStub, "getData").and.callThrough();
       spyOn(component, "onTeamsReceived");
       component.loadTeams();
@@ -120,7 +119,7 @@ describe("views.configure.club:TroopsComponent", () => {
     it("makes expected calls", () => {
       component.ngOnInit();
 
-      const routerStub: Router = fixture.debugElement.injector.get(Router);
+      const routerStub = fixture.debugElement.injector.get(Router);
       spyOn(routerStub, "navigate");
       component.addTeam();
       expect(routerStub.navigate).toHaveBeenCalled();
@@ -131,7 +130,7 @@ describe("views.configure.club:TroopsComponent", () => {
     it("makes expected calls", () => {
       component.ngOnInit();
 
-      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+      const graphServiceStub = fixture.debugElement.injector.get(GraphService);
       spyOn(graphServiceStub, "getData").and.callThrough();
       spyOn(graphServiceStub, "saveData").and.callThrough();
       spyOn(component, "onTeamsReceived");

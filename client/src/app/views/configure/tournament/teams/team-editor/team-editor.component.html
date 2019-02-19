@@ -55,8 +55,7 @@
             <h2>
               <i class="fa fa-fw fa-heartbeat"></i>
               <span translate>Disciplines</span>
-              <mat-slide-toggle class="mat-primary" [checked]="teamForm.value.class === classes.TeamGym"
-                                (change)="$event.checked ? teamForm.controls['class'].setValue(classes.TeamGym) : teamForm.controls['class'].setValue(classes.National)">
+              <mat-slide-toggle class="mat-primary" formControlName="class" [checked]="teamForm.value.class === classes.TeamGym" (change)="classChange($event)">
                 <span *ngIf="teamForm.value.class === classes.TeamGym" translate>TeamGym</span>
                 <span *ngIf="teamForm.value.class === classes.National" translate>National</span>
               </mat-slide-toggle>

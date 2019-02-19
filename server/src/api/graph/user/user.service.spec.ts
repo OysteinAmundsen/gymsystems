@@ -20,7 +20,7 @@ describe("UserService", () => {
     name: '',
     email: '',
     clubId: 1,
-    club: { id: 1 }
+    club: { id: 1, name: 'TestClub' }
   };
   const clubStub = <Club>{ id: 1 };
 

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { IClub, IGymnast, Gender, ITroop } from 'app/model';
+import { IClub, IGymnast, Gender, ITroop, Role } from 'app/model';
 
 import * as moment from 'moment';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';

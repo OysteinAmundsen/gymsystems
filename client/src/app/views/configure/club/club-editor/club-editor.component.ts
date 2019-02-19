@@ -59,7 +59,7 @@ export class ClubEditorComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userService.getMe().subscribe(user => {
         this.user = user;
-        if (!user || (user.role < Role.Admin && user.club.id !== +params.id)) {
+        if (!user || (user.role < Role.Admin && user.clubId !== +params.id)) {
           // If you are not admin, and this is not your club, you will be
           // auto-redirected one url-level up to let the ClubComponent handle
           // placing you where you are supposed to be.

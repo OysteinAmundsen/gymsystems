@@ -117,7 +117,7 @@ describe("ClubService", () => {
    */
   describe("findByFilter", () => {
     it("Can return a properly concatenated list", () => {
-      spyOn(service, "findOwnClubByName").and.callFake(() => ({ id: 1, name: 'Test Club' }));
+      spyOn(service, "findOwnClubByName").and.callFake(() => ([{ id: 1, name: 'Test Club' }]));
       spyOn(service, "brregLookup").and.callFake(() => ([{ name: 'Test' }, { name: 'Test Club' }, { name: 'Testing club' }]))
       service.findByFilter('Test').then(result => {
         expect(result).toEqual(<Club[]>[{ id: 1, name: 'Test Club' }, { name: 'Test' }, { name: 'Test Club' }, { name: 'Testing club' }]);

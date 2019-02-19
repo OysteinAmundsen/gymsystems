@@ -1,16 +1,18 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
-import { Router } from "@angular/router";
-import { ActivatedRoute } from "@angular/router";
-import { ClubEditorComponent } from "app/views/configure/club/club-editor/club-editor.component";
-import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from "@angular/material";
-import { GraphService } from "app/shared/services/graph.service";
+import { ReactiveFormsModule, FormBuilder } from "@angular/forms";
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from "@angular/material";
 import { MemberEditorComponent } from "./member-editor.component";
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 import { Gender } from 'app/model/Gender';
+import { IfAuthDirective } from 'app/shared/directives/auth/if-auth.directive';
+import { Role } from 'app/model/IUser';
+import { UserService } from 'app/shared/services/api/user/user.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ClubEditorComponent } from '../../club-editor/club-editor.component';
+import { GraphService } from 'app/shared/services/graph.service';
 
 describe("views.configure.club:MemberEditorComponent", () => {
   let component: MemberEditorComponent;
@@ -44,6 +46,7 @@ describe("views.configure.club:MemberEditorComponent", () => {
       saveData: () => (of({ saveGymnast: iGymnastStub })),
       deleteData: () => (of({}))
     };
+    const userServiceStub = { getMe: () => of({ id: 1, name: 'Test user', role: Role.Club }) };
 
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
@@ -53,8 +56,9 @@ describe("views.configure.club:MemberEditorComponent", () => {
         MatAutocompleteModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
       ],
-      declarations: [MemberEditorComponent],
+      declarations: [MemberEditorComponent, IfAuthDirective],
       providers: [
+        { provide: UserService, useValue: userServiceStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: ClubEditorComponent, useValue: clubEditorComponentStub },
         { provide: MatAutocompleteSelectedEvent, useValue: matAutocompleteSelectedEventStub },
@@ -75,8 +79,8 @@ describe("views.configure.club:MemberEditorComponent", () => {
 
   describe("ngOnInit", () => {
     it("makes expected calls", () => {
-      const formBuilderStub: FormBuilder = fixture.debugElement.injector.get(FormBuilder);
-      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+      const formBuilderStub = fixture.debugElement.injector.get(FormBuilder);
+      const graphServiceStub = fixture.debugElement.injector.get(GraphService);
       spyOn(formBuilderStub, "group").and.callThrough();
       spyOn(graphServiceStub, "getData").and.callThrough();
       spyOn(component, "memberReceived");
@@ -91,7 +95,7 @@ describe("views.configure.club:MemberEditorComponent", () => {
     it("makes expected calls", () => {
       component.ngOnInit();
 
-      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+      const graphServiceStub = fixture.debugElement.injector.get(GraphService);
       spyOn(graphServiceStub, "saveData").and.callThrough();
       spyOn(component, "close");
       component.save();
@@ -104,7 +108,7 @@ describe("views.configure.club:MemberEditorComponent", () => {
     it("makes expected calls", () => {
       component.ngOnInit();
 
-      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+      const graphServiceStub = fixture.debugElement.injector.get(GraphService);
       spyOn(graphServiceStub, "deleteData").and.callThrough();
       spyOn(component, "close");
       component.delete();
@@ -115,7 +119,7 @@ describe("views.configure.club:MemberEditorComponent", () => {
 
   describe("close", () => {
     it("makes expected calls", () => {
-      const routerStub: Router = fixture.debugElement.injector.get(Router);
+      const routerStub = fixture.debugElement.injector.get(Router);
       spyOn(routerStub, "navigate");
       component.close();
       expect(routerStub.navigate).toHaveBeenCalled();

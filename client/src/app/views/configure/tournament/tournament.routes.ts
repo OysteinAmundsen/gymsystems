@@ -16,20 +16,20 @@ import { AwardsComponent } from './awards/awards.component';
 export const TournamentRoutes: Routes = [
   {
     path: 'tournament', children: [
-      { path: '', component: TournamentComponent, pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club} },
-      { path: 'add', component: TournamentEditorComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
+      { path: '', component: TournamentComponent, pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club } },
+      { path: 'add', component: TournamentEditorComponent, canActivate: [RoleGuard], data: { role: Role.Organizer } },
       {
         path: ':id', component: TournamentEditorComponent, children: [
-          { path: '', redirectTo: 'teams', pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club} },
-          { path: 'divisions', component: DivisionsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
+          { path: '', redirectTo: 'teams', pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club } },
+          { path: 'divisions', component: DivisionsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer } },
           ...DisciplineRoutes,
-          { path: 'teams', component: TeamsComponent, canActivate: [RoleGuard], data: { role: Role.Club}  },
-          { path: 'teams/add', component: TeamEditorComponent, canActivate: [RoleGuard], data: { role: Role.Club}  },
-          { path: 'teams/:id', component: TeamEditorComponent, canActivate: [RoleGuard], data: { role: Role.Club}  },
-          { path: 'schedule', component: ScheduleComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
-          { path: 'awards', component: AwardsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
-          { path: 'info', component: InfoComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
-          { path: 'scorecards', component: ScorecardsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer}  },
+          { path: 'teams', component: TeamsComponent, canActivate: [RoleGuard], data: { role: Role.Club } },
+          { path: 'teams/add', component: TeamEditorComponent, canActivate: [RoleGuard], data: { role: Role.Organizer } },
+          { path: 'teams/:id', component: TeamEditorComponent, canActivate: [RoleGuard], data: { role: Role.Organizer } },
+          { path: 'schedule', component: ScheduleComponent, canActivate: [RoleGuard], data: { role: Role.Organizer } },
+          { path: 'awards', component: AwardsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer } },
+          { path: 'info', component: InfoComponent, canActivate: [RoleGuard], data: { role: Role.Organizer } },
+          { path: 'scorecards', component: ScorecardsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer } },
         ]
       },
     ]

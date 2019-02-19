@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ReactiveFormsModule } from "@angular/forms";
 import { UserService } from "app/shared/services/api";
 import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from "@angular/material";
 import { MatAutocomplete } from "@angular/material";
@@ -125,7 +125,7 @@ describe("views.configure.club:ClubEditorComponent", () => {
   describe("save", () => {
     it("makes expected calls", () => {
       component.ngOnInit();
-      const routerStub: Router = fixture.debugElement.injector.get(Router);
+      const routerStub = fixture.debugElement.injector.get(Router);
       const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
       spyOn(component, "clubReceived").and.callThrough();
       spyOn(routerStub, "navigate");
@@ -173,7 +173,7 @@ describe("views.configure.club:ClubEditorComponent", () => {
   describe("goBack", () => {
     it("makes expected calls", () => {
       component.ngOnInit();
-      const routerStub: Router = fixture.debugElement.injector.get(Router);
+      const routerStub = fixture.debugElement.injector.get(Router);
       spyOn(routerStub, "navigate");
       component.goBack();
       expect(routerStub.navigate).toHaveBeenCalled();

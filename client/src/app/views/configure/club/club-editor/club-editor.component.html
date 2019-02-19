@@ -39,19 +39,19 @@
 <!-- Tab list -->
 <menu mat-tab-nav-bar *ngIf="clubForm.value.id">
   <a mat-tab-link routerLink="./members" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [routerLinkActive]="['active']"
-     *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id" aria-label="Members">
+     *ngIf="user.role >= roles.Admin || user.clubId === clubForm.value.id" aria-label="Members">
     <i class="fa fa-fw fa-id-card-o"></i> <span translate>Members</span>
   </a>
   <a mat-tab-link routerLink="./troops" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [routerLinkActive]="['active']"
-     *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id" aria-label="Teams">
+     *ngIf="user.role >= roles.Admin || user.clubId === clubForm.value.id" aria-label="Teams">
     <i class="fa fa-fw fa-group"></i> <span translate>Teams</span>
   </a>
   <a mat-tab-link routerLink="./media" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [routerLinkActive]="['active']"
-     *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id" aria-label="Media">
+     *ngIf="user.role >= roles.Admin || user.clubId === clubForm.value.id" aria-label="Media">
     <i class="fa fa-fw fa-volume-up"></i> <span translate>Media</span>
   </a>
   <a mat-tab-link routerLink="./statistics" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [routerLinkActive]="['active']"
-     *ngIf="user.role >= roles.Admin || user.club.id === clubForm.value.id" aria-label="Statistics">
+     *ngIf="user.role >= roles.Admin || user.clubId === clubForm.value.id" aria-label="Statistics">
     <i class="fa fa-fw fa-line-chart"></i> <span translate>Statistics</span>
   </a>
 </menu>

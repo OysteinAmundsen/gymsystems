@@ -75,7 +75,7 @@
         </div>
       </section>
 
-      <section class="teams">
+      <section class="teams" *appIfAuth="'Organizer'">
         <h4><i class="fa fa-fw fa-group"></i> {{'Teams' | translate}}</h4>
         <mat-form-field>
           <input matInput [formControl]="troopSelector" placeholder="{{'Add to Team' | translate}}" [matAutocomplete]="troopTypeahead">

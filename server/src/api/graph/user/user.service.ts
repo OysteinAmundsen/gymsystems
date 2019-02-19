@@ -95,7 +95,7 @@ export class UserService {
       }
 
       // Validate and sanitize user data
-      delete user.password;
+      // delete user.password;
       if (await this.findOneByUsername(user.name)) {
         throw new BadRequestException('Username is taken');
       }

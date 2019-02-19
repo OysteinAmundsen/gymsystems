@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { IGymnast } from "app/model";
-import { ClubEditorComponent } from "app/views/configure/club/club-editor/club-editor.component";
+import { IGymnast, Role } from "app/model";
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from "@ngx-translate/core";
-import { Router } from "@angular/router";
-import { MemberStateService } from "app/views/configure/club/members/member-state.service";
-import { GraphService } from "app/shared/services/graph.service";
 import { Gender } from "app/model";
 import { MembersComponent } from "./members.component";
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { MatTableModule } from '@angular/material';
 import { IfAuthDirective } from 'app/shared/directives';
+import { ClubEditorComponent } from '../club-editor/club-editor.component';
+import { UserService } from 'app/shared/services/api';
+import { MemberStateService } from './member-state.service';
+import { GraphService } from 'app/shared/services/graph.service';
+import { Router } from '@angular/router';
 
 describe("views.configure.club:MembersComponent", () => {
   let component: MembersComponent;
@@ -26,6 +27,7 @@ describe("views.configure.club:MembersComponent", () => {
     const clubEditorComponentStub = { clubSubject: of({ id: 1, name: 'Test club' }) };
     const memberStateServiceStub = { sort: {} };
     const graphServiceStub = { getData: () => of({}) };
+    const userServiceStub = { getMe: () => of({ id: 1, name: 'Test user', role: Role.Club }) };
 
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
@@ -37,6 +39,7 @@ describe("views.configure.club:MembersComponent", () => {
       declarations: [MembersComponent, IfAuthDirective],
       providers: [
         { provide: ClubEditorComponent, useValue: clubEditorComponentStub },
+        { provide: UserService, useValue: userServiceStub },
         { provide: MemberStateService, useValue: memberStateServiceStub },
         { provide: GraphService, useValue: graphServiceStub }
       ]
@@ -95,7 +98,7 @@ describe("views.configure.club:MembersComponent", () => {
     it("makes expected calls", () => {
       component.ngOnInit();
 
-      const graphServiceStub: GraphService = fixture.debugElement.injector.get(GraphService);
+      const graphServiceStub = fixture.debugElement.injector.get(GraphService);
       spyOn(graphServiceStub, "getData").and.callThrough();
       spyOn(component, "onMembersReceived");
       component.loadMembers();
@@ -108,7 +111,7 @@ describe("views.configure.club:MembersComponent", () => {
     it("makes expected calls", () => {
       component.ngOnInit();
 
-      const routerStub: Router = fixture.debugElement.injector.get(Router);
+      const routerStub = fixture.debugElement.injector.get(Router);
       spyOn(routerStub, "navigate");
       component.addMember();
       expect(routerStub.navigate).toHaveBeenCalled();

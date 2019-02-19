@@ -31,15 +31,20 @@ export class UserResolver {
   }
 
   @Query('user')
-  @UseGuards(RoleGuard(Role.Club))
-  findOneById(@Args('id') id: number): Promise<User> {
-    return this.userService.findOneById(id);
+  @UseGuards(RoleGuard())
+  async findOneById(@Args('id') id: number): Promise<User> {
+    const me = this.userService.getAuthenticatedUser();
+    if (me.id === id) { return this.findMe(); }
+
+    const user = await this.userService.findOneById(id);
+    ClubService.enforceSame(user.clubId);
+    return user;
   }
 
   @Query('me')
   findMe(): Promise<User> {
     const me = this.userService.getAuthenticatedUser();
-    if (!me) { throw new ForbiddenException('Not authorized to query users'); }
+    if (!me) { return null; }
     return this.userService.findOneById(me.id);
   }
 
@@ -62,6 +67,7 @@ export class UserResolver {
   }
 
   @Mutation('changePassword')
+  @UseGuards(RoleGuard())
   async changePassword(@Args('old') oldPassword: string, @Args('password') password: string): Promise<boolean> {
     const me = this.userService.getAuthenticatedUser();
     if (!me) { throw new UnauthorizedException(); }
@@ -74,6 +80,7 @@ export class UserResolver {
   }
 
   @Mutation('saveUser')
+  @UseGuards(RoleGuard())
   save(@Args('input') input: UserDto): Promise<User> {
     ClubService.enforceSame(input.club ? input.club.id : input.clubId);
     return this.userService.save(Cleaner.clean(input));

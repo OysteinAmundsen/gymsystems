@@ -4,13 +4,14 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 
 import { Logger } from 'app/shared/services/Logger';
 
-import { IClub, IGymnast, Gender } from 'app/model';
+import { IClub, IGymnast, Gender, Role } from 'app/model';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { SubjectSource } from 'app/shared/services/subject-source';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MemberStateService } from 'app/views/configure/club/members/member-state.service';
 import { GraphService } from 'app/shared/services/graph.service';
+import { UserService } from 'app/shared/services/api/user/user.service';
 
 @Component({
   selector: 'app-members',
@@ -46,6 +47,7 @@ export class MembersComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private memberState: MemberStateService,
+    private userService: UserService,
     private parent: ClubEditorComponent,
     private graph: GraphService,
     private translate: TranslateService) { }
@@ -113,14 +115,17 @@ export class MembersComponent implements OnInit, OnDestroy {
     }
   }
 
-  onPress($event) {
+  async onPress($event) {
     // $event.srcEvent.preventDefault();
     // $event.srcEvent.stopPropagation();
-    this.selectMode = !this.selectMode;
-    if (this.selectMode) {
-      this.displayedColumns.unshift('selector');
-    } else {
-      this.displayedColumns.splice(this.displayedColumns.indexOf('selector'), 1);
+    const me = await this.userService.getMe().toPromise();
+    if (me.role >= Role.Organizer) {
+      this.selectMode = !this.selectMode;
+      if (this.selectMode) {
+        this.displayedColumns.unshift('selector');
+      } else {
+        this.displayedColumns.splice(this.displayedColumns.indexOf('selector'), 1);
+      }
     }
   }
 
