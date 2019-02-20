@@ -19,7 +19,11 @@ export class ScheduleService {
     @InjectRepository(TeamInDiscipline) private readonly scheduleRepository: Repository<TeamInDiscipline>,
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
-  async save(participant: TeamInDisciplineDto): Promise<TeamInDiscipline> {
+  async save(participant: TeamInDisciplineDto[]): Promise<TeamInDiscipline[]> {
+    return this.scheduleRepository.save(participant);
+  }
+
+  async saveItem(participant: TeamInDisciplineDto): Promise<TeamInDiscipline> {
     if (participant.id) {
       const entity = await this.scheduleRepository.findOne({ id: participant.id });
       participant = Object.assign(entity, participant);

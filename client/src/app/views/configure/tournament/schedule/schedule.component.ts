@@ -34,6 +34,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     endTime,
     publishTime,
     type,
+    tournamentId,
     team{id,name,class},
     disciplineId,
     disciplineName,
@@ -47,7 +48,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   disciplines: IDiscipline[];
   classes = Classes;
   participationTypes = ParticipationType;
-  // dragulaSubscription;
   isDirty = false;
   shouldCalculateTraining = new FormControl(false);
   editing: number;
@@ -70,7 +70,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    *
    */
   ngOnDestroy() {
-    // this.dragulaSubscription.unsubscribe();
   }
 
   @HostListener('keyup', ['$event'])
@@ -93,13 +92,29 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     })
   }
 
+  mapToScheduleInput(s) {
+    return {
+      id: s.id,
+      disciplineId: s.disciplineId,
+      teamId: s.teamId || s.team.id,
+      tournamentId: s.tournamentId,
+      type: s.type,
+      sortNumber: s.sortNumber,
+      startNumber: s.startNumber,
+      markDeleted: s.markDeleted || false
+    };
+  }
+
   /**
    *
    */
   saveSchedule() {
-    this.graph.saveData('Schedule', this.schedule, this.scheduleQuery).subscribe(result => {
+    // Remap to graphql input data
+    const schedule = this.schedule.map(s => this.mapToScheduleInput(s));
+    // Save schedule
+    this.graph.saveData('Schedule', schedule, this.scheduleQuery).subscribe(result => {
       this.isDirty = false;
-      this.loadSchedule();
+      this.schedule = result.saveSchedule;
     });
   }
 
@@ -108,7 +123,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    */
   toggleStrikeParticipant(participant: ITeamInDiscipline, force?: boolean) {
     participant.markDeleted = force ? force : !participant.markDeleted;
-    this.graph.saveData('Participant', participant, this.scheduleQuery).subscribe(result => this.loadSchedule());
+    this.graph.saveData('Participant', this.mapToScheduleInput(participant), this.scheduleQuery).subscribe(result => this.loadSchedule());
   }
 
   /**
@@ -119,7 +134,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       if (this.parent.hasStarted) {
         this.toggleStrikeParticipant(participant, true);
       } else {
-        this.graph.deleteData('Schedule', participant.id).subscribe(result => this.loadSchedule());
+        this.schedule.splice(this.schedule.findIndex(s => s.id === participant.id), 1);
+        this.graph.deleteData('Participant', participant.id).subscribe(result => this.loadSchedule());
       }
     } else {
       const hash = this.stringHash(participant);
@@ -142,7 +158,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   deleteAll() {
     const schedules = this.schedule.filter(s => s.id != null);
     if (schedules.length) {
-      this.graph.deleteData('TournamentSchedule', this.tournamentId).subscribe(result => this.loadSchedule());
+      this.graph.deleteData('TournamentSchedule', this.tournamentId).subscribe(result => this.schedule = []);
     } else {
       this.loadSchedule();
     }
@@ -246,7 +262,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
           team.disciplines.forEach(dis => { // ...and each discipline, create a participant object
             disciplines.add(dis);
 
-            const participant = <ITeamInDiscipline>{ id: null, disciplineId: dis.id, disciplineName: dis.name, disciplineSortOrder: dis.sortOrder, teamId: team.id, team: team, tournamentId: this.tournamentId, type: type };
+            const participant = <ITeamInDiscipline>{ id: null, disciplineId: dis.id, disciplineName: dis.name, disciplineSortOrder: dis.sortOrder, divisionName: team.divisionName, teamId: team.id, team: team, tournamentId: this.tournamentId, type: type };
             if (this.schedule.findIndex(s => this.stringHash(s) === this.stringHash(participant)) < 0) {
               // Only push if participant is not allready registerred
               schedule.push(participant);
@@ -298,7 +314,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
             // Get next entry which is not the same team, and has the next discipline in the sortorder index
             index = scheduleByDivision.findIndex(e => {
-              return e.team.id !== entry.team.id && e.discipline.sortOrder === ((entry.discipline.sortOrder + 1) % 3);
+              return e.team.id !== entry.team.id && e.disciplineSortOrder === ((entry.disciplineSortOrder + 1) % 3);
             });
             index = index === -1 ? 0 : index;
 

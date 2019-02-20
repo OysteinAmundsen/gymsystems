@@ -201,7 +201,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     } else { // Find mix division
       division = this.genderDivisions.find(d => d.name === 'Mix');
     }
-    this.teamForm.get('genderDivision').setValue(division ? division.id : null);
+    this.teamForm.get('genderDivision').setValue(division);
 
     // Apply age division
     const age = (birthYear) => moment().diff(moment(birthYear, 'YYYY'), 'years');
@@ -209,7 +209,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     const minAge: number = Math.min(...ages);
     const maxAge: number = Math.max(...ages);
     division = this.divisions.find(k => maxAge <= k.max && minAge >= k.min);
-    this.teamForm.get('ageDivision').setValue(division ? division.id : null);
+    this.teamForm.get('ageDivision').setValue(division);
 
     // Set gymnasts
     this.teamForm.get('gymnasts').setValue(troop.gymnasts);

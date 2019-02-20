@@ -39,6 +39,10 @@ export class DivisionService {
     return (await this.getAllFromCache()).find(s => s.id === id);
   }
 
+  invalidateCache() {
+    delete this.localCahcePromise; // Force empty cache
+  }
+
   async save(division: DivisionDto): Promise<Division> {
     if (division.id) {
       const entity = await this.divisionRepository.findOne({ id: division.id });
@@ -46,7 +50,7 @@ export class DivisionService {
     }
     const result = await this.divisionRepository.save(<Division>division);
     if (result) {
-      delete this.localCahcePromise; // Force empty cache
+      this.invalidateCache();
       this.pubSub.publish(division.id ? 'divisionModified' : 'divisionCreated', { division: result });
     }
     delete result.teams;
@@ -56,13 +60,14 @@ export class DivisionService {
   }
 
   saveAll(divisions: DivisionDto[]): Promise<Division[]> {
+    this.invalidateCache();
     return Promise.all(divisions.map(d => this.save(d)));
   }
 
   async remove(id: number): Promise<boolean> {
     const result = await this.divisionRepository.delete({ id: id });
     if (result.affected > 0) {
-      delete this.localCahcePromise; // Force empty cache
+      this.invalidateCache(); // Force empty cache
       this.pubSub.publish('divisionDeleted', { divisionId: id });
     }
     return result.affected > 0;
@@ -81,7 +86,7 @@ export class DivisionService {
   }
 
   async findByTeamId(teamId: number): Promise<Division[]> {
-    return (await this.getAllFromCache()).filter(d => d.teams.find(t => t.id === teamId));
+    return (await this.getAllFromCache()).filter(d => d.teams.find(t => t.id === +teamId));
   }
   findByTeam(team: Team): Promise<Division[]> {
     return this.findByTeamId(team.id);

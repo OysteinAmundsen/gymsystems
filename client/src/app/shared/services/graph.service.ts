@@ -78,8 +78,14 @@ export class GraphService {
       }
 
 
-      else if (obj[k] instanceof Date || moment.isMoment(obj[k])) {
+      else if (obj[k] instanceof Date) {
         return str += `${k}: ${obj[k].getTime()}`;
+      }
+
+
+      else if (moment.isMoment(obj[k])) {
+        const d = obj[k].toDate();
+        return str += `${k}: ${d.getTime()}`;
       }
 
 

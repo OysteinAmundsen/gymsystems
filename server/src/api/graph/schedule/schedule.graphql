@@ -9,8 +9,9 @@ type Mutation {
   start(id: ID): ISchedule
   stop(id: ID): ISchedule
   publish(id: ID): ISchedule
-  saveSchedule(input: ScheduleInput): ISchedule
-  deleteSchedule(id: ID): Boolean
+  saveSchedule(input: [ScheduleInput]): [ISchedule]
+  saveParticipant(input: ScheduleInput): ISchedule
+  deleteParticipant(id: ID): Boolean
   rollback(tournamentId: ID!, participantId: ID!): Boolean
 }
 

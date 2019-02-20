@@ -45,6 +45,7 @@ export class TeamService {
     delete result.divisions;
     delete result.gymnasts;
     delete result.media;
+    this.divisionService.invalidateCache(); // Because divisionCache is joined with teams
     return result;
   }
 

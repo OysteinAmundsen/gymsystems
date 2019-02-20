@@ -151,11 +151,19 @@ export class ScheduleResolver {
 
   @Mutation('saveSchedule')
   @UseGuards(RoleGuard(Role.Organizer))
-  save(@Args('input') input: TeamInDisciplineDto): Promise<TeamInDiscipline> {
+  save(@Args('input') input: TeamInDisciplineDto[]): Promise<TeamInDiscipline[]> {
+    this.divisionService.invalidateCache();
     return this.scheduleService.save(Cleaner.clean(input));
   }
 
-  @Mutation('deleteSchedule')
+  @Mutation('saveParticipant')
+  @UseGuards(RoleGuard(Role.Organizer))
+  saveItem(@Args('input') input: TeamInDisciplineDto): Promise<TeamInDiscipline> {
+    this.divisionService.invalidateCache();
+    return this.scheduleService.saveItem(Cleaner.clean(input));
+  }
+
+  @Mutation('deleteParticipant')
   @UseGuards(RoleGuard(Role.Organizer))
   remove(@Args('id') id: number): Promise<boolean> {
     return this.scheduleService.remove(id);

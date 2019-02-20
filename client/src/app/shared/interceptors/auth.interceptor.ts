@@ -14,6 +14,7 @@ import { HttpStateService } from 'app/shared/interceptors/http-state.service';
 import { UserService } from 'app/shared/services/api';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BrowserService } from '../browser.service';
+import { Logger } from '../services/Logger';
 
 
 @Injectable()
@@ -122,15 +123,19 @@ export class AuthInterceptor implements HttpInterceptor {
       if (res.body && res.body.errors && res.body.errors.length > 0) {
         // GraphQL Error
         const message = res.body.errors[0].message;
-        let url = req.url;
-        const m = req.body.query.match(/([\w\d]+\([\w\s:\d]+\))/); // match gql query
-        if (m) {
-          url += '{' + m.reduce((prev, curr) => {
-            if (prev.indexOf(curr) < 0) { prev += curr; }
-            return prev;
-          }, '') + '}';
+        if (typeof message === 'string') {
+          // Just a warning, not an actual error.
+          Logger.debug(message);
+          return;
+        } else {
+          // Error ... for real!
+          let url = req.url;
+          const m = req.body.query.match(/([\w\d]+\([\w\s:\d]+\))/); // match gql query
+          if (m) {
+            url += '{' + m.reduce((prev, curr) => (prev.indexOf(curr) < 0 ? prev += curr : prev), '') + '}';
+          }
+          throw new Error(JSON.stringify({ status: message.statusCode, statusText: message.error, error: message.message || url }));
         }
-        throw new Error(JSON.stringify({ status: message.statusCode, statusText: message.error, error: message.message || url }));
       }
 
       // Something else has gone wrong (should really never happen).

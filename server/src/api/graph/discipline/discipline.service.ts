@@ -86,7 +86,8 @@ export class DisciplineService {
    * @param id the id of the discipline to fetch
    */
   async findOneById(id: number): Promise<Discipline> {
-    return (await this.getAllFromCache()).find(s => s.id === id);
+    const cache = await this.getAllFromCache();
+    return cache.find(s => s.id === +id);
   }
 
   /**
