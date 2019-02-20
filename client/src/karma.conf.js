@@ -9,6 +9,7 @@ module.exports = function (config) {
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-spec-reporter'),
+      require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
@@ -20,7 +21,7 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },
-    reporters: ['progress', 'spec'],
+    reporters: ['progress', 'spec', 'kjhtml'],
     specReporter: {
       maxLogLines: 5,             // limit number of lines logged per test
       suppressErrorSummary: true, // do not print error summary

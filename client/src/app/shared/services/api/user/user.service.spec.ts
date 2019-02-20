@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
-import { HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { IUser } from 'app/model';
 import { UserService } from './user.service';
 import { of } from 'rxjs';
@@ -11,23 +10,14 @@ describe('shared.services.api:UserService', () => {
   const iUserStub = <IUser>{ id: {} };
 
   beforeEach(() => {
-    const httpClientStub = {
-      get: () => of({}),
-      put: () => of({}),
-      post: () => of({}),
-      delete: () => of({})
-    };
     const graphServiceStub = { get: () => of({}) };
 
-    const httpResponseStub = {
-      body: {},
-      headers: { has: () => ({}), get: () => ({}) }
-    };
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule
+      ],
       providers: [
         UserService,
-        { provide: HttpClient, useValue: httpClientStub },
-        { provide: HttpResponse, useValue: httpResponseStub },
         { provide: GraphService, useValue: graphServiceStub }
       ]
     });

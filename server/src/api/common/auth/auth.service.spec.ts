@@ -1,7 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { JwtService } from "@nestjs/jwt";
 import { JwtPayload } from "./dto/jwt-payload.dto";
-import { UserService } from "../../graph/user/user.service";
 import { Config } from "../config";
 import { User } from "../../graph/user/user.model";
 import { Response } from "express";
@@ -23,9 +21,9 @@ describe("AuthService", () => {
     testModule = await Test.createTestingModule({
       providers: [
         AuthService,
-        { provide: JwtService, useValue: jwtServiceStub },
-        { provide: UserService, useValue: userServiceStub },
-        { provide: Config, useValue: configStub }
+        { provide: 'JwtService', useValue: jwtServiceStub },
+        { provide: 'UserService', useValue: userServiceStub },
+        { provide: 'Config', useValue: configStub }
       ]
     }).compile();
     service = testModule.get<AuthService>(AuthService);
@@ -47,7 +45,7 @@ describe("AuthService", () => {
 
   describe("createToken", () => {
     it("makes expected calls", () => {
-      const jwtServiceStub: JwtService = testModule.get(JwtService);
+      const jwtServiceStub = testModule.get('JwtService');
       const configStub: Config = testModule.get(Config);
       spyOn(jwtServiceStub, "sign");
       spyOn(configStub, "get");
@@ -59,7 +57,7 @@ describe("AuthService", () => {
 
   describe("validateToken", () => {
     it("makes expected calls", () => {
-      const userServiceStub: UserService = testModule.get(UserService);
+      const userServiceStub = testModule.get('UserService');
       spyOn(userServiceStub, "findOneById");
       service.validateToken(jwtPayloadStub);
       expect(userServiceStub.findOneById).toHaveBeenCalled();

@@ -7,8 +7,6 @@ import { TeamInDiscipline } from "../schedule/team-in-discipline.model";
 import { DisciplineService } from "./discipline.service";
 import { Discipline } from './discipline.model';
 
-const disciplineStub = <Discipline>{ id: {} };
-
 export class DisciplineRepository extends Repository<Discipline> { }
 
 describe("DisciplineService", () => {
@@ -16,7 +14,6 @@ describe("DisciplineService", () => {
   let testModule: TestingModule;
   const tournamentStub = <Tournament>{ id: 1 };
   const teamStub = <Team>{};
-  const teamInDisciplineStub = <TeamInDiscipline>{ discipline: {}, disciplineId: 1 };
 
   beforeAll(async () => {
     const configurationServiceStub = {
@@ -47,36 +44,33 @@ describe("DisciplineService", () => {
   });
 
   describe("save", () => {
-    it("makes expected calls", () => {
+    it("makes expected calls", async () => {
       const repositoryStub = testModule.get<DisciplineRepository>(DisciplineRepository);
       const pubSubStub: PubSub = testModule.get('PubSubInstance');
-      spyOn(repositoryStub, "findOne");
-      spyOn(repositoryStub, "save");
+      spyOn(repositoryStub, "findOne").and.callFake(() => ({ id: 1, name: 'Test Discipline' }));
+      spyOn(repositoryStub, "save").and.callFake(participant => participant);
       spyOn(pubSubStub, "publish");
-      service.save(disciplineStub).then(result => {
-        expect(repositoryStub.findOne).toHaveBeenCalled();
-        expect(repositoryStub.save).toHaveBeenCalled();
-        expect(pubSubStub.publish).toHaveBeenCalled();
-      });
+      const result = await service.save(<Discipline>{ id: 1 });
+      expect(repositoryStub.findOne).toHaveBeenCalled();
+      expect(repositoryStub.save).toHaveBeenCalled();
+      expect(pubSubStub.publish).toHaveBeenCalled();
     });
   });
 
   describe("findByTeam", () => {
-    it("makes expected calls", () => {
+    it("makes expected calls", async () => {
       const repositoryStub = testModule.get<DisciplineRepository>(DisciplineRepository);
       spyOn(repositoryStub, "find");
-      service.findByTeam(teamStub).then(result => {
-        expect(repositoryStub.find).toHaveBeenCalled();
-      });
+      const result = await service.findByTeam(teamStub);
+      expect(repositoryStub.find).toHaveBeenCalled();
     });
   });
 
   describe("findByParticipant", () => {
-    it("makes expected calls", () => {
-      spyOn(service, "findOneById");
-      service.findByParticipant(teamInDisciplineStub).then(result => {
-        expect(service.findOneById).toHaveBeenCalled();
-      });
+    it("makes expected calls", async () => {
+      spyOn(service, "findOneById").and.callFake(() => <TeamInDiscipline>{ discipline: { id: 1 }, disciplineId: 1 });
+      const result = await service.findByParticipant(<TeamInDiscipline>{ disciplineId: 1 });
+      expect(service.findOneById).toHaveBeenCalled();
     });
   });
 

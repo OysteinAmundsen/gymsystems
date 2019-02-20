@@ -31,6 +31,7 @@ export namespace Log {
       }),
       new transports.Console({
         level: 'debug',
+        silent: process.env.NODE_ENV === 'test',
         handleExceptions: true,
         format: format.combine(
           format.colorize(),

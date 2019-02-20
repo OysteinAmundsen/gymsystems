@@ -61,7 +61,7 @@ describe("TournamentService", () => {
   });
 
   describe("save", () => {
-    it("updating makes expected calls", () => {
+    it("updating makes expected calls", async () => {
       const repositoryStub = testModule.get(TournamentRepository);
       const pubSubStub = testModule.get('PubSubInstance');
       const mediaServiceStub = testModule.get('MediaService');
@@ -70,16 +70,16 @@ describe("TournamentService", () => {
       spyOn(service, "createDefaults");
       spyOn(mediaServiceStub, "createMediaArchive");
       spyOn(pubSubStub, "publish");
-      service.save(tournamentDtoStub).then(result => {
-        expect(repositoryStub.findOne).toHaveBeenCalled();
-        expect(repositoryStub.save).toHaveBeenCalled();
-        expect(service.createDefaults).not.toHaveBeenCalled();
-        expect(mediaServiceStub.createMediaArchive).not.toHaveBeenCalled();
-        expect(pubSubStub.publish).toHaveBeenCalled();
-      });
+
+      const result = await service.save(tournamentDtoStub);
+      expect(repositoryStub.findOne).toHaveBeenCalled();
+      expect(repositoryStub.save).toHaveBeenCalled();
+      expect(service.createDefaults).not.toHaveBeenCalled();
+      expect(mediaServiceStub.createMediaArchive).not.toHaveBeenCalled();
+      expect(pubSubStub.publish).toHaveBeenCalled();
     });
 
-    it("inserting makes expected calls", () => {
+    it("inserting makes expected calls", async () => {
       const repositoryStub = testModule.get(TournamentRepository);
       const pubSubStub = testModule.get('PubSubInstance');
       const mediaServiceStub = testModule.get('MediaService');
@@ -89,13 +89,13 @@ describe("TournamentService", () => {
       spyOn(service, "createDefaults").and.callFake(() => true);
       spyOn(mediaServiceStub, "createMediaArchive");
       spyOn(pubSubStub, "publish");
-      service.save(newTournamentStub).then(result => {
-        expect(repositoryStub.findOne).not.toHaveBeenCalled();
-        expect(repositoryStub.save).toHaveBeenCalled();
-        expect(service.createDefaults).toHaveBeenCalled();
-        expect(mediaServiceStub.createMediaArchive).toHaveBeenCalled();
-        expect(pubSubStub.publish).toHaveBeenCalled();
-      });
+
+      const result = await service.save(newTournamentStub);
+      expect(repositoryStub.findOne).not.toHaveBeenCalled();
+      expect(repositoryStub.save).toHaveBeenCalled();
+      expect(service.createDefaults).toHaveBeenCalled();
+      expect(mediaServiceStub.createMediaArchive).toHaveBeenCalled();
+      expect(pubSubStub.publish).toHaveBeenCalled();
     });
   });
 
@@ -160,26 +160,25 @@ describe("TournamentService", () => {
   });
 
   describe("createDefaults", () => {
-    it("fails if a dependency fails", () => {
+    it("fails if a dependency fails", async () => {
       const disciplineStub = testModule.get('DisciplineService');
       const divisionStub = testModule.get('DivisionService');
 
       spyOn(disciplineStub, "createDefaults").and.callFake(() => false);
       spyOn(divisionStub, "createDefaults").and.callFake(() => true);
-      service.createDefaults(1).then(result => {
-        expect(result).toBeFalsy();
-      });
+
+      const result = await service.createDefaults(1);
+      expect(result).toBeFalsy();
     });
 
-    it("succeeds if all dependencies succeed", () => {
+    it("succeeds if all dependencies succeed", async () => {
       const disciplineStub = testModule.get('DisciplineService');
       const divisionStub = testModule.get('DivisionService');
 
       spyOn(disciplineStub, "createDefaults").and.callFake(() => true);
       spyOn(divisionStub, "createDefaults").and.callFake(() => true);
-      service.createDefaults(1).then(result => {
-        expect(result).toBeTruthy();
-      });
+      const result = await service.createDefaults(1);
+      expect(result).toBeTruthy();
     });
   });
 });

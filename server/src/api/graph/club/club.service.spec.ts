@@ -39,32 +39,32 @@ describe("ClubService", () => {
    *
    */
   describe("save", () => {
-    it("Can update existing club", () => {
+    it("Can update existing club", async () => {
       const repositoryStub: ClubRepository = testModule.get(ClubRepository);
       const pubSubStub: PubSub = testModule.get('PubSubInstance');
       spyOn(repositoryStub, "findOne").and.callFake(() => ({ id: 1, name: 'Test' }));
       spyOn(repositoryStub, "save").and.callFake(entity => entity);
       spyOn(pubSubStub, "publish");
-      service.save(<ClubDto>{ id: 1, name: 'Test club' }).then(result => {
-        expect(result).toEqual({ id: 1, name: 'Test club' }, 'name should have changed');
-        expect(repositoryStub.findOne).toHaveBeenCalled();
-        expect(repositoryStub.save).toHaveBeenCalled();
-        expect(pubSubStub.publish).toHaveBeenCalled();
-      });
+
+      const result = await service.save(<ClubDto>{ id: 1, name: 'Test club' });
+      expect(result).toEqual({ id: 1, name: 'Test club' }, 'name should have changed');
+      expect(repositoryStub.findOne).toHaveBeenCalled();
+      expect(repositoryStub.save).toHaveBeenCalled();
+      expect(pubSubStub.publish).toHaveBeenCalled();
     });
 
-    it("Can persist a new club", () => {
+    it("Can persist a new club", async () => {
       const repositoryStub: ClubRepository = testModule.get(ClubRepository);
       const pubSubStub: PubSub = testModule.get('PubSubInstance');
       spyOn(repositoryStub, "findOne");
       spyOn(repositoryStub, "save").and.callFake(entity => Object.assign(entity, { id: 1 }));
       spyOn(pubSubStub, "publish");
-      service.save(<ClubDto>{ name: 'Test club' }).then(result => {
-        expect(result).toEqual({ id: 1, name: 'Test club' }, 'name should have changed');
-        expect(repositoryStub.findOne).not.toHaveBeenCalled();
-        expect(repositoryStub.save).toHaveBeenCalled();
-        expect(pubSubStub.publish).toHaveBeenCalled();
-      });
+
+      const result = await service.save(<ClubDto>{ name: 'Test club' });
+      expect(result).toEqual({ id: 1, name: 'Test club' }, 'name should have changed');
+      expect(repositoryStub.findOne).not.toHaveBeenCalled();
+      expect(repositoryStub.save).toHaveBeenCalled();
+      expect(pubSubStub.publish).toHaveBeenCalled();
     });
   });
 
@@ -72,43 +72,42 @@ describe("ClubService", () => {
    *
    */
   describe("findOrCreateClub", () => {
-    it("Nothing found in db or brreg. Create", () => {
+    it("Nothing found in db or brreg. Create", async () => {
       spyOn(service, "findByFilter").and.callFake(() => ([]));
       spyOn(service, "save");
-      service.findOrCreateClub(<ClubDto>{ name: 'Test club' }).then(result => {
-        expect(service.findByFilter).toHaveBeenCalled();
-        expect(service.save).toHaveBeenCalled();
-      });
+
+      const result = await service.findOrCreateClub(<ClubDto>{ name: 'Test club' });
+      expect(service.findByFilter).toHaveBeenCalled();
+      expect(service.save).toHaveBeenCalled();
     });
 
-    it("A club is found in brreg, but not registerred in our system. Create it based on brreg data", () => {
+    it("A club is found in brreg, but not registerred in our system. Create it based on brreg data", async () => {
       spyOn(service, "findByFilter").and.callFake(() => ([{ name: 'Test club' }]));
       spyOn(service, "save");
-      service.findOrCreateClub(<ClubDto>{ name: 'Test club' }).then(result => {
-        expect(service.findByFilter).toHaveBeenCalled();
-        expect(service.save).toHaveBeenCalled();
-      });
+
+      const result = await service.findOrCreateClub(<ClubDto>{ name: 'Test club' });
+      expect(service.findByFilter).toHaveBeenCalled();
+      expect(service.save).toHaveBeenCalled();
     });
 
-    it("A Club is allready registerred with this name. Return it.", () => {
+    it("A Club is allready registerred with this name. Return it.", async () => {
       spyOn(service, "findByFilter").and.callFake(() => ([{ id: 1, name: 'Test club' }]));
       spyOn(service, "save");
-      service.findOrCreateClub(<ClubDto>{ name: 'Test club' }).then(result => {
-        expect(result).toEqual({ id: 1, name: 'Test club' });
-        expect(service.findByFilter).toHaveBeenCalled();
-        expect(service.save).not.toHaveBeenCalled();
-      });
+      const result = await service.findOrCreateClub(<ClubDto>{ name: 'Test club' });
+      expect(result).toEqual({ id: 1, name: 'Test club' });
+      expect(service.findByFilter).toHaveBeenCalled();
+      expect(service.save).not.toHaveBeenCalled();
     });
 
-    it("Club given contains id. Return it.", () => {
-      spyOn(service, "findOneById");
+    it("Club given contains id. Return it.", async () => {
+      spyOn(service, "findOneById").and.callFake((club) => club);
       spyOn(service, "findByFilter");
       spyOn(service, "save");
-      service.findOrCreateClub(<ClubDto>{ id: 1, name: 'Test club' }).then(result => {
-        expect(service.findOneById).toHaveBeenCalled();
-        expect(service.findByFilter).not.toHaveBeenCalled();
-        expect(service.save).not.toHaveBeenCalled();
-      });
+
+      const result = await service.findOrCreateClub(<ClubDto>{ id: 1, name: 'Test club' });
+      expect(service.findOneById).toHaveBeenCalled();
+      expect(service.findByFilter).not.toHaveBeenCalled();
+      expect(service.save).not.toHaveBeenCalled();
     });
   });
 
@@ -116,12 +115,13 @@ describe("ClubService", () => {
    *
    */
   describe("findByFilter", () => {
-    it("Can return a properly concatenated list", () => {
+    it("Can return a properly concatenated list", async () => {
       spyOn(service, "findOwnClubByName").and.callFake(() => ([{ id: 1, name: 'Test Club' }]));
       spyOn(service, "brregLookup").and.callFake(() => ([{ name: 'Test' }, { name: 'Test Club' }, { name: 'Testing club' }]))
-      service.findByFilter('Test').then(result => {
-        expect(result).toEqual(<Club[]>[{ id: 1, name: 'Test Club' }, { name: 'Test' }, { name: 'Test Club' }, { name: 'Testing club' }]);
-      });
+
+      const result = await service.findByFilter('Test');
+      expect(result.length).toBe(3, 'Should have merged results');
+      expect(result.filter(r => r.id != null).length).toBe(1, 'Only 1 result from database');
     });
   });
 });

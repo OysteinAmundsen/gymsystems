@@ -12,14 +12,11 @@ export class DivisionRepository extends Repository<Division> { }
 describe("DivisionService", () => {
   let service: DivisionService;
   let testModule: TestingModule;
-  const teamStub = <Team>{ id: {} };
-  const tournamentStub = <Tournament>{ id: {} };
-  const divisionDtoStub = <DivisionDto>{ id: {} };
 
   beforeAll(async () => {
     const configurationServiceStub = {
       getOneById: () => ({
-        value: {
+        value: JSON.stringify({
           division: [
             { name: 'Aspirant', type: DivisionType.Age },
             { name: 'Rekrutt', type: DivisionType.Age },
@@ -29,7 +26,7 @@ describe("DivisionService", () => {
             { name: 'Herrer', type: DivisionType.Gender },
             { name: 'Mix', type: DivisionType.Gender }
           ]
-        }
+        })
       })
     };
 
@@ -53,24 +50,23 @@ describe("DivisionService", () => {
   });
 
   describe("save", () => {
-    it("makes expected calls", () => {
+    it("makes expected calls", async () => {
       const repositoryStub = testModule.get<DivisionRepository>(DivisionRepository);
       const pubSubStub: PubSub = testModule.get('PubSubInstance');
-      spyOn(repositoryStub, "findOne");
-      spyOn(repositoryStub, "save");
+      spyOn(repositoryStub, "findOne").and.callFake(() => <DivisionDto>{ id: 1, name: 'Old Division' });
+      spyOn(repositoryStub, "save").and.callFake(div => div);
       spyOn(pubSubStub, "publish");
-      service.save(divisionDtoStub).then(result => {
-        expect(repositoryStub.findOne).toHaveBeenCalled();
-        expect(repositoryStub.save).toHaveBeenCalled();
-        expect(pubSubStub.publish).toHaveBeenCalled();
-      });
+      const result = await service.save(<DivisionDto>{ id: 1, name: 'Test Division' });
+      expect(repositoryStub.findOne).toHaveBeenCalled();
+      expect(repositoryStub.save).toHaveBeenCalled();
+      expect(pubSubStub.publish).toHaveBeenCalled();
     });
   });
 
   describe("findByTeam", () => {
     it("makes expected calls", () => {
       spyOn(service, "findByTeamId");
-      service.findByTeam(teamStub);
+      service.findByTeam(<Team>{ id: 1 });
       expect(service.findByTeamId).toHaveBeenCalled();
     });
   });
@@ -78,17 +74,16 @@ describe("DivisionService", () => {
   describe("findByTournament", () => {
     it("makes expected calls", () => {
       spyOn(service, "findByTournamentId");
-      service.findByTournament(tournamentStub);
+      service.findByTournament(<Tournament>{ id: 1 });
       expect(service.findByTournamentId).toHaveBeenCalled();
     });
   });
 
   describe("createDefaults", () => {
-    it("Should create new divisions based on configured defaults", () => {
+    it("Should create new divisions based on configured defaults", async () => {
       spyOn(service, "saveAll").and.callFake((divisions) => divisions.map((d, idx) => { d.id = idx; return d; }));
-      service.createDefaults(1).then(result => {
-        expect(result).toBeTruthy();
-      });
+      const result = await service.createDefaults(1);
+      expect(result).toBeTruthy();
     });
   });
 });

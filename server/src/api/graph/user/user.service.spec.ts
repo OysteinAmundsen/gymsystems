@@ -6,7 +6,8 @@ import { PubSub } from "graphql-subscriptions";
 import { UserDto } from "./dto/user.dto";
 import { UserService } from "./user.service";
 
-export class UserRepository extends Repository<User> { }
+export class UserRepository extends Repository<User> {
+}
 export class ClubRepository extends Repository<Club> { }
 
 describe("UserService", () => {
@@ -60,18 +61,21 @@ describe("UserService", () => {
   /**
    *
    */
-  describe("changePassword", () => {
-    it("will refuse to update if no authenticated user is present", () => {
+  describe("changePassword", async () => {
+    it("will refuse to update if no authenticated user is present", async () => {
       spyOn(service, "getAuthenticatedUser").and.callFake(() => null);
-      service.changePassword('NewPassword')
-        .then(res => fail('Should throw when not logged in'));
+      try {
+        const result = await service.changePassword('NewPassword');
+        fail('Should throw when not logged in');
+      } catch (ex) { }
     });
 
-    it("will update user entity with encrypted password", () => {
+    it("will update user entity with encrypted password", async () => {
       const repositoryStub = testModule.get(UserRepository);
-      spyOn(service, "getAuthenticatedUser").and.callFake(() => ({ id: 1, name: 'Test user' }));
-      spyOn(repositoryStub, "update");
-      service.changePassword('NewPassword');
+      spyOn(service, "getAuthenticatedUser").and.callFake(() => ({ id: 1, role: Role.User, name: 'Test user' }));
+      spyOn(repositoryStub, "update").and.callFake(() => Promise.resolve('anything'));
+
+      const result = await service.changePassword('NewPassword');
       expect(repositoryStub.update).toHaveBeenCalled();
     });
   });
@@ -80,72 +84,88 @@ describe("UserService", () => {
    *
    */
   describe("save", () => {
-    it('Should throw when creating a user when role of self is lower than club', () => {
+    it('Should throw when creating a user when role of self is lower than club', async () => {
       spyOn(service, "getAuthenticatedUser").and.callFake(() => ({ id: 1, name: 'Test', role: Role.User }));
-      service.save(<UserDto>{ name: 'New user', role: Role.Organizer })
-        .then(res => fail('Should throw'))
-        .catch(res => expect(res.status).toEqual(403));
+      try {
+        const result = await service.save(<UserDto>{ name: 'New user', role: Role.Organizer });
+        fail('Should throw');
+      } catch (ex) {
+        expect(ex.status).toBe(403);
+      }
     });
 
-    it('Should throw when creating a user with higher privileges than self', () => {
+    it('Should throw when creating a user with higher privileges than self', async () => {
       spyOn(service, "getAuthenticatedUser").and.callFake(() => ({ id: 1, name: 'Test', role: Role.Club }));
-      service.save(<UserDto>{ name: 'New user', role: Role.Organizer })
-        .then(res => fail('Should throw'))
-        .catch(res => expect(res.status).toEqual(403));
+      try {
+        const result = await service.save(<UserDto>{ name: 'New user', role: Role.Organizer });
+        fail('Should throw');
+      } catch (ex) {
+        expect(ex.status).toBe(403);
+      }
     });
 
-    it('Should throw when registerring a user which has neither club nor organizer role', () => {
-      service.save(<UserDto>{ name: 'New user', role: Role.Admin })
-        .then(res => fail('Should throw'))
-        .catch(res => expect(res.status).toEqual(403));
+    it('Should throw when registerring a user which has neither club nor organizer role', async () => {
+      try {
+        const result = await service.save(<UserDto>{ name: 'New user', role: Role.Admin });
+        fail('Should throw');
+      } catch (ex) {
+        expect(ex.status).toBe(403);
+      }
     });
 
-    it('Should not allow registration of existing username', () => {
+    it('Should not allow registration of existing username', async () => {
       spyOn(service, "findOneByUsername").and.callFake(() => ({ id: 1, name: 'Existing user' }));
       spyOn(service, "findOneByEmail").and.callFake(() => undefined);
-      service.save(<UserDto>{ name: 'Existing user' })
-        .then(res => fail('Should throw when username is taken'))
-        .catch(res => expect(res.status).toEqual(400));
+      try {
+        const result = await service.save(<UserDto>{ name: 'Existing user' });
+        fail('Should throw when username is taken');
+      } catch (ex) {
+        expect(ex.status).toBe(400);
+      }
     });
 
-    it('Should not allow registration of existing email', () => {
+    it('Should not allow registration of existing email', async () => {
       spyOn(service, "findOneByUsername").and.callFake(() => undefined);
       spyOn(service, "findOneByEmail").and.callFake(() => ({ id: 1, email: 'existing@user.no' }));
-      service.save(<UserDto>{ email: 'existing@user.no' })
-        .then(res => fail('Should throw when email is taken'))
-        .catch(res => expect(res.status).toEqual(400));
+      try {
+        const result = await service.save(<UserDto>{ email: 'existing@user.no' });
+        fail('Should throw when email is taken');
+      } catch (ex) {
+        expect(ex.status).toBe(400);
+      }
     });
 
-    it('Should not allow a registration without a club', () => {
+    it('Should not allow a registration without a club', async () => {
       spyOn(service, "findOneByUsername").and.callFake(() => undefined);
       spyOn(service, "findOneByEmail").and.callFake(() => undefined);
-      service.save(<UserDto>{ name: 'New User', role: Role.Organizer })
-        .then(res => fail('Should throw when club is null'))
-        .catch(res => expect(res.status).toEqual(400));
+      try {
+        const result = await service.save(<UserDto>{ name: 'New User', role: Role.Organizer });
+        fail('Should throw when club is null');
+      } catch (ex) {
+        expect(ex.status).toBe(400);
+      }
     });
 
-    // FIXME: UnhandledPromiseRejection (Don't know why I get this here)
-    it('Should try to find or create a club when its given as a string', () => {
+    it('Should try to find or create a club when its given as a string', async () => {
       const clubServiceStub = testModule.get('ClubService');
       const repositoryStub = testModule.get(UserRepository);
 
       spyOn(service, "findOneByUsername").and.callFake(() => undefined);
       spyOn(service, "findOneByEmail").and.callFake(() => undefined);
-      spyOn(clubServiceStub, "findOrCreateClub").and.callFake((club) => ({ id: 1, name: club }));
-      spyOn(repositoryStub, "save");
-      service.save(<UserDto><unknown>{ name: 'New User', club: 'Test club' }).then(res => {
-        expect(clubServiceStub.findOrCreateClub).toHaveBeenCalled();
-        expect(repositoryStub.save).toHaveBeenCalled();
-      });
+      spyOn(clubServiceStub, "findOrCreateClub").and.callFake((clubName) => ({ id: 1, name: clubName }));
+      spyOn(repositoryStub, "save").and.callFake(obj => obj);
+
+      const result = await service.save(<UserDto><unknown>{ name: 'New User', club: 'Test club' });
+      expect(clubServiceStub.findOrCreateClub).toHaveBeenCalled();
+      expect(repositoryStub.save).toHaveBeenCalled();
     });
 
-    it("Can update an existing user", () => {
+    it("Can update an existing user", async () => {
       const repositoryStub = testModule.get(UserRepository);
       spyOn(service, "findOneById").and.callFake(id => ({ id: id, name: 'Old name' }));
-      spyOn(repositoryStub, "save");
-      service.save(<UserDto>{ id: 1, name: 'Test user' }).then(res => {
-        expect(repositoryStub.save).toHaveBeenCalledWith({ id: 1, name: 'Test user' });
-      });
+      spyOn(repositoryStub, "save").and.callFake(obj => obj);
+      const result = await service.save(<UserDto>{ id: 1, name: 'Test user' });
+      expect(repositoryStub.save).toHaveBeenCalledWith({ id: 1, name: 'Test user' });
     })
   });
 

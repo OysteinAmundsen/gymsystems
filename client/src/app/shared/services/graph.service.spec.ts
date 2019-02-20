@@ -1,5 +1,5 @@
 import { TestBed } from "@angular/core/testing";
-import { HttpClient } from "@angular/common/http";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { GraphService } from "./graph.service";
 import { of } from 'rxjs';
 import { CommonService } from 'app/shared/services/common.service';
@@ -9,20 +9,17 @@ describe("shared.services:GraphService", () => {
   let service: GraphService;
 
   beforeEach(() => {
-    const httpClientStub = {
-      get: () => of({}),
-      post: () => of({}),
-      delete: () => of({})
-    };
     const apolloStub = {
       query: () => of({}),
       mutate: () => of({})
     }
 
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule
+      ],
       providers: [
         GraphService,
-        { provide: HttpClient, useValue: httpClientStub },
         { provide: Apollo, useValue: apolloStub }
       ]
     });

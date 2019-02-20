@@ -8,7 +8,7 @@ import { AppComponent } from "./app.component";
 import { IfAuthDirective } from './shared/directives';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe("AppComponent", () => {
   let component: AppComponent;
@@ -28,11 +28,11 @@ describe("AppComponent", () => {
       schemas: [NO_ERRORS_SCHEMA],
       imports: [
         RouterTestingModule,
+        HttpClientTestingModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
       ],
       declarations: [AppComponent, IfAuthDirective],
       providers: [
-        { provide: HttpClient, useValue: httpClientStub },
         { provide: Angulartics2GoogleAnalytics, useValue: angulartics2GoogleAnalyticsStub },
         { provide: UserService, useValue: userServiceStub },
         { provide: SwUpdate, useValue: swUpdateStub }

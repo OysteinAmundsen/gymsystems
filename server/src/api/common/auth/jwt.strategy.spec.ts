@@ -28,25 +28,27 @@ describe("JwtStrategy", () => {
   });
 
   describe("validate", () => {
-    it("should throw when token is invalid", () => {
+    it("should throw when token is invalid", done => {
       const authServiceStub = testModule.get<AuthService>(AuthService);
       spyOn(authServiceStub, "validateToken").and.callFake(() => null)
       service.validate(<JwtPayload>{ id: -1 }, (err, user) => {
         expect(err).not.toBeNull();
-        expect(user).toBeNull();
+        expect(user).toBeFalsy();
+        expect(authServiceStub.validateToken).toHaveBeenCalled();
+        done();
       });
-      expect(authServiceStub.validateToken).toHaveBeenCalled();
     });
 
-    it("should return user when token is valid", () => {
+    it("should return user when token is valid", done => {
       const authServiceStub = testModule.get<AuthService>(AuthService);
       spyOn(authServiceStub, "validateToken").and.callFake(() => <User>{ id: 1, name: 'test user' })
 
       service.validate(<JwtPayload>{ id: 1 }, (err, user) => {
         expect(err).toBeNull();
         expect(user).not.toBeNull();
+        expect(authServiceStub.validateToken).toHaveBeenCalled();
+        done();
       });
-      expect(authServiceStub.validateToken).toHaveBeenCalled();
     });
   });
 });

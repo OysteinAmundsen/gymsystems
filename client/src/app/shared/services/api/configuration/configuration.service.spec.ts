@@ -1,22 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ConfigurationService } from './configuration.service';
 import { IConfiguration } from 'app/model';
+import { HttpClient } from '@angular/common/http';
 
 describe('shared.services.api:ConfigurationService', () => {
   let service: ConfigurationService;
   const iConfigurationStub = <IConfiguration>{ name: {} };
 
   beforeEach(() => {
-    const httpClientStub = {
-      get: () => ({}),
-      post: () => ({}),
-      delete: () => ({})
-    };
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule
+      ],
       providers: [
-        ConfigurationService,
-        { provide: HttpClient, useValue: httpClientStub }
+        ConfigurationService
       ]
     });
     service = TestBed.get(ConfigurationService);
@@ -30,7 +28,7 @@ describe('shared.services.api:ConfigurationService', () => {
 
   describe('delete', () => {
     it('makes expected calls', () => {
-      const httpClientStub: HttpClient = TestBed.get(HttpClient);
+      const httpClientStub = TestBed.get(HttpClient);
       spyOn(httpClientStub, 'delete');
       service.delete(iConfigurationStub);
       expect(httpClientStub.delete).toHaveBeenCalled();
@@ -39,7 +37,7 @@ describe('shared.services.api:ConfigurationService', () => {
 
   describe('save', () => {
     it('makes expected calls', () => {
-      const httpClientStub: HttpClient = TestBed.get(HttpClient);
+      const httpClientStub = TestBed.get(HttpClient);
       spyOn(httpClientStub, 'post');
       service.save(iConfigurationStub);
       expect(httpClientStub.post).toHaveBeenCalled();
@@ -48,7 +46,7 @@ describe('shared.services.api:ConfigurationService', () => {
 
   describe('all', () => {
     it('makes expected calls', () => {
-      const httpClientStub: HttpClient = TestBed.get(HttpClient);
+      const httpClientStub = TestBed.get(HttpClient);
       spyOn(httpClientStub, 'get');
       service.all();
       expect(httpClientStub.get).toHaveBeenCalled();
@@ -57,7 +55,7 @@ describe('shared.services.api:ConfigurationService', () => {
 
   describe('getByName', () => {
     it('makes expected calls', () => {
-      const httpClientStub: HttpClient = TestBed.get(HttpClient);
+      const httpClientStub = TestBed.get(HttpClient);
       spyOn(httpClientStub, 'get');
       service.getByname('');
       expect(httpClientStub.get).toHaveBeenCalled();
