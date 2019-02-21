@@ -21,6 +21,9 @@ import { DivisionService } from '../division/division.service';
 import { TotalByScoreGroup } from '../score/dto/total-by-scoregroup.dto';
 import { Role } from '../user/user.model';
 import { Cleaner } from '../../common/util/cleaner';
+import { getPreEmitDiagnostics } from 'typescript';
+import { Media } from '../media/media.model';
+import { MediaService } from '../media/media.service';
 
 @Resolver('ISchedule')
 export class ScheduleResolver {
@@ -30,6 +33,7 @@ export class ScheduleResolver {
     private readonly disciplineService: DisciplineService,
     private readonly divisionService: DivisionService,
     private readonly tournamentService: TournamentService,
+    private readonly mediaService: MediaService,
     private readonly teamService: TeamService,
     @Inject('PubSubInstance') private readonly pubSub: PubSub
   ) { }
@@ -75,6 +79,20 @@ export class ScheduleResolver {
       scheduleItem.disciplineName = (await this.getDiscipline(scheduleItem)).name;
     }
     return scheduleItem.disciplineName;
+  }
+
+  @ResolveProperty('media')
+  async getMedia(participant: TeamInDiscipline): Promise<Media> {
+    if (!participant.media) {
+      if (!participant.clubId) {
+        // Making sure we have expected properties before querying media
+        if (!participant.team) { participant.team = await this.getTeam(participant); }
+        participant.clubId = participant.team.clubId;
+      }
+      // Retreive closest media track for this participant
+      participant.media = (await this.mediaService.findOneBy(participant.clubId, participant.teamId, participant.disciplineId, participant.disciplineName));
+    }
+    return participant.media;
   }
 
   @ResolveProperty('disciplineSortOrder')
@@ -171,8 +189,8 @@ export class ScheduleResolver {
 
   @Mutation('rollback')
   @UseGuards(RoleGuard(Role.Organizer))
-  rollback(@Args('tournamentId') tournamentId: number, @Args('participantId') participantId: number): Promise<boolean> {
-    return this.scheduleService.rollbackTo(tournamentId, participantId);
+  rollback(@Args('participantId') participantId: number): Promise<boolean> {
+    return this.scheduleService.rollbackTo(participantId);
   }
 
   @Subscription('teamInDisciplineCreated') teamInDisciplineCreated() {

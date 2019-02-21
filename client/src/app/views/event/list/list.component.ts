@@ -47,6 +47,25 @@ export class ListComponent implements OnInit, OnDestroy {
   isLoading = false;
   hasTraining = false;
 
+  scheduleQuery = `{
+    id,
+    team{id,name,class},
+    media{id},
+    sortNumber,
+    startNumber,
+    markDeleted,
+    startTime,
+    endTime,
+    publishTime,
+    type,
+    disciplineId,
+    disciplineName,
+    disciplineSortOrder,
+    divisionName,
+    scorable,
+    total
+  }`;
+
   get showTraining() {
     if (this._showTraining === undefined) {
       const show = this.browser.localStorage().getItem('showTraining') || !!this.user ? 'false' : 'true';
@@ -114,23 +133,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.graph.getData(`{
       tournament(id:${this.parent.tournamentId}){id,name,venue{id,name},times{day,time}},
       getDisciplines(tournamentId:${this.parent.tournamentId}){id,name,sortOrder},
-      getSchedule(tournamentId:${this.parent.tournamentId}){
-        id,
-        team{id,name,class},
-        sortNumber,
-        startNumber,
-        markDeleted,
-        startTime,
-        endTime,
-        publishTime,
-        type,
-        disciplineId,
-        disciplineName,
-        disciplineSortOrder,
-        divisionName,
-        scorable,
-        total
-      }}`).subscribe(
+      getSchedule(tournamentId:${this.parent.tournamentId})${this.scheduleQuery}}`).subscribe(
       data => {
         this.tournament = data.tournament;
         this.disciplines = data.getDisciplines;
@@ -274,6 +277,7 @@ export class ListComponent implements OnInit, OnDestroy {
    *
    */
   select(participant: ITeamInDiscipline) {
+    if (this.dialogRef) { this.dialogRef.close(); }
     if (this.canEdit(participant)) {
       if (participant != null && participant.startTime == null && participant.type === ParticipationType.Live) {
         this.errorHandler.setError(this.translate.instant(`Cannot edit score. This participant hasn't started yet.`));
@@ -305,14 +309,8 @@ export class ListComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  getMedia(participant: ITeamInDiscipline): IMedia {
-    return participant.team.media ? participant.team.media.find(m => m.discipline.id === participant.disciplineId) : null;
-  }
-
-  /**
-   *
-   */
   start(participant: ITeamInDiscipline, evt: Event) {
+    if (this.dialogRef) { this.dialogRef.close(); }
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.startTime != null) {
         this.errorHandler.setError(this.translate.instant('This participant has allready started.'));
@@ -330,9 +328,9 @@ export class ListComponent implements OnInit, OnDestroy {
 
       participant.startTime = new Date();
       this.invalidateCache(participant);
-      this.graph.post(`{start(id: ${participant.id}){id,startTime}}`).subscribe(() => {
-        const media = this.getMedia(participant);
-        this.mediaService.play(media);
+      this.graph.post(`{start(id: ${participant.id}){id,startTime}}`).subscribe(res => {
+        participant.startTime = res.data.start.startTime;
+        this.mediaService.play(participant.media);
       });
     }
   }
@@ -341,6 +339,7 @@ export class ListComponent implements OnInit, OnDestroy {
    *
    */
   stop(participant: ITeamInDiscipline, evt: Event) {
+    if (this.dialogRef) { this.dialogRef.close(); }
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.startTime == null) {
         this.errorHandler.setError(this.translate.instant(`Cannot stop. This participant hasn't started yet.`));
@@ -354,7 +353,9 @@ export class ListComponent implements OnInit, OnDestroy {
       this.mediaService.stop();
 
       participant.endTime = new Date();
-      this.scheduleService.stop(participant).subscribe(() => this.loadSchedule());
+      this.graph.post(`{stop(id: ${participant.id}){id,endTime}}`).subscribe(res => {
+        participant.endTime = res.data.stop.endTime;
+      });
     }
   }
 
@@ -362,6 +363,7 @@ export class ListComponent implements OnInit, OnDestroy {
    *
    */
   publish(participant: ITeamInDiscipline, evt: Event) {
+    if (this.dialogRef) { this.dialogRef.close(); }
     if (this.user && this.user.role >= Role.Secretariat) {
       if (participant.publishTime != null) {
         this.errorHandler.setError(this.translate.instant(`This participant's score is allready published.`));
@@ -371,7 +373,9 @@ export class ListComponent implements OnInit, OnDestroy {
         evt.stopPropagation();
       }
       participant.publishTime = new Date();
-      this.scheduleService.publish(participant).subscribe();
+      this.graph.post(`{publish(id: ${participant.id}){id,publishTime}}`).subscribe(res => {
+        participant.publishTime = res.data.publish.publishTime;
+      });
     }
   }
 
@@ -379,10 +383,14 @@ export class ListComponent implements OnInit, OnDestroy {
    *
    */
   closeEditor(cmd: string) {
+    this.invalidateCache(this.selected);
     if (cmd) {
       const idx = this.schedule.findIndex(s => s.id === this.selected.id);
       if (cmd === 'next') { return this.selected = this.next(idx + 1); }
       if (cmd === 'previous') { return this.selected = this.previous(idx - 1); }
+      if (cmd === 'rollback') {
+        this.loadSchedule();
+      }
     }
     this.selected = null;
   }
@@ -418,7 +426,8 @@ export class ListComponent implements OnInit, OnDestroy {
         this.dialogRef.close();
       }
       this.dialogRef = this.dialog.open(ContextMenuComponent, {
-        hasBackdrop: false,
+        // hasBackdrop: false,
+        backdropClass: 'context-backdrop',
         panelClass: 'context-menu',
         data: {
           mouseX: $event.clientX,
@@ -432,7 +441,11 @@ export class ListComponent implements OnInit, OnDestroy {
           canStart: this.canStart.bind(this),
           start: this.start.bind(this),
           stop: this.stop.bind(this),
-          publish: this.publish.bind(this)
+          publish: this.publish.bind(this),
+          rollback: () => {
+            this.dialogRef.close();
+            this.loadSchedule();
+          }
         }
       });
     }
@@ -441,11 +454,11 @@ export class ListComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  @HostListener('window:click', ['$event'])
-  onClick($event: MouseEvent) {
-    if (this.dialogRef) {
-      // if ($event.target.closest(this.))
-      this.dialogRef.close();
-    }
-  }
+  // @HostListener('window:click', ['$event'])
+  // onClick($event: MouseEvent) {
+  //   if (this.dialogRef) {
+  //     // if ($event.target.closest(this.))
+  //     // this.dialogRef.close();
+  //   }
+  // }
 }

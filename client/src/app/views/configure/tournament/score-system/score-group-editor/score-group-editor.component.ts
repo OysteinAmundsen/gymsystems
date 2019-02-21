@@ -56,10 +56,7 @@ export class ScoreGroupEditorComponent implements OnInit {
     // Judge form
     this.judgeForm = this.fb.group({
       id: [null],
-      name: ['', [Validators.required]],
-      email: [''],
-      phone: [''],
-      allergies: ['']
+      name: ['', [Validators.required]]
     });
     this.subscriptions.push(this.judgeForm.get('name').valueChanges.pipe(distinctUntilChanged(), debounceTime(200)).subscribe(v => {
       if (v) {
@@ -90,7 +87,7 @@ export class ScoreGroupEditorComponent implements OnInit {
   save() {
     const val = this.getScoreGroupFromForm();
     if (this.discipline) {
-      this.graph.saveData('ScoreGroup', val, `{id}`).subscribe(result => this.scoreChanged.emit(result.saveScoreGroup));
+      this.graph.saveData('ScoreGroup', val, `{id, min, max, judges{judgeId}, judgeCount, operation}`).subscribe(result => this.scoreChanged.emit(result.saveScoreGroup));
     } else {
       this.scoreChanged.emit(val);
     }
@@ -128,6 +125,7 @@ export class ScoreGroupEditorComponent implements OnInit {
   removeJudge(index: number) {
     const judge = this.judges.value[index];
     this.judges.removeAt(index);
+    this.scoreForm.markAsDirty();
     this.graph.getData(`{deleteJudgeInScoreGroup(input{judgeId:${judge.id},scoreGroupId:${this.scoreGroup.id}}){}}`).subscribe();
   }
 
@@ -152,7 +150,11 @@ export class ScoreGroupEditorComponent implements OnInit {
   }
 
   setSelectedJudge($event: MatAutocompleteSelectedEvent) {
-    this.judgeForm.setValue($event.option.value);
+    const judge = $event.option.value;
+    this.judgeForm.setValue({
+      id: judge.id,
+      name: judge.name
+    });
   }
 
   judgeDisplay(judge: IJudge) {

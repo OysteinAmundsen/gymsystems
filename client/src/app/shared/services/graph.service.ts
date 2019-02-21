@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of, Observer } from 'rxjs';
 import * as moment from 'moment';
 import { CommonService } from 'app/shared/services/common.service';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { QueryOptions, MutationOptions } from 'apollo-angular/types';
+import { Logger } from './Logger';
 
 @Injectable({ providedIn: 'root' })
 export class GraphService {
@@ -36,21 +37,33 @@ export class GraphService {
   post(query: string, options?: MutationOptions<any, any>): Observable<any> {
     const queryStr = `mutation ${query}`;
     // return this.http.post<any>(`/api/graph`, Object.assign({ query: queryStr }, options));
-    return this.apollo.mutate(Object.assign({ mutation: gql`${queryStr}` }, options))
-      .pipe(map(res => {
-        this.apollo.getClient().clearStore(); // Clear cache immediatelly after a save operation
-        return res;
-      }));
+    return Observable.create((observer: Observer<any>) => {
+      this.apollo.mutate(Object.assign({ mutation: gql`${queryStr}` }, options)).subscribe(res => {
+        // Clear cache immediatelly after a save operation
+        this.apollo.getClient().clearStore()
+          .catch(ex => Logger.log(ex))
+          .finally(() => {
+            observer.next(res);
+            observer.complete();
+          });
+      });
+    });
   }
 
   delete(query: string): Observable<any> {
     const queryStr = `mutation ${query}`;
     // return this.http.delete<any>(`/api/graph/?query=${CommonService.compressString(queryStr)}`);
-    return this.apollo.mutate<any>({ mutation: gql`${queryStr}` })
-      .pipe(map(res => {
-        this.apollo.getClient().clearStore(); // Clear cache immediatelly after a delete operation
-        return res;
-      }));
+    return Observable.create(observer => {
+      this.apollo.mutate<any>({ mutation: gql`${queryStr}` }).subscribe(res => {
+        // Clear cache immediatelly on a delete operation
+        this.apollo.getClient().clearStore()
+          .catch(ex => Logger.log(ex))
+          .finally(() => {
+            observer.next(res);
+            observer.complete();
+          });
+      });
+    });
   }
 
   jsonToGql(val: any): string {

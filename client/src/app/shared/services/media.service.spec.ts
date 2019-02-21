@@ -1,4 +1,4 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed, tick, fakeAsync } from "@angular/core/testing";
 import { IMedia } from "app/model";
 import { MediaService } from "./media.service";
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -43,10 +43,13 @@ describe("shared.services:MediaService", () => {
   });
 
   describe("stop", () => {
-    it("makes expected calls", () => {
+    it("makes expected calls", fakeAsync(() => {
+      expect(service.whatsPlaying).toBeUndefined();
+      service.play(iMediaStub);
       service.stop();
-      expect(service.whatsPlaying).toBe(null);
-    });
+      tick(100 * 50);
+      expect(service.whatsPlaying).toBeNull();
+    }));
   });
 
   describe("restart", () => {

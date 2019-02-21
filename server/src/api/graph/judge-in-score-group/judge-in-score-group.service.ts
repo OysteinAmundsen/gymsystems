@@ -32,11 +32,16 @@ export class JudgeInScoreGroupService {
 
   async remove(input: JudgeInScoreGroupDto): Promise<boolean> {
     const saved = await this.judgeInScoreGroupRepository.delete({ judgeId: input.judgeId, scoreGroupId: input.scoreGroupId });
+    this.invalidateCache();
     if (saved.affected > 0) {
       this.pubSub.publish('judgeInScoreGroupDeleted', { judgeInScoreGroup: input });
     }
     return saved.affected > 0;
+  }
 
+  removeAllFromScoreGroup(id: number): any {
+    this.invalidateCache();
+    return this.judgeInScoreGroupRepository.delete({ scoreGroupId: id });
   }
 
   private getAllFromCache(): Promise<JudgeInScoreGroup[]> {
@@ -52,6 +57,11 @@ export class JudgeInScoreGroupService {
     return this.localCahcePromise;
   }
 
+  invalidateCache() {
+    delete this.localCahcePromise;
+    delete this.localCache;
+  }
+
   findAll(): Promise<JudgeInScoreGroup[]> {
     return this.getAllFromCache();
   }
@@ -60,18 +70,18 @@ export class JudgeInScoreGroupService {
   }
   async findByJudgeAndScoreGroup(judgeId: number, scoreGroupId: number): Promise<JudgeInScoreGroup[]> {
     // tslint:disable-next-line:triple-equals
-    return (await this.getAllFromCache()).filter(s => s.judgeId == judgeId && s.scoreGroupId == scoreGroupId);
+    return (await this.getAllFromCache()).filter(s => s.judgeId == +judgeId && s.scoreGroupId == +scoreGroupId);
   }
   async findByJudgeId(judgeId: number): Promise<JudgeInScoreGroup[]> {
     // tslint:disable-next-line:triple-equals
-    return (await this.getAllFromCache()).filter(s => s.judgeId == judgeId);
+    return (await this.getAllFromCache()).filter(s => s.judgeId == +judgeId);
   }
   findByJudge(judge: Judge): Promise<JudgeInScoreGroup[]> {
     return this.findByJudgeId(judge.id);
   }
   async findByScoreGroupId(scoreGroupId: number): Promise<JudgeInScoreGroup[]> {
     // tslint:disable-next-line:triple-equals
-    return (await this.getAllFromCache()).filter(s => s.scoreGroupId == scoreGroupId);
+    return (await this.getAllFromCache()).filter(s => s.scoreGroupId == +scoreGroupId);
   }
   findByScoreGroup(scoreGroup: ScoreGroup): Promise<JudgeInScoreGroup[]> {
     return this.findByScoreGroupId(scoreGroup.id);
@@ -85,5 +95,4 @@ export class JudgeInScoreGroupService {
       .orderBy('judgeInScoreGroup.sortNumber', 'ASC')
       .getMany();
   }
-
 }

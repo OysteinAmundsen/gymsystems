@@ -14,7 +14,7 @@ import { Cleaner } from '../../common/util/cleaner';
 @Resolver('IScoreGroup')
 export class ScoreGroupResolver {
   constructor(
-    private readonly scoreService: ScoreGroupService,
+    private readonly scoreGroupService: ScoreGroupService,
     private readonly judgeInScoreGroupService: JudgeInScoreGroupService,
     @Inject('PubSubInstance') private readonly pubSub: PubSub
   ) { }
@@ -24,13 +24,13 @@ export class ScoreGroupResolver {
   @UseGuards(RoleGuard(Role.Secretariat))
   getScoreGroups(@Args('disciplineId') disciplineId: number) {
     return disciplineId
-      ? this.scoreService.findByDisciplineId(disciplineId)
-      : this.scoreService.findAll();
+      ? this.scoreGroupService.findByDisciplineId(disciplineId)
+      : this.scoreGroupService.findAll();
   }
 
-  @Query('score')
+  @Query('scoreGroup')
   findOneById(@Args('id') id: number): Promise<ScoreGroup> {
-    return this.scoreService.findOneById(id);
+    return this.scoreGroupService.findOneById(id);
   }
 
   @ResolveProperty('judges')
@@ -46,13 +46,13 @@ export class ScoreGroupResolver {
   @Mutation('saveScoreGroup')
   @UseGuards(RoleGuard(Role.Organizer))
   save(@Args('input') input: ScoreGroupDto): Promise<ScoreGroup> {
-    return this.scoreService.save(Cleaner.clean(input));
+    return this.scoreGroupService.save(Cleaner.clean(input));
   }
 
   @Mutation('deleteScoreGroup')
   @UseGuards(RoleGuard(Role.Organizer))
   remove(@Args('id') id: number): Promise<boolean> {
-    return this.scoreService.remove(id);
+    return this.scoreGroupService.remove(id);
   }
 
   @Subscription('scoreGroupCreated') scoreGroupCreated() {

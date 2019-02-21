@@ -10,11 +10,17 @@ describe('ScoreGroupService', () => {
   let service: ScoreGroupService;
 
   beforeAll(async () => {
+    const judgeInScoreGroupService = {
+      invalidateCache: () => { },
+      removeAllFromScoreGroup: () => { }
+    };
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ScoreGroupService,
         { provide: 'ScoreGroupRepository', useClass: ScoreGroupRepository },
-        { provide: 'PubSubInstance', useValue: new PubSub()}
+        { provide: 'JudgeInScoreGroupService', useValue: judgeInScoreGroupService },
+        { provide: 'PubSubInstance', useValue: new PubSub() }
       ],
     }).compile();
     service = module.get<ScoreGroupService>(ScoreGroupService);

@@ -3,12 +3,13 @@
 :host {
   position: relative;
   display: block;
+  margin-top: -5rem;
 }
 header, .mat-card-header {
   padding: 0 0.5rem;
   align-items: center;
   @media only screen {
-    @supports(position: sticky) {
+    @supports (position: sticky) {
       position: sticky;
       top: 3.5rem;
       z-index: 4;

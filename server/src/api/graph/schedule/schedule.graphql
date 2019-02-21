@@ -12,7 +12,7 @@ type Mutation {
   saveSchedule(input: [ScheduleInput]): [ISchedule]
   saveParticipant(input: ScheduleInput): ISchedule
   deleteParticipant(id: ID): Boolean
-  rollback(tournamentId: ID!, participantId: ID!): Boolean
+  rollback(participantId: ID!): Boolean
 }
 
 type Subscription {
@@ -30,6 +30,7 @@ type ISchedule {
   endTime: Date
   publishTime: Date
   type: Int
+  media: IMedia
   tournamentId: ID
   tournament: ITournament
   disciplineId: ID

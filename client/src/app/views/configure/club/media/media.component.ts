@@ -26,4 +26,9 @@ export class MediaComponent implements OnInit {
     this.disciplines = (typeof defaults.value === 'string' ? JSON.parse(defaults.value) : defaults.value).discipline;
     this.parent.clubSubject.subscribe(club => this.club = club);
   }
+
+  onMediaChanged(media: IMedia) {
+    console.log(media);
+    this.disciplines = JSON.parse(JSON.stringify(this.disciplines)); // Force change
+  }
 }

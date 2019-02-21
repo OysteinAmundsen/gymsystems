@@ -3,7 +3,6 @@ import { ScoreService } from './score.service';
 import { Repository } from 'typeorm';
 import { Score } from './score.model';
 import { PubSub } from 'graphql-subscriptions';
-import { ScoreGroupService } from '../score-group/score-group.service';
 import { ScoreGroup } from '../score-group/score-group.model';
 
 export class ScoreRepository extends Repository<Score> { }
@@ -13,13 +12,15 @@ describe('ScoreService', () => {
   let service: ScoreService;
 
   beforeAll(async () => {
+    const scoreGroupService = {
+      findByDisciplineId: () => { }
+    };
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ScoreService,
-        ScoreGroupService,
         { provide: 'ScoreRepository', useClass: ScoreRepository },
-        { provide: 'ScoreGroupRepository', useClass: ScoreGroupRepository },
-        { provide: 'PubSubInstance', useValue: new PubSub() }
+        { provide: 'PubSubInstance', useValue: new PubSub() },
+        { provide: 'ScoreGroupService', useValue: scoreGroupService },
       ],
     }).compile();
     service = module.get<ScoreService>(ScoreService);

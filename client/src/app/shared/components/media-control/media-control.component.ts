@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { MediaService } from 'app/shared/services/media.service';
 import { IMedia } from 'app/model/IMedia';
 import { Logger } from 'app/shared/services/Logger';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-media-control',
@@ -29,7 +30,9 @@ export class MediaControlComponent implements OnInit, OnChanges {
   @Input() set canUpload(flag: boolean) { this._canUpload = flag; }
   get canUpload() { return this._canUpload && (this.clubId != null || this.teamId != null); }
 
-  constructor(private mediaService: MediaService) { }
+  @Output() changed = new EventEmitter<IMedia>();
+
+  constructor(private mediaService: MediaService, private translate: TranslateService) { }
 
   ngOnInit() {
   }
@@ -40,18 +43,19 @@ export class MediaControlComponent implements OnInit, OnChanges {
     }
   }
 
-  fileAdded($event) {
+  async fileAdded($event) {
     const fileList: FileList = (<HTMLInputElement>$event.target).files;
     if (fileList.length > 0 && this.canUpload) {
-      this.mediaService.upload(fileList[0], this.clubId, this.teamId, this.disciplineId, this.disciplineName).subscribe(
-        data => this._media = data,
-        error => Logger.error(error)
-      );
+      const data = await this.mediaService.upload(fileList[0], this.clubId, this.teamId, this.disciplineId, this.disciplineName).toPromise();
+      this._media = data;
+      this.changed.emit(data);
     }
   }
 
   loadData() {
-    this.mediaService.getMedia(this.clubId, this.teamId, this.disciplineId, this.disciplineName).then(media => this._media = media);
+    this.mediaService.getMedia(this.clubId, this.teamId, this.disciplineId, this.disciplineName).then(media => {
+      this._media = media;
+    });
   }
 
   hasMedia() {
@@ -66,6 +70,15 @@ export class MediaControlComponent implements OnInit, OnChanges {
       && (!this.disciplineName || this.media.disciplineName === this.disciplineName);
   }
 
+  getTitle() {
+    let title = '';
+    if (!this.clubId || this.media.clubId === this.clubId) { title = this.translate.instant('Club default track'); }
+    if (!this.teamId || this.media.teamId === this.teamId) { title = this.translate.instant('Team default track'); }
+    if (!this.disciplineName || this.media.disciplineName === this.disciplineName) { title = this.translate.instant('Club default for this discipline'); }
+    if (!this.disciplineId || this.media.disciplineId === this.disciplineId) { title = ''; }
+    return title;
+  }
+
   isPlaying() {
     return (this._media && this.mediaService.whatsPlaying ? this.mediaService.whatsPlaying.id === this._media.id : false);
   }
@@ -78,11 +91,14 @@ export class MediaControlComponent implements OnInit, OnChanges {
     this.mediaService.stop();
   }
 
-  remove() {
+  async remove() {
     this.stop();
     if (this._canUpload) {
-      return this.mediaService.remove(this._media).then(res => this.loadData());
+      const result = await this.mediaService.remove(this._media);
+      this.changed.emit(null);
+      setTimeout(() => this.loadData());
+      return result;
     }
-    return Promise.resolve();
+    return true;
   }
 }

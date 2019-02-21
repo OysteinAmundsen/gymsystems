@@ -5,6 +5,7 @@ import { Team } from '../team/team.model';
 import { Score } from '../score/score.model';
 import { Discipline } from '../discipline/discipline.model';
 import { Tournament } from '../tournament/tournament.model';
+import { Media } from '../media/media.model';
 
 
 /**
@@ -102,4 +103,7 @@ export class TeamInDiscipline {
   @ApiModelPropertyOptional({ description: `The scores as given by the judges after execution` })
   @OneToMany(type => Score, score => score.participant, { cascade: ['insert', 'update'] })
   scores?: Score[];
+
+  media?: Media;
+  clubId?: number;
 }

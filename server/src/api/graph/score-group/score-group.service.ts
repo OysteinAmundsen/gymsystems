@@ -8,6 +8,8 @@ import { ScoreGroup } from './score-group.model';
 import { Discipline } from '../discipline/discipline.model';
 import { Config } from '../../common/config';
 import { PubSub } from 'graphql-subscriptions';
+import { JudgeInScoreGroupService } from '../judge-in-score-group/judge-in-score-group.service';
+import { JudgeInScoreGroupDto } from '../judge-in-score-group/dto/judge-in-score-group.dto';
 
 @Injectable()
 export class ScoreGroupService {
@@ -17,6 +19,7 @@ export class ScoreGroupService {
 
   constructor(
     @InjectRepository(ScoreGroup) private readonly scoreGroupRepository: Repository<ScoreGroup>,
+    private readonly judgeInScoreGroupService: JudgeInScoreGroupService,
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
   private getAllFromCache() {
@@ -31,16 +34,25 @@ export class ScoreGroupService {
     return this.localCahcePromise;
   }
 
+  invalidateCache() {
+    delete this.localCache;
+    delete this.localCahcePromise;
+    this.judgeInScoreGroupService.invalidateCache();
+  }
+
   private async getFromCache(id: number) {
-    return (await this.getAllFromCache()).find(s => s.id === id);
+    return (await this.getAllFromCache()).find(s => s.id === +id);
   }
 
   async save(scoreGroup: ScoreGroupDto): Promise<ScoreGroup> {
     if (scoreGroup.id) {
-      const entity = await this.scoreGroupRepository.findOne({ id: scoreGroup.id });
+      const entity = await this.scoreGroupRepository.findOne({ id: scoreGroup.id }, { relations: ['judges'] });
+      // Update relation
+      this.judgeInScoreGroupService.removeAllFromScoreGroup(scoreGroup.id);
       scoreGroup = Object.assign(entity, scoreGroup);
     }
     const result = await this.scoreGroupRepository.save(<ScoreGroup>scoreGroup);
+    this.invalidateCache();
     if (result) {
       delete this.localCahcePromise; // Force invalidate cache
       this.pubSub.publish(scoreGroup.id ? 'scoreGroupModified' : 'scoreGroupCreated', { score: result });

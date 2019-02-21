@@ -65,14 +65,14 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
           // Empty score array. Create one score, per judge, per scoregroup
           this.scoreGroups.forEach(group => {
             for (let j = 0; j < group.judgeCount; j++) {
-              this.participant.scores.push(<IScore>{ scoreGroup: group, value: 0, judgeIndex: j + 1 });
+              this.participant.scores.push(<IScore>{ participantId: this.participant.id, scoreGroup: group, scoreGroupId: group.id, value: 0, judgeIndex: j + 1 });
             }
           });
         }
 
         // Group scores per score group
         this.groupedScores = this.scoreGroups.map(group => {
-          return new ScoreContainer(group, this.participant.scores // Create a container for the scores
+          return new ScoreContainer(group.id, group, this.participant.scores // Create a container for the scores
             .filter(s => s.scoreGroupId === group.id)              // ... grouped by scoregroup
             .sort((a, b) => a.judgeIndex < b.judgeIndex ? -1 : 1)  // ... and make sure it's sorted according to judgeindex
             .map(s => clone(s))                                  // Apply using a copy so we can cancel the edit.
@@ -111,7 +111,12 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   save() {
     // Write back copy
-    this.participant.scores = this.groupedScores.reduce((prev, curr) => prev.concat(curr.scores), []);
+    this.participant.scores = this.groupedScores.reduce((prev, curr) => {
+      return prev.concat(curr.scores.map(s => {
+        delete s.scoreGroup;
+        return s;
+      }));
+    }, []);
     this.graph.saveData(`Score`, this.participant.scores, this.scoreQuery).subscribe(res => {
       this.onClose(res.saveScores);
     });
@@ -132,7 +137,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   rollback() {
     if (this.currentUser.role >= Role.Organizer) {
-      this.graph.post(`{rollback(tournamentId: ${this.participant.tournamentId}, participantId: ${+this.participant.id})}`).subscribe(() => this.onClose());
+      this.graph.post(`{rollback(participantId: ${this.participant.id})}`).subscribe(() => this.close.emit('rollback'));
     }
   }
 

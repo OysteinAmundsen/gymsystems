@@ -10,6 +10,7 @@ import { PubSub } from 'graphql-subscriptions';
 import { UserService } from '../user/user.service';
 import { ClubService } from '../club/club.service';
 import { ScoreService } from '../score/score.service';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class ScheduleService {
@@ -57,29 +58,33 @@ export class ScheduleService {
     return (result.affected > 0);
   }
 
-  async rollbackTo(tournamentId: number, participantId: number): Promise<boolean> {
+  /**
+   * FIXME: This will not rollback everything.
+   */
+  async rollbackTo(participantId: number): Promise<boolean> {
     const me = await this.userService.getAuthenticatedUser();
-    const p = await this.scheduleRepository.findOne(participantId);
+    const p = await this.scheduleRepository.findOne({ id: participantId });
 
     ClubService.enforceSame(me.clubId);
 
-    let schedule = await this.findByTournamentId(tournamentId);
+    let schedule = await this.findByTournamentId(p.tournamentId);
     schedule = schedule.sort((a, b) => a.sortNumber < b.sortNumber ? -1 : 1);
     const idx = schedule.findIndex(i => i.id === p.id);
     const itemsToRollback = schedule.slice(idx).filter(i => i.startTime != null);
-    return Promise.all(itemsToRollback.map(i => {
+    return Promise.all(itemsToRollback.map(async i => {
       i.endTime = null;
       i.startTime = null;
       i.publishTime = null;
-      return this.scoreService.removeAllByParticipant(participantId).then(s => {
-        i.scores = [];
-        return this.scheduleRepository.save(i);
-      })
+      const s = await this.scoreService.removeAllByParticipant(participantId);
+      delete i.scores;
+      const cls = plainToClass(TeamInDiscipline, i);
+      return this.scheduleRepository.save(cls);
     })).then(() => {
       // sseService.publish('Scores updated');
       // return new OkResponse();
+      this.scoreService.invalidateCache();
       return true;
-    });
+    }).catch(() => false);
   }
 
   async publish(id: number): Promise<TeamInDiscipline> {

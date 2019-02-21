@@ -58,14 +58,18 @@ export class ContextMenuComponent implements OnInit/*, AfterViewInit*/ {
 
   rollback() {
     if (this.currentUser.role >= Role.Organizer) {
-      this.graph.post(`{rollback(tournamentId: ${this.participant.tournamentId}, participantId: ${+this.participant.id})}`).subscribe(() => this.close());
+      this.graph.post(`{rollback(participantId: ${this.participant.id})}`).subscribe(() => {
+        this.data.rollback();
+      });
     }
   }
 
   canEdit() { return this.data.canEdit(this.participant); }
   edit() { return this.data.edit(this.participant); }
+
   canStart() { return this.data.canStart(this.participant, this.data.rowIndex); }
   start() { return this.data.start(this.participant, null); }
+
   stop() { return this.data.stop(this.participant, null); }
   publish() { return this.data.publish(this.participant, null); }
 }

@@ -1,4 +1,4 @@
-import {Moment } from 'moment';
+import { Moment } from 'moment';
 
 import { ITournament } from './ITournament';
 import { IDiscipline } from './IDiscipline';
@@ -14,6 +14,7 @@ export interface TotalByScoreGroup {
 }
 
 export interface ITeamInDiscipline {
+  media: any;
   id: number;
   startNumber: number;
   sortNumber: number;

@@ -10,6 +10,6 @@ See also #23
 
 ## Checklist
 
-- [ ] `npm test` passes on your machine
+- [ ] `yarn test` passes on your machine
 - [ ] New tests added or existing tests modified to cover all changes
 - [ ] API Documentation in code was updated

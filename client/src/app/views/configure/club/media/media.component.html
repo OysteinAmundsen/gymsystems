@@ -4,7 +4,7 @@
       <label><i class="fa fa-fw fa-university"></i>Club track</label>
     </td>
     <td class="media">
-      <app-media-control [clubId]="club?.id" [teamId]="null" [disciplineId]="null" [canUpload]="true"></app-media-control>
+      <app-media-control [clubId]="club?.id" [teamId]="null" [disciplineId]="null" [canUpload]="true" (changed)="onMediaChanged($event)"></app-media-control>
     </td>
   </tbody>
   <tbody>
@@ -14,7 +14,8 @@
         <label>{{ discipline.name }}</label>
       </td>
       <td class="media">
-        <app-media-control [clubId]="club?.id" [teamId]="null" [disciplineId]="null" [disciplineName]="discipline.name" [canUpload]="true"></app-media-control>
+        <app-media-control [clubId]="club?.id" [teamId]="null" [disciplineId]="null" [disciplineName]="discipline.name" [canUpload]="true"
+                           (changed)="onMediaChanged($event)"></app-media-control>
       </td>
     </tr>
   </tbody>

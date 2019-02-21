@@ -46,6 +46,10 @@ export class DisciplineEditorComponent implements OnInit {
     }
   }
 
+  onChange($event) {
+
+  }
+
   cancel() {
     this.disciplineChanged.emit(this.discipline);
   }

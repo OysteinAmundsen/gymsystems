@@ -51,7 +51,7 @@ export class MediaService {
   }
 
   /**
-   *
+   * Play track
    */
   play(media?: IMedia) {
     if (media) {
@@ -66,11 +66,21 @@ export class MediaService {
   }
 
   /**
-   *
+   * Fade out music
    */
   stop() {
-    this._audio.pause();
-    this._whatsPlaying = null;
+    let vol = 1;
+    const interval = setInterval(() => {
+      vol -= 0.1;
+      if (vol <= 0) {
+        clearInterval(interval);
+        this._audio.pause();
+        this._whatsPlaying = null;
+        this._audio.volume = 1; // Reset volume
+      } else {
+        this._audio.volume = vol;
+      }
+    }, 50);
   }
 
   /**

@@ -28,13 +28,14 @@ type IScoreGroup {
 }
 
 input ScoreGroupInput {
+  id: ID
   name: String!
   type: String!
   operation: Int!
   max: Int
   min: Int
   disciplineId: ID!
-  judges: [IDDependencyInput]
+  judges: [JudgeInScoreGroupInput]
 }
 
 input IDDependencyInput {

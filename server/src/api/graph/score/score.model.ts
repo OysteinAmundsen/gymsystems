@@ -38,18 +38,18 @@ export class Score {
   judgeIndex?: number;
 
   @ApiModelProperty({ description: `The 'ScoreGroup' this score affects.` })
-  @ManyToOne(type => ScoreGroup, { nullable: false/*, lazy: true*/ })
+  @ManyToOne(type => ScoreGroup)
   @JoinColumn({ name: 'scoreGroupId' })
   scoreGroup: ScoreGroup;
 
-  @Column('int')
+  @Column('int', { nullable: false })
   scoreGroupId: number;
 
   @ApiModelProperty({ description: `The reference back to the schedule. This identifies the 'Team' in the given discipline.` })
-  @ManyToOne(type => TeamInDiscipline, participant => participant.scores, { nullable: false/*, lazy: true*/ })
+  @ManyToOne(type => TeamInDiscipline, participant => participant.scores)
   @JoinColumn({ name: 'participantId' })
   participant: TeamInDiscipline;
 
-  @Column('int')
+  @Column('int', { nullable: false })
   participantId: number;
 }
