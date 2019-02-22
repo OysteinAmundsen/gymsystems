@@ -30,6 +30,7 @@
               "src/robots.txt",
               "src/humans.txt",
               "src/manifest.json",
+              "src/sitemap.xml",
               "src/browserconfig.xml",
               "src/google0cdfbbe52666c5ec.html"
             ],

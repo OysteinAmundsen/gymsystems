@@ -81,7 +81,12 @@ export class MyHammerConfig extends HammerGestureConfig {
       loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] }
     }),
     MarkdownToHtmlModule,
-    Angulartics2Module.forRoot(),
+    Angulartics2Module.forRoot({
+      pageTracking: {
+        clearIds: true,
+        clearQueryParams: true
+      }
+    }),
     AgmCoreModule.forRoot({ apiKey: environment.geoApiKey }),
     JwtModule.forRoot({
       config: {

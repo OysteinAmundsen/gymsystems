@@ -59,12 +59,12 @@
           <h5 matSubheader *ngIf="type.tournaments && type.tournaments.length">
             {{ type.name | translate }}&nbsp;<span translate>tournaments</span>
           </h5>
-          <mat-list-item *ngFor="let tournament of type.tournaments" class="flex" [routerLink]="['/event', tournament.id, 'results']">
+          <a mat-list-item *ngFor="let tournament of type.tournaments" class="flex" [routerLink]="['/event', tournament.id, 'results']">
             <div class="flex">
               <span class="flex-col">{{ tournament.name }}</span>
               <span>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</span>
             </div>
-          </mat-list-item>
+          </a>
         </ng-container>
       </mat-nav-list>
     </mat-card>
