@@ -69,11 +69,11 @@ export class ScoreGroupService {
 
   async remove(id: number): Promise<boolean> {
     const result = await this.scoreGroupRepository.delete({ id: id });
-    if (result.affected > 0) {
+    if (result.raw.affectedRows > 0) {
       delete this.localCahcePromise; // Force invalidate cache
       this.pubSub.publish('scoreGroupDeleted', { scoreId: id });
     }
-    return result.affected > 0;
+    return result.raw.affectedRows > 0;
   }
 
   findOneById(id: number): Promise<ScoreGroup> {

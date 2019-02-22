@@ -3,7 +3,7 @@ import { IScoreGroup, IScore } from 'app/model';
 export interface IScoreContainer {
   // group: IScoreGroup;
   scoreGroupId: number;
-  group: IScoreGroup;
+  scoreGroup: IScoreGroup;
   scores: IScore[];
   avg?: number;
   total?: number;
@@ -16,5 +16,5 @@ export class ScoreContainer implements IScoreContainer {
   get avg(): number {
     return this.total / this.scores.length;
   }
-  constructor(public scoreGroupId: number, public group: IScoreGroup, public scores: IScore[]) { }
+  constructor(public scoreGroupId: number, public scoreGroup: IScoreGroup, public scores: IScore[]) { }
 }

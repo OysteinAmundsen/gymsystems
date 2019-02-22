@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       startDate,
       endDate,
       times{day,time},
-      venue{id,name,address,capacity}
+      venue{id,name,address,capacity,latitude,longitude}
     }}`;
 
   current = [];

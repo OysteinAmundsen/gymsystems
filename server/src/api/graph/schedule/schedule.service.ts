@@ -44,18 +44,18 @@ export class ScheduleService {
 
   async remove(id: number): Promise<boolean> {
     const result = await this.scheduleRepository.delete({ id: id });
-    if (result.affected > 0) {
+    if (result.raw.affectedRows > 0) {
       this.pubSub.publish('teamInDisciplineDeleted', { teamInDisciplineId: id });
     }
-    return (result.affected > 0);
+    return (result.raw.affectedRows > 0);
   }
 
   async removeByTournament(tournamentId: number): Promise<boolean> {
     const result = await this.scheduleRepository.delete({ tournamentId: tournamentId });
-    if (result.affected > 0) {
+    if (result.raw.affectedRows > 0) {
       this.pubSub.publish('teamInDisciplineDeleted', { tournamentId: tournamentId });
     }
-    return (result.affected > 0);
+    return (result.raw.affectedRows > 0);
   }
 
   /**
@@ -67,15 +67,14 @@ export class ScheduleService {
 
     ClubService.enforceSame(me.clubId);
 
-    let schedule = await this.findByTournamentId(p.tournamentId);
-    schedule = schedule.sort((a, b) => a.sortNumber < b.sortNumber ? -1 : 1);
+    const schedule = await this.scheduleRepository.find({ where: { tournamentId: p.tournamentId }, relations: ['scores'], order: { sortNumber: 'ASC' } });
     const idx = schedule.findIndex(i => i.id === p.id);
-    const itemsToRollback = schedule.slice(idx).filter(i => i.startTime != null);
+    const itemsToRollback = schedule.slice(idx).filter(i => i.startTime != null || i.endTime != null || i.publishTime != null || i.scores.length > 0);
     return Promise.all(itemsToRollback.map(async i => {
       i.endTime = null;
       i.startTime = null;
       i.publishTime = null;
-      const s = await this.scoreService.removeAllByParticipant(participantId);
+      const s = await this.scoreService.removeAllByParticipant(i.id);
       delete i.scores;
       const cls = plainToClass(TeamInDiscipline, i);
       return this.scheduleRepository.save(cls);

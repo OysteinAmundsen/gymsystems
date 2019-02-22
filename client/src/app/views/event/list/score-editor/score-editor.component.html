@@ -40,17 +40,17 @@
     <mat-card-content>
       <div role="table">
         <div role="row">
-          <section *ngFor="let group of groupedScores" class="x{{ group.scores ? group.scores.length : '0' }} group_{{ group.group.type }}">
+          <section *ngFor="let group of groupedScores" class="x{{ group.scores ? group.scores.length : '0' }} group_{{ group.scoreGroup.type }}">
             <header>
-              {{ group.group.name }}
+              {{ group.scoreGroup.name }}
             </header>
             <span *ngFor="let score of group.scores" class="score-field">
-              <label for="field_{{ score.scoreGroup.type }}_{{score.judgeIndex}}">
-                {{score.scoreGroup.type}}{{score.judgeIndex}}
+              <label for="field_{{ group.scoreGroup.type }}_{{score.judgeIndex}}">
+                {{group.scoreGroup.type}}{{score.judgeIndex}}
               </label>
-              <input type="number" id="field_{{ score.scoreGroup.type }}_{{score.judgeIndex}}" name="field_{{ score.scoreGroup.type }}_{{score.judgeIndex}}"
-                max="{{ group.group.max }}" min="{{ group.group.min }}" maxlength="3" step="0.1" [(ngModel)]="score.value"
-                (blur)="onBlur($event)" />
+              <input type="number" id="field_{{ group.scoreGroup.type }}_{{score.judgeIndex}}" name="field_{{ group.scoreGroup.type }}_{{score.judgeIndex}}"
+                     max="{{ group.scoreGroup.max }}" min="{{ group.scoreGroup.min }}" maxlength="3" step="0.1" [(ngModel)]="score.value"
+                     (blur)="onBlur($event)" />
             </span>
 
             <footer>
@@ -63,9 +63,9 @@
             <header translate>Final score</header>
             <div *ngFor="let type of groupedScores">
               <span>
-                <label class="large">{{ type.group.type }} : </label>
-                <label class="small">{{ type.group.name }}
-                  <small>[{{ type.group.type }}]</small>:
+                <label class="large">{{ type.scoreGroup.type }} : </label>
+                <label class="small">{{ type.scoreGroup.name }}
+                  <small>[{{ type.scoreGroup.type }}]</small>:
                 </label>
               </span>
               <code>{{ type.avg || 0 | number:'1.2-2' }}&nbsp;</code>
@@ -89,13 +89,15 @@
         <span *ngIf="form.isDirty" translate>Cancel</span>
         <span *ngIf="!form.isDirty" translate>Close</span>
       </button>
-      <button mat-raised-button *ngIf="participant.publishTime == null || currentUser.role >= roles.Organizer" type="button" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()" aria-label="Delete">
+      <button mat-raised-button *ngIf="participant.publishTime == null || currentUser.role >= roles.Organizer" type="button" [title]="'Delete' | translate"
+              class="pull-right mat-warn" (click)="delete()" aria-label="Delete">
         <i class="fa fa-fw fa-trash"></i>
         <span *ngIf="participant.publishTime == null && participant.endTime == null" translate>Delete</span>
         <span *ngIf="participant.publishTime == null && participant.endTime != null" translate>Empty scores</span>
         <span *ngIf="participant.publishTime != null" translate>Allready published!</span>
       </button>
-      <button mat-raised-button *ngIf="participant.endTime != null && currentUser.role >= roles.Organizer" type="button" [title]="'Rollback' | translate" class="pull-right mat-warn" (click)="rollback()" aria-label="Rollback">
+      <button mat-raised-button *ngIf="participant.endTime != null && currentUser.role >= roles.Organizer" type="button" [title]="'Rollback' | translate"
+              class="pull-right mat-warn" (click)="rollback()" aria-label="Rollback">
         <i class="fa fa-fw fa-undo"></i>
         <span translate>Rollback</span>
       </button>

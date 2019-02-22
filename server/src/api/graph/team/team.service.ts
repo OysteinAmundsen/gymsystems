@@ -51,12 +51,12 @@ export class TeamService {
 
   async remove(id: number): Promise<boolean> {
     const result = await this.teamRepository.delete({ id: id });
-    if (result.affected > 0) {
+    if (result.raw.affectedRows > 0) {
       this.localCahcePromise = {};
       this.localCache = {};
       this.pubSub.publish('teamDeleted', { teamId: id });
     }
-    return result.affected > 0;
+    return result.raw.affectedRows > 0;
   }
 
   async findOneById(id: number, tournamentId?: number): Promise<Team> {

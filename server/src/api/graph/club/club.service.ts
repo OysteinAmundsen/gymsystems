@@ -71,11 +71,11 @@ export class ClubService {
    */
   async remove(id: number): Promise<boolean> {
     const result = await this.clubRepository.delete({ id: id });
-    if (result.affected > 0) {
+    if (result.raw.affectedRows > 0) {
       delete this.localCahcePromise; // Force refresh cache
       this.pubSub.publish('clubDeleted', { clubId: id });
     }
-    return result.affected > 0;
+    return result.raw.affectedRows > 0;
   }
 
   /**

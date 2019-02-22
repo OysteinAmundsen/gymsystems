@@ -69,10 +69,10 @@ export class TournamentService {
     ]).then(async res => {
       // Lastly remove the tournament if all above worked.
       const result = await this.tournamentRepository.delete({ id: id });
-      if (result.affected > 0) {
+      if (result.raw.affectedRows > 0) {
         this.pubSub.publish('tournamentDeleted', { tournamentId: id });
       }
-      return result.affected > 0;
+      return result.raw.affectedRows > 0;
     })
   }
 

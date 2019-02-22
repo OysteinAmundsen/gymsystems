@@ -44,10 +44,10 @@ export class GymnastService {
    */
   async remove(id: number): Promise<boolean> {
     const result = await this.gymnastRepository.delete({ id: id });
-    if (result.affected > 0) {
+    if (result.raw.affectedRows > 0) {
       this.pubSub.publish('gymnastDeleted', { gymnastId: id });
     }
-    return result.affected > 0;
+    return result.raw.affectedRows > 0;
   }
 
   findOneById(id: number): Promise<Gymnast> {

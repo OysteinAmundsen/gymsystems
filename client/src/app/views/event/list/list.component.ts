@@ -115,7 +115,7 @@ export class ListComponent implements OnInit, OnDestroy {
       }
     }));
     this.subscriptions.push(this.userService.getMe(true).subscribe(user => this.user = user));
-    this.loadSchedule();
+    this.loadData();
   }
 
   /**
@@ -125,41 +125,55 @@ export class ListComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  /**
-   *
-   */
-  loadSchedule() {
+  loadData() {
     this.isLoading = true;
     this.graph.getData(`{
       tournament(id:${this.parent.tournamentId}){id,name,venue{id,name},times{day,time}},
-      getDisciplines(tournamentId:${this.parent.tournamentId}){id,name,sortOrder},
-      getSchedule(tournamentId:${this.parent.tournamentId})${this.scheduleQuery}}`).subscribe(
+      getDisciplines(tournamentId:${this.parent.tournamentId}){id,name,sortOrder}}`).subscribe(
       data => {
         this.tournament = data.tournament;
         this.disciplines = data.getDisciplines;
-        const schedule = this.scheduleService.recalculateStartTime(this.tournament, data.getSchedule, false);
-        this.isLoading = false;
-        this.hasTraining = schedule.filter(s => s.type === ParticipationType.Training).length > 0;
-
-        if (!this.selected) {
-          this.schedule = schedule;
-        } else {
-          schedule.forEach(team => {
-            const idx = this.schedule.findIndex(t => t.id === team.id);
-            if (idx > -1 && this.schedule[idx] !== this.selected) {
-              this.schedule.splice(idx, 1, team);
-            } else {
-              this.schedule.push(team);
-            }
-          });
-        }
-        this.invalidateCache();
+        this.loadSchedule();
       },
       error => {
         this.isLoading = false;
         this.errorHandler.setError(error);
       }
     );
+  }
+
+  /**
+   *
+   */
+  loadSchedule() {
+    this.isLoading = true;
+    this.graph.getData(`{getSchedule(tournamentId:${this.parent.tournamentId})${this.scheduleQuery}}`)
+      .subscribe(
+        data => {
+          const schedule = this.scheduleService.recalculateStartTime(this.tournament, data.getSchedule, false);
+          this.isLoading = false;
+          this.hasTraining = schedule.filter(s => s.type === ParticipationType.Training).length > 0;
+
+          if (!this.selected) {
+            this.schedule = schedule;
+          } else {
+            schedule.forEach(participant => {
+              const idx = this.schedule.findIndex(t => t.id === participant.id);
+              if (idx > -1 && this.schedule[idx] !== this.selected) {
+                this.schedule.splice(idx, 1, participant);
+              } else {
+                // Should never happen
+                this.schedule.push(participant);
+              }
+            });
+          }
+          this.invalidateCache();
+        },
+        error => {
+          this.isLoading = false;
+          this.errorHandler.setError(error);
+        }
+      );
   }
 
   /**
@@ -384,13 +398,15 @@ export class ListComponent implements OnInit, OnDestroy {
    */
   closeEditor(cmd: string) {
     this.invalidateCache(this.selected);
-    if (cmd) {
-      const idx = this.schedule.findIndex(s => s.id === this.selected.id);
+    const idx = this.schedule.findIndex(s => s.id === this.selected.id);
+    if (typeof cmd === 'string') {
       if (cmd === 'next') { return this.selected = this.next(idx + 1); }
       if (cmd === 'previous') { return this.selected = this.previous(idx - 1); }
       if (cmd === 'rollback') {
         this.loadSchedule();
       }
+    } else {
+      this.loadSchedule();
     }
     this.selected = null;
   }

@@ -30,8 +30,8 @@ export class ScoreService {
   async save(scores: ScoreDto[]): Promise<Score[]> {
     const results = [];
     return Promise.all(scores.map(async score => {
-      if (score.id) {
-        const entity = await this.scoreRepository.findOne({ id: score.id });
+      const entity = await this.scoreRepository.findOne({ judgeIndex: score.judgeIndex, participantId: score.participantId, scoreGroupId: score.scoreGroupId });
+      if (entity) {
         score = Object.assign(entity, score);
       }
       try {
@@ -39,8 +39,7 @@ export class ScoreService {
         score = plainToClass(Score, score);
         const result = await this.scoreRepository.save(<Score>score);
         if (result) {
-          this.invalidateCache();
-          this.pubSub.publish(score.id ? 'scoreModified' : 'scoreCreated', { score: result });
+          this.pubSub.publish(result.id ? 'scoreModified' : 'scoreCreated', { score: result });
         }
         delete result.participant;
         delete result.scoreGroup;
@@ -49,31 +48,32 @@ export class ScoreService {
         Log.log.error(ex.message);
       }
     })).then(() => {
+      this.invalidateCache();
       return results;
     });
   }
 
   async remove(id: number): Promise<boolean> {
     const result = await this.scoreRepository.delete({ id: id });
-    if (result.affected > 0) {
+    if (result.raw.affectedRows > 0) {
       this.pubSub.publish('scoreDeleted', { scoreId: id });
     }
-    return result.affected > 0;
+    return result.raw.affectedRows > 0;
   }
 
   async removeAllByParticipant(id: number): Promise<boolean> {
-    const scoreIds = await this.scoreRepository.find({ participantId: id });
-    const result = await this.scoreRepository.delete({ participantId: id });
-    if (result.affected > 0) {
+    const scoreIds = await this.findByParticipantId(id);
+    const result = await this.scoreRepository.delete({ participantId: +id });
+    if (result.raw.affectedRows > 0) {
       this.invalidateCache();
       this.pubSub.publish('scoreDeleted', { scoreId: scoreIds.map(s => s.id) });
     }
-    return result.affected > 0;
+    return result.raw.affectedRows > 0;
   }
 
   invalidateCache() {
-    delete this.localCache;
-    delete this.localCahcePromise;
+    this.localCache = {};
+    this.localCahcePromise = {};
   }
 
   findOneById(id: number): Promise<Score> {

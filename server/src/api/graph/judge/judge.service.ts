@@ -37,10 +37,10 @@ export class JudgeService {
   }
   async remove(id: number): Promise<boolean> {
     const result = await this.judgeRepository.delete({ id: id });
-    if (result.affected > 0) {
+    if (result.raw.affectedRows > 0) {
       this.pubSub.publish('judgeDeleted', { judgeId: id });
     }
-    return result.affected > 0;
+    return result.raw.affectedRows > 0;
   }
 
   private getAllFromCache(): Promise<Judge[]> {

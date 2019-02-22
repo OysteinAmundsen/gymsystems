@@ -211,10 +211,10 @@ export class MediaService {
 
         // Remove persisted media pointers
         const result = await this.mediaRepository.delete(config);
-        if (result.affected > 0) {
+        if (result.raw.affectedRows > 0) {
           this.pubSub.publish('mediaDeleted', config);
         }
-        resolve(result.affected > 0);
+        resolve(result.raw.affectedRows > 0);
       });
     });
   }

@@ -7,7 +7,13 @@
     <div><small><i class="fa fa-fw fa-2x fa-calendar-o"></i>{{ getDateSpan(tournament) }}</small></div>
   </header>
 
-  <div><pre [innerHtml]="getDescription(tournament) | MarkdownToHtml"></pre></div>
+  <div>
+    <pre [innerHtml]="getDescription(tournament) | MarkdownToHtml"></pre>
+  </div>
+  <a href="https://www.google.com/maps/dir/?api=1&destination={{tournament.venue.latitude}},{{tournament.venue.longitude}}" target="_blank" mat-button>
+    <i class="fa fa-fw fa-map-marker"></i>
+    {{ 'Get directions' | translate }}
+  </a>
   <a [routerLink]="['/event', tournament.id, 'list']" mat-raised-button class="mat-primary" *appIfAuth="true" aria-label="Go to scoreboard">
     <i class="fa fa-fw fa-arrow-right"></i>
     <span translate>Go to scoreboard</span>

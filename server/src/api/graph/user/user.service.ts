@@ -140,10 +140,10 @@ export class UserService {
     }
 
     const result = await this.userRepository.delete({ id: id });
-    if (result.affected > 0) {
+    if (result.raw.affectedRows > 0) {
       this.pubSub.publish('userDeleted', { userDeleted: id });
     }
-    return result.affected > 0;
+    return result.raw.affectedRows > 0;
   }
 
   getAuthenticatedUser(): User {

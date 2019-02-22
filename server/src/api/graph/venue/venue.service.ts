@@ -40,10 +40,10 @@ export class VenueService {
 
   async remove(id: number): Promise<boolean> {
     const result = await this.venueRepository.delete({ id: id });
-    if (result.affected > 0) {
+    if (result.raw.affectedRows > 0) {
       this.pubSub.publish('venueDeleted', { venueId: id });
     }
-    return result.affected > 0;
+    return result.raw.affectedRows > 0;
   }
 
   findOneById(id: number): Promise<Venue> {

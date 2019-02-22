@@ -17,7 +17,7 @@ import { BrowserService } from 'app/shared/browser.service';
   styleUrls: ['./score-editor.component.scss']
 })
 export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
-  scoreQuery = `{id,value,updated,judgeIndex,scoreGroupId}`;
+  scoreQuery = `{id,participantId,value,judgeIndex,scoreGroupId,scoreGroup{id,name,type}}`;
   @Input() participant: ITeamInDiscipline;
   @Output() close: EventEmitter<string> = new EventEmitter<string>();
 
@@ -31,7 +31,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   get grandTotal() {
     return this.groupedScores ? this.groupedScores.reduce((prev: number, container: ScoreContainer) => {
-      return prev = (container.group.operation === Operation.Addition)
+      return prev = (container.scoreGroup.operation === Operation.Addition)
         ? prev + container.avg
         : prev - container.avg;
     }, 0) : this.participant.total;
@@ -103,7 +103,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
    *
    */
   onClose(res?) {
-    this.close.emit('');
+    this.close.emit(res);
   }
 
   /**
@@ -111,13 +111,14 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   save() {
     // Write back copy
-    this.participant.scores = this.groupedScores.reduce((prev, curr) => {
+    const scores = this.groupedScores.reduce((prev, curr) => {
       return prev.concat(curr.scores.map(s => {
         delete s.scoreGroup;
+        // delete s.updated;
         return s;
       }));
     }, []);
-    this.graph.saveData(`Score`, this.participant.scores, this.scoreQuery).subscribe(res => {
+    this.graph.saveData(`Score`, scores, this.scoreQuery).subscribe(res => {
       this.onClose(res.saveScores);
     });
   }
@@ -147,7 +148,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
   onBlur(event: Event) {
     // tslint:disable-next-line:deprecation
     const identifier = event.srcElement.id.split('_');
-    const group = this.groupedScores.find(g => g.group.type === identifier[1]);
+    const group = this.groupedScores.find(g => g.scoreGroup.type === identifier[1]);
     const score = group.scores.find(s => s.judgeIndex === +identifier[2]);
 
     if (group.total > 0 && score.value === 0 && score.judgeIndex > 0) {
@@ -179,7 +180,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     if (event.srcElement.nodeName === 'INPUT') {
       // tslint:disable-next-line:deprecation
       const identifier = event.srcElement.id.split('_');
-      const group = this.groupedScores.find(g => g.group.type === identifier[1]);
+      const group = this.groupedScores.find(g => g.scoreGroup.type === identifier[1]);
       const score = group.scores.find(s => s.judgeIndex === +identifier[2]);
       const min = score.scoreGroup.min;
       const max = score.scoreGroup.max;

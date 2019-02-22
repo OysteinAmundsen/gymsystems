@@ -66,11 +66,11 @@ export class DivisionService {
 
   async remove(id: number): Promise<boolean> {
     const result = await this.divisionRepository.delete({ id: id });
-    if (result.affected > 0) {
+    if (result.raw.affectedRows > 0) {
       this.invalidateCache(); // Force empty cache
       this.pubSub.publish('divisionDeleted', { divisionId: id });
     }
-    return result.affected > 0;
+    return result.raw.affectedRows > 0;
   }
 
   findOneById(id: number): Promise<Division> {

@@ -2,6 +2,7 @@ import { ITeamInDiscipline } from './ITeamInDiscipline';
 import { IScoreGroup } from './IScoreGroup';
 
 export interface IScore {
+  updated: Date;
   id: number;
   value: number;
   scoreGroupId: number;
