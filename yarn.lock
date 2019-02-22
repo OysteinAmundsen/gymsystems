@@ -1667,15 +1667,6 @@ cli-highlight@^1.2.3:
     parse5 "^3.0.3"
     yargs "^10.0.3"
 
-cli-table2@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/cli-table2/-/cli-table2-0.2.0.tgz#2d1ef7f218a0e786e214540562d4bd177fe32d97"
-  dependencies:
-    lodash "^3.10.1"
-    string-width "^1.0.1"
-  optionalDependencies:
-    colors "^1.1.2"
-
 cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
@@ -1826,9 +1817,14 @@ commander@2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.6.0.tgz#9df7e52fb2a0cb0fb89058ee80c3104225f37e1d"
 
-commander@^2.12.1, commander@^2.8.1, commander@^2.9.0:
+commander@^2.12.1, commander@^2.9.0:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.16.0.tgz#f16390593996ceb4f3eeb020b31d78528f7f8a50"
+
+commander@^2.15.1:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
+  integrity sha512-6tvAOO+D6OENvRAh524Dh9jcfKTYDQAqvqezbCW82xj5X0pSrcpxtvRKHLG0yBY6SD7PSDrJaj+0AiOcKVd1Xg==
 
 commander@~2.13.0:
   version "2.13.0"
@@ -4557,16 +4553,14 @@ json-stringify-safe@5.0.x, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
-json2csv@4.1.5:
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/json2csv/-/json2csv-4.1.5.tgz#b92693aff83e0ef0faae54dacd5b991f68381bf1"
+json2csv@4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/json2csv/-/json2csv-4.3.5.tgz#859c82c361cb12cca64fc012be96bd2c33d4860e"
+  integrity sha512-p7h3IFPDIWzXEGnBFa7ksXtDaT5wGC0vZOh0CGgmNkQxOtI4O9AZOQ/XfV9JiWERbh5jubqc3nzXziZ4S763jw==
   dependencies:
-    cli-table2 "^0.2.0"
-    commander "^2.8.1"
+    commander "^2.15.1"
     jsonparse "^1.3.1"
-    lodash.clonedeep "^4.5.0"
-    lodash.get "^4.4.0"
-    lodash.set "^4.3.0"
+    lodash.get "^4.4.2"
 
 json3@^3.3.2:
   version "3.3.2"
@@ -4893,7 +4887,7 @@ lodash.flatten@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
 
-lodash.get@^4.4.0, lodash.get@^4.4.2:
+lodash.get@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
 
@@ -4901,7 +4895,7 @@ lodash.mergewith@^4.6.0:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.1.tgz#639057e726c3afbdb3e7d42741caa8d6e4335927"
 
-lodash.set@^4.3.0, lodash.set@^4.3.2:
+lodash.set@^4.3.2:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
 
