@@ -39,7 +39,7 @@ export class ConfigureDisplayComponent implements OnInit {
   }
 
   configReceived(res: any) {
-    const value = JSON.parse(res.value);
+    const value = typeof res.value === 'string' ? JSON.parse(res.value) : res.value;
     this.templates = [
       { id: 'display1', title: 'Display 1', content: value.display1 },
       { id: 'display2', title: 'Display 2', content: value.display2 }

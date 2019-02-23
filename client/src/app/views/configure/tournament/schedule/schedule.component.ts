@@ -213,6 +213,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    *
    */
   startTime(participant: ITeamInDiscipline) {
+    if (!this.parent.tournament.id) { return false; }
     return this.scheduleService.startTime(this.parent.tournament, participant);
   }
 
@@ -220,6 +221,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    *
    */
   isNewDay(participant: ITeamInDiscipline) {
+    if (!this.parent.tournament.id) { return false; }
     return this.scheduleService.isNewDay(this.parent.tournament, this.schedule, participant);
   }
 

@@ -149,6 +149,12 @@ export class ScheduleResolver {
     return scheduleItem.team;
   }
 
+  @ResolveProperty('teamName')
+  async getTeamName(scheduleItem: TeamInDiscipline): Promise<string> {
+    const team = await this.getTeam(scheduleItem);
+    return team.name;
+  }
+
   @Mutation('start')
   @UseGuards(RoleGuard(Role.Secretariat))
   start(@Args('id') id: number): Promise<TeamInDiscipline> {

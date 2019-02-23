@@ -8,11 +8,13 @@ import { TournamentService } from '../../graph/tournament/tournament.service';
 import { TeamInDiscipline } from '../../graph/schedule/team-in-discipline.model';
 import { ScoreService } from '../../graph/score/score.service';
 import { Log } from '../../common/util/logger/log';
+import { TeamService } from '../../graph/team/team.service';
 
 @Controller('display')
 export class DisplayController {
   constructor(
     private readonly configuration: ConfigurationService,
+    private readonly teamService: TeamService,
     private readonly tournamentService: TournamentService,
     private readonly scoreService: ScoreService,
     @InjectRepository(TeamInDiscipline) private readonly scheduleRepository: Repository<TeamInDiscipline>
@@ -66,14 +68,22 @@ export class DisplayController {
   @Get(':tournamentId/:id')
   async display(@Param('tournamentId') tournamentId: number, @Param('id') id: number, @Query('current') idx?: number): Promise<string> {
     // Load data
-    const displayConfig = JSON.parse((await this.configuration.getOneById('display')).value);
+    let displayConfig = (await this.configuration.getOneById('display')).value;
+    displayConfig = typeof displayConfig === 'string' ? JSON.parse(displayConfig) : displayConfig;
     const tournament = await this.tournamentService.findOneById(tournamentId);
-    const schedule = await this.scheduleRepository.find({
+    const schedule: TeamInDiscipline[] = await this.scheduleRepository.find({
       where: { tournamentId: tournamentId, markDeleted: Not(true) },
       relations: ['team', 'team.divisions', 'discipline', 'scores'],
-      order: { 'sortNumber': 'DESC' }
+      order: { 'sortNumber': 'ASC' }
     });
     const template = displayConfig[`display${id}`];
+
+    await Promise.all(schedule.map(async s => {
+      // Add properties
+      s.divisionName = await this.teamService.getDivisionName(s.team);
+      s.disciplineName = s.discipline.name;
+      s.teamName = s.team.name;
+    }));
 
     let current, next, published;
     if (idx != null) {

@@ -1,8 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Repository } from "typeorm";
-import { ConfigurationService } from "../administration/configuration.service";
-import { TournamentService } from "../../graph/tournament/tournament.service";
-import { ScoreService } from "../../graph/score/score.service";
 import { DisplayController } from "./display.controller";
 import { TeamInDiscipline } from '../../graph/schedule/team-in-discipline.model';
 
@@ -97,18 +94,20 @@ describe("DisplayController", () => {
   beforeAll(async () => {
     const configurationServiceStub = { getOneById: () => Promise.resolve(displayConfig) };
     const tournamentServiceStub = { findOneById: () => ({}) };
+    const teamServiceStub = { getDivisionName: () => ({}) };
     const scoreServiceStub = { getTotalScore: () => Promise.resolve("7.000") };
 
     testModule = await Test.createTestingModule({
       providers: [
         DisplayController,
         { provide: 'TeamInDisciplineRepository', useClass: TeamInDisciplineRepository },
-        { provide: ConfigurationService, useValue: configurationServiceStub },
-        { provide: TournamentService, useValue: tournamentServiceStub },
-        { provide: ScoreService, useValue: scoreServiceStub }
+        { provide: 'ConfigurationService', useValue: configurationServiceStub },
+        { provide: 'TeamService', useValue: teamServiceStub },
+        { provide: 'TournamentService', useValue: tournamentServiceStub },
+        { provide: 'ScoreService', useValue: scoreServiceStub }
       ]
     }).compile();
-    controller = testModule.get<DisplayController>(DisplayController);
+    controller = testModule.get(DisplayController);
   });
 
   it("can load instance", () => {

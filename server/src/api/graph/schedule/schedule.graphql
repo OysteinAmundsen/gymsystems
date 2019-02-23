@@ -43,6 +43,7 @@ type ISchedule {
   scorable: Boolean
   teamId: ID
   team: ITeam
+  teamName: String
   scores: [IScore]
   total: String
   totalByScoreGroup: [TotalByScoreGroup]

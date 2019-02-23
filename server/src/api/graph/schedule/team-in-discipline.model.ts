@@ -82,12 +82,12 @@ export class TeamInDiscipline {
   @ManyToOne(type => Discipline, { nullable: false })
   @JoinColumn({ name: 'disciplineId' })
   discipline: Discipline;
-  disciplineName: string;
-  disciplineSortOrder: number;
+  disciplineName?: string;
+  disciplineSortOrder?: number;
 
   divisions: Division[];
-  divisionName: string;
-  divisionSortOrder: number;
+  divisionName?: string;
+  divisionSortOrder?: number;
 
   @Column('int')
   disciplineId: number;
@@ -99,6 +99,7 @@ export class TeamInDiscipline {
 
   @Column('int')
   teamId: number;
+  teamName?: string;
 
   @ApiModelPropertyOptional({ description: `The scores as given by the judges after execution` })
   @OneToMany(type => Score, score => score.participant, { cascade: ['insert', 'update'] })

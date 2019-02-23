@@ -62,6 +62,7 @@
     "moment": "^2.24.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.4.0",
+    "subscriptions-transport-ws": "^0.9.15",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
