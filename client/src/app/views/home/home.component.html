@@ -10,7 +10,8 @@
   <div>
     <pre [innerHtml]="getDescription(tournament) | MarkdownToHtml"></pre>
   </div>
-  <a href="https://www.google.com/maps/dir/?api=1&destination={{tournament.venue.latitude}},{{tournament.venue.longitude}}" target="_blank" mat-button>
+  <a href="https://www.google.com/maps/dir/?api=1&destination={{tournament.venue.latitude}},{{tournament.venue.longitude}}" target="_blank" mat-button
+     rel="noreferrer">
     <i class="fa fa-fw fa-map-marker"></i>
     {{ 'Get directions' | translate }}
   </a>

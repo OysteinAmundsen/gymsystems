@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  wsUrl: 'localhost:3000/api/graph',
   // Should not have an api key open like this, I know,
   // but it is limited to this particular domain anyway and
   // I don't have that many ways of sneaking it into the client.

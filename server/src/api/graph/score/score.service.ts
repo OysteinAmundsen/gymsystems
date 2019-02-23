@@ -40,6 +40,7 @@ export class ScoreService {
         const result = await this.scoreRepository.save(<Score>score);
         if (result) {
           this.pubSub.publish(result.id ? 'scoreModified' : 'scoreCreated', { score: result });
+          this.pubSub.publish('teamInDisciplineModified', { teamInDiscipline: score.participantId });
         }
         delete result.participant;
         delete result.scoreGroup;

@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { EventComponent } from '../event.component';
 import { ITeamInDiscipline, Classes, ParticipationType, IDiscipline, TotalByScoreGroup } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
-import { EventService } from 'app/shared/services/api/event/event.service';
 import { BrowserService } from 'app/shared/browser.service';
 
 @Component({
@@ -29,15 +28,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
   constructor(
     private parent: EventComponent,
     private graph: GraphService,
-    private eventService: EventService,
     private browser: BrowserService) { }
 
   ngOnInit() {
 
-    this.subscriptions.push(this.eventService.connect().subscribe(message => {
-      if (!message || message.indexOf('Scores') > -1 || message.indexOf('Participant') > -1) {
-        this.loadResults();
-      }
+    this.subscriptions.push(this.graph.listen('teamInDisciplineModified', '{id}').subscribe(res => {
+      this.loadResults();
     }));
     this.loadResults();
   }

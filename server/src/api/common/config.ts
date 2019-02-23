@@ -20,6 +20,7 @@ export class Config {
   public static readonly GlobalRoutePrefix: string = 'api';
   public static readonly DocsRoute: string = '/docs';
   public static readonly GraphRoute: string = `/graph`;
+  public static readonly SubscribeRoute: string = `/ws`;
   public static readonly ApiUrl: string = `http://localhost:${Config.Port}/${Config.GlobalRoutePrefix}`;
   public static readonly JwtHeaderName: string = 'Authorization';
 

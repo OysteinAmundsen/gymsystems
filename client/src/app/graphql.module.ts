@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloLink } from 'apollo-link';
+import { ApolloLink, split } from 'apollo-link';
+import { WebSocketLink } from 'apollo-link-ws';
 import { HttpBatchLinkModule, HttpBatchLink } from 'apollo-angular-link-http-batch';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { getMainDefinition } from 'apollo-utilities';
+import { OperationDefinitionNode } from 'graphql';
 
 export const graphqlUri = '/api/graph'; // <-- add the URL of the GraphQL server here
+export const graphqlSubUri = '/api/ws'
 
 export function createApollo(httpLink: HttpBatchLink) {
-  const link = httpLink.create({ uri: graphqlUri, includeExtensions: true });
+  const stdLink = httpLink.create({ uri: graphqlUri, includeExtensions: true });
 
   // Process 'extension' commands passed to the operation.
   // These are added to the http headers in our interceptor.
@@ -18,9 +22,29 @@ export function createApollo(httpLink: HttpBatchLink) {
     return forward(operation);
   });
 
+  // Create the websocket for subscriptions
+  // This replaces ServerSentEvents as biderctional comm
+  const wsClient = new WebSocketLink({
+    uri: `ws://localhost:3000${graphqlSubUri}`, // Should be able to run on same endpoint
+    options: {
+      reconnect: true,
+    },
+  });
+
+  // Split the connection up based on type of comm
+  // If query or mutation, use http. If subscription, use ws.
+  const link = split(
+    ({ query }) => {
+      const { kind, operation } = <OperationDefinitionNode>getMainDefinition(query);
+      return kind === 'OperationDefinition' && operation === 'subscription';
+    },
+    wsClient,
+    headerLink.concat(stdLink)
+  )
+
   // Create the apollo client
   return {
-    link: headerLink.concat(link),
+    link: link,
     cache: new InMemoryCache(/*{
       addTypename: false
     }*/),

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 import { Observable, of, Observer } from 'rxjs';
 import * as moment from 'moment';
 import { CommonService } from 'app/shared/services/common.service';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { QueryOptions, MutationOptions } from 'apollo-angular/types';
+import { QueryOptions, MutationOptions, SubscriptionOptions } from 'apollo-angular/types';
 import { Logger } from './Logger';
 
 @Injectable({ providedIn: 'root' })
@@ -64,6 +64,13 @@ export class GraphService {
           });
       });
     });
+  }
+
+  listen(channel: string, query: string, options?: SubscriptionOptions<any>): Observable<any> {
+    const queryStr = `subscription {${channel}${query}}`;
+    // return Observable.create((observer: Observer<any>) => {
+    return this.apollo.subscribe(Object.assign({ query: gql`${queryStr}` }, options))
+      .pipe(debounceTime(400));
   }
 
   jsonToGql(val: any): string {

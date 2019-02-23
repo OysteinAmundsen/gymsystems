@@ -24,6 +24,7 @@ td.editor {
 
 .mat-card {
   margin-top: -1rem;
+  min-height: 5rem;
   @media only print {
     box-shadow: none;
   }

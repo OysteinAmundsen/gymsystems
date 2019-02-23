@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import {
   UserService,
   ConfigurationService,
-  EventService
+  // EventService
 } from 'app/shared/services/api';
 import { ITeam, IUser, Role, Classes, ITournament } from 'app/model';
 
@@ -65,7 +65,6 @@ export class TeamsComponent implements OnInit, OnDestroy {
     private parent: TournamentEditorComponent,
     private graph: GraphService,
     private userService: UserService,
-    private eventService: EventService,
     private configuration: ConfigurationService,
     private router: Router,
     private route: ActivatedRoute,
@@ -82,16 +81,9 @@ export class TeamsComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
     this.loadTeams();
-    this.subscriptions.push(
-      this.eventService
-        .connect()
-        .pipe(debounceTime(100))
-        .subscribe(message => {
-          if (message.indexOf('Teams updated') > -1) {
-            this.loadTeams();
-          }
-        })
-    );
+    this.subscriptions.push(this.graph.listen('teamInDisciplineModified', '{id}').subscribe(res => {
+      this.loadTeams();
+    }));
   }
 
   ngOnDestroy() {

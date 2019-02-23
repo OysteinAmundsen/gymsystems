@@ -23,6 +23,9 @@
       <span *ngIf="!showTraining" translate>Training hidden</span>
     </mat-slide-toggle>
   </mat-card-header>
+
+  <div *ngIf="!schedule.length">{{ 'There is no schedule set yet. We are working on it.' | translate }}</div>
+
   <table *ngIf="tournament && schedule.length" role="list">
     <thead>
       <tr>

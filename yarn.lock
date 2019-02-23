@@ -614,12 +614,12 @@
     path-to-regexp "2.2.1"
     uuid "3.3.2"
 
-"@nestjs/graphql@^5.5.3":
-  version "5.5.3"
-  resolved "https://registry.yarnpkg.com/@nestjs/graphql/-/graphql-5.5.3.tgz#1587eb7ed4dc568eb3d9be5c89b6d6a29e9ae0a8"
-  integrity sha512-groZIywcXnzWWpukgom5xCyHWnZmwQFDQtF6is6nYYWCLmXrlBEWlA7vFP9mYE7jBHdGcMLegj4nOsRHjQUHjA==
+"@nestjs/graphql@^5.5.4":
+  version "5.5.4"
+  resolved "https://registry.yarnpkg.com/@nestjs/graphql/-/graphql-5.5.4.tgz#c602fd0fd62764808f5537395d83d9d87bf362d0"
+  integrity sha512-SNdG6zZ/7hAf7TVdaU5kb4MApU2q5fFsRSHYeJlBQ62cAw2dcYLtfg8iVGfzZd1oRlzW8cJLIih4JbwINuc6HA==
   dependencies:
-    glob "^7.1.3"
+    fast-glob "^2.2.6"
     graphql-tools "^4.0.3"
     lodash "^4.17.11"
     merge-graphql-schemas "^1.5.8"
@@ -1051,10 +1051,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
   integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
 
-"@types/node@^11.9.4":
-  version "11.9.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.9.4.tgz#ceb0048a546db453f6248f2d1d95e937a6f00a14"
-  integrity sha512-Zl8dGvAcEmadgs1tmSPcvwzO1YRsz38bVJQvH1RvRqSR9/5n61Q1ktcDL0ht3FXWR+ZpVmXVwN1LuH4Ax23NsA==
+"@types/node@^11.9.5":
+  version "11.9.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.9.5.tgz#011eece9d3f839a806b63973e228f85967b79ed3"
+  integrity sha512-vVjM0SVzgaOUpflq4GYBvCpozes8OgIIS5gVXVka+OfK3hvnkC1i93U8WiY2OtNE4XUWyyy/86Kf6e0IHTQw1Q==
 
 "@types/node@^8.0.7":
   version "8.10.39"
@@ -1814,6 +1814,13 @@ apollo-link-dedup@^1.0.0:
   integrity sha512-i4NuqT3DSFczFcC7NMUzmnYjKX7NggLY+rqYVf+kE9JjqKOQhT6wqhaWsVIABfIUGE/N0DTgYJBCMu/18aXmYA==
   dependencies:
     apollo-link "^1.2.6"
+
+apollo-link-ws@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/apollo-link-ws/-/apollo-link-ws-1.0.14.tgz#588f898b7f953930a27e283941614d89907adf13"
+  integrity sha512-KwHVnhKKDUA5PmmzpiqkyahjBcwGdf2eFlTZg4DIwgH1R0KcBmn/A6rkZnmClBbUNgV6t+kR46dW2fyx64Jm3A==
+  dependencies:
+    apollo-link "^1.2.8"
 
 apollo-link@^1.0.0, apollo-link@^1.2.3, apollo-link@^1.2.6:
   version "1.2.6"
@@ -4920,7 +4927,7 @@ fast-deep-equal@^2.0.1:
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
   integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
 
-fast-glob@^2.0.2:
+fast-glob@^2.0.2, fast-glob@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-2.2.6.tgz#a5d5b697ec8deda468d85a74035290a025a95295"
   integrity sha512-0BvMaZc1k9F+MeWWMe8pL6YltFzZYcJsYU7D4JyDA6PAczaXvxqQQ/z+mDF7/4Mw01DeUc+i3CTKajnkANkV4w==

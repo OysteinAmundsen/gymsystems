@@ -1,12 +1,11 @@
-import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
-import { GraphQLModule, GqlModuleOptions } from '@nestjs/graphql';
+import { Module, NestModule, MiddlewareConsumer, RequestMethod, Inject } from '@nestjs/common';
+import { GraphQLModule, GqlModuleOptions, GraphQLFactory } from '@nestjs/graphql';
 
 import { join } from 'path';
 import { Config } from './common/config';
 
 import { CommonModule } from './common/common.module';
 import { AdministrationModule } from './rest/administration/administration.module';
-import { PubsubModule } from './rest/pubsub/pubsub.module';
 import { DisplayModule } from './rest/display/display.module';
 
 import { ClubModule } from './graph/club/club.module';
@@ -44,6 +43,9 @@ import { Log } from './common/util/logger/log';
           installSubscriptionHandlers: true,
           path: `/${Config.GlobalRoutePrefix}${Config.GraphRoute}`,
           addTypename: false,
+          subscriptions: {
+            path: `/${Config.GlobalRoutePrefix}${Config.SubscribeRoute}`
+          },
           definitions: {
             path: join(__dirname, `./graph/graphql.schema.ts`),
             outputAs: 'class'
@@ -56,7 +58,6 @@ import { Log } from './common/util/logger/log';
     CommonModule,
 
     AdministrationModule,
-    PubsubModule,
     DisplayModule,
 
     ClubModule,
@@ -84,7 +85,6 @@ export class AppModule implements NestModule {
 
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(RequestContextMiddleware)
-      .forRoutes({ path: '*', method: RequestMethod.ALL });
+      .apply(RequestContextMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

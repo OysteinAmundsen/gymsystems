@@ -20,10 +20,27 @@ export class ScheduleService {
     @InjectRepository(TeamInDiscipline) private readonly scheduleRepository: Repository<TeamInDiscipline>,
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
+  /**
+   * Mass save
+   */
   async save(participant: TeamInDisciplineDto[]): Promise<TeamInDiscipline[]> {
-    return this.scheduleRepository.save(participant);
+    const result = await this.scheduleRepository.save(participant);
+    if (result) {
+      const updated = participant.filter(p => p.id != null);
+      const created = participant.filter(p => p.id == null);
+      if (updated.length) {
+        this.pubSub.publish('teamInDisciplineModified', { teamInDiscipline: result });
+      }
+      if (created.length) {
+        this.pubSub.publish('teamInDisciplineCreated', { teamInDiscipline: result });
+      }
+    }
+    return result;
   }
 
+  /**
+   * Individual save
+   */
   async saveItem(participant: TeamInDisciplineDto): Promise<TeamInDiscipline> {
     if (participant.id) {
       const entity = await this.scheduleRepository.findOne({ id: participant.id });
@@ -82,6 +99,7 @@ export class ScheduleService {
       // sseService.publish('Scores updated');
       // return new OkResponse();
       this.scoreService.invalidateCache();
+      this.pubSub.publish('teamInDisciplineModified', { teamInDiscipline: null });
       return true;
     }).catch(() => false);
   }
@@ -89,19 +107,25 @@ export class ScheduleService {
   async publish(id: number): Promise<TeamInDiscipline> {
     const p = await this.scheduleRepository.findOne(id);
     p.publishTime = new Date();
-    return this.scheduleRepository.save(p);
+    const result = await this.scheduleRepository.save(p);
+    this.pubSub.publish('teamInDisciplineModified', { teamInDiscipline: result });
+    return result;
   }
 
   async stop(id: number): Promise<TeamInDiscipline> {
     const p = await this.scheduleRepository.findOne(id);
     p.endTime = new Date();
-    return this.scheduleRepository.save(p);
+    const result = await this.scheduleRepository.save(p);
+    this.pubSub.publish('teamInDisciplineModified', { teamInDiscipline: result });
+    return result;
   }
 
   async start(id: number): Promise<TeamInDiscipline> {
     const p = await this.scheduleRepository.findOne(id);
     p.startTime = new Date();
-    return this.scheduleRepository.save(p);
+    const result = await this.scheduleRepository.save(p);
+    this.pubSub.publish('teamInDisciplineModified', { teamInDiscipline: null });
+    return result;
   }
 
   findOneById(id: number): Promise<TeamInDiscipline> {

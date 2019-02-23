@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class HttpCacheService {
-  cache: {[url: string]: any} = [];
+  cache: { [url: string]: any } = [];
 
   constructor() { }
 

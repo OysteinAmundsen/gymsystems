@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import { EventComponent } from '../event.component';
 import { ContextMenuComponent } from './context-menu/context-menu.component';
 
-import { ScheduleService, EventService, UserService } from 'app/shared/services/api';
+import { ScheduleService, UserService } from 'app/shared/services/api';
 import { MediaService } from 'app/shared/services/media.service';
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 
@@ -96,7 +96,6 @@ export class ListComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private graph: GraphService,
     private scheduleService: ScheduleService,
-    private eventService: EventService,
     private userService: UserService,
     private mediaService: MediaService,
     private errorHandler: ErrorHandlerService,
@@ -109,10 +108,8 @@ export class ListComponent implements OnInit, OnDestroy {
     // Make sure we have translations for weekdays
     this.translate.get(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']).subscribe();
 
-    this.subscriptions.push(this.eventService.connect().pipe(debounceTime(100)).subscribe(message => {
-      if (!message || message.indexOf('Scores') > -1 || message.indexOf('Participant') > -1) {
-        this.loadSchedule();
-      }
+    this.subscriptions.push(this.graph.listen('teamInDisciplineModified', this.scheduleQuery).subscribe(res => {
+      this.loadSchedule();
     }));
     this.subscriptions.push(this.userService.getMe(true).subscribe(user => this.user = user));
     this.loadData();
