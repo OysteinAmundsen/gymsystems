@@ -13,7 +13,8 @@
       </div>
       <div class="row">
         <mat-form-field class="col-xs-12">
-          <input matInput type="password" formControlName="password" placeholder="{{'Password' | translate}}" autocomplete="current-password" />
+          <input matInput type="password" #pwd formControlName="password" placeholder="{{'Password' | translate}}" autocomplete="current-password" />
+          <div class="fa fa-fw fa-eye" matSuffix (mouseover)="pwd.type = 'text'" (mouseout)="pwd.type = 'password'"></div>
         </mat-form-field>
       </div>
     </fieldset>

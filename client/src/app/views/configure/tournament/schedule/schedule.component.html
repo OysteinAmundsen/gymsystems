@@ -11,7 +11,7 @@
       </tr>
     </thead>
 
-    <tbody cdkDropList [cdkDropListData]="schedule" class='drag-list'>
+    <tbody cdkDropList [cdkDropListData]="schedule" (cdkDropListDropped)="drop($event)" class='drag-list'>
       <tr *ngFor="let item of schedule" role="listitem" [title]="title(item)" cdkDrag [ngClass]="{'draggable'  : true,
                     'deleted'    : item.markDeleted,
                     'new'        : !item.id,

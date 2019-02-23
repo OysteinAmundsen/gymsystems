@@ -15,6 +15,7 @@ import { GraphService } from 'app/shared/services/graph.service';
 import { CommonService } from 'app/shared/services/common.service';
 import { ScheduleService } from 'app/shared/services/api/schedule/schedule.service';
 import { FormControl } from '@angular/forms';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 /**
  *
@@ -77,6 +78,12 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     if ($event.key === 'Escape' || $event.key === 'Esc') {
       this.setEdit(null);
     }
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.schedule, event.previousIndex, event.currentIndex);
+    this.schedule = this.scheduleService.recalculateStartTime(this.parent.tournament, this.schedule, true, !this.parent.hasStarted);
+    this.isDirty = true;
   }
 
   /**
