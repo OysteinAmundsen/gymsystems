@@ -10,6 +10,7 @@ import { UserService } from 'app/shared/services/api';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GraphService } from 'app/shared/services/graph.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-troop-editor',
@@ -98,8 +99,7 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
     // Save team
     return new Promise((resolve, reject) => {
       troop.clubId = troop.club.id;
-      delete troop.club;
-      this.graph.saveData('Troop', troop, `{id,name,gymnasts{id,name,gender,birthYear}}`).subscribe(result => {
+      this.graph.saveData('Troop', CommonService.omit(troop, ['club']), `{id,name,gymnasts{id,name,gender,birthYear}}`).subscribe(result => {
         this.troopReceived(result.saveTroop);
         this.close(result.saveTroop);
         resolve(result.saveTroop);

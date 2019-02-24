@@ -9,6 +9,13 @@ export class CommonService {
 
   constructor() { }
 
+  static omit(obj, properties: string[]) {
+    return Object.keys(obj)
+      .filter(k => !properties.includes(k))
+      .map(k => Object.assign({}, { [k]: obj[k] }))
+      .reduce((res, o) => Object.assign(res, o), {});
+  }
+
   /**
    *
    */

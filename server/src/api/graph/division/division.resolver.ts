@@ -51,6 +51,12 @@ export class DivisionResolver {
     return this.divisionService.save(Cleaner.clean(input));
   }
 
+  @Mutation('saveDivisions')
+  @UseGuards(RoleGuard(Role.Organizer))
+  saveAll(@Args('input') input: DivisionDto[]): Promise<Division[]> {
+    return this.divisionService.saveAll(Cleaner.clean(input));
+  }
+
   @Mutation('deleteDivision')
   @UseGuards(RoleGuard(Role.Organizer))
   remove(@Args('id') id: number): Promise<boolean> {

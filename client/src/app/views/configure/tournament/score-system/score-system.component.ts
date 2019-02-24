@@ -4,6 +4,7 @@ import { ConfigurationService } from 'app/shared/services/api';
 import { IDiscipline, IScoreGroup, Operation } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
 import { Subscription } from 'rxjs';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-score-system',
@@ -58,6 +59,18 @@ export class ScoreSystemComponent implements OnInit, OnDestroy, OnChanges {
     this.subscriptions.forEach(s => s ? s.unsubscribe() : null);
   }
 
+  drop(event: CdkDragDrop<IScoreGroup[]>) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    this.scoreGroupList.forEach((sg, idx) => (sg.sortOrder = idx));
+    this.saveScoreGroups();
+  }
+
+  saveScoreGroups() {
+    if (this.discipline) {
+      this.graph.saveData('ScoreGroups', this.scoreGroupList, this.scoreGroupQuery).subscribe(res => this.scoreGroupList = res.saveScoreGroups);
+    }
+    this.scoreGroupListChanged.emit(this.scoreGroupList);
+  }
 
   loadScoreGroups() {
     if (this.discipline) {

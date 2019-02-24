@@ -7,6 +7,7 @@ import { clone } from 'lodash';
 import { UserService } from 'app/shared/services/api';
 import { GraphService } from 'app/shared/services/graph.service';
 import { BrowserService } from 'app/shared/browser.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 /**
  *
@@ -111,13 +112,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   save() {
     // Write back copy
-    const scores = this.groupedScores.reduce((prev, curr) => {
-      return prev.concat(curr.scores.map(s => {
-        delete s.scoreGroup;
-        // delete s.updated;
-        return s;
-      }));
-    }, []);
+    const scores = this.groupedScores.reduce((prev, curr) => prev.concat(curr.scores.map(s => CommonService.omit(s, ['scoreGroup']))), []);
     this.graph.saveData(`Score`, scores, this.scoreQuery).subscribe(res => {
       this.onClose(res.saveScores);
     });

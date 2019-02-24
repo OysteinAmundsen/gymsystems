@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
   saveDivision(input: DivisionInput): IDivision
+  saveDivisions(input: [DivisionInput]): [IDivision]
   deleteDivision(id: ID): Boolean
 }
 

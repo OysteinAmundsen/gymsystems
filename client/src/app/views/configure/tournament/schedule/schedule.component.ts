@@ -174,12 +174,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  setEdit(itemId: number, $event?: MouseEvent) {
+  setEdit(item: ITeamInDiscipline, $event?: MouseEvent) {
+    if (item.startTime != null) { return; }
     if ($event) {
       $event.preventDefault();
       $event.stopPropagation();
     }
-    this.editing = itemId;
+    this.editing = item.id;
   }
 
   /**

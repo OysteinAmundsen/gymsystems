@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
   saveDiscipline(input: DisciplineInput): IDiscipline
+  saveDisciplines(input: [DisciplineInput]): [IDiscipline]
   deleteDiscipline(id: ID): Boolean
 }
 

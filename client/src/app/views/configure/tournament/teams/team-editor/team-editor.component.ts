@@ -16,6 +16,7 @@ import { MatAutocompleteSelectedEvent, MatAutocomplete, MatSlideToggleChange } f
 import { MemberSelectorComponent } from 'app/views/configure/_shared/member-selector/member-selector.component';
 import { GraphService } from 'app/shared/services/graph.service';
 import { Logger } from 'app/shared/services/Logger';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-team-editor',
@@ -283,15 +284,13 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   }
 
   async save(keepOpen?: boolean) {
-    const team = JSON.parse(JSON.stringify(this.value)); // Clone form values, because we delete values here later on
+    const team = JSON.parse(JSON.stringify(this.value)); // Clone form values
 
     // Troop name
     if (team.name.id) { team.name = team.name.name; }
 
     // Compute division set
     team.divisions = [team.ageDivision, team.genderDivision];
-    delete team.ageDivision;
-    delete team.genderDivision;
 
     // Get club
     if (!team.club) {
@@ -305,8 +304,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     // Save team
     return new Promise((resolve, reject) => {
       team.clubId = team.club.id;
-      delete team.club;
-      this.graph.saveData('Team', team, this.teamQuery).subscribe(result => {
+      this.graph.saveData('Team', CommonService.omit(team, ['club', 'ageDivision', 'genderDivision']), this.teamQuery).subscribe(result => {
         this.teamReceived(result.saveTeam);
         if (!keepOpen) {
           this.close(this.team);

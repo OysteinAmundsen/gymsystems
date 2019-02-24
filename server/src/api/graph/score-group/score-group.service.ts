@@ -26,7 +26,8 @@ export class ScoreGroupService {
     if (this.localCahcePromise == null || !this.cacheCreation || this.cacheCreation.add(10, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
       this.localCahcePromise = this.scoreGroupRepository
-        .createQueryBuilder()
+        .createQueryBuilder('scoreGroup')
+        .orderBy('scoreGroup.sortOrder')
         .cache(Config.QueryCache)
         .getMany()
         .then(groups => this.localCache = groups);

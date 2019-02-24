@@ -13,6 +13,7 @@ import { toUpperCaseTransformer } from 'app/shared/directives';
 import { MatAutocomplete } from '@angular/material';
 import { GraphService } from 'app/shared/services/graph.service';
 import { Meta, Title } from '@angular/platform-browser';
+import { CommonService } from 'app/shared/services/common.service';
 
 enum Type {
   Organizer = 0 + Role.Organizer, Club = 0 + Role.Club
@@ -40,11 +41,11 @@ export class RegisterComponent implements OnInit {
     private graph: GraphService,
     private errorHandler: ErrorHandlerService,
     private translate: TranslateService) {
-      this.title.setTitle('GymSystems | Register');
-      this.meta.updateTag({ property: 'og:title', content: `GymSystems | Register` });
-      this.meta.updateTag({ property: 'og:description', content: `Register to gain access to the system` });
-      this.meta.updateTag({ property: 'Description', content: `Register to gain access to the system` });
-    }
+    this.title.setTitle('GymSystems | Register');
+    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Register` });
+    this.meta.updateTag({ property: 'og:description', content: `Register to gain access to the system` });
+    this.meta.updateTag({ property: 'Description', content: `Register to gain access to the system` });
+  }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -68,9 +69,8 @@ export class RegisterComponent implements OnInit {
       this.errorHandler.setError('No club set. Cannot register!');
       return;
     }
-    delete user.repeatPassword;
 
-    this.graph.saveData('User', user, '{id}').subscribe(
+    this.graph.saveData('User', CommonService.omit(user, ['repeatPassword']), '{id}').subscribe(
       res => this.registrationComplete(res.saveUser),
       err => this.registrationComplete(err)
     );

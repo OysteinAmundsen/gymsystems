@@ -12,7 +12,7 @@
     </thead>
 
     <tbody cdkDropList [cdkDropListData]="schedule" (cdkDropListDropped)="drop($event)" class='drag-list'>
-      <tr *ngFor="let item of schedule" role="listitem" [title]="title(item)" cdkDrag [ngClass]="{'draggable'  : true,
+      <tr *ngFor="let item of schedule" role="listitem" [title]="title(item)" cdkDrag cdkDragLockAxis="y" [cdkDragDisabled]="item.startTime != null" [ngClass]="{'draggable'  : true,
                     'deleted'    : item.markDeleted,
                     'new'        : !item.id,
                     'day-split'  : isNewDay(item),
@@ -22,7 +22,7 @@
                     'drag-box': true
                    }">
         <td *ngIf="item.type === participationTypes.Training">Tr</td>
-        <td *ngIf="item.type === participationTypes.Live && (item.id == null || editing != item.id)" (click)="setEdit(item.id, $event)">
+        <td *ngIf="item.type === participationTypes.Live && (item.id == null || editing != item.id)" (click)="setEdit(item, $event)">
           #{{ item.startNumber + 1 }}
         </td>
         <td *ngIf="item.type === participationTypes.Live && editing != null && editing == item.id">

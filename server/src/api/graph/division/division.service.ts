@@ -61,7 +61,9 @@ export class DivisionService {
 
   saveAll(divisions: DivisionDto[]): Promise<Division[]> {
     this.invalidateCache();
-    return Promise.all(divisions.map(d => this.save(d)));
+    return Promise.all(divisions.map(d => this.save(d))).then(res => {
+      return res;
+    });
   }
 
   async remove(id: number): Promise<boolean> {

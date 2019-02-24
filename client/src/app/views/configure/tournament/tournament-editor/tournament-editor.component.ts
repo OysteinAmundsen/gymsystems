@@ -14,6 +14,7 @@ import { ITournament, IUser, Role, IVenue } from 'app/model';
 
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 import { GraphService } from 'app/shared/services/graph.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-tournament-editor',
@@ -225,8 +226,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     if (!formVal.createdBy) {
       formVal.createdBy = this.user;
     }
-    delete formVal['description'];
-    this.graph.saveData('Tournament', formVal, this.tournamentQuery).subscribe(res => {
+    this.graph.saveData('Tournament', CommonService.omit(formVal, ['description']), this.tournamentQuery).subscribe(res => {
       this.tournamentReceived(res.saveTournament);
       this.isEdit = false;
       if (this.isAdding) {

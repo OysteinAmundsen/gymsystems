@@ -92,12 +92,21 @@ export class DisciplineResolver {
   }
 
   /**
-   *
+   * Save a single discipline (rarely used)
    */
   @Mutation('saveDiscipline')
   @UseGuards(RoleGuard(Role.Organizer))
   save(@Args('input') input: DisciplineDto): Promise<Discipline> {
     return this.disciplineService.save(Cleaner.clean(input));
+  }
+
+  /**
+   * Save multiple disciplines
+   */
+  @Mutation('saveDisciplines')
+  @UseGuards(RoleGuard(Role.Organizer))
+  saveAll(@Args('input') input: DisciplineDto[]): Promise<Discipline[]> {
+    return this.disciplineService.saveAll(Cleaner.clean(input));
   }
 
   /**

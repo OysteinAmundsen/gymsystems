@@ -42,6 +42,10 @@ export class ScoreGroup {
   @Column('varchar')
   type: string;
 
+  @ApiModelProperty({ description: `Represents how this group is sorted in the list of groups for this tournament` })
+  @Column('int', { default: 0 })
+  sortOrder: number
+
   @ApiModelProperty({ description: `Wheather this group defines scores which will be added to the total, or subtracted from the total` })
   @Column('int')
   operation: Operation;

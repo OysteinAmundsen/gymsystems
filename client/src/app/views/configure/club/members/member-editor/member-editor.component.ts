@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { GraphService } from 'app/shared/services/graph.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-member-editor',
@@ -116,8 +117,7 @@ export class MemberEditorComponent implements OnInit {
   save() {
     const member = this.memberForm.value;
     member.clubId = member.club.id;
-    delete member.club;
-    this.graph.saveData('Gymnast', member, this.memberQuery).subscribe(response => {
+    this.graph.saveData('Gymnast', CommonService.omit(member, ['club']), this.memberQuery).subscribe(response => {
       this.close();
     });
   }

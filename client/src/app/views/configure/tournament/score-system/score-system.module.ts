@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-// import { DragulaModule } from 'ng2-dragula';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { SharedModule } from 'app/shared/shared.module';
@@ -16,7 +15,6 @@ import { MatCardModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    // DragulaModule.forRoot(),
 
     DragDropModule,
     MatListModule,

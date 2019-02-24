@@ -1,7 +1,7 @@
 <div class="table-responsive">
   <table role="list" cdkDropList [cdkDropListData]="disciplineList" (cdkDropListDropped)="drop($event)" class="editable drag-list">
     <tbody *ngFor="let discipline of disciplineList | orderBy: 'sortOrder'">
-      <tr *ngIf="discipline !== selected" (click)="select(discipline)" role="listitem" class="drag-box" cdkDrag>
+      <tr *ngIf="discipline !== selected" (click)="select(discipline)" role="listitem" class="drag-box" cdkDrag cdkDragLockAxis="y">
         <td class="nowrap">
           <i class="square" [attr.discipline]="discipline.sortOrder"></i>
           {{ discipline.name }}
@@ -18,11 +18,13 @@
     </tbody>
   </table>
 </div>
-<button mat-raised-button type="button" class="mat-accent" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDiscipline()" aria-label="Add discipline">
+<button mat-raised-button type="button" class="mat-accent" *ngIf="selected == null" [title]="'Add' | translate" (click)="addDiscipline()"
+        aria-label="Add discipline">
   <i class="fa fa-fw fa-plus"></i>
   <span translate>Add Disciplines</span>
 </button>
-<button mat-raised-button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()" aria-label="Add default disciplines">
+<button mat-raised-button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()"
+        aria-label="Add default disciplines">
   <i class="fa fa-fw fa-plus-circle"></i>
   <span translate>Add Default Disciplines</span>
 </button>

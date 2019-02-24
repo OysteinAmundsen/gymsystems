@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
   saveScoreGroup(input: ScoreGroupInput): IScoreGroup
+  saveScoreGroups(input: [ScoreGroupInput]): [IScoreGroup]
   deleteScoreGroup(id: ID): Boolean
 }
 

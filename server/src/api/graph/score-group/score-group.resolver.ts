@@ -49,6 +49,12 @@ export class ScoreGroupResolver {
     return this.scoreGroupService.save(Cleaner.clean(input));
   }
 
+  @Mutation('saveScoreGroups')
+  @UseGuards(RoleGuard(Role.Organizer))
+  saveAll(@Args('input') input: ScoreGroupDto[]): Promise<ScoreGroup[]> {
+    return this.scoreGroupService.saveAll(Cleaner.clean(input));
+  }
+
   @Mutation('deleteScoreGroup')
   @UseGuards(RoleGuard(Role.Organizer))
   remove(@Args('id') id: number): Promise<boolean> {

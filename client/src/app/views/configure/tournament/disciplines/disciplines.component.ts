@@ -8,6 +8,7 @@ import { TournamentEditorComponent } from 'app/views/configure/tournament/tourna
 import { GraphService } from 'app/shared/services/graph.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Logger } from 'app/shared/services/Logger';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-disciplines',
@@ -23,6 +24,7 @@ export class DisciplinesComponent implements OnInit, OnDestroy, OnChanges {
     id,
     name,
     sortOrder,
+    tournamentId,
     judgesPlain{id,name}
   }`;
 
@@ -61,11 +63,8 @@ export class DisciplinesComponent implements OnInit, OnDestroy, OnChanges {
 
   drop(event: CdkDragDrop<IDiscipline[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    setTimeout(() => {
-      // Sometimes dragula is not finished syncing model
-      this.disciplineList.forEach((div, idx) => (div.sortOrder = idx));
-      this.saveDisciplines();
-    });
+    this.disciplineList.forEach((div, idx) => (div.sortOrder = idx));
+    this.saveDisciplines();
   }
 
   ngOnDestroy() {
@@ -93,7 +92,9 @@ export class DisciplinesComponent implements OnInit, OnDestroy, OnChanges {
 
   async saveDisciplines(): Promise<IDiscipline[]> {
     if (this.tournamentId) {
-      this.disciplineList = (await this.graph.saveData('Discipline', this.disciplineList, this.disciplineQuery).toPromise()).saveDisciplines;
+      const disciplineList = this.disciplineList.map(d => CommonService.omit(d, ['judgesPlain']));
+      const result = (await this.graph.saveData('Disciplines', disciplineList, this.disciplineQuery).toPromise());
+      this.disciplineList = result.saveDisciplines;
     }
     this.disciplineListchanged.emit(this.disciplineList);
     return this.disciplineList;

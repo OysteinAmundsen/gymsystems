@@ -6,6 +6,7 @@ import { ConfigurationService } from 'app/shared/services/api';
 import { IDivision, DivisionType } from 'app/model';
 import { TournamentEditorComponent } from 'app/views/configure/tournament/tournament-editor/tournament-editor.component';
 import { GraphService } from 'app/shared/services/graph.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-divisions',
@@ -61,6 +62,21 @@ export class DivisionsComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s ? s.unsubscribe() : null);
+  }
+
+  drop(event: CdkDragDrop<IDivision[]>) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    this.divisions.forEach((div, idx) => (div.sortOrder = idx));
+    this.saveDivisions();
+  }
+
+  async saveDivisions(): Promise<IDivision[]> {
+    if (this.tournamentId) {
+      const result = (await this.graph.saveData('Divisions', this.divisions, DivisionsComponent.divisionsQuery).toPromise());
+      this.divisions = result.saveDivisions;
+    }
+    this.divisionsChanged.emit(this.divisions);
+    return this.divisions;
   }
 
   loadDivisions() {
