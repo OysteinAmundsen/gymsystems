@@ -7,7 +7,7 @@ export interface IScoreGroup {
   id: number;
   name: string;
   type: string;
-  sortOrder: number;
+  sortOrder?: number;
   judges: IJudgeInScoreGroup[];
   judgeCount?: number;
   max: number;

@@ -4,7 +4,11 @@
 <ng-template #tournamentDisplay let-tournament="tournament">
   <header>
     <h1>{{ tournament.name }}</h1>
-    <div><small><i class="fa fa-fw fa-2x fa-calendar-o"></i>{{ getDateSpan(tournament) }}</small></div>
+    <div>
+      <a [href]="getCalendarLink(tournament)" [title]="'Add to calendar' | translate">
+        <small><i class="fa fa-fw fa-2x fa-calendar-o"></i>{{ getDateSpan(tournament) }}</small>
+      </a>
+    </div>
   </header>
 
   <div>

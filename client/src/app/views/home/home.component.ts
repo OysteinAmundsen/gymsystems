@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Title, Meta } from '@angular/platform-browser';
+import { Title, Meta, DomSanitizer } from '@angular/platform-browser';
 
 import { ITournament } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
 import { CommonService } from 'app/shared/services/common.service';
+
+import * as moment from 'moment';
 
 interface TournamentType { name: string; tournaments: ITournament[]; }
 
@@ -47,6 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    private sanitizer: DomSanitizer,
     private graph: GraphService,
     private translate: TranslateService,
     private title: Title,
@@ -82,5 +85,24 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getDateSpan(tournament: ITournament) {
     return CommonService.dateSpan(tournament);
+  }
+
+  getCalendarLink(tournament: ITournament) {
+    const start = moment(tournament.startDate).add(tournament.times[0].time.split(',')[0], 'hours');
+    const end = moment(tournament.endDate).add(tournament.times[tournament.times.length - 1].time.split(',')[1], 'hours');
+    const calendarData = `BEGIN:VCALENDAR\r
+VERSION:2.0\r
+PRODID:-//GymSystems//NONSGML ${tournament.name}//EN\r
+BEGIN:VEVENT\r
+UID:${tournament.id}\r
+DTSTAMP:${moment().utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
+DTSTART:${start.utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
+DTEND:${end.utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
+SUMMARY:${tournament.name}\r
+DESCRIPTION:${tournament.name} - ${tournament.venue.name}
+GEO:${tournament.venue.latitude},${tournament.venue.longitude}\r
+END:VEVENT\r
+END:VCALENDAR`;
+    return this.sanitizer.bypassSecurityTrustUrl(`data:text/calendar,${encodeURIComponent(calendarData)}`);
   }
 }

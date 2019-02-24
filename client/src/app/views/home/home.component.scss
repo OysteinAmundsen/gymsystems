@@ -58,6 +58,9 @@
       margin-top: 0.6rem;
       text-shadow: 0 0 3px black;
       text-align: right;
+      a {
+        color: inherit;
+      }
     }
   }
 }
