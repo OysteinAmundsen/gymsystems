@@ -96,3 +96,4 @@ export class JudgeInScoreGroupService {
       .getMany();
   }
 }
+

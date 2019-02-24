@@ -48,14 +48,16 @@ export class ScoreGroupService {
   async save(scoreGroup: ScoreGroupDto): Promise<ScoreGroup> {
     if (scoreGroup.id) {
       const entity = await this.scoreGroupRepository.findOne({ id: scoreGroup.id }, { relations: ['judges'] });
-      // Update relation
-      this.judgeInScoreGroupService.removeAllFromScoreGroup(scoreGroup.id);
+      if (scoreGroup.judges) {
+        // Update relation only if given entity contains values
+        this.judgeInScoreGroupService.removeAllFromScoreGroup(scoreGroup.id);
+        this.judgeInScoreGroupService.invalidateCache();
+      }
       scoreGroup = Object.assign(entity, scoreGroup);
     }
     const result = await this.scoreGroupRepository.save(<ScoreGroup>scoreGroup);
-    this.invalidateCache();
     if (result) {
-      delete this.localCahcePromise; // Force invalidate cache
+      this.invalidateCache();
       this.pubSub.publish(scoreGroup.id ? 'scoreGroupModified' : 'scoreGroupCreated', { score: result });
     }
     delete result.discipline;

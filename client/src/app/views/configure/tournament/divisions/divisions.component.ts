@@ -66,11 +66,12 @@ export class DivisionsComponent implements OnInit, OnDestroy, OnChanges {
 
   drop(event: CdkDragDrop<IDivision[]>) {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    this.divisions.forEach((div, idx) => (div.sortOrder = idx));
+    event.container.data.forEach((div, idx) => (div.sortOrder = idx));
     this.saveDivisions();
   }
 
   async saveDivisions(): Promise<IDivision[]> {
+    this.divisions = [...this.genderDivisions, ...this.ageDivisions];
     if (this.tournamentId) {
       const result = (await this.graph.saveData('Divisions', this.divisions, DivisionsComponent.divisionsQuery).toPromise());
       this.divisions = result.saveDivisions;

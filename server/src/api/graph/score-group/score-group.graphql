@@ -36,6 +36,7 @@ input ScoreGroupInput {
   max: Int
   min: Int
   disciplineId: ID!
+  sortOrder: Int
   judges: [JudgeInScoreGroupInput]
 }
 

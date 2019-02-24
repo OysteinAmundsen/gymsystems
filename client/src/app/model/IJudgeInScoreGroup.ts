@@ -8,6 +8,7 @@ import { IScoreGroup } from './IScoreGroup';
  * @export
  */
 export interface IJudgeInScoreGroup {
+  scoreGroupId: number;
   scoreGroup: IScoreGroup;
   judge: IJudge;
   sortNumber: number;

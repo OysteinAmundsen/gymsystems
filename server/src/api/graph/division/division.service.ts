@@ -60,8 +60,8 @@ export class DivisionService {
   }
 
   saveAll(divisions: DivisionDto[]): Promise<Division[]> {
-    this.invalidateCache();
     return Promise.all(divisions.map(d => this.save(d))).then(res => {
+      this.invalidateCache();
       return res;
     });
   }
