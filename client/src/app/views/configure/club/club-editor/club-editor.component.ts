@@ -1,15 +1,12 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 import { startCase, lowerCase, } from 'lodash';
 
 import { UserService } from 'app/shared/services/api';
 import { IUser, Role, IClub } from 'app/model';
-import { toUpperCaseTransformer } from 'app/shared/directives';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { GraphService } from 'app/shared/services/graph.service';
 
 @Component({

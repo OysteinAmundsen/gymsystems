@@ -2,15 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 
 import { ValidationService } from 'app/shared/services/validation';
-import { ErrorHandlerService } from 'app/shared/interceptors';
+import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 
 import { IUser, Role } from 'app/model/IUser';
-import { IClub } from 'app/model/IClub';
-import { toUpperCaseTransformer } from 'app/shared/directives';
-import { MatAutocomplete } from '@angular/material';
 import { GraphService } from 'app/shared/services/graph.service';
 import { Meta, Title } from '@angular/platform-browser';
 import { CommonService } from 'app/shared/services/common.service';

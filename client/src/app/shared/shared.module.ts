@@ -10,7 +10,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DialogComponent } from './components/dialog/dialog.component';
 
 // Shared directives
-import { AutofocusDirective } from './directives/autofocus/autofocus.directive';
 import { IfAuthDirective } from './directives/auth/if-auth.directive';
 
 // Shared pipes
@@ -54,7 +53,6 @@ import { MediaControlComponent } from './components/media-control/media-control.
     LoadSpinnerComponent,
 
     ToCaseDirective,
-    AutofocusDirective,
     IfAuthDirective,
 
     OrderByPipe,
@@ -78,7 +76,6 @@ import { MediaControlComponent } from './components/media-control/media-control.
     MediaControlComponent,
 
     ToCaseDirective,
-    AutofocusDirective,
     IfAuthDirective,
 
     OrderByPipe,

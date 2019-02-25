@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { Angulartics2 } from 'angulartics2';
 
 import { UserService } from 'app/shared/services/api';
-import { ErrorHandlerService } from 'app/shared/interceptors';
+import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 import { IUser } from 'app/model';
 
 @Component({

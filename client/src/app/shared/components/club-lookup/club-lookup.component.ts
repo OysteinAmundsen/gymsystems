@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, forwardRef, Input, Optional, Self } from '@angular/core';
-import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Component, OnInit, OnDestroy, forwardRef, Input } from '@angular/core';
+import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
-import { toUpperCaseTransformer } from 'app/shared/directives';
+import { toUpperCaseTransformer } from 'app/shared/directives/to-uppercase/to-uppercase.directive';
 import { GraphService } from 'app/shared/services/graph.service';
 import { IClub } from 'app/model';
 import { MatAutocomplete } from '@angular/material';

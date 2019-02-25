@@ -125,7 +125,7 @@ export class ListComponent implements OnInit, OnDestroy {
   loadData() {
     this.isLoading = true;
     this.graph.getData(`{
-      tournament(id:${this.parent.tournamentId}){id,name,venue{id,name},times{day,time}},
+      tournament(id:${this.parent.tournamentId}){id,name,clubId,venue{id,name},times{day,time}},
       getDisciplines(tournamentId:${this.parent.tournamentId}){id,name,sortOrder}}`).subscribe(
       data => {
         this.tournament = data.tournament;
@@ -270,7 +270,7 @@ export class ListComponent implements OnInit, OnDestroy {
   canEdit(participant: ITeamInDiscipline): boolean {
     return this.user && (!participant || !participant.markDeleted) && participant.scorable && (
       this.user.role >= Role.Admin
-      || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.club.id)
+      || (this.user.role >= Role.Secretariat && +this.user.clubId === +this.tournament.clubId)
     );
   }
 
@@ -280,7 +280,7 @@ export class ListComponent implements OnInit, OnDestroy {
   canViewActions(): boolean {
     return this.user
       && (this.user.role >= Role.Admin
-        || (this.user.role >= Role.Secretariat && this.user.club.id === this.tournament.club.id)
+        || (this.user.role >= Role.Secretariat && +this.user.clubId === +this.tournament.clubId)
       );
   }
 
@@ -397,8 +397,8 @@ export class ListComponent implements OnInit, OnDestroy {
     this.invalidateCache(this.selected);
     const idx = this.schedule.findIndex(s => s.id === this.selected.id);
     if (typeof cmd === 'string') {
-      if (cmd === 'next') { return this.selected = this.next(idx + 1); }
-      if (cmd === 'previous') { return this.selected = this.previous(idx - 1); }
+      if (cmd === 'next') { return this.select(this.next(idx + 1)); }
+      if (cmd === 'previous') { return this.select(this.previous(idx - 1)); }
       if (cmd === 'rollback') {
         this.loadSchedule();
       }
@@ -431,7 +431,7 @@ export class ListComponent implements OnInit, OnDestroy {
    */
   contextInvoked(item: ITeamInDiscipline, rowIndex: number, $event: MouseEvent) {
     if (this.user && (this.user.role >= Role.Admin
-      || (this.user.role >= Role.Organizer && this.user.club.id === this.tournament.club.id))) {
+      || (this.user.role >= Role.Organizer && +this.user.clubId === +this.tournament.clubId))) {
       $event.preventDefault();
       $event.stopPropagation();
 

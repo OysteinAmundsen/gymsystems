@@ -2,8 +2,9 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription, noop } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
-import { HttpStateService, HttpAction } from 'app/shared/interceptors';
+import { HttpStateService } from 'app/shared/interceptors/http-state.service';
 import { HttpMethod } from 'app/shared/interceptors/http-method';
+import { HttpAction } from 'app/shared/interceptors/http-action.model';
 
 @Component({
   selector: 'app-save-button',

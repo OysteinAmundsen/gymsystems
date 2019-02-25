@@ -1,11 +1,11 @@
 import { Injectable, Injector } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpResponse, HttpEvent } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material';
 
-import { throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { throwError, of, Observable } from 'rxjs';
+import { map, catchError, tap } from 'rxjs/operators';
 
 import * as moment from 'moment';
 
@@ -42,7 +42,7 @@ export class AuthInterceptor implements HttpInterceptor {
   /**
    * HttpInterceptor implmentation
    */
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Check token expiration
     const user = this.browser.sessionStorage().getItem('currentUser');
     if (user && this.jwt.isTokenExpired(JSON.parse(user).token)) {
@@ -54,7 +54,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // Execute request
     this.state.notifySubscribers(req);
     return next.handle(req).pipe(
-      map(res => res.type !== 0 ? this.validateResponse(req, <HttpResponse<any>>res) : res),
+      tap(res => res.type !== 0 ? this.validateResponse(req, <HttpResponse<any>>res) : res),
       catchError(err => this.handleError(req, err))
     );
   }
@@ -119,6 +119,7 @@ export class AuthInterceptor implements HttpInterceptor {
    */
   checkError(req: HttpRequest<any>, res: HttpResponse<any>) {
     const body = res.body;
+    if (req.headers.has('noReport') || (req.body && req.body.extensions && req.body.extensions.noReport)) { return; }
     if (res.status >= 400 || (body && body.errors && body.errors.some(e => e.message.statusCode !== 200))) {
       if (res.body && res.body.errors && res.body.errors.length > 0) {
         // GraphQL Error

@@ -30,7 +30,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 
 // Other services
-import { AuthInterceptor } from './shared/interceptors';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
 // Module components
 import { AppComponent } from './app.component';

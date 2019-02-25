@@ -68,7 +68,7 @@
     "rimraf": "^2.6.3",
     "rotating-file-stream": "^1.4.0",
     "rxjs": "^6.4.0",
-    "typeorm": "^0.2.13",
+    "typeorm": "^0.2.14",
     "v8-compile-cache": "^2.0.2",
     "winston": "^3.2.1"
   },

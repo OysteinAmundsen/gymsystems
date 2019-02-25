@@ -4,9 +4,9 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
 
 import { UserService } from 'app/shared/services/api';
-import { IUser, RoleNames, Role, IClub } from 'app/model';
+import { IUser, RoleNames, IClub, Role } from 'app/model';
 import { ValidationService } from 'app/shared/services/validation';
-import { ErrorHandlerService } from 'app/shared/interceptors';
+import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 import { GraphService } from 'app/shared/services/graph.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PasswordComponent } from '../password/password.component';
@@ -17,7 +17,7 @@ import { PasswordComponent } from '../password/password.component';
   styleUrls: ['./user-editor.component.scss']
 })
 export class UserEditorComponent implements OnInit {
-  userQuery = `{id,name,email,role,club{id,name}}`;
+  userQuery = `{id,name,email,role,clubId,club{id,name}}`;
 
   currentUser: IUser;
   userForm: FormGroup;
@@ -43,7 +43,7 @@ export class UserEditorComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.userService.getMe().subscribe(user => this.currentUser = user);
+    this.userService.getMe().subscribe(async user => this.currentUser = user);
 
     // Create the form
     this.userForm = this.fb.group({
@@ -57,7 +57,9 @@ export class UserEditorComponent implements OnInit {
     this.route.params.subscribe((params: any) => {
       if (params.id) {
         this.selectedUserId = params.id;
-        this.graph.getData(`{user(id:${+params.id})${this.userQuery}}`).subscribe(res => this.userReceived(res.user));
+        this.graph.get(`{user(id:${+params.id})${this.userQuery}}`, { context: { headers: { noReport: true } } }).toPromise()
+          .then(res => this.userReceived(res.data.user))
+          .catch(err => this.userReceived(err.data.user));
       } else {
         this.title.setTitle(`GymSystems | Add user`);
         this.meta.updateTag({ property: 'og:title', content: `GymSystems | Add user` });
@@ -72,6 +74,11 @@ export class UserEditorComponent implements OnInit {
   }
 
   userReceived(user: IUser) {
+    if (this.currentUser.role < Role.Admin && (!user || +this.currentUser.clubId !== +user.clubId || +this.currentUser.id !== +user.id)) {
+      this.router.navigate(['../../'], { relativeTo: this.route }); // GET OUT!!
+      return;
+    }
+
     this.user = JSON.parse(JSON.stringify(user)); // Clone user object
     this.title.setTitle(`GymSystems | Configure user: ${this.user.name}`);
     this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure user: ${this.user.name}` });

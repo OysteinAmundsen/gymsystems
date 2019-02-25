@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphService } from 'app/shared/services/graph.service';
 import { ConfigurationService } from 'app/shared/services/api';
 import { IDiscipline } from 'app/model/IDiscipline';
-import { MediaService, Logger } from 'app/shared/services';
+import { Logger } from 'app/shared/services';
 import { IMedia } from 'app/model/IMedia';
 import { ClubEditorComponent } from '../club-editor/club-editor.component';
 import { IClub } from 'app/model/IClub';
@@ -28,7 +27,7 @@ export class MediaComponent implements OnInit {
   }
 
   onMediaChanged(media: IMedia) {
-    console.log(media);
+    Logger.log(media);
     this.disciplines = JSON.parse(JSON.stringify(this.disciplines)); // Force change
   }
 }

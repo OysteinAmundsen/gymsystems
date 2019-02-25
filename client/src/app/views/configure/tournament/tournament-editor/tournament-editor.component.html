@@ -68,7 +68,7 @@
             </app-club-lookup>
           </div>
           <mat-form-field [ngClass]="(user.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12')">
-            <input matInput type="text" formControlName="name" appAutofocus placeholder="{{'Name' | translate}}">
+            <input matInput type="text" formControlName="name" autofocus cdkFocusInitial placeholder="{{'Name' | translate}}">
             <app-help-block>
               <p translate>Make sure the name for this tournament is descriptive, and unique. I.e. "Norwegian championship 2017".</p>
             </app-help-block>

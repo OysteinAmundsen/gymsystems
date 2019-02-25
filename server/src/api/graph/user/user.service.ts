@@ -53,8 +53,7 @@ export class UserService {
 
   findByClubId(id: number): Promise<User[]> {
     return this.userRepository.find({
-      where: { clubId: id },
-      cache: Config.QueryCache
+      where: { clubId: id }
     });
   }
   findByClub(club: Club): Promise<User[]> {
@@ -117,7 +116,7 @@ export class UserService {
         throw new BadRequestException('A Club is required');
       }
     } else {
-      const entity = await this.findOneById(user.id);
+      const entity = await this.userRepository.findOne({ where: { id: user.id } });
       user = Object.assign(entity, user);
     }
 

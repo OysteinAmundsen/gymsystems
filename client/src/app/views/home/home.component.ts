@@ -94,13 +94,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 VERSION:2.0\r
 PRODID:-//GymSystems//NONSGML ${tournament.name}//EN\r
 BEGIN:VEVENT\r
-UID:${tournament.id}\r
-DTSTAMP:${moment().utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
 DTSTART:${start.utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
 DTEND:${end.utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
-SUMMARY:${tournament.name}\r
-DESCRIPTION:${tournament.name} - ${tournament.venue.name}
+DTSTAMP:${moment().utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
+UID:${CommonService.makeId(58)}@gymsystems.org\r
+CREATED:${moment().utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
+DESCRIPTION:${tournament.name} - ${tournament.venue.name}\r
+LAST-MODIFIED:${moment().utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
+LOCATION:${tournament.venue.address}\r
 GEO:${tournament.venue.latitude},${tournament.venue.longitude}\r
+SEQUENCE:0\r
+STATUS:CONFIRMED\r
+SUMMARY:🤸🏻‍♀️${tournament.name}\r
+TRANSP:OPAQUE\r
 END:VEVENT\r
 END:VCALENDAR`;
     return this.sanitizer.bypassSecurityTrustUrl(`data:text/calendar,${encodeURIComponent(calendarData)}`);

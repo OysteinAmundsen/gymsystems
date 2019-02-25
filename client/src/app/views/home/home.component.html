@@ -5,7 +5,7 @@
   <header>
     <h1>{{ tournament.name }}</h1>
     <div>
-      <a [href]="getCalendarLink(tournament)" [title]="'Add to calendar' | translate">
+      <a [href]="getCalendarLink(tournament)" download="{{tournament.name}}.ics" [title]="'Add to calendar' | translate">
         <small><i class="fa fa-fw fa-2x fa-calendar-o"></i>{{ getDateSpan(tournament) }}</small>
       </a>
     </div>

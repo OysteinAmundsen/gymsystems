@@ -15,7 +15,7 @@
       <section class="gymnast-data">
         <div class="row">
           <mat-form-field class="col-6">
-            <input matInput type="text" formControlName="name" placeholder="{{'Name' | translate}}" appAutofocus>
+            <input matInput type="text" formControlName="name" placeholder="{{'Name' | translate}}" autofocus cdkFocusInitial>
           </mat-form-field>
           <mat-form-field class="col-4">
             <input matInput type="number" formControlName="birthYear" placeholder="{{'Birth year' | translate}}" [min]="minYear" [max]="maxYear" minlength="4"

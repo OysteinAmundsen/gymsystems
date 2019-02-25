@@ -4,6 +4,9 @@
 
 :host {
   cursor: auto;
+  position: absolute;
+  left: 16px;
+  right: 16px;
   &:hover table[role="list"] tbody[role="listitem"] td {
     cursor: auto;
     background: transparent !important;

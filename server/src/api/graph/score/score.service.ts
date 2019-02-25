@@ -40,7 +40,6 @@ export class ScoreService {
         const result = await this.scoreRepository.save(<Score>score);
         if (result) {
           this.pubSub.publish(result.id ? 'scoreModified' : 'scoreCreated', { score: result });
-          this.pubSub.publish('teamInDisciplineModified', { teamInDiscipline: score.participantId });
         }
         delete result.participant;
         delete result.scoreGroup;
@@ -50,6 +49,7 @@ export class ScoreService {
       }
     })).then(() => {
       this.invalidateCache();
+      this.pubSub.publish('teamInDisciplineModified', { teamInDiscipline: scores[0].participantId });
       return results;
     });
   }
@@ -85,7 +85,7 @@ export class ScoreService {
     if (this.localCahcePromise['p' + id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
       this.localCahcePromise['p' + id] = this.scoreRepository
-        .find({ where: { participantId: id }, cache: Config.QueryCache, order: { scoreGroupId: 'ASC', judgeIndex: 'ASC' } })
+        .find({ where: { participantId: id }, order: { scoreGroupId: 'ASC', judgeIndex: 'ASC' } })
         .then(score => this.localCache['p' + id] = score);
     }
     return this.localCahcePromise['p' + id];

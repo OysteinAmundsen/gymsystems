@@ -12,7 +12,7 @@
     <mat-card-content>
       <div class="row">
         <mat-form-field [ngClass]="(userForm.value.id !== currentUser.id ? 'col-xs-8' : 'col-xs-12') + ' help-available'">
-          <input matInput type="text" autocomplete="username" formControlName="name" appAutofocus placeholder="{{'Name' | translate}}">
+          <input matInput type="text" autocomplete="username" formControlName="name" autofocus cdkFocusInitial placeholder="{{'Name' | translate}}">
           <app-help-block>
             <p translate>The name you want to use for logging in to your account</p>
           </app-help-block>

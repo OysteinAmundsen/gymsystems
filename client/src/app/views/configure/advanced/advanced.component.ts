@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfigurationService } from 'app/shared/services/api';
 import { IConfiguration } from 'app/model';
 import { HttpClient } from '@angular/common/http';
+import { BrowserService } from 'app/shared/browser.service';
 
 @Component({
   selector: 'app-advanced',
@@ -29,7 +30,7 @@ export class AdvancedComponent implements OnInit {
     return this.configuration ? Object.keys(this.defaultValues) : null;
   }
 
-  constructor(private config: ConfigurationService, private fb: FormBuilder, private title: Title, private meta: Meta, private http: HttpClient) { }
+  constructor(private browser: BrowserService, private config: ConfigurationService, private fb: FormBuilder, private title: Title, private meta: Meta, private http: HttpClient) { }
 
   ngOnInit() {
     // SEO
@@ -83,8 +84,8 @@ export class AdvancedComponent implements OnInit {
   backup() {
     this.http.get('/api/administration/backup', { responseType: 'arraybuffer' }).subscribe(res => {
       const blob = new Blob([res], { type: '' });
-      const url = window.URL.createObjectURL(blob);
-      const pwa = window.open(url);
+      const url = this.browser.window().URL.createObjectURL(blob);
+      const pwa = this.browser.window().open(url);
       if (!pwa || pwa.closed || typeof pwa.closed === 'undefined') {
         alert('Please disable your Pop-up blocker and try again.');
       }

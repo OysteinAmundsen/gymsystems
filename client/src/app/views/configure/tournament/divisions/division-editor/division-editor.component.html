@@ -3,7 +3,7 @@
     <mat-card-content>
       <div class="row">
         <mat-form-field [className]="!divisionForm.value.type || divisionForm.value.id == null ? 'col-6' : 'col-12'">
-          <input matInput type="text" formControlName="name" placeholder="{{'Name' | translate}}" appAutofocus>
+          <input matInput type="text" formControlName="name" placeholder="{{'Name' | translate}}" autofocus cdkFocusInitial>
         </mat-form-field>
         <mat-form-field *ngIf="!divisionForm.value.type || divisionForm.value.id == null" class="col-6">
           <mat-select formControlName="type" placeholder="{{'Type' | translate}}">

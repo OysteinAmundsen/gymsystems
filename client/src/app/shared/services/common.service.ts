@@ -9,6 +9,15 @@ export class CommonService {
 
   constructor() { }
 
+  static makeId(len: number) {
+    let text = "";
+    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (let i = 0; i < len; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  }
+
   static omit(obj, properties: string[]) {
     return Object.keys(obj)
       .filter(k => !properties.includes(k))

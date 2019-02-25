@@ -5,9 +5,9 @@
 
 <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="center"></mat-progress-spinner>
 
-<mat-card [ngClass]="{isSecond: user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.club.id))}">
+<mat-card [ngClass]="{isSecond: user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.clubId == tournament?.clubId))}">
   <mat-card-header class="form horizontal flex screen-only">
-    <mat-form-field *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.club.id === tournament.club.id))">
+    <mat-form-field *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.clubId == tournament?.clubId))">
       <mat-placeholder for="filter"><i class="fa fa-fw fa-filter"></i><span translate>Choose discipline:</span></mat-placeholder>
       <mat-select id="filter" name="filter" [(ngModel)]="selectedDiscipline">
         <mat-option [value]="null" translate>No filter</mat-option>

@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Guards
 import { Role } from 'app/model/IUser';
-import { RoleGuard } from 'app/shared/guards';
+import { RoleGuard } from 'app/shared/guards/role-guard';
 
 // Child routes
 import { VenueRoutes } from './venue/venue.routes';
@@ -17,14 +17,15 @@ import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
 
 const routes: Routes = [
-  { path: '', component: ConfigureComponent, children: [
-      { path: '', redirectTo: 'tournament', pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club} },
+  {
+    path: '', component: ConfigureComponent, children: [
+      { path: '', redirectTo: 'tournament', pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club } },
       ...VenueRoutes,
       ...TournamentRoutes,
       ...ClubRoutes,
       ...UserRoutes,
       ...AdvancedRoutes,
-      { path: 'display', component: ConfigureDisplayComponent, canActivate: [RoleGuard], data: { role: Role.Admin} },
+      { path: 'display', component: ConfigureDisplayComponent, canActivate: [RoleGuard], data: { role: Role.Admin } },
     ]
   }
 ];
