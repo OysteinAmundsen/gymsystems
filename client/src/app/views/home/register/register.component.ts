@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 
-import { ValidationService } from 'app/shared/services/validation';
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 
 import { IUser, Role } from 'app/model/IUser';
@@ -47,7 +46,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({
       id: [null],
       name: ['', [Validators.required]],
-      email: ['', [Validators.required, ValidationService.emailValidator]],
+      email: ['', [Validators.required, Validators.email]],
       role: [Role.Club, [Validators.required]],
       club: [null, [Validators.required]],
       password: ['', [Validators.required]],

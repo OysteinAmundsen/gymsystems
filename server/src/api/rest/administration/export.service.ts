@@ -7,7 +7,6 @@ import * as ormData from 'api/../../ormconfig.js';
 export interface ExportOptions {
   data: any;
   fields?: string[];
-  name: string;
 }
 
 export const exportDelimeter = ';';
@@ -49,14 +48,5 @@ export class ExportService {
     // Write data to client
     const parser = new Parser({ fields, delimiter: exportDelimeter });
     return parser.parse(data);
-    // try {
-    //   res.charset = 'utf-8';
-    //   res.status(200)
-    //     .attachment(`${opt.name}.export_${now.format('YYYY.MM.DD')}.csv`)
-    //     .contentType('text/csv')
-    //     .send(parser.parse(data));
-    // } catch (err) {
-    //   Log.log.error(err);
-    // }
   }
 }

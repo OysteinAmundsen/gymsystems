@@ -1,4 +1,4 @@
-import { UseGuards, Inject, ForbiddenException, UnauthorizedException } from '@nestjs/common';
+import { UseGuards, Inject, ForbiddenException, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription, ResolveProperty } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 
@@ -70,13 +70,22 @@ export class UserResolver {
   @UseGuards(RoleGuard())
   async changePassword(@Args('old') oldPassword: string, @Args('password') password: string): Promise<boolean> {
     const me = this.userService.getAuthenticatedUser();
-    if (!me) { throw new UnauthorizedException(); }
+    if (!me) { throw new UnauthorizedException('You must log on to change password'); }
 
     const user = await this.userService.findOneById(me.id);
     if (this.userService.isPasswordCorrect(user, oldPassword)) {
-      return this.userService.changePassword(password);
+      return this.userService.changePassword(me, password);
     }
     return false;
+  }
+
+  @Mutation('resetPassword')
+  @UseGuards()
+  async resetPassword(@Args('username') username: string, @Args('email') email: string): Promise<boolean> {
+    const user = await (username ? this.userService.findOneByUsername(username) : this.userService.findOneByEmail(email));
+    if (!user) { throw new BadRequestException(`No user found with ${username ? 'username ' + username : 'email: ' + email}`); }
+
+    return this.userService.changePassword(user, this.userService.makeId(8));
   }
 
   @Mutation('saveUser')

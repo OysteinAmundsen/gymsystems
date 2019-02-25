@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { IVenue } from 'app/model';
 import { TranslateService } from '@ngx-translate/core';
-import { ValidationService } from 'app/shared/services/validation';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { GraphService } from '../../../../shared/services/graph.service';
@@ -72,7 +71,7 @@ export class VenueEditorComponent implements OnInit {
       latitude: [{ value: 0.0, disabled: true }, [Validators.required]],
       contact: ['', [Validators.required]],
       contactPhone: ['', [Validators.required, Validators.minLength(8)]],
-      contactEmail: ['', [Validators.required, ValidationService.emailValidator]],
+      contactEmail: ['', [Validators.required, Validators.email]],
       capacity: [0, []],
       rentalCost: [0, []],
     });

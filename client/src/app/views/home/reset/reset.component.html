@@ -1,0 +1,36 @@
+<div class="fixed-back"></div>
+
+<form class="panel" [formGroup]="form" (ngSubmit)="reset()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h3 translate>Reset password</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p translate>Enter what you recall of your account. We need at least one of...</p>
+      <div class="row">
+        <mat-form-field class="col-xs-12">
+          <input matInput type="text" formControlName="username" placeholder="{{'Username' | translate}}" autofocus cdkFocusInitial autocomplete="username"
+                 [errorStateMatcher]="matcher()" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-xs-12">
+          <input matInput type="email" #pwd formControlName="email" placeholder="{{'Email' | translate}}" autocomplete="email"
+                 [errorStateMatcher]="matcher()" />
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button class="mat-primary" type="submit" [title]="'Reset' | translate" [disabled]="form.invalid || form.pristine"
+              aria-label="Reset password">
+        <i class="fa fa-fw fa-sign-in"></i> <span translate>Reset</span>
+      </button>
+      <a mat-raised-button [title]="'Login' | translate" [routerLink]="['/login']" aria-label="Go to login">
+        <i class="fa fa-fw fa-sign-in"></i>
+        <span translate>Back to login</span>
+      </a>
+    </mat-card-actions>
+  </mat-card>
+</form>

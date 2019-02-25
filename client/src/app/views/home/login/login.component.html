@@ -19,10 +19,12 @@
       </div>
     </fieldset>
     <footer>
-      <button mat-raised-button class="mat-primary" type="submit" [title]="'Login' | translate" [disabled]="loginForm.invalid || loginForm.pristine"
-              aria-label="Login">
+      <button mat-raised-button class="mat-primary" type="submit" [disabled]="loginForm.invalid || loginForm.pristine" aria-label="Login">
         <i class="fa fa-fw fa-sign-in"></i> <span translate>Login</span>
       </button>
+      <a mat-button [routerLink]="['/reset']" type="submit" aria-label="Forgot password">
+        <i class="fa fa-fw fa-envelope"></i> <span translate>Forgot password</span>
+      </a>
     </footer>
   </section>
 
@@ -36,7 +38,7 @@
       </span>
     </div>
     <footer>
-      <a mat-button [title]="'Register' | translate" [routerLink]="['../register']" aria-label="Register new user">
+      <a mat-button [title]="'Register' | translate" [routerLink]="['/register']" aria-label="Register new user">
         <i class="fa fa-fw fa-user-plus"></i> <span translate>Register</span></a>
     </footer>
   </section>

@@ -9,6 +9,7 @@ import { TournamentModule } from '../tournament/tournament.module';
 import { UserModule } from '../user/user.module';
 import { GymnastModule } from '../gymnast/gymnast.module';
 import { Log } from '../../common/util/logger/log';
+import { ClubController } from './club.controller';
 
 
 @Module({
@@ -22,7 +23,8 @@ import { Log } from '../../common/util/logger/log';
   ],
   // controllers: [ClubController],
   providers: [ClubResolver, ClubService],
-  exports: [ClubService]
+  exports: [ClubService],
+  controllers: [ClubController]
 })
 export class ClubModule {
   constructor() {

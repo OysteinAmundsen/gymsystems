@@ -1,6 +1,5 @@
-<mat-table #table [dataSource]="memberSource"
-           matSort (matSortChange)="memberSource.sortData($event)"
-           [matSortActive]="sortColumn" [matSortDirection]="sortDirection">
+<mat-table #table [dataSource]="memberSource" matSort (matSortChange)="memberSource.sortData($event)" [matSortActive]="sortColumn"
+           [matSortDirection]="sortDirection">
 
   <!-- Checked -->
   <ng-container matColumnDef="selector">
@@ -31,20 +30,18 @@
   </ng-container>
 
   <ng-container matColumnDef="teams">
-      <mat-header-cell *matHeaderCellDef [mat-sort-header]="[countTeams, this]">{{'Teams' | translate}}</mat-header-cell>
-      <mat-cell *matCellDef="let member">{{ countTeams(member) }}</mat-cell>
-    </ng-container>
+    <mat-header-cell *matHeaderCellDef [mat-sort-header]="[countTeams, this]">{{'Teams' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member">{{ countTeams(member) }}</mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="allergies">
-      <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-wide">{{'Allergies' | translate}}</mat-header-cell>
-      <mat-cell *matCellDef="let member" class="visible-wide">{{ member.allergies }}</mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="allergies">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-wide">{{'Allergies' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member" class="visible-wide">{{ member.allergies }}</mat-cell>
+  </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let member; columns: displayedColumns; let index=index" matRipple #dataRow
-          (press)="onPress($event)"
-          [routerLink]="['.', member.id]"
-          [ngClass]="{'male': member.gender == genders.Male, 'female': member.gender == genders.Female, collapsed: selected == member}"></mat-row>
+  <mat-row *matRowDef="let member; columns: displayedColumns; let index=index" matRipple #dataRow (press)="onPress($event)" [routerLink]="['.', member.id]"
+           [ngClass]="{'male': member.gender == genders.Male, 'female': member.gender == genders.Female, collapsed: selected == member}"></mat-row>
 </mat-table>
 
 <button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()" aria-label="Add">
@@ -56,18 +53,21 @@
   <i class="fa fa-fw fa-upload"></i>
   <span translate>Import Members</span>
 </a>
-<a mat-raised-button href="/api/clubs/{{ club.id }}/export-members" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0" [title]="'Export' | translate" aria-label="Export members">
+<a mat-raised-button (click)="exportMembers($event)" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0"
+   [title]="'Export' | translate" aria-label="Export members">
   <i class="fa fa-fw fa-download"></i>
   <span translate>Export Members</span>
 </a>
 <ng-container *ngIf="!selectMode">
-  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete all' | translate" (click)="deleteAll()" *appIfAuth="'Admin'" aria-label="Delete all members">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete all' | translate" (click)="deleteAll()" *appIfAuth="'Admin'"
+          aria-label="Delete all members">
     <i class="fa fa-fw fa-trash"></i>
     <span translate>Delete all</span>
   </button>
 </ng-container>
 <ng-container *ngIf="selectMode">
-  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteSelected()" *appIfAuth="'Organizer'" aria-label="Delete selected member">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteSelected()"
+          *appIfAuth="'Organizer'" aria-label="Delete selected member">
     <i class="fa fa-fw fa-trash"></i>
     <span translate>Delete selected</span>
   </button>

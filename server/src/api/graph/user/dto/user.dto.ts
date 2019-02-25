@@ -11,6 +11,9 @@ export class UserDto {
   @IsNotEmpty()
   name: string;
 
+  @ApiModelProperty({ description: 'The Users password' })
+  password?: string; // Should only be present if this is a user creation
+
   @ApiModelProperty({ description: 'The Users email address', example: 'user@mail.com' })
   @IsEmail()
   email?: string;

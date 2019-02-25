@@ -41,6 +41,7 @@ import { RegisterComponent } from './views/home/register/register.component';
 import { IUser } from './model/IUser';
 import { GraphQLModule } from './graphql.module';
 import { BrowserService } from './shared/browser.service';
+import { ResetComponent } from './views/home/reset/reset.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -68,7 +69,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     HomeComponent,
     LoginComponent,
     LogoutComponent,
-    RegisterComponent
+    RegisterComponent,
+    ResetComponent
   ],
   imports: [
     // Framework modules

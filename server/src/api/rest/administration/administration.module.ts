@@ -17,7 +17,7 @@ import { Log } from '../../common/util/logger/log';
     AdministrationController
   ],
   providers: [ExportService, ImportService, ConfigurationService],
-  exports: [ConfigurationService]
+  exports: [ConfigurationService, ExportService]
 })
 export class AdministrationModule {
   constructor() {

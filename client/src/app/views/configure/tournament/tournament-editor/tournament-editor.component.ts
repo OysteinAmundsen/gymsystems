@@ -39,6 +39,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     banquetCostPerHead,
     times{day,time},
     createdBy{id,name},
+    clubId,
     club{id,name},
     venue{id,name}
   }`;
@@ -75,7 +76,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   }
 
   get canEdit() {
-    return (this.user.role >= Role.Admin || (this.user.role >= Role.Organizer && this.tournament.club.id === this.user.clubId));
+    return (this.user.role >= Role.Admin || (this.user.role >= Role.Organizer && +this.tournament.club.id === +this.user.clubId));
     // && this.tournament.createdBy.id === this.user.id);
   }
 

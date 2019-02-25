@@ -73,6 +73,6 @@ export class Media {
 
   @ApiModelProperty({ description: `The reference to the club this media is uploaded by` })
   @ManyToOne(type => Club, club => club.media, { nullable: false/*, lazy: true*/ })
-  @JoinColumn({ name: 'tournamentId' })
+  @JoinColumn({ name: 'clubId' })
   club: Club
 }

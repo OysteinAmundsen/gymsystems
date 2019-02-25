@@ -5,7 +5,6 @@ import { Title, Meta } from '@angular/platform-browser';
 
 import { UserService } from 'app/shared/services/api';
 import { IUser, RoleNames, IClub, Role } from 'app/model';
-import { ValidationService } from 'app/shared/services/validation';
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 import { GraphService } from 'app/shared/services/graph.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
@@ -50,7 +49,7 @@ export class UserEditorComponent implements OnInit {
       id: [null],
       name: ['', [Validators.required]],
       role: [Role.User, [Validators.required]],
-      email: ['', [Validators.required, ValidationService.emailValidator]],
+      email: ['', [Validators.required, Validators.email]],
       club: [null, []],
     });
 
@@ -127,7 +126,11 @@ export class UserEditorComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['../'], { relativeTo: this.route }).then(success => {
+      if (!success) {
+        this.router.navigate(['../../'], { relativeTo: this.route });
+      }
+    });
   }
 
   @HostListener('keyup', ['$event'])

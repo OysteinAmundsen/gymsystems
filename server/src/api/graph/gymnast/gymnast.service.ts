@@ -38,6 +38,10 @@ export class GymnastService {
     return result;
   }
 
+  saveAll(members: Gymnast[]): Promise<Gymnast[]> {
+    return Promise.all(members.map(m => this.save(<GymnastDto>m)));
+  }
+
   /**
    *
    * @param id The id of the gymnast to remove

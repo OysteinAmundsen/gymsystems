@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MemberStateService } from 'app/views/configure/club/members/member-state.service';
 import { GraphService } from 'app/shared/services/graph.service';
 import { UserService } from 'app/shared/services/api/user/user.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-members',
@@ -50,6 +51,7 @@ export class MembersComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private parent: ClubEditorComponent,
     private graph: GraphService,
+    private http: HttpClient,
     private translate: TranslateService) { }
 
 
@@ -106,6 +108,10 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   importMember($event) {
+    if ($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+    }
     const fileList: FileList = (<HTMLInputElement>event.target).files;
     if (fileList.length) {
       // this.clubService.importMembers(fileList[0], this.club).subscribe(
@@ -113,6 +119,16 @@ export class MembersComponent implements OnInit, OnDestroy {
       //   error => Logger.error(error)
       // );
     }
+  }
+
+  exportMembers($event) {
+    if ($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+    }
+    // this.http.get(`/api/club/{{ club.id }}/export-members`).subscribe(res => {
+
+    // });
   }
 
   async onPress($event) {
