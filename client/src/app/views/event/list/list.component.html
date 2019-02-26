@@ -42,7 +42,8 @@
                        deleted     : item.markDeleted,
                        isStarted   : item.startTime,
                        unimportant : item.type === types.Training,
-                       isCurrent   : item.startTime && !item.endTime && !item.publishTime
+                       isCurrent   : item.startTime && !item.endTime && !item.publishTime,
+                       isNext      : canStart(item, i)
                       }">
 
       <!-- View details wide screen -->
