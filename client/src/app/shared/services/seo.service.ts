@@ -8,10 +8,19 @@ export class SEOService {
   constructor(private title: Title, private meta: Meta, @Inject(DOCUMENT) private dom: Document) { }
 
   setTitle(str: string, desc?: string) {
-    this.createCanonicalURL();
     const title = `GymSystems${str.length ? ' | ' + str : ''}`;
+
+    // Set title
     this.title.setTitle(title);
+    this.meta.updateTag({ property: 'twitter:card', content: 'summary' });
+    this.meta.updateTag({ property: 'twitter:site', content: 'www.gymsystems.org' });
     this.meta.updateTag({ property: 'og:title', content: title });
+
+    // Set url
+    const url = this.createCanonicalURL();
+    this.meta.updateTag({ property: 'og:url', content: url });
+
+    // Set description
     if (desc) {
       this.meta.updateTag({ property: 'og:description', content: desc });
       this.meta.updateTag({ property: 'Description', content: desc });
@@ -19,11 +28,12 @@ export class SEOService {
   }
 
   createCanonicalURL(url?: string) {
-    const canURL = !!url ? this.dom.URL : url;
+    const canURL = !!url ? url : this.dom.URL;
     const link: HTMLLinkElement = this.dom.querySelector('link[rel="canonical"]') || this.dom.createElement('link');
     link.setAttribute('rel', 'canonical');
-    this.dom.head.appendChild(link);
     link.setAttribute('href', canURL);
+    this.dom.head.appendChild(link);
+    return canURL;
   }
 
 }
