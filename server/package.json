@@ -15,10 +15,10 @@
     "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
-    "test:debug": "NODE_ENV=test node --inspect ../node_modules/jest/bin/jest.js --watch",
-    "test:watch": "NODE_ENV=test jest --watch",
-    "test:cov": "NODE_ENV=test jest --coverage",
-    "test:e2e": "NODE_ENV=test jest --config ./test/jest-e2e.json",
+    "test:debug": "env NODE_ENV=test node --inspect ../node_modules/jest/bin/jest.js --watch",
+    "test:watch": "env NODE_ENV=test jest --watch",
+    "test:cov": "env NODE_ENV=test jest --coverage",
+    "test:e2e": "env NODE_ENV=test jest --config ./test/jest-e2e.json",
     "migration": "ts-node typeorm migration:run"
   },
   "repository": {

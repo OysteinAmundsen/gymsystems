@@ -10,7 +10,7 @@ import { TroopsComponent } from "./troops.component";
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { MatTableModule } from '@angular/material';
-import { IfAuthDirective } from 'app/shared/directives';
+import { IfAuthDirective } from 'app/shared/directives/auth/if-auth.directive';
 import { Router } from '@angular/router';
 
 describe("views.configure.club:TroopsComponent", () => {

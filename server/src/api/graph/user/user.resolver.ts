@@ -66,6 +66,15 @@ export class UserResolver {
     return user.club;
   }
 
+  @Mutation('activate')
+  @UseGuards(RoleGuard(Role.Club))
+  async activateUser(@Args('id') userId: number): Promise<User> {
+    const user = await this.userService.findOneById(userId);
+    ClubService.enforceSame(user.clubId);
+    user.activated = true;
+    return this.save(user);
+  }
+
   @Mutation('changePassword')
   @UseGuards(RoleGuard())
   async changePassword(@Args('old') oldPassword: string, @Args('password') password: string): Promise<boolean> {

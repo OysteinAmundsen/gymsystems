@@ -5,7 +5,7 @@ import { Angulartics2GoogleAnalytics } from "angulartics2/ga";
 import { UserService } from "./shared/services/api";
 import { SwUpdate } from "@angular/service-worker";
 import { AppComponent } from "./app.component";
-import { IfAuthDirective } from './shared/directives';
+import { IfAuthDirective } from './shared/directives/auth/if-auth.directive';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

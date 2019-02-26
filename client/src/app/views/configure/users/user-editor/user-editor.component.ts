@@ -16,7 +16,7 @@ import { PasswordComponent } from '../password/password.component';
   styleUrls: ['./user-editor.component.scss']
 })
 export class UserEditorComponent implements OnInit {
-  userQuery = `{id,name,email,role,clubId,club{id,name}}`;
+  userQuery = `{id,name,email,role,activated,clubId,club{id,name}}`;
 
   currentUser: IUser;
   userForm: FormGroup;
@@ -42,8 +42,6 @@ export class UserEditorComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.userService.getMe().subscribe(async user => this.currentUser = user);
-
     // Create the form
     this.userForm = this.fb.group({
       id: [null],
@@ -51,7 +49,10 @@ export class UserEditorComponent implements OnInit {
       role: [Role.User, [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       club: [null, []],
+      activated: [true, []]
     });
+
+    this.userService.getMe().subscribe(async user => this.currentUser = user);
 
     this.route.params.subscribe((params: any) => {
       if (params.id) {
@@ -64,6 +65,10 @@ export class UserEditorComponent implements OnInit {
         this.meta.updateTag({ property: 'og:title', content: `GymSystems | Add user` });
         this.meta.updateTag({ property: 'og:description', content: `Creating a new user in the system` });
         this.meta.updateTag({ property: 'Description', content: `Creating a new user in the system` });
+
+        if (this.currentUser.club) {
+          this.userForm.get('club').setValue(this.currentUser.club);
+        }
       }
     });
   }
@@ -88,7 +93,8 @@ export class UserEditorComponent implements OnInit {
       name: this.user.name,
       role: this.user.role,
       email: this.user.email || '',
-      club: this.user.club || null
+      club: this.user.club || null,
+      activated: !!this.user.activated
     });
   }
 
@@ -101,7 +107,7 @@ export class UserEditorComponent implements OnInit {
   async save() {
     const formVal = this.userForm.value;
 
-    // If no club, just copy our own
+    // If no club is set, just copy our own
     formVal.club = formVal.club || this.currentUser.club;
 
     // Make sure you don't degrade yourself
@@ -114,6 +120,11 @@ export class UserEditorComponent implements OnInit {
     this.graph.saveData('User', formVal, this.userQuery).subscribe(result => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
+  }
+
+  toggleActive() {
+    this.userForm.get('activated').setValue(!this.userForm.value.activated);
+    this.userForm.markAsDirty();
   }
 
   delete() {

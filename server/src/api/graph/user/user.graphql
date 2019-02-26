@@ -5,9 +5,10 @@ type Query {
 }
 
 type Mutation {
+  saveUser(input: UserInput): IUser
+  activate(id: ID): IUser
   changePassword(old: String, password: String): Boolean
   resetPassword(username: String, email: String): Boolean
-  saveUser(input: UserInput): IUser
   deleteUser(id: ID): Boolean
 }
 
@@ -21,8 +22,9 @@ type IUser {
   id: ID!
   name: String
   email: String
-  # password: String
+  password: String
   role: Int
+  activated: Boolean
   tournaments: [ITournament]
   venues: [IVenue]
   clubId: ID
@@ -35,6 +37,7 @@ input UserInput {
   email: String
   password: String
   role: Int
+  activated: Boolean
   club: IDDependencyInput
   tournaments: [IDDependencyInput]
   venues: [IDDependencyInput]

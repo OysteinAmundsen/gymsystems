@@ -80,4 +80,8 @@ export class User implements BelongsToClub {
 
   @Column('int', { nullable: true })
   clubId: number;
+
+  @ApiModelProperty({ description: 'The activation status of this user. Any user registerred needs to be confirmed by a club representative before being activated.' })
+  @Column('boolean', { default: false })
+  activated: boolean
 }

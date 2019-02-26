@@ -7,7 +7,7 @@ import { HomeComponent } from "./home.component";
 import { RouterTestingModule } from '@angular/router/testing';
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe';
 import { of } from 'rxjs';
-import { IfAuthDirective } from 'app/shared/directives';
+import { IfAuthDirective } from 'app/shared/directives/auth/if-auth.directive';
 import * as moment from 'moment';
 import { CommonService } from 'app/shared/services/common.service';
 

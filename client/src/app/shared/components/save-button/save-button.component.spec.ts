@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed, fakeAsync, flush } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from "@ngx-translate/core";
-import { HttpStateService, HttpAction, HttpMethod } from "app/shared/interceptors";
+import { HttpStateService } from "app/shared/interceptors/http-state.service";
+import { HttpMethod } from 'app/shared/interceptors/http-method';
 import { SaveButtonComponent } from "./save-button.component";
-import { of, ReplaySubject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 describe("shared.components:SaveButtonComponent", () => {
   let component: SaveButtonComponent;

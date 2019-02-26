@@ -6,11 +6,12 @@ import { LoginComponent } from './views/home/login/login.component';
 import { LogoutComponent } from './views/home/logout/logout.component';
 import { RegisterComponent } from './views/home/register/register.component';
 import { ResetComponent } from './views/home/reset/reset.component';
+import { CanActivateRegistration } from './views/home/register/registration-activation.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [CanActivateRegistration] },
   { path: 'reset', component: ResetComponent },
   { path: 'logout', component: LogoutComponent },
 

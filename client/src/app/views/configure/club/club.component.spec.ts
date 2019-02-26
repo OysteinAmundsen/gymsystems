@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 import { Role, IUser } from 'app/model';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material';
-import { IfAuthDirective } from 'app/shared/directives';
+import { IfAuthDirective } from 'app/shared/directives/auth/if-auth.directive';
 import { Router } from '@angular/router';
 
 describe("views.configure.club:ClubComponent", () => {

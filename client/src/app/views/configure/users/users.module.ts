@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
   MatSortModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule,
-  MatOptionModule, MatAutocompleteModule, MatButtonModule, MatTableModule, MatDialogModule
+  MatOptionModule, MatAutocompleteModule, MatButtonModule, MatTableModule, MatDialogModule, MatSlideToggleModule
 } from '@angular/material';
 
 import { SharedModule } from 'app/shared/shared.module';
@@ -28,6 +28,7 @@ import { PasswordComponent } from './password/password.component';
     MatButtonModule,
     MatTableModule,
     MatDialogModule,
+    MatSlideToggleModule,
 
     SharedModule
   ],

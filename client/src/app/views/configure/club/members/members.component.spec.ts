@@ -7,12 +7,13 @@ import { MembersComponent } from "./members.component";
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { MatTableModule } from '@angular/material';
-import { IfAuthDirective } from 'app/shared/directives';
+import { IfAuthDirective } from 'app/shared/directives/auth/if-auth.directive';
 import { ClubEditorComponent } from '../club-editor/club-editor.component';
 import { UserService } from 'app/shared/services/api';
 import { MemberStateService } from './member-state.service';
 import { GraphService } from 'app/shared/services/graph.service';
 import { Router } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe("views.configure.club:MembersComponent", () => {
   let component: MembersComponent;
@@ -34,6 +35,7 @@ describe("views.configure.club:MembersComponent", () => {
       imports: [
         MatTableModule,
         RouterTestingModule,
+        HttpClientTestingModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
       ],
       declarations: [MembersComponent, IfAuthDirective],

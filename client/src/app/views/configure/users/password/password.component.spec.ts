@@ -5,7 +5,7 @@ import { GraphService } from "app/shared/services/graph.service";
 import { MatDialogRef, MatFormFieldModule, MatInputModule } from "@angular/material";
 import { PasswordComponent } from "./password.component";
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
-import { HelpBlockComponent } from 'app/shared/components';
+import { HelpBlockComponent } from 'app/shared/components/help-block/help-block.component';
 import { of } from 'rxjs';
 
 describe("PasswordComponent", () => {
