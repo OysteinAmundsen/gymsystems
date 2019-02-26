@@ -1,7 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Title, Meta } from '@angular/platform-browser';
 
 import { UserService } from 'app/shared/services/api';
 import { IUser, RoleNames, IClub, Role } from 'app/model';
@@ -9,6 +8,7 @@ import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.servi
 import { GraphService } from 'app/shared/services/graph.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PasswordComponent } from '../password/password.component';
+import { SEOService } from 'app/shared/services/seo.service';
 
 @Component({
   selector: 'app-user-editor',
@@ -36,8 +36,7 @@ export class UserEditorComponent implements OnInit {
     private router: Router,
     private graph: GraphService,
     private userService: UserService,
-    private title: Title,
-    private meta: Meta,
+    private meta: SEOService,
     private errorHandler: ErrorHandlerService,
     private dialog: MatDialog) { }
 
@@ -61,10 +60,7 @@ export class UserEditorComponent implements OnInit {
           .then(res => this.userReceived(res.data.user))
           .catch(err => this.userReceived(err.data.user));
       } else {
-        this.title.setTitle(`GymSystems | Add user`);
-        this.meta.updateTag({ property: 'og:title', content: `GymSystems | Add user` });
-        this.meta.updateTag({ property: 'og:description', content: `Creating a new user in the system` });
-        this.meta.updateTag({ property: 'Description', content: `Creating a new user in the system` });
+        this.meta.setTitle(`Add user`, `Creating a new user in the system`);
 
         if (this.currentUser.club) {
           this.userForm.get('club').setValue(this.currentUser.club);
@@ -84,10 +80,7 @@ export class UserEditorComponent implements OnInit {
     }
 
     this.user = JSON.parse(JSON.stringify(user)); // Clone user object
-    this.title.setTitle(`GymSystems | Configure user: ${this.user.name}`);
-    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure user: ${this.user.name}` });
-    this.meta.updateTag({ property: 'og:description', content: `Editing user` });
-    this.meta.updateTag({ property: 'Description', content: `Editing user` });
+    this.meta.setTitle(`Configure user: ${this.user.name}`, `Editing user`);
     this.userForm.setValue({
       id: this.user.id,
       name: this.user.name,

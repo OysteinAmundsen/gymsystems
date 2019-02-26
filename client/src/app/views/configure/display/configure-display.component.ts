@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Title, Meta } from '@angular/platform-browser';
 
 import { ConfigurationService, DisplayService } from 'app/shared/services/api';
 import { ITournament } from '../../../model';
 import { MatSelectChange } from '@angular/material';
 import { GraphService } from 'app/shared/services/graph.service';
+import { SEOService } from 'app/shared/services/seo.service';
 
 @Component({
   selector: 'app-configure-display',
@@ -22,15 +22,11 @@ export class ConfigureDisplayComponent implements OnInit {
     private config: ConfigurationService,
     private graph: GraphService,
     private displayService: DisplayService,
-    private title: Title,
-    private meta: Meta
+    private seo: SEOService
   ) { }
 
   ngOnInit() {
-    this.title.setTitle('GymSystems | Configure display');
-    this.meta.updateTag({ property: 'og:title', content: 'GymSystems | Configure display' });
-    this.meta.updateTag({ property: 'og:description', content: 'Configuring global display settings' });
-    this.meta.updateTag({ property: 'Description', content: 'Configuring global display settings' });
+    this.seo.setTitle('Configure display', 'Configuring global display settings');
 
     this.config.getByname('display').subscribe((res: any) => this.configReceived(res));
     this.graph.getData(`{

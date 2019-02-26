@@ -1,12 +1,12 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Title, Meta } from '@angular/platform-browser';
 import { Subscription, BehaviorSubject } from 'rxjs';
 
 import { UserService } from 'app/shared/services/api';
 import { IClub, IUser, Role } from 'app/model';
 import { SubjectSource } from 'app/shared/services/subject-source';
 import { GraphService } from 'app/shared/services/graph.service';
+import { SEOService } from 'app/shared/services/seo.service';
 
 @Component({
   selector: 'app-club',
@@ -24,15 +24,11 @@ export class ClubComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private title: Title,
-    private meta: Meta
+    private seo: SEOService
   ) { }
 
   ngOnInit() {
-    this.title.setTitle('GymSystems | Configure clubs');
-    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure clubs` });
-    this.meta.updateTag({ property: 'og:description', content: `List out all clubs registerred in the system` });
-    this.meta.updateTag({ property: 'Description', content: `List out all clubs registerred in the system` });
+    this.seo.setTitle('Configure clubs', 'List out all clubs registerred in the system');
     this.userService.getMe().subscribe(user => {
       this.user = user;
       if (this.user && this.user.role >= Role.Admin) {

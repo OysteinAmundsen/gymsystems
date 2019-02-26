@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Title, Meta, DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { ITournament } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
 import { CommonService } from 'app/shared/services/common.service';
 
 import * as moment from 'moment';
+import { SEOService } from 'app/shared/services/seo.service';
 
 interface TournamentType { name: string; tournaments: ITournament[]; }
 
@@ -52,16 +53,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private graph: GraphService,
     private translate: TranslateService,
-    private title: Title,
-    private meta: Meta
+    private seo: SEOService
   ) { }
 
   ngOnInit() {
     // Page meta tags
-    this.title.setTitle('GymSystems');
-    this.meta.updateTag({ property: 'og:title', content: `GymSystems` });
-    this.meta.updateTag({ property: 'og:description', content: `A complete web based system for managing the secretariat for Team Gymnastic sports.` });
-    this.meta.updateTag({ property: 'Description', content: `A complete web based system for managing the secretariat for Team Gymnastic sports.` });
+    this.seo.setTitle('', `A complete web based system for managing the secretariat for Team Gymnastic sports.`);
 
     // Make sure texts exists and are translated
     this.translate.get(['Future', 'Past']).subscribe();

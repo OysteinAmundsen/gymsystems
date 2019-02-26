@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, HostListener, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, HostListener, ElementRef, AfterViewInit, Inject } from '@angular/core';
 import { ITeamInDiscipline, IUser, Role, IScore, Operation, IScoreGroup, Classes } from 'app/model';
 import { ScoreContainer } from 'app/views/event/list/IScoreContainer';
 import { Subscription } from 'rxjs';
@@ -8,6 +8,7 @@ import { UserService } from 'app/shared/services/api';
 import { GraphService } from 'app/shared/services/graph.service';
 import { BrowserService } from 'app/shared/browser.service';
 import { CommonService } from 'app/shared/services/common.service';
+import { DOCUMENT } from '@angular/common';
 
 /**
  *
@@ -45,7 +46,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
     private elm: ElementRef,
     private graph: GraphService,
     private userService: UserService,
-    private browser: BrowserService
+    @Inject(DOCUMENT) private dom
   ) { }
 
   /**
@@ -84,10 +85,10 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     const rect: DOMRect = this.elm.nativeElement.getBoundingClientRect();
-    if (rect.top > this.browser.document().documentElement.clientHeight || rect.top < 180) {
-      this.browser.document().documentElement.scrollTo({
+    if (rect.top > this.dom.documentElement.clientHeight || rect.top < 180) {
+      this.dom.documentElement.scrollTo({
         left: 0,
-        top: this.browser.document().documentElement.scrollTop + (rect.y - (this.browser.document().documentElement.clientHeight / 2)),
+        top: this.dom.documentElement.scrollTop + (rect.y - (this.dom.documentElement.clientHeight / 2)),
         behavior: 'smooth'
       });
     }

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Title, Meta } from '@angular/platform-browser';
 
 import { UserService } from 'app/shared/services/api';
 import { Angulartics2 } from 'angulartics2';
 import { BrowserService } from 'app/shared/browser.service';
+import { SEOService } from 'app/shared/services/seo.service';
 
 @Component({
   selector: 'app-logout',
@@ -16,15 +16,11 @@ export class LogoutComponent {
   constructor(
     private router: Router,
     private userService: UserService,
-    private title: Title,
-    private meta: Meta,
+    private seo: SEOService,
     private angulartics: Angulartics2,
     private browser: BrowserService
   ) {
-    this.title.setTitle('GymSystems | Logout');
-    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Logout` });
-    this.meta.updateTag({ property: 'og:description', content: `Loging out of GymSystems` });
-    this.meta.updateTag({ property: 'Description', content: `Loging out of GymSystems` });
+    this.seo.setTitle('Logout', `Logging out of GymSystems`);
     this.angulartics.eventTrack.next(
       {
         action: 'logout', properties: {

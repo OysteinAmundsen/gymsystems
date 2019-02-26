@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Title, Meta } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 import { Angulartics2 } from 'angulartics2';
@@ -9,6 +8,7 @@ import { Angulartics2 } from 'angulartics2';
 import { UserService } from 'app/shared/services/api';
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 import { IUser } from 'app/model';
+import { SEOService } from 'app/shared/services/seo.service';
 
 @Component({
   selector: 'app-login',
@@ -29,18 +29,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
-    private title: Title,
     private errorHandler: ErrorHandlerService,
-    private meta: Meta,
+    private meta: SEOService,
     private angulartics: Angulartics2
-  ) {
-    this.title.setTitle('GymSystems | Login');
-    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Login` });
-    this.meta.updateTag({ property: 'og:description', content: `Login to increase your privileges in the system` });
-    this.meta.updateTag({ property: 'Description', content: `Login to increase your privileges in the system` });
-  }
+  ) { }
 
   ngOnInit() {
+    this.meta.setTitle('Login', `Login to increase your privileges in the system`);
     const me = this;
     me.loginForm = me.fb.group({
       username: ['', [Validators.required]],

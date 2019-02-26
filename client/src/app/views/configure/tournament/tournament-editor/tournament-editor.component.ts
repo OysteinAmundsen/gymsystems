@@ -3,7 +3,6 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
-import { Title, Meta } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDatepickerInput, MatAutocomplete } from '@angular/material';
 
@@ -12,9 +11,9 @@ import * as moment from 'moment';
 import { UserService } from 'app/shared/services/api';
 import { ITournament, IUser, Role, IVenue } from 'app/model';
 
-import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 import { GraphService } from 'app/shared/services/graph.service';
 import { CommonService } from 'app/shared/services/common.service';
+import { SEOService } from 'app/shared/services/seo.service';
 
 @Component({
   selector: 'app-tournament-editor',
@@ -93,10 +92,8 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private graph: GraphService,
     private userService: UserService,
-    private error: ErrorHandlerService,
     private translate: TranslateService,
-    private title: Title,
-    private meta: Meta
+    private meta: SEOService
   ) { }
 
   ngOnInit() {
@@ -167,10 +164,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   }
 
   tournamentReceived(tournament) {
-    this.title.setTitle(`GymSystems | Configure tournament: ${tournament.name}`);
-    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure tournament: ${tournament.name}` });
-    this.meta.updateTag({ property: 'og:description', content: `Configure tournament settings and contenders for ${tournament.name}` });
-    this.meta.updateTag({ property: 'Description', content: `Configure tournament settings and contenders for ${tournament.name}` });
+    this.meta.setTitle(`Configure tournament: ${tournament.name}`, `Configure tournament settings and contenders for ${tournament.name}`);
 
     if (this.tournamentForm) {
       // If not, this component is probably terminated before callback is called.

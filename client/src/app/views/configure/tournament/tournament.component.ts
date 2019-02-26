@@ -1,12 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Title, Meta } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 
 import { UserService } from 'app/shared/services/api';
 import { ITournament, Role } from 'app/model';
 import { SubjectSource } from 'app/shared/services/subject-source';
 import { GraphService } from 'app/shared/services/graph.service';
+import { SEOService } from 'app/shared/services/seo.service';
 
 @Component({
   selector: 'app-tournament',
@@ -22,15 +22,11 @@ export class TournamentComponent implements OnInit {
     private route: ActivatedRoute,
     private graph: GraphService,
     private userService: UserService,
-    private title: Title,
-    private meta: Meta
+    private seo: SEOService
   ) { }
 
   ngOnInit() {
-    this.title.setTitle('GymSystems | Configure tournaments');
-    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Configure tournaments` });
-    this.meta.updateTag({ property: 'og:description', content: `List all tournaments registerred` });
-    this.meta.updateTag({ property: 'Description', content: `List all tournaments registerred` });
+    this.seo.setTitle(`Configure tournaments`, `List all tournaments registerred`);
 
     this.userService.getMe().subscribe(me => me && me.role >= Role.Admin ? this.displayColumns.push('createdBy') : null);
     this.graph.getData(`{

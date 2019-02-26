@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { Title, Meta } from '@angular/platform-browser';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { ConfigurationService } from 'app/shared/services/api';
 import { IConfiguration } from 'app/model';
 import { HttpClient } from '@angular/common/http';
 import { BrowserService } from 'app/shared/browser.service';
+import { SEOService } from 'app/shared/services/seo.service';
 
 @Component({
   selector: 'app-advanced',
@@ -30,14 +30,11 @@ export class AdvancedComponent implements OnInit {
     return this.configuration ? Object.keys(this.defaultValues) : null;
   }
 
-  constructor(private browser: BrowserService, private config: ConfigurationService, private fb: FormBuilder, private title: Title, private meta: Meta, private http: HttpClient) { }
+  constructor(private browser: BrowserService, private config: ConfigurationService, private fb: FormBuilder, private seo: SEOService, private http: HttpClient) { }
 
   ngOnInit() {
     // SEO
-    this.title.setTitle('GymSystems | Advanced configuration');
-    this.meta.updateTag({ property: 'og:title', content: 'GymSystems | Advanced configuration' });
-    this.meta.updateTag({ property: 'og:description', content: 'Configuring advanced system properties' });
-    this.meta.updateTag({ property: 'Description', content: 'Configuring advanced system properties' });
+    this.seo.setTitle('Advanced configuration', 'Configuring advanced system properties');
 
     this.isLoading = true;
     this.configForm = this.fb.group({

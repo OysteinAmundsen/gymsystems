@@ -7,10 +7,10 @@ import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.servi
 
 import { IUser, Role } from 'app/model/IUser';
 import { GraphService } from 'app/shared/services/graph.service';
-import { Meta, Title } from '@angular/platform-browser';
 import { CommonService } from 'app/shared/services/common.service';
+import { SEOService } from 'app/shared/services/seo.service';
 
-enum Type {
+export enum Type {
   Organizer = 0 + Role.Organizer, Club = 0 + Role.Club
 }
 
@@ -29,20 +29,16 @@ export class RegisterComponent implements OnInit {
   type = Type;
 
   constructor(
-    private title: Title,
-    private meta: Meta,
+    private seo: SEOService,
     private fb: FormBuilder,
     private router: Router,
     private graph: GraphService,
     private errorHandler: ErrorHandlerService,
-    private translate: TranslateService) {
-    this.title.setTitle('GymSystems | Register');
-    this.meta.updateTag({ property: 'og:title', content: `GymSystems | Register` });
-    this.meta.updateTag({ property: 'og:description', content: `Register to gain access to the system` });
-    this.meta.updateTag({ property: 'Description', content: `Register to gain access to the system` });
-  }
+    private translate: TranslateService) { }
 
   ngOnInit() {
+    this.seo.setTitle('Register', `Register to gain access to the system`);
+
     this.registerForm = this.fb.group({
       id: [null],
       name: ['', [Validators.required]],
