@@ -31,7 +31,7 @@ export class EventComponent implements OnInit, OnDestroy {
       const id = this.tournamentId = +params.id;
       this.graph.getData(`{tournament(id:${id})${this.query}}`).subscribe((data) => {
         this.tournament = data.tournament;
-        this.seo.setTitle(`GymSystems | ${this.tournament.name}`, `${this.tournament.description_en}`);
+        this.seo.setTitle(this.tournament.name, this.tournament.description_en);
       });
     }));
   }

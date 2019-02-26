@@ -24,8 +24,9 @@ export function createApollo(httpLink: HttpBatchLink) {
 
   // Create the websocket for subscriptions
   // This replaces ServerSentEvents as biderctional comm
+  const wsProtocol = location.protocol.replace('http', 'ws');
   const wsClient = new WebSocketLink({
-    uri: `ws://localhost:3000${graphqlSubUri}`, // Should be able to run on same endpoint
+    uri: `${wsProtocol}//${location.host}${graphqlSubUri}`, // Should be able to run on same endpoint
     options: {
       reconnect: true,
     },
