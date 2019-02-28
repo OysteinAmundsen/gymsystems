@@ -30,7 +30,7 @@
             <input matInput #startNo type="number" [value]="item.startNumber + 1" (blur)="editChanged(item, startNo.value)">
           </mat-form-field>
         </td>
-        <td class="visible-wide" [innerHtml]="startTime(item)"></td>
+        <td class="visible-wide" [innerHtml]="startTime(item) | date:'HH:mm'"></td>
         <td>
           <span>{{ item.team.name }}</span>
           <div class="visible-lt-medium"><span>{{ item.divisionName }}</span></div>

@@ -88,21 +88,32 @@ export class HomeComponent implements OnInit, OnDestroy {
     const start = moment(tournament.startDate).add(tournament.times[0].time.split(',')[0], 'hours');
     const end = moment(tournament.endDate).add(tournament.times[tournament.times.length - 1].time.split(',')[1], 'hours');
     const calendarData = `BEGIN:VCALENDAR\r
+PRODID:-//www.gymsystems.org//iCalendar MIMEDIR//EN\r
 VERSION:2.0\r
-PRODID:-//GymSystems//NONSGML ${tournament.name}//EN\r
+METHOD:REQUEST\r
 BEGIN:VEVENT\r
-DTSTART:${start.utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
-DTEND:${end.utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
+UID:RFCALITEMGYM${tournament.id}\r
+SEQUENCE:${tournament.id}\r
 DTSTAMP:${moment().utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
-UID:${CommonService.makeId(58)}@gymsystems.org\r
-CREATED:${moment().utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
-DESCRIPTION:${tournament.name} - ${tournament.venue.name}\r
-LAST-MODIFIED:${moment().utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
+ORGANIZER:noreply@gymsystems.org\r
+DTSTART:${start.utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
+\r
+DTEND:${end.utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
+\r
 LOCATION:${tournament.venue.address}\r
 GEO:${tournament.venue.latitude},${tournament.venue.longitude}\r
-SEQUENCE:0\r
-STATUS:CONFIRMED\r
+\r
+DESCRIPTION:🤸🏻‍♀️${tournament.name} - ${tournament.venue.name}\r
+\r
 SUMMARY:🤸🏻‍♀️${tournament.name}\r
+\r
+CATEGORIES:Appointment\r
+\r
+\r
+PRIORITY:5\r
+\r
+CLASS:PUBLIC\r
+\r
 TRANSP:OPAQUE\r
 END:VEVENT\r
 END:VCALENDAR`;

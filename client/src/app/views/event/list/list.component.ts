@@ -147,7 +147,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.graph.getData(`{getSchedule(tournamentId:${this.parent.tournamentId})${this.scheduleQuery}}`)
       .subscribe(
         data => {
-          const schedule = this.scheduleService.recalculateStartTime(this.tournament, data.getSchedule, false);
+          const schedule = data.getSchedule;
           this.isLoading = false;
           this.hasTraining = schedule.filter(s => s.type === ParticipationType.Training).length > 0;
 
@@ -185,65 +185,24 @@ export class ListComponent implements OnInit, OnDestroy {
    */
   private invalidateCache(participant?: ITeamInDiscipline) {
     if (participant) {
-      delete this._cache[this.getCacheKey(participant)];
+      delete participant.calculatedStartTime;
     } else {
-      this._cache = {};
+      this.schedule.forEach(s => this.invalidateCache(s));
     }
   }
 
   /**
    *
    */
-  private cache(participant: ITeamInDiscipline, cacheObj?: {}): ParticipantCache {
-    const key = this.getCacheKey(participant);
-    let cache = this._cache[key];
-    if (!cache) { cache = this._cache[key] = <ParticipantCache>{}; }
-
-    if (cacheObj) {
-      cache = this._cache[key] = Object.assign(cache, cacheObj);
-    }
-    return cache;
-  }
-
-  /**
-   *
-   */
-  startTime(participant: ITeamInDiscipline): string {
-    let timeCache = this.cache(participant);
-    if (participant.markDeleted) {
-      return '';
-    }
-    if (!timeCache.time) {
-      if (participant.startTime) {
-        timeCache = this.cache(participant, { time: moment(participant.startTime).format('HH:mm') });
-      } else {
-        timeCache = this.cache(participant, { time: this.scheduleService.startTime(this.tournament, participant) });
-      }
-    }
-    return timeCache.time;
-  }
-
-  /**
-   *
-   */
-  startDate(participant: ITeamInDiscipline): string {
-    let dateCache = this.cache(participant);
-    if (!dateCache.date) {
-      const time: moment.Moment = this.scheduleService.calculateStartTime(this.tournament, participant);
-      dateCache = this.cache(participant, { date: (time ? time.format('ddd') : '') });
-    }
-    return dateCache.date;
+  startTime(participant: ITeamInDiscipline): Date {
+    return this.scheduleService.startTime(this.tournament, participant, this.schedule);
   }
 
   /**
    *
    */
   isNewDay(participant: ITeamInDiscipline): boolean {
-    let dayCache = this.cache(participant);
-    if (dayCache.isNewDay == null) {
-      dayCache = this.cache(participant, { isNewDay: this.scheduleService.isNewDay(this.tournament, this.schedule, participant) });
-    }
-    return dayCache.isNewDay;
+    return this.scheduleService.isNewDay(this.tournament, participant, this.schedule);
   }
 
   /**

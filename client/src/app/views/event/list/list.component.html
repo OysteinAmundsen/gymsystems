@@ -50,7 +50,7 @@
       <tr *ngIf="selected !== item && isVisible(item)" (click)="select(item)">
         <td class="start-no" *ngIf="item.type === participationTypes.Training"></td>
         <td class="start-no" *ngIf="item.type === participationTypes.Live">#{{ item.startNumber + 1 }}</td>
-        <td class="visible-medium start-time" [innerHtml]="startTime(item)"></td>
+        <td class="visible-medium start-time" [innerHtml]="startTime(item) | date:'HH:mm'"></td>
         <td class="team">{{ item.team.name }}</td>
         <td class="visible-medium division"><b *ngIf="item.team.class === classes.TeamGym && item.type === types.Live">TG:
           </b>{{
@@ -80,7 +80,7 @@
 
       <!-- View details narrow screen -->
       <tr *ngIf="selected !== item && isVisible(item)" (click)="select(item)" class="visible-narrow screen-only details">
-        <td>{{ startTime(item) }}</td>
+        <td>{{ startTime(item) | date:'HH:mm' }}</td>
         <td>
           <small class="nowrap">
             <i class="square screen-only" [attr.discipline]="item.disciplineSortOrder"></i>
@@ -100,9 +100,9 @@
       </tr>
 
       <!-- Day divider -->
-      <tr *ngIf="isNewDay(item)">
+      <tr *ngIf="isNewDay(schedule[i + 1])">
         <td colspan="7" class="day-split">
-          {{ startDate(schedule[i+1]) | translate }}
+          {{ startTime(schedule[i + 1]) | date:'ddd' }}
         </td>
       </tr>
     </tbody>

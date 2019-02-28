@@ -16,6 +16,7 @@ import { Gymnast } from '../gymnast/gymnast.model';
 export interface TimeSpan {
   day: number;
   time: string;
+  train: string;
 }
 
 /**

@@ -17,7 +17,7 @@ export interface ITournament extends IBelongsToClub, ICreatedBy {
   description_en: string;
   startDate: number;
   endDate: number;
-  times: { day: number, time: string }[];
+  times: { day: number, time: string, train: string }[];
   venue: IVenue;
   venueId: number;
   scheduleCount: number;

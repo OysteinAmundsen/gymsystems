@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import * as moment from 'moment';
 
@@ -16,7 +15,7 @@ export class ScheduleService {
   trainingTime: number;
 
 
-  constructor(private http: HttpClient, private configService: ConfigurationService) {
+  constructor(private configService: ConfigurationService) {
     this.configService.getByname('scheduleExecutionTime').subscribe(exec => this.executionTime = +exec.value);
     this.configService.getByname('scheduleTrainingTime').subscribe(exec => this.trainingTime = +exec.value);
   }
@@ -24,116 +23,51 @@ export class ScheduleService {
   /**
    *
    */
-  stop(participant: ITeamInDiscipline) {
-    return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/stop`, {});
-  }
+  startTime(tournament: ITournament, participant: ITeamInDiscipline, schedule: ITeamInDiscipline[]): Date {
+    // Check if we allready have a time to return
+    if (participant.startTime) { return participant.startTime; }
+    if (participant.calculatedStartTime) { return participant.calculatedStartTime.toDate(); }
 
-  /**
-   *
-   */
-  publish(participant: ITeamInDiscipline) {
-    return this.http.post<ITeamInDiscipline>(`${this.url}/${participant.id}/publish`, {});
-  }
+    // Calculate start time for this participant
+    const type = participant.type === ParticipationType.Training && tournament.times[0].train ? 'train' : 'time';
+    const startTime = moment(tournament.startDate).hour(+tournament.times[0][type].split(',')[0]).minute(0);
+    const idx = schedule.findIndex(s => s.id === participant.id);
+    const lastTime = idx === 0 || schedule[idx - 1].type !== participant.type ? null : (schedule[idx - 1].startTime ? schedule[idx - 1].startTime : schedule[idx - 1].calculatedStartTime);
+    const addTime = (participant.type === ParticipationType.Live ? this.executionTime : this.trainingTime);
+    const nextTime = lastTime ? moment(lastTime).clone().add(addTime, 'minutes') : startTime;
 
-  /**
-   *
-   */
-  startTime(tournament: ITournament, participant: ITeamInDiscipline): string {
-    const time: moment.Moment = (participant.calculatedStartTime)
-      ? participant.calculatedStartTime
-      : this.calculateStartTime(tournament, participant);
-
-    if (time) { return time.format('HH:mm'); }
-    return '<span class="warning">ERR</span>';
-  }
-
-  /**
-   *
-   */
-  isNewDay(tournament: ITournament, schedule: ITeamInDiscipline[], participant: ITeamInDiscipline): boolean {
-    const next = schedule.find(s => s.sortNumber === participant.sortNumber + 1);
-    if (next) {
-      const thisTime = (participant.calculatedStartTime
-        ? participant.calculatedStartTime.clone()
-        : this.calculateStartTime(tournament, participant));
-      const nextTime = (next.calculatedStartTime
-        ? next.calculatedStartTime.clone()
-        : this.calculateStartTime(tournament, next));
-
-      if (thisTime && nextTime) {
-        const difference = moment.duration(nextTime.startOf('day').diff(thisTime.startOf('day'))).asDays();
-        return (difference >= 1);
+    // Usually this is enough, but we have to check if this tournament spans more days and set time appropriately.
+    if (tournament.times.length > 1) {
+      const currentDay = this.getTournamentDay(tournament, nextTime);
+      const endTime = moment(tournament.startDate).hour(+tournament.times[currentDay][type].split(',')[1]);
+      if (nextTime.diff(endTime, 'minutes') > 0) {
+        // We have exceeded the timeslots for this day. Move on to next day.
+        nextTime.add(1, 'day').hour(+tournament.times[this.getTournamentDay(tournament, nextTime) + 1][type].split(',')[0]).minute(0);
       }
+    }
+
+    // Return calculated starttime
+    participant.calculatedStartTime = nextTime;
+    return participant.calculatedStartTime.toDate();
+  }
+
+  getTournamentDay(tournament: ITournament, nextTime: moment.Moment): number {
+    if (tournament.times.length === 1) { return 0; }
+    const startTime = moment(tournament.startDate).hour(+tournament.times[0].time.split(',')[0]);
+    return nextTime.diff(startTime, 'days');
+  }
+
+  /**
+   *
+   */
+  isNewDay(tournament: ITournament, participant: ITeamInDiscipline, schedule: ITeamInDiscipline[]): boolean {
+    if (tournament.times.length > 1) {
+      const nextTime = moment(this.startTime(tournament, participant, schedule));
+      const currentDay = this.getTournamentDay(tournament, nextTime);
+      const endTime = moment(tournament.startDate).hour(+tournament.times[currentDay].time.split(',')[1]);
+      return nextTime.diff(endTime, 'minutes') > 0;
     }
     return false;
-  }
-
-  /**
-   *
-   */
-  calculateStartTime(tournament: ITournament, participant: ITeamInDiscipline): moment.Moment {
-    let time: moment.Moment;
-    let day = 0;
-    let participantsPast = 0;
-    for (day = 0; day < tournament.times.length; day++) { // Calculate day
-      const timesForDay = tournament.times.find(t => t.day === day);
-      const timesMoment = moment(tournament.startDate).startOf('day').utc().add(day, 'days');
-      const startHour = timesMoment.clone().hour(+timesForDay.time.split(',')[0]);
-      const endHour = timesMoment.clone().hour(+timesForDay.time.split(',')[1]);
-      time = startHour.clone().add(this.executionTime * (participant.sortNumber - participantsPast), 'minutes');
-      if (time.isBefore(endHour)) {
-        return time.utc();
-      }
-      participantsPast += moment.duration(endHour.diff(startHour)).asMinutes() / this.executionTime;
-    }
-    Logger.error(`No timeslots left in tournament for participant with start number ${participant.startNumber}`);
-    return null;
-  }
-
-  /**
-   *
-   */
-  recalculateStartTime(tournament: ITournament, schedule: ITeamInDiscipline[], resetSort = true, resetStart = false): ITeamInDiscipline[] {
-    let startNo = 0;
-    const live = schedule.filter(s => s.type === ParticipationType.Live);
-    live.forEach(s => {
-      if (resetSort || !s.sortNumber) { s.sortNumber = startNo++; }
-      if (resetStart || !s.startNumber) { s.startNumber = s.sortNumber; }
-      s.calculatedStartTime = this.calculateStartTime(tournament, s);
-    });
-
-    let time: moment.Moment;
-    startNo = -1;
-    let training = schedule.filter(s => s.type === ParticipationType.Training);
-    training = training.reverse();
-    const startDate = moment(tournament.startDate).startOf('day').utc();
-    for (let day = 0; day < tournament.times.length; day++) {
-      const timesForDay = tournament.times.find(t => t.day === day);
-      const timesMoment = startDate.clone().add(day, 'days');
-      const startHour = timesMoment.clone().hour(+timesForDay.time.split(',')[0]).subtract(10, 'minutes');
-      const trainingDay = training.filter(t => {
-        const livePerformance = schedule.find(l => CommonService.stringHash(t, ParticipationType.Live) === CommonService.stringHash(l));
-        if (livePerformance) {
-          return livePerformance.calculatedStartTime.isSame(timesMoment, 'day');
-        } else {
-          return false;
-        }
-      });
-      trainingDay.forEach((s, idx) => {
-        time = startHour.clone().subtract(this.trainingTime * (idx), 'minutes');
-        if (resetSort) { s.sortNumber = startNo--; }
-        if (resetStart) { s.startNumber = s.sortNumber; }
-        s.calculatedStartTime = time.utc();
-      });
-    }
-
-    return training.concat(live).sort((a, b) => {
-      // Interleave training and live performances for each day of the tournament.
-      if (a.calculatedStartTime == null || b.calculatedStartTime == null) {
-        return 0;
-      }
-      return a.calculatedStartTime.isBefore(b.calculatedStartTime) ? -1 : 1;
-    });
   }
 }
 

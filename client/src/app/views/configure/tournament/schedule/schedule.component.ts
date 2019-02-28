@@ -82,7 +82,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.schedule, event.previousIndex, event.currentIndex);
-    this.schedule = this.scheduleService.recalculateStartTime(this.parent.tournament, this.schedule, true, !this.parent.hasStarted);
+    this.recalculateStartTime();
     this.isDirty = true;
   }
 
@@ -147,8 +147,16 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     } else {
       const hash = this.stringHash(participant);
       this.schedule.splice(this.schedule.findIndex(s => this.stringHash(s) === hash), 1);
-      this.schedule = this.scheduleService.recalculateStartTime(this.parent.tournament, this.schedule, true, !this.parent.hasStarted);
+      this.recalculateStartTime();
     }
+  }
+
+  recalculateStartTime() {
+    this.schedule.forEach((s, idx) => {
+      s.sortNumber = idx;
+      if (!this.parent.hasStarted) { s.startNumber = idx; }
+      delete s.calculatedStartTime;
+    });
   }
 
   /**
@@ -189,7 +197,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   editChanged(item: ITeamInDiscipline, startNo: number) {
     this.setEdit(null);
     this.schedule.splice(startNo - 1, 0, this.schedule.splice(this.schedule.findIndex(i => i.id === item.id), 1)[0]);
-    this.scheduleService.recalculateStartTime(this.parent.tournament, this.schedule, true, true);
+    this.recalculateStartTime();
     this.isDirty = true;
   }
 
@@ -215,7 +223,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    */
   startTime(participant: ITeamInDiscipline) {
     if (!this.parent.tournament.id) { return false; }
-    return this.scheduleService.startTime(this.parent.tournament, participant);
+    return this.scheduleService.startTime(this.parent.tournament, participant, this.schedule);
   }
 
   /**
@@ -223,7 +231,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    */
   isNewDay(participant: ITeamInDiscipline) {
     if (!this.parent.tournament.id) { return false; }
-    return this.scheduleService.isNewDay(this.parent.tournament, this.schedule, participant);
+    return this.scheduleService.isNewDay(this.parent.tournament, participant, this.schedule);
   }
 
   /**
@@ -245,7 +253,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    */
   calculateSchedule() {
     this.schedule = this.schedule.concat(this.sortSchedule(this.calculateMissing()));
-    this.scheduleService.recalculateStartTime(this.parent.tournament, this.schedule, true, !this.parent.hasStarted);
+    this.recalculateStartTime();
   }
 
   /**
