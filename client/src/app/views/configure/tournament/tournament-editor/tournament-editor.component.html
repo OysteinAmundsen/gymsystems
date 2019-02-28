@@ -125,6 +125,8 @@
         <div class="row start-stop" *ngFor="let obj of selectedDays; let i = index">
           <label>{{ getTimeRangeDay(obj.day) | translate }}</label>
           <app-multirange [name]="getTimeRangeDay(obj.day)" min="0" max="24" [value]="obj.time" (valueChanges)="timeRangeChange($event, obj)"></app-multirange>
+          <!-- <app-multirange [name]="getTimeRangeDay(obj.day)" min="0" max="24" [value]="obj.train" (valueChanges)="trainRangeChange($event, obj)"> -->
+          </app-multirange>
         </div>
       </fieldset>
 

@@ -54,6 +54,14 @@
   display: flex;
   align-items: center;
 }
+tr, tbody {
+  &.cdk-drag-preview {
+    display: table;
+    td {
+      padding: 12px;
+    }
+  }
+}
 
 .cdk-drag-placeholder {
   opacity: 0;

@@ -10,6 +10,7 @@ import { ICreatedBy } from './ICreatedBy';
 import { IVenue } from './IVenue';
 import { IGymnast } from 'app/model';
 
+export interface ITournamentTimes { day: number, time: string, train: string }
 export interface ITournament extends IBelongsToClub, ICreatedBy {
   id: number;
   name: string;
@@ -17,7 +18,7 @@ export interface ITournament extends IBelongsToClub, ICreatedBy {
   description_en: string;
   startDate: number;
   endDate: number;
-  times: { day: number, time: string, train: string }[];
+  times: ITournamentTimes[];
   venue: IVenue;
   venueId: number;
   scheduleCount: number;

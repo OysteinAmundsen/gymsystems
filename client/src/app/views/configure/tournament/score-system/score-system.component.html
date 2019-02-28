@@ -9,7 +9,7 @@
         <th translate>Min</th>
       </tr>
     </thead>
-    <tbody *ngFor="let score of scoreGroupList | orderBy: 'sortOrder'" class="drag-box" cdkDrag cdkDragLockAxis="y">
+    <tbody *ngFor="let score of scoreGroupList | orderBy: 'sortOrder'" class="drag-box" cdkDrag cdkDragLockAxis="y" [cdkDragDisabled]="score === selected">
       <tr *ngIf="score !== selected" (click)="select(score)" role="listitem">
         <td>{{ score.name }}</td>
         <td>{{ score.type}}</td>

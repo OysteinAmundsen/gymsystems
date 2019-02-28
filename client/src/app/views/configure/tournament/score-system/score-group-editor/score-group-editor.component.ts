@@ -68,19 +68,20 @@ export class ScoreGroupEditorComponent implements OnInit {
   }
 
   getScoreGroupFromForm(): IScoreGroup {
-    const judgeInScoreGroup = this.scoreForm.value.judges.map((judge, i) => {
+    const formVal = this.scoreForm.getRawValue();
+    const judgeInScoreGroup = formVal.judges.map((judge, i) => {
       judge.scoreGroup = this.scoreGroup;
       return judge;
     });
     return {
-      id: this.scoreForm.value.id,
-      name: this.scoreForm.value.name,
+      id: formVal.id,
+      name: formVal.name,
       judges: judgeInScoreGroup,
-      max: this.scoreForm.value.max,
-      min: this.scoreForm.value.min,
-      type: this.scoreForm.value.type,
-      operation: this.scoreForm.value.operation,
-      disciplineId: this.discipline.id
+      max: formVal.max,
+      min: formVal.min,
+      type: formVal.type,
+      operation: formVal.operation,
+      disciplineId: this.discipline ? this.discipline.id : null
     };
   }
 

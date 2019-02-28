@@ -71,7 +71,7 @@
     <i class="fa fa-fw fa-calculator"></i>
     <span translate>Calculate schedule</span>
   </button>
-  <mat-checkbox [formControl]="shouldCalculateTraining">{{'Include training' | translate }}</mat-checkbox>
+  <!-- <mat-checkbox [formControl]="shouldCalculateTraining">{{'Include training' | translate }}</mat-checkbox> -->
 </span>
 
 <button mat-raised-button type="button" *ngIf="canDeleteAll()" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="deleteAll()"

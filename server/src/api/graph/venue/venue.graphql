@@ -42,6 +42,7 @@ input VenueInput {
   contactPhone: String
   contactEmail: String
   capacity: Int
+  createdById: ID
   tournaments: [IDDependencyInput]
 }
 

@@ -9,7 +9,7 @@ import { MatDatepickerInput, MatAutocomplete } from '@angular/material';
 import * as moment from 'moment';
 
 import { UserService } from 'app/shared/services/api';
-import { ITournament, IUser, Role, IVenue } from 'app/model';
+import { ITournament, IUser, Role, IVenue, ITournamentTimes } from 'app/model';
 
 import { GraphService } from 'app/shared/services/graph.service';
 import { CommonService } from 'app/shared/services/common.service';
@@ -65,10 +65,10 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     return moment(this.tournament.endDate);
   }
 
-  get selectedDays(): { day: number; time: string }[] {
+  get selectedDays(): ITournamentTimes[] {
     if (!this.tournament.times.length && this.startDate && this.endDate) {
       for (let j = 0; j < moment.duration(this.endDate.diff(this.startDate)).asDays() + 1; j++) {
-        this.tournament.times.push({ day: j, time: '12,18' });
+        this.tournament.times.push(<ITournamentTimes>{ day: j, time: '12,18', train: '09,11' });
       }
     }
     return this.tournament.times;
@@ -209,7 +209,6 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
 
   timeRangeChange(event, obj) {
     obj.time = event;
-    const time = this.tournament.times.find(t => t.day === obj.day);
     this.tournamentForm.markAsDirty();
   }
 
