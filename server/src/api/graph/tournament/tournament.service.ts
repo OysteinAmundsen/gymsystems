@@ -85,31 +85,31 @@ export class TournamentService {
     return this.tournamentRepository.findOne({ id: id });
   }
   findByClubId(id: number): Promise<Tournament[]> {
-    return this.tournamentRepository.find({ where: { clubId: id }, cache: Config.QueryCache });
+    return this.tournamentRepository.find({ where: { clubId: id } });
   }
   findByClub(club: Club): Promise<Tournament[]> {
     return this.findByClubId(club.id);
   }
   findByUserId(id: number): Promise<Tournament[]> {
-    return this.tournamentRepository.find({ where: { createdById: id }, cache: Config.QueryCache });
+    return this.tournamentRepository.find({ where: { createdById: id } });
   }
   findByUser(user: User): Promise<Tournament[]> {
     return this.findByUserId(user.id);
   }
   findByVenueId(id: number): Promise<Tournament[]> {
-    return this.tournamentRepository.find({ where: { venueId: id }, cache: Config.QueryCache });
+    return this.tournamentRepository.find({ where: { venueId: id } });
   }
   findByVenue(venue: Venue): Promise<Tournament[]> {
     return this.findByVenueId(venue.id);
   }
   findBanquetByGymnast(gymnast: Gymnast): Promise<Tournament[]> {
-    return this.tournamentRepository.find({ where: { banquet: [gymnast] }, cache: Config.QueryCache });
+    return this.tournamentRepository.find({ where: { banquet: [gymnast] } });
   }
   findTransportByGymnast(gymnast: Gymnast): Promise<Tournament[]> {
-    return this.tournamentRepository.find({ where: { transport: [gymnast] }, cache: Config.QueryCache });
+    return this.tournamentRepository.find({ where: { transport: [gymnast] } });
   }
   findLodgingByGymnast(gymnast: Gymnast): Promise<Tournament[]> {
-    return this.tournamentRepository.find({ where: { lodging: [gymnast] }, cache: Config.QueryCache });
+    return this.tournamentRepository.find({ where: { lodging: [gymnast] } });
   }
   findAll(): Promise<Tournament[]> {
     return this.tournamentRepository.find({ order: { startDate: 'DESC' } });

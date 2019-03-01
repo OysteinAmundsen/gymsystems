@@ -52,7 +52,7 @@ export class TroopService {
     return this.troopRepository.findOne({ id: id });
   }
   findByClubId(id: number): Promise<Troop[]> {
-    return this.troopRepository.find({ where: { clubId: id }, cache: Config.QueryCache });
+    return this.troopRepository.find({ where: { clubId: id } });
   }
   findByClub(club: Club): Promise<Troop[]> {
     return this.findByClubId(club.id);

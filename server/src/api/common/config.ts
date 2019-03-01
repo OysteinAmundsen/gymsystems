@@ -13,7 +13,7 @@ export function readEnv() {
 
 @Injectable()
 export class Config {
-  public static readonly QueryCache = 60000;
+  public static readonly QueryCache = 1000;
   public static readonly IP: string = '0.0.0.0';
   public static readonly Port: number = 3000;
   public static readonly ServerUrl: string = `http://${Config.IP}:${Config.Port}`;

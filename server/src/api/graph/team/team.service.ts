@@ -71,7 +71,7 @@ export class TeamService {
     return tournamentId
       // tslint:disable-next-line:triple-equals
       ? (await this.findByTournamentId(tournamentId)).find(t => t.id == id)
-      : this.teamRepository.findOne({ where: { id: id }, relations: ['disciplines', 'media'], cache: Config.QueryCache });
+      : this.teamRepository.findOne({ where: { id: id }, relations: ['disciplines', 'media'] });
   }
 
   async findOneByIdWithTournament(id: number): Promise<Team> {

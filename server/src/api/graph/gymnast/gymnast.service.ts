@@ -62,19 +62,19 @@ export class GymnastService {
     return this.gymnastRepository.find();
   }
   findByClubId(id: number): any {
-    return this.gymnastRepository.find({ where: { clubId: id }, cache: Config.QueryCache })
+    return this.gymnastRepository.find({ where: { clubId: id } })
   }
   findByClub(club: Club): Promise<Gymnast[]> {
     return this.findByClubId(club.id);
   }
   findByLodgingInTournament(tournament: Tournament): Promise<Gymnast[]> {
-    return this.gymnastRepository.find({ where: { lodging: [tournament] }, cache: Config.QueryCache })
+    return this.gymnastRepository.find({ where: { lodging: [tournament] } })
   }
   findByTransportInTournament(tournament: Tournament): Promise<Gymnast[]> {
-    return this.gymnastRepository.find({ where: { transport: [tournament] }, cache: Config.QueryCache })
+    return this.gymnastRepository.find({ where: { transport: [tournament] } })
   }
   findByBanquetInTournament(tournament: Tournament): Promise<Gymnast[]> {
-    return this.gymnastRepository.find({ where: { banquet: [tournament] }, cache: Config.QueryCache })
+    return this.gymnastRepository.find({ where: { banquet: [tournament] } })
   }
   findByTeamId(teamId: number): Promise<Gymnast[]> {
     return this.gymnastRepository.createQueryBuilder('gymnast')

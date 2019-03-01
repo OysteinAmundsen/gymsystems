@@ -143,11 +143,11 @@ export class MediaService {
   }
 
   findByTournament(tournament: Tournament): Promise<Media[]> {
-    return this.mediaRepository.find({ where: { tournamentId: tournament.id }, cache: Config.QueryCache });
+    return this.mediaRepository.find({ where: { tournamentId: tournament.id } });
   }
 
   findByTeamId(id: number): Promise<Media[]> {
-    return this.mediaRepository.find({ where: { teamId: id }, cache: Config.QueryCache });
+    return this.mediaRepository.find({ where: { teamId: id } });
   }
   findByTeam(team: Team): Promise<Media[]> {
     return this.findByTeamId(team.id);
