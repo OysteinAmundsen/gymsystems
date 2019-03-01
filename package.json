@@ -81,7 +81,7 @@
     "@angular/material": "6.3.1",
     "@angular/platform-browser": "6.0.7",
     "@angular/platform-browser-dynamic": "6.0.7",
-    "@angular/pwa": "0.6.8",
+    "@angular/pwa": "0.13.4",
     "@angular/router": "6.0.7",
     "@angular/service-worker": "6.0.7",
     "@ngx-translate/core": "10.0.2",
