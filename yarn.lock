@@ -395,9 +395,14 @@
     "@types/events" "*"
     "@types/node" "*"
 
-"@types/node@*", "@types/node@10.5.1":
+"@types/node@*":
   version "10.5.1"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.1.tgz#d578446f4abff5c0b49ade9b4e5274f6badaadfc"
+
+"@types/node@11.10.0":
+  version "11.10.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.10.0.tgz#08eeb736ae678ccf9ca0922063f3a08795894ede"
+  integrity sha512-6Mb9+PPq9UzRpQrlPzZAbhEvodWDTnsIakddUAtSDpKYF6eu5zAdW31n8x7UZStvqGnDC7dCJnvU188ylv/Ytw==
 
 "@types/node@^6.0.46":
   version "6.0.113"
