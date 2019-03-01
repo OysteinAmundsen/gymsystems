@@ -13,11 +13,12 @@ import { Division, DivisionType } from '../division/division.model';
 import { Gymnast } from '../gymnast/gymnast.model';
 import { PubSub } from 'graphql-subscriptions';
 import { DivisionService } from '../division/division.service';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class TeamService {
   localCache: { [id: string]: Team[] } = {};
-  localCahcePromise: { [id: string]: Promise<Team[]> } = {};
+  localCachePromise: { [id: string]: Promise<Team[]> } = {};
   cacheCreation: moment.Moment;
 
   constructor(
@@ -26,16 +27,25 @@ export class TeamService {
     @Inject('PubSubInstance') private readonly pubSub: PubSub
   ) { }
 
+  invalidateCache(type?: string) {
+    if (type) {
+      delete this.localCachePromise[type];
+      delete this.localCache[type];
+    } else {
+      this.localCachePromise = {};
+      this.localCache = {};
+    }
+  }
 
   async save(team: TeamDto): Promise<Team> {
     if (team.id) {
       const entity = await this.teamRepository.findOne({ id: team.id });
       team = Object.assign(entity, team);
     }
-    const result = await this.teamRepository.save(<Team>team);
+    const result = await this.teamRepository.save(plainToClass(Team, team));
+    this.invalidateCache();
+    this.divisionService.invalidateCache(); // Because divisionCache is joined with teams
     if (result) {
-      this.localCahcePromise = {};
-      this.localCache = {};
       this.pubSub.publish(team.id ? 'teamModified' : 'teamCreated', { team: result });
     }
     // Remove relations from returned entity to allow a full reload
@@ -45,15 +55,13 @@ export class TeamService {
     delete result.divisions;
     delete result.gymnasts;
     delete result.media;
-    this.divisionService.invalidateCache(); // Because divisionCache is joined with teams
     return result;
   }
 
   async remove(id: number): Promise<boolean> {
     const result = await this.teamRepository.delete({ id: id });
+    this.invalidateCache();
     if (result.raw.affectedRows > 0) {
-      this.localCahcePromise = {};
-      this.localCache = {};
       this.pubSub.publish('teamDeleted', { teamId: id });
     }
     return result.raw.affectedRows > 0;
@@ -71,13 +79,13 @@ export class TeamService {
   }
 
   findByTournamentId(id: number): Promise<Team[]> {
-    if (this.localCahcePromise['t' + id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
+    if (this.localCachePromise['t' + id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
-      this.localCahcePromise['t' + id] = this.teamRepository
-        .find({ where: { tournamentId: id }, cache: Config.QueryCache, relations: ['disciplines', 'media'] })
+      this.localCachePromise['t' + id] = this.teamRepository
+        .find({ where: { tournamentId: id }, relations: ['disciplines', 'media'] })
         .then(teams => (this.localCache['t' + id] = teams));
     }
-    return this.localCahcePromise['t' + id];
+    return this.localCachePromise['t' + id];
   }
 
   findByTournament(tournament: Tournament): Promise<Team[]> {
@@ -85,13 +93,13 @@ export class TeamService {
   }
 
   findByClubId(id: number): Promise<Team[]> {
-    if (this.localCahcePromise['c' + id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
+    if (this.localCachePromise['c' + id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
-      this.localCahcePromise['c' + id] = this.teamRepository
-        .find({ where: { clubId: id }, cache: Config.QueryCache, relations: ['disciplines', 'media'] })
+      this.localCachePromise['c' + id] = this.teamRepository
+        .find({ where: { clubId: id }, relations: ['disciplines', 'media'] })
         .then(teams => (this.localCache['c' + id] = teams));
     }
-    return this.localCahcePromise['c' + id];
+    return this.localCachePromise['c' + id];
   }
   findByClub(club: Club): Promise<Team[]> {
     return this.findByClubId(club.id);
@@ -102,41 +110,39 @@ export class TeamService {
   }
 
   findByDiscipline(discipline: Discipline): Promise<Team[]> {
-    if (this.localCahcePromise['dis' + discipline.id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
+    if (this.localCachePromise['dis' + discipline.id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
-      this.localCahcePromise['dis' + discipline.id] = this.teamRepository
-        .find({ where: { disciplines: [discipline] }, cache: Config.QueryCache, relations: ['disciplines', 'media'] })
+      this.localCachePromise['dis' + discipline.id] = this.teamRepository
+        .find({ where: { disciplines: [discipline] }, relations: ['disciplines', 'media'] })
         .then(teams => (this.localCache['dis' + discipline.id] = teams));
     }
-    return this.localCahcePromise['dis' + discipline.id];
+    return this.localCachePromise['dis' + discipline.id];
   }
 
   findByDivision(division: Division): Promise<Team[]> {
-    if (this.localCahcePromise['div' + division.id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
+    if (this.localCachePromise['div' + division.id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
-      this.localCahcePromise['div' + division.id] = this.teamRepository
+      this.localCachePromise['div' + division.id] = this.teamRepository
         .createQueryBuilder('team')
         .leftJoin('team_divisions_division_id', 'tddid', 'team.id = tddid.teamId')
         .where('tddid.divisionId = :divisionId', { divisionId: division.id })
-        .cache(Config.QueryCache)
         .getMany()
         .then(teams => (this.localCache['div' + division.id] = teams));
     }
-    return this.localCahcePromise['div' + division.id];
+    return this.localCachePromise['div' + division.id];
   }
 
   findByGymnast(gymnast: Gymnast): Promise<Team[]> {
-    if (this.localCahcePromise['gym' + gymnast.id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
+    if (this.localCachePromise['gym' + gymnast.id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
-      this.localCahcePromise['gym' + gymnast.id] = this.teamRepository.createQueryBuilder('team')
+      this.localCachePromise['gym' + gymnast.id] = this.teamRepository.createQueryBuilder('team')
         .leftJoinAndSelect('team.gymnasts', 'gymnasts')
         .where('team.clubId = :clubId', { clubId: gymnast.clubId })
         .andWhere('gymnasts.id = :gymnastId', { gymnastId: gymnast.id })
-        .cache(Config.QueryCache)
         .getMany()
         .then(teams => (this.localCache['gym' + gymnast.id] = teams));
     }
-    return this.localCahcePromise['gym' + gymnast.id];
+    return this.localCachePromise['gym' + gymnast.id];
   }
 
   findAll(): Promise<Team[]> {

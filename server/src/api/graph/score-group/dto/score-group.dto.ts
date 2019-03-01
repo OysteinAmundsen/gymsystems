@@ -1,4 +1,5 @@
 import { Operation } from '../score-group.model';
+import { JudgeInScoreGroup } from 'api/graph/judge-in-score-group/judge-in-score-group.model';
 
 export class ScoreGroupDto {
   id: number;
@@ -8,5 +9,6 @@ export class ScoreGroupDto {
   max?: number;
   min?: number;
   disciplineId: number;
-  judges?: { judgeId: number, scoreGroupId: number }[];
+  sortOrder: number;
+  judges?: JudgeInScoreGroup[];
 }

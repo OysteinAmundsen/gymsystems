@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, HostListener, ElementRef, ViewChildren, OnDestroy, ViewChild } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn, FormControl, FormArray } from '@angular/forms';
+import { Component, OnInit, Input, HostListener, ViewChildren, OnDestroy, ViewChild } from '@angular/core';
+import { FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -7,7 +7,7 @@ import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 import * as moment from 'moment';
 
-import { IDiscipline, IDivision, DivisionType, ITeam, IClub, IUser, IMedia, Classes, ITournament, ITroop, Gender, IGymnast } from 'app/model';
+import { IDiscipline, IDivision, DivisionType, ITeam, IUser, Classes, ITournament, ITroop, Gender, IGymnast } from 'app/model';
 import { UserService } from 'app/shared/services/api';
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 
@@ -15,7 +15,6 @@ import { TournamentEditorComponent } from '../../tournament-editor/tournament-ed
 import { MatAutocompleteSelectedEvent, MatAutocomplete, MatSlideToggleChange } from '@angular/material';
 import { MemberSelectorComponent } from 'app/views/configure/_shared/member-selector/member-selector.component';
 import { GraphService } from 'app/shared/services/graph.service';
-import { Logger } from 'app/shared/services/Logger';
 import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
@@ -239,8 +238,8 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
         id: team.id,
         name: team.name,
         club: team.club,
-        ageDivision: team.divisions.find(d => d.type === DivisionType.Age),
-        genderDivision: team.divisions.find(d => d.type === DivisionType.Gender),
+        ageDivision: team.divisions.find(d => d.type === DivisionType.Age) || null,
+        genderDivision: team.divisions.find(d => d.type === DivisionType.Gender) || null,
         disciplines: [],
         tournamentId: this.tournamentId,
         gymnasts: team.gymnasts || [],

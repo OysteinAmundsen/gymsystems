@@ -9,12 +9,12 @@ import { Discipline } from '../discipline/discipline.model';
 import { Config } from '../../common/config';
 import { PubSub } from 'graphql-subscriptions';
 import { JudgeInScoreGroupService } from '../judge-in-score-group/judge-in-score-group.service';
-import { JudgeInScoreGroupDto } from '../judge-in-score-group/dto/judge-in-score-group.dto';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class ScoreGroupService {
   localCache: ScoreGroup[] = [];
-  localCahcePromise: Promise<ScoreGroup[]>;
+  localCachePromise: Promise<ScoreGroup[]>;
   cacheCreation: moment.Moment;
 
   constructor(
@@ -23,21 +23,20 @@ export class ScoreGroupService {
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
   private getAllFromCache() {
-    if (this.localCahcePromise == null || !this.cacheCreation || this.cacheCreation.add(10, 'minutes').isBefore(moment())) {
+    if (this.localCachePromise == null || !this.cacheCreation || this.cacheCreation.add(10, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
-      this.localCahcePromise = this.scoreGroupRepository
+      this.localCachePromise = this.scoreGroupRepository
         .createQueryBuilder('scoreGroup')
         .orderBy('scoreGroup.sortOrder')
-        .cache(Config.QueryCache)
         .getMany()
         .then(groups => this.localCache = groups);
     }
-    return this.localCahcePromise;
+    return this.localCachePromise;
   }
 
   invalidateCache() {
     delete this.localCache;
-    delete this.localCahcePromise;
+    delete this.localCachePromise;
     this.judgeInScoreGroupService.invalidateCache();
   }
 
@@ -48,16 +47,13 @@ export class ScoreGroupService {
   async save(scoreGroup: ScoreGroupDto): Promise<ScoreGroup> {
     if (scoreGroup.id) {
       const entity = await this.scoreGroupRepository.findOne({ id: scoreGroup.id }, { relations: ['judges'] });
-      if (scoreGroup.judges) {
-        // Update relation only if given entity contains values
-        this.judgeInScoreGroupService.removeAllFromScoreGroup(scoreGroup.id);
-        this.judgeInScoreGroupService.invalidateCache();
-      }
+      this.judgeInScoreGroupService.removeAllFromScoreGroup(scoreGroup.id);
       scoreGroup = Object.assign(entity, scoreGroup);
+      this.judgeInScoreGroupService.saveAll(scoreGroup.judges);
     }
-    const result = await this.scoreGroupRepository.save(<ScoreGroup>scoreGroup);
+    const result = await this.scoreGroupRepository.save(plainToClass(ScoreGroup, scoreGroup));
+    this.invalidateCache();
     if (result) {
-      this.invalidateCache();
       this.pubSub.publish(scoreGroup.id ? 'scoreGroupModified' : 'scoreGroupCreated', { score: result });
     }
     delete result.discipline;
@@ -72,9 +68,20 @@ export class ScoreGroupService {
 
   async remove(id: number): Promise<boolean> {
     const result = await this.scoreGroupRepository.delete({ id: id });
+    this.invalidateCache(); // Force invalidate cache
     if (result.raw.affectedRows > 0) {
-      delete this.localCahcePromise; // Force invalidate cache
       this.pubSub.publish('scoreGroupDeleted', { scoreId: id });
+    }
+    return result.raw.affectedRows > 0;
+  }
+
+  async removeByDiscipline(id: number): Promise<boolean> {
+    const scoreGroups = await this.findByDisciplineId(id);
+    const judgeResult = await Promise.all(scoreGroups.map(async sg => await this.judgeInScoreGroupService.removeAllFromScoreGroup(sg.id)));
+    const result = await this.scoreGroupRepository.delete({ disciplineId: id });
+    this.invalidateCache(); // Force invalidate cache
+    if (result.raw.affectedRows > 0) {
+      this.pubSub.publish('scoreGroupDeleted', { disciplineId: id });
     }
     return result.raw.affectedRows > 0;
   }

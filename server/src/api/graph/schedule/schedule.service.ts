@@ -46,7 +46,7 @@ export class ScheduleService {
       const entity = await this.scheduleRepository.findOne({ id: participant.id });
       participant = Object.assign(entity, participant);
     }
-    const result = await this.scheduleRepository.save(<TeamInDiscipline>participant);
+    const result = await this.scheduleRepository.save(plainToClass(TeamInDiscipline, participant));
     if (result) {
       this.pubSub.publish(participant.id ? 'teamInDisciplineModified' : 'teamInDisciplineCreated', { teamInDiscipline: result });
     }
@@ -93,8 +93,7 @@ export class ScheduleService {
       i.publishTime = null;
       const s = await this.scoreService.removeAllByParticipant(i.id);
       delete i.scores;
-      const cls = plainToClass(TeamInDiscipline, i);
-      return this.scheduleRepository.save(cls);
+      return this.scheduleRepository.save(plainToClass(TeamInDiscipline, i));
     })).then(() => {
       // sseService.publish('Scores updated');
       // return new OkResponse();

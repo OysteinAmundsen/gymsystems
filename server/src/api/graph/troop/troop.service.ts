@@ -10,11 +10,12 @@ import { Gymnast } from '../gymnast/gymnast.model';
 import { Config } from '../../common/config';
 import { Division } from '../division/division.model';
 import moment = require('moment');
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class TroopService {
   localCache: { [id: string]: Troop[] } = {};
-  localCahcePromise: { [id: string]: Promise<Troop[]> } = {};
+  localCachePromise: { [id: string]: Promise<Troop[]> } = {};
   cacheCreation: moment.Moment;
 
   constructor(
@@ -26,7 +27,8 @@ export class TroopService {
       const entity = await this.troopRepository.findOne({ id: troop.id });
       troop = Object.assign(entity, troop);
     }
-    const result = await this.troopRepository.save(<Troop>troop);
+    const result = await this.troopRepository.save(plainToClass(Troop, troop));
+    this.invalidateCache();
     if (result) {
       this.pubSub.publish(troop.id ? 'troopModified' : 'troopCreated', { troop: result });
     }
@@ -39,6 +41,7 @@ export class TroopService {
 
   async remove(id: number): Promise<boolean> {
     const result = await this.troopRepository.delete({ id: id });
+    this.invalidateCache();
     if (result.raw.affectedRows > 0) {
       this.pubSub.publish('troopDeleted', { troopId: id });
     }
@@ -59,7 +62,7 @@ export class TroopService {
       .leftJoinAndSelect('troop.gymnasts', 'gymnasts')
       .where('troop.clubId = :clubId', { clubId: gymnast.clubId })
       .andWhere('gymnasts.id = :gymnastId', { gymnastId: gymnast.id })
-      .cache(Config.QueryCache)
+      .cache(1000)
       .getMany();
   }
   findTroopCountByClub(club: Club): Promise<number> {
@@ -67,17 +70,21 @@ export class TroopService {
   }
 
   findByDivision(division: Division): Promise<Troop[]> {
-    if (this.localCahcePromise['div' + division.id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
+    if (this.localCachePromise['div' + division.id] == null || !this.cacheCreation || this.cacheCreation.add(1, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
-      this.localCahcePromise['div' + division.id] = this.troopRepository
+      this.localCachePromise['div' + division.id] = this.troopRepository
         .createQueryBuilder('troop')
         .leftJoin('troop_divisions_division_id', 'tddid', 'troop.id = tddid.troopId')
         .where('tddid.divisionId = :divisionId', { divisionId: division.id })
-        .cache(Config.QueryCache)
         .getMany()
         .then(troops => (this.localCache['div' + division.id] = troops));
     }
-    return this.localCahcePromise['div' + division.id];
+    return this.localCachePromise['div' + division.id];
+  }
+
+  invalidateCache() {
+    this.localCachePromise = {};
+    this.localCache = {};
   }
 
   findAll(clubId: number, name?: string): Promise<Troop[]> {

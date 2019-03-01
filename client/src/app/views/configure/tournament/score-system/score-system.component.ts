@@ -25,6 +25,7 @@ export class ScoreSystemComponent implements OnInit, OnDestroy, OnChanges {
     operation,
     max,
     min,
+    sortOrder,
     judges{sortNumber,judge{id,name}},
     judgeCount
   }`;
@@ -74,7 +75,7 @@ export class ScoreSystemComponent implements OnInit, OnDestroy, OnChanges {
           j.scoreGroupId = s.id;
           return j;
         });
-        return CommonService.omit(s, ['judgeCount']);
+        return CommonService.omit(s, ['judgeCount', 'judges']);
       })
       this.graph.saveData('ScoreGroups', scoreGroupList, this.scoreGroupQuery).subscribe(res => this.scoreGroupList = res.saveScoreGroups);
     }
@@ -125,7 +126,7 @@ export class ScoreSystemComponent implements OnInit, OnDestroy, OnChanges {
       this.scoreGroupList.splice(this.scoreGroupList.findIndex(d => d.type === this.selected.type), 1);
     }
     this.select(null);
-    this.loadScoreGroups();
+    setTimeout(() => this.loadScoreGroups());
   }
 
   select(scoreGroup: IScoreGroup) {

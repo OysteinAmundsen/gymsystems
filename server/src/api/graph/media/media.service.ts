@@ -20,6 +20,7 @@ import { ClubService } from '../club/club.service';
 import { DisciplineService } from '../discipline/discipline.service';
 import { Discipline } from '../discipline/discipline.model';
 import { Club } from '../club/club.model';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class MediaService {
@@ -92,7 +93,7 @@ export class MediaService {
     };
 
     // Create a media link for this entry
-    const result = await this.mediaRepository.save(<Media>media);
+    const result = await this.mediaRepository.save(plainToClass(Media, media));
     if (result) {
       this.pubSub.publish(media.id ? 'mediaModified' : 'mediaCreated', { media: result });
     }

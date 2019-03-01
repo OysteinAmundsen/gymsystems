@@ -13,6 +13,7 @@ import { TeamInDiscipline } from '../schedule/team-in-discipline.model';
 import { ConfigurationService } from '../../rest/administration/configuration.service';
 import { ScoreGroup } from '../score-group/score-group.model';
 import { ScoreGroupService } from '../score-group/score-group.service';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class DisciplineService {
@@ -35,12 +36,16 @@ export class DisciplineService {
     if (this.localCahcePromise == null || !this.cacheCreation || this.cacheCreation.add(10, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
       this.localCahcePromise = this.disciplineRepository.createQueryBuilder()
-        .cache(Config.QueryCache)
         .orderBy({ sortOrder: 'ASC' })
         .getMany()
         .then(groups => (this.localCache = groups));
     }
     return this.localCahcePromise;
+  }
+
+  invalidateCache() {
+    delete this.localCache;
+    delete this.localCahcePromise;
   }
 
   /**
@@ -52,9 +57,9 @@ export class DisciplineService {
       const entity = await this.disciplineRepository.findOne({ id: discipline.id });
       discipline = Object.assign(entity, discipline);
     }
-    const result = await this.disciplineRepository.save(<Discipline>discipline);
+    const result = await this.disciplineRepository.save(plainToClass(Discipline, discipline));
+    this.invalidateCache(); // Force refresh cache
     if (result) {
-      delete this.localCahcePromise; // Force refresh cache
       this.pubSub.publish(discipline.id ? 'disciplineModified' : 'disciplineCreated', { discipline: result });
     }
 
@@ -73,9 +78,10 @@ export class DisciplineService {
    * @param id The id of the discipline to remove
    */
   async remove(id: number): Promise<boolean> {
+    const sgResult = await this.scoreGroupService.removeByDiscipline(id);
     const result = await this.disciplineRepository.delete({ id: id });
+    this.invalidateCache(); // Force refresh cache
     if (result.raw.affectedRows > 0) {
-      delete this.localCahcePromise; // Force refresh cache
       this.pubSub.publish('disciplineDeleted', { disciplineId: id });
     }
     return result.raw.affectedRows > 0;
@@ -123,6 +129,7 @@ export class DisciplineService {
   }
 
   removeByTournament(id: number): any {
+    this.invalidateCache();
     return this.disciplineRepository.delete({ tournamentId: id });
   }
 
@@ -145,6 +152,7 @@ export class DisciplineService {
       }));
     }, []);
     const result = await this.scoreGroupService.saveAll(scoreGroups);
+    this.invalidateCache();
     return disciplines.length > 0 && disciplines.every(d => d.id !== null);
   }
 }

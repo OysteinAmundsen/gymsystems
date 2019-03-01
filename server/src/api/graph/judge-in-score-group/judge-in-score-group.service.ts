@@ -10,6 +10,7 @@ import { Judge } from '../judge/judge.model';
 import { Config } from '../../common/config';
 import { PubSub } from 'graphql-subscriptions';
 import { Discipline } from '../discipline/discipline.model';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class JudgeInScoreGroupService {
@@ -22,12 +23,16 @@ export class JudgeInScoreGroupService {
     @Inject('PubSubInstance') private readonly pubSub: PubSub) { }
 
   async save(input: JudgeInScoreGroupDto): Promise<JudgeInScoreGroup> {
-    const result = await this.judgeInScoreGroupRepository.save(<JudgeInScoreGroup>input);
+    const result = await this.judgeInScoreGroupRepository.save(plainToClass(JudgeInScoreGroup, input));
     if (result) {
       this.pubSub.publish('judgeInScoreGroupSaved', { judgeInScoreGroup: result });
     }
 
     return result;
+  }
+
+  async saveAll(input: JudgeInScoreGroupDto[]): Promise<JudgeInScoreGroup[]> {
+    return Promise.all(input.map(j => this.save(j)));
   }
 
   async remove(input: JudgeInScoreGroupDto): Promise<boolean> {
@@ -50,7 +55,6 @@ export class JudgeInScoreGroupService {
       this.localCahcePromise = this.judgeInScoreGroupRepository
         .createQueryBuilder()
         .orderBy('sortNumber', 'ASC')
-        .cache(Config.QueryCache)
         .getMany()
         .then(groups => this.localCache = groups);
     }

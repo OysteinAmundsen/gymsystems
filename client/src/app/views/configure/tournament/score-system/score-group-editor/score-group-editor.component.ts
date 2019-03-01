@@ -88,8 +88,11 @@ export class ScoreGroupEditorComponent implements OnInit {
   save() {
     const val = this.getScoreGroupFromForm();
     if (this.discipline) {
-      this.graph.saveData('ScoreGroup', val, `{id, min, max, judges{judgeId}, judgeCount, operation}`).subscribe(result => this.scoreChanged.emit(result.saveScoreGroup));
+      this.graph.saveData('ScoreGroup', val, `{id, name, min, max, judges{judgeId}, type, judgeCount, operation}`).subscribe(result => {
+        this.scoreChanged.emit(result.saveScoreGroup);
+      });
     } else {
+      delete val.judges;
       this.scoreChanged.emit(val);
     }
   }

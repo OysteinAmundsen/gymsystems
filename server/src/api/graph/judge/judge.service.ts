@@ -9,11 +9,12 @@ import { PubSub } from 'graphql-subscriptions';
 import { Discipline } from '../discipline/discipline.model';
 import { JudgeInScoreGroup } from '../judge-in-score-group/judge-in-score-group.model';
 import { ScoreGroup } from '../score-group/score-group.model';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class JudgeService {
   localCache: Judge[] = [];
-  localCahcePromise: Promise<Judge[]>;
+  localCachePromise: Promise<Judge[]>;
   cacheCreation: moment.Moment;
 
   constructor(
@@ -25,18 +26,19 @@ export class JudgeService {
       const entity = await this.judgeRepository.findOne({ id: judge.id });
       judge = Object.assign(entity, judge);
     }
-    const result = await this.judgeRepository.save(<Judge>judge);
+    const result = await this.judgeRepository.save(plainToClass(Judge, judge));
+    this.invalidateCache();
     if (result) {
       this.pubSub.publish(judge.id ? 'judgeModified' : 'judgeCreated', { judge: result });
     }
 
     delete result.scoreGroups;
-
     return result;
 
   }
   async remove(id: number): Promise<boolean> {
     const result = await this.judgeRepository.delete({ id: id });
+    this.invalidateCache();
     if (result.raw.affectedRows > 0) {
       this.pubSub.publish('judgeDeleted', { judgeId: id });
     }
@@ -44,12 +46,17 @@ export class JudgeService {
   }
 
   private getAllFromCache(): Promise<Judge[]> {
-    if (this.localCahcePromise == null || !this.cacheCreation || this.cacheCreation.add(10, 'minutes').isBefore(moment())) {
+    if (this.localCachePromise == null || !this.cacheCreation || this.cacheCreation.add(10, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
-      this.localCahcePromise = this.judgeRepository.createQueryBuilder('judge').getMany()
+      this.localCachePromise = this.judgeRepository.createQueryBuilder('judge').getMany()
         .then(groups => (this.localCache = groups));
     }
-    return this.localCahcePromise;
+    return this.localCachePromise;
+  }
+
+  invalidateCache() {
+    delete this.localCache;
+    delete this.localCachePromise;
   }
 
   async findOneById(id: number): Promise<Judge> {

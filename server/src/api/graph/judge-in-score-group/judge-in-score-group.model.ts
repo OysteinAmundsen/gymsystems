@@ -14,17 +14,17 @@ export class JudgeInScoreGroup {
   sortNumber: number;
 
   @ApiModelProperty({ description: `` })
-  @ManyToOne(type => ScoreGroup, { nullable: false, primary: true/*, lazy: true*/ })
+  @ManyToOne(type => ScoreGroup, { nullable: false, cascade: false/*, lazy: true*/ })
   @JoinColumn({ name: 'scoreGroupId' })
-  scoreGroup: ScoreGroup;
+  scoreGroup?: ScoreGroup;
 
   @PrimaryColumn('int')
   scoreGroupId: number;
 
   @ApiModelProperty({ description: `` })
-  @ManyToOne(type => Judge, { nullable: false, primary: true/*, lazy: true*/ })
+  @ManyToOne(type => Judge, { nullable: false/*, lazy: true*/ })
   @JoinColumn({ name: 'judgeId' })
-  judge: Judge;
+  judge?: Judge;
 
   @PrimaryColumn('int')
   judgeId: number;

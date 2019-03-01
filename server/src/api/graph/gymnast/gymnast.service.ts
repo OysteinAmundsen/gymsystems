@@ -10,6 +10,7 @@ import { Tournament } from '../tournament/tournament.model';
 import { Troop } from '../troop/troop.model';
 import { Team } from '../team/team.model';
 import { GymnastDto } from './dto/gymnast.dto';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class GymnastService {
@@ -26,7 +27,7 @@ export class GymnastService {
       const entity = await this.gymnastRepository.findOne({ id: gymnast.id });
       gymnast = Object.assign(entity, gymnast);
     }
-    const result = await this.gymnastRepository.save(<Gymnast>gymnast);
+    const result = await this.gymnastRepository.save(plainToClass(Gymnast, gymnast));
     if (result) {
       this.pubSub.publish(gymnast.id ? 'gymnastModified' : 'gymnastCreated', { gymnast: result });
     }

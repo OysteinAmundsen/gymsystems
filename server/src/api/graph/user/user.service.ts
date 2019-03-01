@@ -11,6 +11,7 @@ import { UserDto } from './dto/user.dto';
 import { RequestContext } from '../../common/middleware/request-context.model';
 import { Log } from '../../common/util/logger/log';
 import { template } from 'lodash';
+import { plainToClass } from 'class-transformer';
 
 const messages = {
   created: `<h1>Welcome!</h1>
@@ -196,7 +197,7 @@ export class UserService {
     }
 
     // Persist data
-    const result = await this.userRepository.save(<User>user);
+    const result = await this.userRepository.save(plainToClass(User, user));
     if (result) {
       if (user.id) {
         this.pubSub.publish('userModified', { user: result });

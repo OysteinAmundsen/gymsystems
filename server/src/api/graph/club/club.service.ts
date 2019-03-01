@@ -9,11 +9,12 @@ import { Club } from './club.model';
 import { Config } from '../../common/config';
 import { Role } from '../user/user.model';
 import { RequestContext } from '../../common/middleware/request-context.model';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class ClubService {
   localCache: Club[] = [];
-  localCahcePromise: Promise<Club[]>;
+  localCachePromise: Promise<Club[]>;
   cacheCreation: moment.Moment;
 
   static enforceSame(clubId: number): void {
@@ -33,16 +34,19 @@ export class ClubService {
    * Hold all clubs in-memory.
    */
   private async getAllFromCache(): Promise<Club[]> {
-    if (this.localCahcePromise == null || !this.cacheCreation || this.cacheCreation.add(10, 'minutes').isBefore(moment())) {
+    if (this.localCachePromise == null || !this.cacheCreation || this.cacheCreation.add(10, 'minutes').isBefore(moment())) {
       this.cacheCreation = moment();
-      this.localCahcePromise = this.clubRepository.createQueryBuilder()
-        .cache(Config.QueryCache)
+      this.localCachePromise = this.clubRepository.createQueryBuilder()
         .getMany()
         .then(groups => (this.localCache = groups));
     }
-    return this.localCahcePromise;
+    return this.localCachePromise;
   }
 
+  invalidateCache() {
+    delete this.localCache;
+    delete this.localCachePromise;
+  }
   /**
    *
    * @param club The club data to persist
@@ -52,9 +56,9 @@ export class ClubService {
       const entity = await this.clubRepository.findOne({ id: club.id });
       club = Object.assign(entity, club);
     }
-    const result = await this.clubRepository.save(<Club>club);
+    const result = await this.clubRepository.save(plainToClass(Club, club));
     if (result) {
-      delete this.localCahcePromise; // Force refresh cache
+      this.invalidateCache(); // Force refresh cache
       this.pubSub.publish(club.id ? 'clubModified' : 'clubCreated', { club: result });
     }
     delete result.gymnasts;
@@ -71,8 +75,8 @@ export class ClubService {
    */
   async remove(id: number): Promise<boolean> {
     const result = await this.clubRepository.delete({ id: id });
+    this.invalidateCache(); // Force refresh cache
     if (result.raw.affectedRows > 0) {
-      delete this.localCahcePromise; // Force refresh cache
       this.pubSub.publish('clubDeleted', { clubId: id });
     }
     return result.raw.affectedRows > 0;

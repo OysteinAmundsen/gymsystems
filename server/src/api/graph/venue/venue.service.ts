@@ -12,6 +12,7 @@ import { Club } from '../club/club.model';
 import { LocationDto } from './dto/location.dto';
 import { Config } from '../../common/config';
 import { Log } from '../../common/util/logger/log';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class VenueService {
@@ -29,7 +30,7 @@ export class VenueService {
       const entity = await this.venueRepository.findOne({ id: venue.id });
       venue = Object.assign(entity, venue);
     }
-    const result = await this.venueRepository.save(<Venue>venue);
+    const result = await this.venueRepository.save(plainToClass(Venue, venue));
     if (result) {
       this.pubSub.publish(venue.id ? 'venueModified' : 'venueCreated', { venue: result });
     }

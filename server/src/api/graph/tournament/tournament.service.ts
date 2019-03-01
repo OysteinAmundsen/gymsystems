@@ -15,6 +15,7 @@ import { DisciplineService } from '../discipline/discipline.service';
 import { DivisionService } from '../division/division.service';
 import { MediaService } from '../media/media.service';
 import { ClubService } from '../club/club.service';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class TournamentService {
@@ -40,7 +41,7 @@ export class TournamentService {
       const entity = await this.tournamentRepository.findOne({ id: tournament.id });
       tournament = Object.assign(entity, tournament);
     }
-    const result = await this.tournamentRepository.save(<Tournament>tournament);
+    const result = await this.tournamentRepository.save(plainToClass(Tournament, tournament));
     if (result) {
       // New tournament. Create defaults
       if (isNew && (await this.createDefaults(result.id))) {

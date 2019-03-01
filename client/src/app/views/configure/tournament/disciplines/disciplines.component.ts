@@ -123,10 +123,10 @@ export class DisciplinesComponent implements OnInit, OnDestroy, OnChanges {
         group.tournamentId = this.tournamentId;
         return group;
       });
-      this.graph.saveData('Discipline', disciplineList, `{id}`).subscribe(res => {
+      this.graph.saveData('Disciplines', disciplineList, `{id}`).subscribe(res => {
         // Add default score groups
         let scoreGroups = [];
-        res.saveDiscipline.forEach(d => {
+        res.saveDisciplines.forEach(d => {
           const defaults = JSON.parse(JSON.stringify(this.defaultScoreGroups));
           scoreGroups = scoreGroups.concat(
             defaults.map(group => {
@@ -135,7 +135,7 @@ export class DisciplinesComponent implements OnInit, OnDestroy, OnChanges {
             })
           );
         });
-        this.graph.saveData('ScoreGroup', scoreGroups, '{id}').subscribe(() => this.loadDisciplines());
+        this.graph.saveData('ScoreGroups', scoreGroups, '{id}').subscribe(() => this.loadDisciplines());
       });
     }
   }

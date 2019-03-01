@@ -11,6 +11,7 @@ import { DivisionDto } from './dto/division.dto';
 import { PubSub } from 'graphql-subscriptions';
 import { ConfigurationService } from '../../rest/administration/configuration.service';
 import { Troop } from '../troop/troop.model';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class DivisionService {
@@ -40,6 +41,7 @@ export class DivisionService {
   }
 
   invalidateCache() {
+    delete this.localCache;
     delete this.localCahcePromise; // Force empty cache
   }
 
@@ -48,9 +50,9 @@ export class DivisionService {
       const entity = await this.divisionRepository.findOne({ id: division.id });
       division = Object.assign(entity, division);
     }
-    const result = await this.divisionRepository.save(<Division>division);
+    const result = await this.divisionRepository.save(plainToClass(Division, division));
+    this.invalidateCache();
     if (result) {
-      this.invalidateCache();
       this.pubSub.publish(division.id ? 'divisionModified' : 'divisionCreated', { division: result });
     }
     delete result.teams;
@@ -60,16 +62,13 @@ export class DivisionService {
   }
 
   saveAll(divisions: DivisionDto[]): Promise<Division[]> {
-    return Promise.all(divisions.map(d => this.save(d))).then(res => {
-      this.invalidateCache();
-      return res;
-    });
+    return Promise.all(divisions.map(d => this.save(d)));
   }
 
   async remove(id: number): Promise<boolean> {
     const result = await this.divisionRepository.delete({ id: id });
+    this.invalidateCache(); // Force empty cache
     if (result.raw.affectedRows > 0) {
-      this.invalidateCache(); // Force empty cache
       this.pubSub.publish('divisionDeleted', { divisionId: id });
     }
     return result.raw.affectedRows > 0;
@@ -97,7 +96,7 @@ export class DivisionService {
   findByTournamentId(id: number, type?: DivisionType): Promise<Division[]> {
     const whereClause = { tournamentId: id };
     if (type) { whereClause['type'] = type; };
-    return this.divisionRepository.find({ where: whereClause, cache: Config.QueryCache, order: { sortOrder: 'ASC' } });
+    return this.divisionRepository.find({ where: whereClause, order: { sortOrder: 'ASC' } });
   }
 
   findByTournament(tournament: Tournament): Promise<Division[]> {

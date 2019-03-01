@@ -6,13 +6,11 @@ import * as moment from 'moment';
 
 import { ScoreDto } from './dto/score.dto';
 import { Score } from './score.model';
-import { Config } from '../../common/config';
 import { ScoreGroupService } from '../score-group/score-group.service';
 import { Operation, ScoreGroup } from '../score-group/score-group.model';
 import { Tournament } from '../tournament/tournament.model';
 import { TeamInDiscipline } from '../schedule/team-in-discipline.model';
 import { TotalByScoreGroup } from './dto/total-by-scoregroup.dto';
-import { Log } from '../../common/util/logger/log';
 import { plainToClass } from 'class-transformer';
 
 @Injectable()
@@ -27,28 +25,25 @@ export class ScoreService {
     private readonly scoreGroupService: ScoreGroupService
   ) { }
 
-  async save(scores: ScoreDto[]): Promise<Score[]> {
-    const results = [];
-    return Promise.all(scores.map(async score => {
-      const entity = await this.scoreRepository.findOne({ judgeIndex: score.judgeIndex, participantId: score.participantId, scoreGroupId: score.scoreGroupId });
-      if (entity) {
-        score = Object.assign(entity, score);
-      }
-      try {
-        score.updated = new Date();
-        score = plainToClass(Score, score);
-        const result = await this.scoreRepository.save(<Score>score);
-        if (result) {
-          this.pubSub.publish(result.id ? 'scoreModified' : 'scoreCreated', { score: result });
-        }
-        delete result.participant;
-        delete result.scoreGroup;
-        results.push(result);
-      } catch (ex) {
-        Log.log.error(ex.message);
-      }
-    })).then(() => {
-      this.invalidateCache();
+  async save(score: ScoreDto): Promise<Score> {
+    const entity = await this.scoreRepository.findOne({ judgeIndex: score.judgeIndex, participantId: score.participantId, scoreGroupId: score.scoreGroupId });
+    if (entity) {
+      score = Object.assign(entity, score);
+    }
+    score.updated = new Date();
+    const result = await this.scoreRepository.save(plainToClass(Score, score));
+    this.invalidateCache();
+    if (result) {
+      this.pubSub.publish(result.id ? 'scoreModified' : 'scoreCreated', { score: result });
+    }
+    delete result.participant;
+    delete result.scoreGroup;
+    return result;
+  }
+
+
+  async saveAll(scores: ScoreDto[]): Promise<Score[]> {
+    return Promise.all(scores.map(score => this.save(score))).then(results => {
       this.pubSub.publish('teamInDisciplineModified', { teamInDiscipline: scores[0].participantId });
       return results;
     });
@@ -56,6 +51,7 @@ export class ScoreService {
 
   async remove(id: number): Promise<boolean> {
     const result = await this.scoreRepository.delete({ id: id });
+    this.invalidateCache();
     if (result.raw.affectedRows > 0) {
       this.pubSub.publish('scoreDeleted', { scoreId: id });
     }
@@ -65,8 +61,8 @@ export class ScoreService {
   async removeAllByParticipant(id: number): Promise<boolean> {
     const scoreIds = await this.findByParticipantId(id);
     const result = await this.scoreRepository.delete({ participantId: +id });
+    this.invalidateCache();
     if (result.raw.affectedRows > 0) {
-      this.invalidateCache();
       this.pubSub.publish('scoreDeleted', { scoreId: scoreIds.map(s => s.id) });
     }
     return result.raw.affectedRows > 0;

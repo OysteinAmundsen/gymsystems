@@ -108,7 +108,7 @@ export class DivisionsComponent implements OnInit, OnDestroy, OnChanges {
         group.tournamentId = this.tournamentId;
         return group;
       });
-      this.graph.saveData('Division', divisions, DivisionsComponent.divisionsQuery).subscribe(result => this.divisionReceived(result.saveDivision));
+      this.graph.saveData('Divisions', divisions, DivisionsComponent.divisionsQuery).subscribe(result => this.loadDivisions());
     }
   }
 

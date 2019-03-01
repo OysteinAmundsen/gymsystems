@@ -41,7 +41,7 @@ export class ScoreResolver {
   @Mutation('saveScore')
   @UseGuards(RoleGuard(Role.Secretariat))
   save(@Args('input') input: ScoreDto[]): Promise<Score[]> {
-    return this.scoreService.save(Cleaner.clean(input));
+    return this.scoreService.saveAll(Cleaner.clean(input));
   }
 
   @Mutation('deleteScore')
