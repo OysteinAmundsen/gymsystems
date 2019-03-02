@@ -107,7 +107,7 @@ export class ScoreSystemComponent implements OnInit, OnDestroy, OnChanges {
         group.discipline = this.discipline;
         return group;
       });
-      this.graph.saveData('ScoreGroup', scoreGroupList, this.scoreGroupQuery).subscribe(res => this.scoreGroupList = res.saveScoreGroups);
+      this.graph.saveData('ScoreGroups', scoreGroupList, this.scoreGroupQuery).subscribe(res => this.loadScoreGroups());
       // this.scoreService.saveAll(scoreGroupList).subscribe(result => this.loadScoreGroups());
     }
   }

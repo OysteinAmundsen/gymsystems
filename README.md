@@ -9,7 +9,7 @@
 
 This is a complete web based system for managing the secretariat for Team Gymnastic sports. There are not many proffesional scoring or managing systems available, and therefore we saw the need for creating one. And since these minority sports are typically not funded, and therefore prone to voluntary work, we wanted this system to be a community open-source project as well. We will therefore never ask for money for this system, but instead wecome improvements through pull-requests.
 
-The system is now running live on [www.gymsystems.org](http://www.gymsystems.org), but you are welcome to host this yourself if you require a clean stack. Please read the [installation guide](#installation) below for detailed instructions on how to set this up.
+We have no host for this system, as we do not have enough funds for it. You are welcome to host this yourself. Please read the [installation guide](#installation) below for detailed instructions on how to set this up.
 
 We've developed a comprehensive users manual over at our [wiki](../../wiki). This should describe in depth how the system is to be used. If you feel that the manual is missing some information, feel free to open a new [issue](../../issues), and we will add or clarify.
 

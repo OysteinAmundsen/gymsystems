@@ -27,7 +27,7 @@ export class DivisionEditorComponent implements OnInit {
     this.divisionForm = this.fb.group({
       id: [this.division.id],
       name: [this.division.name, [Validators.required]],
-      tournament: [this.division.tournament],
+      tournamentId: [this.division.tournamentId],
       sortOrder: [this.division.sortOrder],
       min: [this.division.min, [Validators.required]],
       max: [this.division.max, [Validators.required]],
@@ -38,7 +38,7 @@ export class DivisionEditorComponent implements OnInit {
 
 
   save() {
-    if (this.division.tournament) {
+    if (this.division.tournamentId) {
       this.graph.saveData('Division', this.divisionForm.value, DivisionsComponent.divisionsQuery).subscribe(result => {
         this.divisionChanged.emit(result);
       });

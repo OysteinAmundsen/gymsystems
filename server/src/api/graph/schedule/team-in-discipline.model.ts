@@ -43,7 +43,7 @@ export class TeamInDiscipline {
     description: `When planning a tournament, we can perform an actual deletion of records here,
       but we cannot remove participants on the day of the tournament. If any teams
       cannot perform for any reason, we mark them as stricken.` })
-  @Column('tinyint', { default: false })
+  @Column('boolean', { default: false })
   markDeleted: boolean;
 
   @ApiModelPropertyOptional({

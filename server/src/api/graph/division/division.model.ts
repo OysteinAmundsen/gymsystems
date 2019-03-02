@@ -62,7 +62,7 @@ export class Division {
       Describes wheather or not this division should be something the assigned judges should score or not.
       The youngest participants should not be judged.`
   })
-  @Column('tinyint', { default: true })
+  @Column('boolean', { default: true })
   scorable: boolean;
 
   @ApiModelProperty({ description: `The tournament where this division is to be competed in` })

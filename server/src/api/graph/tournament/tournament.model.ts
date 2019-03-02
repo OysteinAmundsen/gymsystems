@@ -118,7 +118,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
 
   // LODGING -----------------------------------------------------
   @ApiModelProperty({ description: `The number of gymnasts this tournament can be able to provide lodging for.` })
-  @Column('tinyint', { default: true })
+  @Column('boolean', { default: true })
   providesLodging: boolean;
 
   @ApiModelPropertyOptional({
@@ -134,7 +134,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
 
   // TRANSPORT ---------------------------------------------------
   @ApiModelProperty({ description: `If true, this tournament can provide transportation for traveling gymnasts.` })
-  @Column('tinyint', { default: true })
+  @Column('boolean', { default: true })
   providesTransport: boolean;
 
   @ApiModelPropertyOptional({
@@ -150,7 +150,7 @@ export class Tournament implements CreatedBy, BelongsToClub {
 
   // BANQUET -----------------------------------------------------
   @ApiModelProperty({ description: `If true, this tournament will throw a banquet in honor of the performing gymnasts.` })
-  @Column('tinyint', { default: true })
+  @Column('boolean', { default: true })
   providesBanquet: boolean;
 
   @ApiModelPropertyOptional({
