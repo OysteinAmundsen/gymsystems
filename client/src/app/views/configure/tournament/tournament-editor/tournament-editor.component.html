@@ -1,0 +1,201 @@
+<header class="screen-only">
+  <h1>
+    <i class="fa fa-fw fa-trophy"></i>
+    <span>{{ tournamentForm.value.name || 'Tournament' }}</span>
+  </h1>
+
+  <button mat-icon-button class="buttons" [matMenuTriggerFor]="options" aria-label="Options">
+    <i class="fa fa-fw fa-ellipsis-v"></i>
+  </button>
+
+  <mat-menu #options="matMenu">
+    <button mat-menu-item type="button" *appIfAuth="'Organizer'" [routerLink]="['./scorecards']" aria-label="Judge scorecards">
+      <i class="fa fa-fw fa-print"></i>
+      <span>{{'Judge scorecards' | translate}}</span>
+    </button>
+    <button mat-menu-item type="button" [routerLink]="['/event', tournament.id, 'list']" aria-label="Schedule">
+      <i class="fa fa-fw fa-list"></i>
+      <span translate>Schedule</span>
+    </button>
+    <button mat-menu-item type="button" [routerLink]="['/event', tournament.id, 'results']" aria-label="Results">
+      <i class="fa fa-fw fa-trophy"></i>
+      <span translate>Results </span>
+    </button>
+    <button mat-menu-item type="button" *appIfAuth="'Secretariat'" [routerLink]="['/event', tournament.id, 'display']" aria-label="Display">
+      <i class="fa fa-fw fa-tv"></i>
+      <span translate>Display </span>
+    </button>
+  </mat-menu>
+</header>
+
+
+<div class="table-responsive screen-only">
+  <table *ngIf="!isEdit" [title]="'Click to edit' | translate" (click)="edit()">
+    <tr>
+      <th translate>Name</th>
+      <td>{{ tournament.name }}</td>
+    </tr>
+    <tr>
+      <th translate>Start date</th>
+      <td>{{ tournament.startDate | date:'dd.MM.yyyy' }}</td>
+    </tr>
+    <tr>
+      <th translate>End date</th>
+      <td>{{ tournament.endDate | date:'dd.MM.yyyy' }}</td>
+    </tr>
+    <tr>
+      <th *ngIf="tournament.venue" translate>Location</th>
+      <td *ngIf="tournament.venue">
+        <span>{{ tournament.venue.name }}</span>
+        <a class="marker" [routerLink]="['../../venue', tournament.venue.id]" [title]="'View location info' | translate" aria-label="View location info">
+          <i class="fa fa-fw fa-map-marker"></i>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<form [formGroup]="tournamentForm" (ngSubmit)="save()" *ngIf="isEdit" class="screen-only">
+  <mat-card>
+    <mat-card-content>
+      <fieldset>
+        <div class="row">
+          <div class="col-5 help-available" *appIfAuth="'Admin'">
+            <app-club-lookup formControlName="club">
+              <app-help-block>
+                <p translate>Admins do not belong to any club. We need to know which club you are creating this tournament for.</p>
+              </app-help-block>
+            </app-club-lookup>
+          </div>
+          <mat-form-field [ngClass]="(user.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12')">
+            <input matInput type="text" formControlName="name" autofocus cdkFocusInitial placeholder="{{'Name' | translate}}">
+            <app-help-block>
+              <p translate>Make sure the name for this tournament is descriptive, and unique. I.e. "Norwegian championship 2017".</p>
+            </app-help-block>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="col-xs-4">
+            <input matInput formControlName="startDate" autocomplete="off" [matDatepicker]="startDate" placeholder="{{'Start date' | translate}}"
+                   [max]="tournamentForm.value.endDate" (focus)="startDate.open()" #startDateInput>
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+            <app-help-block>
+              <p translate>Pick the date this tournament is to start.</p>
+            </app-help-block>
+          </mat-form-field>
+          <mat-form-field class="col-xs-4">
+            <input matInput formControlName="endDate" autocomplete="off" [matDatepicker]="endDate" placeholder="{{'End date' | translate}}"
+                   [min]="tournamentForm.value.startDate" (focus)="endDate.open()" #endDateInput>
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+            <app-help-block>
+              <p translate>The date this tournament is over.</p>
+            </app-help-block>
+          </mat-form-field>
+          <mat-form-field class="col-xs-4 help-available">
+            <input matInput formControlName="venue" placeholder="{{'Location' | translate}}" [matAutocomplete]="venueTypeahead" (blur)="tabOut(venueTypeahead)">
+            <mat-autocomplete #venueTypeahead="matAutocomplete" [displayWith]="venueDisplay">
+              <mat-option *ngFor="let venue of venueList" [value]="venue">
+                {{ venue.name }}
+              </mat-option>
+              <mat-option *ngIf="venueList.length < 1 && tournamentForm.value.venue != null" [routerLink]="['../../venue/add']"
+                          [queryParams]="{fromName: tournamentForm.value.venue}">
+                <span translate>Create new venue</span>
+              </mat-option>
+            </mat-autocomplete>
+            <app-help-block>
+              <p translate>Search in pre-configured venues.</p>
+              <p translate>This will be used to inform participants of the location, and calculate the entry cost per team in this tournament.</p>
+            </app-help-block>
+          </mat-form-field>
+        </div>
+
+      </fieldset>
+
+      <fieldset class="start-stop-container">
+        <legend class="help-available">
+          <i class="fa fa-fw fa-clock-o"></i><span translate>Time</span>
+          <app-help-block>
+            <span translate>When a start and end date is selected, timeslots will appear as sliders below.</span>
+            <span translate>Use these to adjust when the tournament starts and ends during each of these days.</span>
+          </app-help-block>
+        </legend>
+        <div class="row start-stop" *ngFor="let obj of selectedDays; let i = index">
+          <label>{{ getTimeRangeDay(obj.day) | translate }}</label>
+          <app-multirange [name]="getTimeRangeDay(obj.day)" min="0" max="24" [value]="obj.time" (valueChanges)="timeRangeChange($event, obj)"></app-multirange>
+          <!-- <app-multirange [name]="getTimeRangeDay(obj.day)" min="0" max="24" [value]="obj.train" (valueChanges)="trainRangeChange($event, obj)"> -->
+          <!-- </app-multirange> -->
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <mat-slide-toggle formControlName="providesLodging">
+          <span *ngIf="tournamentForm.value.providesLodging" translate>Provides lodging for gymnasts</span>
+          <span *ngIf="!tournamentForm.value.providesLodging" translate>No lodging available</span>
+        </mat-slide-toggle>
+        <mat-slide-toggle formControlName="providesTransport">
+          <span *ngIf="tournamentForm.value.providesTransport" translate>Provides transport for gymnasts</span>
+          <span *ngIf="!tournamentForm.value.providesTransport" translate>No transport available</span>
+        </mat-slide-toggle>
+        <mat-slide-toggle formControlName="providesBanquet">
+          <span *ngIf="tournamentForm.value.providesBanquet" translate>Provides banquet and afterparty</span>
+          <span *ngIf="!tournamentForm.value.providesBanquet" translate>No banquet available</span>
+        </mat-slide-toggle>
+      </fieldset>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <app-save-button buttonType="submit" [disabled]="tournamentForm.invalid || tournamentForm.pristine"></app-save-button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span
+              translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="tournamentForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"
+              aria-label="Delete">
+        <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<menu mat-tab-nav-bar *ngIf="tournamentForm.value.id" class="screen-only">
+  <a mat-tab-link *ngIf="canEdit" routerLink="./divisions" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Divisions">
+    <i class="fa fa-fw fa-cubes"></i>&nbsp;
+    <span translate>Divisions</span>
+  </a>
+
+  <a mat-tab-link *ngIf="canEdit" routerLink="./disciplines" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Disciplines">
+    <i class="fa fa-fw fa-heartbeat"></i>&nbsp;
+    <span translate>Disciplines</span>
+  </a>
+
+  <a mat-tab-link *appIfAuth="'Club'" routerLink="./teams" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()"
+     aria-label="Teams">
+    <i class="fa fa-fw fa-users"></i>&nbsp;
+    <span translate>Teams</span>
+  </a>
+
+  <a mat-tab-link *ngIf="canEdit" routerLink="./schedule" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()"
+     aria-label="Schedule">
+    <i class="fa fa-fw fa-sort-numeric-asc"></i>&nbsp;
+    <span translate>Schedule</span>
+  </a>
+
+  <a mat-tab-link *ngIf="canEdit" routerLink="./awards" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Awards">
+    <i class="fa fa-fw fa-trophy"></i>&nbsp;
+    <span translate>Awards</span>
+  </a>
+
+  <a mat-tab-link *ngIf="canEdit" routerLink="./info" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"
+     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Info">
+    <i class="fa fa-fw fa-info"></i>&nbsp;
+    <span translate>Info</span>
+  </a>
+</menu>
+
+<div class="sub-routes">
+  <router-outlet></router-outlet>
+</div>

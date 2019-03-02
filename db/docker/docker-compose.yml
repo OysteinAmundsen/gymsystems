@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gymsystem
+      MYSQL_USER: system
+      MYSQL_PASSWORD: admin
+    volumes:
+      - gymsystems-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+volumes:
+  gymsystems-data:

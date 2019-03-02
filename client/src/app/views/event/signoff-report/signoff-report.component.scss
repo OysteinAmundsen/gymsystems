@@ -1,0 +1,45 @@
+@media print{@page {size: portrait}}
+
+section {
+  page-break-after: always;
+  -webkit-print-color-adjust: exact !important;
+  margin: 0.5cm;
+}
+
+table {
+  thead > tr {
+    > td {
+      border: 0;
+    }
+    &:last-of-type {
+      > td {
+        border-bottom: 1px solid black;
+      }
+    }
+  }
+  td {
+    padding: 4px;
+  }
+}
+.judge, .group {
+  text-align: right;
+}
+.group {
+  background: rgba(0,0,0,0.1);
+}
+
+.signatures {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(70px, auto);
+  > div {
+    border-bottom: 2px solid black;
+    position: relative;
+    > span {
+      position: absolute;
+      bottom: -1rem;
+    }
+  }
+}

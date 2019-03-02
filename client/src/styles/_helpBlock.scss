@@ -1,0 +1,39 @@
+.view-help app-help-block, *:hover > app-help-block {
+  opacity: 1;
+  transition: opacity 0.1s ease-in;
+
+  .help > * {
+    padding: $padding 0;
+    position: relative;
+    white-space: initial;
+  }
+  .help > hr {
+    padding: 0;
+    margin: $padding 0;
+    border-color: rgba(0,0,0,0.2);
+  }
+}
+
+.help-available {
+  position: relative;
+}
+
+.help {
+  background: $primary;
+  border-radius: $rounded;
+  border: 1px solid darken($primary, 10%);
+  padding: 10px;
+  margin: 0 10px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.4);
+  color: white;
+  a {
+    color: inherit;
+    font-weight: bold;
+  }
+}
+
+app-datepicker, input[type="number"]:not([disabled]) {
+  + app-help-block {
+    margin-right: 1rem;
+  }
+}

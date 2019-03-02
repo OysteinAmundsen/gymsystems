@@ -1,0 +1,11 @@
+<button mat-raised-button (click)="openDialog()" [title]="'Insert' | translate" aria-label="Insert value"><i class="fa fa-fw fa-edit"></i> <span translate>Insert value</span></button>
+
+<app-dialog>
+  <ul class="unstyled">
+    <li *ngFor="let macro of macros" (click)="insert(macro)" [ngClass]="'row' + (macro.header ? ' unselectable' : ' selectable')">
+      <h4 *ngIf="macro.header" class="header col-xs-12">{{macro.header | translate}}</h4>
+      <div *ngIf="macro.name" class="name col-4">{{ macro.name }}</div>
+      <div *ngIf="macro.desc" class="def col-10">{{ macro.desc | translate }}</div>
+    </li>
+  </ul>
+</app-dialog>

@@ -1,0 +1,46 @@
+type Query {
+  getScoreGroups(disciplineId: ID): [IScoreGroup]
+  scoreGroup(id: ID!): IScoreGroup
+}
+
+type Mutation {
+  saveScoreGroup(input: ScoreGroupInput): IScoreGroup
+  saveScoreGroups(input: [ScoreGroupInput]): [IScoreGroup]
+  deleteScoreGroup(id: ID): Boolean
+}
+
+type Subscription {
+  scoreGroupCreated: IScoreGroup
+  scoreGroupModified: IScoreGroup
+  scoreGroupDeleted: ID
+}
+
+type IScoreGroup {
+  id: ID!
+  name: String!
+  type: String!
+  operation: Int!
+  max: Int
+  min: Int
+  sortOrder: Int
+  disciplineId: ID
+  discipline: IDiscipline
+  judgeCount: Int
+  judges: [IJudgeInScoreGroup]
+}
+
+input ScoreGroupInput {
+  id: ID
+  name: String!
+  type: String!
+  operation: Int!
+  max: Int
+  min: Int
+  disciplineId: ID!
+  sortOrder: Int
+  judges: [JudgeInScoreGroupInput]
+}
+
+input IDDependencyInput {
+  id: ID!
+}

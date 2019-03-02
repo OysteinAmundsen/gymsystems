@@ -1,8 +1,0 @@
-@import "~flag-icon-css/sass/variables";
-
-$flag-icon-css-path: '../../node_modules/flag-icon-css/flags';
-@import "~flag-icon-css/sass/flag-icon-base";
-
-@include flag-icon(gb);
-@include flag-icon(no);
-

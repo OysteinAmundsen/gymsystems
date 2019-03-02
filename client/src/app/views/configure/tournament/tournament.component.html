@@ -1,0 +1,50 @@
+<h1><i class="fa fa-fw fa-trophy"></i> <span translate>Tournaments</span></h1>
+
+<table mat-table #table [dataSource]="tournamentSource" role="menu" matSort (matSortChange)="tournamentSource.sortData($event)" >
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Name" | translate }}</th>
+    <td mat-cell *matCellDef="let tournament">
+      <div>{{ tournament.name }}</div>
+      <div class="visible-lt-wide">
+        {{ tournament.startDate | date: "dd.MM.yyyy" }} -
+        {{ tournament.endDate | date: "dd.MM.yyyy" }}
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="startDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="visible-wide">{{ "Start date" | translate }}</th>
+    <td mat-cell *matCellDef="let tournament" class="visible-wide">{{ tournament.startDate | date: "dd.MM.yyyy" }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="endDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="visible-wide">{{ "End date" | translate }}</th>
+    <td mat-cell *matCellDef="let tournament" class="visible-wide">{{ tournament.endDate | date: "dd.MM.yyyy" }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="venueName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "Location" | translate }}</th>
+    <td mat-cell *matCellDef="let tournament">
+      <div>{{ tournament.venue?.name }}</div>
+      <div class="visible-lt-medium club-name">{{ tournament.club.name }}</div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="clubName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="visible-medium">{{ "Organized by" | translate }}</th>
+    <td mat-cell *matCellDef="let tournament" class="visible-medium">{{ tournament.club.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="createdBy">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="visible-wide">{{ "Created by" | translate }}</th>
+    <td mat-cell *matCellDef="let tournament" class="visible-wide">{{ tournament.createdBy.name }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+  <tr mat-row *matRowDef="let tournament; columns: displayColumns; let index = index" #dataRow [routerLink]="['.', tournament.id]"></tr>
+</table>
+
+<button mat-raised-button type="button" class="mat-accent" [title]="'Add' | translate" [routerLink]="['./add']" *appIfAuth="'Organizer'" aria-label="Add tournament">
+  <i class="fa fa-fw fa-plus"></i> <span translate>Add Tournament</span>
+</button>

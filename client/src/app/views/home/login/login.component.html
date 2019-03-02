@@ -1,0 +1,45 @@
+<div class="fixed-back"></div>
+
+<form class="panel" [formGroup]="loginForm" (ngSubmit)="login()">
+  <section class="col-6 login">
+    <header>
+      <h3 translate>Login</h3>
+    </header>
+    <fieldset>
+      <div class="row">
+        <mat-form-field class="col-xs-12">
+          <input matInput type="text" formControlName="username" placeholder="{{'Username' | translate}}" autofocus cdkFocusInitial autocomplete="username" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-xs-12">
+          <input matInput type="password" #pwd formControlName="password" placeholder="{{'Password' | translate}}" autocomplete="current-password" />
+          <div class="fa fa-fw fa-eye" matSuffix (mouseover)="pwd.type = 'text'" (mouseout)="pwd.type = 'password'"></div>
+        </mat-form-field>
+      </div>
+    </fieldset>
+    <footer>
+      <button mat-raised-button class="mat-primary" type="submit" [disabled]="loginForm.invalid || loginForm.pristine" aria-label="Login">
+        <i class="fa fa-fw fa-sign-in"></i> <span translate>Login</span>
+      </button>
+      <a mat-button [routerLink]="['/reset']" type="submit" aria-label="Forgot password">
+        <i class="fa fa-fw fa-envelope"></i> <span translate>Forgot password</span>
+      </a>
+    </footer>
+  </section>
+
+  <section class="col-6 register">
+    <div class="content">
+      <header>
+        <h3 translate>Register</h3>
+      </header>
+      <span class="text" translate>
+        If you are a club representative, you can register to login to our system in order to add teams from your club to any tournaments.
+      </span>
+    </div>
+    <footer>
+      <a mat-button [title]="'Register' | translate" [routerLink]="['/register']" aria-label="Register new user">
+        <i class="fa fa-fw fa-user-plus"></i> <span translate>Register</span></a>
+    </footer>
+  </section>
+</form>

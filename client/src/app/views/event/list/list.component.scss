@@ -1,0 +1,145 @@
+@import "../../../../styles/variables";
+
+:host {
+  position: relative;
+  display: block;
+  margin-top: -5rem;
+}
+header, .mat-card-header {
+  padding: 0 0.5rem;
+  align-items: center;
+  @media only screen {
+    @supports (position: sticky) {
+      position: sticky;
+      top: 3.5rem;
+      z-index: 4;
+    }
+    border-radius: 5px;
+    background: white;
+  }
+}
+td.editor {
+  padding: 0;
+}
+
+.mat-card {
+  margin-top: -1rem;
+  min-height: 5rem;
+  @media only print {
+    box-shadow: none;
+  }
+  .mat-card-header {
+    margin: 0 -14.5px;
+    padding: 0;
+    padding-right: 5rem;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .actions {
+    padding: 0;
+    max-width: 40px;
+    width: 40px;
+    vertical-align: top;
+  }
+
+  thead th {
+    @media only screen {
+      @supports(position: sticky) {
+        position: sticky;
+        top: 3.6rem;
+        z-index: 2;
+      }
+      background-image: linear-gradient(to bottom, white 70%, rgba(white, 0) 100%);
+      height: 7rem;
+    }
+    @media only print {
+      border-bottom: 1px solid;
+      padding: 1rem 0 10px;
+    }
+    vertical-align: bottom;
+    &:first-of-type {
+      border-radius: 5px 0 0 0;
+    }
+    &:last-of-type {
+      border-radius: 0 5px 0 0;
+    }
+  }
+  &.isSecond {
+    margin-top: 0;
+    thead th {
+      top: 6.8rem;
+      height: auto;
+    }
+  }
+
+  tbody {
+    color: rgba($text-color, 0.5);
+    font-style: italic;
+    border-bottom: 1px solid rgba($primary, 0.1);
+    .day-split {
+      color: $text-color;
+      border-bottom: 2px solid $text-color;
+      background: white !important;
+    }
+    td {
+      border-bottom: 0;
+      &.score {
+        width: 1rem;
+        text-align: right;
+      }
+      &.discipline { width: 22.2%; }
+      &.division   { width: 25%; }
+      &.team 	     { width: 21.7%; }
+      &.start-time { width: 10.4%; }
+      &.start-no	 { width: 10.4%; }
+    }
+    &.unimportant > tr:last-of-type td:last-of-type {
+      background-image: repeating-linear-gradient(54deg, transparent, rgba(#ddd,0.4) 2px, transparent 4px);
+    }
+    // End reset
+    &.deleted td {
+      position: relative;
+      &:not(.actions)::after {
+        content: '';
+        position: absolute;
+        border-bottom: 4px double rgba(0,0,0,0.3);
+        left: 0;
+        right: 0;
+        top: 45%;
+      }
+    }
+    &.isPublished {
+      color: $text-color;
+    }
+    &.isPublished,
+    &.isStarted {
+      font-style: inherit;
+      background: transparent;
+    }
+    &.isCurrent {
+      background: rgba(lighten(green, 50%), 0.2);
+      border-top: 1px solid #bbb;
+      border-bottom: 1px solid #bbb;
+    }
+    &.isNext {
+      background: rgba(yellow, 0.2);
+      border-top: 1px solid #bbb;
+      border-bottom: 1px solid #bbb;
+    }
+    .details td {
+      padding-top: 0;
+      margin-top: -1rem;
+    }
+    @media only screen and (max-width: $stop1) {
+      tr:not(.details) td {
+        padding-bottom: 0;
+      }
+      > tr:first-child > td::after {
+        top: 65%;
+      }
+      > tr:last-child > td::after {
+        top: 25%;
+      }
+    }
+  }
+}

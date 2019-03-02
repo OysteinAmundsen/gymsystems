@@ -1,0 +1,77 @@
+<div class="fixed-back"></div>
+
+<!-- Reusable tournament display -->
+<ng-template #tournamentDisplay let-tournament="tournament">
+  <header>
+    <h1>{{ tournament.name }}</h1>
+    <div>
+      <a [href]="getCalendarLink(tournament)" download="{{tournament.name}}.ics" [title]="'Add to calendar' | translate">
+        <small><i class="fa fa-fw fa-2x fa-calendar-o"></i>{{ getDateSpan(tournament) }}</small>
+      </a>
+    </div>
+  </header>
+
+  <div>
+    <pre [innerHtml]="getDescription(tournament) | MarkdownToHtml"></pre>
+  </div>
+  <a href="https://www.google.com/maps/dir/?api=1&destination={{tournament.venue.latitude}},{{tournament.venue.longitude}}" target="_blank" mat-button
+     rel="noreferrer">
+    <i class="fa fa-fw fa-map-marker"></i>
+    {{ 'Get directions' | translate }}
+  </a>
+  <a [routerLink]="['/event', tournament.id, 'list']" mat-raised-button class="mat-primary" *appIfAuth="true" aria-label="Go to scoreboard">
+    <i class="fa fa-fw fa-arrow-right"></i>
+    <span translate>Go to scoreboard</span>
+  </a>
+  <a [routerLink]="['/event', tournament.id, 'results']" mat-raised-button class="mat-primary" *appIfAuth="false" aria-label="Go to results">
+    <i class="fa fa-fw fa-arrow-right"></i>
+    <span translate>Go to results</span>
+  </a>
+</ng-template>
+
+<!-- The homepage -->
+<div class="content-container">
+  <div class="main-content">
+    <!-- Display todays tournament -->
+    <section *ngIf="current && current.length">
+      <div *ngFor="let tournament of current">
+        <ng-container *ngTemplateOutlet="tournamentDisplay;context:{tournament: tournament}"></ng-container>
+      </div>
+    </section>
+
+    <!-- Display any future tournaments -->
+    <section *ngIf="future && future.length">
+      <div *ngFor="let tournament of future">
+        <ng-container *ngTemplateOutlet="tournamentDisplay;context:{tournament: tournament}"></ng-container>
+      </div>
+    </section>
+
+    <!-- Display a message if no tournaments are happening any time soon -->
+    <section *ngIf="!current.length && !future.length">
+      <header>
+        <h1 translate>No tournament today.</h1>
+      </header>
+      <span *ngIf="hasPast" translate>Come back later or checkout the past tournaments we have listed out for you on the right hand side.</span>
+      <span *ngIf="!hasPast" translate>Come back later.</span>
+    </section>
+  </div>
+
+  <!-- Tournament list -->
+  <div class="tournament-list">
+    <mat-card>
+      <mat-nav-list dense>
+        <ng-container *ngFor="let type of types;">
+          <h5 matSubheader *ngIf="type.tournaments && type.tournaments.length">
+            {{ type.name | translate }}&nbsp;<span translate>tournaments</span>
+          </h5>
+          <a mat-list-item *ngFor="let tournament of type.tournaments" class="flex" [routerLink]="['/event', tournament.id, 'results']">
+            <div class="flex">
+              <span class="flex-col">{{ tournament.name }}</span>
+              <span>{{ tournament.startDate | date: 'dd.MM.yyyy' }}</span>
+            </div>
+          </a>
+        </ng-container>
+      </mat-nav-list>
+    </mat-card>
+  </div>
+</div>

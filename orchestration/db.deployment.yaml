@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  selector:
+    app: mysql
+  # clusterIP: None
+  type: NodePort
+  ports:
+    - port: 3306
+      targetPort: 3306
+      nodePort: 30306
+      protocol: TCP
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: mysql:5.7
+          name: db
+          env:
+            - name: MYSQL_ROOT_PASSWORD:
+              value: root
+            - name: MYSQL_DATABASE:
+              value: gymsystem
+            - name: MYSQL_USER:
+              value: system
+            - name: MYSQL_PASSWORD:
+              value: admin
+          ports:
+            - containerPort: 3306
+              name: mysql
+          volumeMounts:
+            - name: gymsystems-data
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: gymsystems-data
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mysql-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi

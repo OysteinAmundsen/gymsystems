@@ -1,0 +1,75 @@
+scalar Date
+
+type Query {
+  getSchedule(tournamentId: ID, type: Int, scorable: Boolean): [ISchedule]
+  schedule(id: ID!): ISchedule
+}
+
+type Mutation {
+  start(id: ID): ISchedule
+  stop(id: ID): ISchedule
+  publish(id: ID): ISchedule
+  saveSchedule(input: [ScheduleInput]): [ISchedule]
+  saveParticipant(input: ScheduleInput): ISchedule
+  deleteParticipant(id: ID): Boolean
+  rollback(participantId: ID!): Boolean
+}
+
+type Subscription {
+  teamInDisciplineCreated: ISchedule
+  teamInDisciplineModified: ISchedule
+  teamInDisciplineDeleted: ID
+}
+
+type ISchedule {
+  id: ID!
+  sortNumber: Int
+  startNumber: Int
+  markDeleted: Boolean
+  startTime: Date
+  endTime: Date
+  publishTime: Date
+  type: Int
+  media: IMedia
+  tournamentId: ID
+  tournament: ITournament
+  disciplineId: ID
+  discipline: IDiscipline
+  disciplineName: String
+  disciplineSortOrder: Int
+  divisions: [IDivision]
+  divisionName: String
+  divisionSortOrder: String
+  scorable: Boolean
+  teamId: ID
+  team: ITeam
+  teamName: String
+  scores: [IScore]
+  total: String
+  totalByScoreGroup: [TotalByScoreGroup]
+}
+
+type TotalByScoreGroup {
+  group: IScoreGroup
+  total: Float
+}
+
+input ScheduleInput {
+  id: ID
+  sortNumber: Int
+  startNumber: Int
+  markDeleted: Boolean
+  startTime: Date
+  endTime: Date
+  publishTime: Date
+  type: Int
+  tournamentId: ID
+  disciplineId: ID
+  divisions: [IDDependencyInput]
+  teamId: ID
+  scores: [IDDependencyInput]
+}
+
+input IDDependencyInput {
+  id: ID!
+}

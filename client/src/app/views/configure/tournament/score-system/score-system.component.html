@@ -1,0 +1,39 @@
+<div class="table-responsive">
+  <table role="list" class="editable" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="scoreGroupList">
+    <thead>
+      <tr>
+        <th translate>Name</th>
+        <th translate>Type</th>
+        <th translate>Judges</th>
+        <th translate>Max</th>
+        <th translate>Min</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let score of scoreGroupList | orderBy: 'sortOrder'" class="drag-box" cdkDrag cdkDragLockAxis="y" [cdkDragDisabled]="score === selected">
+      <tr *ngIf="score !== selected" (click)="select(score)" role="listitem">
+        <td>{{ score.name }}</td>
+        <td>{{ score.type}}</td>
+        <td>{{ score.judgeCount }}</td>
+        <td>{{ score.max}}</td>
+        <td>{{ score.min}}</td>
+      </tr>
+      <tr *ngIf="score === selected">
+        <td colspan="5">
+          <app-score-group-editor [scoreGroup]="selected" [discipline]="discipline" (scoreChanged)="onChange($event)" [standalone]="standalone">
+          </app-score-group-editor>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addScoreGroup()"
+        aria-label="Add scoregroup">
+  <i class="fa fa-fw fa-plus"></i>
+  <span translate>Add ScoreGroup</span>
+</button>
+<button mat-raised-button type="button" *ngIf="selected == null && canAddDefaults" [title]="'Add default' | translate" (click)="addDefaults()"
+        aria-label="Add default scoregroups">
+  <i class="fa fa-fw fa-plus-circle"></i>
+  <span translate>Add Default ScoreGroups</span>
+</button>

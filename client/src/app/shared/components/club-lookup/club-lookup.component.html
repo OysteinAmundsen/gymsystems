@@ -1,0 +1,9 @@
+<mat-form-field>
+  <input matInput [formControl]="childControl" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead" (blur)="tabOut(clubTypeahead)">
+  <mat-autocomplete #clubTypeahead="matAutocomplete" [displayWith]="clubDisplay">
+    <mat-option *ngFor="let club of clubList; trackBy: trackByFn" [value]="club">
+      {{ club.name }}
+    </mat-option>
+  </mat-autocomplete>
+  <ng-content></ng-content>
+</mat-form-field>

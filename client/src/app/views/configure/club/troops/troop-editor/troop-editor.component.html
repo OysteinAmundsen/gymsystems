@@ -1,0 +1,35 @@
+<form [formGroup]="troopForm" (ngSubmit)="save()">
+  <mat-card>
+    <mat-card-header>
+      <div class="card-actions">
+        <button type="button" mat-icon-button (click)="close()"><i class="fa fa-fw fa-close"></i></button>
+      </div>
+      <mat-card-title>
+        <h3>{{ 'Troop' | translate}} {{ troopForm.value.name }}</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <input matInput type="text" formControlName="name" placeholder="{{'Name' | translate}}" autofocus cdkFocusInitial>
+        </mat-form-field>
+      </div>
+
+      <br />
+      <div class="row">
+        <app-member-selector [club]="club" [gymnasts]="troopForm.value.gymnasts" (gymnastsChange)="troopForm.markAsDirty()" [troopName]="troopForm.value.name"
+                             [memberListHidden]="memberListHidden"></app-member-selector>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <app-save-button buttonType="submit" [disabled]="troopForm.invalid || troopForm.pristine"></app-save-button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span
+              translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="troopForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"
+              aria-label="Delete">
+        <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

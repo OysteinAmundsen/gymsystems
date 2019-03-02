@@ -1,0 +1,35 @@
+type Query {
+  getTroops(clubId: ID, name:String): [ITroop]
+  troop(id: ID!): ITroop
+}
+
+type Mutation {
+  saveTroop(input: TroopInput): ITroop
+  deleteTroop(id: ID): Boolean
+}
+
+type Subscription {
+  troopCreated: ITroop
+  troopModified: ITroop
+  troopDeleted: ID
+}
+
+type ITroop {
+  id: ID
+  name: String
+  clubId: ID
+  club: IClub
+  divisions: [IDivision]
+  gymnasts: [IGymnast]
+}
+
+input TroopInput {
+  id: ID
+  name: String
+  clubId: ID
+  gymnasts: [IDDependencyInput]
+}
+
+input IDDependencyInput {
+  id: ID!
+}

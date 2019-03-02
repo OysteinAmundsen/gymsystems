@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+  <url>
+    <loc>https://www.gymsystems.org/</loc>
+  </url>
+  <url>
+    <loc>https://www.gymsystems.org/event/1/results</loc>
+  </url>
+  <url>
+    <loc>https://www.gymsystems.org/event/1/list</loc>
+  </url>
+  <url>
+    <loc>https://www.gymsystems.org/event/2/results</loc>
+  </url>
+  <url>
+    <loc>https://www.gymsystems.org/event/2/list</loc>
+  </url>
+  <url>
+    <loc>https://www.gymsystems.org/event/3/results</loc>
+  </url>
+  <url>
+    <loc>https://www.gymsystems.org/event/3/list</loc>
+  </url>
+  <url>
+    <loc>https://www.gymsystems.org/login</loc>
+  </url>
+  <url>
+    <loc>https://www.gymsystems.org/register</loc>
+  </url>
+</urlset>

@@ -1,0 +1,108 @@
+<form [formGroup]="memberForm" (ngSubmit)="save()">
+  <mat-card class="mat-elevation-z4">
+
+    <mat-card-header>
+      <div class="card-actions">
+        <button type="button" mat-icon-button (click)="close()" aria-label="Close"><i class="fa fa-fw fa-close"></i></button>
+      </div>
+      <i class="fa fa-fw fa-address-card-o fa-2x" mat-card-avatar></i>
+      <mat-card-title>
+        <h3>{{memberForm.value.name}}</h3>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <section class="gymnast-data">
+        <div class="row">
+          <mat-form-field class="col-6">
+            <input matInput type="text" formControlName="name" placeholder="{{'Name' | translate}}" autofocus cdkFocusInitial>
+          </mat-form-field>
+          <mat-form-field class="col-4">
+            <input matInput type="number" formControlName="birthYear" placeholder="{{'Birth year' | translate}}" [min]="minYear" [max]="maxYear" minlength="4"
+                   maxlength="4">
+          </mat-form-field>
+          <div class="col-2 material-label">
+            <label translate>Gender</label>
+            <mat-slide-toggle class="mat-primary" [checked]="memberForm.value.gender === gender.Male"
+                              (change)="$event.checked ? memberForm.controls['gender'].setValue(gender.Male) : memberForm.controls['gender'].setValue(gender.Female)">
+              <span *ngIf="memberForm.value.gender === gender.Male"><i class="fa fa-fw fa-male"></i>{{ 'Male' | translate}}</span>
+              <span *ngIf="memberForm.value.gender === gender.Female"><i class="fa fa-fw fa-female"></i>{{ 'Female' | translate}}</span>
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <div class="row">
+          <mat-form-field class="col-6">
+            <input matInput type="email" formControlName="email">
+            <mat-placeholder><i class="fa fa-fw fa-envelope"></i>{{'Email' | translate}}</mat-placeholder>
+          </mat-form-field>
+          <mat-form-field class="col-6">
+            <input matInput type="tel" formControlName="phone">
+            <mat-placeholder><i class="fa fa-fw fa-phone"></i>{{'Phone' | translate}}</mat-placeholder>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="col-12">
+            <input matInput type="text" formControlName="allergies">
+            <mat-placeholder><i class="fa fa-fw fa-medkit"></i>{{'Allergies' | translate}}</mat-placeholder>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <fieldset class="col-6">
+            <legend translate>Guardian</legend>
+
+            <mat-form-field class="col-12">
+              <input matInput type="text" formControlName="guardian1" placeholder="{{'Name' | translate}}">
+            </mat-form-field>
+            <mat-form-field class="col-12">
+              <input matInput type="tel" formControlName="guardian1Phone" placeholder="{{'Phone' | translate}}">
+            </mat-form-field>
+            <mat-form-field class="col-12">
+              <input matInput type="email" formControlName="guardian1Email" placeholder="{{'Email' | translate}}">
+            </mat-form-field>
+          </fieldset>
+          <fieldset class="col-6">
+            <legend translate>Guardian</legend>
+            <mat-form-field class="col-12">
+              <input matInput type="text" formControlName="guardian2" placeholder="{{'Name' | translate}}">
+            </mat-form-field>
+            <mat-form-field class="col-12">
+              <input matInput type="tel" formControlName="guardian2Phone" placeholder="{{'Phone' | translate}}">
+            </mat-form-field>
+            <mat-form-field class="col-12">
+              <input matInput type="email" formControlName="guardian2Email" placeholder="{{'Email' | translate}}">
+            </mat-form-field>
+          </fieldset>
+        </div>
+      </section>
+
+      <section class="teams" *appIfAuth="'Organizer'">
+        <h4><i class="fa fa-fw fa-group"></i> {{'Teams' | translate}}</h4>
+        <mat-form-field>
+          <input matInput [formControl]="troopSelector" placeholder="{{'Add to Team' | translate}}" [matAutocomplete]="troopTypeahead">
+          <mat-autocomplete #troopTypeahead="matAutocomplete" (optionSelected)="addToTeam($event)" [displayWith]="troopDisplay">
+            <mat-option *ngFor="let troop of troopList" [value]="troop">
+              {{ troop.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-nav-list>
+          <mat-list-item *ngFor="let troop of memberForm.value.troop">
+            <a matLine [routerLink]="['../../troops/', troop.id]" aria-label="Configure troop">{{ troop.name }}</a>
+            <button type="button" mat-icon-button (click)="removeFromTeam(troop)" aria-label="Remove member from troop"><i
+                 class="fa fa-fw fa-trash"></i></button>
+          </mat-list-item>
+        </mat-nav-list>
+      </section>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <app-save-button buttonType="submit" [disabled]="memberForm.invalid || memberForm.pristine"></app-save-button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()" aria-label="Close"><i class="fa fa-fw fa-ban"></i> <span
+              translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="memberForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"
+              aria-label="Delete">
+        <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

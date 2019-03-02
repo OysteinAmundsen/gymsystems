@@ -1,0 +1,23 @@
+@import "../../../../styles/variables";
+
+:host {
+  .fixed-back {
+    +* {
+      @media (min-width: $stop1) {
+        margin-top: 10%;
+      }
+    }
+  }
+}
+
+form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.lowered {
+  padding-left: 1rem;
+  label {
+    margin-bottom: 0.5rem;
+  }
+}

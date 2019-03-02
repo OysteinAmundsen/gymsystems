@@ -1,0 +1,31 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/panel";
+
+header {
+  position: relative;
+  .buttons {
+    position: absolute;
+    top: 0rem;
+    right: 0;
+  }
+}
+
+table {
+  cursor: pointer;
+  padding: ($padding / 2) 0 $padding 0;
+  border: 1px solid transparent;
+  width: 100%;
+  &:hover {
+    @include panel;
+  }
+  td,
+  th {
+    border-bottom: 0;
+  }
+  th {
+    @media (min-width: $stop1) {
+      width: 8rem;
+    }
+    text-align: right;
+  }
+}

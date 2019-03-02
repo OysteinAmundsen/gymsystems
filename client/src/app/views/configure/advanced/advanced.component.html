@@ -1,0 +1,61 @@
+<h1>
+  <i class="fa fa-fw fa-cogs"></i>
+  <span translate>Advanced settings</span>
+</h1>
+
+<!-- Div configurational objects -->
+<form (ngSubmit)="save()" class="horizontal" [formGroup]="configForm">
+
+  <section class="floorTime flex">
+    <header class="flex-col" translate>Default floor time</header>
+    <article class="flex-col">
+      <div>
+        <mat-form-field>
+          <input matInput type="number" name="executionTime" formControlName="executionTime" placeholder="{{'Execution' | translate}}" />
+          <small matSuffix translate>min</small>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput type="number" name="trainingTime" formControlName="trainingTime" placeholder="{{'Training' | translate}}" />
+          <small matSuffix translate>min</small>
+        </mat-form-field>
+      </div>
+    </article>
+  </section>
+
+  <!-- Default types and values -->
+  <section class="flex">
+    <header class="flex-col" translate>Default values</header>
+    <article class="flex-col">
+      <mat-tab-group *ngIf="defaultValues">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="fa fa-fw fa-cubes"></i> <span translate>Divisions</span>
+          </ng-template>
+          <app-divisions [divisions]="defaultValues.division" (divisionsChanged)="valueChanged('division', $event)" [standalone]="true"></app-divisions>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="fa fa-fw fa-heartbeat"></i> <span translate>Disciplines</span>
+          </ng-template>
+          <app-disciplines [disciplineList]="defaultValues.discipline" (disciplineListchanged)="valueChanged('discipline', $event)" [standalone]="true">
+          </app-disciplines>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="fa fa-fw fa-star"></i> <span translate>Score system</span>
+          </ng-template>
+          <app-score-system [scoreGroupList]="defaultValues.scoreGroup" (scoreGroupListChanged)="valueChanged('scoreGroup', $event)" [standalone]="true">
+          </app-score-system>
+        </mat-tab>
+      </mat-tab-group>
+    </article>
+  </section>
+
+  <div class="row">
+    <app-save-button buttonType="submit" [disabled]="configForm.invalid"></app-save-button>
+
+    <button mat-button type="button" (click)="backup()">{{ 'Export DB' | translate }}</button>
+  </div>
+</form>

@@ -1,0 +1,59 @@
+<mat-table #table [dataSource]="teamSource" role="menu" matSort (matSortChange)="teamSource.sortData($event)">
+  <!-- Checked -->
+  <ng-container matColumnDef="selector">
+    <mat-header-cell *matHeaderCellDef class="selector">
+      <mat-checkbox [checked]="selectionState() === 1" [indeterminate]="selectionState() === 2" (change)="toggleSelectAll()"></mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let team" class="selector">
+      <mat-checkbox [checked]="isSelected(team)" (click)="$event.stopPropagation()" (change)="toggleSelection(team)"></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let team">{{ team.name }}</mat-cell>
+  </ng-container>
+
+  <!-- AgeGroup -->
+  <ng-container matColumnDef="ageGroup"r>
+    <mat-header-cell *matHeaderCellDef [mat-sort-header]="[ageDivision, this]">{{'Age group' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let team">{{ ageDivision(team) }}</mat-cell>
+  </ng-container>
+
+  <!-- Gender -->
+  <ng-container matColumnDef="genderGroup"r>
+    <mat-header-cell *matHeaderCellDef [mat-sort-header]="[genderDivision, this]">{{'Gender group' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let team">{{ genderDivision(team) }}</mat-cell>
+  </ng-container>
+
+  <!-- Members -->
+  <ng-container matColumnDef="members">
+    <mat-header-cell *matHeaderCellDef [mat-sort-header]="[members, this]">{{'Members' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let team">{{ members(team) }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let team; columns: displayedColumns; let index=index" #dataRow (click)="select(team, index)" (press)="onPress($event)"></mat-row>
+</mat-table>
+
+<button mat-raised-button class="mat-accent" type="button" [title]="'Add' | translate" (click)="addTeam()" aria-label="Add">
+  <i class="fa fa-fw fa-plus"></i>
+  <span translate>Add Team</span>
+</button>
+<button mat-raised-button type="button" [title]="'Generate' | translate" (click)="generateTeams()" aria-label="Generate teams from members">
+  <i class="fa fa-fw fa-magic"></i>
+  <span translate>Generate teams from members</span>
+</button>
+<ng-container *ngIf="!selectMode">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete all' | translate" (click)="deleteAllTeams()" *appIfAuth="'Admin'" aria-label="Delete all teams">
+    <i class="fa fa-fw fa-trash"></i>
+    <span translate>Delete all teams</span>
+  </button>
+</ng-container>
+<ng-container *ngIf="selectMode">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteAllTeams()" *appIfAuth="'Organizer'" aria-label="Delete selected team">
+    <i class="fa fa-fw fa-trash"></i>
+    <span translate>Delete selected teams</span>
+  </button>
+</ng-container>

@@ -1,0 +1,87 @@
+scalar Date
+
+type Query {
+  getTournaments: [ITournament]
+  tournament(id: ID!): ITournament
+}
+
+type Mutation {
+  saveTournament(input: TournamentInput): ITournament
+  deleteTournament(id: ID): Boolean
+  deleteTournamentSchedule(id: ID): Boolean
+}
+
+type Subscription {
+  tournamentCreated: ITournament
+  tournamentModified: ITournament
+  tournamentDeleted: ID
+}
+
+type ITimeSpan {
+  day: Int
+  time: String
+  train: String
+}
+
+type ITournament {
+  id: ID
+  name: String
+  description_no: String
+  description_en: String
+  startDate: Date
+  endDate: Date
+  times: [ITimeSpan]
+  schedule: [ISchedule]
+  scheduleCount: Int
+  disciplines: [IDiscipline]
+  divisions: [IDivision]
+  teams: [ITeam]
+  media: [IMedia]
+  venueId: ID
+  venue: IVenue
+  createdById: ID
+  createdBy: IUser
+  clubId: ID
+  club: IClub
+  providesLodging: Boolean
+  lodingCostPerHead: Int
+  lodging: [IGymnast]
+  providesTransport: Boolean
+  transportationCostPerHead: Int
+  transport: [IGymnast]
+  providesBanquet: Boolean
+  banquetCostPerHead: Int
+  banquet: [IGymnast]
+}
+
+input CreateTimespanInput {
+  day: Int
+  time: String
+}
+
+input TournamentInput {
+  id: ID
+  name: String
+  description_no: String
+  description_en: String
+  startDate: Date
+  endDate: Date
+  times: [CreateTimespanInput]
+  disciplines: [IDDependencyInput]
+  divisions: [IDDependencyInput]
+  venue: VenueInput
+  venueId: ID
+  createdById: ID
+  club: ClubInput
+  clubId: ID
+  providesLodging: Boolean
+  lodingCostPerHead: Int
+  providesTransport: Boolean
+  transportationCostPerHead: Int
+  providesBanquet: Boolean
+  banquetCostPerHead: Int
+}
+
+input IDDependencyInput {
+  id: ID!
+}

@@ -1,0 +1,60 @@
+<section *ngIf="club">
+  <div class="action">
+    <button mat-icon-button type="button" class="small" (click)="toggleMembers()" [title]="toggleTitle" aria-label="Toggle member list">
+      <i *ngIf="!memberListHidden" class="fa fa-fw fa-chevron-left"></i>
+      <i *ngIf="memberListHidden" class="fa fa-fw fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Available members -->
+  <div [ngClass]="{'drag-container': true, 'flex-col': true, hidden: memberListHidden}">
+    <h3>
+      <i class="fa fa-fw fa-address-book"></i>
+      <span translate>Available</span>
+    </h3>
+    <ul cdkDropList #available="cdkDropList" (cdkDropListDropped)="drop($event)" [cdkDropListData]="filteredMembers" [cdkDropListConnectedTo]="[added]"
+        class="available drag-list">
+      <li [ngClass]="{'drag-box': true, 'male': member.gender == genders.Male, 'female': member.gender == genders.Female}"
+          *ngFor="let member of filteredMembers" cdkDrag>
+        <span>{{ member.name }}</span>
+        <small>{{ age(member.birthYear) }}</small>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Added members -->
+  <div class="flex-col drag-container">
+    <div class="help-available flex">
+      <h3 class="flex-col">
+        <i class="fa fa-fw fa-group"></i>
+        <span translate>Gymnasts</span> <span>({{ gymnasts.length }})</span>
+      </h3>
+      <ng-content></ng-content>
+      <app-help-block *ngIf="availableMembers && availableMembers.length > 0">
+        <p translate>Press the <i class="fa fa-fw fa-chevron-right"></i> icon found to the left of this header to view available members.</p>
+        <p translate>You can then drag and drop members into the team.</p>
+      </app-help-block>
+      <app-help-block *ngIf="!availableMembers || availableMembers.length <= 0">
+        <p translate>You have assigned all your members into teams.</p>
+        <p translate>If you want to re-assign members, you must drag them back to "Available", or recruit more members.</p>
+      </app-help-block>
+    </div>
+    <ul cdkDropList #added="cdkDropList" (cdkDropListDropped)="drop($event)" [cdkDropListData]="gymnasts" [cdkDropListConnectedTo]="[available]"
+        class="added drag-list">
+      <li [ngClass]="{'drag-box': true, 'male': member.gender === genders.Male, 'female': member.gender === genders.Female}" *ngFor="let member of gymnasts"
+          cdkDrag>
+        <div class="flex">
+          <span class="flex-col">{{ member.name }}</span>
+          <ng-container *ngTemplateOutlet="memberTemplate;context:{member: member}"></ng-container>
+          <small>{{ age(member.birthYear) }}</small>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
+</section>
+<div *ngIf="club && (!availableMembers || availableMembers.length === 0) && (!gymnasts || gymnasts.length === 0)" class="help">
+  <span translate>Your club does not have any gymnasts registerred.</span>
+  <span> <a [routerLink]="['/configure/club', club.id, 'members']" translate>Why not go register some?</a></span>
+</div>

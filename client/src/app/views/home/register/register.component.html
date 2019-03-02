@@ -1,0 +1,83 @@
+<div class="fixed-back"></div>
+
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h3 translate>Register</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <mat-form-field class="col-7 help-available">
+          <input matInput type="text" autocomplete="username" formControlName="name" autocomplete="username" autofocus cdkFocusInitial
+                 placeholder="{{'Username' | translate}}" />
+          <app-help-block>
+            <p translate>The name you want to use for logging in to your account</p>
+          </app-help-block>
+        </mat-form-field>
+        <div class="col-5 lowered material-label help-available">
+          <label translate>Register as</label>
+          <mat-slide-toggle class="mat-primary" [checked]="registerForm.value.role === type.Organizer"
+                            (change)="$event.checked ? registerForm.controls['role'].setValue(type.Organizer) : registerForm.controls['role'].setValue(type.Club)">
+            <span *ngIf="registerForm.value.role === type.Organizer" translate>Organizer</span>
+            <span *ngIf="registerForm.value.role === type.Club" translate>Club</span>
+          </mat-slide-toggle>
+          <app-help-block>
+            <p translate>As a <b translate>Club</b> representative, you can enter teams to participate in a tournament.</p>
+            <p translate>As an <b translate>Organizer</b>, you can create tournaments.</p>
+            <hr>
+            <p>
+              <i translate>If you plan on creating tournaments in the future, we suggest you register as organizer.</i>
+              <i translate>You will have the same privileges as a club representative for tournaments your club does not organize.</i>
+            </p>
+          </app-help-block>
+        </div>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-7 help-available">
+          <input matInput type="email" autocomplete="email" formControlName="email" placeholder="{{'Email' | translate}}">
+          <app-help-block>
+            <p translate>The email address you provide for us will be used to contact you in regards to activity on your account.</p>
+            <p translate>We may also contact you if a tournament opens up for registration, so you can enter your club to join</p>
+          </app-help-block>
+        </mat-form-field>
+        <div class="col-5 help-available">
+          <app-club-lookup formControlName="club">
+            <app-help-block>
+              <p translate>We need to know which club you represent in order to provide you with the appropriate privileges.</p>
+            </app-help-block>
+          </app-club-lookup>
+        </div>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-6 help-available">
+          <input matInput type="password" formControlName="password" autocomplete="new-password" placeholder="{{'Password' | translate}}">
+          <app-help-block>
+            <p translate>Any password will do. We do not set restrictions. But please make sure it is not too easy.</p>
+            <p translate>We suggest using a password generator for this: <a href="https://xkpasswd.net/s/" target="_blank"
+                 rel="noreferrer">https://xkpasswd.net/s/</a></p>
+          </app-help-block>
+        </mat-form-field>
+        <mat-form-field class="col-6 help-available">
+          <input matInput type="password" formControlName="repeatPassword" autocomplete="new-password" placeholder="{{'Repeat password' | translate}}">
+          <app-help-block>
+            <p translate>This needs to be exactly the same text as entered in the password field. Just to make sure you did not make any typos. :-)</p>
+          </app-help-block>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button class="mat-primary" type="submit" [title]="'Login' | translate" [disabled]="registerForm.invalid || registerForm.pristine"
+              aria-label="Register">
+        <i class="fa fa-fw fa-sign-in"></i>
+        <span translate>Register</span>
+      </button>
+      <a mat-raised-button [title]="'Login' | translate" [routerLink]="['/login']" aria-label="Go to login">
+        <i class="fa fa-fw fa-sign-in"></i>
+        <span translate>Back to login</span>
+      </a>
+    </mat-card-actions>
+  </mat-card>
+</form>

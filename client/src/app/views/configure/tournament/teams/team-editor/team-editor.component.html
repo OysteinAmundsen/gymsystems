@@ -1,0 +1,149 @@
+<form [formGroup]="teamForm" (ngSubmit)="save()">
+  <mat-card>
+    <mat-card-header>
+      <div class="card-actions">
+        <button type="button" mat-icon-button (click)="close()" aria-label="Close"><i class="fa fa-fw fa-close"></i></button>
+      </div>
+      <i class="fa fa-fw fa-group fa-2x" mat-card-avatar></i>
+      <mat-card-title>
+        <h3>{{ 'Team' | translate}} {{ teamName }}</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <fieldset>
+        <div class="flex flex-row">
+          <div class="col-5" *ngIf="!currentUser?.club">
+            <app-club-lookup formControlName="club"></app-club-lookup>
+          </div>
+          <mat-form-field [ngClass]="{'col-7': !currentUser?.club, 'col-12': currentUser?.club, 'help-available': teamForm.value.club != null}">
+            <input matInput formControlName="name" placeholder="{{'Name' | translate}}" [matAutocomplete]="troopTypeahead" (blur)="tabOut(troopTypeahead)">
+            <mat-autocomplete #troopTypeahead="matAutocomplete" (optionSelected)="setSelectedTroop($event)" [displayWith]="troopDisplay">
+              <mat-option *ngFor="let troop of troopList" [value]="troop">
+                {{ troop.name }}
+              </mat-option>
+            </mat-autocomplete>
+            <app-help-block *ngIf="teamForm.value.club != null">
+              <p translate>You cannot enter a team name before you've selected which club it belongs to</p>
+              <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="['/configure/club']"
+                   aria-label="Configure club">Club</a>
+                section</p>
+            </app-help-block>
+          </mat-form-field>
+        </div>
+      </fieldset>
+      <div class="row">
+
+        <!-- Divisions -->
+        <div class="col-6 divisions">
+          <header>
+            <h2>
+              <i class="fa fa-fw fa-cubes"></i>
+              <span translate>Division</span>
+            </h2>
+          </header>
+          <fieldset>
+            <app-division-lookup formControlName="genderDivision" icon="venus-mars" placeholder="{{'Gender group' | translate}}" type="Gender"
+                                 [tournamentId]="tournamentId" class="col-12"></app-division-lookup>
+            <app-division-lookup formControlName="ageDivision" icon="child" placeholder="{{'Age group' | translate}}" type="Age" [tournamentId]="tournamentId"
+                                 class="col-12"></app-division-lookup>
+          </fieldset>
+        </div>
+
+        <!-- Disciplines -->
+        <div class="col-6">
+          <header>
+            <h2>
+              <i class="fa fa-fw fa-heartbeat"></i>
+              <span translate>Disciplines</span>
+              <mat-slide-toggle class="mat-primary" formControlName="class" [checked]="teamForm.value.class === classes.TeamGym" (change)="classChange($event)">
+                <span *ngIf="teamForm.value.class === classes.TeamGym" translate>TeamGym</span>
+                <span *ngIf="teamForm.value.class === classes.National" translate>National</span>
+              </mat-slide-toggle>
+            </h2>
+          </header>
+          <div>
+            <table role="list">
+              <tr role="listitem">
+                <td class="disciplines">
+                  <label>
+                    <input type="checkbox" [checked]="allChecked" (click)="toggleChecked()"
+                           [disabled]="teamForm.value.class === classes.TeamGym || teamForm.value.club == null || teamForm.value.name == null">
+                    <span translate>All</span>
+                  </label>
+                </td>
+                <td class="media-head help-available">
+                  <i class="fa fa-fw fa-music"></i>
+                  <span translate>Upload media</span>
+                  <app-help-block>
+                    <p><span translate>The</span> <i class="fa fa-fw fa-upload"></i>
+                      <span translate>buttons below will allow you to upload media for your teams performance in that discipline</span>
+                    </p>
+                    <p *ngIf="teamForm.invalid">
+                      <b translate>You will not see any upload button until you have specified a team name, divisions and disciplines.</b>
+                    </p>
+                  </app-help-block>
+                </td>
+              </tr>
+              <tbody formArrayName="disciplines">
+                <tr role="listitem" *ngFor="let discipline of teamDiscipline.controls; let i = index;" [formGroupName]="i">
+                  <td class="disciplines">
+                    <label>
+                      <input type="checkbox" formControlName="checked">
+                      {{ discipline.value.name }}
+                    </label>
+                  </td>
+                  <td class="media">
+                    <app-media-control *ngIf="discipline.value.checked" [media]="getMedia(discipline.value.id)" [clubId]="teamForm.value.club?.id"
+                                       [disciplineId]="discipline.value.id" [disciplineName]="discipline.value.name" [teamId]="teamForm.value.id"
+                                       [canUpload]="true"></app-media-control>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <!-- Members -->
+        <app-member-selector [club]="teamForm.value.club && teamForm.value.club.id ? teamForm.value.club : null" [troopName]="teamForm.value.name"
+                             [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()" [memberTemplate]="memberContent">
+          <span class="flex-col" *ngIf="teamForm.value.gymnasts != null && teamForm.value.gymnasts.length > 0">
+            <label [title]="'Require lodging' | translate" *ngIf="tournament?.providesLodging">
+              <input type="checkbox" [(ngModel)]="isAllLodged" [ngModelOptions]="{standalone: true}" />
+              <i class="fa fa-fw fa-bed"></i>
+            </label>
+            <label [title]="'Require transportation' | translate" *ngIf="tournament?.providesTransport">
+              <input type="checkbox" [(ngModel)]="isAllTransport" [ngModelOptions]="{standalone: true}" />
+              <i class="fa fa-fw fa-bus"></i>
+            </label>
+            <label [title]="'Joining banquet' | translate" *ngIf="tournament?.providesBanquet">
+              <input type="checkbox" [(ngModel)]="isAllBanquet" [ngModelOptions]="{standalone: true}" />
+              <i class="fa fa-fw fa-cutlery"></i>
+            </label>
+          </span>
+        </app-member-selector>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <app-save-button buttonType="submit" [disabled]="teamForm.invalid || teamForm.pristine"></app-save-button>
+      <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="close()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span
+              translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="teamForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"
+              aria-label="Delete"><i class="fa fa-fw fa-trash"></i>
+        <span translate>Delete</span></button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+<ng-template #memberContent let-member="member">
+  <div class="member-extras flex-col">
+    <label *ngIf="tournament?.providesLodging" [title]="'Require lodging' | translate"><input type="checkbox" [(ngModel)]="member.lodging" /> <i
+         class="fa fa-fw fa-bed"></i></label>
+    <label *ngIf="tournament?.providesTransport" [title]="'Require transportation' | translate"><input type="checkbox" [(ngModel)]="member.transport" /> <i
+         class="fa fa-fw fa-bus"></i></label>
+    <label *ngIf="tournament?.providesBanquet" [title]="'Joining banquet' | translate"><input type="checkbox" [(ngModel)]="member.banquet" /> <i
+         class="fa fa-fw fa-cutlery"></i></label>
+  </div>
+</ng-template>

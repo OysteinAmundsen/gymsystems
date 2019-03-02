@@ -1,0 +1,45 @@
+type Query {
+  getTeams(tournamentId: ID, clubId: ID): [ITeam]
+  team(id: ID!): ITeam
+}
+
+type Mutation {
+  saveTeam(input: TeamInput): ITeam
+  deleteTeam(id: ID): Boolean
+}
+
+type Subscription {
+  teamCreated: ITeam
+  teamModified: ITeam
+  teamDeleted: ID
+}
+
+type ITeam {
+  id: ID!
+  name: String!
+  class: Int
+  club: IClub
+  clubId: ID
+  tournamentId: ID
+  tournament: ITournament
+  gymnasts: [IGymnast]
+  media: [IMedia]
+  disciplines: [IDiscipline]
+  divisions: [IDivision]
+  divisionName: String
+}
+
+input TeamInput {
+  id: ID
+  name: String!
+  class: Int!
+  clubId: ID!
+  tournamentId: ID!
+  gymnasts: [IDDependencyInput]
+  disciplines: [IDDependencyInput!]!
+  divisions: [IDDependencyInput!]!
+}
+
+input IDDependencyInput {
+  id: ID!
+}

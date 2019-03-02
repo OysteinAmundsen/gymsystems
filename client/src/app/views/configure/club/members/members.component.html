@@ -1,0 +1,74 @@
+<mat-table #table [dataSource]="memberSource" matSort (matSortChange)="memberSource.sortData($event)" [matSortActive]="sortColumn"
+           [matSortDirection]="sortDirection">
+
+  <!-- Checked -->
+  <ng-container matColumnDef="selector">
+    <mat-header-cell *matHeaderCellDef class="selector">
+      <mat-checkbox [checked]="selectionState() === 1" [indeterminate]="selectionState() === 2" (change)="toggleSelectAll()"></mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let team" class="selector">
+      <mat-checkbox [checked]="isSelected(team)" (click)="$event.stopPropagation()" (change)="toggleSelection(team)"></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Name' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member">
+      <span [ngClass]="{'text-warning': member.allergies}">{{ member.name }}</span>
+      <i class="fa fa-fw fa-medkit text-warning" *ngIf="member.allergies"></i>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="birthYear">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'Birth year' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member">{{ member.birthYear }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="gender">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-medium">{{'Gender' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member" class="visible-medium">{{ genderDivision(member) }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="teams">
+    <mat-header-cell *matHeaderCellDef [mat-sort-header]="[countTeams, this]">{{'Teams' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member">{{ countTeams(member) }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="allergies">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-wide">{{'Allergies' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef="let member" class="visible-wide">{{ member.allergies }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let member; columns: displayedColumns; let index=index" matRipple #dataRow (press)="onPress($event)" [routerLink]="['.', member.id]"
+           [ngClass]="{'male': member.gender == genders.Male, 'female': member.gender == genders.Female, collapsed: selected == member}"></mat-row>
+</mat-table>
+
+<button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="'Add' | translate" (click)="addMember()" aria-label="Add">
+  <i class="fa fa-fw fa-plus"></i>
+  <span translate>Add Member</span>
+</button>
+<a mat-raised-button class="file-upload btn" *ngIf="selected == null" [title]="'Import' | translate" aria-label="Import members">
+  <input type="file" (change)="importMember($event)" accept=".csv">
+  <i class="fa fa-fw fa-upload"></i>
+  <span translate>Import Members</span>
+</a>
+<a mat-raised-button (click)="exportMembers($event)" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0"
+   [title]="'Export' | translate" aria-label="Export members">
+  <i class="fa fa-fw fa-download"></i>
+  <span translate>Export Members</span>
+</a>
+<ng-container *ngIf="!selectMode">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete all' | translate" (click)="deleteAll()" *appIfAuth="'Admin'"
+          aria-label="Delete all members">
+    <i class="fa fa-fw fa-trash"></i>
+    <span translate>Delete all</span>
+  </button>
+</ng-container>
+<ng-container *ngIf="selectMode">
+  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteSelected()"
+          *appIfAuth="'Organizer'" aria-label="Delete selected member">
+    <i class="fa fa-fw fa-trash"></i>
+    <span translate>Delete selected</span>
+  </button>
+</ng-container>

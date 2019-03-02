@@ -1,0 +1,49 @@
+@import "../../../styles/variables";
+
+menu {
+  @supports (display: flex) {
+    margin-top: 1rem;
+  }
+  @media (max-width: $stop1) {
+    margin-top: 10px;
+  }
+  ::ng-deep .mat-nav-list {
+    .mat-list-item {
+      &.active {
+        background: $primaryDark;
+      }
+      .mat-list-item-content {
+        .mat-list-icon {
+          font-size: inherit;
+          line-height: 25px;
+          @media (max-width: $stop2) {
+            display: inline-block;
+          }
+        }
+        .mat-list-text {
+          padding: 0 16px 0 0;
+          @media (max-width: $stop2) {
+            display: block;
+            padding: 0;
+          }
+          @media (max-width: $stop1) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+section {
+  min-height: 12rem;
+  margin-left: 14rem;
+  margin-top: 1rem;
+  @media (max-width: $stop1) {
+    margin-left: 0;
+  }
+  @media print {
+    margin: 0;
+  }
+}
+

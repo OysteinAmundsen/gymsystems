@@ -1,0 +1,32 @@
+<table>
+  <tbody>
+    <td class="club">
+      <label><i class="fa fa-fw fa-university"></i>Club track</label>
+    </td>
+    <td class="media">
+      <app-media-control [clubId]="club?.id" [teamId]="null" [disciplineId]="null" [canUpload]="true" (changed)="onMediaChanged($event)"></app-media-control>
+    </td>
+  </tbody>
+  <tbody>
+    <tr role="listitem" *ngFor="let discipline of disciplines">
+      <td class="disciplines">
+        <i class="square" [attr.discipline]="discipline.sortOrder"></i>
+        <label>{{ discipline.name }}</label>
+      </td>
+      <td class="media">
+        <app-media-control [clubId]="club?.id" [teamId]="null" [disciplineId]="null" [disciplineName]="discipline.name" [canUpload]="true"
+                           (changed)="onMediaChanged($event)"></app-media-control>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<section class="info-box">
+  <h2 translate>Upload default media for this club.</h2>
+
+  <p>You can choose to upload one default track to be played in all executions by all troops
+    representing this club, or one track per discipline.</p>
+  <p>The track selection is hierarchical, which means that in a tournament, we will first
+    look for a track uploaded for that specific tournament in that specific discipline. That is configured when you assign your troops to a
+    competition. If none is found, we will look for a track for a specific discipline, which you configure in this panel. If we still cannot find
+    a track, we will look for a club track.</p>
+</section>

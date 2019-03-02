@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    // "rootDir": "./src",
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    // "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "api/*": [
+        "./api/*"
+      ]
+    },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es6",
+      "es2017.string"
+    ]
+  },
+  "include": [
+    "src/**/*",
+    "ormconfig.js"
+  ],
+  "exclude": [
+    "**/node_modules/*",
+    "**/*.spec.ts"
+  ]
+}

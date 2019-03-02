@@ -1,0 +1,43 @@
+@import "../../../../../styles/variables";
+
+
+td {
+  &.media {
+    label.media-name {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .file-upload {
+      position: relative;
+      max-width: 40px;
+      padding-top: 0;
+      input[type="file"] {
+        cursor: pointer;
+        position: absolute;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        z-index: 999;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.info-box {
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 0;
+  background: $primary;
+  h2 {
+    color: white;
+    margin-bottom: 12px;
+  }
+  p {
+    margin-bottom: 8px;
+  }
+}

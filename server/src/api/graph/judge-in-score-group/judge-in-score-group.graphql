@@ -1,0 +1,28 @@
+type Query {
+  getJudgeInScoreGroup: [IJudgeInScoreGroup]
+  judgeInScoreGroup(judgeId: ID, scoreGroupId: ID): IJudgeInScoreGroup
+}
+
+type Mutation {
+  saveJudgeInScoreGroup(input: JudgeInScoreGroupInput): IJudgeInScoreGroup
+  deleteJudgeFromScoreGroup(input: JudgeInScoreGroupInput): IJudgeInScoreGroup
+}
+
+type Subscription {
+  judgeInScoreGroupSaved: IJudgeInScoreGroup
+  judgeInScoreGroupDeleted: IJudgeInScoreGroup
+}
+
+type IJudgeInScoreGroup {
+  sortNumber: Int
+  scoreGroupId: ID!
+  scoreGroup: IScoreGroup
+  judgeId: ID!
+  judge: IJudge
+}
+
+input JudgeInScoreGroupInput {
+  sortNumber: Int
+  scoreGroupId: ID!
+  judgeId: ID!
+}

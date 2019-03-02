@@ -1,0 +1,63 @@
+<form [formGroup]="userForm" (ngSubmit)="save()">
+  <mat-card>
+    <mat-card-header>
+      <div class="card-actions">
+        <button type="button" mat-icon-button (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-close"></i></button>
+      </div>
+      <i class="fa fa-fw fa-user fa-2x" mat-card-avatar></i>
+      <mat-card-title>
+        <h3>{{ userForm.value.name || 'User' }}</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <mat-form-field [ngClass]="(userForm.value.id !== currentUser.id ? 'col-xs-8' : 'col-xs-12') + ' help-available'">
+          <input matInput type="text" autocomplete="username" formControlName="name" autofocus cdkFocusInitial placeholder="{{'Name' | translate}}">
+          <app-help-block>
+            <p translate>The name you want to use for logging in to your account</p>
+          </app-help-block>
+        </mat-form-field>
+        <mat-form-field class="col-xs-4" *ngIf="userForm.value.id !== currentUser.id">
+          <mat-select formControlName="role" placeholder="{{'Role' | translate}}">
+            <mat-option *ngFor="let role of roleNames" [value]="role.id">{{role.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field [ngClass]="(userForm.value.id !== currentUser.id && currentUser.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12') + ' help-available'">
+          <input matInput type="email" autocomplete="email" formControlName="email" placeholder="{{'Email' | translate}}">
+          <app-help-block>
+            <p translate>The email address you provide for us will be used to contact you in regards to activity on your account.</p>
+            <p translate>We may also contact you if a tournament opens up for registration, so you can enter your club to join</p>
+          </app-help-block>
+        </mat-form-field>
+        <div class="col-5 help-available" *ngIf="userForm.value.role < roles.Admin && currentUser.role >= roles.Admin">
+          <app-club-lookup formControlName="club">
+            <app-help-block>
+              <p translate>We need to know which club you represent in order to provide you with the appropriate privileges.</p>
+            </app-help-block>
+          </app-club-lookup>
+        </div>
+      </div>
+      <div class="row">
+        <mat-slide-toggle translate [checked]="userForm.value.activated" [disabled]="user.activated" (toggleChange)="toggleActive()">
+          <span *ngIf="userForm.value.activated">User is active</span>
+          <span *ngIf="!userForm.value.activated">Activate user</span>
+        </mat-slide-toggle>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <app-save-button buttonType="submit" [disabled]="userForm.invalid || userForm.pristine"></app-save-button>
+      <button mat-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i>
+        <span translate>Cancel</span></button>
+      <button mat-raised-button type="button" *ngIf="userForm.value.id && userForm.value.id !== currentUser.id" [title]="'Delete' | translate"
+              class="pull-right mat-warn" (click)="delete()" aria-label="Delete">
+        <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
+      </button>
+      <button mat-button type="button" class="pull-right" (click)="changePassword()">{{ 'Change password' | translate }}</button>
+    </mat-card-actions>
+  </mat-card>
+
+</form>

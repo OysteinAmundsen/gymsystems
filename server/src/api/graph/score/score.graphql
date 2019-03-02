@@ -1,0 +1,37 @@
+scalar Date
+
+type Query {
+  getScores(participantId: ID): [IScore]
+  score(id: ID!): IScore
+}
+
+type Mutation {
+  saveScore(input: [ScoreInput]): [IScore]
+  deleteScore(id: ID): Boolean
+  deleteParticipantScores(participantId: ID): Boolean
+}
+
+type Subscription {
+  scoreCreated: IScore
+  scoreModified: IScore
+  scoreDeleted: ID
+}
+
+type IScore {
+  id: ID!
+  value: Float
+  updated: Date
+  judgeIndex: Int
+  scoreGroupId: ID
+  scoreGroup: IScoreGroup
+  participantId: ID
+  participant: ISchedule
+}
+
+input ScoreInput {
+  id: ID
+  value: Float!
+  judgeIndex: Int!
+  scoreGroupId: ID!
+  participantId: ID!
+}

@@ -1,0 +1,11 @@
+<div role="dialogContainer">
+  <aside role="dialog">
+    <div>
+      <ng-content></ng-content>
+    </div>
+    <footer *ngIf="noButtons !== true">
+      <button (click)="cancelClicked()" aria-label="Cancel">Cancel</button>
+      <button type="submit" (click)="okClicked()" aria-label="Ok">Ok</button>
+    </footer>
+  </aside>
+</div>

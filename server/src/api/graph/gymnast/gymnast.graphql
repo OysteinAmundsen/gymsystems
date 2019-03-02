@@ -1,0 +1,68 @@
+scalar Date
+
+type Query {
+  getGymnasts(clubId: ID): [IGymnast]
+  gymnast(id: ID!): IGymnast
+}
+
+type Mutation {
+  saveGymnast(input: CreateGymnastInput): IGymnast
+  deleteGymnast(id: ID): Boolean
+}
+
+type Subscription {
+  gymnastCreated: IGymnast
+  gymnastModified: IGymnast
+  gymnastDeleted: ID
+}
+
+type IGymnast {
+  id: ID!
+  name: String!
+  email: String
+  phone: String
+  allergies: String
+  birthYear: Int
+  birthDate: Date
+  gender: Int!
+  guardian1: String
+  guardian1Phone: String
+  guardian1Email: String
+  guardian2: String
+  guardian2Phone: String
+  guardian2Email: String
+  clubId: ID
+  club: IClub
+  troop: [ITroop]
+  team: [ITeam]
+  lodging: [ITournament]
+  transport: [ITournament]
+  banquet: [ITournament]
+}
+
+input CreateGymnastInput {
+  id: ID
+  name: String!
+  email: String
+  phone: String
+  allergies: String
+  birthYear: Int
+  birthDate: Date
+  gender: Int!
+  guardian1: String
+  guardian1Phone: String
+  guardian1Email: String
+  guardian2: String
+  guardian2Phone: String
+  guardian2Email: String
+  clubId: ID!
+  troop: [IDDependencyInput]
+  team: [IDDependencyInput]
+  lodging: [IDDependencyInput]
+  transport: [IDDependencyInput]
+  banquet: [IDDependencyInput]
+}
+
+input IDDependencyInput {
+  id: ID!
+}

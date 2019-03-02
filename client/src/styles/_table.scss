@@ -1,0 +1,117 @@
+@import "variables";
+
+table[role="list"] {
+  border-collapse: collapse;
+  width: 100%;
+  th {
+    text-align: left;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 12px;
+    font-weight: 500;
+    @media only screen {
+      padding: 14px ($padding * 3);
+      min-height: 42px;
+    }
+  }
+  td {
+    border-bottom: 1px solid rgba($primary, 0.1);
+  }
+  tr:last-child td {
+    border-bottom: 0;
+  }
+  tbody,
+  tr {
+    outline: none;
+    &[role="listitem"] {
+      cursor: pointer;
+      &:hover td {
+        background-color: rgba($primary, 0.2) !important;
+      }
+    }
+    &.unimportant {
+      td {
+        background-image: repeating-linear-gradient(
+          54deg,
+          transparent,
+          rgba(#ddd, 0.4) 2px,
+          transparent 4px
+        );
+        &:first-of-type {
+          background-image: linear-gradient(to right, white 0%, transparent 30%),
+            repeating-linear-gradient(
+              54deg,
+              transparent,
+              rgba(#ddd, 0.4) 2px,
+              transparent 4px
+            );
+        }
+        &:last-of-type {
+          background-image: linear-gradient(to left, white 0%, transparent 70%),
+            repeating-linear-gradient(
+              54deg,
+              transparent,
+              rgba(#ddd, 0.4) 2px,
+              transparent 4px
+            );
+        }
+      }
+    }
+  }
+  td {
+    @media only screen {
+      padding: $padding * 3;
+    }
+  }
+}
+
+.table-responsive {
+  width: 100%;
+  overflow: auto;
+  table {
+    width: 100%;
+  }
+}
+
+.mat-table {
+  width: 100%;
+  background: transparent;
+  .mat-header-row,
+  .mat-row {
+    min-height: 42px;
+  }
+  &[role="menu"] {
+    .mat-row {
+      cursor: pointer;
+      &:hover {
+        background: rgba($primary, 0.2);
+      }
+    }
+  }
+  .selector {
+    max-width: 3rem;
+    height: 1.5rem;
+    overflow: visible;
+  }
+}
+
+.square {
+  $base: 120;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4) inset,
+    -2px -2px 6px rgba(255, 255, 255, 0.4) inset;
+  width: 1em;
+  height: 1em;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0 0.2em;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 2px;
+  &[discipline="0"] {
+    background-color: hsl($base * 0, saturation($primary), lightness($primary));
+  }
+  &[discipline="1"] {
+    background-color: hsl($base * 1, saturation($primary), lightness($primary));
+  }
+  &[discipline="2"] {
+    background-color: hsl($base * 2, saturation($primary), lightness($primary));
+  }
+}
