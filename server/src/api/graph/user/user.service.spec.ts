@@ -61,7 +61,7 @@ describe("UserService", () => {
   /**
    *
    */
-  describe("changePassword", async () => {
+  describe("changePassword", () => {
     it("will refuse to update if no authenticated user is present", async () => {
       spyOn(service, "getAuthenticatedUser").and.callFake(() => null);
       try {

@@ -1,4 +1,4 @@
-import { Controller, Get, Res, BadRequestException, Post, FileInterceptor, UseInterceptors, UploadedFile, Param, UseGuards, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Res, BadRequestException, Post, UseInterceptors, UploadedFile, Param, UseGuards, Body, Put, Delete } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiImplicitFile, ApiImplicitParam, ApiImplicitBody } from '@nestjs/swagger';
 import { Response } from 'express-serve-static-core';
 import { resolve } from 'path';
@@ -10,6 +10,7 @@ import { Role } from '../../graph/user/user.model';
 import { ExportService } from './export.service';
 import { ConfigurationService } from './configuration.service';
 import { Log } from '../../common/util/logger/log';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiUseTags('Administration')
 @Controller('administration')

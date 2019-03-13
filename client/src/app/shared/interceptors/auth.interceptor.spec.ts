@@ -120,7 +120,7 @@ describe("shared.interceptors:AuthInterceptor", () => {
       const httpStateServiceStub: HttpStateService = TestBed.get(HttpStateService);
       const matSnackBarStub: MatSnackBar = TestBed.get(MatSnackBar);
 
-      spyOn(httpStateServiceStub, 'notifySubscribers').and.callFake(() => ({ operation: 'save' }));
+      spyOn(httpStateServiceStub, 'notifySubscribers').and.callFake(() => ({ url: '', operation: 'save', method: HttpMethod.Post, values: {}, isComplete: false, failed: false }));
       spyOn(matSnackBarStub, "open");
       service.analyzeAndReport(TestBed.get(HttpRequest), TestBed.get(HttpResponse));
       expect(matSnackBarStub.open).toHaveBeenCalled(); // Should present a snack for POST requests
@@ -131,7 +131,7 @@ describe("shared.interceptors:AuthInterceptor", () => {
       const httpStateServiceStub: HttpStateService = TestBed.get(HttpStateService);
       const matSnackBarStub: MatSnackBar = TestBed.get(MatSnackBar);
 
-      spyOn(httpStateServiceStub, 'notifySubscribers').and.callFake(() => ({ operation: 'delete' }));
+      spyOn(httpStateServiceStub, 'notifySubscribers').and.callFake(() => ({ url: '', operation: 'delete', method: HttpMethod.Post, values: {}, isComplete: false, failed: false }));
       spyOn(matSnackBarStub, "open");
       service.analyzeAndReport(TestBed.get(HttpRequest), TestBed.get(HttpResponse));
       expect(matSnackBarStub.open).toHaveBeenCalled(); // Should present a snack for DELETE requests

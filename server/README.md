@@ -1,5 +1,7 @@
 # [Gymsystems](../README.md)/Server
 
+[![Known Vulnerabilities](https://snyk.io/test/github/OysteinAmundsen/gymsystems/badge.svg?targetFile=server%2Fpackage.json)](https://snyk.io/test/github/OysteinAmundsen/gymsystems?targetFile=server%2Fpackage.json)
+
 This project is using the brilliant [`NestJS Framework`](https://nestjs.com/), which is based on Node Express and is greatly inspired by Angular. The database connection is handled by [`TypeORM`](https://typeorm.github.io), and we are utilizing both REST controllers and GraphQL for our API.
 
 ## Installation

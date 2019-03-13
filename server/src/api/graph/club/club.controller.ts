@@ -1,4 +1,5 @@
-import { Controller, Post, Param, Req, Get, Middleware, Res, UseGuards, UseInterceptors, FileInterceptor, UploadedFile } from '@nestjs/common';
+import { Controller, Post, Param, Req, Get, Res, UseGuards, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { snakeCase } from 'lodash';
 import fs from 'fs';
 import * as moment from 'moment';

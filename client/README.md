@@ -1,5 +1,7 @@
 # [Gymsystems](../README.md)/Client
 
+[![Known Vulnerabilities](https://snyk.io/test/github/OysteinAmundsen/gymsystems/badge.svg?targetFile=client%2Fpackage.json)](https://snyk.io/test/github/OysteinAmundsen/gymsystems?targetFile=client%2Fpackage.json)
+
 This project is using [Angular Framework](https://angular.io/). We use [angular-cli](https://cli.angular.io/) for both scaffolding and building our project. This seems to be the best and most efficient way of reaching our goal.
 
 ## Install

@@ -2,10 +2,10 @@ import { Type, mixin, ForbiddenException, ExecutionContext } from '@nestjs/commo
 import { AuthGuard, IAuthGuard } from '@nestjs/passport';
 import { memoize } from 'lodash';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context.host';
 import { Observable } from 'rxjs';
 import { Role, User, RoleNames } from '../../graph/user/user.model';
 import { IncomingMessage } from 'http';
+import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host';
 
 export const RoleGuard: (role?: Role) => Type<IAuthGuard> = memoize(createRoleGuard);
 

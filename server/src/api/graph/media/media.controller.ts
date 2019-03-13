@@ -1,4 +1,4 @@
-import { Controller, Post, UseInterceptors, FileInterceptor, UploadedFile, Param, UseGuards, Get, Res, Body, Query } from '@nestjs/common';
+import { Controller, Post, UseInterceptors, UploadedFile, Param, UseGuards, Get, Res, Body, Query } from '@nestjs/common';
 import { MediaService } from './media.service';
 import { RoleGuard } from '../../common/auth/role.guard';
 import { Role } from '../user/user.model';
@@ -10,6 +10,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Log } from '../../common/util/logger/log';
 import { UploadDto } from './dto/upload.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 /**
  * RESTful controller for all things related to `Media`s.

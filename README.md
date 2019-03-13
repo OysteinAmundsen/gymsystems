@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/OysteinAmundsen/gymsystems.svg?branch=master)](https://travis-ci.org/OysteinAmundsen/gymsystems)
 [![Dependency Status](https://david-dm.org/OysteinAmundsen/gymsystems.svg)](https://david-dm.org/OysteinAmundsen/gymsystems)
 [![devDependency Status](https://david-dm.org/OysteinAmundsen/gymsystems/dev-status.svg)](https://david-dm.org/OysteinAmundsen/gymsystems#info=devDependencies)
+[![Known Vulnerabilities](https://snyk.io/test/github/OysteinAmundsen/gymsystems/badge.svg?targetFile=package.json)](https://snyk.io/test/github/OysteinAmundsen/gymsystems?targetFile=package.json)
 [![GitHub issues](https://img.shields.io/github/issues/OysteinAmundsen/gymsystems.svg)](https://github.com/OysteinAmundsen/gymsystems/issues)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/OysteinAmundsen/gymsystems.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2FOysteinAmundsen%2Fgymsystems)
 
