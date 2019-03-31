@@ -30,6 +30,7 @@ import { LogService } from './api/common/util/logger/log.service';
 
 // This one takes up the most time on startup
 import { AppModule } from './api/app.module';
+import { ExpressAdapter } from '@nestjs/platform-express';
 Log.log.debug(` * ${new Date().toISOString()}: imports done in ${(performance.now() - startTime).toFixed(3)}ms`);
 Log.log.debug(` * Memory: ${readMem()}`);
 
@@ -67,7 +68,7 @@ async function bootstrap() {
 
   // Create NestJS APP
   Log.log.debug(` * ${new Date().toISOString()}: Creating NestJS app`);
-  const app = await NestFactory.create(AppModule, expressInstance, { cors: true, logger: false });
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(expressInstance), { cors: true, logger: false });
   Log.log.debug(` * ${new Date().toISOString()}: Configuring NestJS app`);
   app.useLogger(app.get(LogService));
 
