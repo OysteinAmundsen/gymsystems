@@ -19,7 +19,9 @@
     "test:watch": "env NODE_ENV=test jest --watch",
     "test:cov": "env NODE_ENV=test jest --coverage",
     "test:e2e": "env NODE_ENV=test jest --config ./test/jest-e2e.json",
-    "migration": "ts-node typeorm migration:run"
+    "migration": "ts-node typeorm migration:run",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git"
@@ -74,7 +76,8 @@
     "swagger-ui-express": "^4.0.2",
     "typeorm": "^0.2.16",
     "v8-compile-cache": "^2.0.2",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "snyk": "^1.161.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.3.0",
@@ -118,5 +121,6 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "snyk": true
 }
