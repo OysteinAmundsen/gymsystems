@@ -42,8 +42,7 @@ export class DialogComponent implements OnInit {
 
   @HostListener('click', ['$event'])
   genericClickHandler(event: MouseEvent) {
-    // tslint:disable-next-line:deprecation
-    if (event.srcElement.getAttribute('role') === 'dialogContainer') {
+    if (event.fromElement.getAttribute('role') === 'dialogContainer') {
       this.cancelClicked();
     }
   }

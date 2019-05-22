@@ -40,8 +40,8 @@
   "devDependencies": {
     "artillery": "^1.6.0-28",
     "concurrently": "^4.1.0",
-    "husky": "^2.1.0",
-    "snyk": "^1.156.0"
+    "husky": "^2.3.0",
+    "snyk": "^1.166.1"
   },
   "snyk": true,
   "resolutions": {},

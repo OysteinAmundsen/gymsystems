@@ -22,9 +22,9 @@ function createRoleGuard(role?: Role) {
       /**
        * Validate token, and if role is given check authorization.
        */
-      handleRequest(err: any, user: User, info: any) {
+      handleRequest(err: any, user: User, info: any, context: any) {
         // Check for authentication first
-        const result = super.handleRequest(err, user, info);
+        const result = super.handleRequest(err, user, info, context);
 
         // Then for authorization (if given)
         if (result && role && user.role < role) {
