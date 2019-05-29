@@ -17,7 +17,7 @@ ul {
   }
 }
 
-:host /deep/ app-dialog {
+:host ::ng-deep app-dialog {
   [role="dialogContainer"] {}
   aside {
     width: 90%;

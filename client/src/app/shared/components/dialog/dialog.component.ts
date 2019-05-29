@@ -42,7 +42,7 @@ export class DialogComponent implements OnInit {
 
   @HostListener('click', ['$event'])
   genericClickHandler(event: MouseEvent) {
-    if (event.fromElement.getAttribute('role') === 'dialogContainer') {
+    if ((<HTMLElement>event.target).getAttribute('role') === 'dialogContainer') {
       this.cancelClicked();
     }
   }

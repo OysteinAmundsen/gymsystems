@@ -43,7 +43,7 @@ app.set('views', join(DIST_FOLDER, 'browser'));
 
 // In production, nginx will take care of this before it hits here. This is for dev only.
 // Serve api calls to backend
-const apiProxy = proxy('/api', { target: 'http://localhost:3000' });
+const apiProxy = proxy('/api', { target: `http://localhost:${PORT}` });
 app.use('/api', apiProxy);
 
 // Again, in production, static files are handled by nginx before this hits.

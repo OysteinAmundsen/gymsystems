@@ -143,7 +143,7 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   onBlur(event: Event) {
     // tslint:disable-next-line:deprecation
-    const identifier = event.srcElement.id.split('_');
+    const identifier = (<HTMLElement>event.target).id.split('_');
     const group = this.groupedScores.find(g => g.scoreGroup.type === identifier[1]);
     const score = group.scores.find(s => s.judgeIndex === +identifier[2]);
 
@@ -173,9 +173,9 @@ export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Only applicable when focus is on the input fields
     // tslint:disable-next-line:deprecation
-    if (event.srcElement.nodeName === 'INPUT') {
+    if ((<HTMLElement>event.target).nodeName === 'INPUT') {
       // tslint:disable-next-line:deprecation
-      const identifier = event.srcElement.id.split('_');
+      const identifier = (<HTMLElement>event.target).id.split('_');
       const group = this.groupedScores.find(g => g.scoreGroup.type === identifier[1]);
       const score = group.scores.find(s => s.judgeIndex === +identifier[2]);
       const min = score.scoreGroup.min;

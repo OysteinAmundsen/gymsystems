@@ -21,8 +21,8 @@ import { SEOService } from 'app/shared/services/seo.service';
   styleUrls: ['./tournament-editor.component.scss']
 })
 export class TournamentEditorComponent implements OnInit, OnDestroy {
-  @ViewChild('startDateInput') startDateInput: MatDatepickerInput<Date>;
-  @ViewChild('endDateInput') endDateInput: MatDatepickerInput<Date>;
+  @ViewChild('startDateInput', {static: false}) startDateInput: MatDatepickerInput<Date>;
+  @ViewChild('endDateInput', {static: false}) endDateInput: MatDatepickerInput<Date>;
   tournamentQuery = `{
     id,
     name,

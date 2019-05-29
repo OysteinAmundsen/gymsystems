@@ -13,7 +13,7 @@ import { SEOService } from 'app/shared/services/seo.service';
   styleUrls: ['./advanced.component.scss']
 })
 export class AdvancedComponent implements OnInit {
-  @ViewChild('area') textAreas: ElementRef;
+  @ViewChild('area', { static: false }) textAreas: ElementRef;
   configuration: IConfiguration[];
   selected;
   isLoading = false;

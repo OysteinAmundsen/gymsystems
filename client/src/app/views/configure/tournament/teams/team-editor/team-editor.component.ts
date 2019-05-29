@@ -27,7 +27,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   @Input() tournament: ITournament;
 
   @ViewChildren('selectedDisciplines') disciplineCheckboxes;
-  @ViewChild(MemberSelectorComponent) memberSelector: MemberSelectorComponent;
+  @ViewChild(MemberSelectorComponent, { static: false }) memberSelector: MemberSelectorComponent;
 
   teamQuery = `{
     id,

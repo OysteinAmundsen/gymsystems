@@ -34,7 +34,7 @@ export class MultirangeComponent implements OnInit {
 
   @Output() valueChanges: EventEmitter<string> = new EventEmitter<string>();
 
-  @ViewChild('low') lowRef: ElementRef;
+  @ViewChild('low', { static: true }) lowRef: ElementRef;
   private _valueLow = this.min;
   get valueLow() { return this._valueLow; }
   set valueLow(v) {
@@ -46,7 +46,7 @@ export class MultirangeComponent implements OnInit {
     }
   }
 
-  @ViewChild('high') highRef: ElementRef;
+  @ViewChild('high', { static: true }) highRef: ElementRef;
   private _valueHigh = this.max;
   get valueHigh() { return this._valueHigh; }
   set valueHigh(v) {

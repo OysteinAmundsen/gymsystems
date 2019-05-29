@@ -15,7 +15,7 @@ export class InfoComponent implements OnInit {
   lng: string = this.translate.currentLang;
   preview = false;
   original: string;
-  @ViewChild('infoText') infoText;
+  @ViewChild('infoText', { static: false }) infoText;
   constructor(
     private parent: TournamentEditorComponent,
     private graph: GraphService,

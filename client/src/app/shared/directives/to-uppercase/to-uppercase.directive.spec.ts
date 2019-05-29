@@ -14,8 +14,8 @@ import { async } from '@angular/core/testing';
 })
 class WrapperComponent {
   @ViewChildren(ToCaseDirective) caseChildren;
-  @ViewChild('lower') lower: ToCaseDirective;
-  @ViewChild('upper') upper: ToCaseDirective;
+  @ViewChild('lower', { static: false }) lower: ToCaseDirective;
+  @ViewChild('upper', { static: false }) upper: ToCaseDirective;
   lowerCase: string;
   upperCase: string;
 }
