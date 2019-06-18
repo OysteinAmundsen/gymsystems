@@ -40,7 +40,7 @@ export class ClubController {
       const existingMembers: Gymnast[] = await this.gymnastService.findByClubId(clubId);
 
       fs.createReadStream(file.path)
-        .pipe(csv({ delimiter: exportDelimeter, ignoreEmpty: true, trim: true, headers: true }))
+        .pipe(csv.parse({ delimiter: exportDelimeter, ignoreEmpty: true, trim: true, headers: true }))
         .on('data', (data: any) => {
           // TODO: This will overwrite data. We should validate
           const find = (key: string) => data[Object.keys(data).find((k: string) => k.toLowerCase().indexOf(key.toLowerCase()) > -1)];
