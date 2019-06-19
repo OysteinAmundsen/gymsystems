@@ -8,14 +8,20 @@ import { MediaModule } from '../media/media.module';
 import { DisciplineModule } from '../discipline/discipline.module';
 import { DivisionModule } from '../division/division.module';
 import { Log } from '../../common/util/logger/log';
+import { UserModule } from '../user/user.module';
+import { ClubModule } from '../club/club.module';
+import { TournamentModule } from '../tournament/tournament.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Team]),
     forwardRef(() => GymnastModule),
-    MediaModule,
+    forwardRef(() => MediaModule),
     forwardRef(() => DisciplineModule),
-    forwardRef(() => DivisionModule)
+    forwardRef(() => DivisionModule),
+    forwardRef(() => UserModule),
+    forwardRef(() => ClubModule),
+    forwardRef(() => TournamentModule)
   ],
   providers: [TeamService, TeamResolver],
   exports: [TeamService]

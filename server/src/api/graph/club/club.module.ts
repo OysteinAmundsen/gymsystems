@@ -1,4 +1,4 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module, forwardRef, HttpModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClubResolver } from './club.resolver';
 import { ClubService } from './club.service';
@@ -10,16 +10,19 @@ import { UserModule } from '../user/user.module';
 import { GymnastModule } from '../gymnast/gymnast.module';
 import { Log } from '../../common/util/logger/log';
 import { ClubController } from './club.controller';
+import { AdministrationModule } from 'api/rest/administration/administration.module';
 
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Club]),
-    TroopModule,
-    TeamModule,
+    HttpModule,
+    forwardRef(() => TroopModule),
+    forwardRef(() => TeamModule),
     forwardRef(() => TournamentModule),
     forwardRef(() => UserModule),
-    GymnastModule
+    forwardRef(() => GymnastModule),
+    forwardRef(() => AdministrationModule)
   ],
   // controllers: [ClubController],
   providers: [ClubResolver, ClubService],

@@ -5,11 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Troop } from './troop.model';
 import { GymnastModule } from '../gymnast/gymnast.module';
 import { Log } from '../../common/util/logger/log';
+import { DivisionModule } from '../division/division.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Troop]),
-    forwardRef(() => GymnastModule)
+    forwardRef(() => GymnastModule),
+    forwardRef(() => DivisionModule)
   ],
   providers: [TroopService, TroopResolver],
   exports: [TroopService]

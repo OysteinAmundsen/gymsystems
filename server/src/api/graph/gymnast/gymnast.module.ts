@@ -7,11 +7,13 @@ import { TeamModule } from '../team/team.module';
 import { TournamentModule } from '../tournament/tournament.module';
 import { Gymnast } from './gymnast.model';
 import { Log } from '../../common/util/logger/log';
+import { ClubModule } from '../club/club.module';
 
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Gymnast]),
+    forwardRef(() => ClubModule),
     forwardRef(() => TroopModule),
     forwardRef(() => TeamModule),
     forwardRef(() => TournamentModule)

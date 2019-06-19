@@ -58,7 +58,7 @@ export const pubSub = new PubSub();
     { provide: 'PubSubInstance', useValue: pubSub },
     LogService
   ],
-  exports: [AuthService, JwtStrategy, LocalStrategy, Config, 'PubSubInstance', LogService]
+  exports: [AuthService, JwtStrategy, LocalStrategy, Config, 'PubSubInstance', LogService, JwtModule]
 })
 export class CommonModule {
   constructor() {

@@ -13,6 +13,7 @@ import { Tournament } from './tournament.model';
 import { ClubModule } from '../club/club.module';
 import { VenueModule } from '../venue/venue.module';
 import { Log } from '../../common/util/logger/log';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
@@ -20,11 +21,12 @@ import { Log } from '../../common/util/logger/log';
     forwardRef(() => ClubModule),
     forwardRef(() => ScheduleModule),
     forwardRef(() => DisciplineModule),
-    DivisionModule,
+    forwardRef(() => DivisionModule),
     forwardRef(() => TeamModule),
-    MediaModule,
+    forwardRef(() => MediaModule),
     forwardRef(() => GymnastModule),
-    forwardRef(() => VenueModule)
+    forwardRef(() => VenueModule),
+    forwardRef(() => UserModule)
   ],
   providers: [TournamentService, TournamentResolver],
   exports: [TournamentService]

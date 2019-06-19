@@ -11,15 +11,19 @@ import { ScheduleService } from './schedule.service';
 import { TeamInDiscipline } from './team-in-discipline.model';
 import { ScheduleResolver } from './schedule.resolver';
 import { Log } from '../../common/util/logger/log';
+import { UserModule } from '../user/user.module';
+import { MediaModule } from '../media/media.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([TeamInDiscipline]),
-    ScoreModule,
-    DisciplineModule,
-    DivisionModule,
+    forwardRef(() => ScoreModule),
+    forwardRef(() => DisciplineModule),
+    forwardRef(() => DivisionModule),
+    forwardRef(() => UserModule),
     forwardRef(() => TournamentModule),
-    TeamModule
+    forwardRef(() => TeamModule),
+    forwardRef(() => MediaModule)
   ],
   providers: [ScheduleService, ScheduleResolver],
   exports: [ScheduleService]

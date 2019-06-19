@@ -68,7 +68,7 @@ async function bootstrap() {
 
   // Create NestJS APP
   Log.log.debug(` * ${new Date().toISOString()}: Creating NestJS app`);
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(expressInstance), { cors: true, logger: false });
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(expressInstance), { cors: true });
   Log.log.debug(` * ${new Date().toISOString()}: Configuring NestJS app`);
   app.useLogger(app.get(LogService));
 

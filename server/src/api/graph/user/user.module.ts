@@ -13,8 +13,8 @@ import { Log } from '../../common/util/logger/log';
 @Module({
   imports: [
     forwardRef(() => ClubModule),
-    TournamentModule,
-    VenueModule,
+    forwardRef(() => TournamentModule),
+    forwardRef(() => VenueModule),
     TypeOrmModule.forFeature([
       User
     ])

@@ -1,7 +1,5 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { registerHelper, compile } from 'handlebars';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Not } from 'typeorm';
 
 import { ConfigurationService } from '../administration/configuration.service';
 import { TournamentService } from '../../graph/tournament/tournament.service';
@@ -9,6 +7,7 @@ import { TeamInDiscipline } from '../../graph/schedule/team-in-discipline.model'
 import { ScoreService } from '../../graph/score/score.service';
 import { Log } from '../../common/util/logger/log';
 import { TeamService } from '../../graph/team/team.service';
+import { ScheduleService } from '../../graph/schedule/schedule.service';
 
 @Controller('display')
 export class DisplayController {
@@ -17,7 +16,7 @@ export class DisplayController {
     private readonly teamService: TeamService,
     private readonly tournamentService: TournamentService,
     private readonly scoreService: ScoreService,
-    @InjectRepository(TeamInDiscipline) private readonly scheduleRepository: Repository<TeamInDiscipline>
+    private readonly scheduleService: ScheduleService
   ) {
     registerHelper('list', function (context: any, options: any) {
       let ret = '';
@@ -71,11 +70,7 @@ export class DisplayController {
     let displayConfig = (await this.configuration.getOneById('display')).value;
     displayConfig = typeof displayConfig === 'string' ? JSON.parse(displayConfig) : displayConfig;
     const tournament = await this.tournamentService.findOneById(tournamentId);
-    const schedule: TeamInDiscipline[] = await this.scheduleRepository.find({
-      where: { tournamentId: tournamentId, markDeleted: Not(true) },
-      relations: ['team', 'team.divisions', 'discipline', 'scores'],
-      order: { 'sortNumber': 'ASC' }
-    });
+    const schedule: TeamInDiscipline[] = await this.scheduleService.findNotDeletedByTournamentId(tournamentId);
     const template = displayConfig[`display${id}`];
 
     await Promise.all(schedule.map(async s => {

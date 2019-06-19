@@ -7,11 +7,15 @@ import { ScoreGroupModule } from '../score-group/score-group.module';
 import { Discipline } from './discipline.model';
 import { AdministrationModule } from '../../rest/administration/administration.module';
 import { Log } from '../../common/util/logger/log';
+import { JudgeModule } from '../judge/judge.module';
+import { JudgeInScoreGroupModule } from '../judge-in-score-group/judge-in-score-group.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Discipline]),
     forwardRef(() => TeamModule),
+    JudgeModule,
+    JudgeInScoreGroupModule,
     ScoreGroupModule,
     AdministrationModule
   ],

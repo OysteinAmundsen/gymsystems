@@ -96,6 +96,7 @@ describe("DisplayController", () => {
     const tournamentServiceStub = { findOneById: () => ({}) };
     const teamServiceStub = { getDivisionName: () => ({}) };
     const scoreServiceStub = { getTotalScore: () => Promise.resolve("7.000") };
+    const scheduleServiceStub = { findNotDeletedByTournamentId: () => Promise.resolve({}) }
 
     testModule = await Test.createTestingModule({
       providers: [
@@ -104,7 +105,8 @@ describe("DisplayController", () => {
         { provide: 'ConfigurationService', useValue: configurationServiceStub },
         { provide: 'TeamService', useValue: teamServiceStub },
         { provide: 'TournamentService', useValue: tournamentServiceStub },
-        { provide: 'ScoreService', useValue: scoreServiceStub }
+        { provide: 'ScoreService', useValue: scoreServiceStub },
+        { provide: 'ScheduleService', useValue: scheduleServiceStub }
       ]
     }).compile();
     controller = testModule.get(DisplayController);

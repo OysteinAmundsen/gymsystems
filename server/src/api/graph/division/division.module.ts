@@ -5,11 +5,16 @@ import { DivisionService } from './division.service';
 import { TeamModule } from '../team/team.module';
 import { Division } from './division.model';
 import { Log } from '../../common/util/logger/log';
+import { ConfigurationService } from '../../rest/administration/configuration.service';
+import { AdministrationModule } from 'api/rest/administration/administration.module';
+import { TroopModule } from '../troop/troop.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Division]),
-    forwardRef(() => TeamModule)
+    forwardRef(() => TeamModule),
+    AdministrationModule,
+    forwardRef(() => TroopModule)
   ],
   providers: [DivisionResolver, DivisionService],
   exports: [DivisionService]

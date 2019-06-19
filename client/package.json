@@ -17,6 +17,9 @@
     "i18n": "ngx-translate-extract -i ./src/app -o ./src/i18n/template.json ./src/i18n/no.json ./src/i18n/en.json --clean --sort",
     "snyk": "snyk"
   },
+  "engines": {
+    "node": ">=10.9.3"
+  },
   "private": true,
   "repository": {
     "type": "git"

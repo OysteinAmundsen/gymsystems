@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, SelectQueryBuilder } from 'typeorm';
+import { Repository, SelectQueryBuilder, Not } from 'typeorm';
 
 import { TeamInDiscipline, ParticipationType } from './team-in-discipline.model';
 import { Tournament } from '../tournament/tournament.model';
@@ -73,6 +73,14 @@ export class ScheduleService {
       this.pubSub.publish('teamInDisciplineDeleted', { tournamentId: tournamentId });
     }
     return (result.raw.affectedRows > 0);
+  }
+
+  async findNotDeletedByTournamentId(tournamentId) {
+    return await this.scheduleRepository.find({
+      where: { tournamentId: tournamentId, markDeleted: Not(true) },
+      relations: ['team', 'team.divisions', 'discipline', 'scores'],
+      order: { 'sortNumber': 'ASC' }
+    });
   }
 
   /**
