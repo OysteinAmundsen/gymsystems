@@ -1,0 +1,1343 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>ClubEditorComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/views/configure/club/club-editor/club-editor.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-club-editor</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./club-editor.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./club-editor.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#club">club</a>
+                            </li>
+                            <li>
+                                <a href="#clubCtrl">clubCtrl</a>
+                            </li>
+                            <li>
+                                <a href="#clubForm">clubForm</a>
+                            </li>
+                            <li>
+                                <a href="#clubSubject">clubSubject</a>
+                            </li>
+                            <li>
+                                <a href="#isAdding">isAdding</a>
+                            </li>
+                            <li>
+                                <a href="#isEdit">isEdit</a>
+                            </li>
+                            <li>
+                                <a href="#roles">roles</a>
+                            </li>
+                            <li>
+                                <a href="#user">user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cancel">cancel</a>
+                            </li>
+                            <li>
+                                <a href="#clubReceived">clubReceived</a>
+                            </li>
+                            <li>
+                                <a href="#delete">delete</a>
+                            </li>
+                            <li>
+                                <a href="#edit">edit</a>
+                            </li>
+                            <li>
+                                <a href="#goBack">goBack</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#save">save</a>
+                            </li>
+                            <li>
+                                <a href="#setSelectedClub">setSelectedClub</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#window:keyup">window:keyup</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#clubName">clubName</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, graph: <a href="../injectables/GraphService.html">GraphService</a>, userService: <a href="../injectables/UserService.html">UserService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:34</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>graph</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+    <section>
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="window:keyup"></a>
+                    <span class="name">
+                        <b>
+                            window:keyup
+                        </b>
+                        <a href="#window:keyup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>window:keyup(evt: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="136"
+                            class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:136</a></div>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancel"></a>
+                    <span class="name">
+                        <b>
+                            cancel
+                        </b>
+                        <a href="#cancel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cancel()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="117"
+                            class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:117</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clubReceived"></a>
+                    <span class="name">
+                        <b>
+                            clubReceived
+                        </b>
+                        <a href="#clubReceived"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clubReceived(club: <a href="../interfaces/IClub.html">IClub</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="85"
+                            class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:85</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>club</td>
+                                    <td>
+                                                <code><a href="../interfaces/IClub.html" target="_self" >IClub</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="delete"></a>
+                    <span class="name">
+                        <b>
+                            delete
+                        </b>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>delete()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="110"
+                            class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:110</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="edit"></a>
+                    <span class="name">
+                        <b>
+                            edit
+                        </b>
+                        <a href="#edit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>edit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:129</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goBack"></a>
+                    <span class="name">
+                        <b>
+                            goBack
+                        </b>
+                        <a href="#goBack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goBack()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="125"
+                            class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:125</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:43</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="save"></a>
+                    <span class="name">
+                        <b>
+                            save
+                        </b>
+                        <a href="#save"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>save()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:101</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setSelectedClub"></a>
+                    <span class="name">
+                        <b>
+                            setSelectedClub
+                        </b>
+                        <a href="#setSelectedClub"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setSelectedClub(club: <a href="../interfaces/IClub.html">IClub</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="80"
+                            class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:80</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>club</td>
+                                    <td>
+                                                <code><a href="../interfaces/IClub.html" target="_self" >IClub</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="club"></a>
+                        <span class="name">
+                            <b>
+                            club</b>
+                            <a href="#club"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IClub.html" target="_self" >IClub</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&lt;IClub&gt;{}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:21</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clubCtrl"></a>
+                        <span class="name">
+                            <b>
+                            clubCtrl</b>
+                            <a href="#clubCtrl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new FormControl()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clubForm"></a>
+                        <span class="name">
+                            <b>
+                            clubForm</b>
+                            <a href="#clubForm"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clubSubject"></a>
+                        <span class="name">
+                            <b>
+                            clubSubject</b>
+                            <a href="#clubSubject"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new ReplaySubject&lt;IClub&gt;(1)</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:22</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isAdding"></a>
+                        <span class="name">
+                            <b>
+                            isAdding</b>
+                            <a href="#isAdding"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isEdit"></a>
+                        <span class="name">
+                            <b>
+                            isEdit</b>
+                            <a href="#isEdit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="roles"></a>
+                        <span class="name">
+                            <b>
+                            roles</b>
+                            <a href="#roles"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Role</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="user"></a>
+                        <span class="name">
+                            <b>
+                            user</b>
+                            <a href="#user"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IUser.html" target="_self" >IUser</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clubName"></a>
+                        <span class="name"><b>clubName</b><a href="#clubName"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>clubName()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/views/configure/club/club-editor/club-editor.component.ts:31</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, HostListener } from &#x27;@angular/core&#x27;;
+import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { FormBuilder, FormGroup, Validators, FormControl } from &#x27;@angular/forms&#x27;;
+import { ReplaySubject } from &#x27;rxjs&#x27;;
+
+import { startCase, lowerCase, } from &#x27;lodash&#x27;;
+
+import { UserService } from &#x27;app/shared/services/api&#x27;;
+import { IUser, Role, IClub } from &#x27;app/model&#x27;;
+import { GraphService } from &#x27;app/shared/services/graph.service&#x27;;
+
+@Component({
+  selector: &#x27;app-club-editor&#x27;,
+  templateUrl: &#x27;./club-editor.component.html&#x27;,
+  styleUrls: [&#x27;./club-editor.component.scss&#x27;]
+})
+export class ClubEditorComponent implements OnInit {
+  user: IUser;
+
+  clubCtrl &#x3D; new FormControl();
+  club: IClub &#x3D; &lt;IClub&gt;{};
+  clubSubject &#x3D; new ReplaySubject&lt;IClub&gt;(1);
+
+  clubForm: FormGroup;
+
+  isAdding &#x3D; false;
+  isEdit &#x3D; false;
+
+  roles &#x3D; Role;
+
+  get clubName() {
+    const name &#x3D; this.clubForm &amp;&amp; this.clubForm.value.name ? this.clubForm.value.name : this.club.name;
+    return startCase(lowerCase(name));
+  }
+
+  constructor(
+    private fb: FormBuilder,
+    private graph: GraphService,
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    // Setup form
+    this.clubForm &#x3D; this.fb.group({
+      id: [this.club.id],
+      name: [this.club.name, [Validators.required]]
+    });
+    this.clubCtrl.valueChanges.subscribe(club &#x3D;&gt; {
+      this.setSelectedClub(club);
+    });
+    this.clubForm.valueChanges.subscribe(club &#x3D;&gt; {
+      this.clubCtrl.patchValue(club, { emitEvent: false });
+    });
+
+    this.route.params.subscribe(params &#x3D;&gt; {
+      this.userService.getMe().subscribe(user &#x3D;&gt; {
+        this.user &#x3D; user;
+        if (!user || (user.role &lt; Role.Admin &amp;&amp; user.clubId !&#x3D;&#x3D; +params.id)) {
+          // If you are not admin, and this is not your club, you will be
+          // auto-redirected one url-level up to let the ClubComponent handle
+          // placing you where you are supposed to be.
+          return this.goBack();
+        }
+        if (params.id) {
+          // Existing club
+          this.graph.getData(&#x60;{club(id:${+params.id}){id,name}}&#x60;).subscribe(
+            res &#x3D;&gt; this.clubReceived(res.club),
+            err &#x3D;&gt; this.goBack()
+          );
+        } else {
+          // Creating new club
+          this.isAdding &#x3D; true;
+          this.isEdit &#x3D; true;
+        }
+      });
+    });
+  }
+
+  setSelectedClub(club: IClub) {
+    this.clubReceived(club);
+    this.clubForm.markAsDirty();
+  }
+
+  clubReceived(club: IClub) {
+    if (!club.id &amp;&amp; this.club.id) {
+      // Name changed. Reuse id.
+      club.id &#x3D; this.club.id;
+    }
+    this.club &#x3D; club;
+    this.clubSubject.next(club);
+    if (this.clubForm) {
+      // If not, this callback must be called either pre-init or post-mortem for this component
+      this.clubForm.setValue({
+        id: club.id,
+        name: club.name
+      });
+    }
+  }
+
+  save() {
+    const val &#x3D; this.clubForm.value;
+    this.graph.saveData(&#x27;Club&#x27;, val, &#x60;{id,name}&#x60;).subscribe(res &#x3D;&gt; {
+      this.clubReceived(res.saveClub);
+      this.isEdit &#x3D; false;
+      this.router.navigate([&#x27;../&#x27;, this.club.id], { relativeTo: this.route });
+    });
+  }
+
+  delete() {
+    this.graph.deleteData(&#x27;Club&#x27;, this.club.id).subscribe(resp &#x3D;&gt; {
+      this.isEdit &#x3D; false;
+      this.goBack();
+    });
+  }
+
+  cancel() {
+    this.isEdit &#x3D; false;
+    // this.clubReceived(this.club);
+    if (this.isAdding) {
+      this.goBack();
+    }
+  }
+
+  goBack() {
+    this.router.navigate([&#x27;../&#x27;], { relativeTo: this.route });
+  }
+
+  edit() {
+    if (this.user &amp;&amp; (this.user.role &gt;&#x3D; Role.Admin || this.club.id &#x3D;&#x3D;&#x3D; this.user.club.id)) {
+      this.isEdit &#x3D; true;
+    }
+  }
+
+  @HostListener(&#x27;window:keyup&#x27;, [&#x27;$event&#x27;])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27;) {
+      this.cancel();
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;header&gt;
+  &lt;h1&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-university&quot;&gt;&lt;/i&gt;
+    &lt;span&gt;{{ clubName }}&lt;/span&gt;
+  &lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;!-- View data --&gt;
+&lt;div class&#x3D;&quot;table-responsive&quot;&gt;
+  &lt;table *ngIf&#x3D;&quot;!isEdit&quot; [title]&#x3D;&quot;&#x27;Click to edit&#x27; | translate&quot; (click)&#x3D;&quot;edit()&quot;&gt;
+    &lt;tr&gt;
+      &lt;th translate&gt;Name&lt;/th&gt;
+      &lt;td&gt;{{ club.name }}&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;!-- Edit data --&gt;
+&lt;form [formGroup]&#x3D;&quot;clubForm&quot; (ngSubmit)&#x3D;&quot;save()&quot; *ngIf&#x3D;&quot;isEdit&quot;&gt;
+  &lt;mat-card&gt;
+    &lt;mat-card-content&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-12&quot;&gt;
+          &lt;app-club-lookup [formControl]&#x3D;&quot;clubCtrl&quot;&gt;&lt;/app-club-lookup&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/mat-card-content&gt;
+    &lt;mat-card-actions&gt;
+      &lt;app-save-button buttonType&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;clubForm.invalid || clubForm.pristine&quot;&gt;&lt;/app-save-button&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;button&quot; [title]&#x3D;&quot;&#x27;Cancel&#x27; | translate&quot; (click)&#x3D;&quot;cancel()&quot; aria-label&#x3D;&quot;Cancel&quot;&gt;&lt;i class&#x3D;&quot;fa fa-fw fa-ban&quot;&gt;&lt;/i&gt; &lt;span
+              translate&gt;Cancel&lt;/span&gt;&lt;/button&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;button&quot; *ngIf&#x3D;&quot;clubForm.value.id&quot; [title]&#x3D;&quot;&#x27;Delete&#x27; | translate&quot; class&#x3D;&quot;pull-right mat-warn&quot; (click)&#x3D;&quot;delete()&quot;
+              aria-label&#x3D;&quot;Delete&quot;&gt;&lt;i class&#x3D;&quot;fa fa-fw fa-trash&quot;&gt;&lt;/i&gt;
+        &lt;span translate&gt;Delete&lt;/span&gt;&lt;/button&gt;
+    &lt;/mat-card-actions&gt;
+  &lt;/mat-card&gt;
+&lt;/form&gt;
+
+&lt;!-- Tab list --&gt;
+&lt;menu mat-tab-nav-bar *ngIf&#x3D;&quot;clubForm.value.id&quot;&gt;
+  &lt;a mat-tab-link routerLink&#x3D;&quot;./members&quot; routerLinkActive #rla&#x3D;&quot;routerLinkActive&quot; [active]&#x3D;&quot;rla.isActive&quot; [routerLinkActive]&#x3D;&quot;[&#x27;active&#x27;]&quot;
+     *ngIf&#x3D;&quot;user.role &gt;&#x3D; roles.Admin || user.clubId &#x3D;&#x3D;&#x3D; clubForm.value.id&quot; aria-label&#x3D;&quot;Members&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-id-card-o&quot;&gt;&lt;/i&gt; &lt;span translate&gt;Members&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a mat-tab-link routerLink&#x3D;&quot;./troops&quot; routerLinkActive #rla&#x3D;&quot;routerLinkActive&quot; [active]&#x3D;&quot;rla.isActive&quot; [routerLinkActive]&#x3D;&quot;[&#x27;active&#x27;]&quot;
+     *ngIf&#x3D;&quot;user.role &gt;&#x3D; roles.Admin || user.clubId &#x3D;&#x3D;&#x3D; clubForm.value.id&quot; aria-label&#x3D;&quot;Teams&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-group&quot;&gt;&lt;/i&gt; &lt;span translate&gt;Teams&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a mat-tab-link routerLink&#x3D;&quot;./media&quot; routerLinkActive #rla&#x3D;&quot;routerLinkActive&quot; [active]&#x3D;&quot;rla.isActive&quot; [routerLinkActive]&#x3D;&quot;[&#x27;active&#x27;]&quot;
+     *ngIf&#x3D;&quot;user.role &gt;&#x3D; roles.Admin || user.clubId &#x3D;&#x3D;&#x3D; clubForm.value.id&quot; aria-label&#x3D;&quot;Media&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-volume-up&quot;&gt;&lt;/i&gt; &lt;span translate&gt;Media&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a mat-tab-link routerLink&#x3D;&quot;./statistics&quot; routerLinkActive #rla&#x3D;&quot;routerLinkActive&quot; [active]&#x3D;&quot;rla.isActive&quot; [routerLinkActive]&#x3D;&quot;[&#x27;active&#x27;]&quot;
+     *ngIf&#x3D;&quot;user.role &gt;&#x3D; roles.Admin || user.clubId &#x3D;&#x3D;&#x3D; clubForm.value.id&quot; aria-label&#x3D;&quot;Statistics&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-line-chart&quot;&gt;&lt;/i&gt; &lt;span translate&gt;Statistics&lt;/span&gt;
+  &lt;/a&gt;
+&lt;/menu&gt;
+
+&lt;div class&#x3D;&quot;sub-routes&quot;&gt;
+  &lt;router-outlet&gt;&lt;/router-outlet&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./club-editor.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../../../styles/variables&quot;;
+@import &quot;../../../../../styles/panel&quot;;
+
+header {
+  position: relative;
+  .buttons {
+    position: absolute;
+    top: 0rem;
+    right: 0;
+  }
+}
+
+table {
+  cursor: pointer;
+  padding: ($padding / 2) 0 $padding 0;
+  border: 1px solid transparent;
+  width: 100%;
+  &amp;:hover {
+    @include panel;
+  }
+  td,
+  th {
+    border-bottom: 0;
+  }
+  th {
+    @media (min-width: $stop1) {
+      width: 8rem;
+    }
+    text-align: right;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><header>  <h1>    <i class="fa fa-fw fa-university"></i>    <span>{{ clubName }}</span>  </h1></header><!-- View data --><div class="table-responsive">  <table *ngIf="!isEdit" [title]="\'Click to edit\' | translate" (click)="edit()">    <tr>      <th translate>Name</th>      <td>{{ club.name }}</td>    </tr>  </table></div><!-- Edit data --><form [formGroup]="clubForm" (ngSubmit)="save()" *ngIf="isEdit">  <mat-card>    <mat-card-content>      <div class="row">        <div class="col-12">          <app-club-lookup [formControl]="clubCtrl"></app-club-lookup>        </div>      </div>    </mat-card-content>    <mat-card-actions>      <app-save-button buttonType="submit" [disabled]="clubForm.invalid || clubForm.pristine"></app-save-button>      <button mat-raised-button type="button" [title]="\'Cancel\' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span              translate>Cancel</span></button>      <button mat-raised-button type="button" *ngIf="clubForm.value.id" [title]="\'Delete\' | translate" class="pull-right mat-warn" (click)="delete()"              aria-label="Delete"><i class="fa fa-fw fa-trash"></i>        <span translate>Delete</span></button>    </mat-card-actions>  </mat-card></form><!-- Tab list --><menu mat-tab-nav-bar *ngIf="clubForm.value.id">  <a mat-tab-link routerLink="./members" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [routerLinkActive]="[\'active\']"     *ngIf="user.role >= roles.Admin || user.clubId === clubForm.value.id" aria-label="Members">    <i class="fa fa-fw fa-id-card-o"></i> <span translate>Members</span>  </a>  <a mat-tab-link routerLink="./troops" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [routerLinkActive]="[\'active\']"     *ngIf="user.role >= roles.Admin || user.clubId === clubForm.value.id" aria-label="Teams">    <i class="fa fa-fw fa-group"></i> <span translate>Teams</span>  </a>  <a mat-tab-link routerLink="./media" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [routerLinkActive]="[\'active\']"     *ngIf="user.role >= roles.Admin || user.clubId === clubForm.value.id" aria-label="Media">    <i class="fa fa-fw fa-volume-up"></i> <span translate>Media</span>  </a>  <a mat-tab-link routerLink="./statistics" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [routerLinkActive]="[\'active\']"     *ngIf="user.role >= roles.Admin || user.clubId === clubForm.value.id" aria-label="Statistics">    <i class="fa fa-fw fa-line-chart"></i> <span translate>Statistics</span>  </a></menu><div class="sub-routes">  <router-outlet></router-outlet></div></div>'
+    var COMPONENTS = [{'name': 'AdvancedComponent', 'selector': 'app-advanced'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AwardsComponent', 'selector': 'app-awards'},{'name': 'ClubComponent', 'selector': 'app-club'},{'name': 'ClubEditorComponent', 'selector': 'app-club-editor'},{'name': 'ClubLookupComponent', 'selector': 'app-club-lookup'},{'name': 'ConfigureComponent', 'selector': 'app-configure'},{'name': 'ConfigureDisplayComponent', 'selector': 'app-configure-display'},{'name': 'ContextMenuComponent', 'selector': 'app-context-menu'},{'name': 'DialogComponent', 'selector': 'app-dialog'},{'name': 'DisciplineEditorComponent', 'selector': 'app-discipline-editor'},{'name': 'DisciplinesComponent', 'selector': 'app-disciplines'},{'name': 'DisplayComponent', 'selector': 'app-display'},{'name': 'DivisionEditorComponent', 'selector': 'app-division-editor'},{'name': 'DivisionLookupComponent', 'selector': 'app-division-lookup'},{'name': 'DivisionsComponent', 'selector': 'app-divisions'},{'name': 'ErrorDialogComponent', 'selector': 'app-error-dialog'},{'name': 'EventComponent', 'selector': 'app-event'},{'name': 'FullscreenComponent', 'selector': 'app-fullscreen'},{'name': 'HelpBlockComponent', 'selector': 'app-help-block'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InfoComponent', 'selector': 'app-info'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoadSpinnerComponent', 'selector': ''},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'MacroDialogComponent', 'selector': 'app-macro-dialog'},{'name': 'MediaComponent', 'selector': 'app-media'},{'name': 'MediaControlComponent', 'selector': 'app-media-control'},{'name': 'MemberEditorComponent', 'selector': 'app-member-editor'},{'name': 'MembersComponent', 'selector': 'app-members'},{'name': 'MemberSelectorComponent', 'selector': 'app-member-selector'},{'name': 'MultirangeComponent', 'selector': 'app-multirange'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetComponent', 'selector': 'app-reset'},{'name': 'ResultsComponent', 'selector': 'app-results'},{'name': 'SaveButtonComponent', 'selector': 'app-save-button'},{'name': 'ScheduleComponent', 'selector': 'app-schedule'},{'name': 'ScorecardsComponent', 'selector': 'app-scorecards'},{'name': 'ScoreEditorComponent', 'selector': 'app-score-editor'},{'name': 'ScoreGroupEditorComponent', 'selector': 'app-score-group-editor'},{'name': 'ScoreSystemComponent', 'selector': 'app-score-system'},{'name': 'SignoffReportComponent', 'selector': 'app-signoff-report'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'TeamEditorComponent', 'selector': 'app-team-editor'},{'name': 'TeamsComponent', 'selector': 'app-teams'},{'name': 'TournamentComponent', 'selector': 'app-tournament'},{'name': 'TournamentEditorComponent', 'selector': 'app-tournament-editor'},{'name': 'TroopEditorComponent', 'selector': 'app-troop-editor'},{'name': 'TroopsComponent', 'selector': 'app-troops'},{'name': 'UserEditorComponent', 'selector': 'app-user-editor'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VenueComponent', 'selector': 'app-venue'},{'name': 'VenueEditorComponent', 'selector': 'app-venue-editor'}];
+    var DIRECTIVES = [{'name': 'IfAuthDirective', 'selector': '[appIfAuth]'},{'name': 'ToCaseDirective', 'selector': 'input[appToCase]'}];
+    var ACTUAL_COMPONENT = {'name': 'ClubEditorComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ClubEditorComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

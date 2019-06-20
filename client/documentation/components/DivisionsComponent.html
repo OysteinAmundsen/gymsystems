@@ -1,0 +1,1689 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>DivisionsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/views/configure/tournament/divisions/divisions.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+                    <code><a href="https://angular.io/api/core/OnChanges" target="_blank" >OnChanges</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-divisions</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./divisions.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./divisions.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ageDivisions">ageDivisions</a>
+                            </li>
+                            <li>
+                                <a href="#defaultDivisions">defaultDivisions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#divisionsQuery">divisionsQuery</a>
+                            </li>
+                            <li>
+                                <a href="#genderDivisions">genderDivisions</a>
+                            </li>
+                            <li>
+                                <a href="#isAdding">isAdding</a>
+                            </li>
+                            <li>
+                                <a href="#selected">selected</a>
+                            </li>
+                            <li>
+                                <a href="#subscriptions">subscriptions</a>
+                            </li>
+                            <li>
+                                <a href="#tournamentId">tournamentId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addDefaults">addDefaults</a>
+                            </li>
+                            <li>
+                                <a href="#addDivision">addDivision</a>
+                            </li>
+                            <li>
+                                <a href="#divisionReceived">divisionReceived</a>
+                            </li>
+                            <li>
+                                <a href="#drop">drop</a>
+                            </li>
+                            <li>
+                                <a href="#findMissingDefaults">findMissingDefaults</a>
+                            </li>
+                            <li>
+                                <a href="#loadDivisions">loadDivisions</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges">ngOnChanges</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onChange">onChange</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveDivisions">saveDivisions</a>
+                            </li>
+                            <li>
+                                <a href="#select">select</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#divisions">divisions</a>
+                            </li>
+                            <li>
+                                <a href="#standalone">standalone</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#divisionsChanged">divisionsChanged</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#keyup">keyup</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#canAddDefaults">canAddDefaults</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(graph: <a href="../injectables/GraphService.html">GraphService</a>, configService: <a href="../injectables/ConfigurationService.html">ConfigurationService</a>, injector: <a href="https://angular.io/api/core/Injector" target="_blank">Injector</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>graph</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>configService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ConfigurationService.html" target="_self" >ConfigurationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>injector</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="divisions"></a>
+                        <b>divisions</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IDivision.html" target="_self" >IDivision[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:28</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="standalone"></a>
+                        <b>standalone</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:27</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="divisionsChanged"></a>
+                        <b>divisionsChanged</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:32</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="keyup"></a>
+                    <span class="name">
+                        <b>
+                            keyup
+                        </b>
+                        <a href="#keyup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>keyup(evt: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="156"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:156</a></div>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addDefaults"></a>
+                    <span class="name">
+                        <b>
+                            addDefaults
+                        </b>
+                        <a href="#addDefaults"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addDefaults()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="105"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:105</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addDivision"></a>
+                    <span class="name">
+                        <b>
+                            addDivision
+                        </b>
+                        <a href="#addDivision"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addDivision()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="98"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:98</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="divisionReceived"></a>
+                    <span class="name">
+                        <b>
+                            divisionReceived
+                        </b>
+                        <a href="#divisionReceived"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>divisionReceived(divisions)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="92"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:92</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>divisions</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="drop"></a>
+                    <span class="name">
+                        <b>
+                            drop
+                        </b>
+                        <a href="#drop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>drop(event: <a href="../interfaces/IDivision.html">CdkDragDrop<IDivision[]></a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="67"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:67</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="../interfaces/IDivision.html" target="_self" >CdkDragDrop&lt;IDivision[]&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findMissingDefaults"></a>
+                    <span class="name">
+                        <b>
+                            findMissingDefaults
+                        </b>
+                        <a href="#findMissingDefaults"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>findMissingDefaults()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="115"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:115</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadDivisions"></a>
+                    <span class="name">
+                        <b>
+                            loadDivisions
+                        </b>
+                        <a href="#loadDivisions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadDivisions()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="83"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:83</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnChanges"></a>
+                    <span class="name">
+                        <b>
+                            ngOnChanges
+                        </b>
+                        <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnChanges(changes: <a href="https://angular.io/api/core/SimpleChanges" target="_blank">SimpleChanges</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>changes</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/core/SimpleChanges" target="_blank" >SimpleChanges</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="63"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:63</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="48"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:48</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onChange"></a>
+                    <span class="name">
+                        <b>
+                            onChange
+                        </b>
+                        <a href="#onChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onChange($event)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:129</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>$event</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveDivisions"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            saveDivisions
+                        </b>
+                        <a href="#saveDivisions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveDivisions()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:73</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/IDivision.html" target="_self" >Promise&lt;IDivision[]&gt;</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="select"></a>
+                    <span class="name">
+                        <b>
+                            select
+                        </b>
+                        <a href="#select"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>select(division: <a href="../interfaces/IDivision.html">IDivision</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="122"
+                            class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:122</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>division</td>
+                                    <td>
+                                                <code><a href="../interfaces/IDivision.html" target="_self" >IDivision</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ageDivisions"></a>
+                        <span class="name">
+                            <b>
+                            ageDivisions</b>
+                            <a href="#ageDivisions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IDivision.html" target="_self" >IDivision[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="defaultDivisions"></a>
+                        <span class="name">
+                            <b>
+                            defaultDivisions</b>
+                            <a href="#defaultDivisions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IDivision.html" target="_self" >IDivision[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:35</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="divisionsQuery"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Static</span>
+                            divisionsQuery</b>
+                            <a href="#divisionsQuery"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x60;{
+    id,
+    name,
+    sortOrder,
+    type,
+    min,
+    max,
+    scorable
+  }&#x60;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="genderDivisions"></a>
+                        <span class="name">
+                            <b>
+                            genderDivisions</b>
+                            <a href="#genderDivisions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IDivision.html" target="_self" >IDivision[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:34</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isAdding"></a>
+                        <span class="name">
+                            <b>
+                            isAdding</b>
+                            <a href="#isAdding"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:37</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selected"></a>
+                        <span class="name">
+                            <b>
+                            selected</b>
+                            <a href="#selected"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IDivision.html" target="_self" >IDivision</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:36</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subscriptions"></a>
+                        <span class="name">
+                            <b>
+                            subscriptions</b>
+                            <a href="#subscriptions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tournamentId"></a>
+                        <span class="name">
+                            <b>
+                            tournamentId</b>
+                            <a href="#tournamentId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="canAddDefaults"></a>
+                        <span class="name"><b>canAddDefaults</b><a href="#canAddDefaults"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>canAddDefaults()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/views/configure/tournament/divisions/divisions.component.ts:39</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, HostListener, OnDestroy, OnInit, Input, EventEmitter, Output, Injector, OnChanges, SimpleChanges } from &#x27;@angular/core&#x27;;
+// import { DragulaService } from &#x27;ng2-dragula&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+
+import { ConfigurationService } from &#x27;app/shared/services/api&#x27;;
+import { IDivision, DivisionType } from &#x27;app/model&#x27;;
+import { TournamentEditorComponent } from &#x27;app/views/configure/tournament/tournament-editor/tournament-editor.component&#x27;;
+import { GraphService } from &#x27;app/shared/services/graph.service&#x27;;
+import { CdkDragDrop, moveItemInArray } from &#x27;@angular/cdk/drag-drop&#x27;;
+
+@Component({
+  selector: &#x27;app-divisions&#x27;,
+  templateUrl: &#x27;./divisions.component.html&#x27;,
+  styleUrls: [&#x27;./divisions.component.scss&#x27;]
+})
+export class DivisionsComponent implements OnInit, OnDestroy, OnChanges {
+  static divisionsQuery &#x3D; &#x60;{
+    id,
+    name,
+    sortOrder,
+    type,
+    min,
+    max,
+    scorable
+  }&#x60;;
+
+  @Input() standalone &#x3D; false;
+  @Input() divisions: IDivision[] &#x3D; [];
+  tournamentId: number;
+
+
+  @Output() divisionsChanged &#x3D; new EventEmitter&lt;IDivision[]&gt;();
+  ageDivisions: IDivision[];
+  genderDivisions: IDivision[];
+  defaultDivisions: IDivision[];
+  selected: IDivision;
+  isAdding &#x3D; false;
+
+  get canAddDefaults() { return this.findMissingDefaults().length; }
+
+  subscriptions: Subscription[] &#x3D; [];
+
+  constructor(
+    private graph: GraphService,
+    private configService: ConfigurationService,
+    private injector: Injector) { }
+
+  async ngOnInit() {
+    const defaults &#x3D; await this.configService.getByname(&#x27;defaultValues&#x27;).toPromise();
+    this.defaultDivisions &#x3D; (typeof defaults.value &#x3D;&#x3D;&#x3D; &#x27;string&#x27; ? JSON.parse(defaults.value) : defaults.value).division;
+    if (!this.standalone) {
+      this.tournamentId &#x3D; this.injector.get(TournamentEditorComponent).tournamentId;
+      this.loadDivisions();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.divisions &amp;&amp; changes.divisions.currentValue) {
+      this.divisionReceived(this.divisions);
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s &#x3D;&gt; s ? s.unsubscribe() : null);
+  }
+
+  drop(event: CdkDragDrop&lt;IDivision[]&gt;) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    event.container.data.forEach((div, idx) &#x3D;&gt; (div.sortOrder &#x3D; idx));
+    this.saveDivisions();
+  }
+
+  async saveDivisions(): Promise&lt;IDivision[]&gt; {
+    this.divisions &#x3D; [...this.genderDivisions, ...this.ageDivisions];
+    if (this.tournamentId) {
+      const result &#x3D; (await this.graph.saveData(&#x27;Divisions&#x27;, this.divisions, DivisionsComponent.divisionsQuery).toPromise());
+      this.divisions &#x3D; result.saveDivisions;
+    }
+    this.divisionsChanged.emit(this.divisions);
+    return this.divisions;
+  }
+
+  loadDivisions() {
+    if (this.tournamentId) {
+      this.graph.getData(&#x60;{getDivisions(tournamentId:${this.tournamentId})${DivisionsComponent.divisionsQuery}}&#x60;).subscribe(res &#x3D;&gt; this.divisionReceived(res.getDivisions));
+    } else if (this.divisions) {
+      this.divisionReceived(this.divisions);
+    }
+    this.divisionsChanged.emit(this.divisions);
+  }
+
+  divisionReceived(divisions) {
+    this.divisions &#x3D; divisions;
+    this.genderDivisions &#x3D; this.divisions.filter(d &#x3D;&gt; d.type &#x3D;&#x3D;&#x3D; DivisionType.Gender);
+    this.ageDivisions &#x3D; this.divisions.filter(d &#x3D;&gt; d.type &#x3D;&#x3D;&#x3D; DivisionType.Age);
+  }
+
+  addDivision() {
+    this.isAdding &#x3D; true;
+    this.selected &#x3D; &lt;IDivision&gt;(this.standalone ? { name: null, sortOrder: null, type: null } : {
+      id: null, name: null, sortOrder: null, type: null, tournamentId: this.tournamentId
+    });
+  }
+
+  addDefaults() {
+    if (this.tournamentId &amp;&amp; this.defaultDivisions) {
+      const divisions &#x3D; this.findMissingDefaults().map(group &#x3D;&gt; {
+        group.tournamentId &#x3D; this.tournamentId;
+        return group;
+      });
+      this.graph.saveData(&#x27;Divisions&#x27;, divisions, DivisionsComponent.divisionsQuery).subscribe(result &#x3D;&gt; this.loadDivisions());
+    }
+  }
+
+  findMissingDefaults() {
+    if (this.tournamentId &amp;&amp; this.defaultDivisions &amp;&amp; this.defaultDivisions.length) {
+      return this.defaultDivisions.filter(def &#x3D;&gt; this.divisions.findIndex(d &#x3D;&gt; d.name &#x3D;&#x3D;&#x3D; def.name) &lt; 0);
+    }
+    return [];
+  }
+
+  select(division: IDivision) {
+    if (division) {
+      division.tournamentId &#x3D; this.tournamentId;
+    }
+    this.selected &#x3D; division;
+  }
+
+  onChange($event) {
+    let divisions: IDivision[] &#x3D; []; // Get currently selected division bin
+    if ($event !&#x3D;&#x3D; &#x27;DELETED&#x27;) {
+      // Copy properties over to selected object
+      Object.keys($event).forEach(k &#x3D;&gt; this.selected[k] &#x3D; $event[k]);
+
+      switch ($event.type) {
+        case DivisionType.Gender: divisions &#x3D; this.genderDivisions; break;
+        case DivisionType.Age: divisions &#x3D; this.ageDivisions; break;
+
+      }
+      if (this.isAdding) {
+        // Add element to given bin
+        divisions.push($event);
+      }
+    } else {
+      // $event &#x3D;&#x3D;&#x3D; &#x27;DELETED&#x27;, Remove element from given bin
+      divisions.splice(divisions.findIndex(d &#x3D;&gt; d.sortOrder &#x3D;&#x3D;&#x3D; this.selected.sortOrder), 1);
+    }
+
+    this.isAdding &#x3D; false;
+    this.divisions &#x3D; this.ageDivisions.concat(this.genderDivisions); // Re-create divisions from the two bins
+    this.select(null);
+    this.loadDivisions();
+  }
+
+  @HostListener(&#x27;keyup&#x27;, [&#x27;$event&#x27;])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.key &#x3D;&#x3D;&#x3D; &#x27;+&#x27; || evt.key &#x3D;&#x3D;&#x3D; &#x27;NumpadAdd&#x27;) {
+      this.addDivision();
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;row&quot;&gt;
+
+  &lt;section class&#x3D;&quot;col-6&quot;&gt;
+    &lt;header&gt;
+      &lt;h2&gt;
+        &lt;i class&#x3D;&quot;fa fa-fw fa-venus-mars&quot;&gt;&lt;/i&gt;
+        &lt;span translate&gt;Gender group&lt;/span&gt;
+      &lt;/h2&gt;
+    &lt;/header&gt;
+    &lt;div class&#x3D;&quot;table-responsive&quot;&gt;
+      &lt;table role&#x3D;&quot;list&quot; #gender cdkDropList [cdkDropListData]&#x3D;&quot;genderDivisions&quot; (cdkDropListDropped)&#x3D;&quot;drop($event)&quot; class&#x3D;&quot;editable drag-list&quot;&gt;
+        &lt;tbody *ngFor&#x3D;&quot;let division of genderDivisions | orderBy: &#x27;sortOrder&#x27;&quot; cdkDrag cdkDragLockAxis&#x3D;&quot;y&quot;&gt;
+          &lt;tr *ngIf&#x3D;&quot;division !&#x3D;&#x3D; selected&quot; (click)&#x3D;&quot;select(division)&quot; role&#x3D;&quot;listitem&quot; class&#x3D;&quot;draggable&quot;&gt;
+            &lt;td&gt;{{ division.name }}&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr *ngIf&#x3D;&quot;division &#x3D;&#x3D;&#x3D; selected&quot; class&#x3D;&quot;static&quot;&gt;
+            &lt;td colspan&#x3D;&quot;1&quot;&gt;
+              &lt;app-division-editor [division]&#x3D;&quot;selected&quot; (divisionChanged)&#x3D;&quot;onChange($event)&quot; [standalone]&#x3D;&quot;standalone&quot;&gt;&lt;/app-division-editor&gt;
+            &lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section class&#x3D;&quot;col-6&quot;&gt;
+    &lt;header&gt;
+      &lt;h2&gt;
+        &lt;i class&#x3D;&quot;fa fa-fw fa-child&quot;&gt;&lt;/i&gt;
+        &lt;span translate&gt;Age group&lt;/span&gt;
+      &lt;/h2&gt;
+    &lt;/header&gt;
+    &lt;div class&#x3D;&quot;table-responsive&quot;&gt;
+      &lt;table role&#x3D;&quot;list&quot; #age cdkDropList [cdkDropListData]&#x3D;&quot;ageDivisions&quot; (cdkDropListDropped)&#x3D;&quot;drop($event)&quot; class&#x3D;&quot;editable drag-list&quot;&gt;
+        &lt;tbody *ngFor&#x3D;&quot;let division of ageDivisions | orderBy: &#x27;sortOrder&#x27;&quot; cdkDrag cdkDragLockAxis&#x3D;&quot;y&quot;&gt;
+          &lt;tr *ngIf&#x3D;&quot;division !&#x3D;&#x3D; selected&quot; (click)&#x3D;&quot;select(division)&quot; role&#x3D;&quot;listitem&quot;&gt;
+            &lt;td&gt;{{ division.name }}&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr *ngIf&#x3D;&quot;division &#x3D;&#x3D;&#x3D; selected&quot; class&#x3D;&quot;static&quot;&gt;
+            &lt;td colspan&#x3D;&quot;1&quot;&gt;
+              &lt;app-division-editor [division]&#x3D;&quot;selected&quot; (divisionChanged)&#x3D;&quot;onChange($event)&quot; [standalone]&#x3D;&quot;standalone&quot;&gt;&lt;/app-division-editor&gt;
+            &lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+&lt;/div&gt;
+&lt;div *ngIf&#x3D;&quot;selected &amp;&amp; !selected.type&quot;&gt;
+  &lt;app-division-editor [division]&#x3D;&quot;selected&quot; (divisionChanged)&#x3D;&quot;onChange($event)&quot; [standalone]&#x3D;&quot;standalone&quot;&gt;&lt;/app-division-editor&gt;
+&lt;/div&gt;
+
+&lt;button mat-raised-button class&#x3D;&quot;mat-accent&quot; type&#x3D;&quot;button&quot; *ngIf&#x3D;&quot;selected &#x3D;&#x3D; null&quot; [title]&#x3D;&quot;&#x27;Add&#x27; | translate&quot; (click)&#x3D;&quot;addDivision()&quot;
+        aria-label&#x3D;&quot;Add divisions&quot;&gt;
+  &lt;i class&#x3D;&quot;fa fa-fw fa-plus&quot;&gt;&lt;/i&gt;
+  &lt;span translate&gt;Add Divisions&lt;/span&gt;
+&lt;/button&gt;
+&lt;button mat-raised-button type&#x3D;&quot;button&quot; *ngIf&#x3D;&quot;selected &#x3D;&#x3D; null &amp;&amp; canAddDefaults&quot; [title]&#x3D;&quot;&#x27;Add default&#x27; | translate&quot; (click)&#x3D;&quot;addDefaults()&quot;
+        aria-label&#x3D;&quot;Add default divisions&quot;&gt;
+  &lt;i class&#x3D;&quot;fa fa-fw fa-plus-circle&quot;&gt;&lt;/i&gt;
+  &lt;span translate&gt;Add Default Divisions&lt;/span&gt;
+&lt;/button&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./divisions.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">section header {
+  margin-left: 1rem;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="row">  <section class="col-6">    <header>      <h2>        <i class="fa fa-fw fa-venus-mars"></i>        <span translate>Gender group</span>      </h2>    </header>    <div class="table-responsive">      <table role="list" #gender cdkDropList [cdkDropListData]="genderDivisions" (cdkDropListDropped)="drop($event)" class="editable drag-list">        <tbody *ngFor="let division of genderDivisions | orderBy: \'sortOrder\'" cdkDrag cdkDragLockAxis="y">          <tr *ngIf="division !== selected" (click)="select(division)" role="listitem" class="draggable">            <td>{{ division.name }}</td>          </tr>          <tr *ngIf="division === selected" class="static">            <td colspan="1">              <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor>            </td>          </tr>        </tbody>      </table>    </div>  </section>  <section class="col-6">    <header>      <h2>        <i class="fa fa-fw fa-child"></i>        <span translate>Age group</span>      </h2>    </header>    <div class="table-responsive">      <table role="list" #age cdkDropList [cdkDropListData]="ageDivisions" (cdkDropListDropped)="drop($event)" class="editable drag-list">        <tbody *ngFor="let division of ageDivisions | orderBy: \'sortOrder\'" cdkDrag cdkDragLockAxis="y">          <tr *ngIf="division !== selected" (click)="select(division)" role="listitem">            <td>{{ division.name }}</td>          </tr>          <tr *ngIf="division === selected" class="static">            <td colspan="1">              <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor>            </td>          </tr>        </tbody>      </table>    </div>  </section></div><div *ngIf="selected && !selected.type">  <app-division-editor [division]="selected" (divisionChanged)="onChange($event)" [standalone]="standalone"></app-division-editor></div><button mat-raised-button class="mat-accent" type="button" *ngIf="selected == null" [title]="\'Add\' | translate" (click)="addDivision()"        aria-label="Add divisions">  <i class="fa fa-fw fa-plus"></i>  <span translate>Add Divisions</span></button><button mat-raised-button type="button" *ngIf="selected == null && canAddDefaults" [title]="\'Add default\' | translate" (click)="addDefaults()"        aria-label="Add default divisions">  <i class="fa fa-fw fa-plus-circle"></i>  <span translate>Add Default Divisions</span></button></div>'
+    var COMPONENTS = [{'name': 'AdvancedComponent', 'selector': 'app-advanced'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AwardsComponent', 'selector': 'app-awards'},{'name': 'ClubComponent', 'selector': 'app-club'},{'name': 'ClubEditorComponent', 'selector': 'app-club-editor'},{'name': 'ClubLookupComponent', 'selector': 'app-club-lookup'},{'name': 'ConfigureComponent', 'selector': 'app-configure'},{'name': 'ConfigureDisplayComponent', 'selector': 'app-configure-display'},{'name': 'ContextMenuComponent', 'selector': 'app-context-menu'},{'name': 'DialogComponent', 'selector': 'app-dialog'},{'name': 'DisciplineEditorComponent', 'selector': 'app-discipline-editor'},{'name': 'DisciplinesComponent', 'selector': 'app-disciplines'},{'name': 'DisplayComponent', 'selector': 'app-display'},{'name': 'DivisionEditorComponent', 'selector': 'app-division-editor'},{'name': 'DivisionLookupComponent', 'selector': 'app-division-lookup'},{'name': 'DivisionsComponent', 'selector': 'app-divisions'},{'name': 'ErrorDialogComponent', 'selector': 'app-error-dialog'},{'name': 'EventComponent', 'selector': 'app-event'},{'name': 'FullscreenComponent', 'selector': 'app-fullscreen'},{'name': 'HelpBlockComponent', 'selector': 'app-help-block'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InfoComponent', 'selector': 'app-info'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoadSpinnerComponent', 'selector': ''},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'MacroDialogComponent', 'selector': 'app-macro-dialog'},{'name': 'MediaComponent', 'selector': 'app-media'},{'name': 'MediaControlComponent', 'selector': 'app-media-control'},{'name': 'MemberEditorComponent', 'selector': 'app-member-editor'},{'name': 'MembersComponent', 'selector': 'app-members'},{'name': 'MemberSelectorComponent', 'selector': 'app-member-selector'},{'name': 'MultirangeComponent', 'selector': 'app-multirange'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetComponent', 'selector': 'app-reset'},{'name': 'ResultsComponent', 'selector': 'app-results'},{'name': 'SaveButtonComponent', 'selector': 'app-save-button'},{'name': 'ScheduleComponent', 'selector': 'app-schedule'},{'name': 'ScorecardsComponent', 'selector': 'app-scorecards'},{'name': 'ScoreEditorComponent', 'selector': 'app-score-editor'},{'name': 'ScoreGroupEditorComponent', 'selector': 'app-score-group-editor'},{'name': 'ScoreSystemComponent', 'selector': 'app-score-system'},{'name': 'SignoffReportComponent', 'selector': 'app-signoff-report'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'TeamEditorComponent', 'selector': 'app-team-editor'},{'name': 'TeamsComponent', 'selector': 'app-teams'},{'name': 'TournamentComponent', 'selector': 'app-tournament'},{'name': 'TournamentEditorComponent', 'selector': 'app-tournament-editor'},{'name': 'TroopEditorComponent', 'selector': 'app-troop-editor'},{'name': 'TroopsComponent', 'selector': 'app-troops'},{'name': 'UserEditorComponent', 'selector': 'app-user-editor'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VenueComponent', 'selector': 'app-venue'},{'name': 'VenueEditorComponent', 'selector': 'app-venue-editor'}];
+    var DIRECTIVES = [{'name': 'IfAuthDirective', 'selector': '[appIfAuth]'},{'name': 'ToCaseDirective', 'selector': 'input[appToCase]'}];
+    var ACTUAL_COMPONENT = {'name': 'DivisionsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DivisionsComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

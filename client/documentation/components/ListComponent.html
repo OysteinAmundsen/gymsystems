@@ -1,0 +1,3257 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>ListComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/views/event/list/list.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-list</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./list.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./list.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#_cache">_cache</a>
+                            </li>
+                            <li>
+                                <a href="#_showTraining">_showTraining</a>
+                            </li>
+                            <li>
+                                <a href="#classes">classes</a>
+                            </li>
+                            <li>
+                                <a href="#dialogRef">dialogRef</a>
+                            </li>
+                            <li>
+                                <a href="#disciplines">disciplines</a>
+                            </li>
+                            <li>
+                                <a href="#hasTraining">hasTraining</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading">isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#participationTypes">participationTypes</a>
+                            </li>
+                            <li>
+                                <a href="#roles">roles</a>
+                            </li>
+                            <li>
+                                <a href="#rows">rows</a>
+                            </li>
+                            <li>
+                                <a href="#schedule">schedule</a>
+                            </li>
+                            <li>
+                                <a href="#scheduleQuery">scheduleQuery</a>
+                            </li>
+                            <li>
+                                <a href="#selected">selected</a>
+                            </li>
+                            <li>
+                                <a href="#selectedDiscipline">selectedDiscipline</a>
+                            </li>
+                            <li>
+                                <a href="#subscriptions">subscriptions</a>
+                            </li>
+                            <li>
+                                <a href="#tournament">tournament</a>
+                            </li>
+                            <li>
+                                <a href="#types">types</a>
+                            </li>
+                            <li>
+                                <a href="#user">user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#canEdit">canEdit</a>
+                            </li>
+                            <li>
+                                <a href="#canStart">canStart</a>
+                            </li>
+                            <li>
+                                <a href="#canViewActions">canViewActions</a>
+                            </li>
+                            <li>
+                                <a href="#closeEditor">closeEditor</a>
+                            </li>
+                            <li>
+                                <a href="#contextInvoked">contextInvoked</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getCacheKey">getCacheKey</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#invalidateCache">invalidateCache</a>
+                            </li>
+                            <li>
+                                <a href="#isNewDay">isNewDay</a>
+                            </li>
+                            <li>
+                                <a href="#isVisible">isVisible</a>
+                            </li>
+                            <li>
+                                <a href="#loadData">loadData</a>
+                            </li>
+                            <li>
+                                <a href="#loadSchedule">loadSchedule</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#next">next</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#previous">previous</a>
+                            </li>
+                            <li>
+                                <a href="#publish">publish</a>
+                            </li>
+                            <li>
+                                <a href="#score">score</a>
+                            </li>
+                            <li>
+                                <a href="#select">select</a>
+                            </li>
+                            <li>
+                                <a href="#start">start</a>
+                            </li>
+                            <li>
+                                <a href="#startTime">startTime</a>
+                            </li>
+                            <li>
+                                <a href="#stop">stop</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#showTraining">showTraining</a>
+                                </li>
+                                <li>
+                                    <a href="#description">description</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(parent: <a href="../components/EventComponent.html">EventComponent</a>, translate: TranslateService, dialog: MatDialog, graph: <a href="../injectables/GraphService.html">GraphService</a>, scheduleService: <a href="../injectables/ScheduleService.html">ScheduleService</a>, userService: <a href="../injectables/UserService.html">UserService</a>, mediaService: <a href="../injectables/MediaService.html">MediaService</a>, errorHandler: <a href="../injectables/ErrorHandlerService.html">ErrorHandlerService</a>, browser: <a href="../injectables/BrowserService.html">BrowserService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/views/event/list/list.component.ts:91</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>parent</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../components/EventComponent.html" target="_self" >EventComponent</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>translate</td>
+                                                  
+                                                        <td>
+                                                                    <code>TranslateService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>graph</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>scheduleService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ScheduleService.html" target="_self" >ScheduleService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>mediaService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/MediaService.html" target="_self" >MediaService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>errorHandler</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ErrorHandlerService.html" target="_self" >ErrorHandlerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>browser</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/BrowserService.html" target="_self" >BrowserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canEdit"></a>
+                    <span class="name">
+                        <b>
+                            canEdit
+                        </b>
+                        <a href="#canEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>canEdit(participant: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="229"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:229</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canStart"></a>
+                    <span class="name">
+                        <b>
+                            canStart
+                        </b>
+                        <a href="#canStart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>canStart(participant: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>, index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="266"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:266</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>index</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canViewActions"></a>
+                    <span class="name">
+                        <b>
+                            canViewActions
+                        </b>
+                        <a href="#canViewActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>canViewActions()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="239"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:239</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeEditor"></a>
+                    <span class="name">
+                        <b>
+                            closeEditor
+                        </b>
+                        <a href="#closeEditor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeEditor(cmd: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="355"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:355</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>cmd</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contextInvoked"></a>
+                    <span class="name">
+                        <b>
+                            contextInvoked
+                        </b>
+                        <a href="#contextInvoked"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>contextInvoked(item: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>, rowIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, $event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="391"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:391</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>item</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>rowIndex</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>$event</td>
+                                    <td>
+                                            <code>MouseEvent</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCacheKey"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getCacheKey
+                        </b>
+                        <a href="#getCacheKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getCacheKey(participant: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="179"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:179</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="invalidateCache"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            invalidateCache
+                        </b>
+                        <a href="#invalidateCache"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>invalidateCache(participant?: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="186"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:186</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isNewDay"></a>
+                    <span class="name">
+                        <b>
+                            isNewDay
+                        </b>
+                        <a href="#isNewDay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isNewDay(participant: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="204"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:204</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isVisible"></a>
+                    <span class="name">
+                        <b>
+                            isVisible
+                        </b>
+                        <a href="#isVisible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isVisible(participant: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="211"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:211</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadData"></a>
+                    <span class="name">
+                        <b>
+                            loadData
+                        </b>
+                        <a href="#loadData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadData()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="125"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:125</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadSchedule"></a>
+                    <span class="name">
+                        <b>
+                            loadSchedule
+                        </b>
+                        <a href="#loadSchedule"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadSchedule()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="145"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:145</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="next"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            next
+                        </b>
+                        <a href="#next"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>next(idx)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="370"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:370</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>idx</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="121"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:121</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:107</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="previous"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            previous
+                        </b>
+                        <a href="#previous"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>previous(idx)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="379"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:379</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>idx</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="publish"></a>
+                    <span class="name">
+                        <b>
+                            publish
+                        </b>
+                        <a href="#publish"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>publish(participant: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>, evt: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="335"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:335</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>evt</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="score"></a>
+                    <span class="name">
+                        <b>
+                            score
+                        </b>
+                        <a href="#score"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>score(participant: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="219"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:219</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="select"></a>
+                    <span class="name">
+                        <b>
+                            select
+                        </b>
+                        <a href="#select"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>select(participant: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="249"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:249</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="start"></a>
+                    <span class="name">
+                        <b>
+                            start
+                        </b>
+                        <a href="#start"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>start(participant: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>, evt: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="282"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:282</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>evt</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startTime"></a>
+                    <span class="name">
+                        <b>
+                            startTime
+                        </b>
+                        <a href="#startTime"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>startTime(participant: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="197"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:197</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stop"></a>
+                    <span class="name">
+                        <b>
+                            stop
+                        </b>
+                        <a href="#stop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>stop(participant: <a href="../interfaces/ITeamInDiscipline.html">ITeamInDiscipline</a>, evt: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="311"
+                            class="link-to-prism">src/app/views/event/list/list.component.ts:311</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>participant</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>evt</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_cache"></a>
+                        <span class="name">
+                            <b>
+                            _cache</b>
+                            <a href="#_cache"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>literal type</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/views/event/list/list.component.ts:81</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_showTraining"></a>
+                        <span class="name">
+                            <b>
+                            _showTraining</b>
+                            <a href="#_showTraining"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/views/event/list/list.component.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="classes"></a>
+                        <span class="name">
+                            <b>
+                            classes</b>
+                            <a href="#classes"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Classes</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/views/event/list/list.component.ts:44</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialogRef"></a>
+                        <span class="name">
+                            <b>
+                            dialogRef</b>
+                            <a href="#dialogRef"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../components/ContextMenuComponent.html" target="_self" >MatDialogRef&lt;ContextMenuComponent&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/views/event/list/list.component.ts:39</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="disciplines"></a>
+                        <span class="name">
+                            <b>
+                            disciplines</b>
+                            <a href="#disciplines"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IDiscipline.html" target="_self" >IDiscipline[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/views/event/list/list.component.ts:84</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hasTraining"></a>
+                        <span class="name">
+                            <b>
+                            hasTraining</b>
+                            <a href="#hasTraining"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/views/event/list/list.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isLoading"></a>
+                        <span class="name">
+                            <b>
+                            isLoading</b>
+                            <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/views/event/list/list.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="participationTypes"></a>
+                        <span class="name">
+                            <b>
+                            participationTypes</b>
+                            <a href="#participationTypes"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>ParticipationType</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/views/event/list/list.component.ts:87</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="roles"></a>
+                        <span class="name">
+                            <b>
+                            roles</b>
+                            <a href="#roles"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Role</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/views/event/list/list.component.ts:86</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rows"></a>
+                        <span class="name">
+                            <b>
+                            rows</b>
+                            <a href="#rows"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>QueryList&lt;ViewContainerRef&gt;</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChildren(&#x27;row&#x27;, {read: ViewContainerRef})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/views/event/list/list.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="schedule"></a>
+                        <span class="name">
+                            <b>
+                            schedule</b>
+                            <a href="#schedule"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>ITeamInDiscipline[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/views/event/list/list.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="scheduleQuery"></a>
+                        <span class="name">
+                            <b>
+                            scheduleQuery</b>
+                            <a href="#scheduleQuery"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x60;{
+    id,
+    team{id,name,class},
+    media{id},
+    sortNumber,
+    startNumber,
+    markDeleted,
+    startTime,
+    endTime,
+    publishTime,
+    type,
+    disciplineId,
+    disciplineName,
+    disciplineSortOrder,
+    divisionName,
+    scorable,
+    total
+  }&#x60;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/views/event/list/list.component.ts:50</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selected"></a>
+                        <span class="name">
+                            <b>
+                            selected</b>
+                            <a href="#selected"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/views/event/list/list.component.ts:43</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedDiscipline"></a>
+                        <span class="name">
+                            <b>
+                            selectedDiscipline</b>
+                            <a href="#selectedDiscipline"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>null</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>null</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/views/event/list/list.component.ts:83</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subscriptions"></a>
+                        <span class="name">
+                            <b>
+                            subscriptions</b>
+                            <a href="#subscriptions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/views/event/list/list.component.ts:89</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tournament"></a>
+                        <span class="name">
+                            <b>
+                            tournament</b>
+                            <a href="#tournament"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/ITournament.html" target="_self" >ITournament</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/views/event/list/list.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="types"></a>
+                        <span class="name">
+                            <b>
+                            types</b>
+                            <a href="#types"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>ParticipationType</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/views/event/list/list.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="user"></a>
+                        <span class="name">
+                            <b>
+                            user</b>
+                            <a href="#user"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IUser.html" target="_self" >IUser</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/views/event/list/list.component.ts:40</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showTraining"></a>
+                        <span class="name"><b>showTraining</b><a href="#showTraining"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>showTraining()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/views/event/list/list.component.ts:69</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>showTraining(v)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/views/event/list/list.component.ts:76</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>v</td>
+                                                    
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="description"></a>
+                        <span class="name"><b>description</b><a href="#description"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>description()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/views/event/list/list.component.ts:91</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy, ElementRef, ViewChildren, QueryList, ViewContainerRef, HostListener } from &#x27;@angular/core&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { debounceTime } from &#x27;rxjs/operators&#x27;;
+import { TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { MatDialog, MatDialogRef } from &#x27;@angular/material&#x27;;
+
+import * as moment from &#x27;moment&#x27;;
+
+import { EventComponent } from &#x27;../event.component&#x27;;
+import { ContextMenuComponent } from &#x27;./context-menu/context-menu.component&#x27;;
+
+import { ScheduleService, UserService } from &#x27;app/shared/services/api&#x27;;
+import { MediaService } from &#x27;app/shared/services/media.service&#x27;;
+import { ErrorHandlerService } from &#x27;app/shared/interceptors/error-handler.service&#x27;;
+
+import { ITournament, ITeamInDiscipline, Role, IUser, IMedia, ParticipationType, IDiscipline, Classes } from &#x27;app/model&#x27;;
+import { GraphService } from &#x27;app/shared/services/graph.service&#x27;;
+import { BrowserService } from &#x27;app/shared/browser.service&#x27;;
+
+/**
+ *
+ */
+interface ParticipantCache {
+  time: string;
+  date: string;
+  isNewDay: boolean;
+}
+
+/**
+ *
+ */
+@Component({
+  selector: &#x27;app-list&#x27;,
+  templateUrl: &#x27;./list.component.html&#x27;,
+  styleUrls: [&#x27;./list.component.scss&#x27;]
+})
+export class ListComponent implements OnInit, OnDestroy {
+  @ViewChildren(&#x27;row&#x27;, { read: ViewContainerRef }) rows: QueryList&lt;ViewContainerRef&gt;;
+  dialogRef: MatDialogRef&lt;ContextMenuComponent&gt;;
+  user: IUser;
+  tournament: ITournament;
+  schedule: ITeamInDiscipline[] &#x3D; [];
+  selected: ITeamInDiscipline;
+  classes &#x3D; Classes;
+  types &#x3D; ParticipationType;
+  _showTraining;
+  isLoading &#x3D; false;
+  hasTraining &#x3D; false;
+
+  scheduleQuery &#x3D; &#x60;{
+    id,
+    team{id,name,class},
+    media{id},
+    sortNumber,
+    startNumber,
+    markDeleted,
+    startTime,
+    endTime,
+    publishTime,
+    type,
+    disciplineId,
+    disciplineName,
+    disciplineSortOrder,
+    divisionName,
+    scorable,
+    total
+  }&#x60;;
+
+  get showTraining() {
+    if (this._showTraining &#x3D;&#x3D;&#x3D; undefined) {
+      const show &#x3D; this.browser.localStorage().getItem(&#x27;showTraining&#x27;) || !!this.user ? &#x27;false&#x27; : &#x27;true&#x27;;
+      this._showTraining &#x3D; show !&#x3D;&#x3D; &#x27;false&#x27;;
+    }
+    return this._showTraining;
+  }
+  set showTraining(v) {
+    this.browser.localStorage().setItem(&#x27;showTraining&#x27;, v);
+    this._showTraining &#x3D; v;
+  }
+
+  _cache: { [key: string]: ParticipantCache } &#x3D; {};
+
+  selectedDiscipline &#x3D; null;
+  disciplines: IDiscipline[];
+
+  roles &#x3D; Role;
+  participationTypes &#x3D; ParticipationType;
+
+  subscriptions: Subscription[] &#x3D; [];
+
+  get description() { return (this.tournament ? this.tournament[&#x27;description_&#x27; + this.translate.currentLang] : &#x27;&#x27;); }
+
+  constructor(
+    private parent: EventComponent,
+    private translate: TranslateService,
+    private dialog: MatDialog,
+    private graph: GraphService,
+    private scheduleService: ScheduleService,
+    private userService: UserService,
+    private mediaService: MediaService,
+    private errorHandler: ErrorHandlerService,
+    private browser: BrowserService) { }
+
+  /**
+   *
+   */
+  ngOnInit() {
+    // Make sure we have translations for weekdays
+    this.translate.get([&#x27;Mon&#x27;, &#x27;Tue&#x27;, &#x27;Wed&#x27;, &#x27;Thu&#x27;, &#x27;Fri&#x27;, &#x27;Sat&#x27;, &#x27;Sun&#x27;]).subscribe();
+
+    this.subscriptions.push(this.graph.listen(&#x27;teamInDisciplineModified&#x27;, this.scheduleQuery).subscribe(res &#x3D;&gt; {
+      this.loadSchedule();
+    }));
+    this.subscriptions.push(this.userService.getMe(true).subscribe(user &#x3D;&gt; this.user &#x3D; user));
+    this.loadData();
+  }
+
+  /**
+   *
+   */
+  ngOnDestroy() {
+    this.subscriptions.forEach(s &#x3D;&gt; s.unsubscribe());
+  }
+
+  loadData() {
+    this.isLoading &#x3D; true;
+    this.graph.getData(&#x60;{
+      tournament(id:${this.parent.tournamentId}){id,name,clubId,venue{id,name},times{day,time}},
+      getDisciplines(tournamentId:${this.parent.tournamentId}){id,name,sortOrder}}&#x60;).subscribe(
+      data &#x3D;&gt; {
+        this.tournament &#x3D; data.tournament;
+        this.disciplines &#x3D; data.getDisciplines;
+        this.loadSchedule();
+      },
+      error &#x3D;&gt; {
+        this.isLoading &#x3D; false;
+        this.errorHandler.setError(error);
+      }
+    );
+  }
+
+  /**
+   *
+   */
+  loadSchedule() {
+    this.isLoading &#x3D; true;
+    this.graph.getData(&#x60;{getSchedule(tournamentId:${this.parent.tournamentId})${this.scheduleQuery}}&#x60;)
+      .subscribe(
+        data &#x3D;&gt; {
+          const schedule &#x3D; data.getSchedule;
+          this.isLoading &#x3D; false;
+          this.hasTraining &#x3D; schedule.filter(s &#x3D;&gt; s.type &#x3D;&#x3D;&#x3D; ParticipationType.Training).length &gt; 0;
+
+          if (!this.selected) {
+            this.schedule &#x3D; schedule;
+          } else {
+            schedule.forEach(participant &#x3D;&gt; {
+              const idx &#x3D; this.schedule.findIndex(t &#x3D;&gt; t.id &#x3D;&#x3D;&#x3D; participant.id);
+              if (idx &gt; -1 &amp;&amp; this.schedule[idx] !&#x3D;&#x3D; this.selected) {
+                this.schedule.splice(idx, 1, participant);
+              } else {
+                // Should never happen
+                this.schedule.push(participant);
+              }
+            });
+          }
+          this.invalidateCache();
+        },
+        error &#x3D;&gt; {
+          this.isLoading &#x3D; false;
+          this.errorHandler.setError(error);
+        }
+      );
+  }
+
+  /**
+   *
+   */
+  private getCacheKey(participant: ITeamInDiscipline) {
+    return participant.sortNumber;
+  }
+
+  /**
+   *
+   */
+  private invalidateCache(participant?: ITeamInDiscipline) {
+    if (participant) {
+      delete participant.calculatedStartTime;
+    } else {
+      this.schedule.forEach(s &#x3D;&gt; this.invalidateCache(s));
+    }
+  }
+
+  /**
+   *
+   */
+  startTime(participant: ITeamInDiscipline): Date {
+    return this.scheduleService.startTime(this.tournament, participant, this.schedule);
+  }
+
+  /**
+   *
+   */
+  isNewDay(participant: ITeamInDiscipline): boolean {
+    return this.scheduleService.isNewDay(this.tournament, participant, this.schedule);
+  }
+
+  /**
+   *
+   */
+  isVisible(participant: ITeamInDiscipline) {
+    return (!this.selectedDiscipline || this.selectedDiscipline.id &#x3D;&#x3D;&#x3D; participant.disciplineId)
+      &amp;&amp; (participant.type !&#x3D;&#x3D; ParticipationType.Training || this.showTraining &#x3D;&#x3D;&#x3D; true);
+  }
+
+  /**
+   *
+   */
+  score(participant: ITeamInDiscipline): number {
+    const score &#x3D; parseFloat(participant.total);
+
+    // Only show score if score is published, OR logged in user is part of the secretariat
+    return (participant.publishTime || (this.user &amp;&amp; this.user.role &gt;&#x3D; Role.Secretariat)) ? score : 0;
+  }
+
+  /**
+   *
+   */
+  canEdit(participant: ITeamInDiscipline): boolean {
+    return this.user &amp;&amp; (!participant || !participant.markDeleted) &amp;&amp; participant.scorable &amp;&amp; (
+      this.user.role &gt;&#x3D; Role.Admin
+      || (this.user.role &gt;&#x3D; Role.Secretariat &amp;&amp; +this.user.clubId &#x3D;&#x3D;&#x3D; +this.tournament.clubId)
+    );
+  }
+
+  /**
+   *
+   */
+  canViewActions(): boolean {
+    return this.user
+      &amp;&amp; (this.user.role &gt;&#x3D; Role.Admin
+        || (this.user.role &gt;&#x3D; Role.Secretariat &amp;&amp; +this.user.clubId &#x3D;&#x3D;&#x3D; +this.tournament.clubId)
+      );
+  }
+
+  /**
+   *
+   */
+  select(participant: ITeamInDiscipline) {
+    if (this.dialogRef) { this.dialogRef.close(); }
+    if (this.canEdit(participant)) {
+      if (participant !&#x3D; null &amp;&amp; participant.startTime &#x3D;&#x3D; null &amp;&amp; participant.type &#x3D;&#x3D;&#x3D; ParticipationType.Live) {
+        this.errorHandler.setError(this.translate.instant(&#x60;Cannot edit score. This participant hasn&#x27;t started yet.&#x60;));
+        return;
+      }
+      if (participant &amp;&amp; participant.type &#x3D;&#x3D;&#x3D; ParticipationType.Training) {
+        return;
+      }
+      this.selected &#x3D; participant;
+    }
+  }
+
+  /**
+   *
+   */
+  canStart(participant: ITeamInDiscipline, index: number) {
+    if (participant.markDeleted) { return false; }
+    let previous;
+    for (let j &#x3D; index - 1; j &gt;&#x3D; 0; j--) {
+      if (!this.schedule[j].markDeleted) {
+        previous &#x3D; this.schedule[j];
+        break;
+      }
+    }
+    const previousStarted &#x3D; (previous !&#x3D; null ? previous.startTime !&#x3D; null : true);
+    return participant.startTime &#x3D;&#x3D; null &amp;&amp; previousStarted;
+  }
+
+  /**
+   *
+   */
+  start(participant: ITeamInDiscipline, evt: Event) {
+    if (this.dialogRef) { this.dialogRef.close(); }
+    if (this.user &amp;&amp; this.user.role &gt;&#x3D; Role.Secretariat) {
+      if (participant.startTime !&#x3D; null) {
+        this.errorHandler.setError(this.translate.instant(&#x27;This participant has allready started.&#x27;));
+        return;
+      }
+      if (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
+
+      // Autostop last participant if this is not allready done
+      this.schedule
+        .filter(p &#x3D;&gt; p.startTime !&#x3D; null &amp;&amp; p.endTime &#x3D;&#x3D; null)
+        .map(p &#x3D;&gt; this.stop(p, evt));
+
+      participant.startTime &#x3D; new Date();
+      this.invalidateCache(participant);
+      this.graph.post(&#x60;{start(id: ${participant.id}){id,startTime}}&#x60;).subscribe(res &#x3D;&gt; {
+        participant.startTime &#x3D; res.data.start.startTime;
+        this.mediaService.play(participant.media);
+      });
+    }
+  }
+
+  /**
+   *
+   */
+  stop(participant: ITeamInDiscipline, evt: Event) {
+    if (this.dialogRef) { this.dialogRef.close(); }
+    if (this.user &amp;&amp; this.user.role &gt;&#x3D; Role.Secretariat) {
+      if (participant.startTime &#x3D;&#x3D; null) {
+        this.errorHandler.setError(this.translate.instant(&#x60;Cannot stop. This participant hasn&#x27;t started yet.&#x60;));
+        return;
+      }
+      if (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
+
+      this.mediaService.stop();
+
+      participant.endTime &#x3D; new Date();
+      this.graph.post(&#x60;{stop(id: ${participant.id}){id,endTime}}&#x60;).subscribe(res &#x3D;&gt; {
+        participant.endTime &#x3D; res.data.stop.endTime;
+      });
+    }
+  }
+
+  /**
+   *
+   */
+  publish(participant: ITeamInDiscipline, evt: Event) {
+    if (this.dialogRef) { this.dialogRef.close(); }
+    if (this.user &amp;&amp; this.user.role &gt;&#x3D; Role.Secretariat) {
+      if (participant.publishTime !&#x3D; null) {
+        this.errorHandler.setError(this.translate.instant(&#x60;This participant&#x27;s score is allready published.&#x60;));
+      }
+      if (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
+      participant.publishTime &#x3D; new Date();
+      this.graph.post(&#x60;{publish(id: ${participant.id}){id,publishTime}}&#x60;).subscribe(res &#x3D;&gt; {
+        participant.publishTime &#x3D; res.data.publish.publishTime;
+      });
+    }
+  }
+
+  /**
+   *
+   */
+  closeEditor(cmd: string) {
+    this.invalidateCache(this.selected);
+    const idx &#x3D; this.schedule.findIndex(s &#x3D;&gt; s.id &#x3D;&#x3D;&#x3D; this.selected.id);
+    if (typeof cmd &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+      if (cmd &#x3D;&#x3D;&#x3D; &#x27;next&#x27;) { return this.select(this.next(idx + 1)); }
+      if (cmd &#x3D;&#x3D;&#x3D; &#x27;previous&#x27;) { return this.select(this.previous(idx - 1)); }
+      if (cmd &#x3D;&#x3D;&#x3D; &#x27;rollback&#x27;) {
+        this.loadSchedule();
+      }
+    } else {
+      this.loadSchedule();
+    }
+    this.selected &#x3D; null;
+  }
+
+  private next(idx) {
+    if (idx &lt; this.schedule.length) {
+      return (this.canEdit(this.schedule[idx]))
+        ? this.schedule[idx]
+        : this.next(idx + 1);
+    }
+    return null;
+  }
+
+  private previous(idx) {
+    if (idx &gt;&#x3D; 0) {
+      return (this.canEdit(this.schedule[idx]))
+        ? this.schedule[idx]
+        : this.previous(idx - 1);
+    }
+    return null;
+  }
+
+  /**
+   *
+   */
+  contextInvoked(item: ITeamInDiscipline, rowIndex: number, $event: MouseEvent) {
+    if (this.user &amp;&amp; (this.user.role &gt;&#x3D; Role.Admin
+      || (this.user.role &gt;&#x3D; Role.Organizer &amp;&amp; +this.user.clubId &#x3D;&#x3D;&#x3D; +this.tournament.clubId))) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      if (this.dialogRef) {
+        this.dialogRef.close();
+      }
+      this.dialogRef &#x3D; this.dialog.open(ContextMenuComponent, {
+        // hasBackdrop: false,
+        backdropClass: &#x27;context-backdrop&#x27;,
+        panelClass: &#x27;context-menu&#x27;,
+        data: {
+          mouseX: $event.clientX,
+          mouseY: $event.clientY,
+          rowIndex: rowIndex,
+          participant: item,
+          currentUser: this.user,
+          tournament: this.tournament,
+          canEdit: this.canEdit.bind(this),
+          edit: this.select.bind(this),
+          canStart: this.canStart.bind(this),
+          start: this.start.bind(this),
+          stop: this.stop.bind(this),
+          publish: this.publish.bind(this),
+          rollback: () &#x3D;&gt; {
+            this.dialogRef.close();
+            this.loadSchedule();
+          }
+        }
+      });
+    }
+  }
+
+  /**
+   *
+   */
+  // @HostListener(&#x27;window:click&#x27;, [&#x27;$event&#x27;])
+  // onClick($event: MouseEvent) {
+  //   if (this.dialogRef) {
+  //     // if ($event.target.closest(this.))
+  //     // this.dialogRef.close();
+  //   }
+  // }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;header class&#x3D;&quot;center print-only&quot; *ngIf&#x3D;&quot;tournament&quot;&gt;
+  &lt;h2&gt;{{ tournament.name }}&lt;/h2&gt;
+  &lt;h4&gt;{{ tournament.venue?.name }}&lt;/h4&gt;
+&lt;/header&gt;
+
+&lt;mat-progress-spinner *ngIf&#x3D;&quot;isLoading&quot; mode&#x3D;&quot;indeterminate&quot; class&#x3D;&quot;center&quot;&gt;&lt;/mat-progress-spinner&gt;
+
+&lt;mat-card [ngClass]&#x3D;&quot;{isSecond: user &amp;&amp; (user.role &gt;&#x3D; roles.Admin || (user.role &gt;&#x3D; roles.Secretariat &amp;&amp; user.clubId &#x3D;&#x3D; tournament?.clubId))}&quot;&gt;
+  &lt;mat-card-header class&#x3D;&quot;form horizontal flex screen-only&quot;&gt;
+    &lt;mat-form-field *ngIf&#x3D;&quot;user &amp;&amp; (user.role &gt;&#x3D; roles.Admin || (user.role &gt;&#x3D; roles.Secretariat &amp;&amp; user.clubId &#x3D;&#x3D; tournament?.clubId))&quot;&gt;
+      &lt;mat-placeholder for&#x3D;&quot;filter&quot;&gt;&lt;i class&#x3D;&quot;fa fa-fw fa-filter&quot;&gt;&lt;/i&gt;&lt;span translate&gt;Choose discipline:&lt;/span&gt;&lt;/mat-placeholder&gt;
+      &lt;mat-select id&#x3D;&quot;filter&quot; name&#x3D;&quot;filter&quot; [(ngModel)]&#x3D;&quot;selectedDiscipline&quot;&gt;
+        &lt;mat-option [value]&#x3D;&quot;null&quot; translate&gt;No filter&lt;/mat-option&gt;
+        &lt;mat-option *ngFor&#x3D;&quot;let discipline of disciplines&quot; [value]&#x3D;&quot;discipline&quot;&gt;
+          &lt;i class&#x3D;&quot;square screen-only&quot; [attr.discipline]&#x3D;&quot;discipline.sortOrder&quot;&gt;&lt;/i&gt;
+          {{ discipline.name }}
+        &lt;/mat-option&gt;
+      &lt;/mat-select&gt;
+    &lt;/mat-form-field&gt;
+    &lt;div class&#x3D;&quot;flex-col&quot;&gt;&lt;/div&gt;
+    &lt;mat-slide-toggle class&#x3D;&quot;mat-primary&quot; *ngIf&#x3D;&quot;hasTraining&quot; [(ngModel)]&#x3D;&quot;showTraining&quot;&gt;
+      &lt;span *ngIf&#x3D;&quot;showTraining&quot; translate&gt;Training visible&lt;/span&gt;
+      &lt;span *ngIf&#x3D;&quot;!showTraining&quot; translate&gt;Training hidden&lt;/span&gt;
+    &lt;/mat-slide-toggle&gt;
+  &lt;/mat-card-header&gt;
+
+  &lt;div *ngIf&#x3D;&quot;!schedule.length&quot;&gt;{{ &#x27;There is no schedule set yet. We are working on it.&#x27; | translate }}&lt;/div&gt;
+
+  &lt;table *ngIf&#x3D;&quot;tournament &amp;&amp; schedule.length&quot; role&#x3D;&quot;list&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th translate&gt;Start&lt;/th&gt;
+        &lt;th translate class&#x3D;&quot;visible-medium&quot;&gt;Time&lt;/th&gt;
+        &lt;th translate&gt;Team&lt;/th&gt;
+        &lt;th class&#x3D;&quot;visible-medium&quot; translate&gt;Division&lt;/th&gt;
+        &lt;th class&#x3D;&quot;visible-medium&quot; translate&gt;Discipline&lt;/th&gt;
+        &lt;th translate class&#x3D;&quot;score&quot;&gt;Score&lt;/th&gt;
+        &lt;th *ngIf&#x3D;&quot;canViewActions()&quot; class&#x3D;&quot;actions screen-only&quot;&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody *ngFor&#x3D;&quot;let item of schedule; let i &#x3D; index;&quot; role&#x3D;&quot;listitem&quot; #row (contextmenu)&#x3D;&quot;contextInvoked(item, i, $event)&quot; [ngClass]&#x3D;&quot;{isPublished : item.publishTime !&#x3D; null,
+                       deleted     : item.markDeleted,
+                       isStarted   : item.startTime,
+                       unimportant : item.type &#x3D;&#x3D;&#x3D; types.Training,
+                       isCurrent   : item.startTime &amp;&amp; !item.endTime &amp;&amp; !item.publishTime,
+                       isNext      : canStart(item, i)
+                      }&quot;&gt;
+
+      &lt;!-- View details wide screen --&gt;
+      &lt;tr *ngIf&#x3D;&quot;selected !&#x3D;&#x3D; item &amp;&amp; isVisible(item)&quot; (click)&#x3D;&quot;select(item)&quot;&gt;
+        &lt;td class&#x3D;&quot;start-no&quot; *ngIf&#x3D;&quot;item.type &#x3D;&#x3D;&#x3D; participationTypes.Training&quot;&gt;&lt;/td&gt;
+        &lt;td class&#x3D;&quot;start-no&quot; *ngIf&#x3D;&quot;item.type &#x3D;&#x3D;&#x3D; participationTypes.Live&quot;&gt;#{{ item.startNumber + 1 }}&lt;/td&gt;
+        &lt;td class&#x3D;&quot;visible-medium start-time&quot; [innerHtml]&#x3D;&quot;startTime(item) | date:&#x27;HH:mm&#x27;&quot;&gt;&lt;/td&gt;
+        &lt;td class&#x3D;&quot;team&quot;&gt;{{ item.team.name }}&lt;/td&gt;
+        &lt;td class&#x3D;&quot;visible-medium division&quot;&gt;&lt;b *ngIf&#x3D;&quot;item.team.class &#x3D;&#x3D;&#x3D; classes.TeamGym &amp;&amp; item.type &#x3D;&#x3D;&#x3D; types.Live&quot;&gt;TG:
+          &lt;/b&gt;{{
+          item.divisionName }}&lt;/td&gt;
+        &lt;td class&#x3D;&quot;visible-medium nowrap discipline&quot;&gt;&lt;i class&#x3D;&quot;square screen-only&quot; [attr.discipline]&#x3D;&quot;item.disciplineSortOrder&quot;&gt;&lt;/i&gt;
+          {{ item.disciplineName }}&lt;/td&gt;
+        &lt;td *ngIf&#x3D;&quot;item.type &#x3D;&#x3D;&#x3D; types.Live&quot; class&#x3D;&quot;score&quot;&gt;
+          &lt;span *ngIf&#x3D;&quot;item.scorable &amp;&amp; !item.markDeleted&quot;&gt;{{ score(item) | number:&#x27;1.3-3&#x27; }}&lt;/span&gt;
+        &lt;/td&gt;
+        &lt;td *ngIf&#x3D;&quot;item.type &#x3D;&#x3D;&#x3D; types.Training&quot; class&#x3D;&quot;score&quot;&gt;&lt;/td&gt;
+
+        &lt;!-- Action buttons (available on both) --&gt;
+        &lt;td *ngIf&#x3D;&quot;canViewActions()&quot; class&#x3D;&quot;actions screen-only&quot; rowspan&#x3D;&quot;2&quot;&gt;
+          &lt;button mat-icon-button *ngIf&#x3D;&quot;canStart(item, i)&quot; (click)&#x3D;&quot;start(item, $event)&quot; [title]&#x3D;&quot;&#x27;Start&#x27; | translate&quot; aria-label&#x3D;&quot;Start execution&quot;&gt;
+            &lt;i class&#x3D;&quot;fa fa-fw fa-play&quot;&gt;&lt;/i&gt;
+          &lt;/button&gt;
+          &lt;button mat-icon-button *ngIf&#x3D;&quot;item.startTime !&#x3D; null &amp;&amp; item.endTime &#x3D;&#x3D; null &amp;&amp; score(item) &#x3D;&#x3D; 0&quot; (click)&#x3D;&quot;stop(item, $event)&quot;
+                  [title]&#x3D;&quot;&#x27;Stop&#x27; | translate&quot; aria-label&#x3D;&quot;Stop execution&quot;&gt;
+            &lt;i class&#x3D;&quot;fa fa-fw fa-stop&quot;&gt;&lt;/i&gt;
+          &lt;/button&gt;
+          &lt;button mat-icon-button *ngIf&#x3D;&quot;score(item) &gt; 0 &amp;&amp; item.publishTime &#x3D;&#x3D; null&quot; (click)&#x3D;&quot;publish(item, $event)&quot; [title]&#x3D;&quot;&#x27;Publish&#x27; | translate&quot;
+                  aria-label&#x3D;&quot;Publish scores&quot;&gt;
+            &lt;i class&#x3D;&quot;fa fa-fw fa-share&quot;&gt;&lt;/i&gt;
+          &lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+
+      &lt;!-- View details narrow screen --&gt;
+      &lt;tr *ngIf&#x3D;&quot;selected !&#x3D;&#x3D; item &amp;&amp; isVisible(item)&quot; (click)&#x3D;&quot;select(item)&quot; class&#x3D;&quot;visible-narrow screen-only details&quot;&gt;
+        &lt;td&gt;{{ startTime(item) | date:&#x27;HH:mm&#x27; }}&lt;/td&gt;
+        &lt;td&gt;
+          &lt;small class&#x3D;&quot;nowrap&quot;&gt;
+            &lt;i class&#x3D;&quot;square screen-only&quot; [attr.discipline]&#x3D;&quot;item.disciplineSortOrder&quot;&gt;&lt;/i&gt;
+            {{ item.disciplineName }}
+            -
+            {{ item.divisionName }}
+          &lt;/small&gt;
+        &lt;/td&gt;
+        &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+      &lt;/tr&gt;
+
+      &lt;!-- Score editor --&gt;
+      &lt;tr *ngIf&#x3D;&quot;selected &#x3D;&#x3D;&#x3D; item&quot;&gt;
+        &lt;td colspan&#x3D;&quot;7&quot; class&#x3D;&quot;editor&quot;&gt;
+          &lt;app-score-editor [participant]&#x3D;&quot;item&quot; (close)&#x3D;&quot;closeEditor($event)&quot;&gt;&lt;/app-score-editor&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+
+      &lt;!-- Day divider --&gt;
+      &lt;tr *ngIf&#x3D;&quot;isNewDay(schedule[i + 1])&quot;&gt;
+        &lt;td colspan&#x3D;&quot;7&quot; class&#x3D;&quot;day-split&quot;&gt;
+          {{ startTime(schedule[i + 1]) | date:&#x27;ddd&#x27; }}
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/mat-card&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./list.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../../styles/variables&quot;;
+
+:host {
+  position: relative;
+  display: block;
+  margin-top: -5rem;
+}
+header, .mat-card-header {
+  padding: 0 0.5rem;
+  align-items: center;
+  @media only screen {
+    @supports (position: sticky) {
+      position: sticky;
+      top: 3.5rem;
+      z-index: 4;
+    }
+    border-radius: 5px;
+    background: white;
+  }
+}
+td.editor {
+  padding: 0;
+}
+
+.mat-card {
+  margin-top: -1rem;
+  min-height: 5rem;
+  @media only print {
+    box-shadow: none;
+  }
+  .mat-card-header {
+    margin: 0 -14.5px;
+    padding: 0;
+    padding-right: 5rem;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .actions {
+    padding: 0;
+    max-width: 40px;
+    width: 40px;
+    vertical-align: top;
+  }
+
+  thead th {
+    @media only screen {
+      @supports(position: sticky) {
+        position: sticky;
+        top: 3.6rem;
+        z-index: 2;
+      }
+      background-image: linear-gradient(to bottom, white 70%, rgba(white, 0) 100%);
+      height: 7rem;
+    }
+    @media only print {
+      border-bottom: 1px solid;
+      padding: 1rem 0 10px;
+    }
+    vertical-align: bottom;
+    &amp;:first-of-type {
+      border-radius: 5px 0 0 0;
+    }
+    &amp;:last-of-type {
+      border-radius: 0 5px 0 0;
+    }
+  }
+  &amp;.isSecond {
+    margin-top: 0;
+    thead th {
+      top: 6.8rem;
+      height: auto;
+    }
+  }
+
+  tbody {
+    color: rgba($text-color, 0.5);
+    font-style: italic;
+    border-bottom: 1px solid rgba($primary, 0.1);
+    .day-split {
+      color: $text-color;
+      border-bottom: 2px solid $text-color;
+      background: white !important;
+    }
+    td {
+      border-bottom: 0;
+      &amp;.score {
+        width: 1rem;
+        text-align: right;
+      }
+      &amp;.discipline { width: 22.2%; }
+      &amp;.division   { width: 25%; }
+      &amp;.team 	     { width: 21.7%; }
+      &amp;.start-time { width: 10.4%; }
+      &amp;.start-no	 { width: 10.4%; }
+    }
+    &amp;.unimportant &gt; tr:last-of-type td:last-of-type {
+      background-image: repeating-linear-gradient(54deg, transparent, rgba(#ddd,0.4) 2px, transparent 4px);
+    }
+    // End reset
+    &amp;.deleted td {
+      position: relative;
+      &amp;:not(.actions)::after {
+        content: &#x27;&#x27;;
+        position: absolute;
+        border-bottom: 4px double rgba(0,0,0,0.3);
+        left: 0;
+        right: 0;
+        top: 45%;
+      }
+    }
+    &amp;.isPublished {
+      color: $text-color;
+    }
+    &amp;.isPublished,
+    &amp;.isStarted {
+      font-style: inherit;
+      background: transparent;
+    }
+    &amp;.isCurrent {
+      background: rgba(lighten(green, 50%), 0.2);
+      border-top: 1px solid #bbb;
+      border-bottom: 1px solid #bbb;
+    }
+    &amp;.isNext {
+      background: rgba(yellow, 0.2);
+      border-top: 1px solid #bbb;
+      border-bottom: 1px solid #bbb;
+    }
+    .details td {
+      padding-top: 0;
+      margin-top: -1rem;
+    }
+    @media only screen and (max-width: $stop1) {
+      tr:not(.details) td {
+        padding-bottom: 0;
+      }
+      &gt; tr:first-child &gt; td::after {
+        top: 65%;
+      }
+      &gt; tr:last-child &gt; td::after {
+        top: 25%;
+      }
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><header class="center print-only" *ngIf="tournament">  <h2>{{ tournament.name }}</h2>  <h4>{{ tournament.venue?.name }}</h4></header><mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="center"></mat-progress-spinner><mat-card [ngClass]="{isSecond: user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.clubId == tournament?.clubId))}">  <mat-card-header class="form horizontal flex screen-only">    <mat-form-field *ngIf="user && (user.role >= roles.Admin || (user.role >= roles.Secretariat && user.clubId == tournament?.clubId))">      <mat-placeholder for="filter"><i class="fa fa-fw fa-filter"></i><span translate>Choose discipline:</span></mat-placeholder>      <mat-select id="filter" name="filter" [(ngModel)]="selectedDiscipline">        <mat-option [value]="null" translate>No filter</mat-option>        <mat-option *ngFor="let discipline of disciplines" [value]="discipline">          <i class="square screen-only" [attr.discipline]="discipline.sortOrder"></i>          {{ discipline.name }}        </mat-option>      </mat-select>    </mat-form-field>    <div class="flex-col"></div>    <mat-slide-toggle class="mat-primary" *ngIf="hasTraining" [(ngModel)]="showTraining">      <span *ngIf="showTraining" translate>Training visible</span>      <span *ngIf="!showTraining" translate>Training hidden</span>    </mat-slide-toggle>  </mat-card-header>  <div *ngIf="!schedule.length">{{ \'There is no schedule set yet. We are working on it.\' | translate }}</div>  <table *ngIf="tournament && schedule.length" role="list">    <thead>      <tr>        <th translate>Start</th>        <th translate class="visible-medium">Time</th>        <th translate>Team</th>        <th class="visible-medium" translate>Division</th>        <th class="visible-medium" translate>Discipline</th>        <th translate class="score">Score</th>        <th *ngIf="canViewActions()" class="actions screen-only"></th>      </tr>    </thead>    <tbody *ngFor="let item of schedule; let i = index;" role="listitem" #row (contextmenu)="contextInvoked(item, i, $event)" [ngClass]="{isPublished : item.publishTime != null,                       deleted     : item.markDeleted,                       isStarted   : item.startTime,                       unimportant : item.type === types.Training,                       isCurrent   : item.startTime && !item.endTime && !item.publishTime,                       isNext      : canStart(item, i)                      }">      <!-- View details wide screen -->      <tr *ngIf="selected !== item && isVisible(item)" (click)="select(item)">        <td class="start-no" *ngIf="item.type === participationTypes.Training"></td>        <td class="start-no" *ngIf="item.type === participationTypes.Live">#{{ item.startNumber + 1 }}</td>        <td class="visible-medium start-time" [innerHtml]="startTime(item) | date:\'HH:mm\'"></td>        <td class="team">{{ item.team.name }}</td>        <td class="visible-medium division"><b *ngIf="item.team.class === classes.TeamGym && item.type === types.Live">TG:          </b>{{          item.divisionName }}</td>        <td class="visible-medium nowrap discipline"><i class="square screen-only" [attr.discipline]="item.disciplineSortOrder"></i>          {{ item.disciplineName }}</td>        <td *ngIf="item.type === types.Live" class="score">          <span *ngIf="item.scorable && !item.markDeleted">{{ score(item) | number:\'1.3-3\' }}</span>        </td>        <td *ngIf="item.type === types.Training" class="score"></td>        <!-- Action buttons (available on both) -->        <td *ngIf="canViewActions()" class="actions screen-only" rowspan="2">          <button mat-icon-button *ngIf="canStart(item, i)" (click)="start(item, $event)" [title]="\'Start\' | translate" aria-label="Start execution">            <i class="fa fa-fw fa-play"></i>          </button>          <button mat-icon-button *ngIf="item.startTime != null && item.endTime == null && score(item) == 0" (click)="stop(item, $event)"                  [title]="\'Stop\' | translate" aria-label="Stop execution">            <i class="fa fa-fw fa-stop"></i>          </button>          <button mat-icon-button *ngIf="score(item) > 0 && item.publishTime == null" (click)="publish(item, $event)" [title]="\'Publish\' | translate"                  aria-label="Publish scores">            <i class="fa fa-fw fa-share"></i>          </button>        </td>      </tr>      <!-- View details narrow screen -->      <tr *ngIf="selected !== item && isVisible(item)" (click)="select(item)" class="visible-narrow screen-only details">        <td>{{ startTime(item) | date:\'HH:mm\' }}</td>        <td>          <small class="nowrap">            <i class="square screen-only" [attr.discipline]="item.disciplineSortOrder"></i>            {{ item.disciplineName }}            -            {{ item.divisionName }}          </small>        </td>        <td>&nbsp;</td>      </tr>      <!-- Score editor -->      <tr *ngIf="selected === item">        <td colspan="7" class="editor">          <app-score-editor [participant]="item" (close)="closeEditor($event)"></app-score-editor>        </td>      </tr>      <!-- Day divider -->      <tr *ngIf="isNewDay(schedule[i + 1])">        <td colspan="7" class="day-split">          {{ startTime(schedule[i + 1]) | date:\'ddd\' }}        </td>      </tr>    </tbody>  </table></mat-card></div>'
+    var COMPONENTS = [{'name': 'AdvancedComponent', 'selector': 'app-advanced'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AwardsComponent', 'selector': 'app-awards'},{'name': 'ClubComponent', 'selector': 'app-club'},{'name': 'ClubEditorComponent', 'selector': 'app-club-editor'},{'name': 'ClubLookupComponent', 'selector': 'app-club-lookup'},{'name': 'ConfigureComponent', 'selector': 'app-configure'},{'name': 'ConfigureDisplayComponent', 'selector': 'app-configure-display'},{'name': 'ContextMenuComponent', 'selector': 'app-context-menu'},{'name': 'DialogComponent', 'selector': 'app-dialog'},{'name': 'DisciplineEditorComponent', 'selector': 'app-discipline-editor'},{'name': 'DisciplinesComponent', 'selector': 'app-disciplines'},{'name': 'DisplayComponent', 'selector': 'app-display'},{'name': 'DivisionEditorComponent', 'selector': 'app-division-editor'},{'name': 'DivisionLookupComponent', 'selector': 'app-division-lookup'},{'name': 'DivisionsComponent', 'selector': 'app-divisions'},{'name': 'ErrorDialogComponent', 'selector': 'app-error-dialog'},{'name': 'EventComponent', 'selector': 'app-event'},{'name': 'FullscreenComponent', 'selector': 'app-fullscreen'},{'name': 'HelpBlockComponent', 'selector': 'app-help-block'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InfoComponent', 'selector': 'app-info'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoadSpinnerComponent', 'selector': ''},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'MacroDialogComponent', 'selector': 'app-macro-dialog'},{'name': 'MediaComponent', 'selector': 'app-media'},{'name': 'MediaControlComponent', 'selector': 'app-media-control'},{'name': 'MemberEditorComponent', 'selector': 'app-member-editor'},{'name': 'MembersComponent', 'selector': 'app-members'},{'name': 'MemberSelectorComponent', 'selector': 'app-member-selector'},{'name': 'MultirangeComponent', 'selector': 'app-multirange'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetComponent', 'selector': 'app-reset'},{'name': 'ResultsComponent', 'selector': 'app-results'},{'name': 'SaveButtonComponent', 'selector': 'app-save-button'},{'name': 'ScheduleComponent', 'selector': 'app-schedule'},{'name': 'ScorecardsComponent', 'selector': 'app-scorecards'},{'name': 'ScoreEditorComponent', 'selector': 'app-score-editor'},{'name': 'ScoreGroupEditorComponent', 'selector': 'app-score-group-editor'},{'name': 'ScoreSystemComponent', 'selector': 'app-score-system'},{'name': 'SignoffReportComponent', 'selector': 'app-signoff-report'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'TeamEditorComponent', 'selector': 'app-team-editor'},{'name': 'TeamsComponent', 'selector': 'app-teams'},{'name': 'TournamentComponent', 'selector': 'app-tournament'},{'name': 'TournamentEditorComponent', 'selector': 'app-tournament-editor'},{'name': 'TroopEditorComponent', 'selector': 'app-troop-editor'},{'name': 'TroopsComponent', 'selector': 'app-troops'},{'name': 'UserEditorComponent', 'selector': 'app-user-editor'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VenueComponent', 'selector': 'app-venue'},{'name': 'VenueEditorComponent', 'selector': 'app-venue-editor'}];
+    var DIRECTIVES = [{'name': 'IfAuthDirective', 'selector': '[appIfAuth]'},{'name': 'ToCaseDirective', 'selector': 'input[appToCase]'}];
+    var ACTUAL_COMPONENT = {'name': 'ListComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ListComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

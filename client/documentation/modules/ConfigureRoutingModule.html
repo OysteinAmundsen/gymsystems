@@ -1,0 +1,224 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content module">
+                   <div class="content-data">
+
+
+
+<ol class="breadcrumb">
+    <li>Modules</li>
+    <li>ConfigureRoutingModule</li>
+</ol>
+
+
+<ul class="nav nav-tabs" role="tablist">
+    <li  class="active" >
+        <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+    </li>
+    <li >
+        <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/views/configure/configure-routing.module.ts</code>
+        </p>
+
+
+
+
+        <div class="container-fluid module">
+            <div class="row">
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
+import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
+
+// Guards
+import { Role } from &#x27;app/model/IUser&#x27;;
+import { RoleGuard, RoleData } from &#x27;app/shared/guards/role-guard&#x27;;
+
+// Child routes
+import { VenueRoutes } from &#x27;./venue/venue.routes&#x27;;
+import { TournamentRoutes } from &#x27;./tournament/tournament.routes&#x27;;
+import { UserRoutes } from &#x27;./users/users.routes&#x27;;
+import { AdvancedRoutes } from &#x27;./advanced/advanced.routes&#x27;;
+import { ClubRoutes } from &#x27;./club/club.routes&#x27;;
+
+// Components
+import { ConfigureComponent } from &#x27;./configure.component&#x27;;
+import { ConfigureDisplayComponent } from &#x27;./display/configure-display.component&#x27;;
+
+const routes: Routes &#x3D; [
+  {
+    path: &#x27;&#x27;, component: ConfigureComponent, children: [
+      { path: &#x27;&#x27;, redirectTo: &#x27;tournament&#x27;, pathMatch: &#x27;full&#x27;, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+        {
+            path: &#x27;venue&#x27;, children: [
+              { path: &#x27;&#x27;, component: VenueComponent, pathMatch: &#x27;full&#x27;, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+              { path: &#x27;add&#x27;, component: VenueEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+              { path: &#x27;:id&#x27;, component: VenueEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+            ]
+          },
+        {
+            path: &#x27;tournament&#x27;, children: [
+              { path: &#x27;&#x27;, component: TournamentComponent, pathMatch: &#x27;full&#x27;, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+              { path: &#x27;add&#x27;, component: TournamentEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+              {
+                path: &#x27;:id&#x27;, component: TournamentEditorComponent, children: [
+                  { path: &#x27;&#x27;, redirectTo: &#x27;teams&#x27;, pathMatch: &#x27;full&#x27;, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+                  { path: &#x27;divisions&#x27;, component: DivisionsComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+                  ...DisciplineRoutes,
+                  { path: &#x27;teams&#x27;, component: TeamsComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+                  { path: &#x27;teams/add&#x27;, component: TeamEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+                  { path: &#x27;teams/:id&#x27;, component: TeamEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+                  { path: &#x27;schedule&#x27;, component: ScheduleComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+                  { path: &#x27;awards&#x27;, component: AwardsComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+                  { path: &#x27;info&#x27;, component: InfoComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+                  { path: &#x27;scorecards&#x27;, component: ScorecardsComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+                ]
+              },
+            ]
+          },
+        {
+            path: &#x27;club&#x27;, children: [
+              { path: &#x27;&#x27;, component: ClubComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+              { path: &#x27;add&#x27;, component: ClubEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Admin.valueOf()&quot; } as RoleData },
+              {
+                path: &#x27;:id&#x27;, component: ClubEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData, children: [
+                  { path: &#x27;&#x27;, redirectTo: &#x27;members&#x27;, pathMatch: &#x27;full&#x27; },
+                  { path: &#x27;members&#x27;, component: MembersComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+                  { path: &#x27;members/add&#x27;, component: MemberEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+                  { path: &#x27;members/:id&#x27;, component: MemberEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+                  { path: &#x27;troops&#x27;, component: TroopsComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+                  { path: &#x27;troops/add&#x27;, component: TroopEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+                  { path: &#x27;troops/:id&#x27;, component: TroopEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+                  { path: &#x27;media&#x27;, component: MediaComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+                  { path: &#x27;statistics&#x27;, component: StatisticsComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+                ]
+              },
+            ]
+          },
+        {
+            path: &#x27;users&#x27;, children: [
+              { path: &#x27;&#x27;, component: UsersComponent, pathMatch: &#x27;full&#x27;, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+              { path: &#x27;add&#x27;, component: UserEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+              { path: &#x27;:id&#x27;, component: UserEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.User.valueOf()&quot; } as RoleData }
+            ]
+          },
+        { path: &#x27;advanced&#x27;, component: AdvancedComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Admin.valueOf()&quot; } as RoleData },
+        { path: &#x27;display&#x27;, component: ConfigureDisplayComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Admin.valueOf()&quot; } as RoleData },
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ConfigureRoutingModule { }
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'module';
+            var COMPODOC_CURRENT_PAGE_URL = 'ConfigureRoutingModule.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

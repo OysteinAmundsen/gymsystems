@@ -1,0 +1,1484 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>MediaControlComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/shared/components/media-control/media-control.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnChanges" target="_blank" >OnChanges</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-media-control</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./media-control.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./media-control.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#_canUpload">_canUpload</a>
+                            </li>
+                            <li>
+                                <a href="#_media">_media</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#fileAdded">fileAdded</a>
+                            </li>
+                            <li>
+                                <a href="#getTitle">getTitle</a>
+                            </li>
+                            <li>
+                                <a href="#hasMedia">hasMedia</a>
+                            </li>
+                            <li>
+                                <a href="#isPlaying">isPlaying</a>
+                            </li>
+                            <li>
+                                <a href="#isPrimaryMedia">isPrimaryMedia</a>
+                            </li>
+                            <li>
+                                <a href="#loadData">loadData</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges">ngOnChanges</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#play">play</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#remove">remove</a>
+                            </li>
+                            <li>
+                                <a href="#stop">stop</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#canUpload">canUpload</a>
+                            </li>
+                            <li>
+                                <a href="#clubId">clubId</a>
+                            </li>
+                            <li>
+                                <a href="#disciplineId">disciplineId</a>
+                            </li>
+                            <li>
+                                <a href="#disciplineName">disciplineName</a>
+                            </li>
+                            <li>
+                                <a href="#media">media</a>
+                            </li>
+                            <li>
+                                <a href="#showLabel">showLabel</a>
+                            </li>
+                            <li>
+                                <a href="#teamId">teamId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#changed">changed</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#media">media</a>
+                                </li>
+                                <li>
+                                    <a href="#canUpload">canUpload</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(mediaService: <a href="../injectables/MediaService.html">MediaService</a>, translate: TranslateService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>mediaService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/MediaService.html" target="_self" >MediaService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>translate</td>
+                                                  
+                                                        <td>
+                                                                    <code>TranslateService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="canUpload"></a>
+                        <b>canUpload</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:30</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Can only upload if explisitly given the permission to do so, AND if the identifier criteria above is met. </p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clubId"></a>
+                        <b>clubId</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:18</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Topmost identifier, a club can have a default track. </p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="disciplineId"></a>
+                        <b>disciplineId</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:22</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Third identifier, but cannot stand alone. Must be used with one or both of clubId and teamId </p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="disciplineName"></a>
+                        <b>disciplineName</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:24</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Third identifier fallback for configuring cross tournament tracks *</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="media"></a>
+                        <b>media</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:14</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showLabel"></a>
+                        <b>showLabel</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:26</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="teamId"></a>
+                        <b>teamId</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:20</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Second identifier, a team is connected to a club and each team can have its own track across disciplines </p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="changed"></a>
+                        <b>changed</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:33</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fileAdded"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            fileAdded
+                        </b>
+                        <a href="#fileAdded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>fileAdded($event)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:46</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>$event</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTitle"></a>
+                    <span class="name">
+                        <b>
+                            getTitle
+                        </b>
+                        <a href="#getTitle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTitle()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:73</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasMedia"></a>
+                    <span class="name">
+                        <b>
+                            hasMedia
+                        </b>
+                        <a href="#hasMedia"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>hasMedia()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:61</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isPlaying"></a>
+                    <span class="name">
+                        <b>
+                            isPlaying
+                        </b>
+                        <a href="#isPlaying"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isPlaying()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="82"
+                            class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:82</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isPrimaryMedia"></a>
+                    <span class="name">
+                        <b>
+                            isPrimaryMedia
+                        </b>
+                        <a href="#isPrimaryMedia"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isPrimaryMedia()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="65"
+                            class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:65</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadData"></a>
+                    <span class="name">
+                        <b>
+                            loadData
+                        </b>
+                        <a href="#loadData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadData()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="55"
+                            class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:55</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnChanges"></a>
+                    <span class="name">
+                        <b>
+                            ngOnChanges
+                        </b>
+                        <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnChanges(change: <a href="https://angular.io/api/core/SimpleChanges" target="_blank">SimpleChanges</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:40</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>change</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/core/SimpleChanges" target="_blank" >SimpleChanges</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:37</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="play"></a>
+                    <span class="name">
+                        <b>
+                            play
+                        </b>
+                        <a href="#play"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>play()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:86</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="remove"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            remove
+                        </b>
+                        <a href="#remove"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>remove()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:94</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>{}</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stop"></a>
+                    <span class="name">
+                        <b>
+                            stop
+                        </b>
+                        <a href="#stop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>stop()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="90"
+                            class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:90</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_canUpload"></a>
+                        <span class="name">
+                            <b>
+                            _canUpload</b>
+                            <a href="#_canUpload"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_media"></a>
+                        <span class="name">
+                            <b>
+                            _media</b>
+                            <a href="#_media"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IMedia.html" target="_self" >IMedia</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:13</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="media"></a>
+                        <span class="name"><b>media</b><a href="#media"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>media()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:15</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>media(media)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:14</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>media</td>
+                                                    
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="canUpload"></a>
+                        <span class="name"><b>canUpload</b><a href="#canUpload"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>canUpload()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:31</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>canUpload(flag: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/shared/components/media-control/media-control.component.ts:30</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Can only upload if explisitly given the permission to do so, AND if the identifier criteria above is met. </p>
+</div>
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>flag</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from &#x27;@angular/core&#x27;;
+import { MediaService } from &#x27;app/shared/services/media.service&#x27;;
+import { IMedia } from &#x27;app/model/IMedia&#x27;;
+import { Logger } from &#x27;app/shared/services/Logger&#x27;;
+import { TranslateService } from &#x27;@ngx-translate/core&#x27;;
+
+@Component({
+  selector: &#x27;app-media-control&#x27;,
+  templateUrl: &#x27;./media-control.component.html&#x27;,
+  styleUrls: [&#x27;./media-control.component.scss&#x27;]
+})
+export class MediaControlComponent implements OnInit, OnChanges {
+  _media: IMedia;
+  @Input() set media(media: IMedia) { this._media &#x3D; media; }
+  get media() { return this._media; }
+
+  /** Topmost identifier, a club can have a default track. */
+  @Input() clubId?: number;
+  /** Second identifier, a team is connected to a club and each team can have its own track across disciplines */
+  @Input() teamId?: number;
+  /** Third identifier, but cannot stand alone. Must be used with one or both of clubId and teamId */
+  @Input() disciplineId?: number;
+  /** Third identifier fallback for configuring cross tournament tracks **/
+  @Input() disciplineName?: string;
+
+  @Input() showLabel &#x3D; true;
+
+  _canUpload &#x3D; false;
+  /** Can only upload if explisitly given the permission to do so, AND if the identifier criteria above is met. */
+  @Input() set canUpload(flag: boolean) { this._canUpload &#x3D; flag; }
+  get canUpload() { return this._canUpload &amp;&amp; (this.clubId !&#x3D; null || this.teamId !&#x3D; null); }
+
+  @Output() changed &#x3D; new EventEmitter&lt;IMedia&gt;();
+
+  constructor(private mediaService: MediaService, private translate: TranslateService) { }
+
+  ngOnInit() {
+  }
+
+  ngOnChanges(change: SimpleChanges) {
+    if ((!change.media || !change.media.currentValue) &amp;&amp; (change.clubId || change.teamId || change.disciplineId || change.disciplineName)) {
+      this.loadData();
+    }
+  }
+
+  async fileAdded($event) {
+    const fileList: FileList &#x3D; (&lt;HTMLInputElement&gt;$event.target).files;
+    if (fileList.length &gt; 0 &amp;&amp; this.canUpload) {
+      const data &#x3D; await this.mediaService.upload(fileList[0], this.clubId, this.teamId, this.disciplineId, this.disciplineName).toPromise();
+      this._media &#x3D; data;
+      this.changed.emit(data);
+    }
+  }
+
+  loadData() {
+    this.mediaService.getMedia(this.clubId, this.teamId, this.disciplineId, this.disciplineName).then(media &#x3D;&gt; {
+      this._media &#x3D; media;
+    });
+  }
+
+  hasMedia() {
+    return this._media !&#x3D; null;
+  }
+
+  isPrimaryMedia() {
+    return this.hasMedia()
+      &amp;&amp; (!this.clubId || this.media.clubId &#x3D;&#x3D;&#x3D; this.clubId)
+      &amp;&amp; (!this.teamId || this.media.teamId &#x3D;&#x3D;&#x3D; this.teamId)
+      &amp;&amp; (!this.disciplineId || this.media.disciplineId &#x3D;&#x3D;&#x3D; this.disciplineId)
+      &amp;&amp; (!this.disciplineName || this.media.disciplineName &#x3D;&#x3D;&#x3D; this.disciplineName);
+  }
+
+  getTitle() {
+    let title &#x3D; &#x27;&#x27;;
+    if (!this.clubId || this.media.clubId &#x3D;&#x3D;&#x3D; this.clubId) { title &#x3D; this.translate.instant(&#x27;Club default track&#x27;); }
+    if (!this.teamId || this.media.teamId &#x3D;&#x3D;&#x3D; this.teamId) { title &#x3D; this.translate.instant(&#x27;Team default track&#x27;); }
+    if (!this.disciplineName || this.media.disciplineName &#x3D;&#x3D;&#x3D; this.disciplineName) { title &#x3D; this.translate.instant(&#x27;Club default for this discipline&#x27;); }
+    if (!this.disciplineId || this.media.disciplineId &#x3D;&#x3D;&#x3D; this.disciplineId) { title &#x3D; &#x27;&#x27;; }
+    return title;
+  }
+
+  isPlaying() {
+    return (this._media &amp;&amp; this.mediaService.whatsPlaying ? this.mediaService.whatsPlaying.id &#x3D;&#x3D;&#x3D; this._media.id : false);
+  }
+
+  play() {
+    this.mediaService.play(this._media);
+  }
+
+  stop() {
+    this.mediaService.stop();
+  }
+
+  async remove() {
+    this.stop();
+    if (this._canUpload) {
+      const result &#x3D; await this.mediaService.remove(this._media);
+      this.changed.emit(null);
+      setTimeout(() &#x3D;&gt; this.loadData());
+      return result;
+    }
+    return true;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;action-buttons&quot;&gt;
+  &lt;button mat-icon-button *ngIf&#x3D;&quot;hasMedia() &amp;&amp; !isPlaying()&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;play()&quot; [title]&#x3D;&quot;&#x27;Play media&#x27; | translate&quot; aria-label&#x3D;&quot;Play media&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-play&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;
+  &lt;button mat-icon-button *ngIf&#x3D;&quot;hasMedia() &amp;&amp; isPlaying()&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;stop()&quot; [title]&#x3D;&quot;&#x27;Stop playing&#x27; | translate&quot; aria-label&#x3D;&quot;Stop playing&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-stop&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;
+  &lt;button mat-icon-button *ngIf&#x3D;&quot;hasMedia() &amp;&amp; isPrimaryMedia() &amp;&amp; canUpload&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;remove()&quot; class&#x3D;&quot;warning&quot;
+          [title]&#x3D;&quot;&#x27;Remove media&#x27; | translate&quot; aria-label&#x3D;&quot;Remove media&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-trash&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;
+  &lt;a mat-icon-button class&#x3D;&quot;file-upload&quot; *ngIf&#x3D;&quot;(!hasMedia() || !isPrimaryMedia()) &amp;&amp; canUpload&quot; [title]&#x3D;&quot;&#x27;Upload media&#x27; | translate&quot; aria-label&#x3D;&quot;Upload media&quot;&gt;
+    &lt;input type&#x3D;&quot;file&quot; (change)&#x3D;&quot;fileAdded($event)&quot; accept&#x3D;&quot;.mp3,.wav&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-upload&quot;&gt;&lt;/i&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;label *ngIf&#x3D;&quot;hasMedia() &amp;&amp; showLabel&quot; class&#x3D;&quot;flex-col media-name&quot; [title]&#x3D;&quot;getTitle()&quot;
+       [ngClass]&#x3D;&quot;{&#x27;primary&#x27;: isPrimaryMedia()}&quot;&gt;&lt;small&gt;{{ media.originalName }}&lt;/small&gt;&lt;/label&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./media-control.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;../../../../styles/variables&#x27;;
+
+:host {
+  display: flex;
+  align-items: center;
+}
+
+label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgba($text-color, 0.5);
+  &amp;.primary {
+    color: $text-color;
+  }
+}
+.file-upload {
+  position: relative;
+  max-width: 40px;
+  padding-top: 0;
+  input[type&#x3D;&quot;file&quot;] {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    z-index: 999;
+    margin: 0;
+    padding: 0;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="action-buttons">  <button mat-icon-button *ngIf="hasMedia() && !isPlaying()" type="button" (click)="play()" [title]="\'Play media\' | translate" aria-label="Play media">    <i class="fa fa-fw fa-play"></i>  </button>  <button mat-icon-button *ngIf="hasMedia() && isPlaying()" type="button" (click)="stop()" [title]="\'Stop playing\' | translate" aria-label="Stop playing">    <i class="fa fa-fw fa-stop"></i>  </button>  <button mat-icon-button *ngIf="hasMedia() && isPrimaryMedia() && canUpload" type="button" (click)="remove()" class="warning"          [title]="\'Remove media\' | translate" aria-label="Remove media">    <i class="fa fa-fw fa-trash"></i>  </button>  <a mat-icon-button class="file-upload" *ngIf="(!hasMedia() || !isPrimaryMedia()) && canUpload" [title]="\'Upload media\' | translate" aria-label="Upload media">    <input type="file" (change)="fileAdded($event)" accept=".mp3,.wav">    <i class="fa fa-fw fa-upload"></i>  </a></div><label *ngIf="hasMedia() && showLabel" class="flex-col media-name" [title]="getTitle()"       [ngClass]="{\'primary\': isPrimaryMedia()}"><small>{{ media.originalName }}</small></label></div>'
+    var COMPONENTS = [{'name': 'AdvancedComponent', 'selector': 'app-advanced'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AwardsComponent', 'selector': 'app-awards'},{'name': 'ClubComponent', 'selector': 'app-club'},{'name': 'ClubEditorComponent', 'selector': 'app-club-editor'},{'name': 'ClubLookupComponent', 'selector': 'app-club-lookup'},{'name': 'ConfigureComponent', 'selector': 'app-configure'},{'name': 'ConfigureDisplayComponent', 'selector': 'app-configure-display'},{'name': 'ContextMenuComponent', 'selector': 'app-context-menu'},{'name': 'DialogComponent', 'selector': 'app-dialog'},{'name': 'DisciplineEditorComponent', 'selector': 'app-discipline-editor'},{'name': 'DisciplinesComponent', 'selector': 'app-disciplines'},{'name': 'DisplayComponent', 'selector': 'app-display'},{'name': 'DivisionEditorComponent', 'selector': 'app-division-editor'},{'name': 'DivisionLookupComponent', 'selector': 'app-division-lookup'},{'name': 'DivisionsComponent', 'selector': 'app-divisions'},{'name': 'ErrorDialogComponent', 'selector': 'app-error-dialog'},{'name': 'EventComponent', 'selector': 'app-event'},{'name': 'FullscreenComponent', 'selector': 'app-fullscreen'},{'name': 'HelpBlockComponent', 'selector': 'app-help-block'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InfoComponent', 'selector': 'app-info'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoadSpinnerComponent', 'selector': ''},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'MacroDialogComponent', 'selector': 'app-macro-dialog'},{'name': 'MediaComponent', 'selector': 'app-media'},{'name': 'MediaControlComponent', 'selector': 'app-media-control'},{'name': 'MemberEditorComponent', 'selector': 'app-member-editor'},{'name': 'MembersComponent', 'selector': 'app-members'},{'name': 'MemberSelectorComponent', 'selector': 'app-member-selector'},{'name': 'MultirangeComponent', 'selector': 'app-multirange'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetComponent', 'selector': 'app-reset'},{'name': 'ResultsComponent', 'selector': 'app-results'},{'name': 'SaveButtonComponent', 'selector': 'app-save-button'},{'name': 'ScheduleComponent', 'selector': 'app-schedule'},{'name': 'ScorecardsComponent', 'selector': 'app-scorecards'},{'name': 'ScoreEditorComponent', 'selector': 'app-score-editor'},{'name': 'ScoreGroupEditorComponent', 'selector': 'app-score-group-editor'},{'name': 'ScoreSystemComponent', 'selector': 'app-score-system'},{'name': 'SignoffReportComponent', 'selector': 'app-signoff-report'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'TeamEditorComponent', 'selector': 'app-team-editor'},{'name': 'TeamsComponent', 'selector': 'app-teams'},{'name': 'TournamentComponent', 'selector': 'app-tournament'},{'name': 'TournamentEditorComponent', 'selector': 'app-tournament-editor'},{'name': 'TroopEditorComponent', 'selector': 'app-troop-editor'},{'name': 'TroopsComponent', 'selector': 'app-troops'},{'name': 'UserEditorComponent', 'selector': 'app-user-editor'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VenueComponent', 'selector': 'app-venue'},{'name': 'VenueEditorComponent', 'selector': 'app-venue-editor'}];
+    var DIRECTIVES = [{'name': 'IfAuthDirective', 'selector': '[appIfAuth]'},{'name': 'ToCaseDirective', 'selector': 'input[appToCase]'}];
+    var ACTUAL_COMPONENT = {'name': 'MediaControlComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MediaControlComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

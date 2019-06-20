@@ -1,0 +1,608 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>VenueComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/views/configure/venue/venue.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-venue</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./venue.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./venue.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#displayedColumns">displayedColumns</a>
+                            </li>
+                            <li>
+                                <a href="#venueSource">venueSource</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#keyup">keyup</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(graph: <a href="../injectables/GraphService.html">GraphService</a>, userService: <a href="../injectables/UserService.html">UserService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/views/configure/venue/venue.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>graph</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+    <section>
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="keyup"></a>
+                    <span class="name">
+                        <b>
+                            keyup
+                        </b>
+                        <a href="#keyup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>keyup(evt: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">src/app/views/configure/venue/venue.component.ts:31</a></div>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">src/app/views/configure/venue/venue.component.ts:25</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="displayedColumns"></a>
+                        <span class="name">
+                            <b>
+                            displayedColumns</b>
+                            <a href="#displayedColumns"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[&#x27;name&#x27;, &#x27;contact&#x27;, &#x27;rentalCost&#x27;, &#x27;address&#x27;]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/views/configure/venue/venue.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="venueSource"></a>
+                        <span class="name">
+                            <b>
+                            venueSource</b>
+                            <a href="#venueSource"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new SubjectSource&lt;IVenue&gt;(new BehaviorSubject&lt;IVenue[]&gt;([]))</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/views/configure/venue/venue.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, HostListener } from &#x27;@angular/core&#x27;;
+import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { BehaviorSubject } from &#x27;rxjs&#x27;;
+
+import { IVenue, Role } from &#x27;app/model&#x27;;
+import { UserService } from &#x27;app/shared/services/api&#x27;;
+import { SubjectSource } from &#x27;app/shared/services/subject-source&#x27;;
+import { GraphService } from &#x27;app/shared/services/graph.service&#x27;;
+
+@Component({
+  selector: &#x27;app-venue&#x27;,
+  templateUrl: &#x27;./venue.component.html&#x27;,
+  styleUrls: [&#x27;./venue.component.scss&#x27;]
+})
+export class VenueComponent implements OnInit {
+  venueSource &#x3D; new SubjectSource&lt;IVenue&gt;(new BehaviorSubject&lt;IVenue[]&gt;([]));
+  displayedColumns &#x3D; [&#x27;name&#x27;, &#x27;contact&#x27;, &#x27;rentalCost&#x27;, &#x27;address&#x27;];
+
+  constructor(
+    private graph: GraphService,
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.graph.getData(&#x60;{getVenues{id,name,contact,rentalCost,address,createdBy{id,name}}}&#x60;).subscribe(res &#x3D;&gt; this.venueSource.subject.next(res.getVenues));
+    this.userService.getMe().subscribe(me &#x3D;&gt; me.role &gt;&#x3D; Role.Admin ? this.displayedColumns.push(&#x27;createdBy&#x27;) : null);
+  }
+
+  @HostListener(&#x27;keyup&#x27;, [&#x27;$event&#x27;])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.key &#x3D;&#x3D;&#x3D; &#x27;+&#x27; || evt.key &#x3D;&#x3D;&#x3D; &#x27;NumpadAdd&#x27;) {
+      this.router.navigate([&#x27;./add&#x27;], { relativeTo: this.route });
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h1&gt;
+  &lt;i class&#x3D;&quot;fa fa-fw fa-map-marker&quot;&gt;&lt;/i&gt;
+  &lt;span translate&gt;Venue&lt;/span&gt;
+&lt;/h1&gt;
+
+&lt;mat-table #table [dataSource]&#x3D;&quot;venueSource&quot; role&#x3D;&quot;menu&quot; matSort (matSortChange)&#x3D;&quot;venueSource.sortData($event)&quot;&gt;
+  &lt;ng-container matColumnDef&#x3D;&quot;name&quot;&gt;
+    &lt;mat-header-cell *matHeaderCellDef mat-sort-header&gt;{{&#x27;Name&#x27; | translate}}&lt;/mat-header-cell&gt;
+    &lt;mat-cell *matCellDef&#x3D;&quot;let venue&quot;&gt;{{ venue.name }}&lt;/mat-cell&gt;
+  &lt;/ng-container&gt;
+  &lt;ng-container matColumnDef&#x3D;&quot;contact&quot;&gt;
+    &lt;mat-header-cell *matHeaderCellDef mat-sort-header class&#x3D;&quot;visible-wide&quot;&gt;{{&#x27;Contact&#x27; | translate}}&lt;/mat-header-cell&gt;
+    &lt;mat-cell *matCellDef&#x3D;&quot;let venue&quot; class&#x3D;&quot;visible-wide&quot;&gt;{{ venue.contact }}&lt;/mat-cell&gt;
+  &lt;/ng-container&gt;
+  &lt;ng-container matColumnDef&#x3D;&quot;rentalCost&quot;&gt;
+    &lt;mat-header-cell *matHeaderCellDef mat-sort-header class&#x3D;&quot;visible-wide&quot;&gt;{{&#x27;Rental cost&#x27; | translate}}&lt;/mat-header-cell&gt;
+    &lt;mat-cell *matCellDef&#x3D;&quot;let venue&quot; class&#x3D;&quot;visible-wide&quot;&gt;{{ venue.rentalCost }}&lt;/mat-cell&gt;
+  &lt;/ng-container&gt;
+  &lt;ng-container matColumnDef&#x3D;&quot;address&quot;&gt;
+    &lt;mat-header-cell *matHeaderCellDef mat-sort-header&gt;{{&#x27;Address&#x27; | translate}}&lt;/mat-header-cell&gt;
+    &lt;mat-cell *matCellDef&#x3D;&quot;let venue&quot;&gt;{{ venue.address }}&lt;/mat-cell&gt;
+  &lt;/ng-container&gt;
+  &lt;ng-container matColumnDef&#x3D;&quot;createdBy&quot;&gt;
+    &lt;mat-header-cell *matHeaderCellDef mat-sort-header class&#x3D;&quot;visible-medium&quot;&gt;{{&#x27;Created by&#x27; | translate}}&lt;/mat-header-cell&gt;
+    &lt;mat-cell *matCellDef&#x3D;&quot;let venue&quot; class&#x3D;&quot;visible-medium&quot;&gt;{{ venue.createdBy.name }}&lt;/mat-cell&gt;
+  &lt;/ng-container&gt;
+
+  &lt;mat-header-row *matHeaderRowDef&#x3D;&quot;displayedColumns&quot;&gt;&lt;/mat-header-row&gt;
+  &lt;mat-row *matRowDef&#x3D;&quot;let venue; columns: displayedColumns; let index&#x3D;index&quot; #dataRow [routerLink]&#x3D;&quot;[&#x27;.&#x27;, venue.id]&quot;&gt;&lt;/mat-row&gt;
+&lt;/mat-table&gt;
+
+&lt;button mat-raised-button type&#x3D;&quot;button&quot; class&#x3D;&quot;mat-accent&quot; [title]&#x3D;&quot;&#x27;Add&#x27; | translate&quot; [routerLink]&#x3D;&quot;[&#x27;./add&#x27;]&quot; *appIfAuth&#x3D;&quot;&#x27;Organizer&#x27;&quot; aria-label&#x3D;&quot;Add venue&quot;&gt;
+  &lt;i class&#x3D;&quot;fa fa-fw fa-plus&quot;&gt;&lt;/i&gt;
+  &lt;span translate&gt;Add Venue&lt;/span&gt;
+&lt;/button&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./venue.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.mat-column-name {
+  max-width: 10rem;
+}
+.mat-column-createdBy {
+  max-width: 6rem;
+}
+.mat-column-rentalCost {
+  max-width: 6rem;
+}
+.mat-column-contact {
+  max-width: 11rem;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h1>  <i class="fa fa-fw fa-map-marker"></i>  <span translate>Venue</span></h1><mat-table #table [dataSource]="venueSource" role="menu" matSort (matSortChange)="venueSource.sortData($event)">  <ng-container matColumnDef="name">    <mat-header-cell *matHeaderCellDef mat-sort-header>{{\'Name\' | translate}}</mat-header-cell>    <mat-cell *matCellDef="let venue">{{ venue.name }}</mat-cell>  </ng-container>  <ng-container matColumnDef="contact">    <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-wide">{{\'Contact\' | translate}}</mat-header-cell>    <mat-cell *matCellDef="let venue" class="visible-wide">{{ venue.contact }}</mat-cell>  </ng-container>  <ng-container matColumnDef="rentalCost">    <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-wide">{{\'Rental cost\' | translate}}</mat-header-cell>    <mat-cell *matCellDef="let venue" class="visible-wide">{{ venue.rentalCost }}</mat-cell>  </ng-container>  <ng-container matColumnDef="address">    <mat-header-cell *matHeaderCellDef mat-sort-header>{{\'Address\' | translate}}</mat-header-cell>    <mat-cell *matCellDef="let venue">{{ venue.address }}</mat-cell>  </ng-container>  <ng-container matColumnDef="createdBy">    <mat-header-cell *matHeaderCellDef mat-sort-header class="visible-medium">{{\'Created by\' | translate}}</mat-header-cell>    <mat-cell *matCellDef="let venue" class="visible-medium">{{ venue.createdBy.name }}</mat-cell>  </ng-container>  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>  <mat-row *matRowDef="let venue; columns: displayedColumns; let index=index" #dataRow [routerLink]="[\'.\', venue.id]"></mat-row></mat-table><button mat-raised-button type="button" class="mat-accent" [title]="\'Add\' | translate" [routerLink]="[\'./add\']" *appIfAuth="\'Organizer\'" aria-label="Add venue">  <i class="fa fa-fw fa-plus"></i>  <span translate>Add Venue</span></button></div>'
+    var COMPONENTS = [{'name': 'AdvancedComponent', 'selector': 'app-advanced'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AwardsComponent', 'selector': 'app-awards'},{'name': 'ClubComponent', 'selector': 'app-club'},{'name': 'ClubEditorComponent', 'selector': 'app-club-editor'},{'name': 'ClubLookupComponent', 'selector': 'app-club-lookup'},{'name': 'ConfigureComponent', 'selector': 'app-configure'},{'name': 'ConfigureDisplayComponent', 'selector': 'app-configure-display'},{'name': 'ContextMenuComponent', 'selector': 'app-context-menu'},{'name': 'DialogComponent', 'selector': 'app-dialog'},{'name': 'DisciplineEditorComponent', 'selector': 'app-discipline-editor'},{'name': 'DisciplinesComponent', 'selector': 'app-disciplines'},{'name': 'DisplayComponent', 'selector': 'app-display'},{'name': 'DivisionEditorComponent', 'selector': 'app-division-editor'},{'name': 'DivisionLookupComponent', 'selector': 'app-division-lookup'},{'name': 'DivisionsComponent', 'selector': 'app-divisions'},{'name': 'ErrorDialogComponent', 'selector': 'app-error-dialog'},{'name': 'EventComponent', 'selector': 'app-event'},{'name': 'FullscreenComponent', 'selector': 'app-fullscreen'},{'name': 'HelpBlockComponent', 'selector': 'app-help-block'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InfoComponent', 'selector': 'app-info'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoadSpinnerComponent', 'selector': ''},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'MacroDialogComponent', 'selector': 'app-macro-dialog'},{'name': 'MediaComponent', 'selector': 'app-media'},{'name': 'MediaControlComponent', 'selector': 'app-media-control'},{'name': 'MemberEditorComponent', 'selector': 'app-member-editor'},{'name': 'MembersComponent', 'selector': 'app-members'},{'name': 'MemberSelectorComponent', 'selector': 'app-member-selector'},{'name': 'MultirangeComponent', 'selector': 'app-multirange'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetComponent', 'selector': 'app-reset'},{'name': 'ResultsComponent', 'selector': 'app-results'},{'name': 'SaveButtonComponent', 'selector': 'app-save-button'},{'name': 'ScheduleComponent', 'selector': 'app-schedule'},{'name': 'ScorecardsComponent', 'selector': 'app-scorecards'},{'name': 'ScoreEditorComponent', 'selector': 'app-score-editor'},{'name': 'ScoreGroupEditorComponent', 'selector': 'app-score-group-editor'},{'name': 'ScoreSystemComponent', 'selector': 'app-score-system'},{'name': 'SignoffReportComponent', 'selector': 'app-signoff-report'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'TeamEditorComponent', 'selector': 'app-team-editor'},{'name': 'TeamsComponent', 'selector': 'app-teams'},{'name': 'TournamentComponent', 'selector': 'app-tournament'},{'name': 'TournamentEditorComponent', 'selector': 'app-tournament-editor'},{'name': 'TroopEditorComponent', 'selector': 'app-troop-editor'},{'name': 'TroopsComponent', 'selector': 'app-troops'},{'name': 'UserEditorComponent', 'selector': 'app-user-editor'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VenueComponent', 'selector': 'app-venue'},{'name': 'VenueEditorComponent', 'selector': 'app-venue-editor'}];
+    var DIRECTIVES = [{'name': 'IfAuthDirective', 'selector': '[appIfAuth]'},{'name': 'ToCaseDirective', 'selector': 'input[appToCase]'}];
+    var ACTUAL_COMPONENT = {'name': 'VenueComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'VenueComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

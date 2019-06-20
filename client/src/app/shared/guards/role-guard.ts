@@ -4,6 +4,10 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { UserService } from 'app/shared/services/api';
 import { Role } from 'app/model';
 
+export interface RoleData {
+  role: Role
+}
+
 @Injectable({ providedIn: 'root' })
 export class RoleGuard implements CanActivate {
 

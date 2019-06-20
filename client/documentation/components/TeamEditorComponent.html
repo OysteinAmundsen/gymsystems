@@ -1,0 +1,3000 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>TeamEditorComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-team-editor</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./team-editor.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./team-editor.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#classes">classes</a>
+                            </li>
+                            <li>
+                                <a href="#configuredTroops">configuredTroops</a>
+                            </li>
+                            <li>
+                                <a href="#currentUser">currentUser</a>
+                            </li>
+                            <li>
+                                <a href="#defaults">defaults</a>
+                            </li>
+                            <li>
+                                <a href="#disciplineCheckboxes">disciplineCheckboxes</a>
+                            </li>
+                            <li>
+                                <a href="#disciplines">disciplines</a>
+                            </li>
+                            <li>
+                                <a href="#divisions">divisions</a>
+                            </li>
+                            <li>
+                                <a href="#media">media</a>
+                            </li>
+                            <li>
+                                <a href="#memberSelector">memberSelector</a>
+                            </li>
+                            <li>
+                                <a href="#subscriptions">subscriptions</a>
+                            </li>
+                            <li>
+                                <a href="#teamForm">teamForm</a>
+                            </li>
+                            <li>
+                                <a href="#teamQuery">teamQuery</a>
+                            </li>
+                            <li>
+                                <a href="#troopList">troopList</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#classChange">classChange</a>
+                            </li>
+                            <li>
+                                <a href="#classChanged">classChanged</a>
+                            </li>
+                            <li>
+                                <a href="#close">close</a>
+                            </li>
+                            <li>
+                                <a href="#createDisciplineGroup">createDisciplineGroup</a>
+                            </li>
+                            <li>
+                                <a href="#delete">delete</a>
+                            </li>
+                            <li>
+                                <a href="#forbiddenNameValidator">forbiddenNameValidator</a>
+                            </li>
+                            <li>
+                                <a href="#getMedia">getMedia</a>
+                            </li>
+                            <li>
+                                <a href="#loadData">loadData</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#save">save</a>
+                            </li>
+                            <li>
+                                <a href="#setSelectedClub">setSelectedClub</a>
+                            </li>
+                            <li>
+                                <a href="#setSelectedTroop">setSelectedTroop</a>
+                            </li>
+                            <li>
+                                <a href="#tabOut">tabOut</a>
+                            </li>
+                            <li>
+                                <a href="#teamReceived">teamReceived</a>
+                            </li>
+                            <li>
+                                <a href="#toggleChecked">toggleChecked</a>
+                            </li>
+                            <li>
+                                <a href="#troopDisplay">troopDisplay</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#team">team</a>
+                            </li>
+                            <li>
+                                <a href="#tournament">tournament</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#keyup">keyup</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#tournamentId">tournamentId</a>
+                                </li>
+                                <li>
+                                    <a href="#value">value</a>
+                                </li>
+                                <li>
+                                    <a href="#ageDivisions">ageDivisions</a>
+                                </li>
+                                <li>
+                                    <a href="#genderDivisions">genderDivisions</a>
+                                </li>
+                                <li>
+                                    <a href="#allChecked">allChecked</a>
+                                </li>
+                                <li>
+                                    <a href="#teamName">teamName</a>
+                                </li>
+                                <li>
+                                    <a href="#isAllLodged">isAllLodged</a>
+                                </li>
+                                <li>
+                                    <a href="#isAllTransport">isAllTransport</a>
+                                </li>
+                                <li>
+                                    <a href="#isAllBanquet">isAllBanquet</a>
+                                </li>
+                                <li>
+                                    <a href="#teamDiscipline">teamDiscipline</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, tournamentEditor: <a href="../components/TournamentEditorComponent.html">TournamentEditorComponent</a>, userService: <a href="../injectables/UserService.html">UserService</a>, graph: <a href="../injectables/GraphService.html">GraphService</a>, errorHandler: <a href="../injectables/ErrorHandlerService.html">ErrorHandlerService</a>, translate: TranslateService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:87</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>tournamentEditor</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../components/TournamentEditorComponent.html" target="_self" >TournamentEditorComponent</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>graph</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>errorHandler</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ErrorHandlerService.html" target="_self" >ErrorHandlerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>translate</td>
+                                                  
+                                                        <td>
+                                                                    <code>TranslateService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="team"></a>
+                        <b>team</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ITeam.html" target="_self" >ITeam</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&lt;ITeam&gt;{}</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:26</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tournament"></a>
+                        <b>tournament</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ITournament.html" target="_self" >ITournament</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:27</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="keyup"></a>
+                    <span class="name">
+                        <b>
+                            keyup
+                        </b>
+                        <a href="#keyup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>keyup(evt: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="364"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:364</a></div>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="classChange"></a>
+                    <span class="name">
+                        <b>
+                            classChange
+                        </b>
+                        <a href="#classChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>classChange($event: MatSlideToggleChange)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="326"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:326</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>$event</td>
+                                    <td>
+                                            <code>MatSlideToggleChange</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="classChanged"></a>
+                    <span class="name">
+                        <b>
+                            classChanged
+                        </b>
+                        <a href="#classChanged"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>classChanged()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="330"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:330</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="close"></a>
+                    <span class="name">
+                        <b>
+                            close
+                        </b>
+                        <a href="#close"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>close(result?)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="322"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:322</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>result</td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createDisciplineGroup"></a>
+                    <span class="name">
+                        <b>
+                            createDisciplineGroup
+                        </b>
+                        <a href="#createDisciplineGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createDisciplineGroup(d: <a href="../interfaces/IDiscipline.html">IDiscipline</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="100"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:100</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>d</td>
+                                    <td>
+                                                <code><a href="../interfaces/IDiscipline.html" target="_self" >IDiscipline</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="delete"></a>
+                    <span class="name">
+                        <b>
+                            delete
+                        </b>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>delete()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="316"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:316</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="forbiddenNameValidator"></a>
+                    <span class="name">
+                        <b>
+                            forbiddenNameValidator
+                        </b>
+                        <a href="#forbiddenNameValidator"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>forbiddenNameValidator()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="218"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:218</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://angular.io/api/forms/ValidatorFn" target="_blank" >ValidatorFn</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMedia"></a>
+                    <span class="name">
+                        <b>
+                            getMedia
+                        </b>
+                        <a href="#getMedia"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMedia(disciplineId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="255"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:255</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>disciplineId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadData"></a>
+                    <span class="name">
+                        <b>
+                            loadData
+                        </b>
+                        <a href="#loadData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadData(id?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="259"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:259</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="172"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:172</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="109"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:109</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="save"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            save
+                        </b>
+                        <a href="#save"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>save(keepOpen?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="285"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:285</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>keepOpen</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>{}</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setSelectedClub"></a>
+                    <span class="name">
+                        <b>
+                            setSelectedClub
+                        </b>
+                        <a href="#setSelectedClub"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setSelectedClub(v: MatAutocompleteSelectedEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="176"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:176</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>v</td>
+                                    <td>
+                                            <code>MatAutocompleteSelectedEvent</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setSelectedTroop"></a>
+                    <span class="name">
+                        <b>
+                            setSelectedTroop
+                        </b>
+                        <a href="#setSelectedTroop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setSelectedTroop(v: MatAutocompleteSelectedEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="187"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:187</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>v</td>
+                                    <td>
+                                            <code>MatAutocompleteSelectedEvent</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tabOut"></a>
+                    <span class="name">
+                        <b>
+                            tabOut
+                        </b>
+                        <a href="#tabOut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>tabOut(typeahead: MatAutocomplete)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="346"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:346</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>typeahead</td>
+                                    <td>
+                                            <code>MatAutocomplete</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="teamReceived"></a>
+                    <span class="name">
+                        <b>
+                            teamReceived
+                        </b>
+                        <a href="#teamReceived"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>teamReceived(team: <a href="../interfaces/ITeam.html">ITeam</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="232"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:232</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>team</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITeam.html" target="_self" >ITeam</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleChecked"></a>
+                    <span class="name">
+                        <b>
+                            toggleChecked
+                        </b>
+                        <a href="#toggleChecked"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleChecked()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="354"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:354</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="troopDisplay"></a>
+                    <span class="name">
+                        <b>
+                            troopDisplay
+                        </b>
+                        <a href="#troopDisplay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>troopDisplay(troop: <a href="../interfaces/ITroop.html">ITroop</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="228"
+                            class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:228</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>troop</td>
+                                    <td>
+                                                <code><a href="../interfaces/ITroop.html" target="_self" >ITroop</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="classes"></a>
+                        <span class="name">
+                            <b>
+                            classes</b>
+                            <a href="#classes"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Classes</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:67</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="configuredTroops"></a>
+                        <span class="name">
+                            <b>
+                            configuredTroops</b>
+                            <a href="#configuredTroops"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:52</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentUser"></a>
+                        <span class="name">
+                            <b>
+                            currentUser</b>
+                            <a href="#currentUser"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IUser.html" target="_self" >IUser</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="defaults"></a>
+                        <span class="name">
+                            <b>
+                            defaults</b>
+                            <a href="#defaults"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IDivision.html" target="_self" >IDivision[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:55</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="disciplineCheckboxes"></a>
+                        <span class="name">
+                            <b>
+                            disciplineCheckboxes</b>
+                            <a href="#disciplineCheckboxes"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChildren(&#x27;selectedDisciplines&#x27;)<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="disciplines"></a>
+                        <span class="name">
+                            <b>
+                            disciplines</b>
+                            <a href="#disciplines"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IDiscipline.html" target="_self" >IDiscipline[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:53</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="divisions"></a>
+                        <span class="name">
+                            <b>
+                            divisions</b>
+                            <a href="#divisions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IDivision.html" target="_self" >IDivision[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:54</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="media"></a>
+                        <span class="name">
+                            <b>
+                            media</b>
+                            <a href="#media"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:51</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="memberSelector"></a>
+                        <span class="name">
+                            <b>
+                            memberSelector</b>
+                            <a href="#memberSelector"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../components/MemberSelectorComponent.html" target="_self" >MemberSelectorComponent</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(MemberSelectorComponent, {static: false})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:30</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subscriptions"></a>
+                        <span class="name">
+                            <b>
+                            subscriptions</b>
+                            <a href="#subscriptions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="teamForm"></a>
+                        <span class="name">
+                            <b>
+                            teamForm</b>
+                            <a href="#teamForm"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="teamQuery"></a>
+                        <span class="name">
+                            <b>
+                            teamQuery</b>
+                            <a href="#teamQuery"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x60;{
+    id,
+    name,
+    class,
+    gymnasts{id,name,gender,birthYear},
+    disciplines{id,name,sortOrder},
+    divisions{id,name,min,max,type},
+    tournament{id,providesLodging,providesBanquet,providesTransport},
+    media{id,fileName,originalName,disciplineId,teamId,tournamentId},
+
+    # Load all teams for this club in this tournament
+    club{id,name,teams{id,name,tournamentId}}
+  }&#x60;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="troopList"></a>
+                        <span class="name">
+                            <b>
+                            troopList</b>
+                            <a href="#troopList"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:50</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tournamentId"></a>
+                        <span class="name"><b>tournamentId</b><a href="#tournamentId"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>tournamentId()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:57</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="value"></a>
+                        <span class="name"><b>value</b><a href="#value"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>value()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:58</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ageDivisions"></a>
+                        <span class="name"><b>ageDivisions</b><a href="#ageDivisions"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>ageDivisions()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:60</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="genderDivisions"></a>
+                        <span class="name"><b>genderDivisions</b><a href="#genderDivisions"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>genderDivisions()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:61</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="allChecked"></a>
+                        <span class="name"><b>allChecked</b><a href="#allChecked"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>allChecked()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:63</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="teamName"></a>
+                        <span class="name"><b>teamName</b><a href="#teamName"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>teamName()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:69</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isAllLodged"></a>
+                        <span class="name"><b>isAllLodged</b><a href="#isAllLodged"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>isAllLodged()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:76</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>isAllLodged($event)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:77</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>$event</td>
+                                                    
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isAllTransport"></a>
+                        <span class="name"><b>isAllTransport</b><a href="#isAllTransport"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>isAllTransport()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:79</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>isAllTransport($event)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:80</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>$event</td>
+                                                    
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isAllBanquet"></a>
+                        <span class="name"><b>isAllBanquet</b><a href="#isAllBanquet"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>isAllBanquet()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:82</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>isAllBanquet($event)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:83</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>$event</td>
+                                                    
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="teamDiscipline"></a>
+                        <span class="name"><b>teamDiscipline</b><a href="#teamDiscipline"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>teamDiscipline()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/app/views/configure/tournament/teams/team-editor/team-editor.component.ts:85</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Input, HostListener, ViewChildren, OnDestroy, ViewChild } from &#x27;@angular/core&#x27;;
+import { FormBuilder, Validators, FormGroup, AbstractControl, ValidatorFn, FormArray } from &#x27;@angular/forms&#x27;;
+import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { distinctUntilChanged, debounceTime } from &#x27;rxjs/operators&#x27;;
+
+import * as moment from &#x27;moment&#x27;;
+
+import { IDiscipline, IDivision, DivisionType, ITeam, IUser, Classes, ITournament, ITroop, Gender, IGymnast } from &#x27;app/model&#x27;;
+import { UserService } from &#x27;app/shared/services/api&#x27;;
+import { ErrorHandlerService } from &#x27;app/shared/interceptors/error-handler.service&#x27;;
+
+import { TournamentEditorComponent } from &#x27;../../tournament-editor/tournament-editor.component&#x27;;
+import { MatAutocompleteSelectedEvent, MatAutocomplete, MatSlideToggleChange } from &#x27;@angular/material&#x27;;
+import { MemberSelectorComponent } from &#x27;app/views/configure/_shared/member-selector/member-selector.component&#x27;;
+import { GraphService } from &#x27;app/shared/services/graph.service&#x27;;
+import { CommonService } from &#x27;app/shared/services/common.service&#x27;;
+
+@Component({
+  selector: &#x27;app-team-editor&#x27;,
+  templateUrl: &#x27;./team-editor.component.html&#x27;,
+  styleUrls: [&#x27;./team-editor.component.scss&#x27;],
+})
+export class TeamEditorComponent implements OnInit, OnDestroy {
+  @Input() team: ITeam &#x3D; &lt;ITeam&gt;{};
+  @Input() tournament: ITournament;
+
+  @ViewChildren(&#x27;selectedDisciplines&#x27;) disciplineCheckboxes;
+  @ViewChild(MemberSelectorComponent, { static: false }) memberSelector: MemberSelectorComponent;
+
+  teamQuery &#x3D; &#x60;{
+    id,
+    name,
+    class,
+    gymnasts{id,name,gender,birthYear},
+    disciplines{id,name,sortOrder},
+    divisions{id,name,min,max,type},
+    tournament{id,providesLodging,providesBanquet,providesTransport},
+    media{id,fileName,originalName,disciplineId,teamId,tournamentId},
+
+    # Load all teams for this club in this tournament
+    club{id,name,teams{id,name,tournamentId}}
+  }&#x60;;
+
+  subscriptions: Subscription[] &#x3D; [];
+  teamForm: FormGroup;
+  currentUser: IUser;
+
+  troopList &#x3D; [];
+  media &#x3D; [];
+  configuredTroops &#x3D; [];
+  disciplines: IDiscipline[];
+  divisions: IDivision[] &#x3D; [];
+  defaults: IDivision[];
+
+  get tournamentId() { return this.tournamentEditor.tournamentId; }
+  get value() { return this.teamForm.getRawValue(); }
+
+  get ageDivisions(): IDivision[] { return this.divisions.filter(d &#x3D;&gt; d.type &#x3D;&#x3D;&#x3D; DivisionType.Age); }
+  get genderDivisions(): IDivision[] { return this.divisions.filter(d &#x3D;&gt; d.type &#x3D;&#x3D;&#x3D; DivisionType.Gender); }
+
+  get allChecked() {
+    return this.value.disciplines.every(c &#x3D;&gt; c.checked &#x3D;&#x3D;&#x3D; true);
+  }
+
+  classes &#x3D; Classes;
+
+  get teamName() {
+    if (this.value &amp;&amp; this.value.name) {
+      return typeof this.value.name &#x3D;&#x3D;&#x3D; &#x27;string&#x27; ? this.value.name : this.value.name.name;
+    }
+    return &#x27;&#x27;;
+  }
+
+  get isAllLodged() { return this.value.gymnasts ? this.value.gymnasts.every(g &#x3D;&gt; g.lodging) : false; }
+  set isAllLodged($event) { this.value.gymnasts.forEach(g &#x3D;&gt; g.lodging &#x3D; $event); }
+
+  get isAllTransport() { return this.value.gymnasts ? this.value.gymnasts.every(g &#x3D;&gt; g.transport) : false; }
+  set isAllTransport($event) { this.value.gymnasts.forEach(g &#x3D;&gt; g.transport &#x3D; $event); }
+
+  get isAllBanquet() { return this.value.gymnasts ? this.value.gymnasts.every(g &#x3D;&gt; g.banquet) : false; }
+  set isAllBanquet($event) { this.value.gymnasts.forEach(g &#x3D;&gt; g.banquet &#x3D; $event); }
+
+  get teamDiscipline(): FormArray {
+    return &lt;FormArray&gt;this.teamForm.get(&#x27;disciplines&#x27;);
+  }
+
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private tournamentEditor: TournamentEditorComponent,
+    private userService: UserService,
+    private graph: GraphService,
+    private errorHandler: ErrorHandlerService,
+    private translate: TranslateService) { }
+
+  createDisciplineGroup(d: IDiscipline): FormGroup {
+    const group &#x3D; this.fb.group({ id: d.id, name: d.name, checked: true });
+    this.subscriptions.push(group.get(&#x27;checked&#x27;).statusChanges.subscribe(val &#x3D;&gt; {
+      if (group.get(&#x27;checked&#x27;).dirty) {
+        this.teamForm.markAsDirty();
+      }
+    }));
+    return group;
+  }
+  ngOnInit() {
+    // Create form controls
+    this.teamForm &#x3D; this.fb.group({
+      id: [null],
+      name: [&#x27;&#x27;, [Validators.required, this.forbiddenNameValidator()]],
+      club: [null, [Validators.required]],
+      ageDivision: [{ disable: true }, [Validators.required]],
+      genderDivision: [{ disable: true }, [Validators.required]],
+      disciplines: this.fb.array([]),
+      tournamentId: [this.tournamentEditor.tournamentId],
+      gymnasts: [null || []],
+      class: [Classes.TeamGym]
+    });
+
+    const nameCtrl &#x3D; this.teamForm.get(&#x27;name&#x27;);
+    const ageCtrl &#x3D; this.teamForm.get(&#x27;ageDivision&#x27;);
+    const genderCtrl &#x3D; this.teamForm.get(&#x27;genderDivision&#x27;);
+
+    // Troopname typeahead
+    this.subscriptions.push(nameCtrl.valueChanges.pipe(
+      distinctUntilChanged(),
+      debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+    ).subscribe(v &#x3D;&gt; this.graph
+      .getData(&#x60;{getTroops(name:&quot;${encodeURIComponent(v &amp;&amp; v.name ? v.name : v)}&quot;,clubId:${this.value.club.id}){id,name,gymnasts{id,name,gender,birthYear}}}&#x60;)
+      .subscribe(result &#x3D;&gt; (this.troopList &#x3D; result.getTroops.filter(t &#x3D;&gt; this.configuredTroops.findIndex(l &#x3D;&gt; l.name &#x3D;&#x3D;&#x3D; t.name) &lt; 0)))));
+
+    // Filter available gymnasts by age
+    this.subscriptions.push(ageCtrl.valueChanges
+      .pipe(distinctUntilChanged())
+      .subscribe((div: IDivision) &#x3D;&gt; this.memberSelector.addFilter(&#x27;age&#x27;, (g: IGymnast) &#x3D;&gt; {
+        const age &#x3D; moment().diff(moment(g.birthYear, &#x27;YYYY&#x27;), &#x27;years&#x27;);
+        return age &lt;&#x3D; div.max &amp;&amp; age &gt;&#x3D; div.min;
+      })));
+
+    // Filter available gymnasts by gender
+    this.subscriptions.push(genderCtrl.valueChanges
+      .pipe(distinctUntilChanged())
+      .subscribe((div: IDivision) &#x3D;&gt; this.memberSelector.addFilter(&#x27;gender&#x27;, (g: IGymnast) &#x3D;&gt; {
+        switch (div.name) {
+          case &#x27;Kvinner&#x27;: return g.gender &#x3D;&#x3D;&#x3D; Gender.Female;
+          case &#x27;Herrer&#x27;: return g.gender &#x3D;&#x3D;&#x3D; Gender.Male;
+          default: return true;
+        }
+      })));
+
+    // Select all disciplines if TeamGym is chosen
+    this.subscriptions.push(this.teamForm.get(&#x27;class&#x27;)
+      .valueChanges
+      .pipe(distinctUntilChanged())
+      .subscribe((c: Classes) &#x3D;&gt; setTimeout(() &#x3D;&gt; this.classChanged())));
+
+
+    // Load selected team (if any)
+    this.subscriptions.push(this.route.params.subscribe(params &#x3D;&gt; {
+      // Load current user
+      this.subscriptions.push(this.userService.getMe().subscribe(user &#x3D;&gt; {
+        this.currentUser &#x3D; user;
+        params.id ? this.loadData(+params.id) : this.loadData();
+      }));
+    }));
+    this.classChanged();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s &#x3D;&gt; s ? s.unsubscribe() : null);
+  }
+
+  setSelectedClub(v: MatAutocompleteSelectedEvent) {
+    if (this.teamForm) {
+      this.teamForm.get(&#x27;club&#x27;).setValue(v.option.value);
+      this.teamForm.get(&#x27;gymnasts&#x27;).setValue([]);
+
+      this.teamForm.get(&#x27;ageDivision&#x27;).enable();
+      this.teamForm.get(&#x27;genderDivision&#x27;).enable();
+      this.teamForm.get(&#x27;disciplines&#x27;).enable();
+    }
+  }
+
+  setSelectedTroop(v: MatAutocompleteSelectedEvent) {
+    this.teamForm.get(&#x27;name&#x27;).setValue(v.option.value);
+    const troop &#x3D; v.option.value;
+
+    // Copy all values over from troop blueprint
+    // Apply gender division
+    // TODO: Need a more flexible way of fetching these
+    let division &#x3D; null;
+    if (troop.gymnasts.every(g &#x3D;&gt; g.gender &#x3D;&#x3D;&#x3D; troop.gymnasts[0].gender)) {
+      if (troop.gymnasts[0].gender &#x3D;&#x3D;&#x3D; Gender.Female) { // Find female division
+        division &#x3D; this.genderDivisions.find(d &#x3D;&gt; d.name &#x3D;&#x3D;&#x3D; &#x27;Kvinner&#x27;);
+      } else { // Find male division
+        division &#x3D; this.genderDivisions.find(d &#x3D;&gt; d.name &#x3D;&#x3D;&#x3D; &#x27;Herrer&#x27;);
+      }
+    } else { // Find mix division
+      division &#x3D; this.genderDivisions.find(d &#x3D;&gt; d.name &#x3D;&#x3D;&#x3D; &#x27;Mix&#x27;);
+    }
+    this.teamForm.get(&#x27;genderDivision&#x27;).setValue(division);
+
+    // Apply age division
+    const age &#x3D; (birthYear) &#x3D;&gt; moment().diff(moment(birthYear, &#x27;YYYY&#x27;), &#x27;years&#x27;);
+    const ages: number[] &#x3D; troop.gymnasts.map(g &#x3D;&gt; &lt;number&gt;age(g.birthYear));
+    const minAge: number &#x3D; Math.min(...ages);
+    const maxAge: number &#x3D; Math.max(...ages);
+    division &#x3D; this.divisions.find(k &#x3D;&gt; maxAge &lt;&#x3D; k.max &amp;&amp; minAge &gt;&#x3D; k.min);
+    this.teamForm.get(&#x27;ageDivision&#x27;).setValue(division);
+
+    // Set gymnasts
+    this.teamForm.get(&#x27;gymnasts&#x27;).setValue(troop.gymnasts);
+  }
+
+  forbiddenNameValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } &#x3D;&gt; {
+      if (!this.teamForm) { return null; }
+      const check &#x3D; this.configuredTroops
+        .filter(t &#x3D;&gt; t.club &amp;&amp; t.club.name &#x3D;&#x3D;&#x3D; this.value.club &amp;&amp; (!t.id || t.id !&#x3D;&#x3D; this.value.id))
+        .findIndex(t &#x3D;&gt; t.name &#x3D;&#x3D;&#x3D; control.value) &gt; -1;
+      return check ? { &#x27;forbiddenName&#x27;: { value: control.value } } : null;
+    };
+  }
+
+  troopDisplay(troop: ITroop) {
+    return troop &amp;&amp; troop.name ? troop.name : troop;
+  }
+
+  teamReceived(team: ITeam) {
+    this.team &#x3D; team;
+    this.media &#x3D; team.media;
+    if (team &amp;&amp; team.id) {
+      while (this.teamDiscipline.controls.length) { this.teamDiscipline.removeAt(0); } // Reset the disciplines
+      this.teamForm.setValue({
+        id: team.id,
+        name: team.name,
+        club: team.club,
+        ageDivision: team.divisions.find(d &#x3D;&gt; d.type &#x3D;&#x3D;&#x3D; DivisionType.Age) || null,
+        genderDivision: team.divisions.find(d &#x3D;&gt; d.type &#x3D;&#x3D;&#x3D; DivisionType.Gender) || null,
+        disciplines: [],
+        tournamentId: this.tournamentId,
+        gymnasts: team.gymnasts || [],
+        class: team.class
+      }, { emitEvent: false });
+    }
+    // Create discipline array
+    this.disciplines.forEach(d &#x3D;&gt; this.teamDiscipline.controls.push(this.createDisciplineGroup(d)));
+    this.teamDiscipline.controls.forEach(c &#x3D;&gt; c.get(&#x27;checked&#x27;).setValue(team.disciplines.find(d &#x3D;&gt; d.id &#x3D;&#x3D;&#x3D; c.value.id) !&#x3D; null));
+    this.classChanged();
+  }
+
+  getMedia(disciplineId: number) {
+    return this.media.find(m &#x3D;&gt; m.disciplineId &#x3D;&#x3D;&#x3D; disciplineId);
+  }
+
+  loadData(id?: number) {
+    let query &#x3D; &#x60;
+      # Load tournaments divisions
+      getDivisions(tournamentId:${this.tournamentId}){id,name,min,max,type},
+
+      # Load tournaments disciplines
+      getDisciplines(tournamentId:${this.tournamentId}){id,name},&#x60;;
+
+    if (id) {
+      query +&#x3D; &#x60;team(id:${id})${this.teamQuery}&#x60;;
+    }
+    this.graph.getData(&#x60;{${query}}&#x60;).subscribe(res &#x3D;&gt; {
+      if (res.getDivisions) { this.divisions &#x3D; res.getDivisions; }
+      if (res.getDisciplines) {
+        this.disciplines &#x3D; res.getDisciplines;
+        this.disciplines.forEach(d &#x3D;&gt; this.teamDiscipline.controls.push(this.createDisciplineGroup(d)));
+        this.classChanged();
+      }
+      if (res.team) {
+        this.teamReceived(res.team);
+        this.tournament &#x3D; res.team.tournament;
+        this.configuredTroops &#x3D; res.team.club.teams.filter(t &#x3D;&gt; t.tournamentId &#x3D;&#x3D;&#x3D; this.tournamentId);
+      }
+    });
+  }
+
+  async save(keepOpen?: boolean) {
+    const team &#x3D; JSON.parse(JSON.stringify(this.value)); // Clone form values
+
+    // Troop name
+    if (team.name.id) { team.name &#x3D; team.name.name; }
+
+    // Compute division set
+    team.divisions &#x3D; [team.ageDivision, team.genderDivision];
+
+    // Get club
+    if (!team.club) {
+      this.errorHandler.setError(this.translate.instant(&#x27;No club set.&#x27;), this.translate.instant(&#x27;Cannot register!&#x27;));
+      return;
+    }
+
+    // Compute discipline set
+    team.disciplines &#x3D; this.value.disciplines.filter(d &#x3D;&gt; d.checked).map(d &#x3D;&gt; ({ id: d.id, name: d.name }));
+
+    // Save team
+    return new Promise((resolve, reject) &#x3D;&gt; {
+      team.clubId &#x3D; team.club.id;
+      this.graph.saveData(&#x27;Team&#x27;, CommonService.omit(team, [&#x27;club&#x27;, &#x27;ageDivision&#x27;, &#x27;genderDivision&#x27;]), this.teamQuery).subscribe(result &#x3D;&gt; {
+        this.teamReceived(result.saveTeam);
+        if (!keepOpen) {
+          this.close(this.team);
+        }
+        resolve(this.team);
+      });
+    });
+  }
+
+  delete() {
+    this.graph.deleteData(&#x27;Team&#x27;, this.value.id).subscribe(result &#x3D;&gt; {
+      this.close(result);
+    });
+  }
+
+  close(result?) {
+    this.router.navigate([&#x27;../&#x27;], { relativeTo: this.route });
+  }
+
+  classChange($event: MatSlideToggleChange) {
+    this.teamForm.controls[&#x27;class&#x27;].setValue($event.checked ? Classes.TeamGym : Classes.National);
+  }
+
+  classChanged() {
+    this.teamDiscipline.controls.forEach(c &#x3D;&gt; {
+      if (this.value.class &#x3D;&#x3D;&#x3D; Classes.TeamGym) {
+        const ctrl &#x3D; c.get(&#x27;checked&#x27;);
+        ctrl.markAsDirty();
+        ctrl.setValue(this.value.class &#x3D;&#x3D;&#x3D; Classes.TeamGym);
+      }
+      if (this.value.class &#x3D;&#x3D;&#x3D; Classes.TeamGym || this.value.club &#x3D;&#x3D; null || this.value.name &#x3D;&#x3D; null) {
+        c.disable();
+      } else {
+        // Reflect model in view
+        c.enable();
+      }
+    });
+  }
+
+  tabOut(typeahead: MatAutocomplete) {
+    const active &#x3D; typeahead.options.find(o &#x3D;&gt; o.active);
+    if (active) {
+      active.select();
+      typeahead._emitSelectEvent(active);
+    }
+  }
+
+  toggleChecked() {
+    const checked &#x3D; !this.allChecked;
+    this.teamDiscipline.controls.forEach(c &#x3D;&gt; {
+      const ctrl &#x3D; c.get(&#x27;checked&#x27;);
+      ctrl.markAsDirty();
+      ctrl.setValue(checked);
+    });
+  }
+
+  @HostListener(&#x27;keyup&#x27;, [&#x27;$event&#x27;])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27;) {
+      this.close();
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;form [formGroup]&#x3D;&quot;teamForm&quot; (ngSubmit)&#x3D;&quot;save()&quot;&gt;
+  &lt;mat-card&gt;
+    &lt;mat-card-header&gt;
+      &lt;div class&#x3D;&quot;card-actions&quot;&gt;
+        &lt;button type&#x3D;&quot;button&quot; mat-icon-button (click)&#x3D;&quot;close()&quot; aria-label&#x3D;&quot;Close&quot;&gt;&lt;i class&#x3D;&quot;fa fa-fw fa-close&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;i class&#x3D;&quot;fa fa-fw fa-group fa-2x&quot; mat-card-avatar&gt;&lt;/i&gt;
+      &lt;mat-card-title&gt;
+        &lt;h3&gt;{{ &#x27;Team&#x27; | translate}} {{ teamName }}&lt;/h3&gt;
+      &lt;/mat-card-title&gt;
+    &lt;/mat-card-header&gt;
+    &lt;mat-card-content&gt;
+      &lt;fieldset&gt;
+        &lt;div class&#x3D;&quot;flex flex-row&quot;&gt;
+          &lt;div class&#x3D;&quot;col-5&quot; *ngIf&#x3D;&quot;!currentUser?.club&quot;&gt;
+            &lt;app-club-lookup formControlName&#x3D;&quot;club&quot;&gt;&lt;/app-club-lookup&gt;
+          &lt;/div&gt;
+          &lt;mat-form-field [ngClass]&#x3D;&quot;{&#x27;col-7&#x27;: !currentUser?.club, &#x27;col-12&#x27;: currentUser?.club, &#x27;help-available&#x27;: teamForm.value.club !&#x3D; null}&quot;&gt;
+            &lt;input matInput formControlName&#x3D;&quot;name&quot; placeholder&#x3D;&quot;{{&#x27;Name&#x27; | translate}}&quot; [matAutocomplete]&#x3D;&quot;troopTypeahead&quot; (blur)&#x3D;&quot;tabOut(troopTypeahead)&quot;&gt;
+            &lt;mat-autocomplete #troopTypeahead&#x3D;&quot;matAutocomplete&quot; (optionSelected)&#x3D;&quot;setSelectedTroop($event)&quot; [displayWith]&#x3D;&quot;troopDisplay&quot;&gt;
+              &lt;mat-option *ngFor&#x3D;&quot;let troop of troopList&quot; [value]&#x3D;&quot;troop&quot;&gt;
+                {{ troop.name }}
+              &lt;/mat-option&gt;
+            &lt;/mat-autocomplete&gt;
+            &lt;app-help-block *ngIf&#x3D;&quot;teamForm.value.club !&#x3D; null&quot;&gt;
+              &lt;p translate&gt;You cannot enter a team name before you&#x27;ve selected which club it belongs to&lt;/p&gt;
+              &lt;p translate&gt;This is because we try to match it with the teams the club allready has configured in the &lt;a [routerLink]&#x3D;&quot;[&#x27;/configure/club&#x27;]&quot;
+                   aria-label&#x3D;&quot;Configure club&quot;&gt;Club&lt;/a&gt;
+                section&lt;/p&gt;
+            &lt;/app-help-block&gt;
+          &lt;/mat-form-field&gt;
+        &lt;/div&gt;
+      &lt;/fieldset&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+
+        &lt;!-- Divisions --&gt;
+        &lt;div class&#x3D;&quot;col-6 divisions&quot;&gt;
+          &lt;header&gt;
+            &lt;h2&gt;
+              &lt;i class&#x3D;&quot;fa fa-fw fa-cubes&quot;&gt;&lt;/i&gt;
+              &lt;span translate&gt;Division&lt;/span&gt;
+            &lt;/h2&gt;
+          &lt;/header&gt;
+          &lt;fieldset&gt;
+            &lt;app-division-lookup formControlName&#x3D;&quot;genderDivision&quot; icon&#x3D;&quot;venus-mars&quot; placeholder&#x3D;&quot;{{&#x27;Gender group&#x27; | translate}}&quot; type&#x3D;&quot;Gender&quot;
+                                 [tournamentId]&#x3D;&quot;tournamentId&quot; class&#x3D;&quot;col-12&quot;&gt;&lt;/app-division-lookup&gt;
+            &lt;app-division-lookup formControlName&#x3D;&quot;ageDivision&quot; icon&#x3D;&quot;child&quot; placeholder&#x3D;&quot;{{&#x27;Age group&#x27; | translate}}&quot; type&#x3D;&quot;Age&quot; [tournamentId]&#x3D;&quot;tournamentId&quot;
+                                 class&#x3D;&quot;col-12&quot;&gt;&lt;/app-division-lookup&gt;
+          &lt;/fieldset&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Disciplines --&gt;
+        &lt;div class&#x3D;&quot;col-6&quot;&gt;
+          &lt;header&gt;
+            &lt;h2&gt;
+              &lt;i class&#x3D;&quot;fa fa-fw fa-heartbeat&quot;&gt;&lt;/i&gt;
+              &lt;span translate&gt;Disciplines&lt;/span&gt;
+              &lt;mat-slide-toggle class&#x3D;&quot;mat-primary&quot; formControlName&#x3D;&quot;class&quot; [checked]&#x3D;&quot;teamForm.value.class &#x3D;&#x3D;&#x3D; classes.TeamGym&quot; (change)&#x3D;&quot;classChange($event)&quot;&gt;
+                &lt;span *ngIf&#x3D;&quot;teamForm.value.class &#x3D;&#x3D;&#x3D; classes.TeamGym&quot; translate&gt;TeamGym&lt;/span&gt;
+                &lt;span *ngIf&#x3D;&quot;teamForm.value.class &#x3D;&#x3D;&#x3D; classes.National&quot; translate&gt;National&lt;/span&gt;
+              &lt;/mat-slide-toggle&gt;
+            &lt;/h2&gt;
+          &lt;/header&gt;
+          &lt;div&gt;
+            &lt;table role&#x3D;&quot;list&quot;&gt;
+              &lt;tr role&#x3D;&quot;listitem&quot;&gt;
+                &lt;td class&#x3D;&quot;disciplines&quot;&gt;
+                  &lt;label&gt;
+                    &lt;input type&#x3D;&quot;checkbox&quot; [checked]&#x3D;&quot;allChecked&quot; (click)&#x3D;&quot;toggleChecked()&quot;
+                           [disabled]&#x3D;&quot;teamForm.value.class &#x3D;&#x3D;&#x3D; classes.TeamGym || teamForm.value.club &#x3D;&#x3D; null || teamForm.value.name &#x3D;&#x3D; null&quot;&gt;
+                    &lt;span translate&gt;All&lt;/span&gt;
+                  &lt;/label&gt;
+                &lt;/td&gt;
+                &lt;td class&#x3D;&quot;media-head help-available&quot;&gt;
+                  &lt;i class&#x3D;&quot;fa fa-fw fa-music&quot;&gt;&lt;/i&gt;
+                  &lt;span translate&gt;Upload media&lt;/span&gt;
+                  &lt;app-help-block&gt;
+                    &lt;p&gt;&lt;span translate&gt;The&lt;/span&gt; &lt;i class&#x3D;&quot;fa fa-fw fa-upload&quot;&gt;&lt;/i&gt;
+                      &lt;span translate&gt;buttons below will allow you to upload media for your teams performance in that discipline&lt;/span&gt;
+                    &lt;/p&gt;
+                    &lt;p *ngIf&#x3D;&quot;teamForm.invalid&quot;&gt;
+                      &lt;b translate&gt;You will not see any upload button until you have specified a team name, divisions and disciplines.&lt;/b&gt;
+                    &lt;/p&gt;
+                  &lt;/app-help-block&gt;
+                &lt;/td&gt;
+              &lt;/tr&gt;
+              &lt;tbody formArrayName&#x3D;&quot;disciplines&quot;&gt;
+                &lt;tr role&#x3D;&quot;listitem&quot; *ngFor&#x3D;&quot;let discipline of teamDiscipline.controls; let i &#x3D; index;&quot; [formGroupName]&#x3D;&quot;i&quot;&gt;
+                  &lt;td class&#x3D;&quot;disciplines&quot;&gt;
+                    &lt;label&gt;
+                      &lt;input type&#x3D;&quot;checkbox&quot; formControlName&#x3D;&quot;checked&quot;&gt;
+                      {{ discipline.value.name }}
+                    &lt;/label&gt;
+                  &lt;/td&gt;
+                  &lt;td class&#x3D;&quot;media&quot;&gt;
+                    &lt;app-media-control *ngIf&#x3D;&quot;discipline.value.checked&quot; [media]&#x3D;&quot;getMedia(discipline.value.id)&quot; [clubId]&#x3D;&quot;teamForm.value.club?.id&quot;
+                                       [disciplineId]&#x3D;&quot;discipline.value.id&quot; [disciplineName]&#x3D;&quot;discipline.value.name&quot; [teamId]&#x3D;&quot;teamForm.value.id&quot;
+                                       [canUpload]&#x3D;&quot;true&quot;&gt;&lt;/app-media-control&gt;
+                  &lt;/td&gt;
+                &lt;/tr&gt;
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+
+        &lt;!-- Members --&gt;
+        &lt;app-member-selector [club]&#x3D;&quot;teamForm.value.club &amp;&amp; teamForm.value.club.id ? teamForm.value.club : null&quot; [troopName]&#x3D;&quot;teamForm.value.name&quot;
+                             [gymnasts]&#x3D;&quot;teamForm.value.gymnasts&quot; (gymnastsChange)&#x3D;&quot;teamForm.markAsDirty()&quot; [memberTemplate]&#x3D;&quot;memberContent&quot;&gt;
+          &lt;span class&#x3D;&quot;flex-col&quot; *ngIf&#x3D;&quot;teamForm.value.gymnasts !&#x3D; null &amp;&amp; teamForm.value.gymnasts.length &gt; 0&quot;&gt;
+            &lt;label [title]&#x3D;&quot;&#x27;Require lodging&#x27; | translate&quot; *ngIf&#x3D;&quot;tournament?.providesLodging&quot;&gt;
+              &lt;input type&#x3D;&quot;checkbox&quot; [(ngModel)]&#x3D;&quot;isAllLodged&quot; [ngModelOptions]&#x3D;&quot;{standalone: true}&quot; /&gt;
+              &lt;i class&#x3D;&quot;fa fa-fw fa-bed&quot;&gt;&lt;/i&gt;
+            &lt;/label&gt;
+            &lt;label [title]&#x3D;&quot;&#x27;Require transportation&#x27; | translate&quot; *ngIf&#x3D;&quot;tournament?.providesTransport&quot;&gt;
+              &lt;input type&#x3D;&quot;checkbox&quot; [(ngModel)]&#x3D;&quot;isAllTransport&quot; [ngModelOptions]&#x3D;&quot;{standalone: true}&quot; /&gt;
+              &lt;i class&#x3D;&quot;fa fa-fw fa-bus&quot;&gt;&lt;/i&gt;
+            &lt;/label&gt;
+            &lt;label [title]&#x3D;&quot;&#x27;Joining banquet&#x27; | translate&quot; *ngIf&#x3D;&quot;tournament?.providesBanquet&quot;&gt;
+              &lt;input type&#x3D;&quot;checkbox&quot; [(ngModel)]&#x3D;&quot;isAllBanquet&quot; [ngModelOptions]&#x3D;&quot;{standalone: true}&quot; /&gt;
+              &lt;i class&#x3D;&quot;fa fa-fw fa-cutlery&quot;&gt;&lt;/i&gt;
+            &lt;/label&gt;
+          &lt;/span&gt;
+        &lt;/app-member-selector&gt;
+      &lt;/div&gt;
+    &lt;/mat-card-content&gt;
+    &lt;mat-card-actions&gt;
+      &lt;app-save-button buttonType&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;teamForm.invalid || teamForm.pristine&quot;&gt;&lt;/app-save-button&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;button&quot; [title]&#x3D;&quot;&#x27;Cancel&#x27; | translate&quot; (click)&#x3D;&quot;close()&quot; aria-label&#x3D;&quot;Cancel&quot;&gt;&lt;i class&#x3D;&quot;fa fa-fw fa-ban&quot;&gt;&lt;/i&gt; &lt;span
+              translate&gt;Cancel&lt;/span&gt;&lt;/button&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;button&quot; *ngIf&#x3D;&quot;teamForm.value.id&quot; [title]&#x3D;&quot;&#x27;Delete&#x27; | translate&quot; class&#x3D;&quot;pull-right mat-warn&quot; (click)&#x3D;&quot;delete()&quot;
+              aria-label&#x3D;&quot;Delete&quot;&gt;&lt;i class&#x3D;&quot;fa fa-fw fa-trash&quot;&gt;&lt;/i&gt;
+        &lt;span translate&gt;Delete&lt;/span&gt;&lt;/button&gt;
+    &lt;/mat-card-actions&gt;
+  &lt;/mat-card&gt;
+&lt;/form&gt;
+
+&lt;ng-template #memberContent let-member&#x3D;&quot;member&quot;&gt;
+  &lt;div class&#x3D;&quot;member-extras flex-col&quot;&gt;
+    &lt;label *ngIf&#x3D;&quot;tournament?.providesLodging&quot; [title]&#x3D;&quot;&#x27;Require lodging&#x27; | translate&quot;&gt;&lt;input type&#x3D;&quot;checkbox&quot; [(ngModel)]&#x3D;&quot;member.lodging&quot; /&gt; &lt;i
+         class&#x3D;&quot;fa fa-fw fa-bed&quot;&gt;&lt;/i&gt;&lt;/label&gt;
+    &lt;label *ngIf&#x3D;&quot;tournament?.providesTransport&quot; [title]&#x3D;&quot;&#x27;Require transportation&#x27; | translate&quot;&gt;&lt;input type&#x3D;&quot;checkbox&quot; [(ngModel)]&#x3D;&quot;member.transport&quot; /&gt; &lt;i
+         class&#x3D;&quot;fa fa-fw fa-bus&quot;&gt;&lt;/i&gt;&lt;/label&gt;
+    &lt;label *ngIf&#x3D;&quot;tournament?.providesBanquet&quot; [title]&#x3D;&quot;&#x27;Joining banquet&#x27; | translate&quot;&gt;&lt;input type&#x3D;&quot;checkbox&quot; [(ngModel)]&#x3D;&quot;member.banquet&quot; /&gt; &lt;i
+         class&#x3D;&quot;fa fa-fw fa-cutlery&quot;&gt;&lt;/i&gt;&lt;/label&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./team-editor.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../../../../styles/variables&quot;;
+
+table[role&#x3D;&quot;list&quot;] {
+  tr[role&#x3D;&quot;listitem&quot;] {
+    cursor: inherit;
+    td {
+      padding: 0 $padding * 3;
+      label {
+        line-height: $padding * 10;
+        display: block;
+        height: $padding * 10;
+        white-space: nowrap;
+      }
+      input {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  thead th {
+    padding-top: ($padding * 5.5);
+    padding-bottom: 0;
+    border-bottom: 1px solid $primary;
+  }
+}
+header {
+  margin-left: 1rem;
+  .mat-slide-toggle {
+    float: right;
+    min-width: 10rem;
+  }
+}
+
+td {
+  &amp;.disciplines {
+    width: 5rem;
+  }
+  &amp;.media-head, &amp;.media {
+    // max-width: 50%;
+  }
+  &amp;.media-head {
+    padding-top: ($padding * 3);
+    padding-left: ($padding * 6) !important;
+    margin: 0 2px 2px 2px;
+  }
+}
+.divisions {
+  mat-form-field {
+    margin: 1rem 0 0 0;
+  }
+}
+app-member-selector span {
+  text-align: right;
+  margin-right: 3.5rem;
+}
+
+.member-extras {
+  text-align: right;
+  margin-right: 0.9rem;
+  label {
+    display: initial;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><form [formGroup]="teamForm" (ngSubmit)="save()">  <mat-card>    <mat-card-header>      <div class="card-actions">        <button type="button" mat-icon-button (click)="close()" aria-label="Close"><i class="fa fa-fw fa-close"></i></button>      </div>      <i class="fa fa-fw fa-group fa-2x" mat-card-avatar></i>      <mat-card-title>        <h3>{{ \'Team\' | translate}} {{ teamName }}</h3>      </mat-card-title>    </mat-card-header>    <mat-card-content>      <fieldset>        <div class="flex flex-row">          <div class="col-5" *ngIf="!currentUser?.club">            <app-club-lookup formControlName="club"></app-club-lookup>          </div>          <mat-form-field [ngClass]="{\'col-7\': !currentUser?.club, \'col-12\': currentUser?.club, \'help-available\': teamForm.value.club != null}">            <input matInput formControlName="name" placeholder="{{\'Name\' | translate}}" [matAutocomplete]="troopTypeahead" (blur)="tabOut(troopTypeahead)">            <mat-autocomplete #troopTypeahead="matAutocomplete" (optionSelected)="setSelectedTroop($event)" [displayWith]="troopDisplay">              <mat-option *ngFor="let troop of troopList" [value]="troop">                {{ troop.name }}              </mat-option>            </mat-autocomplete>            <app-help-block *ngIf="teamForm.value.club != null">              <p translate>You cannot enter a team name before you\'ve selected which club it belongs to</p>              <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="[\'/configure/club\']"                   aria-label="Configure club">Club</a>                section</p>            </app-help-block>          </mat-form-field>        </div>      </fieldset>      <div class="row">        <!-- Divisions -->        <div class="col-6 divisions">          <header>            <h2>              <i class="fa fa-fw fa-cubes"></i>              <span translate>Division</span>            </h2>          </header>          <fieldset>            <app-division-lookup formControlName="genderDivision" icon="venus-mars" placeholder="{{\'Gender group\' | translate}}" type="Gender"                                 [tournamentId]="tournamentId" class="col-12"></app-division-lookup>            <app-division-lookup formControlName="ageDivision" icon="child" placeholder="{{\'Age group\' | translate}}" type="Age" [tournamentId]="tournamentId"                                 class="col-12"></app-division-lookup>          </fieldset>        </div>        <!-- Disciplines -->        <div class="col-6">          <header>            <h2>              <i class="fa fa-fw fa-heartbeat"></i>              <span translate>Disciplines</span>              <mat-slide-toggle class="mat-primary" formControlName="class" [checked]="teamForm.value.class === classes.TeamGym" (change)="classChange($event)">                <span *ngIf="teamForm.value.class === classes.TeamGym" translate>TeamGym</span>                <span *ngIf="teamForm.value.class === classes.National" translate>National</span>              </mat-slide-toggle>            </h2>          </header>          <div>            <table role="list">              <tr role="listitem">                <td class="disciplines">                  <label>                    <input type="checkbox" [checked]="allChecked" (click)="toggleChecked()"                           [disabled]="teamForm.value.class === classes.TeamGym || teamForm.value.club == null || teamForm.value.name == null">                    <span translate>All</span>                  </label>                </td>                <td class="media-head help-available">                  <i class="fa fa-fw fa-music"></i>                  <span translate>Upload media</span>                  <app-help-block>                    <p><span translate>The</span> <i class="fa fa-fw fa-upload"></i>                      <span translate>buttons below will allow you to upload media for your teams performance in that discipline</span>                    </p>                    <p *ngIf="teamForm.invalid">                      <b translate>You will not see any upload button until you have specified a team name, divisions and disciplines.</b>                    </p>                  </app-help-block>                </td>              </tr>              <tbody formArrayName="disciplines">                <tr role="listitem" *ngFor="let discipline of teamDiscipline.controls; let i = index;" [formGroupName]="i">                  <td class="disciplines">                    <label>                      <input type="checkbox" formControlName="checked">                      {{ discipline.value.name }}                    </label>                  </td>                  <td class="media">                    <app-media-control *ngIf="discipline.value.checked" [media]="getMedia(discipline.value.id)" [clubId]="teamForm.value.club?.id"                                       [disciplineId]="discipline.value.id" [disciplineName]="discipline.value.name" [teamId]="teamForm.value.id"                                       [canUpload]="true"></app-media-control>                  </td>                </tr>              </tbody>            </table>          </div>        </div>      </div>      <div class="row">        <!-- Members -->        <app-member-selector [club]="teamForm.value.club && teamForm.value.club.id ? teamForm.value.club : null" [troopName]="teamForm.value.name"                             [gymnasts]="teamForm.value.gymnasts" (gymnastsChange)="teamForm.markAsDirty()" [memberTemplate]="memberContent">          <span class="flex-col" *ngIf="teamForm.value.gymnasts != null && teamForm.value.gymnasts.length > 0">            <label [title]="\'Require lodging\' | translate" *ngIf="tournament?.providesLodging">              <input type="checkbox" [(ngModel)]="isAllLodged" [ngModelOptions]="{standalone: true}" />              <i class="fa fa-fw fa-bed"></i>            </label>            <label [title]="\'Require transportation\' | translate" *ngIf="tournament?.providesTransport">              <input type="checkbox" [(ngModel)]="isAllTransport" [ngModelOptions]="{standalone: true}" />              <i class="fa fa-fw fa-bus"></i>            </label>            <label [title]="\'Joining banquet\' | translate" *ngIf="tournament?.providesBanquet">              <input type="checkbox" [(ngModel)]="isAllBanquet" [ngModelOptions]="{standalone: true}" />              <i class="fa fa-fw fa-cutlery"></i>            </label>          </span>        </app-member-selector>      </div>    </mat-card-content>    <mat-card-actions>      <app-save-button buttonType="submit" [disabled]="teamForm.invalid || teamForm.pristine"></app-save-button>      <button mat-raised-button type="button" [title]="\'Cancel\' | translate" (click)="close()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span              translate>Cancel</span></button>      <button mat-raised-button type="button" *ngIf="teamForm.value.id" [title]="\'Delete\' | translate" class="pull-right mat-warn" (click)="delete()"              aria-label="Delete"><i class="fa fa-fw fa-trash"></i>        <span translate>Delete</span></button>    </mat-card-actions>  </mat-card></form><ng-template #memberContent let-member="member">  <div class="member-extras flex-col">    <label *ngIf="tournament?.providesLodging" [title]="\'Require lodging\' | translate"><input type="checkbox" [(ngModel)]="member.lodging" /> <i         class="fa fa-fw fa-bed"></i></label>    <label *ngIf="tournament?.providesTransport" [title]="\'Require transportation\' | translate"><input type="checkbox" [(ngModel)]="member.transport" /> <i         class="fa fa-fw fa-bus"></i></label>    <label *ngIf="tournament?.providesBanquet" [title]="\'Joining banquet\' | translate"><input type="checkbox" [(ngModel)]="member.banquet" /> <i         class="fa fa-fw fa-cutlery"></i></label>  </div></ng-template></div>'
+    var COMPONENTS = [{'name': 'AdvancedComponent', 'selector': 'app-advanced'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AwardsComponent', 'selector': 'app-awards'},{'name': 'ClubComponent', 'selector': 'app-club'},{'name': 'ClubEditorComponent', 'selector': 'app-club-editor'},{'name': 'ClubLookupComponent', 'selector': 'app-club-lookup'},{'name': 'ConfigureComponent', 'selector': 'app-configure'},{'name': 'ConfigureDisplayComponent', 'selector': 'app-configure-display'},{'name': 'ContextMenuComponent', 'selector': 'app-context-menu'},{'name': 'DialogComponent', 'selector': 'app-dialog'},{'name': 'DisciplineEditorComponent', 'selector': 'app-discipline-editor'},{'name': 'DisciplinesComponent', 'selector': 'app-disciplines'},{'name': 'DisplayComponent', 'selector': 'app-display'},{'name': 'DivisionEditorComponent', 'selector': 'app-division-editor'},{'name': 'DivisionLookupComponent', 'selector': 'app-division-lookup'},{'name': 'DivisionsComponent', 'selector': 'app-divisions'},{'name': 'ErrorDialogComponent', 'selector': 'app-error-dialog'},{'name': 'EventComponent', 'selector': 'app-event'},{'name': 'FullscreenComponent', 'selector': 'app-fullscreen'},{'name': 'HelpBlockComponent', 'selector': 'app-help-block'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InfoComponent', 'selector': 'app-info'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoadSpinnerComponent', 'selector': ''},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'MacroDialogComponent', 'selector': 'app-macro-dialog'},{'name': 'MediaComponent', 'selector': 'app-media'},{'name': 'MediaControlComponent', 'selector': 'app-media-control'},{'name': 'MemberEditorComponent', 'selector': 'app-member-editor'},{'name': 'MembersComponent', 'selector': 'app-members'},{'name': 'MemberSelectorComponent', 'selector': 'app-member-selector'},{'name': 'MultirangeComponent', 'selector': 'app-multirange'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetComponent', 'selector': 'app-reset'},{'name': 'ResultsComponent', 'selector': 'app-results'},{'name': 'SaveButtonComponent', 'selector': 'app-save-button'},{'name': 'ScheduleComponent', 'selector': 'app-schedule'},{'name': 'ScorecardsComponent', 'selector': 'app-scorecards'},{'name': 'ScoreEditorComponent', 'selector': 'app-score-editor'},{'name': 'ScoreGroupEditorComponent', 'selector': 'app-score-group-editor'},{'name': 'ScoreSystemComponent', 'selector': 'app-score-system'},{'name': 'SignoffReportComponent', 'selector': 'app-signoff-report'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'TeamEditorComponent', 'selector': 'app-team-editor'},{'name': 'TeamsComponent', 'selector': 'app-teams'},{'name': 'TournamentComponent', 'selector': 'app-tournament'},{'name': 'TournamentEditorComponent', 'selector': 'app-tournament-editor'},{'name': 'TroopEditorComponent', 'selector': 'app-troop-editor'},{'name': 'TroopsComponent', 'selector': 'app-troops'},{'name': 'UserEditorComponent', 'selector': 'app-user-editor'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VenueComponent', 'selector': 'app-venue'},{'name': 'VenueEditorComponent', 'selector': 'app-venue-editor'}];
+    var DIRECTIVES = [{'name': 'IfAuthDirective', 'selector': '[appIfAuth]'},{'name': 'ToCaseDirective', 'selector': 'input[appToCase]'}];
+    var ACTUAL_COMPONENT = {'name': 'TeamEditorComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TeamEditorComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

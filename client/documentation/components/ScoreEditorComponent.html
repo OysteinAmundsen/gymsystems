@@ -1,0 +1,1644 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>ScoreEditorComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/views/event/list/score-editor/score-editor.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-score-editor</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./score-editor.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./score-editor.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#classes">classes</a>
+                            </li>
+                            <li>
+                                <a href="#currentUser">currentUser</a>
+                            </li>
+                            <li>
+                                <a href="#groupedScores">groupedScores</a>
+                            </li>
+                            <li>
+                                <a href="#roles">roles</a>
+                            </li>
+                            <li>
+                                <a href="#scoreGroups">scoreGroups</a>
+                            </li>
+                            <li>
+                                <a href="#scoreQuery">scoreQuery</a>
+                            </li>
+                            <li>
+                                <a href="#subscriptions">subscriptions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#delete">delete</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit">ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onBlur">onBlur</a>
+                            </li>
+                            <li>
+                                <a href="#onClose">onClose</a>
+                            </li>
+                            <li>
+                                <a href="#rollback">rollback</a>
+                            </li>
+                            <li>
+                                <a href="#save">save</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#participant">participant</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#close">close</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#window:keydown">window:keydown</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#grandTotal">grandTotal</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(elm: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>, graph: <a href="../injectables/GraphService.html">GraphService</a>, userService: <a href="../injectables/UserService.html">UserService</a>, dom)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:40</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>elm</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>graph</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dom</td>
+                                                  
+                                                        <td>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="participant"></a>
+                        <b>participant</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ITeamInDiscipline.html" target="_self" >ITeamInDiscipline</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:23</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="close"></a>
+                        <b>close</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter&lt;string&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:24</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="window:keydown"></a>
+                    <span class="name">
+                        <b>
+                            window:keydown
+                        </b>
+                        <a href="#window:keydown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>window:keydown(event: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="163"
+                            class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:163</a></div>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="delete"></a>
+                    <span class="name">
+                        <b>
+                            delete
+                        </b>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>delete()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="125"
+                            class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:125</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <b>
+                            ngAfterViewInit
+                        </b>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:86</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="100"
+                            class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:100</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="55"
+                            class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:55</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onBlur"></a>
+                    <span class="name">
+                        <b>
+                            onBlur
+                        </b>
+                        <a href="#onBlur"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onBlur(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="144"
+                            class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:144</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onClose"></a>
+                    <span class="name">
+                        <b>
+                            onClose
+                        </b>
+                        <a href="#onClose"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onClose(res?)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:107</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>res</td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rollback"></a>
+                    <span class="name">
+                        <b>
+                            rollback
+                        </b>
+                        <a href="#rollback"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>rollback()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="135"
+                            class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:135</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="save"></a>
+                    <span class="name">
+                        <b>
+                            save
+                        </b>
+                        <a href="#save"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>save()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="114"
+                            class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:114</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="classes"></a>
+                        <span class="name">
+                            <b>
+                            classes</b>
+                            <a href="#classes"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Classes</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentUser"></a>
+                        <span class="name">
+                            <b>
+                            currentUser</b>
+                            <a href="#currentUser"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IUser.html" target="_self" >IUser</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="groupedScores"></a>
+                        <span class="name">
+                            <b>
+                            groupedScores</b>
+                            <a href="#groupedScores"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/ScoreContainer.html" target="_self" >ScoreContainer[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:31</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="roles"></a>
+                        <span class="name">
+                            <b>
+                            roles</b>
+                            <a href="#roles"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Role</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="scoreGroups"></a>
+                        <span class="name">
+                            <b>
+                            scoreGroups</b>
+                            <a href="#scoreGroups"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>IScoreGroup[]</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="scoreQuery"></a>
+                        <span class="name">
+                            <b>
+                            scoreQuery</b>
+                            <a href="#scoreQuery"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x60;{id,participantId,value,judgeIndex,scoreGroupId,scoreGroup{id,name,type}}&#x60;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:22</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subscriptions"></a>
+                        <span class="name">
+                            <b>
+                            subscriptions</b>
+                            <a href="#subscriptions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="grandTotal"></a>
+                        <span class="name"><b>grandTotal</b><a href="#grandTotal"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>grandTotal()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/views/event/list/score-editor/score-editor.component.ts:34</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, HostListener, ElementRef, AfterViewInit, Inject } from &#x27;@angular/core&#x27;;
+import { ITeamInDiscipline, IUser, Role, IScore, Operation, IScoreGroup, Classes } from &#x27;app/model&#x27;;
+import { ScoreContainer } from &#x27;app/views/event/list/IScoreContainer&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { clone } from &#x27;lodash&#x27;;
+
+import { UserService } from &#x27;app/shared/services/api&#x27;;
+import { GraphService } from &#x27;app/shared/services/graph.service&#x27;;
+import { BrowserService } from &#x27;app/shared/browser.service&#x27;;
+import { CommonService } from &#x27;app/shared/services/common.service&#x27;;
+import { DOCUMENT } from &#x27;@angular/common&#x27;;
+
+/**
+ *
+ */
+@Component({
+  selector: &#x27;app-score-editor&#x27;,
+  templateUrl: &#x27;./score-editor.component.html&#x27;,
+  styleUrls: [&#x27;./score-editor.component.scss&#x27;]
+})
+export class ScoreEditorComponent implements OnInit, AfterViewInit, OnDestroy {
+  scoreQuery &#x3D; &#x60;{id,participantId,value,judgeIndex,scoreGroupId,scoreGroup{id,name,type}}&#x60;;
+  @Input() participant: ITeamInDiscipline;
+  @Output() close: EventEmitter&lt;string&gt; &#x3D; new EventEmitter&lt;string&gt;();
+
+  roles &#x3D; Role;
+  classes &#x3D; Classes;
+  currentUser: IUser;
+  scoreGroups: IScoreGroup[];
+
+  groupedScores: ScoreContainer[];
+  subscriptions: Subscription[] &#x3D; [];
+
+  get grandTotal() {
+    return this.groupedScores ? this.groupedScores.reduce((prev: number, container: ScoreContainer) &#x3D;&gt; {
+      return prev &#x3D; (container.scoreGroup.operation &#x3D;&#x3D;&#x3D; Operation.Addition)
+        ? prev + container.avg
+        : prev - container.avg;
+    }, 0) : this.participant.total;
+  }
+
+  /**
+   *
+   */
+  constructor(
+    private elm: ElementRef,
+    private graph: GraphService,
+    private userService: UserService,
+    @Inject(DOCUMENT) private dom
+  ) { }
+
+  /**
+   *
+   */
+  ngOnInit() {
+    this.subscriptions.push(this.userService.getMe().subscribe(user &#x3D;&gt; this.currentUser &#x3D; user));
+    this.graph.getData(&#x60;{
+      getScoreGroups(disciplineId:${this.participant.disciplineId}){id,name,type,operation,judgeCount,max,min},
+      getScores(participantId:${this.participant.id})${this.scoreQuery}
+    }&#x60;)
+      .subscribe(res &#x3D;&gt; {
+        this.scoreGroups &#x3D; res.getScoreGroups;
+        this.participant.scores &#x3D; res.getScores.map(s &#x3D;&gt; {
+          s.scoreGroup &#x3D; this.scoreGroups.find(g &#x3D;&gt; g.id &#x3D;&#x3D;&#x3D; s.scoreGroupId); return s;
+        });
+        if (!this.participant.scores.length) {
+          // Empty score array. Create one score, per judge, per scoregroup
+          this.scoreGroups.forEach(group &#x3D;&gt; {
+            for (let j &#x3D; 0; j &lt; group.judgeCount; j++) {
+              this.participant.scores.push(&lt;IScore&gt;{ participantId: this.participant.id, scoreGroup: group, scoreGroupId: group.id, value: 0, judgeIndex: j + 1 });
+            }
+          });
+        }
+
+        // Group scores per score group
+        this.groupedScores &#x3D; this.scoreGroups.map(group &#x3D;&gt; {
+          return new ScoreContainer(group.id, group, this.participant.scores // Create a container for the scores
+            .filter(s &#x3D;&gt; s.scoreGroupId &#x3D;&#x3D;&#x3D; group.id)              // ... grouped by scoregroup
+            .sort((a, b) &#x3D;&gt; a.judgeIndex &lt; b.judgeIndex ? -1 : 1)  // ... and make sure it&#x27;s sorted according to judgeindex
+            .map(s &#x3D;&gt; clone(s))                                  // Apply using a copy so we can cancel the edit.
+          );
+        });
+      });
+  }
+
+  ngAfterViewInit() {
+    const rect: DOMRect &#x3D; this.elm.nativeElement.getBoundingClientRect();
+    if (rect.top &gt; this.dom.documentElement.clientHeight || rect.top &lt; 180) {
+      this.dom.documentElement.scrollTo({
+        left: 0,
+        top: this.dom.documentElement.scrollTop + (rect.y - (this.dom.documentElement.clientHeight / 2)),
+        behavior: &#x27;smooth&#x27;
+      });
+    }
+  }
+
+  /**
+   *
+   */
+  ngOnDestroy() {
+    this.subscriptions.forEach(s &#x3D;&gt; s ? s.unsubscribe() : null);
+  }
+
+  /**
+   *
+   */
+  onClose(res?) {
+    this.close.emit(res);
+  }
+
+  /**
+   *
+   */
+  save() {
+    // Write back copy
+    const scores &#x3D; this.groupedScores.reduce((prev, curr) &#x3D;&gt; prev.concat(curr.scores.map(s &#x3D;&gt; CommonService.omit(s, [&#x27;scoreGroup&#x27;]))), []);
+    this.graph.saveData(&#x60;Score&#x60;, scores, this.scoreQuery).subscribe(res &#x3D;&gt; {
+      this.onClose(res.saveScores);
+    });
+  }
+
+  /**
+   *
+   */
+  delete() {
+    if (this.currentUser.role &gt;&#x3D; Role.Organizer || this.participant.publishTime &#x3D;&#x3D; null) {
+      this.participant.scores &#x3D; [];
+      this.graph.deleteData(&#x27;Score&#x27;, this.participant.id).subscribe(() &#x3D;&gt; this.onClose());
+    }
+  }
+
+  /**
+   *
+   */
+  rollback() {
+    if (this.currentUser.role &gt;&#x3D; Role.Organizer) {
+      this.graph.post(&#x60;{rollback(participantId: ${this.participant.id})}&#x60;).subscribe(() &#x3D;&gt; this.close.emit(&#x27;rollback&#x27;));
+    }
+  }
+
+  /**
+   *
+   */
+  onBlur(event: Event) {
+    // tslint:disable-next-line:deprecation
+    const identifier &#x3D; (&lt;HTMLElement&gt;event.target).id.split(&#x27;_&#x27;);
+    const group &#x3D; this.groupedScores.find(g &#x3D;&gt; g.scoreGroup.type &#x3D;&#x3D;&#x3D; identifier[1]);
+    const score &#x3D; group.scores.find(s &#x3D;&gt; s.judgeIndex &#x3D;&#x3D;&#x3D; +identifier[2]);
+
+    if (group.total &gt; 0 &amp;&amp; score.value &#x3D;&#x3D;&#x3D; 0 &amp;&amp; score.judgeIndex &gt; 0) {
+      // Check previous and copy (0 is not allowed)
+      const prev &#x3D; group.scores.find(s &#x3D;&gt; s.judgeIndex &#x3D;&#x3D;&#x3D; score.judgeIndex - 1);
+      if (prev) { score.value &#x3D; prev.value; }
+    }
+    const fixedVal &#x3D; (Math.ceil(score.value * 20) / 20).toFixed(2);
+    score.value &#x3D; parseFloat(fixedVal);
+  }
+
+  /**
+   *
+   */
+  @HostListener(&#x27;window:keydown&#x27;, [&#x27;$event&#x27;])
+  onKeydown(event: KeyboardEvent) {
+    if (event.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27; || event.key &#x3D;&#x3D;&#x3D; &#x27;Esc&#x27;) {
+      this.onClose();
+    }
+    if (event.ctrlKey) {
+      switch (event.key) {
+        case &#x27;ArrowLeft&#x27;: if (event.ctrlKey) { this.close.emit(&#x27;previous&#x27;) } break;
+        case &#x27;ArrowRight&#x27;: if (event.ctrlKey) { this.close.emit(&#x27;next&#x27;) } break;
+      }
+    }
+
+    // Only applicable when focus is on the input fields
+    // tslint:disable-next-line:deprecation
+    if ((&lt;HTMLElement&gt;event.target).nodeName &#x3D;&#x3D;&#x3D; &#x27;INPUT&#x27;) {
+      // tslint:disable-next-line:deprecation
+      const identifier &#x3D; (&lt;HTMLElement&gt;event.target).id.split(&#x27;_&#x27;);
+      const group &#x3D; this.groupedScores.find(g &#x3D;&gt; g.scoreGroup.type &#x3D;&#x3D;&#x3D; identifier[1]);
+      const score &#x3D; group.scores.find(s &#x3D;&gt; s.judgeIndex &#x3D;&#x3D;&#x3D; +identifier[2]);
+      const min &#x3D; score.scoreGroup.min;
+      const max &#x3D; score.scoreGroup.max;
+      switch (event.key) {
+        // Page down should decrease with one full point
+        case &#x27;PageDown&#x27;: score.value -&#x3D; (score.value &gt; min) ? 1 : 0; event.preventDefault(); break;
+
+        // Page up should increase with one full point
+        case &#x27;PageUp&#x27;: score.value +&#x3D; (score.value &lt; max) ? 1 : 0; event.preventDefault(); break;
+
+        // Home key should zero out the point
+        case &#x27;Home&#x27;: score.value &#x3D; min; break;
+
+        // End key should max out the point
+        case &#x27;End&#x27;: score.value &#x3D; max; break;
+      }
+      if (score.value &lt; min) { score.value &#x3D; min; }
+      if (score.value &gt; max) { score.value &#x3D; max; }
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;overlay&quot; (click)&#x3D;&quot;onClose()&quot;&gt;&lt;/div&gt;
+&lt;form (ngSubmit)&#x3D;&quot;save()&quot; #form&gt;
+  &lt;mat-card class&#x3D;&quot;mat-elevation-z8&quot;&gt;
+    &lt;!-- &lt;mat-card-header&gt;
+      &lt;h4 mat-card-avatar&gt;#{{ participant.startNumber + 1 }}&lt;/h4&gt;
+      &lt;mat-card-title&gt;
+        &lt;h3&gt;{{ participant.team.name }} - {{ participant.disciplineName}}&lt;/h3&gt;
+      &lt;/mat-card-title&gt;
+    &lt;/mat-card-header&gt; --&gt;
+
+    &lt;table role&#x3D;&quot;list&quot;&gt;
+      &lt;tbody role&#x3D;&quot;listitem&quot;&gt;
+        &lt;!-- View details wide screen --&gt;
+        &lt;tr&gt;
+          &lt;td class&#x3D;&quot;start-no&quot;&gt;#{{ participant.startNumber + 1 }}&lt;/td&gt;
+          &lt;td class&#x3D;&quot;visible-medium start-time&quot;&gt;{{ participant.startTime | date:&#x27;HH:mm&#x27; }}&lt;/td&gt;
+          &lt;td class&#x3D;&quot;team&quot;&gt;{{ participant.team.name }}&lt;/td&gt;
+          &lt;td class&#x3D;&quot;visible-medium division&quot;&gt;&lt;b *ngIf&#x3D;&quot;participant.team.class &#x3D;&#x3D;&#x3D; classes.TeamGym&quot;&gt;TG: &lt;/b&gt;{{
+            participant.divisionName }}&lt;/td&gt;
+          &lt;td class&#x3D;&quot;visible-medium nowrap discipline&quot;&gt;&lt;i class&#x3D;&quot;square&quot; [attr.discipline]&#x3D;&quot;participant.disciplineSortOrder&quot;&gt;&lt;/i&gt;
+            {{ participant.disciplineName }}&lt;/td&gt;
+          &lt;td class&#x3D;&quot;score&quot;&gt;{{ grandTotal | number:&#x27;1.3-3&#x27; }}&lt;/td&gt;
+        &lt;/tr&gt;
+
+        &lt;!-- View details narrow screen --&gt;
+        &lt;tr class&#x3D;&quot;visible-narrow screen-only details&quot;&gt;
+          &lt;td&gt;{{ participant.startTime | date:&#x27;HH:mm&#x27; }}&lt;/td&gt;
+          &lt;td&gt;
+            &lt;small class&#x3D;&quot;nowrap&quot;&gt;
+              &lt;i class&#x3D;&quot;square&quot; [attr.discipline]&#x3D;&quot;participant.disciplineSortOrder&quot;&gt;&lt;/i&gt;
+              {{ participant.disciplineName }}
+              -
+              {{ participant.divisionName }}
+            &lt;/small&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;mat-card-content&gt;
+      &lt;div role&#x3D;&quot;table&quot;&gt;
+        &lt;div role&#x3D;&quot;row&quot;&gt;
+          &lt;section *ngFor&#x3D;&quot;let group of groupedScores&quot; class&#x3D;&quot;x{{ group.scores ? group.scores.length : &#x27;0&#x27; }} group_{{ group.scoreGroup.type }}&quot;&gt;
+            &lt;header&gt;
+              {{ group.scoreGroup.name }}
+            &lt;/header&gt;
+            &lt;span *ngFor&#x3D;&quot;let score of group.scores&quot; class&#x3D;&quot;score-field&quot;&gt;
+              &lt;label for&#x3D;&quot;field_{{ group.scoreGroup.type }}_{{score.judgeIndex}}&quot;&gt;
+                {{group.scoreGroup.type}}{{score.judgeIndex}}
+              &lt;/label&gt;
+              &lt;input type&#x3D;&quot;number&quot; id&#x3D;&quot;field_{{ group.scoreGroup.type }}_{{score.judgeIndex}}&quot; name&#x3D;&quot;field_{{ group.scoreGroup.type }}_{{score.judgeIndex}}&quot;
+                     max&#x3D;&quot;{{ group.scoreGroup.max }}&quot; min&#x3D;&quot;{{ group.scoreGroup.min }}&quot; maxlength&#x3D;&quot;3&quot; step&#x3D;&quot;0.1&quot; [(ngModel)]&#x3D;&quot;score.value&quot;
+                     (blur)&#x3D;&quot;onBlur($event)&quot; /&gt;
+            &lt;/span&gt;
+
+            &lt;footer&gt;
+              &lt;span translate&gt;Calculated: &lt;/span&gt;
+              &lt;code&gt;{{ group.avg || 0 | number:&#x27;1.2-2&#x27; }}&amp;nbsp;&lt;/code&gt;
+            &lt;/footer&gt;
+          &lt;/section&gt;
+
+          &lt;section class&#x3D;&quot;final&quot;&gt;
+            &lt;header translate&gt;Final score&lt;/header&gt;
+            &lt;div *ngFor&#x3D;&quot;let type of groupedScores&quot;&gt;
+              &lt;span&gt;
+                &lt;label class&#x3D;&quot;large&quot;&gt;{{ type.scoreGroup.type }} : &lt;/label&gt;
+                &lt;label class&#x3D;&quot;small&quot;&gt;{{ type.scoreGroup.name }}
+                  &lt;small&gt;[{{ type.scoreGroup.type }}]&lt;/small&gt;:
+                &lt;/label&gt;
+              &lt;/span&gt;
+              &lt;code&gt;{{ type.avg || 0 | number:&#x27;1.2-2&#x27; }}&amp;nbsp;&lt;/code&gt;
+            &lt;/div&gt;
+            &lt;footer&gt;
+              &lt;span&gt;
+                &lt;label class&#x3D;&quot;large&quot;&gt;F:&lt;/label&gt;
+                &lt;label class&#x3D;&quot;small&quot; translate&gt;Final score:&lt;/label&gt;
+              &lt;/span&gt;
+              &lt;code&gt;{{ grandTotal | number:&#x27;1.3-3&#x27; }}&lt;/code&gt;
+            &lt;/footer&gt;
+          &lt;/section&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/mat-card-content&gt;
+
+    &lt;mat-card-actions&gt;
+      &lt;app-save-button buttonType&#x3D;&quot;submit&quot;&gt;&lt;/app-save-button&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;button&quot; [title]&#x3D;&quot;form.isDirty ? &#x27;Cancel&#x27; : &#x27;Close&#x27; | translate&quot; (click)&#x3D;&quot;onClose()&quot; aria-label&#x3D;&quot;Cancel&quot;&gt;
+        &lt;i class&#x3D;&quot;fa fa-fw fa-ban&quot;&gt;&lt;/i&gt;
+        &lt;span *ngIf&#x3D;&quot;form.isDirty&quot; translate&gt;Cancel&lt;/span&gt;
+        &lt;span *ngIf&#x3D;&quot;!form.isDirty&quot; translate&gt;Close&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button mat-raised-button *ngIf&#x3D;&quot;participant.publishTime &#x3D;&#x3D; null || currentUser.role &gt;&#x3D; roles.Organizer&quot; type&#x3D;&quot;button&quot; [title]&#x3D;&quot;&#x27;Delete&#x27; | translate&quot;
+              class&#x3D;&quot;pull-right mat-warn&quot; (click)&#x3D;&quot;delete()&quot; aria-label&#x3D;&quot;Delete&quot;&gt;
+        &lt;i class&#x3D;&quot;fa fa-fw fa-trash&quot;&gt;&lt;/i&gt;
+        &lt;span *ngIf&#x3D;&quot;participant.publishTime &#x3D;&#x3D; null &amp;&amp; participant.endTime &#x3D;&#x3D; null&quot; translate&gt;Delete&lt;/span&gt;
+        &lt;span *ngIf&#x3D;&quot;participant.publishTime &#x3D;&#x3D; null &amp;&amp; participant.endTime !&#x3D; null&quot; translate&gt;Empty scores&lt;/span&gt;
+        &lt;span *ngIf&#x3D;&quot;participant.publishTime !&#x3D; null&quot; translate&gt;Allready published!&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button mat-raised-button *ngIf&#x3D;&quot;participant.endTime !&#x3D; null &amp;&amp; currentUser.role &gt;&#x3D; roles.Organizer&quot; type&#x3D;&quot;button&quot; [title]&#x3D;&quot;&#x27;Rollback&#x27; | translate&quot;
+              class&#x3D;&quot;pull-right mat-warn&quot; (click)&#x3D;&quot;rollback()&quot; aria-label&#x3D;&quot;Rollback&quot;&gt;
+        &lt;i class&#x3D;&quot;fa fa-fw fa-undo&quot;&gt;&lt;/i&gt;
+        &lt;span translate&gt;Rollback&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div *ngIf&#x3D;&quot;participant.publishTime !&#x3D; null &amp;&amp; currentUser.role &lt; roles.Organizer&quot; class&#x3D;&quot;pull-right warning&quot;&gt;
+        &lt;span translate&gt;Allready published!&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/mat-card-actions&gt;
+  &lt;/mat-card&gt;
+  {{ form.isDirty }}
+&lt;/form&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./score-editor.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../../../styles/variables&quot;;
+@import &#x27;~@angular/material/theming&#x27;;
+
+
+:host {
+  cursor: auto;
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  &amp;:hover table[role&#x3D;&quot;list&quot;] tbody[role&#x3D;&quot;listitem&quot;] td {
+    cursor: auto;
+    background: transparent !important;
+  }
+}
+.overlay {
+  display: block;
+  position: fixed;
+  background: rgba(0,0,0,0.35);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+form {
+  position: relative;
+  z-index: 20;
+}
+.mat-card {
+  margin: 0 -12px;
+  &gt; table {
+    margin: -20px -6px 0;
+    width: -webkit-fill-available;
+    width: stretch;
+    td.score      { width: 1rem;  }
+    td.discipline { width: 22.2%; }
+    td.division   { width: 25%; }
+    td.team 	    { width: 21.7%; }
+    td.start-time { width: 10.4%; }
+    td.start-no	  { width: 10.4%; }
+    td.actions    { max-width: 40px; width: 40px;}
+  }
+  @media (min-width: $stop1) {
+    margin: 0 -24px;
+    padding: 20px 30px;
+  }
+  .mat-card-avatar {
+    padding-top: 2px;
+    padding-left: 7px;
+  }
+  // Group sections
+  app-score-group,
+  section {
+    @include mat-elevation(2);
+    background: #ececec;
+    white-space: nowrap;
+    margin: 0 $margin $margin 0;
+    display: table-cell;
+    padding: $padding $padding 2.3rem $padding;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    border-radius: 4px;
+    height: 130px;
+    background-image: radial-gradient(ellipse at 50% 0px, white 10%, transparent 70%);
+    @media (max-width: $stop1) {
+      float: left;
+      width: calc(50% - 3px);
+      &amp;:nth-of-type(2n) {
+        margin-right: 0;
+      }
+    }
+    @media (max-width: $stop2) {
+      width: 100%;
+    }
+    header {
+      font-weight: bold;
+      margin: $negPad $negPad 0 $negPad;
+      padding: $padding;
+      color: rgba(black, 0.7);
+    }
+    footer {
+      padding: 0.2rem $padding 0 $padding;
+      border-top: 1px solid #ddd;
+      text-align: left;
+      box-shadow: 0 3px 22px -7px rgba(black, 0.5) inset;
+      height: 1.7rem;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      color: white;
+      background: $primary;
+      span {
+        flex: 1;
+        font-style: oblique;
+        font-weight: bold;
+        @media (max-width: $stop1) {
+          display: inline;
+        }
+      }
+    }
+  }
+  // Final score box
+  section.final {
+    text-align: left;
+    footer {
+      padding: $padding ($padding * 2);
+    }
+    &gt; div {
+      display: flex;
+      &amp;:hover {
+        background-color: rgba(black, 0.1);
+        cursor: pointer;
+      }
+      span {
+        flex: 1;
+      }
+    }
+    label {
+      margin: 0;
+      small {
+        position: absolute;
+        left: 6rem;
+      }
+      &amp;.small {
+        display: none;
+      }
+    }
+    @media (max-width: $stop1) {
+      width: 100%;
+      label {
+        &amp;.small {
+          display: inline-block;
+        }
+        &amp;.large {
+          display: none;
+        }
+      }
+    }
+    footer {
+      font-weight: bold;
+    }
+  }
+  // Avg or total score numbers
+  code {
+    font-family: Consolas, &#x27;Liberation Mono&#x27;, Menlo, Courier, monospace;
+    float: right;
+    font-size: 0.86rem;
+    vertical-align: bottom;
+  }
+}
+
+header&gt;h3 {
+  margin: 12px 24px;
+}
+
+form&gt;footer&gt;div.warning {
+  line-height: 40px;
+}
+.score-field {
+  padding: 0.2rem;
+  display: inline-block;
+  max-width: 3.5rem;
+  &gt; label {
+    cursor: text;
+    height: $labelHeight;
+    font-size: 0.8rem;
+    display: inline-block;
+    padding: 0.1rem 0 0 $margin;
+    margin-top: $margin * 2;
+    &amp;:first-of-type {
+      margin-top: 0;
+    }
+  }
+  &gt; input {
+    display: block;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(black, 0.4);
+    padding: ($padding * 2) $padding;
+    min-height: $inputHeight;
+    outline: none;
+    margin: 2px;
+    width: 100%;
+    &amp;:focus,
+    &amp;:active {
+      border-color: rgba($primaryDark, 0.8);
+      box-shadow: 0 -2px 2px -2px rgba($primary, 0.6) inset;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="overlay" (click)="onClose()"></div><form (ngSubmit)="save()" #form>  <mat-card class="mat-elevation-z8">    <!-- <mat-card-header>      <h4 mat-card-avatar>#{{ participant.startNumber + 1 }}</h4>      <mat-card-title>        <h3>{{ participant.team.name }} - {{ participant.disciplineName}}</h3>      </mat-card-title>    </mat-card-header> -->    <table role="list">      <tbody role="listitem">        <!-- View details wide screen -->        <tr>          <td class="start-no">#{{ participant.startNumber + 1 }}</td>          <td class="visible-medium start-time">{{ participant.startTime | date:\'HH:mm\' }}</td>          <td class="team">{{ participant.team.name }}</td>          <td class="visible-medium division"><b *ngIf="participant.team.class === classes.TeamGym">TG: </b>{{            participant.divisionName }}</td>          <td class="visible-medium nowrap discipline"><i class="square" [attr.discipline]="participant.disciplineSortOrder"></i>            {{ participant.disciplineName }}</td>          <td class="score">{{ grandTotal | number:\'1.3-3\' }}</td>        </tr>        <!-- View details narrow screen -->        <tr class="visible-narrow screen-only details">          <td>{{ participant.startTime | date:\'HH:mm\' }}</td>          <td>            <small class="nowrap">              <i class="square" [attr.discipline]="participant.disciplineSortOrder"></i>              {{ participant.disciplineName }}              -              {{ participant.divisionName }}            </small>          </td>        </tr>      </tbody>    </table>    <mat-card-content>      <div role="table">        <div role="row">          <section *ngFor="let group of groupedScores" class="x{{ group.scores ? group.scores.length : \'0\' }} group_{{ group.scoreGroup.type }}">            <header>              {{ group.scoreGroup.name }}            </header>            <span *ngFor="let score of group.scores" class="score-field">              <label for="field_{{ group.scoreGroup.type }}_{{score.judgeIndex}}">                {{group.scoreGroup.type}}{{score.judgeIndex}}              </label>              <input type="number" id="field_{{ group.scoreGroup.type }}_{{score.judgeIndex}}" name="field_{{ group.scoreGroup.type }}_{{score.judgeIndex}}"                     max="{{ group.scoreGroup.max }}" min="{{ group.scoreGroup.min }}" maxlength="3" step="0.1" [(ngModel)]="score.value"                     (blur)="onBlur($event)" />            </span>            <footer>              <span translate>Calculated: </span>              <code>{{ group.avg || 0 | number:\'1.2-2\' }}&nbsp;</code>            </footer>          </section>          <section class="final">            <header translate>Final score</header>            <div *ngFor="let type of groupedScores">              <span>                <label class="large">{{ type.scoreGroup.type }} : </label>                <label class="small">{{ type.scoreGroup.name }}                  <small>[{{ type.scoreGroup.type }}]</small>:                </label>              </span>              <code>{{ type.avg || 0 | number:\'1.2-2\' }}&nbsp;</code>            </div>            <footer>              <span>                <label class="large">F:</label>                <label class="small" translate>Final score:</label>              </span>              <code>{{ grandTotal | number:\'1.3-3\' }}</code>            </footer>          </section>        </div>      </div>    </mat-card-content>    <mat-card-actions>      <app-save-button buttonType="submit"></app-save-button>      <button mat-raised-button type="button" [title]="form.isDirty ? \'Cancel\' : \'Close\' | translate" (click)="onClose()" aria-label="Cancel">        <i class="fa fa-fw fa-ban"></i>        <span *ngIf="form.isDirty" translate>Cancel</span>        <span *ngIf="!form.isDirty" translate>Close</span>      </button>      <button mat-raised-button *ngIf="participant.publishTime == null || currentUser.role >= roles.Organizer" type="button" [title]="\'Delete\' | translate"              class="pull-right mat-warn" (click)="delete()" aria-label="Delete">        <i class="fa fa-fw fa-trash"></i>        <span *ngIf="participant.publishTime == null && participant.endTime == null" translate>Delete</span>        <span *ngIf="participant.publishTime == null && participant.endTime != null" translate>Empty scores</span>        <span *ngIf="participant.publishTime != null" translate>Allready published!</span>      </button>      <button mat-raised-button *ngIf="participant.endTime != null && currentUser.role >= roles.Organizer" type="button" [title]="\'Rollback\' | translate"              class="pull-right mat-warn" (click)="rollback()" aria-label="Rollback">        <i class="fa fa-fw fa-undo"></i>        <span translate>Rollback</span>      </button>      <div *ngIf="participant.publishTime != null && currentUser.role < roles.Organizer" class="pull-right warning">        <span translate>Allready published!</span>      </div>    </mat-card-actions>  </mat-card>  {{ form.isDirty }}</form></div>'
+    var COMPONENTS = [{'name': 'AdvancedComponent', 'selector': 'app-advanced'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AwardsComponent', 'selector': 'app-awards'},{'name': 'ClubComponent', 'selector': 'app-club'},{'name': 'ClubEditorComponent', 'selector': 'app-club-editor'},{'name': 'ClubLookupComponent', 'selector': 'app-club-lookup'},{'name': 'ConfigureComponent', 'selector': 'app-configure'},{'name': 'ConfigureDisplayComponent', 'selector': 'app-configure-display'},{'name': 'ContextMenuComponent', 'selector': 'app-context-menu'},{'name': 'DialogComponent', 'selector': 'app-dialog'},{'name': 'DisciplineEditorComponent', 'selector': 'app-discipline-editor'},{'name': 'DisciplinesComponent', 'selector': 'app-disciplines'},{'name': 'DisplayComponent', 'selector': 'app-display'},{'name': 'DivisionEditorComponent', 'selector': 'app-division-editor'},{'name': 'DivisionLookupComponent', 'selector': 'app-division-lookup'},{'name': 'DivisionsComponent', 'selector': 'app-divisions'},{'name': 'ErrorDialogComponent', 'selector': 'app-error-dialog'},{'name': 'EventComponent', 'selector': 'app-event'},{'name': 'FullscreenComponent', 'selector': 'app-fullscreen'},{'name': 'HelpBlockComponent', 'selector': 'app-help-block'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InfoComponent', 'selector': 'app-info'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoadSpinnerComponent', 'selector': ''},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'MacroDialogComponent', 'selector': 'app-macro-dialog'},{'name': 'MediaComponent', 'selector': 'app-media'},{'name': 'MediaControlComponent', 'selector': 'app-media-control'},{'name': 'MemberEditorComponent', 'selector': 'app-member-editor'},{'name': 'MembersComponent', 'selector': 'app-members'},{'name': 'MemberSelectorComponent', 'selector': 'app-member-selector'},{'name': 'MultirangeComponent', 'selector': 'app-multirange'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetComponent', 'selector': 'app-reset'},{'name': 'ResultsComponent', 'selector': 'app-results'},{'name': 'SaveButtonComponent', 'selector': 'app-save-button'},{'name': 'ScheduleComponent', 'selector': 'app-schedule'},{'name': 'ScorecardsComponent', 'selector': 'app-scorecards'},{'name': 'ScoreEditorComponent', 'selector': 'app-score-editor'},{'name': 'ScoreGroupEditorComponent', 'selector': 'app-score-group-editor'},{'name': 'ScoreSystemComponent', 'selector': 'app-score-system'},{'name': 'SignoffReportComponent', 'selector': 'app-signoff-report'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'TeamEditorComponent', 'selector': 'app-team-editor'},{'name': 'TeamsComponent', 'selector': 'app-teams'},{'name': 'TournamentComponent', 'selector': 'app-tournament'},{'name': 'TournamentEditorComponent', 'selector': 'app-tournament-editor'},{'name': 'TroopEditorComponent', 'selector': 'app-troop-editor'},{'name': 'TroopsComponent', 'selector': 'app-troops'},{'name': 'UserEditorComponent', 'selector': 'app-user-editor'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VenueComponent', 'selector': 'app-venue'},{'name': 'VenueEditorComponent', 'selector': 'app-venue-editor'}];
+    var DIRECTIVES = [{'name': 'IfAuthDirective', 'selector': '[appIfAuth]'},{'name': 'ToCaseDirective', 'selector': 'input[appToCase]'}];
+    var ACTUAL_COMPONENT = {'name': 'ScoreEditorComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ScoreEditorComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

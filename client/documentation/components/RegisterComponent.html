@@ -1,0 +1,891 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>RegisterComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/views/home/register/register.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-register</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./register.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./register.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#registerForm">registerForm</a>
+                            </li>
+                            <li>
+                                <a href="#type">type</a>
+                            </li>
+                            <li>
+                                <a href="#user">user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#register">register</a>
+                            </li>
+                            <li>
+                                <a href="#registrationComplete">registrationComplete</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#Organizer">Organizer</a>
+                                </li>
+                                <li>
+                                    <a href="#Club">Club</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(seo: <a href="../injectables/SEOService.html">SEOService</a>, fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, graph: <a href="../injectables/GraphService.html">GraphService</a>, errorHandler: <a href="../injectables/ErrorHandlerService.html">ErrorHandlerService</a>, translate: TranslateService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/views/home/register/register.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>seo</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SEOService.html" target="_self" >SEOService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>graph</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>errorHandler</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ErrorHandlerService.html" target="_self" >ErrorHandlerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>translate</td>
+                                                  
+                                                        <td>
+                                                                    <code>TranslateService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">src/app/views/home/register/register.component.ts:39</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="register"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            register
+                        </b>
+                        <a href="#register"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>register()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/app/views/home/register/register.component.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="registrationComplete"></a>
+                    <span class="name">
+                        <b>
+                            registrationComplete
+                        </b>
+                        <a href="#registrationComplete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>registrationComplete(res)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="70"
+                            class="link-to-prism">src/app/views/home/register/register.component.ts:70</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>res</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="registerForm"></a>
+                        <span class="name">
+                            <b>
+                            registerForm</b>
+                            <a href="#registerForm"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/views/home/register/register.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="type"></a>
+                        <span class="name">
+                            <b>
+                            type</b>
+                            <a href="#type"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Type</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/views/home/register/register.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="user"></a>
+                        <span class="name">
+                            <b>
+                            user</b>
+                            <a href="#user"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IUser.html" target="_self" >IUser</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&lt;IUser&gt;{ role: Role.Club }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/views/home/register/register.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="Organizer"></a>
+                        <span class="name"><b>Organizer</b><a href="#Organizer"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>Organizer()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/views/home/register/register.component.ts:26</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="Club"></a>
+                        <span class="name"><b>Club</b><a href="#Club"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>Club()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/views/home/register/register.component.ts:27</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators, AbstractControl } from &#x27;@angular/forms&#x27;;
+import { TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+
+import { ErrorHandlerService } from &#x27;app/shared/interceptors/error-handler.service&#x27;;
+
+import { IUser, Role } from &#x27;app/model/IUser&#x27;;
+import { GraphService } from &#x27;app/shared/services/graph.service&#x27;;
+import { CommonService } from &#x27;app/shared/services/common.service&#x27;;
+import { SEOService } from &#x27;app/shared/services/seo.service&#x27;;
+
+export enum Type {
+  Organizer &#x3D; 0 + Role.Organizer, Club &#x3D; 0 + Role.Club
+}
+
+@Component({
+  selector: &#x27;app-register&#x27;,
+  templateUrl: &#x27;./register.component.html&#x27;,
+  styleUrls: [&#x27;./register.component.scss&#x27;]
+})
+export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
+  user: IUser &#x3D; &lt;IUser&gt;{ role: Role.Club };
+
+  get Organizer(): string { return this.translate.instant(&#x27;Organizer&#x27;); }
+  get Club(): string { return this.translate.instant(&#x27;Club&#x27;); }
+
+  type &#x3D; Type;
+
+  constructor(
+    private seo: SEOService,
+    private fb: FormBuilder,
+    private router: Router,
+    private graph: GraphService,
+    private errorHandler: ErrorHandlerService,
+    private translate: TranslateService) { }
+
+  ngOnInit() {
+    this.seo.setTitle(&#x27;Register&#x27;, &#x60;Register to gain access to the system&#x60;);
+
+    this.registerForm &#x3D; this.fb.group({
+      id: [null],
+      name: [&#x27;&#x27;, [Validators.required]],
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+      role: [Role.Club, [Validators.required]],
+      club: [null, [Validators.required]],
+      password: [&#x27;&#x27;, [Validators.required]],
+      repeatPassword: [&#x27;&#x27;, [Validators.required]]
+    }, {
+        validator: (c: AbstractControl) &#x3D;&gt; {
+          return c.get(&#x27;password&#x27;).value &#x3D;&#x3D;&#x3D; c.get(&#x27;repeatPassword&#x27;).value ? null : { repeatPassword: { valid: false } };
+        }
+      });
+  }
+
+  async register() {
+    const user &#x3D; this.registerForm.value;
+    if (!user.club) {
+      this.errorHandler.setError(&#x27;No club set. Cannot register!&#x27;);
+      return;
+    }
+
+    this.graph.saveData(&#x27;User&#x27;, CommonService.omit(user, [&#x27;repeatPassword&#x27;]), &#x27;{id}&#x27;).subscribe(
+      res &#x3D;&gt; this.registrationComplete(res.saveUser),
+      err &#x3D;&gt; this.registrationComplete(err)
+    );
+  }
+
+  registrationComplete(res) {
+    this.errorHandler.setError(res &amp;&amp; res.id
+      ? this.translate.instant(&#x60;You are registerred! We&#x27;ve sent you an email with your credentials.&#x60;)
+      : JSON.stringify(res), &#x27;&#x27;);
+    this.router.navigate([&#x27;/login&#x27;]);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;fixed-back&quot;&gt;&lt;/div&gt;
+
+&lt;form [formGroup]&#x3D;&quot;registerForm&quot; (ngSubmit)&#x3D;&quot;register()&quot;&gt;
+  &lt;mat-card&gt;
+    &lt;mat-card-header&gt;
+      &lt;mat-card-title&gt;
+        &lt;h3 translate&gt;Register&lt;/h3&gt;
+      &lt;/mat-card-title&gt;
+    &lt;/mat-card-header&gt;
+    &lt;mat-card-content&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;col-7 help-available&quot;&gt;
+          &lt;input matInput type&#x3D;&quot;text&quot; autocomplete&#x3D;&quot;username&quot; formControlName&#x3D;&quot;name&quot; autocomplete&#x3D;&quot;username&quot; autofocus cdkFocusInitial
+                 placeholder&#x3D;&quot;{{&#x27;Username&#x27; | translate}}&quot; /&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;The name you want to use for logging in to your account&lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/mat-form-field&gt;
+        &lt;div class&#x3D;&quot;col-5 lowered material-label help-available&quot;&gt;
+          &lt;label translate&gt;Register as&lt;/label&gt;
+          &lt;mat-slide-toggle class&#x3D;&quot;mat-primary&quot; [checked]&#x3D;&quot;registerForm.value.role &#x3D;&#x3D;&#x3D; type.Organizer&quot;
+                            (change)&#x3D;&quot;$event.checked ? registerForm.controls[&#x27;role&#x27;].setValue(type.Organizer) : registerForm.controls[&#x27;role&#x27;].setValue(type.Club)&quot;&gt;
+            &lt;span *ngIf&#x3D;&quot;registerForm.value.role &#x3D;&#x3D;&#x3D; type.Organizer&quot; translate&gt;Organizer&lt;/span&gt;
+            &lt;span *ngIf&#x3D;&quot;registerForm.value.role &#x3D;&#x3D;&#x3D; type.Club&quot; translate&gt;Club&lt;/span&gt;
+          &lt;/mat-slide-toggle&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;As a &lt;b translate&gt;Club&lt;/b&gt; representative, you can enter teams to participate in a tournament.&lt;/p&gt;
+            &lt;p translate&gt;As an &lt;b translate&gt;Organizer&lt;/b&gt;, you can create tournaments.&lt;/p&gt;
+            &lt;hr&gt;
+            &lt;p&gt;
+              &lt;i translate&gt;If you plan on creating tournaments in the future, we suggest you register as organizer.&lt;/i&gt;
+              &lt;i translate&gt;You will have the same privileges as a club representative for tournaments your club does not organize.&lt;/i&gt;
+            &lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;col-7 help-available&quot;&gt;
+          &lt;input matInput type&#x3D;&quot;email&quot; autocomplete&#x3D;&quot;email&quot; formControlName&#x3D;&quot;email&quot; placeholder&#x3D;&quot;{{&#x27;Email&#x27; | translate}}&quot;&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;The email address you provide for us will be used to contact you in regards to activity on your account.&lt;/p&gt;
+            &lt;p translate&gt;We may also contact you if a tournament opens up for registration, so you can enter your club to join&lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/mat-form-field&gt;
+        &lt;div class&#x3D;&quot;col-5 help-available&quot;&gt;
+          &lt;app-club-lookup formControlName&#x3D;&quot;club&quot;&gt;
+            &lt;app-help-block&gt;
+              &lt;p translate&gt;We need to know which club you represent in order to provide you with the appropriate privileges.&lt;/p&gt;
+            &lt;/app-help-block&gt;
+          &lt;/app-club-lookup&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;col-6 help-available&quot;&gt;
+          &lt;input matInput type&#x3D;&quot;password&quot; formControlName&#x3D;&quot;password&quot; autocomplete&#x3D;&quot;new-password&quot; placeholder&#x3D;&quot;{{&#x27;Password&#x27; | translate}}&quot;&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;Any password will do. We do not set restrictions. But please make sure it is not too easy.&lt;/p&gt;
+            &lt;p translate&gt;We suggest using a password generator for this: &lt;a href&#x3D;&quot;https://xkpasswd.net/s/&quot; target&#x3D;&quot;_blank&quot;
+                 rel&#x3D;&quot;noreferrer&quot;&gt;https://xkpasswd.net/s/&lt;/a&gt;&lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/mat-form-field&gt;
+        &lt;mat-form-field class&#x3D;&quot;col-6 help-available&quot;&gt;
+          &lt;input matInput type&#x3D;&quot;password&quot; formControlName&#x3D;&quot;repeatPassword&quot; autocomplete&#x3D;&quot;new-password&quot; placeholder&#x3D;&quot;{{&#x27;Repeat password&#x27; | translate}}&quot;&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;This needs to be exactly the same text as entered in the password field. Just to make sure you did not make any typos. :-)&lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/mat-form-field&gt;
+      &lt;/div&gt;
+    &lt;/mat-card-content&gt;
+
+    &lt;mat-card-actions&gt;
+      &lt;button mat-raised-button class&#x3D;&quot;mat-primary&quot; type&#x3D;&quot;submit&quot; [title]&#x3D;&quot;&#x27;Login&#x27; | translate&quot; [disabled]&#x3D;&quot;registerForm.invalid || registerForm.pristine&quot;
+              aria-label&#x3D;&quot;Register&quot;&gt;
+        &lt;i class&#x3D;&quot;fa fa-fw fa-sign-in&quot;&gt;&lt;/i&gt;
+        &lt;span translate&gt;Register&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;a mat-raised-button [title]&#x3D;&quot;&#x27;Login&#x27; | translate&quot; [routerLink]&#x3D;&quot;[&#x27;/login&#x27;]&quot; aria-label&#x3D;&quot;Go to login&quot;&gt;
+        &lt;i class&#x3D;&quot;fa fa-fw fa-sign-in&quot;&gt;&lt;/i&gt;
+        &lt;span translate&gt;Back to login&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/mat-card-actions&gt;
+  &lt;/mat-card&gt;
+&lt;/form&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./register.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../../styles/variables&quot;;
+
+:host {
+  .fixed-back {
+    +* {
+      @media (min-width: $stop1) {
+        margin-top: 10%;
+      }
+    }
+  }
+}
+
+form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.lowered {
+  padding-left: 1rem;
+  label {
+    margin-bottom: 0.5rem;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="fixed-back"></div><form [formGroup]="registerForm" (ngSubmit)="register()">  <mat-card>    <mat-card-header>      <mat-card-title>        <h3 translate>Register</h3>      </mat-card-title>    </mat-card-header>    <mat-card-content>      <div class="row">        <mat-form-field class="col-7 help-available">          <input matInput type="text" autocomplete="username" formControlName="name" autocomplete="username" autofocus cdkFocusInitial                 placeholder="{{\'Username\' | translate}}" />          <app-help-block>            <p translate>The name you want to use for logging in to your account</p>          </app-help-block>        </mat-form-field>        <div class="col-5 lowered material-label help-available">          <label translate>Register as</label>          <mat-slide-toggle class="mat-primary" [checked]="registerForm.value.role === type.Organizer"                            (change)="$event.checked ? registerForm.controls[\'role\'].setValue(type.Organizer) : registerForm.controls[\'role\'].setValue(type.Club)">            <span *ngIf="registerForm.value.role === type.Organizer" translate>Organizer</span>            <span *ngIf="registerForm.value.role === type.Club" translate>Club</span>          </mat-slide-toggle>          <app-help-block>            <p translate>As a <b translate>Club</b> representative, you can enter teams to participate in a tournament.</p>            <p translate>As an <b translate>Organizer</b>, you can create tournaments.</p>            <hr>            <p>              <i translate>If you plan on creating tournaments in the future, we suggest you register as organizer.</i>              <i translate>You will have the same privileges as a club representative for tournaments your club does not organize.</i>            </p>          </app-help-block>        </div>      </div>      <div class="row">        <mat-form-field class="col-7 help-available">          <input matInput type="email" autocomplete="email" formControlName="email" placeholder="{{\'Email\' | translate}}">          <app-help-block>            <p translate>The email address you provide for us will be used to contact you in regards to activity on your account.</p>            <p translate>We may also contact you if a tournament opens up for registration, so you can enter your club to join</p>          </app-help-block>        </mat-form-field>        <div class="col-5 help-available">          <app-club-lookup formControlName="club">            <app-help-block>              <p translate>We need to know which club you represent in order to provide you with the appropriate privileges.</p>            </app-help-block>          </app-club-lookup>        </div>      </div>      <div class="row">        <mat-form-field class="col-6 help-available">          <input matInput type="password" formControlName="password" autocomplete="new-password" placeholder="{{\'Password\' | translate}}">          <app-help-block>            <p translate>Any password will do. We do not set restrictions. But please make sure it is not too easy.</p>            <p translate>We suggest using a password generator for this: <a href="https://xkpasswd.net/s/" target="_blank"                 rel="noreferrer">https://xkpasswd.net/s/</a></p>          </app-help-block>        </mat-form-field>        <mat-form-field class="col-6 help-available">          <input matInput type="password" formControlName="repeatPassword" autocomplete="new-password" placeholder="{{\'Repeat password\' | translate}}">          <app-help-block>            <p translate>This needs to be exactly the same text as entered in the password field. Just to make sure you did not make any typos. :-)</p>          </app-help-block>        </mat-form-field>      </div>    </mat-card-content>    <mat-card-actions>      <button mat-raised-button class="mat-primary" type="submit" [title]="\'Login\' | translate" [disabled]="registerForm.invalid || registerForm.pristine"              aria-label="Register">        <i class="fa fa-fw fa-sign-in"></i>        <span translate>Register</span>      </button>      <a mat-raised-button [title]="\'Login\' | translate" [routerLink]="[\'/login\']" aria-label="Go to login">        <i class="fa fa-fw fa-sign-in"></i>        <span translate>Back to login</span>      </a>    </mat-card-actions>  </mat-card></form></div>'
+    var COMPONENTS = [{'name': 'AdvancedComponent', 'selector': 'app-advanced'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AwardsComponent', 'selector': 'app-awards'},{'name': 'ClubComponent', 'selector': 'app-club'},{'name': 'ClubEditorComponent', 'selector': 'app-club-editor'},{'name': 'ClubLookupComponent', 'selector': 'app-club-lookup'},{'name': 'ConfigureComponent', 'selector': 'app-configure'},{'name': 'ConfigureDisplayComponent', 'selector': 'app-configure-display'},{'name': 'ContextMenuComponent', 'selector': 'app-context-menu'},{'name': 'DialogComponent', 'selector': 'app-dialog'},{'name': 'DisciplineEditorComponent', 'selector': 'app-discipline-editor'},{'name': 'DisciplinesComponent', 'selector': 'app-disciplines'},{'name': 'DisplayComponent', 'selector': 'app-display'},{'name': 'DivisionEditorComponent', 'selector': 'app-division-editor'},{'name': 'DivisionLookupComponent', 'selector': 'app-division-lookup'},{'name': 'DivisionsComponent', 'selector': 'app-divisions'},{'name': 'ErrorDialogComponent', 'selector': 'app-error-dialog'},{'name': 'EventComponent', 'selector': 'app-event'},{'name': 'FullscreenComponent', 'selector': 'app-fullscreen'},{'name': 'HelpBlockComponent', 'selector': 'app-help-block'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InfoComponent', 'selector': 'app-info'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoadSpinnerComponent', 'selector': ''},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'MacroDialogComponent', 'selector': 'app-macro-dialog'},{'name': 'MediaComponent', 'selector': 'app-media'},{'name': 'MediaControlComponent', 'selector': 'app-media-control'},{'name': 'MemberEditorComponent', 'selector': 'app-member-editor'},{'name': 'MembersComponent', 'selector': 'app-members'},{'name': 'MemberSelectorComponent', 'selector': 'app-member-selector'},{'name': 'MultirangeComponent', 'selector': 'app-multirange'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetComponent', 'selector': 'app-reset'},{'name': 'ResultsComponent', 'selector': 'app-results'},{'name': 'SaveButtonComponent', 'selector': 'app-save-button'},{'name': 'ScheduleComponent', 'selector': 'app-schedule'},{'name': 'ScorecardsComponent', 'selector': 'app-scorecards'},{'name': 'ScoreEditorComponent', 'selector': 'app-score-editor'},{'name': 'ScoreGroupEditorComponent', 'selector': 'app-score-group-editor'},{'name': 'ScoreSystemComponent', 'selector': 'app-score-system'},{'name': 'SignoffReportComponent', 'selector': 'app-signoff-report'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'TeamEditorComponent', 'selector': 'app-team-editor'},{'name': 'TeamsComponent', 'selector': 'app-teams'},{'name': 'TournamentComponent', 'selector': 'app-tournament'},{'name': 'TournamentEditorComponent', 'selector': 'app-tournament-editor'},{'name': 'TroopEditorComponent', 'selector': 'app-troop-editor'},{'name': 'TroopsComponent', 'selector': 'app-troops'},{'name': 'UserEditorComponent', 'selector': 'app-user-editor'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VenueComponent', 'selector': 'app-venue'},{'name': 'VenueEditorComponent', 'selector': 'app-venue-editor'}];
+    var DIRECTIVES = [{'name': 'IfAuthDirective', 'selector': '[appIfAuth]'},{'name': 'ToCaseDirective', 'selector': 'input[appToCase]'}];
+    var ACTUAL_COMPONENT = {'name': 'RegisterComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'RegisterComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

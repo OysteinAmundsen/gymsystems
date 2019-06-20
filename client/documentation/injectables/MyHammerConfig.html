@@ -1,0 +1,377 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>MyHammerConfig</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/app.module.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="https://angular.io/api/platform-browser/HammerGestureConfig" target="_blank" >HammerGestureConfig</a></code>
+            </p>
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#buildHammer">buildHammer</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildHammer"></a>
+                    <span class="name">
+                        <b>
+                            buildHammer
+                        </b>
+                        <a href="#buildHammer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>buildHammer(element: HTMLElement)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">src/app/app.module.ts:58</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>element</td>
+                                    <td>
+                                            <code>HTMLElement</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpCacheInterceptor } from &#x27;./shared/interceptors/http-cache.interceptor&#x27;;
+// Framework &amp; libs
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from &#x27;@angular/platform-browser&#x27;;
+import { NgModule, LOCALE_ID, Injectable } from &#x27;@angular/core&#x27;;
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from &#x27;@angular/common/http&#x27;;
+import { BrowserAnimationsModule } from &#x27;@angular/platform-browser/animations&#x27;;
+import { ServiceWorkerModule } from &#x27;@angular/service-worker&#x27;;
+import { JwtModule } from &#x27;@auth0/angular-jwt&#x27;;
+
+import { ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { TranslateModule, TranslateLoader } from &#x27;@ngx-translate/core&#x27;;
+import { TranslateHttpLoader } from &#x27;@ngx-translate/http-loader&#x27;;
+import { Angulartics2Module } from &#x27;angulartics2&#x27;;
+import { MarkdownToHtmlModule } from &#x27;markdown-to-html-pipe&#x27;;
+import { AgmCoreModule } from &#x27;@agm/core&#x27;;
+import {
+  MatCardModule, MatSnackBarModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule,
+  MatOptionModule, MatSlideToggleModule, MatButtonModule, MatDialogModule, MatListModule
+} from &#x27;@angular/material&#x27;;
+
+import { environment } from &#x27;../environments/environment&#x27;;
+
+// Locale
+import { registerLocaleData } from &#x27;@angular/common&#x27;;
+import localeNo from &#x27;@angular/common/locales/nb&#x27;;
+registerLocaleData(localeNo);
+
+// Module dependencies
+import { AppRoutingModule } from &#x27;./app-routing.module&#x27;;
+import { SharedModule } from &#x27;./shared/shared.module&#x27;;
+
+// Other services
+import { AuthInterceptor } from &#x27;./shared/interceptors/auth.interceptor&#x27;;
+
+// Module components
+import { AppComponent } from &#x27;./app.component&#x27;;
+import { HomeComponent } from &#x27;./views/home/home.component&#x27;;
+import { LoginComponent } from &#x27;./views/home/login/login.component&#x27;;
+import { LogoutComponent } from &#x27;./views/home/logout/logout.component&#x27;;
+import { RegisterComponent } from &#x27;./views/home/register/register.component&#x27;;
+import { IUser } from &#x27;./model/IUser&#x27;;
+import { GraphQLModule } from &#x27;./graphql.module&#x27;;
+import { BrowserService } from &#x27;./shared/browser.service&#x27;;
+import { ResetComponent } from &#x27;./views/home/reset/reset.component&#x27;;
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, &#x27;./i18n/&#x27;, &#x27;.json&#x27;);
+}
+
+export function tokenGetter() {
+  const currentUser: IUser &#x3D; JSON.parse(BrowserService.sessionStorage().getItem(&#x27;currentUser&#x27;));
+  return currentUser ? currentUser.token : null;
+}
+
+@Injectable()
+export class MyHammerConfig extends HammerGestureConfig {
+  buildHammer(element: HTMLElement) {
+    const mc &#x3D; new Hammer(element, {
+      touchAction: &#x27;auto&#x27;,
+    });
+    return mc;
+  }
+}
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    LogoutComponent,
+    RegisterComponent,
+    ResetComponent
+  ],
+  imports: [
+    // Framework modules
+    BrowserModule.withServerTransition({ appId: &#x27;gymsystems&#x27; }),
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ServiceWorkerModule.register(&#x27;/ngsw-worker.js&#x27;, { enabled: environment.production }),
+    TranslateModule.forRoot({
+      loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] }
+    }),
+    MarkdownToHtmlModule,
+    Angulartics2Module.forRoot({
+      pageTracking: {
+        clearIds: true,
+        clearQueryParams: true
+      }
+    }),
+    AgmCoreModule.forRoot({ apiKey: environment.geoApiKey }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        skipWhenExpired: true,
+        whitelistedDomains: [&#x27;localhost&#x27;, &#x27;gymsystems.org&#x27;]
+      }
+    }),
+
+    // Material imports
+    MatFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    MatCardModule,
+    MatSnackBarModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    MatDialogModule,
+
+    // Application modules
+    SharedModule,
+
+    // Routes last (!important)
+    AppRoutingModule,
+
+    GraphQLModule
+  ],
+  providers: [
+    // Authentication interceptor
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpCacheInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: &#x27;nb-NO&#x27; },
+    { // hammer instantion with custom config
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig
+    }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'MyHammerConfig.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

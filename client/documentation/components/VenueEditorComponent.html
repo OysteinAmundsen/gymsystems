@@ -1,0 +1,1445 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>VenueEditorComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/views/configure/venue/venue-editor/venue-editor.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-venue-editor</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./venue-editor.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./venue-editor.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#adressList">adressList</a>
+                            </li>
+                            <li>
+                                <a href="#selectedVenue">selectedVenue</a>
+                            </li>
+                            <li>
+                                <a href="#venueForm">venueForm</a>
+                            </li>
+                            <li>
+                                <a href="#venueQuery">venueQuery</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cancel">cancel</a>
+                            </li>
+                            <li>
+                                <a href="#createTournament">createTournament</a>
+                            </li>
+                            <li>
+                                <a href="#delete">delete</a>
+                            </li>
+                            <li>
+                                <a href="#markerDragEnd">markerDragEnd</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#save">save</a>
+                            </li>
+                            <li>
+                                <a href="#setSelectedAddress">setSelectedAddress</a>
+                            </li>
+                            <li>
+                                <a href="#tabOut">tabOut</a>
+                            </li>
+                            <li>
+                                <a href="#venueReceived">venueReceived</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#keyup">keyup</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#venueName">venueName</a>
+                                </li>
+                                <li>
+                                    <a href="#latitude">latitude</a>
+                                </li>
+                                <li>
+                                    <a href="#longitude">longitude</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, translate: TranslateService, graph: <a href="../injectables/GraphService.html">GraphService</a>, http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:53</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>translate</td>
+                                                  
+                                                        <td>
+                                                                    <code>TranslateService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>graph</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+    <section>
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="keyup"></a>
+                    <span class="name">
+                        <b>
+                            keyup
+                        </b>
+                        <a href="#keyup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>keyup(evt: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="141"
+                            class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:141</a></div>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancel"></a>
+                    <span class="name">
+                        <b>
+                            cancel
+                        </b>
+                        <a href="#cancel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cancel()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="124"
+                            class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:124</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createTournament"></a>
+                    <span class="name">
+                        <b>
+                            createTournament
+                        </b>
+                        <a href="#createTournament"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createTournament()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="116"
+                            class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:116</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="delete"></a>
+                    <span class="name">
+                        <b>
+                            delete
+                        </b>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>delete()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="128"
+                            class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:128</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markerDragEnd"></a>
+                    <span class="name">
+                        <b>
+                            markerDragEnd
+                        </b>
+                        <a href="#markerDragEnd"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>markerDragEnd($event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:111</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>$event</td>
+                                    <td>
+                                            <code>MouseEvent</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="64"
+                            class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:64</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="save"></a>
+                    <span class="name">
+                        <b>
+                            save
+                        </b>
+                        <a href="#save"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>save()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="120"
+                            class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:120</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setSelectedAddress"></a>
+                    <span class="name">
+                        <b>
+                            setSelectedAddress
+                        </b>
+                        <a href="#setSelectedAddress"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setSelectedAddress(v: MatAutocompleteSelectedEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="105"
+                            class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:105</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>v</td>
+                                    <td>
+                                            <code>MatAutocompleteSelectedEvent</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tabOut"></a>
+                    <span class="name">
+                        <b>
+                            tabOut
+                        </b>
+                        <a href="#tabOut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>tabOut(typeahead: MatAutocomplete)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="132"
+                            class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:132</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>typeahead</td>
+                                    <td>
+                                            <code>MatAutocomplete</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="venueReceived"></a>
+                    <span class="name">
+                        <b>
+                            venueReceived
+                        </b>
+                        <a href="#venueReceived"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>venueReceived(venue: <a href="../interfaces/IVenue.html">IVenue</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:99</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>venue</td>
+                                    <td>
+                                                <code><a href="../interfaces/IVenue.html" target="_self" >IVenue</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="adressList"></a>
+                        <span class="name">
+                            <b>
+                            adressList</b>
+                            <a href="#adressList"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedVenue"></a>
+                        <span class="name">
+                            <b>
+                            selectedVenue</b>
+                            <a href="#selectedVenue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IVenue.html" target="_self" >IVenue</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&lt;IVenue&gt;{}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="venueForm"></a>
+                        <span class="name">
+                            <b>
+                            venueForm</b>
+                            <a href="#venueForm"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="venueQuery"></a>
+                        <span class="name">
+                            <b>
+                            venueQuery</b>
+                            <a href="#venueQuery"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x60;{
+    id,
+    name,
+    longitude,
+    latitude,
+    address,
+    rentalCost,
+    contact,
+    contactPhone,
+    contactEmail,
+    capacity,
+    createdBy{id,name}
+  }&#x60;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:21</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="venueName"></a>
+                        <span class="name"><b>venueName</b><a href="#venueName"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>venueName()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:35</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="latitude"></a>
+                        <span class="name"><b>latitude</b><a href="#latitude"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>latitude()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:41</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="longitude"></a>
+                        <span class="name"><b>longitude</b><a href="#longitude"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>longitude()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/views/configure/venue/venue-editor/venue-editor.component.ts:48</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, HostListener } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { ActivatedRoute, Router } from &#x27;@angular/router&#x27;;
+
+import { IVenue } from &#x27;app/model&#x27;;
+import { TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from &#x27;@angular/material&#x27;;
+import { distinctUntilChanged, debounceTime } from &#x27;rxjs/operators&#x27;;
+import { GraphService } from &#x27;../../../../shared/services/graph.service&#x27;;
+import { HttpClient } from &#x27;@angular/common/http&#x27;;
+
+@Component({
+  selector: &#x27;app-venue-editor&#x27;,
+  templateUrl: &#x27;./venue-editor.component.html&#x27;,
+  styleUrls: [&#x27;./venue-editor.component.scss&#x27;]
+})
+export class VenueEditorComponent implements OnInit {
+  venueForm: FormGroup;
+  selectedVenue: IVenue &#x3D; &lt;IVenue&gt;{};
+  adressList &#x3D; [];
+  venueQuery &#x3D; &#x60;{
+    id,
+    name,
+    longitude,
+    latitude,
+    address,
+    rentalCost,
+    contact,
+    contactPhone,
+    contactEmail,
+    capacity,
+    createdBy{id,name}
+  }&#x60;;
+
+  get venueName() {
+    let venueName &#x3D; this.venueForm &amp;&amp; this.venueForm.getRawValue().name ? this.venueForm.getRawValue().name : this.selectedVenue.name;
+    if (!venueName) { venueName &#x3D; this.translate.instant(&#x27;Add Venue&#x27;); }
+    return venueName;
+  }
+
+  get latitude(): number {
+    if (this.venueForm &amp;&amp; this.venueForm.getRawValue().latitude) {
+      return parseFloat(this.venueForm.getRawValue().latitude);
+    }
+    return 0;
+  }
+
+  get longitude(): number {
+    if (this.venueForm &amp;&amp; this.venueForm.getRawValue().longitude) {
+      return parseFloat(this.venueForm.getRawValue().longitude);
+    }
+    return 0;
+  }
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private translate: TranslateService,
+    private graph: GraphService,
+    private http: HttpClient
+  ) { }
+
+  ngOnInit() {
+    this.venueForm &#x3D; this.fb.group({
+      id: [null, []],
+      createdBy: [null, []],
+      name: [&#x27;&#x27;, [Validators.required]],
+      address: [&#x27;&#x27;, [Validators.required]],
+      longitude: [{ value: 0.0, disabled: true }, [Validators.required]],
+      latitude: [{ value: 0.0, disabled: true }, [Validators.required]],
+      contact: [&#x27;&#x27;, [Validators.required]],
+      contactPhone: [&#x27;&#x27;, [Validators.required, Validators.minLength(8)]],
+      contactEmail: [&#x27;&#x27;, [Validators.required, Validators.email]],
+      capacity: [0, []],
+      rentalCost: [0, []],
+    });
+    // Read filtered options
+    const addressCtrl &#x3D; this.venueForm.controls[&#x27;address&#x27;];
+    addressCtrl.valueChanges
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(200)  // Do not hammer http request. Wait until user has typed a bit
+      ).subscribe(v &#x3D;&gt; this.http.get(&#x60;/api/venue/location/${encodeURIComponent(v)}&#x60;)
+        .subscribe((result: any) &#x3D;&gt; this.adressList &#x3D; result.results.map(r &#x3D;&gt; ({ formatted_address: r.formatted_address, geometry: r.geometry }))));
+
+    this.route.params.subscribe(params &#x3D;&gt; {
+      if (params.id) {
+        this.graph.getData(&#x60;{venue(id:${+params.id})${this.venueQuery}}&#x60;).subscribe(res &#x3D;&gt; this.venueReceived(res.venue));
+      }
+    });
+    this.route.queryParams.subscribe(params &#x3D;&gt; {
+      if (params.fromName) {
+        this.venueForm.controls[&#x27;name&#x27;].setValue(params.fromName);
+      }
+    });
+  }
+
+  venueReceived(venue: IVenue) {
+    this.selectedVenue &#x3D; venue;
+    const val &#x3D; Object.keys(this.venueForm.controls).reduce((obj, k) &#x3D;&gt; { obj[k] &#x3D; venue[k]; return obj; }, {});
+    this.venueForm.setValue(val);
+  }
+
+  setSelectedAddress(v: MatAutocompleteSelectedEvent) {
+    this.venueForm.controls[&#x27;address&#x27;].setValue(v.option.value.formatted_address);
+    this.venueForm.controls[&#x27;latitude&#x27;].setValue(v.option.value.geometry.location.lat);
+    this.venueForm.controls[&#x27;longitude&#x27;].setValue(v.option.value.geometry.location.lng);
+  }
+
+  markerDragEnd($event: MouseEvent) {
+    this.venueForm.controls[&#x27;latitude&#x27;].setValue($event[&#x27;coords&#x27;].lat);
+    this.venueForm.controls[&#x27;longitude&#x27;].setValue($event[&#x27;coords&#x27;].lng);
+  }
+
+  createTournament() {
+    this.router.navigate([&#x60;../../tournament/add&#x60;], { queryParams: { fromVenue: this.venueForm.value.id }, relativeTo: this.route });
+  }
+
+  save() {
+    this.graph.saveData(&#x27;Venue&#x27;, this.venueForm.getRawValue(), this.venueQuery).subscribe(res &#x3D;&gt; this.cancel());
+  }
+
+  cancel() {
+    this.router.navigate([&#x27;../&#x27;], { relativeTo: this.route });
+  }
+
+  delete() {
+    this.graph.deleteData(&#x27;Venue&#x27;, this.venueForm.value.id).subscribe(res &#x3D;&gt; this.cancel);
+  }
+
+  tabOut(typeahead: MatAutocomplete) {
+    const active &#x3D; typeahead.options.find(o &#x3D;&gt; o.active);
+    if (active) {
+      active.select();
+      typeahead._emitSelectEvent(active);
+    }
+  }
+
+  @HostListener(&#x27;keyup&#x27;, [&#x27;$event&#x27;])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27;) {
+      this.cancel();
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- Edit data --&gt;
+&lt;form [formGroup]&#x3D;&quot;venueForm&quot; (ngSubmit)&#x3D;&quot;save()&quot;&gt;
+  &lt;mat-card&gt;
+    &lt;mat-card-header&gt;
+      &lt;div class&#x3D;&quot;card-actions&quot;&gt;
+        &lt;button type&#x3D;&quot;button&quot; mat-icon-button (click)&#x3D;&quot;cancel()&quot; aria-label&#x3D;&quot;Cancel&quot;&gt;&lt;i class&#x3D;&quot;fa fa-fw fa-close&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;i class&#x3D;&quot;fa fa-fw fa-map-marker fa-2x&quot; mat-card-avatar&gt;&lt;/i&gt;
+      &lt;mat-card-title&gt;
+        &lt;h3&gt;{{ venueName }}&lt;/h3&gt;
+      &lt;/mat-card-title&gt;
+    &lt;/mat-card-header&gt;
+
+    &lt;mat-card-content&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;col-5&quot;&gt;
+          &lt;input matInput type&#x3D;&quot;text&quot; id&#x3D;&quot;name&quot; formControlName&#x3D;&quot;name&quot; placeholder&#x3D;&quot;{{&#x27;Name&#x27; | translate}}&quot; /&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;This name will be displayed everywhere this venue is referred.&lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/mat-form-field&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;col-6&quot;&gt;
+          &lt;input matInput formControlName&#x3D;&quot;address&quot; placeholder&#x3D;&quot;{{&#x27;Address&#x27; | translate}}&quot; [matAutocomplete]&#x3D;&quot;addressTypeahead&quot;
+                 (blur)&#x3D;&quot;tabOut(addressTypeahead)&quot; [attr.autocomplete]&#x3D;&quot;&#x27;off&#x27;&quot;&gt;
+          &lt;mat-autocomplete #addressTypeahead&#x3D;&quot;matAutocomplete&quot; (optionSelected)&#x3D;&quot;setSelectedAddress($event)&quot;&gt;
+            &lt;mat-option *ngFor&#x3D;&quot;let address of adressList&quot; [value]&#x3D;&quot;address&quot;&gt;
+              {{ address.formatted_address }}
+            &lt;/mat-option&gt;
+          &lt;/mat-autocomplete&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;We need the address of the venue. By typing in this field, we will automatically lookup the geo-location of the venue.&lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/mat-form-field&gt;
+        &lt;div class&#x3D;&quot;col-6&quot;&gt;
+          &lt;div class&#x3D;&quot;row&quot;&gt;
+            &lt;mat-form-field class&#x3D;&quot;col-6&quot;&gt;
+              &lt;input matInput type&#x3D;&quot;number&quot; formControlName&#x3D;&quot;longitude&quot; placeholder&#x3D;&quot;{{&#x27;Longitude&#x27; | translate}}&quot; /&gt;
+              &lt;app-help-block&gt;
+                &lt;p translate&gt;The longitude of the venue. This is 1/2 of the results from the geo-lookup made by typing in the address.&lt;/p&gt;
+              &lt;/app-help-block&gt;
+            &lt;/mat-form-field&gt;
+            &lt;mat-form-field class&#x3D;&quot;col-6&quot;&gt;
+              &lt;input matInput type&#x3D;&quot;number&quot; formControlName&#x3D;&quot;latitude&quot; placeholder&#x3D;&quot;{{&#x27;Latitude&#x27; | translate}}&quot; /&gt;
+              &lt;app-help-block&gt;
+                &lt;p translate&gt;The latitude of the venue. This is 1/2 of the results from the geo-lookup made by typing in the address.&lt;/p&gt;
+              &lt;/app-help-block&gt;
+            &lt;/mat-form-field&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;col-5&quot;&gt;
+          &lt;input matInput type&#x3D;&quot;text&quot; id&#x3D;&quot;contact&quot; formControlName&#x3D;&quot;contact&quot; placeholder&#x3D;&quot;{{&#x27;Contact Name&#x27; | translate}}&quot; /&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;The name of a person responsible for this venue. This is the person you want to contact if you want to rent this venue for events.&lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/mat-form-field&gt;
+        &lt;mat-form-field class&#x3D;&quot;col-3&quot;&gt;
+          &lt;input matInput type&#x3D;&quot;tel&quot; id&#x3D;&quot;contactPhone&quot; formControlName&#x3D;&quot;contactPhone&quot; placeholder&#x3D;&quot;{{&#x27;Phone&#x27; | translate}}&quot; /&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;Phone number of the contact&lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/mat-form-field&gt;
+        &lt;mat-form-field class&#x3D;&quot;col-4&quot;&gt;
+          &lt;input matInput type&#x3D;&quot;email&quot; id&#x3D;&quot;contactEmail&quot; formControlName&#x3D;&quot;contactEmail&quot; placeholder&#x3D;&quot;{{&#x27;Email&#x27; | translate}}&quot; /&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;The email address of the contact&lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/mat-form-field&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;col-5&quot;&gt;
+          &lt;input matInput type&#x3D;&quot;number&quot; id&#x3D;&quot;rentalCost&quot; formControlName&#x3D;&quot;rentalCost&quot; placeholder&#x3D;&quot;{{&#x27;Rental cost&#x27; | translate}}&quot; /&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;This is the rental cost for the venue, as negotiated.&lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/mat-form-field&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;mat-form-field class&#x3D;&quot;col-5&quot;&gt;
+          &lt;input matInput type&#x3D;&quot;number&quot; id&#x3D;&quot;capacity&quot; formControlName&#x3D;&quot;capacity&quot; placeholder&#x3D;&quot;{{&#x27;Capacity&#x27; | translate}}&quot; /&gt;
+          &lt;app-help-block&gt;
+            &lt;p translate&gt;The audience capacity for this venue. This will play a part in calculating cost and revenue.&lt;/p&gt;
+          &lt;/app-help-block&gt;
+        &lt;/mat-form-field&gt;
+      &lt;/div&gt;
+    &lt;/mat-card-content&gt;
+
+    &lt;mat-card-actions&gt;
+      &lt;app-save-button buttonType&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;venueForm.invalid || venueForm.pristine&quot;&gt;&lt;/app-save-button&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;button&quot; [title]&#x3D;&quot;&#x27;Cancel&#x27; | translate&quot; (click)&#x3D;&quot;cancel()&quot; aria-label&#x3D;&quot;Cancel&quot;&gt;&lt;i class&#x3D;&quot;fa fa-fw fa-ban&quot;&gt;&lt;/i&gt; &lt;span
+              translate&gt;Cancel&lt;/span&gt;&lt;/button&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;button&quot; *ngIf&#x3D;&quot;venueForm.value.id&quot; [title]&#x3D;&quot;&#x27;Create tournament here&#x27; | translate&quot; (click)&#x3D;&quot;createTournament()&quot;
+              aria-label&#x3D;&quot;Create tournament here&quot;&gt;
+        &lt;i class&#x3D;&quot;fa fa-fw fa-trophy&quot;&gt;&lt;/i&gt; &lt;span translate&gt;Create tournament here&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;button&quot; *ngIf&#x3D;&quot;venueForm.value.id&quot; [title]&#x3D;&quot;&#x27;Delete&#x27; | translate&quot; class&#x3D;&quot;pull-right mat-warn&quot; (click)&#x3D;&quot;delete()&quot;
+              aria-label&#x3D;&quot;Delete&quot;&gt;
+        &lt;i class&#x3D;&quot;fa fa-fw fa-trash&quot;&gt;&lt;/i&gt; &lt;span translate&gt;Delete&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/mat-card-actions&gt;
+
+    &lt;mat-card-footer&gt;
+      &lt;agm-map [latitude]&#x3D;&quot;latitude&quot; [longitude]&#x3D;&quot;longitude&quot; [zoom]&#x3D;&quot;17&quot;&gt;
+        &lt;agm-marker [latitude]&#x3D;&quot;latitude&quot; [longitude]&#x3D;&quot;longitude&quot; [markerDraggable]&#x3D;&quot;true&quot; (dragEnd)&#x3D;&quot;markerDragEnd($event)&quot;&gt;
+          &lt;agm-info-window [isOpen]&#x3D;&quot;true&quot;&gt;
+            {{ venueForm.value.name }}
+          &lt;/agm-info-window&gt;
+        &lt;/agm-marker&gt;
+      &lt;/agm-map&gt;
+    &lt;/mat-card-footer&gt;
+  &lt;/mat-card&gt;
+&lt;/form&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./venue-editor.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">agm-map {
+  height: 300px;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- Edit data --><form [formGroup]="venueForm" (ngSubmit)="save()">  <mat-card>    <mat-card-header>      <div class="card-actions">        <button type="button" mat-icon-button (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-close"></i></button>      </div>      <i class="fa fa-fw fa-map-marker fa-2x" mat-card-avatar></i>      <mat-card-title>        <h3>{{ venueName }}</h3>      </mat-card-title>    </mat-card-header>    <mat-card-content>      <div class="row">        <mat-form-field class="col-5">          <input matInput type="text" id="name" formControlName="name" placeholder="{{\'Name\' | translate}}" />          <app-help-block>            <p translate>This name will be displayed everywhere this venue is referred.</p>          </app-help-block>        </mat-form-field>      </div>      <div class="row">        <mat-form-field class="col-6">          <input matInput formControlName="address" placeholder="{{\'Address\' | translate}}" [matAutocomplete]="addressTypeahead"                 (blur)="tabOut(addressTypeahead)" [attr.autocomplete]="\'off\'">          <mat-autocomplete #addressTypeahead="matAutocomplete" (optionSelected)="setSelectedAddress($event)">            <mat-option *ngFor="let address of adressList" [value]="address">              {{ address.formatted_address }}            </mat-option>          </mat-autocomplete>          <app-help-block>            <p translate>We need the address of the venue. By typing in this field, we will automatically lookup the geo-location of the venue.</p>          </app-help-block>        </mat-form-field>        <div class="col-6">          <div class="row">            <mat-form-field class="col-6">              <input matInput type="number" formControlName="longitude" placeholder="{{\'Longitude\' | translate}}" />              <app-help-block>                <p translate>The longitude of the venue. This is 1/2 of the results from the geo-lookup made by typing in the address.</p>              </app-help-block>            </mat-form-field>            <mat-form-field class="col-6">              <input matInput type="number" formControlName="latitude" placeholder="{{\'Latitude\' | translate}}" />              <app-help-block>                <p translate>The latitude of the venue. This is 1/2 of the results from the geo-lookup made by typing in the address.</p>              </app-help-block>            </mat-form-field>          </div>        </div>      </div>      <div class="row">        <mat-form-field class="col-5">          <input matInput type="text" id="contact" formControlName="contact" placeholder="{{\'Contact Name\' | translate}}" />          <app-help-block>            <p translate>The name of a person responsible for this venue. This is the person you want to contact if you want to rent this venue for events.</p>          </app-help-block>        </mat-form-field>        <mat-form-field class="col-3">          <input matInput type="tel" id="contactPhone" formControlName="contactPhone" placeholder="{{\'Phone\' | translate}}" />          <app-help-block>            <p translate>Phone number of the contact</p>          </app-help-block>        </mat-form-field>        <mat-form-field class="col-4">          <input matInput type="email" id="contactEmail" formControlName="contactEmail" placeholder="{{\'Email\' | translate}}" />          <app-help-block>            <p translate>The email address of the contact</p>          </app-help-block>        </mat-form-field>      </div>      <div class="row">        <mat-form-field class="col-5">          <input matInput type="number" id="rentalCost" formControlName="rentalCost" placeholder="{{\'Rental cost\' | translate}}" />          <app-help-block>            <p translate>This is the rental cost for the venue, as negotiated.</p>          </app-help-block>        </mat-form-field>      </div>      <div class="row">        <mat-form-field class="col-5">          <input matInput type="number" id="capacity" formControlName="capacity" placeholder="{{\'Capacity\' | translate}}" />          <app-help-block>            <p translate>The audience capacity for this venue. This will play a part in calculating cost and revenue.</p>          </app-help-block>        </mat-form-field>      </div>    </mat-card-content>    <mat-card-actions>      <app-save-button buttonType="submit" [disabled]="venueForm.invalid || venueForm.pristine"></app-save-button>      <button mat-raised-button type="button" [title]="\'Cancel\' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span              translate>Cancel</span></button>      <button mat-raised-button type="button" *ngIf="venueForm.value.id" [title]="\'Create tournament here\' | translate" (click)="createTournament()"              aria-label="Create tournament here">        <i class="fa fa-fw fa-trophy"></i> <span translate>Create tournament here</span>      </button>      <button mat-raised-button type="button" *ngIf="venueForm.value.id" [title]="\'Delete\' | translate" class="pull-right mat-warn" (click)="delete()"              aria-label="Delete">        <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>      </button>    </mat-card-actions>    <mat-card-footer>      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="17">        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">          <agm-info-window [isOpen]="true">            {{ venueForm.value.name }}          </agm-info-window>        </agm-marker>      </agm-map>    </mat-card-footer>  </mat-card></form></div>'
+    var COMPONENTS = [{'name': 'AdvancedComponent', 'selector': 'app-advanced'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AwardsComponent', 'selector': 'app-awards'},{'name': 'ClubComponent', 'selector': 'app-club'},{'name': 'ClubEditorComponent', 'selector': 'app-club-editor'},{'name': 'ClubLookupComponent', 'selector': 'app-club-lookup'},{'name': 'ConfigureComponent', 'selector': 'app-configure'},{'name': 'ConfigureDisplayComponent', 'selector': 'app-configure-display'},{'name': 'ContextMenuComponent', 'selector': 'app-context-menu'},{'name': 'DialogComponent', 'selector': 'app-dialog'},{'name': 'DisciplineEditorComponent', 'selector': 'app-discipline-editor'},{'name': 'DisciplinesComponent', 'selector': 'app-disciplines'},{'name': 'DisplayComponent', 'selector': 'app-display'},{'name': 'DivisionEditorComponent', 'selector': 'app-division-editor'},{'name': 'DivisionLookupComponent', 'selector': 'app-division-lookup'},{'name': 'DivisionsComponent', 'selector': 'app-divisions'},{'name': 'ErrorDialogComponent', 'selector': 'app-error-dialog'},{'name': 'EventComponent', 'selector': 'app-event'},{'name': 'FullscreenComponent', 'selector': 'app-fullscreen'},{'name': 'HelpBlockComponent', 'selector': 'app-help-block'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InfoComponent', 'selector': 'app-info'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoadSpinnerComponent', 'selector': ''},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'MacroDialogComponent', 'selector': 'app-macro-dialog'},{'name': 'MediaComponent', 'selector': 'app-media'},{'name': 'MediaControlComponent', 'selector': 'app-media-control'},{'name': 'MemberEditorComponent', 'selector': 'app-member-editor'},{'name': 'MembersComponent', 'selector': 'app-members'},{'name': 'MemberSelectorComponent', 'selector': 'app-member-selector'},{'name': 'MultirangeComponent', 'selector': 'app-multirange'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetComponent', 'selector': 'app-reset'},{'name': 'ResultsComponent', 'selector': 'app-results'},{'name': 'SaveButtonComponent', 'selector': 'app-save-button'},{'name': 'ScheduleComponent', 'selector': 'app-schedule'},{'name': 'ScorecardsComponent', 'selector': 'app-scorecards'},{'name': 'ScoreEditorComponent', 'selector': 'app-score-editor'},{'name': 'ScoreGroupEditorComponent', 'selector': 'app-score-group-editor'},{'name': 'ScoreSystemComponent', 'selector': 'app-score-system'},{'name': 'SignoffReportComponent', 'selector': 'app-signoff-report'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'TeamEditorComponent', 'selector': 'app-team-editor'},{'name': 'TeamsComponent', 'selector': 'app-teams'},{'name': 'TournamentComponent', 'selector': 'app-tournament'},{'name': 'TournamentEditorComponent', 'selector': 'app-tournament-editor'},{'name': 'TroopEditorComponent', 'selector': 'app-troop-editor'},{'name': 'TroopsComponent', 'selector': 'app-troops'},{'name': 'UserEditorComponent', 'selector': 'app-user-editor'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VenueComponent', 'selector': 'app-venue'},{'name': 'VenueEditorComponent', 'selector': 'app-venue-editor'}];
+    var DIRECTIVES = [{'name': 'IfAuthDirective', 'selector': '[appIfAuth]'},{'name': 'ToCaseDirective', 'selector': 'input[appToCase]'}];
+    var ACTUAL_COMPONENT = {'name': 'VenueEditorComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'VenueEditorComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

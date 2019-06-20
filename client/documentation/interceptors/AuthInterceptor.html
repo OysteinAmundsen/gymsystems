@@ -1,0 +1,1117 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interceptor">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interceptors</li>
+  <li>AuthInterceptor</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/shared/interceptors/auth.interceptor.ts</code>
+        </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#_translator">_translator</a>
+                            </li>
+                            <li>
+                                <a href="#_userService">_userService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#analyzeAndReport">analyzeAndReport</a>
+                            </li>
+                            <li>
+                                <a href="#checkError">checkError</a>
+                            </li>
+                            <li>
+                                <a href="#handleError">handleError</a>
+                            </li>
+                            <li>
+                                <a href="#intercept">intercept</a>
+                            </li>
+                            <li>
+                                <a href="#stripTypeNames">stripTypeNames</a>
+                            </li>
+                            <li>
+                                <a href="#validateResponse">validateResponse</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#translator">translator</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, jwt: JwtHelperService, error: <a href="../injectables/ErrorHandlerService.html">ErrorHandlerService</a>, state: <a href="../injectables/HttpStateService.html">HttpStateService</a>, injector: <a href="https://angular.io/api/core/Injector" target="_blank">Injector</a>, snackBar: MatSnackBar, browser: <a href="../injectables/BrowserService.html">BrowserService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/shared/interceptors/auth.interceptor.ts:30</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>jwt</td>
+                                                  
+                                                        <td>
+                                                                    <code>JwtHelperService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>error</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ErrorHandlerService.html" target="_self" >ErrorHandlerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>state</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/HttpStateService.html" target="_self" >HttpStateService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>injector</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>snackBar</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatSnackBar</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>browser</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/BrowserService.html" target="_self" >BrowserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="analyzeAndReport"></a>
+                    <span class="name">
+                        <b>
+                            analyzeAndReport
+                        </b>
+                        <a href="#analyzeAndReport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>analyzeAndReport(req: HttpRequest<any>, res: HttpResponse<any>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">src/app/shared/interceptors/auth.interceptor.ts:101</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Analyse response and notify user if nescessary.</p>
+<p>If this is either a data persistance request or a data removal request, the user should be notified.
+But detecting which type can be tricky when we&#39;re dealing with graphql requests because graphql
+only operates under the HTTP GET or POST verbs, nothing more. Identifying the type of query requires
+us to keep a naming convention on our graph api.</p>
+<p>If the request body contains a <code>mutation</code>, it is either a save or a delete request. If it in addition
+also contains <code>{save</code> or <code>{delete</code>, we have enough to identify it.</p>
+<p>For REST requests, this identification is conciderably easier. We relly on POST/PUT requests for data
+persistance, and DELETE requests for identification.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>HttpRequest&lt;any&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>res</td>
+                                    <td>
+                                            <code>HttpResponse&lt;any&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkError"></a>
+                    <span class="name">
+                        <b>
+                            checkError
+                        </b>
+                        <a href="#checkError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkError(req: HttpRequest<any>, res: HttpResponse<any>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="120"
+                            class="link-to-prism">src/app/shared/interceptors/auth.interceptor.ts:120</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Detect if the response is really an error and therefore subject of the error handler or not.</p>
+<p>REST requests will give a status !== 200 if they&#39;re in error, which will default throw in the handler.
+But GraphQL requests will always return a status of 200 in the main response body, and hide it&#39;s real status
+inside a <code>errors</code> array.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>HttpRequest&lt;any&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>res</td>
+                                    <td>
+                                            <code>HttpResponse&lt;any&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleError"></a>
+                    <span class="name">
+                        <b>
+                            handleError
+                        </b>
+                        <a href="#handleError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleError(req: HttpRequest<any>, errorMessage: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="151"
+                            class="link-to-prism">src/app/shared/interceptors/auth.interceptor.ts:151</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Our default error handler. This will take any information attached to an
+exception, and compile a human readable message to our user.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>HttpRequest&lt;any&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>errorMessage</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="intercept"></a>
+                    <span class="name">
+                        <b>
+                            intercept
+                        </b>
+                        <a href="#intercept"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>intercept(req: HttpRequest<any>, next: <a href="https://angular.io/api/common/http/HttpHandler" target="_blank">HttpHandler</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">src/app/shared/interceptors/auth.interceptor.ts:45</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>HttpInterceptor implmentation</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>HttpRequest&lt;any&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>next</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/common/http/HttpHandler" target="_blank" >HttpHandler</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;HttpEvent&lt;any&gt;&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stripTypeNames"></a>
+                    <span class="name">
+                        <b>
+                            stripTypeNames
+                        </b>
+                        <a href="#stripTypeNames"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>stripTypeNames(req: HttpRequest<any>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/app/shared/interceptors/auth.interceptor.ts:62</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>HttpRequest&lt;any&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>HttpRequest&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateResponse"></a>
+                    <span class="name">
+                        <b>
+                            validateResponse
+                        </b>
+                        <a href="#validateResponse"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateResponse(req: HttpRequest<any>, res: HttpResponse<any>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">src/app/shared/interceptors/auth.interceptor.ts:77</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Intercept response and check for errors.</p>
+<p>If status of request is !== 200, the handler will throw and this method will not be executed.
+But graphql queries will allways return 200 status in the response and rather hide the REAL status
+inside an errors array in the body.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>req</td>
+                                    <td>
+                                            <code>HttpRequest&lt;any&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>res</td>
+                                    <td>
+                                            <code>HttpResponse&lt;any&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_translator"></a>
+                        <span class="name">
+                            <b>
+                            _translator</b>
+                            <a href="#_translator"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>TranslateService</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/shared/interceptors/auth.interceptor.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_userService"></a>
+                        <span class="name">
+                            <b>
+                            _userService</b>
+                            <a href="#_userService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/shared/interceptors/auth.interceptor.ts:30</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="translator"></a>
+                        <span class="name"><b>translator</b><a href="#translator"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>translator()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/shared/interceptors/auth.interceptor.ts:25</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, Injector } from &#x27;@angular/core&#x27;;
+import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpResponse, HttpEvent } from &#x27;@angular/common/http&#x27;;
+import { TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { MatSnackBar } from &#x27;@angular/material&#x27;;
+
+import { throwError, of, Observable } from &#x27;rxjs&#x27;;
+import { map, catchError, tap } from &#x27;rxjs/operators&#x27;;
+
+import * as moment from &#x27;moment&#x27;;
+
+import { ErrorHandlerService } from &#x27;app/shared/interceptors/error-handler.service&#x27;;
+import { HttpStateService } from &#x27;app/shared/interceptors/http-state.service&#x27;;
+import { UserService } from &#x27;app/shared/services/api&#x27;;
+import { JwtHelperService } from &#x27;@auth0/angular-jwt&#x27;;
+import { BrowserService } from &#x27;../browser.service&#x27;;
+import { Logger } from &#x27;../services/Logger&#x27;;
+
+
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  // Cache TranslateService as this could not be auto injected through
+  // the constructor. Cyclic dependency issue
+  _translator: TranslateService;
+  get translator(): TranslateService {
+    return (this._translator &#x3D;
+      this._translator || this.injector.get(TranslateService));
+  }
+
+  _userService: UserService;
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private jwt: JwtHelperService,
+    private error: ErrorHandlerService,
+    private state: HttpStateService,
+    private injector: Injector,
+    private snackBar: MatSnackBar,
+    private browser: BrowserService
+  ) { }
+
+  /**
+   * HttpInterceptor implmentation
+   */
+  intercept(req: HttpRequest&lt;any&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;any&gt;&gt; {
+    // Check token expiration
+    const user &#x3D; this.browser.sessionStorage().getItem(&#x27;currentUser&#x27;);
+    if (user &amp;&amp; this.jwt.isTokenExpired(JSON.parse(user).token)) {
+      this.browser.sessionStorage().removeItem(&#x27;currentUser&#x27;);
+    }
+
+    req &#x3D; this.stripTypeNames(req);
+
+    // Execute request
+    this.state.notifySubscribers(req);
+    return next.handle(req).pipe(
+      tap(res &#x3D;&gt; res.type !&#x3D;&#x3D; 0 ? this.validateResponse(req, &lt;HttpResponse&lt;any&gt;&gt;res) : res),
+      catchError(err &#x3D;&gt; this.handleError(req, err))
+    );
+  }
+
+  stripTypeNames(req: HttpRequest&lt;any&gt;): HttpRequest&lt;any&gt; {
+    if (req.body &amp;&amp; req.body.query) {
+      // https://github.com/apollographql/react-apollo/issues/741
+      req.body.query &#x3D; req.body.query.replace(/,.?__typename:.?&quot;[a-zA-Z]+&quot;/gm, &#x27;&#x27;);
+    }
+    return req;
+  }
+
+  /**
+   * Intercept response and check for errors.
+   *
+   * If status of request is !&#x3D;&#x3D; 200, the handler will throw and this method will not be executed.
+   * But graphql queries will allways return 200 status in the response and rather hide the REAL status
+   * inside an errors array in the body.
+   */
+  validateResponse(req: HttpRequest&lt;any&gt;, res: HttpResponse&lt;any&gt;) {
+    // Successful Response;
+    // Detect error response, but with 200 status
+    this.checkError(req, res);
+
+    // Notify user of operation success if needed
+    this.analyzeAndReport(req, res);
+    return res;
+  }
+
+  /**
+   * Analyse response and notify user if nescessary.
+   *
+   * If this is either a data persistance request or a data removal request, the user should be notified.
+   * But detecting which type can be tricky when we&#x27;re dealing with graphql requests because graphql
+   * only operates under the HTTP GET or POST verbs, nothing more. Identifying the type of query requires
+   * us to keep a naming convention on our graph api.
+   *
+   * If the request body contains a &#x60;mutation&#x60;, it is either a save or a delete request. If it in addition
+   * also contains &#x60;{save&#x60; or &#x60;{delete&#x60;, we have enough to identify it.
+   *
+   * For REST requests, this identification is conciderably easier. We relly on POST/PUT requests for data
+   * persistance, and DELETE requests for identification.
+   */
+  analyzeAndReport(req: HttpRequest&lt;any&gt;, res: HttpResponse&lt;any&gt;) {
+    const action &#x3D; this.state.notifySubscribers(req, res);
+    const isSave &#x3D; action.operation &#x3D;&#x3D;&#x3D; &#x27;save&#x27;;
+    const isDelete &#x3D; action.operation &#x3D;&#x3D;&#x3D; &#x27;delete&#x27;;
+
+    if ((isSave || isDelete) &amp;&amp; ![&#x27;login&#x27;, &#x27;logout&#x27;].some(u &#x3D;&gt; res.url.indexOf(u) &gt; -1)) {
+      const now &#x3D; moment();
+      const success &#x3D; this.translator.instant(&#x27;SUCCESS&#x27;);
+      this.snackBar.open(&#x60;${this.translator.instant(isSave ? &#x27;Saved&#x27; : &#x27;Deleted&#x27;)} ${now.format(&#x27;HH:mm:ss&#x27;)}&#x60;, success, { duration: 5 * 1000 });
+    }
+  }
+
+  /**
+   * Detect if the response is really an error and therefore subject of the error handler or not.
+   *
+   * REST requests will give a status !&#x3D;&#x3D; 200 if they&#x27;re in error, which will default throw in the handler.
+   * But GraphQL requests will always return a status of 200 in the main response body, and hide it&#x27;s real status
+   * inside a &#x60;errors&#x60; array.
+   */
+  checkError(req: HttpRequest&lt;any&gt;, res: HttpResponse&lt;any&gt;) {
+    const body &#x3D; res.body;
+    if (req.headers.has(&#x27;noReport&#x27;) || (req.body &amp;&amp; req.body.extensions &amp;&amp; req.body.extensions.noReport)) { return; }
+    if (res.status &gt;&#x3D; 400 || (body &amp;&amp; body.errors &amp;&amp; body.errors.some(e &#x3D;&gt; e.message.statusCode !&#x3D;&#x3D; 200))) {
+      if (res.body &amp;&amp; res.body.errors &amp;&amp; res.body.errors.length &gt; 0) {
+        // GraphQL Error
+        const message &#x3D; res.body.errors[0].message;
+        if (typeof message &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+          // Just a warning, not an actual error.
+          Logger.debug(message);
+          return;
+        } else {
+          // Error ... for real!
+          let url &#x3D; req.url;
+          const m &#x3D; req.body.query.match(/([\w\d]+\([\w\s:\d]+\))/); // match gql query
+          if (m) {
+            url +&#x3D; &#x27;{&#x27; + m.reduce((prev, curr) &#x3D;&gt; (prev.indexOf(curr) &lt; 0 ? prev +&#x3D; curr : prev), &#x27;&#x27;) + &#x27;}&#x27;;
+          }
+          throw new Error(JSON.stringify({ status: message.statusCode, statusText: message.error, error: message.message || url }));
+        }
+      }
+
+      // Something else has gone wrong (should really never happen).
+      throw new Error(JSON.stringify({ error: res.body }));
+    }
+  }
+
+  /**
+   * Our default error handler. This will take any information attached to an
+   * exception, and compile a human readable message to our user.
+   */
+  handleError(req: HttpRequest&lt;any&gt;, errorMessage: any) {
+    // Something went wrong. Analyze and take action
+    // Compile a human readable version of server sent error message
+    let error &#x3D; errorMessage.message.indexOf(&#x27;{&#x27;) &gt; -1 ? JSON.parse(errorMessage.message) : errorMessage;
+
+    if (!(req.headers.has(&#x27;noReport&#x27;) || (req.body &amp;&amp; req.body.extensions &amp;&amp; req.body.extensions.noReport))) {
+      if (error.status) {
+        // Analyze status
+        if (error.status &#x3D;&#x3D;&#x3D; 401) {
+          // We should be logged in, but aren&#x27;t. Redirect
+          this.router.navigate([&#x27;/login&#x27;], { queryParams: { u: encodeURIComponent(this.browser.window().location.pathname) } });
+        } else if (error.status &#x3D;&#x3D;&#x3D; 403) {
+          // We are in a place we aren&#x27;t supposed to be. Go up a level and see if that remedies the situation.
+          this.router.navigate([&#x27;/&#x27; + this.router.url.split(&#x27;/&#x27;).slice(1, -1).join(&#x27;/&#x27;)]);
+        } else {
+          // For everything else...
+          if (error.error) {
+            error &#x3D; typeof error.error &#x3D;&#x3D;&#x3D; &#x27;string&#x27; ? JSON.parse(error.error) : errorMessage.error;
+          }
+        }
+      }
+      const header &#x3D; &#x60;${error.status ? error.status + &#x27; - &#x27; : &#x27;&#x27;} ${error.statusText ? error.statusText + &#x27;:&#x27; : &#x27;&#x27;}&#x60;;
+      const message &#x3D; &#x60;${error.error}&#x60;;
+      this.error.setError(message, header, errorMessage.stack ? errorMessage.stack.replace(errorMessage.message, &#x27;&#x27;) : undefined);
+
+      // Notify and bubble error
+      this.state.notifySubscribers(req, errorMessage);
+    }
+    return throwError(this.error.error);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interceptor';
+            var COMPODOC_CURRENT_PAGE_URL = 'AuthInterceptor.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

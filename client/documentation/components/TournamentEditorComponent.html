@@ -1,0 +1,2168 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gymsystems_client documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gymsystems_client documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>TournamentEditorComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-tournament-editor</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./tournament-editor.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./tournament-editor.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#endDateInput">endDateInput</a>
+                            </li>
+                            <li>
+                                <a href="#isAdding">isAdding</a>
+                            </li>
+                            <li>
+                                <a href="#isEdit">isEdit</a>
+                            </li>
+                            <li>
+                                <a href="#roles">roles</a>
+                            </li>
+                            <li>
+                                <a href="#startDateInput">startDateInput</a>
+                            </li>
+                            <li>
+                                <a href="#subscriptions">subscriptions</a>
+                            </li>
+                            <li>
+                                <a href="#tournamentForm">tournamentForm</a>
+                            </li>
+                            <li>
+                                <a href="#tournamentId">tournamentId</a>
+                            </li>
+                            <li>
+                                <a href="#tournamentQuery">tournamentQuery</a>
+                            </li>
+                            <li>
+                                <a href="#tournamentSubject">tournamentSubject</a>
+                            </li>
+                            <li>
+                                <a href="#user">user</a>
+                            </li>
+                            <li>
+                                <a href="#venueDisplay">venueDisplay</a>
+                            </li>
+                            <li>
+                                <a href="#venueList">venueList</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cancel">cancel</a>
+                            </li>
+                            <li>
+                                <a href="#delete">delete</a>
+                            </li>
+                            <li>
+                                <a href="#edit">edit</a>
+                            </li>
+                            <li>
+                                <a href="#getTimeRangeDay">getTimeRangeDay</a>
+                            </li>
+                            <li>
+                                <a href="#menuTitle">menuTitle</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#save">save</a>
+                            </li>
+                            <li>
+                                <a href="#tabOut">tabOut</a>
+                            </li>
+                            <li>
+                                <a href="#timeRangeChange">timeRangeChange</a>
+                            </li>
+                            <li>
+                                <a href="#tournamentReceived">tournamentReceived</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#window:keyup">window:keyup</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#tournament">tournament</a>
+                                </li>
+                                <li>
+                                    <a href="#startDate">startDate</a>
+                                </li>
+                                <li>
+                                    <a href="#endDate">endDate</a>
+                                </li>
+                                <li>
+                                    <a href="#selectedDays">selectedDays</a>
+                                </li>
+                                <li>
+                                    <a href="#canEdit">canEdit</a>
+                                </li>
+                                <li>
+                                    <a href="#hasStarted">hasStarted</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, graph: <a href="../injectables/GraphService.html">GraphService</a>, userService: <a href="../injectables/UserService.html">UserService</a>, translate: TranslateService, meta: <a href="../injectables/SEOService.html">SEOService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:87</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>graph</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphService.html" target="_self" >GraphService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>translate</td>
+                                                  
+                                                        <td>
+                                                                    <code>TranslateService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>meta</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SEOService.html" target="_self" >SEOService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+    <section>
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="window:keyup"></a>
+                    <span class="name">
+                        <b>
+                            window:keyup
+                        </b>
+                        <a href="#window:keyup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>window:keyup(evt: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="262"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:262</a></div>
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancel"></a>
+                    <span class="name">
+                        <b>
+                            cancel
+                        </b>
+                        <a href="#cancel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cancel()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="240"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:240</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="delete"></a>
+                    <span class="name">
+                        <b>
+                            delete
+                        </b>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>delete()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="234"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:234</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="edit"></a>
+                    <span class="name">
+                        <b>
+                            edit
+                        </b>
+                        <a href="#edit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>edit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="247"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:247</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTimeRangeDay"></a>
+                    <span class="name">
+                        <b>
+                            getTimeRangeDay
+                        </b>
+                        <a href="#getTimeRangeDay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTimeRangeDay(day)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="194"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:194</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>day</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="menuTitle"></a>
+                    <span class="name">
+                        <b>
+                            menuTitle
+                        </b>
+                        <a href="#menuTitle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>menuTitle()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="206"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:206</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="190"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:190</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:99</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="save"></a>
+                    <span class="name">
+                        <b>
+                            save
+                        </b>
+                        <a href="#save"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>save()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="215"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:215</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tabOut"></a>
+                    <span class="name">
+                        <b>
+                            tabOut
+                        </b>
+                        <a href="#tabOut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>tabOut(typeahead: MatAutocomplete)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="253"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:253</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>typeahead</td>
+                                    <td>
+                                            <code>MatAutocomplete</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timeRangeChange"></a>
+                    <span class="name">
+                        <b>
+                            timeRangeChange
+                        </b>
+                        <a href="#timeRangeChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>timeRangeChange(event, obj)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="210"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:210</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>obj</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tournamentReceived"></a>
+                    <span class="name">
+                        <b>
+                            tournamentReceived
+                        </b>
+                        <a href="#tournamentReceived"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>tournamentReceived(tournament)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="166"
+                            class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:166</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>tournament</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="endDateInput"></a>
+                        <span class="name">
+                            <b>
+                            endDateInput</b>
+                            <a href="#endDateInput"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>MatDatepickerInput&lt;Date&gt;</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;endDateInput&#x27;, {static: false})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isAdding"></a>
+                        <span class="name">
+                            <b>
+                            isAdding</b>
+                            <a href="#isAdding"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:56</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isEdit"></a>
+                        <span class="name">
+                            <b>
+                            isEdit</b>
+                            <a href="#isEdit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:55</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="roles"></a>
+                        <span class="name">
+                            <b>
+                            roles</b>
+                            <a href="#roles"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Role</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:53</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="startDateInput"></a>
+                        <span class="name">
+                            <b>
+                            startDateInput</b>
+                            <a href="#startDateInput"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>MatDatepickerInput&lt;Date&gt;</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;startDateInput&#x27;, {static: false})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subscriptions"></a>
+                        <span class="name">
+                            <b>
+                            subscriptions</b>
+                            <a href="#subscriptions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tournamentForm"></a>
+                        <span class="name">
+                            <b>
+                            tournamentForm</b>
+                            <a href="#tournamentForm"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:50</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tournamentId"></a>
+                        <span class="name">
+                            <b>
+                            tournamentId</b>
+                            <a href="#tournamentId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tournamentQuery"></a>
+                        <span class="name">
+                            <b>
+                            tournamentQuery</b>
+                            <a href="#tournamentQuery"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x60;{
+    id,
+    name,
+    description_no,
+    description_en,
+    startDate,
+    endDate,
+    providesLodging,
+    lodingCostPerHead,
+    providesTransport,
+    transportationCostPerHead,
+    providesBanquet,
+    banquetCostPerHead,
+    times{day,time},
+    createdBy{id,name},
+    clubId,
+    club{id,name},
+    venue{id,name}
+  }&#x60;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tournamentSubject"></a>
+                        <span class="name">
+                            <b>
+                            tournamentSubject</b>
+                            <a href="#tournamentSubject"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new ReplaySubject&lt;ITournament&gt;(1)</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="user"></a>
+                        <span class="name">
+                            <b>
+                            user</b>
+                            <a href="#user"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/IUser.html" target="_self" >IUser</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:52</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="venueDisplay"></a>
+                        <span class="name">
+                            <b>
+                            venueDisplay</b>
+                            <a href="#venueDisplay"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:87</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="venueList"></a>
+                        <span class="name">
+                            <b>
+                            venueList</b>
+                            <a href="#venueList"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:58</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tournament"></a>
+                        <span class="name"><b>tournament</b><a href="#tournament"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>tournament()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:49</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="startDate"></a>
+                        <span class="name"><b>startDate</b><a href="#startDate"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>startDate()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:60</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="endDate"></a>
+                        <span class="name"><b>endDate</b><a href="#endDate"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>endDate()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:64</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedDays"></a>
+                        <span class="name"><b>selectedDays</b><a href="#selectedDays"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>selectedDays()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:68</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="canEdit"></a>
+                        <span class="name"><b>canEdit</b><a href="#canEdit"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>canEdit()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:77</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hasStarted"></a>
+                        <span class="name"><b>hasStarted</b><a href="#hasStarted"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>hasStarted()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/views/configure/tournament/tournament-editor/tournament-editor.component.ts:82</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, HostListener, OnDestroy, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { FormGroup, Validators, FormBuilder } from &#x27;@angular/forms&#x27;;
+import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { Subscription, ReplaySubject } from &#x27;rxjs&#x27;;
+import { distinctUntilChanged, map, debounceTime } from &#x27;rxjs/operators&#x27;;
+import { TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { MatDatepickerInput, MatAutocomplete } from &#x27;@angular/material&#x27;;
+
+import * as moment from &#x27;moment&#x27;;
+
+import { UserService } from &#x27;app/shared/services/api&#x27;;
+import { ITournament, IUser, Role, IVenue, ITournamentTimes } from &#x27;app/model&#x27;;
+
+import { GraphService } from &#x27;app/shared/services/graph.service&#x27;;
+import { CommonService } from &#x27;app/shared/services/common.service&#x27;;
+import { SEOService } from &#x27;app/shared/services/seo.service&#x27;;
+
+@Component({
+  selector: &#x27;app-tournament-editor&#x27;,
+  templateUrl: &#x27;./tournament-editor.component.html&#x27;,
+  styleUrls: [&#x27;./tournament-editor.component.scss&#x27;]
+})
+export class TournamentEditorComponent implements OnInit, OnDestroy {
+  @ViewChild(&#x27;startDateInput&#x27;, {static: false}) startDateInput: MatDatepickerInput&lt;Date&gt;;
+  @ViewChild(&#x27;endDateInput&#x27;, {static: false}) endDateInput: MatDatepickerInput&lt;Date&gt;;
+  tournamentQuery &#x3D; &#x60;{
+    id,
+    name,
+    description_no,
+    description_en,
+    startDate,
+    endDate,
+    providesLodging,
+    lodingCostPerHead,
+    providesTransport,
+    transportationCostPerHead,
+    providesBanquet,
+    banquetCostPerHead,
+    times{day,time},
+    createdBy{id,name},
+    clubId,
+    club{id,name},
+    venue{id,name}
+  }&#x60;;
+
+  subscriptions: Subscription[] &#x3D; [];
+  tournamentId: number;
+  tournamentSubject &#x3D; new ReplaySubject&lt;ITournament&gt;(1);
+  get tournament() { return this.tournamentForm.getRawValue(); }
+  tournamentForm: FormGroup;
+
+  user: IUser;
+  roles &#x3D; Role;
+  // userSubscription: Subscription;
+  isEdit &#x3D; false;
+  isAdding &#x3D; false;
+
+  venueList &#x3D; []; // Venue typeahead
+
+  private get startDate(): moment.Moment {
+    return moment(this.tournament.startDate);
+  }
+
+  private get endDate(): moment.Moment {
+    return moment(this.tournament.endDate);
+  }
+
+  get selectedDays(): ITournamentTimes[] {
+    if (!this.tournament.times.length &amp;&amp; this.startDate &amp;&amp; this.endDate) {
+      for (let j &#x3D; 0; j &lt; moment.duration(this.endDate.diff(this.startDate)).asDays() + 1; j++) {
+        this.tournament.times.push(&lt;ITournamentTimes&gt;{ day: j, time: &#x27;12,18&#x27;, train: &#x27;09,11&#x27; });
+      }
+    }
+    return this.tournament.times;
+  }
+
+  get canEdit() {
+    return (this.user.role &gt;&#x3D; Role.Admin || (this.user.role &gt;&#x3D; Role.Organizer &amp;&amp; +this.tournament.club.id &#x3D;&#x3D;&#x3D; +this.user.clubId));
+    // &amp;&amp; this.tournament.createdBy.id &#x3D;&#x3D;&#x3D; this.user.id);
+  }
+
+  get hasStarted() {
+    const now &#x3D; moment();
+    return moment(this.tournament.startDate).isBefore(now);
+  }
+
+  venueDisplay &#x3D; (venue: IVenue) &#x3D;&gt; (venue &amp;&amp; venue.name ? venue.name : venue);
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private graph: GraphService,
+    private userService: UserService,
+    private translate: TranslateService,
+    private meta: SEOService
+  ) { }
+
+  ngOnInit() {
+    // Create the form
+    this.tournamentForm &#x3D; this.fb.group({
+      id: [null],
+      name: [&#x27;&#x27;, [Validators.required]],
+      club: [null, [Validators.required]],
+      startDate: [null, [Validators.required]],
+      endDate: [null, [Validators.required]],
+      venue: [null],
+      description: [&#x27;&#x27;],
+      createdBy: [this.user],
+      times: [new Array()],
+      providesLodging: [false],
+      providesTransport: [false],
+      providesBanquet: [false]
+    });
+
+    this.subscriptions.push(this.userService.getMe().subscribe(user &#x3D;&gt; (this.user &#x3D; user)));
+    this.subscriptions.push(this.route.params.subscribe((params: any) &#x3D;&gt; {
+      if (params.id) {
+        this.tournamentId &#x3D; +params.id;
+        this.graph.getData(&#x60;{tournament(id:${this.tournamentId})${this.tournamentQuery}}&#x60;).subscribe(result &#x3D;&gt; this.tournamentReceived(result.tournament));
+      } else {
+        this.isAdding &#x3D; true;
+        this.isEdit &#x3D; true;
+      }
+    }));
+
+    this.subscriptions.push(this.route.queryParams.subscribe((params: any) &#x3D;&gt; {
+      if (params.fromVenue) {
+        this.graph.getData(&#x60;{venue(id:${params.fromVenue}){id,name}}&#x60;).subscribe(result &#x3D;&gt; {
+          if (result.venue) {
+            const year &#x3D; moment().format(&#x27;YYYY&#x27;);
+            this.tournamentForm.controls[&#x27;name&#x27;].setValue(&#x60;${result.venue.name} ${year}&#x60;);
+            this.tournamentForm.controls[&#x27;venue&#x27;].setValue(result.venue);
+          }
+        });
+      }
+    }));
+
+    // Make sure we have translations for weekdays
+    this.subscriptions.push(this.translate.get([&#x27;Mon&#x27;, &#x27;Tue&#x27;, &#x27;Wed&#x27;, &#x27;Thu&#x27;, &#x27;Fri&#x27;, &#x27;Sat&#x27;, &#x27;Sun&#x27;]).subscribe());
+
+    // Filter venues in typeahead
+    const venueCtrl &#x3D; this.tournamentForm.controls[&#x27;venue&#x27;];
+    venueCtrl.valueChanges.pipe(distinctUntilChanged(), debounceTime(200)).subscribe(async v &#x3D;&gt;
+      (this.venueList &#x3D; v ? (await this.graph.getData(&#x60;{getVenues(name:&quot;${encodeURIComponent(v &amp;&amp; v.name ? v.name : v)}&quot;){id,name}}&#x60;).toPromise()).getVenues : [])
+    );
+
+    // Detect changes in start and end times for this tournament
+    const reset &#x3D; () &#x3D;&gt; (this.tournamentForm.controls[&#x27;times&#x27;].setValue(new Array()));
+    const startCtrl &#x3D; this.tournamentForm.controls[&#x27;startDate&#x27;];
+    const endCtrl &#x3D; this.tournamentForm.controls[&#x27;endDate&#x27;];
+    startCtrl.valueChanges.pipe(distinctUntilChanged()).subscribe((val: Date) &#x3D;&gt; {
+      if (this.endDateInput) {
+        this.endDateInput.min &#x3D; val;
+      }
+      setTimeout(reset);
+    });
+    endCtrl.valueChanges.pipe(distinctUntilChanged()).subscribe((val: Date) &#x3D;&gt; {
+      if (this.startDateInput) {
+        this.startDateInput.max &#x3D; val;
+      }
+      setTimeout(reset);
+    });
+  }
+
+  tournamentReceived(tournament) {
+    this.meta.setTitle(&#x60;Configure tournament: ${tournament.name}&#x60;, &#x60;Configure tournament settings and contenders for ${tournament.name}&#x60;);
+
+    if (this.tournamentForm) {
+      // If not, this component is probably terminated before callback is called.
+      this.tournamentForm.setValue({
+        id: tournament.id,
+        name: tournament.name,
+        club: tournament.club,
+        startDate: new Date(tournament.startDate),
+        endDate: new Date(tournament.endDate),
+        venue: tournament.venue || null,
+        description: tournament[&#x27;description_&#x27; + this.translate.currentLang] || &#x27;&#x27;,
+        createdBy: tournament.createdBy,
+        times: tournament.times || new Array(),
+        providesLodging: tournament.providesLodging,
+        providesTransport: tournament.providesTransport,
+        providesBanquet: tournament.providesBanquet
+      }, { emitEvent: false });
+      this.venueList &#x3D; [tournament.venue];
+      this.tournamentSubject.next(tournament);
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s &#x3D;&gt; s.unsubscribe());
+  }
+
+  getTimeRangeDay(day) {
+    let startDate &#x3D; this.tournament.startDate;
+    if (startDate instanceof Date || typeof startDate &#x3D;&#x3D;&#x3D; &#x27;string&#x27; || !isNaN(startDate)) {
+      // Start date is Date, string or a number
+      startDate &#x3D; moment(startDate);
+    } else if (startDate.hasOwnProperty(&#x27;momentObj&#x27;)) {
+      // Start date is moment object
+      startDate &#x3D; startDate[&#x27;momentObj&#x27;];
+    }
+    return startDate.clone().startOf(&#x27;day&#x27;).utc().add(day, &#x27;days&#x27;).format(&#x27;ddd&#x27;);
+  }
+
+  menuTitle() {
+    return this.hasStarted ? this.translate.instant(&#x27;This tournament has allready started&#x27;) : &#x27;&#x27;;
+  }
+
+  timeRangeChange(event, obj) {
+    obj.time &#x3D; event;
+    this.tournamentForm.markAsDirty();
+  }
+
+  save() {
+    const formVal: ITournament &#x3D; this.tournament;
+    if (!formVal.club) {
+      formVal.club &#x3D; this.user.club;
+    }
+    if (!formVal.createdBy) {
+      formVal.createdBy &#x3D; this.user;
+    }
+    this.graph.saveData(&#x27;Tournament&#x27;, CommonService.omit(formVal, [&#x27;description&#x27;]), this.tournamentQuery).subscribe(res &#x3D;&gt; {
+      this.tournamentReceived(res.saveTournament);
+      this.isEdit &#x3D; false;
+      if (this.isAdding) {
+        this.isAdding &#x3D; false;
+        this.router.navigate([&#x27;../&#x27;, this.tournament.id], { relativeTo: this.route });
+      }
+      // this.tournamentReceived(tournament);
+    });
+  }
+
+  delete() {
+    this.graph
+      .deleteData(&#x27;Tournament&#x27;, this.tournament.id)
+      .subscribe(result &#x3D;&gt; this.router.navigate([&#x27;../&#x27;], { relativeTo: this.route }));
+  }
+
+  cancel() {
+    this.isEdit &#x3D; false;
+    if (this.isAdding) {
+      this.router.navigate([&#x27;../&#x27;], { relativeTo: this.route });
+    }
+  }
+
+  edit() {
+    if (this.canEdit) {
+      this.isEdit &#x3D; true;
+    }
+  }
+
+  tabOut(typeahead: MatAutocomplete) {
+    const active &#x3D; typeahead.options.find(o &#x3D;&gt; o.active);
+    if (active) {
+      active.select();
+      typeahead._emitSelectEvent(active);
+    }
+  }
+
+  @HostListener(&#x27;window:keyup&#x27;, [&#x27;$event&#x27;])
+  onKeyup(evt: KeyboardEvent) {
+    if (evt.key &#x3D;&#x3D;&#x3D; &#x27;Escape&#x27;) {
+      this.cancel();
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;header class&#x3D;&quot;screen-only&quot;&gt;
+  &lt;h1&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-trophy&quot;&gt;&lt;/i&gt;
+    &lt;span&gt;{{ tournamentForm.value.name || &#x27;Tournament&#x27; }}&lt;/span&gt;
+  &lt;/h1&gt;
+
+  &lt;button mat-icon-button class&#x3D;&quot;buttons&quot; [matMenuTriggerFor]&#x3D;&quot;options&quot; aria-label&#x3D;&quot;Options&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-ellipsis-v&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;
+
+  &lt;mat-menu #options&#x3D;&quot;matMenu&quot;&gt;
+    &lt;button mat-menu-item type&#x3D;&quot;button&quot; *appIfAuth&#x3D;&quot;&#x27;Organizer&#x27;&quot; [routerLink]&#x3D;&quot;[&#x27;./scorecards&#x27;]&quot; aria-label&#x3D;&quot;Judge scorecards&quot;&gt;
+      &lt;i class&#x3D;&quot;fa fa-fw fa-print&quot;&gt;&lt;/i&gt;
+      &lt;span&gt;{{&#x27;Judge scorecards&#x27; | translate}}&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button mat-menu-item type&#x3D;&quot;button&quot; [routerLink]&#x3D;&quot;[&#x27;/event&#x27;, tournament.id, &#x27;list&#x27;]&quot; aria-label&#x3D;&quot;Schedule&quot;&gt;
+      &lt;i class&#x3D;&quot;fa fa-fw fa-list&quot;&gt;&lt;/i&gt;
+      &lt;span translate&gt;Schedule&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button mat-menu-item type&#x3D;&quot;button&quot; [routerLink]&#x3D;&quot;[&#x27;/event&#x27;, tournament.id, &#x27;results&#x27;]&quot; aria-label&#x3D;&quot;Results&quot;&gt;
+      &lt;i class&#x3D;&quot;fa fa-fw fa-trophy&quot;&gt;&lt;/i&gt;
+      &lt;span translate&gt;Results &lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button mat-menu-item type&#x3D;&quot;button&quot; *appIfAuth&#x3D;&quot;&#x27;Secretariat&#x27;&quot; [routerLink]&#x3D;&quot;[&#x27;/event&#x27;, tournament.id, &#x27;display&#x27;]&quot; aria-label&#x3D;&quot;Display&quot;&gt;
+      &lt;i class&#x3D;&quot;fa fa-fw fa-tv&quot;&gt;&lt;/i&gt;
+      &lt;span translate&gt;Display &lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/mat-menu&gt;
+&lt;/header&gt;
+
+
+&lt;div class&#x3D;&quot;table-responsive screen-only&quot;&gt;
+  &lt;table *ngIf&#x3D;&quot;!isEdit&quot; [title]&#x3D;&quot;&#x27;Click to edit&#x27; | translate&quot; (click)&#x3D;&quot;edit()&quot;&gt;
+    &lt;tr&gt;
+      &lt;th translate&gt;Name&lt;/th&gt;
+      &lt;td&gt;{{ tournament.name }}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th translate&gt;Start date&lt;/th&gt;
+      &lt;td&gt;{{ tournament.startDate | date:&#x27;dd.MM.yyyy&#x27; }}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th translate&gt;End date&lt;/th&gt;
+      &lt;td&gt;{{ tournament.endDate | date:&#x27;dd.MM.yyyy&#x27; }}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th *ngIf&#x3D;&quot;tournament.venue&quot; translate&gt;Location&lt;/th&gt;
+      &lt;td *ngIf&#x3D;&quot;tournament.venue&quot;&gt;
+        &lt;span&gt;{{ tournament.venue.name }}&lt;/span&gt;
+        &lt;a class&#x3D;&quot;marker&quot; [routerLink]&#x3D;&quot;[&#x27;../../venue&#x27;, tournament.venue.id]&quot; [title]&#x3D;&quot;&#x27;View location info&#x27; | translate&quot; aria-label&#x3D;&quot;View location info&quot;&gt;
+          &lt;i class&#x3D;&quot;fa fa-fw fa-map-marker&quot;&gt;&lt;/i&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;form [formGroup]&#x3D;&quot;tournamentForm&quot; (ngSubmit)&#x3D;&quot;save()&quot; *ngIf&#x3D;&quot;isEdit&quot; class&#x3D;&quot;screen-only&quot;&gt;
+  &lt;mat-card&gt;
+    &lt;mat-card-content&gt;
+      &lt;fieldset&gt;
+        &lt;div class&#x3D;&quot;row&quot;&gt;
+          &lt;div class&#x3D;&quot;col-5 help-available&quot; *appIfAuth&#x3D;&quot;&#x27;Admin&#x27;&quot;&gt;
+            &lt;app-club-lookup formControlName&#x3D;&quot;club&quot;&gt;
+              &lt;app-help-block&gt;
+                &lt;p translate&gt;Admins do not belong to any club. We need to know which club you are creating this tournament for.&lt;/p&gt;
+              &lt;/app-help-block&gt;
+            &lt;/app-club-lookup&gt;
+          &lt;/div&gt;
+          &lt;mat-form-field [ngClass]&#x3D;&quot;(user.role &gt;&#x3D; roles.Admin ? &#x27;col-xs-7&#x27; : &#x27;col-xs-12&#x27;)&quot;&gt;
+            &lt;input matInput type&#x3D;&quot;text&quot; formControlName&#x3D;&quot;name&quot; autofocus cdkFocusInitial placeholder&#x3D;&quot;{{&#x27;Name&#x27; | translate}}&quot;&gt;
+            &lt;app-help-block&gt;
+              &lt;p translate&gt;Make sure the name for this tournament is descriptive, and unique. I.e. &quot;Norwegian championship 2017&quot;.&lt;/p&gt;
+            &lt;/app-help-block&gt;
+          &lt;/mat-form-field&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;row&quot;&gt;
+          &lt;mat-form-field class&#x3D;&quot;col-xs-4&quot;&gt;
+            &lt;input matInput formControlName&#x3D;&quot;startDate&quot; autocomplete&#x3D;&quot;off&quot; [matDatepicker]&#x3D;&quot;startDate&quot; placeholder&#x3D;&quot;{{&#x27;Start date&#x27; | translate}}&quot;
+                   [max]&#x3D;&quot;tournamentForm.value.endDate&quot; (focus)&#x3D;&quot;startDate.open()&quot; #startDateInput&gt;
+            &lt;mat-datepicker-toggle matSuffix [for]&#x3D;&quot;startDate&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+            &lt;mat-datepicker #startDate&gt;&lt;/mat-datepicker&gt;
+            &lt;app-help-block&gt;
+              &lt;p translate&gt;Pick the date this tournament is to start.&lt;/p&gt;
+            &lt;/app-help-block&gt;
+          &lt;/mat-form-field&gt;
+          &lt;mat-form-field class&#x3D;&quot;col-xs-4&quot;&gt;
+            &lt;input matInput formControlName&#x3D;&quot;endDate&quot; autocomplete&#x3D;&quot;off&quot; [matDatepicker]&#x3D;&quot;endDate&quot; placeholder&#x3D;&quot;{{&#x27;End date&#x27; | translate}}&quot;
+                   [min]&#x3D;&quot;tournamentForm.value.startDate&quot; (focus)&#x3D;&quot;endDate.open()&quot; #endDateInput&gt;
+            &lt;mat-datepicker-toggle matSuffix [for]&#x3D;&quot;endDate&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+            &lt;mat-datepicker #endDate&gt;&lt;/mat-datepicker&gt;
+            &lt;app-help-block&gt;
+              &lt;p translate&gt;The date this tournament is over.&lt;/p&gt;
+            &lt;/app-help-block&gt;
+          &lt;/mat-form-field&gt;
+          &lt;mat-form-field class&#x3D;&quot;col-xs-4 help-available&quot;&gt;
+            &lt;input matInput formControlName&#x3D;&quot;venue&quot; placeholder&#x3D;&quot;{{&#x27;Location&#x27; | translate}}&quot; [matAutocomplete]&#x3D;&quot;venueTypeahead&quot; (blur)&#x3D;&quot;tabOut(venueTypeahead)&quot;&gt;
+            &lt;mat-autocomplete #venueTypeahead&#x3D;&quot;matAutocomplete&quot; [displayWith]&#x3D;&quot;venueDisplay&quot;&gt;
+              &lt;mat-option *ngFor&#x3D;&quot;let venue of venueList&quot; [value]&#x3D;&quot;venue&quot;&gt;
+                {{ venue.name }}
+              &lt;/mat-option&gt;
+              &lt;mat-option *ngIf&#x3D;&quot;venueList.length &lt; 1 &amp;&amp; tournamentForm.value.venue !&#x3D; null&quot; [routerLink]&#x3D;&quot;[&#x27;../../venue/add&#x27;]&quot;
+                          [queryParams]&#x3D;&quot;{fromName: tournamentForm.value.venue}&quot;&gt;
+                &lt;span translate&gt;Create new venue&lt;/span&gt;
+              &lt;/mat-option&gt;
+            &lt;/mat-autocomplete&gt;
+            &lt;app-help-block&gt;
+              &lt;p translate&gt;Search in pre-configured venues.&lt;/p&gt;
+              &lt;p translate&gt;This will be used to inform participants of the location, and calculate the entry cost per team in this tournament.&lt;/p&gt;
+            &lt;/app-help-block&gt;
+          &lt;/mat-form-field&gt;
+        &lt;/div&gt;
+
+      &lt;/fieldset&gt;
+
+      &lt;fieldset class&#x3D;&quot;start-stop-container&quot;&gt;
+        &lt;legend class&#x3D;&quot;help-available&quot;&gt;
+          &lt;i class&#x3D;&quot;fa fa-fw fa-clock-o&quot;&gt;&lt;/i&gt;&lt;span translate&gt;Time&lt;/span&gt;
+          &lt;app-help-block&gt;
+            &lt;span translate&gt;When a start and end date is selected, timeslots will appear as sliders below.&lt;/span&gt;
+            &lt;span translate&gt;Use these to adjust when the tournament starts and ends during each of these days.&lt;/span&gt;
+          &lt;/app-help-block&gt;
+        &lt;/legend&gt;
+        &lt;div class&#x3D;&quot;row start-stop&quot; *ngFor&#x3D;&quot;let obj of selectedDays; let i &#x3D; index&quot;&gt;
+          &lt;label&gt;{{ getTimeRangeDay(obj.day) | translate }}&lt;/label&gt;
+          &lt;app-multirange [name]&#x3D;&quot;getTimeRangeDay(obj.day)&quot; min&#x3D;&quot;0&quot; max&#x3D;&quot;24&quot; [value]&#x3D;&quot;obj.time&quot; (valueChanges)&#x3D;&quot;timeRangeChange($event, obj)&quot;&gt;&lt;/app-multirange&gt;
+          &lt;!-- &lt;app-multirange [name]&#x3D;&quot;getTimeRangeDay(obj.day)&quot; min&#x3D;&quot;0&quot; max&#x3D;&quot;24&quot; [value]&#x3D;&quot;obj.train&quot; (valueChanges)&#x3D;&quot;trainRangeChange($event, obj)&quot;&gt; --&gt;
+          &lt;!-- &lt;/app-multirange&gt; --&gt;
+        &lt;/div&gt;
+      &lt;/fieldset&gt;
+
+      &lt;fieldset&gt;
+        &lt;mat-slide-toggle formControlName&#x3D;&quot;providesLodging&quot;&gt;
+          &lt;span *ngIf&#x3D;&quot;tournamentForm.value.providesLodging&quot; translate&gt;Provides lodging for gymnasts&lt;/span&gt;
+          &lt;span *ngIf&#x3D;&quot;!tournamentForm.value.providesLodging&quot; translate&gt;No lodging available&lt;/span&gt;
+        &lt;/mat-slide-toggle&gt;
+        &lt;mat-slide-toggle formControlName&#x3D;&quot;providesTransport&quot;&gt;
+          &lt;span *ngIf&#x3D;&quot;tournamentForm.value.providesTransport&quot; translate&gt;Provides transport for gymnasts&lt;/span&gt;
+          &lt;span *ngIf&#x3D;&quot;!tournamentForm.value.providesTransport&quot; translate&gt;No transport available&lt;/span&gt;
+        &lt;/mat-slide-toggle&gt;
+        &lt;mat-slide-toggle formControlName&#x3D;&quot;providesBanquet&quot;&gt;
+          &lt;span *ngIf&#x3D;&quot;tournamentForm.value.providesBanquet&quot; translate&gt;Provides banquet and afterparty&lt;/span&gt;
+          &lt;span *ngIf&#x3D;&quot;!tournamentForm.value.providesBanquet&quot; translate&gt;No banquet available&lt;/span&gt;
+        &lt;/mat-slide-toggle&gt;
+      &lt;/fieldset&gt;
+    &lt;/mat-card-content&gt;
+
+    &lt;mat-card-actions&gt;
+      &lt;app-save-button buttonType&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;tournamentForm.invalid || tournamentForm.pristine&quot;&gt;&lt;/app-save-button&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;button&quot; [title]&#x3D;&quot;&#x27;Cancel&#x27; | translate&quot; (click)&#x3D;&quot;cancel()&quot; aria-label&#x3D;&quot;Cancel&quot;&gt;&lt;i class&#x3D;&quot;fa fa-fw fa-ban&quot;&gt;&lt;/i&gt; &lt;span
+              translate&gt;Cancel&lt;/span&gt;&lt;/button&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;button&quot; *ngIf&#x3D;&quot;tournamentForm.value.id&quot; [title]&#x3D;&quot;&#x27;Delete&#x27; | translate&quot; class&#x3D;&quot;pull-right mat-warn&quot; (click)&#x3D;&quot;delete()&quot;
+              aria-label&#x3D;&quot;Delete&quot;&gt;
+        &lt;i class&#x3D;&quot;fa fa-fw fa-trash&quot;&gt;&lt;/i&gt; &lt;span translate&gt;Delete&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/mat-card-actions&gt;
+  &lt;/mat-card&gt;
+&lt;/form&gt;
+
+&lt;menu mat-tab-nav-bar *ngIf&#x3D;&quot;tournamentForm.value.id&quot; class&#x3D;&quot;screen-only&quot;&gt;
+  &lt;a mat-tab-link *ngIf&#x3D;&quot;canEdit&quot; routerLink&#x3D;&quot;./divisions&quot; routerLinkActive #rla&#x3D;&quot;routerLinkActive&quot; [active]&#x3D;&quot;rla.isActive&quot;
+     [attr.disabled]&#x3D;&quot;user.role &lt; roles.Admin &amp;&amp; hasStarted ? true : null&quot; [title]&#x3D;&quot;menuTitle()&quot; aria-label&#x3D;&quot;Divisions&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-cubes&quot;&gt;&lt;/i&gt;&amp;nbsp;
+    &lt;span translate&gt;Divisions&lt;/span&gt;
+  &lt;/a&gt;
+
+  &lt;a mat-tab-link *ngIf&#x3D;&quot;canEdit&quot; routerLink&#x3D;&quot;./disciplines&quot; routerLinkActive #rla&#x3D;&quot;routerLinkActive&quot; [active]&#x3D;&quot;rla.isActive&quot;
+     [attr.disabled]&#x3D;&quot;user.role &lt; roles.Admin &amp;&amp; hasStarted ? true : null&quot; [title]&#x3D;&quot;menuTitle()&quot; aria-label&#x3D;&quot;Disciplines&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-heartbeat&quot;&gt;&lt;/i&gt;&amp;nbsp;
+    &lt;span translate&gt;Disciplines&lt;/span&gt;
+  &lt;/a&gt;
+
+  &lt;a mat-tab-link *appIfAuth&#x3D;&quot;&#x27;Club&#x27;&quot; routerLink&#x3D;&quot;./teams&quot; routerLinkActive #rla&#x3D;&quot;routerLinkActive&quot; [active]&#x3D;&quot;rla.isActive&quot; [title]&#x3D;&quot;menuTitle()&quot;
+     aria-label&#x3D;&quot;Teams&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-users&quot;&gt;&lt;/i&gt;&amp;nbsp;
+    &lt;span translate&gt;Teams&lt;/span&gt;
+  &lt;/a&gt;
+
+  &lt;a mat-tab-link *ngIf&#x3D;&quot;canEdit&quot; routerLink&#x3D;&quot;./schedule&quot; routerLinkActive #rla&#x3D;&quot;routerLinkActive&quot; [active]&#x3D;&quot;rla.isActive&quot; [title]&#x3D;&quot;menuTitle()&quot;
+     aria-label&#x3D;&quot;Schedule&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-sort-numeric-asc&quot;&gt;&lt;/i&gt;&amp;nbsp;
+    &lt;span translate&gt;Schedule&lt;/span&gt;
+  &lt;/a&gt;
+
+  &lt;a mat-tab-link *ngIf&#x3D;&quot;canEdit&quot; routerLink&#x3D;&quot;./awards&quot; routerLinkActive #rla&#x3D;&quot;routerLinkActive&quot; [active]&#x3D;&quot;rla.isActive&quot;
+     [attr.disabled]&#x3D;&quot;user.role &lt; roles.Admin &amp;&amp; hasStarted ? true : null&quot; [title]&#x3D;&quot;menuTitle()&quot; aria-label&#x3D;&quot;Awards&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-trophy&quot;&gt;&lt;/i&gt;&amp;nbsp;
+    &lt;span translate&gt;Awards&lt;/span&gt;
+  &lt;/a&gt;
+
+  &lt;a mat-tab-link *ngIf&#x3D;&quot;canEdit&quot; routerLink&#x3D;&quot;./info&quot; routerLinkActive #rla&#x3D;&quot;routerLinkActive&quot; [active]&#x3D;&quot;rla.isActive&quot;
+     [attr.disabled]&#x3D;&quot;user.role &lt; roles.Admin &amp;&amp; hasStarted ? true : null&quot; [title]&#x3D;&quot;menuTitle()&quot; aria-label&#x3D;&quot;Info&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-fw fa-info&quot;&gt;&lt;/i&gt;&amp;nbsp;
+    &lt;span translate&gt;Info&lt;/span&gt;
+  &lt;/a&gt;
+&lt;/menu&gt;
+
+&lt;div class&#x3D;&quot;sub-routes&quot;&gt;
+  &lt;router-outlet&gt;&lt;/router-outlet&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./tournament-editor.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../../../styles/variables&quot;;
+@import &quot;../../../../../styles/panel&quot;;
+
+header {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  h1 {
+    flex: 1;
+    min-width: 18rem;
+  }
+}
+
+table {
+  cursor: pointer;
+  padding: ($padding / 2) 0 $padding 0;
+  border: 1px solid transparent;
+  width: 100%;
+  &amp;:hover {
+    @include panel;
+  }
+  td,
+  th {
+    border-bottom: 0;
+  }
+  th {
+    width: 8rem;
+    text-align: right;
+  }
+}
+
+.start-stop-container {
+  margin-top: 1rem;
+}
+.start-stop {
+  display: flex;
+  margin-top: 0.5em;
+  label {
+    width: 50px;
+    text-align: right;
+    padding-right: 0.5em;
+  }
+  app-multirange {
+    flex: 1;
+  }
+}
+
+fieldset legend {
+  padding: 0 33px 10px 0;
+}
+
+.marker {
+  transition-property: transform color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  &amp;:hover {
+    transform: scale(1.3);
+    color: red;
+    display: inline-block;
+  }
+}
+
+.mat-slide-toggle {
+  display: block;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><header class="screen-only">  <h1>    <i class="fa fa-fw fa-trophy"></i>    <span>{{ tournamentForm.value.name || \'Tournament\' }}</span>  </h1>  <button mat-icon-button class="buttons" [matMenuTriggerFor]="options" aria-label="Options">    <i class="fa fa-fw fa-ellipsis-v"></i>  </button>  <mat-menu #options="matMenu">    <button mat-menu-item type="button" *appIfAuth="\'Organizer\'" [routerLink]="[\'./scorecards\']" aria-label="Judge scorecards">      <i class="fa fa-fw fa-print"></i>      <span>{{\'Judge scorecards\' | translate}}</span>    </button>    <button mat-menu-item type="button" [routerLink]="[\'/event\', tournament.id, \'list\']" aria-label="Schedule">      <i class="fa fa-fw fa-list"></i>      <span translate>Schedule</span>    </button>    <button mat-menu-item type="button" [routerLink]="[\'/event\', tournament.id, \'results\']" aria-label="Results">      <i class="fa fa-fw fa-trophy"></i>      <span translate>Results </span>    </button>    <button mat-menu-item type="button" *appIfAuth="\'Secretariat\'" [routerLink]="[\'/event\', tournament.id, \'display\']" aria-label="Display">      <i class="fa fa-fw fa-tv"></i>      <span translate>Display </span>    </button>  </mat-menu></header><div class="table-responsive screen-only">  <table *ngIf="!isEdit" [title]="\'Click to edit\' | translate" (click)="edit()">    <tr>      <th translate>Name</th>      <td>{{ tournament.name }}</td>    </tr>    <tr>      <th translate>Start date</th>      <td>{{ tournament.startDate | date:\'dd.MM.yyyy\' }}</td>    </tr>    <tr>      <th translate>End date</th>      <td>{{ tournament.endDate | date:\'dd.MM.yyyy\' }}</td>    </tr>    <tr>      <th *ngIf="tournament.venue" translate>Location</th>      <td *ngIf="tournament.venue">        <span>{{ tournament.venue.name }}</span>        <a class="marker" [routerLink]="[\'../../venue\', tournament.venue.id]" [title]="\'View location info\' | translate" aria-label="View location info">          <i class="fa fa-fw fa-map-marker"></i>        </a>      </td>    </tr>  </table></div><form [formGroup]="tournamentForm" (ngSubmit)="save()" *ngIf="isEdit" class="screen-only">  <mat-card>    <mat-card-content>      <fieldset>        <div class="row">          <div class="col-5 help-available" *appIfAuth="\'Admin\'">            <app-club-lookup formControlName="club">              <app-help-block>                <p translate>Admins do not belong to any club. We need to know which club you are creating this tournament for.</p>              </app-help-block>            </app-club-lookup>          </div>          <mat-form-field [ngClass]="(user.role >= roles.Admin ? \'col-xs-7\' : \'col-xs-12\')">            <input matInput type="text" formControlName="name" autofocus cdkFocusInitial placeholder="{{\'Name\' | translate}}">            <app-help-block>              <p translate>Make sure the name for this tournament is descriptive, and unique. I.e. "Norwegian championship 2017".</p>            </app-help-block>          </mat-form-field>        </div>        <div class="row">          <mat-form-field class="col-xs-4">            <input matInput formControlName="startDate" autocomplete="off" [matDatepicker]="startDate" placeholder="{{\'Start date\' | translate}}"                   [max]="tournamentForm.value.endDate" (focus)="startDate.open()" #startDateInput>            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>            <mat-datepicker #startDate></mat-datepicker>            <app-help-block>              <p translate>Pick the date this tournament is to start.</p>            </app-help-block>          </mat-form-field>          <mat-form-field class="col-xs-4">            <input matInput formControlName="endDate" autocomplete="off" [matDatepicker]="endDate" placeholder="{{\'End date\' | translate}}"                   [min]="tournamentForm.value.startDate" (focus)="endDate.open()" #endDateInput>            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>            <mat-datepicker #endDate></mat-datepicker>            <app-help-block>              <p translate>The date this tournament is over.</p>            </app-help-block>          </mat-form-field>          <mat-form-field class="col-xs-4 help-available">            <input matInput formControlName="venue" placeholder="{{\'Location\' | translate}}" [matAutocomplete]="venueTypeahead" (blur)="tabOut(venueTypeahead)">            <mat-autocomplete #venueTypeahead="matAutocomplete" [displayWith]="venueDisplay">              <mat-option *ngFor="let venue of venueList" [value]="venue">                {{ venue.name }}              </mat-option>              <mat-option *ngIf="venueList.length < 1 && tournamentForm.value.venue != null" [routerLink]="[\'../../venue/add\']"                          [queryParams]="{fromName: tournamentForm.value.venue}">                <span translate>Create new venue</span>              </mat-option>            </mat-autocomplete>            <app-help-block>              <p translate>Search in pre-configured venues.</p>              <p translate>This will be used to inform participants of the location, and calculate the entry cost per team in this tournament.</p>            </app-help-block>          </mat-form-field>        </div>      </fieldset>      <fieldset class="start-stop-container">        <legend class="help-available">          <i class="fa fa-fw fa-clock-o"></i><span translate>Time</span>          <app-help-block>            <span translate>When a start and end date is selected, timeslots will appear as sliders below.</span>            <span translate>Use these to adjust when the tournament starts and ends during each of these days.</span>          </app-help-block>        </legend>        <div class="row start-stop" *ngFor="let obj of selectedDays; let i = index">          <label>{{ getTimeRangeDay(obj.day) | translate }}</label>          <app-multirange [name]="getTimeRangeDay(obj.day)" min="0" max="24" [value]="obj.time" (valueChanges)="timeRangeChange($event, obj)"></app-multirange>          <!-- <app-multirange [name]="getTimeRangeDay(obj.day)" min="0" max="24" [value]="obj.train" (valueChanges)="trainRangeChange($event, obj)"> -->          <!-- </app-multirange> -->        </div>      </fieldset>      <fieldset>        <mat-slide-toggle formControlName="providesLodging">          <span *ngIf="tournamentForm.value.providesLodging" translate>Provides lodging for gymnasts</span>          <span *ngIf="!tournamentForm.value.providesLodging" translate>No lodging available</span>        </mat-slide-toggle>        <mat-slide-toggle formControlName="providesTransport">          <span *ngIf="tournamentForm.value.providesTransport" translate>Provides transport for gymnasts</span>          <span *ngIf="!tournamentForm.value.providesTransport" translate>No transport available</span>        </mat-slide-toggle>        <mat-slide-toggle formControlName="providesBanquet">          <span *ngIf="tournamentForm.value.providesBanquet" translate>Provides banquet and afterparty</span>          <span *ngIf="!tournamentForm.value.providesBanquet" translate>No banquet available</span>        </mat-slide-toggle>      </fieldset>    </mat-card-content>    <mat-card-actions>      <app-save-button buttonType="submit" [disabled]="tournamentForm.invalid || tournamentForm.pristine"></app-save-button>      <button mat-raised-button type="button" [title]="\'Cancel\' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span              translate>Cancel</span></button>      <button mat-raised-button type="button" *ngIf="tournamentForm.value.id" [title]="\'Delete\' | translate" class="pull-right mat-warn" (click)="delete()"              aria-label="Delete">        <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>      </button>    </mat-card-actions>  </mat-card></form><menu mat-tab-nav-bar *ngIf="tournamentForm.value.id" class="screen-only">  <a mat-tab-link *ngIf="canEdit" routerLink="./divisions" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Divisions">    <i class="fa fa-fw fa-cubes"></i>&nbsp;    <span translate>Divisions</span>  </a>  <a mat-tab-link *ngIf="canEdit" routerLink="./disciplines" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Disciplines">    <i class="fa fa-fw fa-heartbeat"></i>&nbsp;    <span translate>Disciplines</span>  </a>  <a mat-tab-link *appIfAuth="\'Club\'" routerLink="./teams" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()"     aria-label="Teams">    <i class="fa fa-fw fa-users"></i>&nbsp;    <span translate>Teams</span>  </a>  <a mat-tab-link *ngIf="canEdit" routerLink="./schedule" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" [title]="menuTitle()"     aria-label="Schedule">    <i class="fa fa-fw fa-sort-numeric-asc"></i>&nbsp;    <span translate>Schedule</span>  </a>  <a mat-tab-link *ngIf="canEdit" routerLink="./awards" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Awards">    <i class="fa fa-fw fa-trophy"></i>&nbsp;    <span translate>Awards</span>  </a>  <a mat-tab-link *ngIf="canEdit" routerLink="./info" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive"     [attr.disabled]="user.role < roles.Admin && hasStarted ? true : null" [title]="menuTitle()" aria-label="Info">    <i class="fa fa-fw fa-info"></i>&nbsp;    <span translate>Info</span>  </a></menu><div class="sub-routes">  <router-outlet></router-outlet></div></div>'
+    var COMPONENTS = [{'name': 'AdvancedComponent', 'selector': 'app-advanced'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AwardsComponent', 'selector': 'app-awards'},{'name': 'ClubComponent', 'selector': 'app-club'},{'name': 'ClubEditorComponent', 'selector': 'app-club-editor'},{'name': 'ClubLookupComponent', 'selector': 'app-club-lookup'},{'name': 'ConfigureComponent', 'selector': 'app-configure'},{'name': 'ConfigureDisplayComponent', 'selector': 'app-configure-display'},{'name': 'ContextMenuComponent', 'selector': 'app-context-menu'},{'name': 'DialogComponent', 'selector': 'app-dialog'},{'name': 'DisciplineEditorComponent', 'selector': 'app-discipline-editor'},{'name': 'DisciplinesComponent', 'selector': 'app-disciplines'},{'name': 'DisplayComponent', 'selector': 'app-display'},{'name': 'DivisionEditorComponent', 'selector': 'app-division-editor'},{'name': 'DivisionLookupComponent', 'selector': 'app-division-lookup'},{'name': 'DivisionsComponent', 'selector': 'app-divisions'},{'name': 'ErrorDialogComponent', 'selector': 'app-error-dialog'},{'name': 'EventComponent', 'selector': 'app-event'},{'name': 'FullscreenComponent', 'selector': 'app-fullscreen'},{'name': 'HelpBlockComponent', 'selector': 'app-help-block'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InfoComponent', 'selector': 'app-info'},{'name': 'ListComponent', 'selector': 'app-list'},{'name': 'LoadSpinnerComponent', 'selector': ''},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'MacroDialogComponent', 'selector': 'app-macro-dialog'},{'name': 'MediaComponent', 'selector': 'app-media'},{'name': 'MediaControlComponent', 'selector': 'app-media-control'},{'name': 'MemberEditorComponent', 'selector': 'app-member-editor'},{'name': 'MembersComponent', 'selector': 'app-members'},{'name': 'MemberSelectorComponent', 'selector': 'app-member-selector'},{'name': 'MultirangeComponent', 'selector': 'app-multirange'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ResetComponent', 'selector': 'app-reset'},{'name': 'ResultsComponent', 'selector': 'app-results'},{'name': 'SaveButtonComponent', 'selector': 'app-save-button'},{'name': 'ScheduleComponent', 'selector': 'app-schedule'},{'name': 'ScorecardsComponent', 'selector': 'app-scorecards'},{'name': 'ScoreEditorComponent', 'selector': 'app-score-editor'},{'name': 'ScoreGroupEditorComponent', 'selector': 'app-score-group-editor'},{'name': 'ScoreSystemComponent', 'selector': 'app-score-system'},{'name': 'SignoffReportComponent', 'selector': 'app-signoff-report'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'TeamEditorComponent', 'selector': 'app-team-editor'},{'name': 'TeamsComponent', 'selector': 'app-teams'},{'name': 'TournamentComponent', 'selector': 'app-tournament'},{'name': 'TournamentEditorComponent', 'selector': 'app-tournament-editor'},{'name': 'TroopEditorComponent', 'selector': 'app-troop-editor'},{'name': 'TroopsComponent', 'selector': 'app-troops'},{'name': 'UserEditorComponent', 'selector': 'app-user-editor'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VenueComponent', 'selector': 'app-venue'},{'name': 'VenueEditorComponent', 'selector': 'app-venue-editor'}];
+    var DIRECTIVES = [{'name': 'IfAuthDirective', 'selector': '[appIfAuth]'},{'name': 'ToCaseDirective', 'selector': 'input[appToCase]'}];
+    var ACTUAL_COMPONENT = {'name': 'TournamentEditorComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TournamentEditorComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
