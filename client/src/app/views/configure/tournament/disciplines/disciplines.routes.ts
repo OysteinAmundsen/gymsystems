@@ -16,7 +16,7 @@ export const DisciplineRoutes: Routes = [
         path: ':id', component: DisciplineEditorComponent, children: [
           { path: 'score', component: ScoreSystemComponent, canActivate: [RoleGuard], data: { role: Role.Organizer.valueOf() } as RoleData }
         ]
-      },
+      }
     ]
   }
 ];

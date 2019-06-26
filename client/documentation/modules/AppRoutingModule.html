@@ -80,7 +80,7 @@ import { RegisterComponent } from &#x27;./views/home/register/register.component
 import { ResetComponent } from &#x27;./views/home/reset/reset.component&#x27;;
 import { CanActivateRegistration } from &#x27;./views/home/register/registration-activation.guard&#x27;;
 
-const routes: Routes &#x3D; [
+const APP_ROUTES: Routes &#x3D; [
   { path: &#x27;&#x27;, component: HomeComponent, pathMatch: &#x27;full&#x27; },
   { path: &#x27;login&#x27;, component: LoginComponent },
   { path: &#x27;register&#x27;, component: RegisterComponent, canActivate: [CanActivateRegistration] },
@@ -96,7 +96,7 @@ const routes: Routes &#x3D; [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(APP_ROUTES)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

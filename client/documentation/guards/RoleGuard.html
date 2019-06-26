@@ -247,12 +247,12 @@
 
         <div class="tab-pane fade  tab-source-code" id="c-source">
             <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from &#x27;@angular/router&#x27;;
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, Data } from &#x27;@angular/router&#x27;;
 
 import { UserService } from &#x27;app/shared/services/api&#x27;;
 import { Role } from &#x27;app/model&#x27;;
 
-export interface RoleData {
+export interface RoleData extends Data {
   role: Role
 }
 

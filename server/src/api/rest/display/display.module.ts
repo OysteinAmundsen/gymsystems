@@ -2,10 +2,10 @@ import { Module, forwardRef } from '@nestjs/common';
 import { DisplayController } from './display.controller';
 import { AdministrationModule } from '../administration/administration.module';
 import { Log } from '../../common/util/logger/log';
-import { TeamModule } from 'api/graph/team/team.module';
-import { TournamentModule } from 'api/graph/tournament/tournament.module';
-import { ScoreModule } from 'api/graph/score/score.module';
-import { ScheduleModule } from 'api/graph/schedule/schedule.module';
+import { TeamModule } from '../../graph/team/team.module';
+import { TournamentModule } from '../../graph/tournament/tournament.module';
+import { ScoreModule } from '../../graph/score/score.module';
+import { ScheduleModule } from '../../graph/schedule/schedule.module';
 
 @Module({
   imports: [

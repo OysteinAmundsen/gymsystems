@@ -11,7 +11,7 @@ import { EventComponent } from './event.component';
 import { RoleGuard, RoleData } from 'app/shared/guards/role-guard';
 import { Role } from 'app/model';
 
-const routes: Routes = [
+const EventRoutes: Routes = [
   {
     path: ':id', component: EventComponent, children: [
       { path: '', pathMatch: 'full', redirectTo: 'list' },
@@ -21,14 +21,14 @@ const routes: Routes = [
       // We wont prevent these routes, but we wont display them in menus either. This will enable organizers to display the view on screens without
       // having to log in to do this.
       { path: 'display', component: DisplayComponent },
-      { path: 'display/:displayId', component: FullscreenComponent },
+      { path: 'display/:displayId', component: FullscreenComponent }
     ]
   },
   { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(EventRoutes)],
   exports: [RouterModule]
 })
 export class EventRoutingModule { }

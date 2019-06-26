@@ -10,7 +10,7 @@ export const VenueRoutes: Routes = [
     path: 'venue', children: [
       { path: '', component: VenueComponent, pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Organizer.valueOf() } as RoleData },
       { path: 'add', component: VenueEditorComponent, canActivate: [RoleGuard], data: { role: Role.Organizer.valueOf() } as RoleData },
-      { path: ':id', component: VenueEditorComponent, canActivate: [RoleGuard], data: { role: Role.Organizer.valueOf() } as RoleData },
+      { path: ':id', component: VenueEditorComponent, canActivate: [RoleGuard], data: { role: Role.Organizer.valueOf() } as RoleData }
     ]
   }
 ];

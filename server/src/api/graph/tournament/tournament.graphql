@@ -57,6 +57,7 @@ type ITournament {
 input CreateTimespanInput {
   day: Int
   time: String
+  train: String
 }
 
 input TournamentInput {

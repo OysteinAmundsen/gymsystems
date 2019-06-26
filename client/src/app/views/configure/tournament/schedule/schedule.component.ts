@@ -154,7 +154,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   recalculateStartTime() {
     this.schedule.forEach((s, idx) => {
       s.sortNumber = idx;
-      if (!this.parent.hasStarted) { s.startNumber = idx; }
+      if (!this.parent.hasStarted || !s.startNumber) { s.startNumber = idx; }
       delete s.calculatedStartTime;
     });
   }
@@ -183,7 +183,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    *
    */
   setEdit(item: ITeamInDiscipline, $event?: MouseEvent) {
-    if (item.startTime != null) { return; }
+    if (!item || item.startTime != null) { return; }
     if ($event) {
       $event.preventDefault();
       $event.stopPropagation();
@@ -245,7 +245,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
    *
    */
   hasChanges() {
-    return this.schedule.some(s => !s.id) || this.isDirty;
+    return this.schedule && this.schedule.some(s => !s.id) || this.isDirty;
   }
 
   /**

@@ -8,7 +8,7 @@ import { RegisterComponent } from './views/home/register/register.component';
 import { ResetComponent } from './views/home/reset/reset.component';
 import { CanActivateRegistration } from './views/home/register/registration-activation.guard';
 
-const routes: Routes = [
+const APP_ROUTES: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent, canActivate: [CanActivateRegistration] },
@@ -24,7 +24,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(APP_ROUTES)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

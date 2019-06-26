@@ -6,7 +6,7 @@ import { TeamModule } from '../team/team.module';
 import { Division } from './division.model';
 import { Log } from '../../common/util/logger/log';
 import { ConfigurationService } from '../../rest/administration/configuration.service';
-import { AdministrationModule } from 'api/rest/administration/administration.module';
+import { AdministrationModule } from '../../rest/administration/administration.module';
 import { TroopModule } from '../troop/troop.module';
 
 @Module({

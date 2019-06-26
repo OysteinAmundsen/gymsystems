@@ -16,7 +16,7 @@ import { ClubRoutes } from './club/club.routes';
 import { ConfigureComponent } from './configure.component';
 import { ConfigureDisplayComponent } from './display/configure-display.component';
 
-const routes: Routes = [
+const ConfigureRoutes: Routes = [
   {
     path: '', component: ConfigureComponent, children: [
       { path: '', redirectTo: 'tournament', pathMatch: 'full', canActivate: [RoleGuard], data: { role: Role.Club.valueOf() } as RoleData },
@@ -25,13 +25,13 @@ const routes: Routes = [
       ...ClubRoutes,
       ...UserRoutes,
       ...AdvancedRoutes,
-      { path: 'display', component: ConfigureDisplayComponent, canActivate: [RoleGuard], data: { role: Role.Admin.valueOf() } as RoleData },
+      { path: 'display', component: ConfigureDisplayComponent, canActivate: [RoleGuard], data: { role: Role.Admin.valueOf() } as RoleData }
     ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(ConfigureRoutes)],
   exports: [RouterModule]
 })
 export class ConfigureRoutingModule { }

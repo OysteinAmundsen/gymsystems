@@ -88,7 +88,7 @@ import { ClubRoutes } from &#x27;./club/club.routes&#x27;;
 import { ConfigureComponent } from &#x27;./configure.component&#x27;;
 import { ConfigureDisplayComponent } from &#x27;./display/configure-display.component&#x27;;
 
-const routes: Routes &#x3D; [
+const ConfigureRoutes: Routes &#x3D; [
   {
     path: &#x27;&#x27;, component: ConfigureComponent, children: [
       { path: &#x27;&#x27;, redirectTo: &#x27;tournament&#x27;, pathMatch: &#x27;full&#x27;, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
@@ -96,7 +96,7 @@ const routes: Routes &#x3D; [
             path: &#x27;venue&#x27;, children: [
               { path: &#x27;&#x27;, component: VenueComponent, pathMatch: &#x27;full&#x27;, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
               { path: &#x27;add&#x27;, component: VenueEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
-              { path: &#x27;:id&#x27;, component: VenueEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+              { path: &#x27;:id&#x27;, component: VenueEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData }
             ]
           },
         {
@@ -114,7 +114,7 @@ const routes: Routes &#x3D; [
                   { path: &#x27;schedule&#x27;, component: ScheduleComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
                   { path: &#x27;awards&#x27;, component: AwardsComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
                   { path: &#x27;info&#x27;, component: InfoComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
-                  { path: &#x27;scorecards&#x27;, component: ScorecardsComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData },
+                  { path: &#x27;scorecards&#x27;, component: ScorecardsComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Organizer.valueOf()&quot; } as RoleData }
                 ]
               },
             ]
@@ -133,7 +133,7 @@ const routes: Routes &#x3D; [
                   { path: &#x27;troops/add&#x27;, component: TroopEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
                   { path: &#x27;troops/:id&#x27;, component: TroopEditorComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
                   { path: &#x27;media&#x27;, component: MediaComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
-                  { path: &#x27;statistics&#x27;, component: StatisticsComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData },
+                  { path: &#x27;statistics&#x27;, component: StatisticsComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Club.valueOf()&quot; } as RoleData }
                 ]
               },
             ]
@@ -146,13 +146,13 @@ const routes: Routes &#x3D; [
             ]
           },
         { path: &#x27;advanced&#x27;, component: AdvancedComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Admin.valueOf()&quot; } as RoleData },
-        { path: &#x27;display&#x27;, component: ConfigureDisplayComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Admin.valueOf()&quot; } as RoleData },
+        { path: &#x27;display&#x27;, component: ConfigureDisplayComponent, canActivate: [RoleGuard], data: { role: &quot;Role.Admin.valueOf()&quot; } as RoleData }
     ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(ConfigureRoutes)],
   exports: [RouterModule]
 })
 export class ConfigureRoutingModule { }

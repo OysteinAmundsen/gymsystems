@@ -39,9 +39,9 @@
   },
   "devDependencies": {
     "artillery": "^1.6.0-28",
-    "concurrently": "^4.1.0",
+    "concurrently": "^4.1.1",
     "husky": "^2.4.1",
-    "snyk": "^1.179.0"
+    "snyk": "^1.185.1"
   },
   "snyk": true,
   "resolutions": {},

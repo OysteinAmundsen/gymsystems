@@ -29,7 +29,7 @@ export const TournamentRoutes: Routes = [
           { path: 'schedule', component: ScheduleComponent, canActivate: [RoleGuard], data: { role: Role.Organizer.valueOf() } as RoleData },
           { path: 'awards', component: AwardsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer.valueOf() } as RoleData },
           { path: 'info', component: InfoComponent, canActivate: [RoleGuard], data: { role: Role.Organizer.valueOf() } as RoleData },
-          { path: 'scorecards', component: ScorecardsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer.valueOf() } as RoleData },
+          { path: 'scorecards', component: ScorecardsComponent, canActivate: [RoleGuard], data: { role: Role.Organizer.valueOf() } as RoleData }
         ]
       },
     ]

@@ -28,7 +28,7 @@ export const ClubRoutes: Routes = [
           { path: 'troops/add', component: TroopEditorComponent, canActivate: [RoleGuard], data: { role: Role.Club.valueOf() } as RoleData },
           { path: 'troops/:id', component: TroopEditorComponent, canActivate: [RoleGuard], data: { role: Role.Club.valueOf() } as RoleData },
           { path: 'media', component: MediaComponent, canActivate: [RoleGuard], data: { role: Role.Club.valueOf() } as RoleData },
-          { path: 'statistics', component: StatisticsComponent, canActivate: [RoleGuard], data: { role: Role.Club.valueOf() } as RoleData },
+          { path: 'statistics', component: StatisticsComponent, canActivate: [RoleGuard], data: { role: Role.Club.valueOf() } as RoleData }
         ]
       },
     ]

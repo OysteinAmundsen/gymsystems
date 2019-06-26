@@ -5,5 +5,5 @@ import { Role } from 'app/model';
 import { AdvancedComponent } from './advanced.component';
 
 export const AdvancedRoutes: Routes = [
-  { path: 'advanced', component: AdvancedComponent, canActivate: [RoleGuard], data: { role: Role.Admin.valueOf() } as RoleData },
+  { path: 'advanced', component: AdvancedComponent, canActivate: [RoleGuard], data: { role: Role.Admin.valueOf() } as RoleData }
 ];

@@ -10,7 +10,7 @@ import { UserModule } from '../user/user.module';
 import { GymnastModule } from '../gymnast/gymnast.module';
 import { Log } from '../../common/util/logger/log';
 import { ClubController } from './club.controller';
-import { AdministrationModule } from 'api/rest/administration/administration.module';
+import { AdministrationModule } from '../../rest/administration/administration.module';
 
 
 @Module({
