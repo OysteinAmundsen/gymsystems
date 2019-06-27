@@ -1,4 +1,6 @@
-import { IScoreGroup, IScore } from 'app/model';
+import { IScoreGroup } from 'app/model/IScoreGroup';
+import { IScore } from 'app/model/IScore';
+
 
 export interface IScoreContainer {
   // group: IScoreGroup;

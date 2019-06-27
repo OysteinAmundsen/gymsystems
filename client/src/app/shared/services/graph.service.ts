@@ -83,11 +83,13 @@ export class GraphService {
   private mapFromObject(obj): string {
     return `{${Object.keys(obj).reduce((str, k) => {
       str += `${str.length ? ',\n' : ''}`;
+
+      // Map null values explicitly. If the key is present, it is supposed to reset the value in the persistance layer.
       if (obj[k] == null) {
         return str += `${k}: null`;
       }
 
-
+      // Map arrays as [id: value] objects.
       else if (Array.isArray(obj[k])) {
         return str += `${k}: [${obj[k].reduce((s, i) => {
           s += s.length ? ',' : '';
@@ -97,26 +99,28 @@ export class GraphService {
         }, '')}]`;
       }
 
-
+      // String format dates
       else if (obj[k] instanceof Date) {
         return str += `${k}: ${obj[k].getTime()}`;
       }
 
-
+      // String format moment objects
       else if (moment.isMoment(obj[k])) {
         const d = obj[k].toDate();
         return str += `${k}: ${d.getTime()}`;
       }
 
-
+      // Map inner objects as 'objectId': value
       else if (typeof obj[k] === 'object') {
-        if (obj[k]['id']) { return str += `${k}Id: "${obj[k]['id']}"`; }
-        return str += `${k}: ${this.mapFromObject(obj[k])}`;
+        if (obj[k]['id']) {
+          return str += (`${k}Id` in obj) ? '' : `${k}Id: "${obj[k]['id']}"`; // Only return as 'objectId' if that property does not allready exist in the object
+        }
+        return str += `${k}: ${this.mapFromObject(obj[k])} `;
       }
 
 
-      // Default value
-      return str += `${k}: ${typeof obj[k] === 'string' || k === 'id' ? `"${('' + obj[k]).replace(/\n/gm, '\\n')}"` : obj[k]}`;
+      // Default mapper
+      return str += `${k}: ${typeof obj[k] === 'string' || k === 'id' ? `"${('' + obj[k]).replace(/\n/gm, '\\n')}"` : obj[k]} `;
     }, '')}}`;
   }
 

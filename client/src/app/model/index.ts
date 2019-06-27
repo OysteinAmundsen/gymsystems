@@ -23,5 +23,4 @@ export * from './IUser';
 export * from './IVenue';
 export * from './IJudge';
 export * from './IJudgeInScoreGroup';
-export * from './IScoreGroup';
 

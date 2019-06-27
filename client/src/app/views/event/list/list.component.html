@@ -52,11 +52,14 @@
         <td class="start-no" *ngIf="item.type === participationTypes.Live">#{{ item.startNumber + 1 }}</td>
         <td class="visible-medium start-time" [innerHtml]="startTime(item) | date:'HH:mm'"></td>
         <td class="team">{{ item.team.name }}</td>
-        <td class="visible-medium division"><b *ngIf="item.team.class === classes.TeamGym && item.type === types.Live">TG:
-          </b>{{
-          item.divisionName }}</td>
-        <td class="visible-medium nowrap discipline"><i class="square screen-only" [attr.discipline]="item.disciplineSortOrder"></i>
-          {{ item.disciplineName }}</td>
+        <td class="visible-medium division">
+          <b *ngIf="item.team.class === classes.TeamGym && item.type === types.Live">TG: </b>
+          {{ item.divisionName }}
+        </td>
+        <td class="visible-medium nowrap discipline">
+          <i class="square screen-only" [attr.discipline]="item.disciplineSortOrder"></i>
+          {{ item.disciplineName }}
+        </td>
         <td *ngIf="item.type === types.Live" class="score">
           <span *ngIf="item.scorable && !item.markDeleted">{{ score(item) | number:'1.3-3' }}</span>
         </td>
@@ -86,7 +89,7 @@
             <i class="square screen-only" [attr.discipline]="item.disciplineSortOrder"></i>
             {{ item.disciplineName }}
             -
-            {{ item.divisionName }}
+            <b *ngIf="item.team.class === classes.TeamGym && item.type === types.Live">TG: </b>{{ item.divisionName }}
           </small>
         </td>
         <td>&nbsp;</td>

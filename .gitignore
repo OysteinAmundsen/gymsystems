@@ -84,3 +84,5 @@ server/src/api/graph/graphql\.schema\.ts
 /*.sh
 
 server/media/
+
+screendumps/

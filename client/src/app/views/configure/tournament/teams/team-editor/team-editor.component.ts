@@ -135,21 +135,27 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     // Filter available gymnasts by age
     this.subscriptions.push(ageCtrl.valueChanges
       .pipe(distinctUntilChanged())
-      .subscribe((div: IDivision) => this.memberSelector.addFilter('age', (g: IGymnast) => {
-        const age = moment().diff(moment(g.birthYear, 'YYYY'), 'years');
-        return age <= div.max && age >= div.min;
-      })));
+      .subscribe((div: IDivision) => {
+        if (!div) { return false; }
+        return this.memberSelector.addFilter('age', (g: IGymnast) => {
+          const age = moment().diff(moment(g.birthYear, 'YYYY'), 'years');
+          return age <= div.max && age >= div.min;
+        })
+      }));
 
     // Filter available gymnasts by gender
     this.subscriptions.push(genderCtrl.valueChanges
       .pipe(distinctUntilChanged())
-      .subscribe((div: IDivision) => this.memberSelector.addFilter('gender', (g: IGymnast) => {
-        switch (div.name) {
-          case 'Kvinner': return g.gender === Gender.Female;
-          case 'Herrer': return g.gender === Gender.Male;
-          default: return true;
-        }
-      })));
+      .subscribe((div: IDivision) => {
+        if (!div) { return false; }
+        return this.memberSelector.addFilter('gender', (g: IGymnast) => {
+          switch (div.name) {
+            case 'Kvinner': return g.gender === Gender.Female;
+            case 'Herrer': return g.gender === Gender.Male;
+            default: return true;
+          }
+        })
+      }));
 
     // Select all disciplines if TeamGym is chosen
     this.subscriptions.push(this.teamForm.get('class')
