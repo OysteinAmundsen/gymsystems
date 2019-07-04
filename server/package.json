@@ -20,7 +20,9 @@
     "test:cov": "env NODE_ENV=test jest --coverage",
     "test:e2e": "env NODE_ENV=test jest --config ./test/jest-e2e.json",
     "migration": "typeorm migration:run",
-    "snyk": "snyk"
+    "snyk": "snyk",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git"
@@ -72,7 +74,7 @@
     "rotating-file-stream": "^1.4.2",
     "rxjs": "^6.5.2",
     "sendmail": "^1.4.1",
-    "snyk": "^1.185.5",
+    "snyk": "^1.189.0",
     "swagger-ui-express": "^4.0.6",
     "typeorm": "^0.2.18",
     "v8-compile-cache": "^2.0.3",
@@ -122,5 +124,6 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "snyk": true
 }
