@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  wsUrl: 'www.gymsystems.org',
+  wsUrl: 'gymsystems.no',
   allowRegistrations: false,
   // Should not have an api key open like this, I know,
   // but it is limited to this particular domain anyway and

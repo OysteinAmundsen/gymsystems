@@ -1,5 +1,5 @@
 config:
-  target: 'https://www.gymsystems.org'
+  target: 'https://gymsystems.no'
   phases:
     - duration: 20
       arrivalRate: 0

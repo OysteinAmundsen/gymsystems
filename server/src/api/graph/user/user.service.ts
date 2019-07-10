@@ -16,15 +16,15 @@ import { plainToClass } from 'class-transformer';
 const messages = {
   created: `<h1>Welcome!</h1>
 <p>You are receiving this email because you have just been registerred as a user with role "<%=roleName %>",
-a representative of "<%=club %>", on <a href="www.gymsystems.org">GymSystems</a>.</p>
-<p>You can <a href="www.gymsystems.org/login">log in</a> using <b><%=name %></b>/<b><%=password %></b>.`,
+a representative of "<%=club %>", on <a href="gymsystems.no">GymSystems</a>.</p>
+<p>You can <a href="gymsystems.no/login">log in</a> using <b><%=name %></b>/<b><%=password %></b>.`,
 
   passwordUpdate: `<h1>Your password is updated</h1>
-<p>You are receiving this email because your password on <a href="www.gymsystems.org">GymSystems</a> has just changed.</p>
+<p>You are receiving this email because your password on <a href="gymsystems.no">GymSystems</a> has just changed.</p>
 <p>Your new credentials are <b><%=name %></b>/<b><%=password %></b>`
 };
 
-const emailFrom = 'no-reply@gymsystems.org';
+const emailFrom = 'no-reply@gymsystems.no';
 
 @Injectable()
 export class UserService {
