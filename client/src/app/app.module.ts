@@ -94,7 +94,7 @@ export class MyHammerConfig extends HammerGestureConfig {
       config: {
         tokenGetter: tokenGetter,
         skipWhenExpired: true,
-        whitelistedDomains: ['localhost', 'gymsystems.org']
+        whitelistedDomains: ['localhost', 'gymsystems.no']
       }
     }),
 

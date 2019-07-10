@@ -13,7 +13,7 @@ export class SEOService {
     // Set title
     this.title.setTitle(title);
     this.meta.updateTag({ property: 'twitter:card', content: 'summary' });
-    this.meta.updateTag({ property: 'twitter:site', content: 'www.gymsystems.org' });
+    this.meta.updateTag({ property: 'twitter:site', content: 'gymsystems.no' });
     this.meta.updateTag({ property: 'og:title', content: title });
 
     // Set url

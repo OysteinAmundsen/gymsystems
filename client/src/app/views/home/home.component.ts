@@ -88,14 +88,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     const start = moment(tournament.startDate).add(tournament.times[0].time.split(',')[0], 'hours');
     const end = moment(tournament.endDate).add(tournament.times[tournament.times.length - 1].time.split(',')[1], 'hours');
     const calendarData = `BEGIN:VCALENDAR\r
-PRODID:-//www.gymsystems.org//iCalendar MIMEDIR//EN\r
+PRODID:-//gymsystems.no//iCalendar MIMEDIR//EN\r
 VERSION:2.0\r
 METHOD:REQUEST\r
 BEGIN:VEVENT\r
 UID:RFCALITEMGYM${tournament.id}\r
 SEQUENCE:${tournament.id}\r
 DTSTAMP:${moment().utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
-ORGANIZER:noreply@gymsystems.org\r
+ORGANIZER:noreply@gymsystems.no\r
 DTSTART:${start.utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
 \r
 DTEND:${end.utc().format('YYYYMMDDTHHmmss') + 'Z'}\r
