@@ -1,6 +1,6 @@
 import { HttpCacheInterceptor } from './shared/interceptors/http-cache.interceptor';
 // Framework & libs
-import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID, Injectable } from '@angular/core';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -76,6 +76,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     // Framework modules
     BrowserModule.withServerTransition({ appId: 'gymsystems' }),
     BrowserAnimationsModule,
+    BrowserTransferStateModule,
     ReactiveFormsModule,
     HttpClientModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),

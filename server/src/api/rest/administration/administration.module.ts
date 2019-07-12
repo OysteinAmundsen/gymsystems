@@ -21,6 +21,5 @@ import { Log } from '../../common/util/logger/log';
 })
 export class AdministrationModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: AdministrationModule initialized`);
   }
 }

@@ -18,6 +18,5 @@ import { DivisionModule } from '../division/division.module';
 })
 export class TroopModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: TroopModule initialized`);
   }
 }

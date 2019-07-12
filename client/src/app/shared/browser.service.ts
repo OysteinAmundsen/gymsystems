@@ -8,6 +8,11 @@ const storageMock = <Storage><unknown>{
   removeItem: (): void => { }
 };
 
+const locationMock = <Location><unknown>{
+  protocol: '',
+  host: ''
+}
+
 /**
  * Service for retreiving common browser objects. This provides unit-test-safety
  * as these objects logically does not exist in a test environment.
@@ -15,11 +20,19 @@ const storageMock = <Storage><unknown>{
 @Injectable({ providedIn: 'root' })
 export class BrowserService {
   static localStorage(): Storage {
-    return (typeof window !== 'undefined' ? window.localStorage : storageMock);
+    return (BrowserService.isBrowser() ? window.localStorage : storageMock);
   }
 
   static sessionStorage(): Storage {
-    return (typeof window !== 'undefined' ? window.sessionStorage : storageMock);
+    return (BrowserService.isBrowser() ? window.sessionStorage : storageMock);
+  }
+
+  static location(): Location {
+    return (BrowserService.isBrowser() ? window.location : locationMock)
+  }
+
+  static isBrowser(): boolean {
+    return (typeof window !== 'undefined');
   }
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
@@ -34,6 +47,10 @@ export class BrowserService {
 
   window(): Window {
     return isPlatformBrowser(this.platformId) ? window : <any>{}
+  }
+
+  location(): Location {
+    return isPlatformBrowser(this.platformId) ? location : locationMock;
   }
 
   document(): Document {

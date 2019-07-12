@@ -21,6 +21,5 @@ import { ScheduleModule } from '../../graph/schedule/schedule.module';
 })
 export class DisplayModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: DisplayModule initialized`);
   }
 }

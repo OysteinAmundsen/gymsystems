@@ -31,6 +31,5 @@ import { AdministrationModule } from '../../rest/administration/administration.m
 })
 export class ClubModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: ClubModule initialized`);
   }
 }

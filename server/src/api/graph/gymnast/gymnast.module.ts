@@ -23,6 +23,5 @@ import { ClubModule } from '../club/club.module';
 })
 export class GymnastModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: GymnastModule initialized`);
   }
 }

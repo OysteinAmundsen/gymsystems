@@ -1,11 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
-const nodeExternals = require('webpack-node-externals');
+// const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: { server: './server.ts' },
-  resolve: { extensions: ['.js', '.ts'] },
-  mode: "development",
+  resolve: { extensions: ['.webpack.js', '.web.js', '.mjs', '.js', '.ts'] },
+  mode: 'none',
   optimization: {
     // keep minimization off
     // workaround for https://github.com/angular/angular-cli/issues/10635
@@ -13,25 +13,28 @@ module.exports = {
   },
   target: 'node',
   // this makes sure we include node_modules and other 3rd party libraries
-  externals: [nodeExternals({
-    whitelist: [
-      /^@angular/,
-      /^@ngx-translate/,
-      /^@agm/,
-      /^@auth0/,
-      /^apollo/,
-      /^core-js/,
-      /^graph/,
-      /^rxjs/,
-      /^zone.js/,
-    ]
-  })],
+  // externals: [nodeExternals({
+  //   whitelist: [
+  //     /^@angular/,
+  //     /^@ngx-translate/,
+  //     /^@agm/,
+  //     /^@auth0/,
+  //     /^apollo/,
+  //     /^core-js/,
+  //     /^graph/,
+  //     /^rxjs/,
+  //     /^zone.js/,
+  //   ]
+  // })],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js'
   },
   module: {
-    rules: [{ test: /\.ts$/, loader: 'ts-loader', options: { configFile: path.join(__dirname, 'src/tsconfig.server.json') } }]
+    rules: [
+      { test: /\.ts$/, loader: 'ts-loader', options: { configFile: path.join(__dirname, 'src/tsconfig.server.json') } },
+      { test: /\.mjs$/, include: /node_modules/, type: "javascript/auto" }
+    ]
   },
   plugins: [
     // Temporary Fix for issue: https://github.com/angular/angular/issues/11580

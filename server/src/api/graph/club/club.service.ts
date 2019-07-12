@@ -181,7 +181,6 @@ export class ClubService {
       size: 10,
       $filter: encodeURIComponent(`startswith(navn,'${name}') and startswith(naeringskode/kode,'93.120')`)
     });
-    // Log.log.debug(`Requesting: ${url}?${query}`);
     const response = await this.http.get(`${url}?${query}`).toPromise();
     if (response.status !== 200) {
       throw new Error(`Error looking up brreg: ${response.status} - ${response.statusText}`);

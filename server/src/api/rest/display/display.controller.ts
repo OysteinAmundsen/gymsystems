@@ -43,7 +43,6 @@ export class DisplayController {
       const size = context || 0;
       return `<span class="size-${size}">${options.fn(this)}</span>`;
     });
-    Log.log.debug(` * ${new Date().toISOString()}: DisplayController initialized`);
   }
 
   /**

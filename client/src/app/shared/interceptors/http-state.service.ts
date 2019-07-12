@@ -33,18 +33,22 @@ export class HttpStateService {
 
     if (req.url === graphqlUri) {
       const q = CommonService.compressString(req.body.query);
-      if (q.indexOf('mutation{save') > -1) {
-        operation = 'save';
-      } else if (q.indexOf('mutation{delete') > -1) {
-        operation = 'delete';
-      } else {
-        operation = 'load';
+      if (q) {
+        if (q.indexOf('mutation{save') > -1) {
+          operation = 'save';
+        } else if (q.indexOf('mutation{delete') > -1) {
+          operation = 'delete';
+        } else {
+          operation = 'load';
+        }
       }
     }
 
     const obj: HttpRequest<any> | HttpResponse<any> = res ? res : req;
     const action = { url: obj.url, operation: operation, method: method, values: obj.body, isComplete: res != null, failed: res && res.status !== 200 };
-    this.httpAction.next(action);
+    if (operation !== 'N/A') {
+      this.httpAction.next(action);
+    }
     return action;
   }
 }

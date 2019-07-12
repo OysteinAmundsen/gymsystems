@@ -17,7 +17,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class AdministrationController {
 
   constructor(private readonly exportService: ExportService, private readonly configuration: ConfigurationService) {
-    Log.log.debug(` * ${new Date().toISOString()}: AdministrationController initialized`);
   }
 
   @ApiOperation({ title: 'Export the entire database', description: 'This is a security measure to avoid data-loss.' })

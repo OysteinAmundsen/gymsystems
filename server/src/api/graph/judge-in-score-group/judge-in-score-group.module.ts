@@ -18,6 +18,5 @@ import { Log } from '../../common/util/logger/log';
 })
 export class JudgeInScoreGroupModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: JudgeInScoreGroupModule initialized`);
   }
 }

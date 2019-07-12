@@ -33,8 +33,6 @@ import { Log } from './common/util/logger/log';
     GraphQLModule.forRootAsync({
       imports: [CommonModule],
       useFactory: async (config: Config) => {
-        Log.log.debug(` * ${new Date().toISOString()}: Setting up GraphQL`);
-
         return <GqlModuleOptions>{
           typePaths: ['./**/*.graphql'],
           debug: !config.isProd(),
@@ -80,7 +78,6 @@ import { Log } from './common/util/logger/log';
 })
 export class AppModule implements NestModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: AppModule initialized`);
   }
 
   configure(consumer: MiddlewareConsumer) {

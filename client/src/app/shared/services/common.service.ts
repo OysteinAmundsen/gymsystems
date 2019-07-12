@@ -44,7 +44,7 @@ export class CommonService {
   }
 
   static compressString(str: string) {
-    return str.replace(/#.+| +?|\r?\n|\r/gm, '');
+    return str ? str.replace(/#.+| +?|\r?\n|\r/gm, '') : str;
   }
 
   /**

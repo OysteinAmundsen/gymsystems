@@ -30,6 +30,5 @@ import { MediaModule } from '../media/media.module';
 })
 export class ScheduleModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: ScheduleModule initialized`);
   }
 }

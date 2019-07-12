@@ -16,6 +16,5 @@ import { Log } from '../../common/util/logger/log';
 })
 export class ScoreModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: ScoreModule initialized`);
   }
 }

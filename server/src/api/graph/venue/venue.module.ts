@@ -21,6 +21,5 @@ import { UserModule } from '../user/user.module';
 })
 export class VenueModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: VenueModule initialized`);
   }
 }

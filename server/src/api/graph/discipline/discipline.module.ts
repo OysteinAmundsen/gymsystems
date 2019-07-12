@@ -25,7 +25,6 @@ import { JudgeInScoreGroupModule } from '../judge-in-score-group/judge-in-score-
 })
 export class DisciplineModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: DisciplineModule initialized`);
   }
 }
 

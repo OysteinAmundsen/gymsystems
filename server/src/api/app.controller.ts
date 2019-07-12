@@ -7,7 +7,6 @@ const pkg = require('api/../../package.json');
 @Controller()
 export class AppController {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: AppController initialized`);
   }
 
   @ApiOperation({ title: 'Root of api', description: 'Just fetches the name and version' })

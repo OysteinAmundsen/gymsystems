@@ -51,7 +51,6 @@ function readMem() {
  * Bootstrap the application
  */
 async function bootstrap() {
-  Log.log.debug(` * ${new Date().toISOString()}: Bootstrapping application`);
   bootTime = performance.now();
 
   const expressInstance = express();
@@ -67,9 +66,7 @@ async function bootstrap() {
   morganBody(expressInstance); // Log every request body/response
 
   // Create NestJS APP
-  Log.log.debug(` * ${new Date().toISOString()}: Creating NestJS app`);
   const app = await NestFactory.create(AppModule, new ExpressAdapter(expressInstance), { cors: true });
-  Log.log.debug(` * ${new Date().toISOString()}: Configuring NestJS app`);
   app.useLogger(app.get(LogService));
 
   // Global Route Prefix
@@ -89,7 +86,6 @@ async function bootstrap() {
 
   // Swagger
   if (!Config.isProd()) {
-    Log.log.debug(` * ${new Date().toISOString()}: Setting up swagger`);
     const pkg = require('../package.json');
 
     const swagger = await import('@nestjs/swagger');

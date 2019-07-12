@@ -28,6 +28,5 @@ import { TournamentModule } from '../tournament/tournament.module';
 })
 export class TeamModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: TeamModule initialized`);
   }
 }

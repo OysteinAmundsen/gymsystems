@@ -23,6 +23,5 @@ import { ClubModule } from '../club/club.module';
 })
 export class MediaModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: MediaModule initialized`);
   }
 }

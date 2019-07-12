@@ -25,6 +25,5 @@ import { Log } from '../../common/util/logger/log';
 })
 export class UserModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: UserModule initialized`);
   }
 }

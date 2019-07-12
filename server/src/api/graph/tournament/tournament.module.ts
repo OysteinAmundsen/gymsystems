@@ -33,6 +33,5 @@ import { UserModule } from '../user/user.module';
 })
 export class TournamentModule {
   constructor() {
-    Log.log.debug(` * ${new Date().toISOString()}: TournamentModule initialized`);
   }
 }
