@@ -68,7 +68,7 @@
     "moment": "^2.24.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.2",
-    "snyk": "^1.192.5",
+    "snyk": "^1.193.1",
     "subscriptions-transport-ws": "^0.9.16",
     "zone.js": "^0.9.1"
   },
@@ -87,8 +87,8 @@
     "codelyzer": "^5.1.0",
     "jasmine-core": "^3.4.0",
     "jasmine-spec-reporter": "^4.2.1",
-    "karma": "^4.1.0",
-    "karma-chrome-launcher": "^2.2.0",
+    "karma": "^4.2.0",
+    "karma-chrome-launcher": "^3.0.0",
     "karma-coverage-istanbul-reporter": "^2.0.5",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
@@ -101,7 +101,7 @@
     "tslint": "^5.18.0",
     "typescript": "~3.4.5",
     "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.5",
+    "webpack-cli": "^3.3.6",
     "webpack-node-externals": "^1.7.2"
   }
 }

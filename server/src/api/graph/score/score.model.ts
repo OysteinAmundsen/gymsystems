@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, ManyToOne, JoinColumn, Index } from 'typeorm';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 import { ScoreGroup } from '../score-group/score-group.model';
@@ -12,6 +12,7 @@ import { TeamInDiscipline } from '../schedule/team-in-discipline.model';
  * For each `Team` a sum total of all score values from every scoregroup should be calculated.
  */
 @Entity()
+@Index(["participantId", "scoreGroupId", "judgeIndex"], { unique: true })
 export class Score {
   @ApiModelProperty({ description: `The scores primary key` })
   @PrimaryGeneratedColumn()
