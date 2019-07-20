@@ -8,6 +8,7 @@ import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { GraphService } from '../../../../shared/services/graph.service';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from 'app/shared/services/api/user/user.service';
 
 @Component({
   selector: 'app-venue-editor',
@@ -58,7 +59,8 @@ export class VenueEditorComponent implements OnInit {
     private route: ActivatedRoute,
     private translate: TranslateService,
     private graph: GraphService,
-    private http: HttpClient
+    private http: HttpClient,
+    private user: UserService
   ) { }
 
   ngOnInit() {
@@ -75,6 +77,7 @@ export class VenueEditorComponent implements OnInit {
       capacity: [0, []],
       rentalCost: [0, []],
     });
+
     // Read filtered options
     const addressCtrl = this.venueForm.controls['address'];
     addressCtrl.valueChanges
@@ -84,13 +87,25 @@ export class VenueEditorComponent implements OnInit {
       ).subscribe(v => this.http.get(`/api/venue/location/${encodeURIComponent(v)}`)
         .subscribe((result: any) => this.adressList = result.results.map(r => ({ formatted_address: r.formatted_address, geometry: r.geometry }))));
 
+    // Check route parameters
     this.route.params.subscribe(params => {
       if (params.id) {
+        // Editing existing venue
         this.graph.getData(`{venue(id:${+params.id})${this.venueQuery}}`).subscribe(res => this.venueReceived(res.venue));
+      } else {
+        // New venue. Make sure createdBy is filled
+        const userSub = this.user.getMe().subscribe(me => {
+          const creatorCtrl = this.venueForm.get('createdBy');
+          if (me && !creatorCtrl.value) {
+            creatorCtrl.setValue(me);
+            userSub.unsubscribe(); // One time only
+          }
+        });
       }
     });
     this.route.queryParams.subscribe(params => {
       if (params.fromName) {
+        // Create new venue from a given name (usually given by a different view)
         this.venueForm.controls['name'].setValue(params.fromName);
       }
     });
@@ -118,7 +133,10 @@ export class VenueEditorComponent implements OnInit {
   }
 
   save() {
-    this.graph.saveData('Venue', this.venueForm.getRawValue(), this.venueQuery).subscribe(res => this.cancel());
+    const form = this.venueForm.getRawValue();
+    form.latitude = '' + form.latitude; // Convert from long to string
+    form.longitude = '' + form.longitude; // Convert from long to string
+    this.graph.saveData('Venue', form, this.venueQuery).subscribe(res => this.cancel());
   }
 
   cancel() {
