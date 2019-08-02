@@ -81,7 +81,7 @@
     "@biesbjerg/ngx-translate-extract": "^3.0.1",
     "@types/graphql": "^14.2.3",
     "@types/hammerjs": "^2.0.36",
-    "@types/jasmine": "~3.3.16",
+    "@types/jasmine": "^3.3.16",
     "@types/jasminewd2": "^2.0.6",
     "@types/karma-jasmine": "^0.0.31",
     "@types/node": "^12.6.9",

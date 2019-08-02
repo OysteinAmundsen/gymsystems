@@ -18,5 +18,10 @@
 
   "tslint.ignoreDefinitionFiles": true,
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "debug.node.autoAttach": "on"
+  "debug.node.autoAttach": "on",
+  "jest.pathToJest": "./node_modules/.bin/jest",
+  "jest.rootPath": "./server",
+  "angularKarmaTestExplorer.karmaConfFilePath": "./client/src/karma.conf.js",
+  "angularKarmaTestExplorer.projectRootPath": "./client",
+  "angularKarmaTestExplorer.defaultAngularProjectName": "gymsystems"
 }
