@@ -11,5 +11,6 @@ export interface IJudgeInScoreGroup {
   scoreGroupId: number;
   scoreGroup: IScoreGroup;
   judge: IJudge;
+  judgeId: number;
   sortNumber: number;
 }

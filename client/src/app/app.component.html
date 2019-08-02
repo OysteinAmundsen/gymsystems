@@ -17,7 +17,8 @@
 
     <!-- Main application menu -->
     <ul [ngClass]="{'open': navState === true}" (window:click)="closeNav($event)">
-      <li *ngIf="hasHelp" [ngClass]="{'active': showHelp, 'visible-wide': true, 'show-help': true}" [title]="'Show all places where help is available on this page' | translate">
+      <li *ngIf="hasHelp" [ngClass]="{'active': showHelp, 'visible-wide': true, 'show-help': true}"
+          [title]="'Show all places where help is available on this page' | translate">
         <a (mouseenter)="toggleHelp()" (mouseleave)="toggleHelp()" aria-hidden="true"><i class="fa fa-fw fa-question"></i></a>
       </li>
       <li [title]="'Navigate to the systems frontpage' | translate">
@@ -59,7 +60,7 @@
 
   <div class="container">
     <div class="feedback visible-medium">
-      <a href="https://github.com/OysteinAmundsen/gymsystems/issues/new" target="_blank" rel="noreferrer">
+      <a href="https://github.com/OysteinAmundsen/gymsystems/issues/new/choose" target="_blank" rel="noreferrer">
         <i class="fa fa-fw fa-envelope"></i>
         {{ 'Register flaws or request features' | translate }}
       </a>

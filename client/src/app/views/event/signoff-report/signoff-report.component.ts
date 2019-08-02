@@ -61,7 +61,7 @@ export class SignoffReportComponent implements OnInit {
       }}`).subscribe(res => {
       this.tournament = res.tournament;
       this.disciplines = res.getDisciplines;
-      const scoreGroups = this.disciplines.reduce((set, discipline) => { discipline.scoreGroups.forEach(group => set.add(group)); return set; }, new Set());
+      const scoreGroups = this.disciplines.reduce((set, discipline) => { discipline.scoreGroups.forEach(group => set.add(group)); return set; }, new Set<IScoreGroup>());
       this.schedule = res.getSchedule.map(participant => {
         participant.scores = participant.scores.map(s => {
           s.scoreGroup = Array.from(scoreGroups).find(g => g.id === s.scoreGroupId);

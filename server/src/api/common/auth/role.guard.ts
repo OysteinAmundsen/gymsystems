@@ -15,7 +15,10 @@ function createRoleGuard(role?: Role) {
       // https://github.com/nestjs/graphql/issues/48#issuecomment-420693225
       canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
         const ctx = GqlExecutionContext.create(context);
-        const { req } = ctx.getContext() ? ctx.getContext() : { req: context.getArgs().find(c => c instanceof IncomingMessage) };
+        let { req } = ctx.getContext();
+        if (!req) {
+          req = context.getArgs().find(c => c instanceof IncomingMessage);
+        }
         return super.canActivate(new ExecutionContextHost([req]));
       }
 

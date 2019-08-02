@@ -1,5 +1,6 @@
 export class Cleaner {
   static clean(obj: any): any {
+    delete obj.__typename;
     Object.keys(obj).forEach(k => {
       if (k === 'id') {
         // Translate from GraphQL ID strings to numbers

@@ -84,6 +84,11 @@ export class GraphService {
     return `{${Object.keys(obj).reduce((str, k) => {
       str += `${str.length ? ',\n' : ''}`;
 
+      // Do not include __typename
+      if (k === '__typename') {
+        return str;
+      }
+
       // Map null values explicitly. If the key is present, it is supposed to reset the value in the persistance layer.
       if (obj[k] == null) {
         return str += `${k}: null`;

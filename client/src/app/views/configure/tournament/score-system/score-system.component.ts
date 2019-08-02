@@ -73,6 +73,8 @@ export class ScoreSystemComponent implements OnInit, OnDestroy, OnChanges {
         s.disciplineId = this.discipline.id;
         s.judges = s.judges.map(j => {
           j.scoreGroupId = s.id;
+          j.judgeId = j.judge.id;
+          delete j.judge;
           return j;
         });
         return CommonService.omit(s, ['judgeCount', 'judges']);
