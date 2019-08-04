@@ -8,7 +8,7 @@ import { IClub } from 'app/model/IClub';
 import { of } from 'rxjs';
 import { IGymnast } from 'app/model';
 
-describe("MemberSelectorComponent", () => {
+describe("views.configure.MemberSelectorComponent", () => {
   let component: MemberSelectorComponent;
   let fixture: ComponentFixture<MemberSelectorComponent>;
 

@@ -6,7 +6,7 @@ import { ScheduleService } from "./schedule.service";
 import { of } from 'rxjs';
 import * as moment from 'moment';
 
-describe("ScheduleService", () => {
+describe("shared.services.ScheduleService", () => {
   let service: ScheduleService;
 
   const iTournamentStub = <ITournament><unknown>{

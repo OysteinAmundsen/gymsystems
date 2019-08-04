@@ -11,7 +11,7 @@ import { IfAuthDirective } from 'app/shared/directives/auth/if-auth.directive';
 import * as moment from 'moment';
 import { CommonService } from 'app/shared/services/common.service';
 
-describe("HomeComponent", () => {
+describe("views.HomeComponent", () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   const iTournamentStub = {

@@ -5,7 +5,7 @@ import { UserService } from './user.service';
 import { of } from 'rxjs';
 import { GraphService } from 'app/shared/services/graph.service';
 
-describe('shared.services.api:UserService', () => {
+describe('shared.services.UserService', () => {
   let service: UserService;
   const iUserStub = <IUser>{ id: {} };
 

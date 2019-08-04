@@ -1,0 +1,51 @@
+###
+POST https://gymsystems.no/api/graph
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query {
+  tournament(id: 1) {
+    id
+    name
+    description_en
+    startDate
+    endDate
+  }
+  getDisciplines(tournamentId: 1) {
+    id
+    name
+    sortOrder
+    scoreGroups {
+      type
+      judgeCount
+    }
+  }
+  getSchedule(tournamentId: 1, type: 2, scorable: true) {
+    id
+    team {
+      id
+      name
+      class
+    }
+    sortNumber
+    startNumber
+    markDeleted
+    startTime
+    endTime
+    publishTime
+    type
+    disciplineId
+    disciplineName
+    divisionName
+    divisionSortOrder
+    scorable
+    total
+    totalByScoreGroup {
+      group {
+        id
+        type
+      }
+      total
+    }
+  }
+}

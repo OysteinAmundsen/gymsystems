@@ -24,6 +24,8 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
 import { LoadSpinnerComponent } from './components/load-spinner/load-spinner.component';
 import { ClubLookupComponent } from './components/club-lookup/club-lookup.component';
 import { MediaControlComponent } from './components/media-control/media-control.component';
+import { BuyMeABeerComponent } from './components/buy-me-a-beer/buy-me-a-beer.component';
+import { ReportBugsComponent } from './components/report-bugs/report-bugs.component';
 
 @NgModule({
   imports: [
@@ -59,6 +61,8 @@ import { MediaControlComponent } from './components/media-control/media-control.
     UtcDatePipe,
     ClubLookupComponent,
     MediaControlComponent,
+    BuyMeABeerComponent,
+    ReportBugsComponent
   ],
   exports: [
     // Export common modules
@@ -74,6 +78,8 @@ import { MediaControlComponent } from './components/media-control/media-control.
     LoadSpinnerComponent,
     ClubLookupComponent,
     MediaControlComponent,
+    BuyMeABeerComponent,
+    ReportBugsComponent,
 
     ToCaseDirective,
     IfAuthDirective,

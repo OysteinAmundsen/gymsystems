@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DisplayService } from './display.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('shared.services.api:DisplayService', () => {
+describe('shared.services.DisplayService', () => {
   let service: DisplayService;
 
   beforeEach(() => {

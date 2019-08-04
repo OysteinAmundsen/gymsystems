@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { HelpBlockComponent } from "./help-block.component";
 
-describe("shared.components:HelpBlockComponent", () => {
+describe("shared.components.HelpBlockComponent", () => {
   let component: HelpBlockComponent;
   let fixture: ComponentFixture<HelpBlockComponent>;
 

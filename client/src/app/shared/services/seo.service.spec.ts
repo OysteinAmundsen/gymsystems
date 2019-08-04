@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { SEOService } from './seo.service';
 
-describe('Service: Meta', () => {
+describe('shared.services.Meta', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [SEOService]

@@ -41,9 +41,9 @@
         </div>
       </div>
       <div class="row">
-        <mat-slide-toggle translate [checked]="userForm.value.activated" [disabled]="user.activated" (toggleChange)="toggleActive()">
-          <span *ngIf="userForm.value.activated">User is active</span>
-          <span *ngIf="!userForm.value.activated">Activate user</span>
+        <mat-slide-toggle [checked]="userForm.value.activated" [disabled]="user.activated" (toggleChange)="toggleActive()">
+          <span translate *ngIf="userForm.value.activated">User is active</span>
+          <span translate *ngIf="!userForm.value.activated">Activate user</span>
         </mat-slide-toggle>
       </div>
     </mat-card-content>

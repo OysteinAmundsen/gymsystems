@@ -138,38 +138,54 @@ footer {
     display: none;
   }
   .container {
-    position: relative;
-
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    @media screen and (min-width: $stop1) {
+      grid-template-columns: 200px 1fr 200px;
+      grid-template-rows: 1fr 1fr;
+    }
   }
   .user-info {
-    position: absolute;
-    top: 0;
-    right: 0;
+    grid-row: 1;
+    grid-column: 2;
+    @media screen and (min-width: $stop1) {
+      grid-column: 3;
+    }
     a {
       color: white;
     }
   }
   .logo {
-    margin-top: -1rem;
+    grid-column: 1;
+    grid-row: span 3 / auto;
+    @media screen and (min-width: $stop1) {
+      grid-row: span 2 / auto;
+    }
     img {
       margin-right: 1rem;
       filter: grayscale(100%) brightness(10);
     }
   }
-  .feedback {
+  app-report-bugs {
+    grid-column: 2;
+    grid-row: 1;
     color: white;
     text-align: center;
-    a {
-      text-decoration: none;
-      color: inherit;
+    display: block;
+    @media screen and (max-width: $stop1) {
+      display: none;
     }
   }
 }
 
 .language-selector {
-  position: absolute;
-  bottom: 1rem;
-  right: 0;
+  grid-column: 2;
+  grid-row: 2;
+  @media screen and (min-width: $stop1) {
+    grid-column: 3;
+    grid-row: 2;
+  }
   .flag-icon-large {
     $size: 2.5rem;
     width: $size;

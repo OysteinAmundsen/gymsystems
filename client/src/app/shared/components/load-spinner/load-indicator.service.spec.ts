@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { LoadIndicatorService } from './load-indicator.service';
 import { MatDialog } from '@angular/material';
 
-describe('shared.components:LoadIndicatorService', () => {
+describe('shared.components.LoadIndicatorService', () => {
   let service: LoadIndicatorService;
 
   beforeEach(() => {

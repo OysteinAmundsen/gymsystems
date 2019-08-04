@@ -5,7 +5,7 @@ import { UserService } from "app/shared/services/api";
 import { Role } from "app/model";
 import { IfAuthDirective } from "./if-auth.directive";
 
-describe("shared.directives:IfAuthDirective", () => {
+describe("shared.directives.IfAuthDirective", () => {
   let directive: IfAuthDirective;
 
   beforeEach(() => {

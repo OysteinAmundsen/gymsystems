@@ -5,7 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { GraphService } from './graph.service';
 
-describe("shared.services:MediaService", () => {
+describe("shared.services.MediaService", () => {
   let service: MediaService;
   const iMediaStub = <IMedia>{ id: 1, teamId: 1, disciplineId: 1 };
 

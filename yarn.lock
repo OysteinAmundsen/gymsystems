@@ -451,9 +451,9 @@
     to-fast-properties "^2.0.0"
 
 "@biesbjerg/ngx-translate-extract@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@biesbjerg/ngx-translate-extract/-/ngx-translate-extract-3.0.1.tgz#ac2618e1a3e158e5015dee13110a9e3530ecce2b"
-  integrity sha512-45EmqtdGFyROJRGJC1f+ta5m2Z5Du7McbhOc2M7m6HjcY3rshNOIGWmsTmmyXduvmlOzK8B1kUOZ5QihPBzoAA==
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@biesbjerg/ngx-translate-extract/-/ngx-translate-extract-3.0.2.tgz#7d29f42d209c465f8c68097211f963083c74a4d2"
+  integrity sha512-OHPj9QRq3LtLy3z29zj4hGumliIYg7AAwRBU4XGDGBk8CbgzTs2sdEgrVZ3RqKtZP71TFHeqUOdF8jANa94HHw==
   dependencies:
     "@angular/compiler" "^8.1.3"
     boxen "^4.1.0"
@@ -1575,9 +1575,9 @@ accepts@^1.3.5, accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
     negotiator "0.6.2"
 
 acorn-globals@^4.1.0:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/acorn-globals/-/acorn-globals-4.3.2.tgz#4e2c2313a597fd589720395f6354b41cd5ec8006"
-  integrity sha512-BbzvZhVtZP+Bs1J1HcwrQe8ycfO0wStkSGxuul3He3GkHOIZ6eTqOkPuw9IP1X3+IkOo4wiJmwkobzXYz4wewQ==
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/acorn-globals/-/acorn-globals-4.3.3.tgz#a86f75b69680b8780d30edd21eee4e0ea170c05e"
+  integrity sha512-vkR40VwS2SYO98AIeFvzWWh+xyc2qi9s7OoXSFEGIP/rOJKzjnhykaZJNnHdoq4BL2gGxI5EZOU16z896EYnOQ==
   dependencies:
     acorn "^6.0.1"
     acorn-walk "^6.0.1"
@@ -4407,9 +4407,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.191:
-  version "1.3.211"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.211.tgz#0c39d17316bf342d1971fed68e754fa1775918f7"
-  integrity sha512-GZAiK3oHrs0K+LwH+HD+bdjZ17v40oQQdXbbd3dgrwgbENvazrGpcuIADSAREWnxzo9gADB1evuizrbXsnoU2Q==
+  version "1.3.213"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.213.tgz#d4f11df558f6fd187b822e2a3dd364b739615b3f"
+  integrity sha512-1vbQKYkyvFkUJBiKXBEFp+UzkbaeQUR6a4ToNbgd8prXNVLl5A4QWUtVmcmh4J60bhNk5C3h2Dxg65jeQuiPsA==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
@@ -5614,9 +5614,9 @@ got@^6.7.1:
     url-parse-lax "^1.0.0"
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.0.tgz#8d8fdc73977cb04104721cb53666c1ca64cd328b"
-  integrity sha512-jpSvDPV4Cq/bgtpndIWbI5hmYxhQGHPC4d4cqBPb4DLniCfhJokdXhwhaDuLBGLQdvvRum/UiX6ECVIPvDXqdg==
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.1.tgz#1c1f0c364882c868f5bff6512146328336a11b1d"
+  integrity sha512-b9usnbDGnD928gJB3LrCmxoibr3VE4U2SMo5PBuBnokWyDADTqDPXg4YpwKF1trpH+UbGp7QLicO3+aWEy0+mw==
 
 "graceful-readlink@>= 1.0.0":
   version "1.0.1"
@@ -11646,9 +11646,9 @@ supports-hyperlinks@^1.0.1:
     supports-color "^5.0.0"
 
 swagger-ui-dist@^3.18.1:
-  version "3.23.3"
-  resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-3.23.3.tgz#d8856a0769bf07488c54760a6819c684f727bcbb"
-  integrity sha512-v0KYrvkzx15+RX20666hpxaktCkBhCRKbSWQMkvFmmYWHkegd8l0j7I4F09/s9IIgIJ3OzM6dY9rlP39tHnY7A==
+  version "3.23.4"
+  resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-3.23.4.tgz#8b04eb8fe2184dcec5d759a21392b47b672272f7"
+  integrity sha512-Df/Ty5Y1tsz5BSK6LKt7+1Rj7/QKn+L2fFnBEXWopltUcR7K2SS8JkwuzvBWTGSV7yewaEnXusbU3pnKqnwZng==
 
 swagger-ui-express@^4.0.7:
   version "4.0.7"
@@ -11750,9 +11750,9 @@ terser-webpack-plugin@^1.1.0, terser-webpack-plugin@^1.4.1:
     worker-farm "^1.7.0"
 
 terser@^4.0.0, terser@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-4.1.2.tgz#b2656c8a506f7ce805a3f300a2ff48db022fa391"
-  integrity sha512-jvNoEQSPXJdssFwqPSgWjsOrb+ELoE+ILpHPKXC83tIxOlh2U75F1KuB2luLD/3a6/7K3Vw5pDn+hvu0C4AzSw==
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-4.1.3.tgz#6074fbcf3517561c3272ea885f422c7a8c32d689"
+  integrity sha512-on13d+cnpn5bMouZu+J8tPYQecsdRJCJuxFJ+FVoPBoLJgk5bCBkp+Uen2hWyi0KIUm6eDarnlAlH+KgIx/PuQ==
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
@@ -13144,6 +13144,6 @@ zen-observable@^0.8.0:
   integrity sha512-kQz39uonEjEESwh+qCi83kcC3rZJGh4mrZW7xjkSQYXkq//JZHTtKo+6yuVloTgMtzsIWOJrjIrKvk/dqm0L5g==
 
 zone.js@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.10.0.tgz#dbaa5cf2889e3f92f903de1d8a6edabdc8d4da69"
-  integrity sha512-dxEcxkKgOj5kNBcngPmeu9VV0PrMPd2aJXX5TDX/MKOITusSzYNjZPs1EVSsLywvdThRVwsEqUi2BAEYeuRP2Q==
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.10.1.tgz#c83f7011896172cb69cbb99d2eff2302f3b2ca1a"
+  integrity sha512-PNCeR7yTNse/C1sSv01OWTV6hEnlQP98w5OX7cmNM+7wLCISLukNIzfYoRjdsWTYE3t1PQkjtjGa/GYoeP8Caw==

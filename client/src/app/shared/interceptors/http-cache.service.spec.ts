@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 import { HttpCacheService } from "./http-cache.service";
 
-describe("shared.interceptors:HttpCacheService", () => {
+describe("shared.interceptors.HttpCacheService", () => {
   let service: HttpCacheService;
   beforeEach(() => {
     TestBed.configureTestingModule({ providers: [HttpCacheService] });

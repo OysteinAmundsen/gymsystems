@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { MultirangeComponent } from "./multirange.component";
 
-describe("shared.components:MultirangeComponent", () => {
+describe("shared.components.MultirangeComponent", () => {
   let component: MultirangeComponent;
   let fixture: ComponentFixture<MultirangeComponent>;
 

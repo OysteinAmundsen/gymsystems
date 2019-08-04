@@ -1,0 +1,12 @@
+:host {
+  line-height: 38px;
+  height: 39px;
+  > a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+  }
+}
+span:not(:empty) + span {
+  display: none;
+}

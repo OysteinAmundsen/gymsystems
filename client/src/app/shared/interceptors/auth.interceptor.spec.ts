@@ -12,7 +12,7 @@ import { Role } from 'app/model';
 import { HttpMethod } from './http-method';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe("shared.interceptors:AuthInterceptor", () => {
+describe("shared.interceptors.AuthInterceptor", () => {
   let service: AuthInterceptor;
   const mockSessionStorage = {
     getItem: () => JSON.stringify({ id: 1, name: 'Test User', role: Role.Organizer, club: { id: 1, name: 'Test club' }, token: 'ThisIsAnInvalidToken' })

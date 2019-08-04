@@ -20,8 +20,10 @@
   "typescript.tsdk": "./node_modules/typescript/lib",
   "debug.node.autoAttach": "on",
   "jest.pathToJest": "./node_modules/.bin/jest",
-  "jest.rootPath": "./server",
+  "jest.rootPath": "./server/src",
   "angularKarmaTestExplorer.karmaConfFilePath": "./client/src/karma.conf.js",
   "angularKarmaTestExplorer.projectRootPath": "./client",
-  "angularKarmaTestExplorer.defaultAngularProjectName": "gymsystems"
+  "angularKarmaTestExplorer.defaultAngularProjectName": "gymsystems",
+  "jestTestExplorer.pathToJest": "./node_modules/.bin/jest",
+  "jestTestExplorer.logpanel": true
 }

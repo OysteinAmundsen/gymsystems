@@ -1,6 +1,6 @@
 {
   "name": "gymsystems_client",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "author": "oystein.amundsen@gmail.com",
   "scripts": {
@@ -71,14 +71,14 @@
     "rxjs": "^6.5.2",
     "snyk": "^1.208.0",
     "subscriptions-transport-ws": "^0.9.16",
-    "zone.js": "^0.10.0"
+    "zone.js": "^0.10.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.802.0",
     "@angular/cli": "^8.2.0",
     "@angular/compiler-cli": "^8.2.0",
     "@angular/language-service": "^8.2.0",
-    "@biesbjerg/ngx-translate-extract": "^3.0.1",
+    "@biesbjerg/ngx-translate-extract": "^3.0.2",
     "@types/graphql": "^14.2.3",
     "@types/hammerjs": "^2.0.36",
     "@types/jasmine": "^3.3.16",
