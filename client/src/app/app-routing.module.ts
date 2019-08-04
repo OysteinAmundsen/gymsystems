@@ -7,6 +7,7 @@ import { LogoutComponent } from './views/home/logout/logout.component';
 import { RegisterComponent } from './views/home/register/register.component';
 import { ResetComponent } from './views/home/reset/reset.component';
 import { CanActivateRegistration } from './views/home/register/registration-activation.guard';
+import { AboutComponent } from './views/home/about/about.component';
 
 const APP_ROUTES: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -14,6 +15,7 @@ const APP_ROUTES: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [CanActivateRegistration] },
   { path: 'reset', component: ResetComponent },
   { path: 'logout', component: LogoutComponent },
+  { path: 'about', component: AboutComponent },
 
   // Lazy loaded modules
   { path: 'configure', loadChildren: () => import('./views/configure/configure.module').then(m => m.ConfigureModule) },

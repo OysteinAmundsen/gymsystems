@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 import { OrderByPipe } from "./order-by.pipe";
 
-describe("shared.pipes:OrderByPipe", () => {
+describe("shared.pipes.OrderByPipe", () => {
   let pipe: OrderByPipe;
   beforeEach(() => {
     TestBed.configureTestingModule({ providers: [OrderByPipe] });

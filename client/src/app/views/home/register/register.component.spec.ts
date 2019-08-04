@@ -9,7 +9,7 @@ import { RegisterComponent, Type } from "./register.component";
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-describe("RegisterComponent", () => {
+describe("views.home.RegisterComponent", () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
 

@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { MemberStateService } from './member-state.service';
 
-describe('MemberStateService', () => {
+describe('views.configure.club.members.MemberStateService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [MemberStateService]

@@ -15,13 +15,13 @@ scenarios:
         body: "{\"operationName\":null,\"variables\":{},\"extensions\":{},\"query\":\"{\n  getTournaments {\n    id\n    name\n    description_no\n    description_en\n    startDate\n    endDate\n    times {\n      day\n      time\n      __typename\n    }\n    venue {\n      id\n      name\n      address\n      capacity\n      __typename\n    }\n    __typename\n  }\n}\n\"}"
     - think: 3
     - get:
-        url: "/event/2/results"
+        url: "/event/1/results"
     - post:
         url: "/api/graph"
-        body: "{\"operationName\":null,\"variables\":{},\"extensions\":{},\"query\":\"{\n  tournament(id: 3) {\n    id\n    name\n    description_en\n    startDate\n    endDate\n    __typename\n  }\n}\n\"}"
+        body: "{\"operationName\":null,\"variables\":{},\"extensions\":{},\"query\":\"{\n  tournament(id: 1) {\n    id\n    name\n    description_en\n    startDate\n    endDate\n    __typename\n  }\n}\n\"}"
     - post:
         url: "/api/graph"
-        body: "{\"operationName\":null,\"variables\":{},\"extensions\":{},\"query\":\"{\n  getDisciplines(tournamentId: 3) {\n    id\n    name\n    sortOrder\n    scoreGroups {\n      type\n      judgeCount\n      __typename\n    }\n    __typename\n  }\n  getSchedule(tournamentId: 3, type: 2, scorable: true) {\n    id\n    team {\n      id\n      name\n      class\n      __typename\n    }\n    sortNumber\n    startNumber\n    markDeleted\n    startTime\n    endTime\n    publishTime\n    type\n    disciplineId\n    disciplineName\n    divisionName\n    divisionSortOrder\n    scorable\n    total\n    totalByScoreGroup {\n      group {\n        id\n        type\n        __typename\n      }\n      total\n      __typename\n    }\n    __typename\n  }\n}\n\"}"
+        body: "{\"operationName\":null,\"variables\":{},\"extensions\":{},\"query\":\"{\n  getDisciplines(tournamentId: 1) {\n    id\n    name\n    sortOrder\n    scoreGroups {\n      type\n      judgeCount\n      __typename\n    }\n    __typename\n  }\n  getSchedule(tournamentId: 3, type: 2, scorable: true) {\n    id\n    team {\n      id\n      name\n      class\n      __typename\n    }\n    sortNumber\n    startNumber\n    markDeleted\n    startTime\n    endTime\n    publishTime\n    type\n    disciplineId\n    disciplineName\n    divisionName\n    divisionSortOrder\n    scorable\n    total\n    totalByScoreGroup {\n      group {\n        id\n        type\n        __typename\n      }\n      total\n      __typename\n    }\n    __typename\n  }\n}\n\"}"
     - think: 5
     - get:
-        url: "/event/2/list"
+        url: "/event/1/list"

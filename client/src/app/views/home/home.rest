@@ -1,0 +1,42 @@
+### All requests performed by the home page
+GET https://gymsystems.no/api/ HTTP/2.0
+
+###
+POST https://gymsystems.no/api/graph
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query {
+  me {
+    id
+    name
+    role
+    email
+    club {
+      id
+      name
+    }
+  }
+  getTournaments {
+    id
+    name
+    description_no
+    description_en
+    startDate
+    endDate
+    times {
+      day
+      time
+    }
+    venue {
+      id
+      name
+      address
+      capacity
+      latitude
+      longitude
+    }
+  }
+}
+
+

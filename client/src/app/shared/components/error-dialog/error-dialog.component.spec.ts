@@ -4,7 +4,7 @@ import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from "@angular/materia
 import { ErrorDialogComponent } from "./error-dialog.component";
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 
-describe("shared.components:ErrorDialogComponent", () => {
+describe("shared.components.ErrorDialogComponent", () => {
   let component: ErrorDialogComponent;
   let fixture: ComponentFixture<ErrorDialogComponent>;
 

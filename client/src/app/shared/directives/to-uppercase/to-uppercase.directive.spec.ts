@@ -19,7 +19,7 @@ class WrapperComponent {
   lowerCase: string;
   upperCase: string;
 }
-describe('shared.directives:ToCaseDirective', () => {
+describe('shared.directives.ToCaseDirective', () => {
   let component: WrapperComponent;
   let fixture: ComponentFixture<WrapperComponent>;
 

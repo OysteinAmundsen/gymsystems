@@ -6,7 +6,7 @@ import { HttpMethod } from 'app/shared/interceptors/http-method';
 import { SaveButtonComponent } from "./save-button.component";
 import { ReplaySubject } from 'rxjs';
 
-describe("shared.components:SaveButtonComponent", () => {
+describe("shared.components.SaveButtonComponent", () => {
   let component: SaveButtonComponent;
   let fixture: ComponentFixture<SaveButtonComponent>;
   const httpAction = new ReplaySubject(1);

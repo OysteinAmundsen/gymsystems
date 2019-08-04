@@ -24,9 +24,9 @@
             </mat-autocomplete>
             <app-help-block *ngIf="teamForm.value.club != null">
               <p translate>You cannot enter a team name before you've selected which club it belongs to</p>
-              <p translate>This is because we try to match it with the teams the club allready has configured in the <a [routerLink]="['/configure/club']"
-                   aria-label="Configure club">Club</a>
-                section</p>
+              <p><span translate>This is because we try to match it with the teams the club allready has configured in the</span> <a [routerLink]="['/configure/club']"
+                   aria-label="Configure club" translate>Club</a>
+                <span translate>section</span></p>
             </app-help-block>
           </mat-form-field>
         </div>

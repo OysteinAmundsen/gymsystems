@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { CommonService } from './common.service';
 
-describe('shared.services: Common', () => {
+describe('shared.services.Common', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [CommonService]

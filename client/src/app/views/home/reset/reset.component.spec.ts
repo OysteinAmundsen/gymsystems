@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 
-describe("ResetComponent", () => {
+describe("views.home.ResetComponent", () => {
   let component: ResetComponent;
   let fixture: ComponentFixture<ResetComponent>;
 

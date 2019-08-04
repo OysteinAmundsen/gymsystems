@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 import { IMedia } from 'app/model/IMedia';
 
-describe("shared.components:MediaControlComponent", () => {
+describe("shared.components.MediaControlComponent", () => {
   let component: MediaControlComponent;
   let fixture: ComponentFixture<MediaControlComponent>;
 

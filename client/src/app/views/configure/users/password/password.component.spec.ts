@@ -8,7 +8,7 @@ import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-tran
 import { HelpBlockComponent } from 'app/shared/components/help-block/help-block.component';
 import { of } from 'rxjs';
 
-describe("PasswordComponent", () => {
+describe("views.configure.users.PasswordComponent", () => {
   let component: PasswordComponent;
   let fixture: ComponentFixture<PasswordComponent>;
 

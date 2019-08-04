@@ -6,7 +6,7 @@ import { DivisionLookupComponent } from "./division-lookup.component";
 import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 
-describe("DivisionLookupComponent", () => {
+describe("views.configure.DivisionLookupComponent", () => {
   let component: DivisionLookupComponent;
   let fixture: ComponentFixture<DivisionLookupComponent>;
   const iDivisionStub = {};

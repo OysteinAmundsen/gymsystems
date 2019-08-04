@@ -1,0 +1,30 @@
+@import "../../../../styles/variables";
+
+a {
+  line-height: 36px;
+  height: 37px;
+  text-decoration: none;
+  display: inline-flex;
+  color: #dedede;
+  padding: 1px 9px;
+  font-size: 22px;
+  letter-spacing: 0.6px;
+  margin: 0 auto;
+  font-family: 'Cookie', cursive;
+  box-sizing: border-box;
+  transition: 0.3s all linear;
+  opacity: 0.85;
+  img {
+    width: 27px;
+    margin-bottom: 1px;
+    box-shadow: none;
+    border: none;
+    vertical-align: middle;
+  }
+  :hover, :active, :focus {
+    text-decoration: none;
+    opacity: 1;
+    color: #ffffff;
+  }
+}
+

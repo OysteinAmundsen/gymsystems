@@ -37,6 +37,10 @@
         <a routerLink="/logout" aria-label="Logout">
           <i class="fa fa-fw fa-sign-out"></i> <span translate>Log out</span> </a>
       </li>
+      <li [routerLinkActive]="['active']" class="visible-narrow" [title]="'About the system' | translate">
+        <a routerLink="/about" aria-label="Logout">
+          <i class="fa fa-fw fa-info"></i></a>
+      </li>
     </ul>
 
     <!-- Mobile nav menu activator -->
@@ -59,12 +63,20 @@
   </svg>
 
   <div class="container">
-    <div class="feedback visible-medium">
-      <a href="https://github.com/OysteinAmundsen/gymsystems/issues/new/choose" target="_blank" rel="noreferrer">
-        <i class="fa fa-fw fa-envelope"></i>
-        {{ 'Register flaws or request features' | translate }}
+    <!-- Logos -->
+    <div class="logo">
+      <a href="http://www.haugesundturn.no/" target="_blank" rel="noreferrer" aria-label="Go to Haugesund Turnforening's web pages">
+        <img src="assets/images/Logo-Haugesund-Turnforening.white.svg" height="101" alt="Haugesund Turnforening" title="Haugesund Turnforening">
+      </a>
+      <a href="http://www.gymogturn.no/" target="_blank" rel="noreferrer" aria-label="Go to Norges gym- og Turnforening's web pages">
+        <img src="assets/images/NGTF_logo_farger.png" alt="Norges gym- og Turnforening" title="Norges gym- og Turnforening">
       </a>
     </div>
+
+    <!-- Middle column -->
+    <app-report-bugs></app-report-bugs>
+
+    <!-- Right column -->
     <div class="language-selector">
       <button mat-icon-button (click)="changeLang('no')" aria-label="Change current language to Norwegian">
         <i [ngClass]="'clickable flag-icon flag-icon-large flag-icon-no ' + (currentLang === 'no' ? 'selected' : '')"></i>
@@ -76,14 +88,6 @@
     <div class="user-info">
       <div *ngIf="user"><b translate>Logged in as: </b><a [routerLink]="['/configure/users/', user.id]"><i>{{ user.name }}</i></a></div>
       <div>v: {{ version }}</div>
-    </div>
-    <div class="pull-left logo">
-      <a href="http://www.haugesundturn.no/" target="_blank" rel="noreferrer" aria-label="Go to Haugesund Turnforening's web pages">
-        <img src="assets/images/Logo-Haugesund-Turnforening.white.svg" height="101" alt="Haugesund Turnforening" title="Haugesund Turnforening">
-      </a>
-      <a href="http://www.gymogturn.no/" target="_blank" rel="noreferrer" aria-label="Go to Norges gym- og Turnforening's web pages">
-        <img src="assets/images/NGTF_logo_farger.png" alt="Norges gym- og Turnforening" title="Norges gym- og Turnforening">
-      </a>
     </div>
   </div>
 </footer>
