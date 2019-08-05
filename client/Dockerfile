@@ -4,6 +4,9 @@
 FROM node:11.4-alpine as build-stage
 WORKDIR /app
 
+RUN apk update && apk upgrade; \
+  apk add git;
+
 # Single layer for dependencies to improve caching between builds
 COPY package.json ./
 RUN yarn install
@@ -29,6 +32,7 @@ WORKDIR /usr/share/nginx
 RUN echo @edge http://dl-cdn.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories; \
   echo @edgecommunity http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories; \
   apk update && apk upgrade; \
+  apk add git; \
   apk add --update nodejs-current@edge yarn; \
   yarn global add pm2;
 
