@@ -3,16 +3,24 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { graphqlUri } from 'app/graphql.module';
 
 /**
  * Intercepting all HTTP requests, caching every GET, if not a 'noCache' header is set.
  * If a PUT, POST or DELETE is executed, the global cache is invalidated.
+ *
  */
 @Injectable()
 export class HttpCacheInterceptor implements HttpInterceptor {
   constructor(private cache: HttpCacheService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (req.url.indexOf(graphqlUri) > -1) {
+      // This interceptor has no effect on GraphQL requests, since they are all POST requests. Just move along quickly.
+      return next.handle(req);
+    }
+
+
     if (['PUT', 'POST', 'DELETE'].indexOf(req.method) > -1) {
       // Force reload of cache after a modification is done.
       this.cache.invalidateAll();

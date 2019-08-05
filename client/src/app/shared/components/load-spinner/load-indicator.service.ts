@@ -78,31 +78,31 @@ export class LoadIndicatorService {
   }
 
   // API to listen for activities on specific urls
-  isLoadingFrom(url: string) { return this.createNetworkActivityObservable(url, 'load'); }
-  isSavingFrom(url: string) { return this.createNetworkActivityObservable(url, 'save'); }
-  isDeletingFrom(url: string) { return this.createNetworkActivityObservable(url, 'delete'); }
+  // isLoadingFrom(url: string) { return this.createNetworkActivityObservable(url, 'load'); }
+  // isSavingFrom(url: string) { return this.createNetworkActivityObservable(url, 'save'); }
+  // isDeletingFrom(url: string) { return this.createNetworkActivityObservable(url, 'delete'); }
 
   /**
    * Creates an observer, and places it in one of three assosiative arrays based on
    * http method type, and with the url as key.
    *
    */
-  private createNetworkActivityObservable(url: string, type: string): Subject<boolean> {
-    if (!this[type + 'Observable'][url]) {
-      // Observable is not created. Create one for this url and type
-      switch (type) {
-        case 'load': this.loadObservable[url] = this.addObserver(url, type); break;
-        case 'save': this.saveObservable[url] = this.addObserver(url, type); break;
-        case 'delete': this.deleteObservable[url] = this.addObserver(url, type); break;
-      }
-    }
-    // Return the observable
-    return this[type + 'Observable'][url];
-  }
-  private addObserver(url: string, type: string) {
-    return Subject.create((observer: Observer<boolean>) => {
-      // A new observer is subscribing to this event. Add them to the list.
+  // private createNetworkActivityObservable(url: string, type: string): Subject<boolean> {
+  //   if (!this[type + 'Observable'][url]) {
+  //     // Observable is not created. Create one for this url and type
+  //     switch (type) {
+  //       case 'load': this.loadObservable[url] = this.addObserver(url, type); break;
+  //       case 'save': this.saveObservable[url] = this.addObserver(url, type); break;
+  //       case 'delete': this.deleteObservable[url] = this.addObserver(url, type); break;
+  //     }
+  //   }
+  //   // Return the observable
+  //   return this[type + 'Observable'][url];
+  // }
+  // private addObserver(url: string, type: string) {
+  //   return new Subject((observer: Observer<boolean>) => {
+  //     // A new observer is subscribing to this event. Add them to the list.
 
-    });
-  }
+  //   });
+  // }
 }

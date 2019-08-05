@@ -33,7 +33,7 @@ export class LogoutComponent {
 
   reroute(err?: string) {
     if (err) {
-      this.browser.window().location.reload(true);
+      this.browser.window().location.reload();
     }
     this.router.navigate(['/']);
   }

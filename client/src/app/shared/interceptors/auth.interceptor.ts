@@ -59,6 +59,10 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
+  /**
+   * For some reason, apollo client adds `__typename` in the response to every model in the query. But
+   * the server-side stalls when this is returned, so we have to strip it.
+   */
   stripTypeNames(req: HttpRequest<any>): HttpRequest<any> {
     if (req.body && req.body.query) {
       // https://github.com/apollographql/react-apollo/issues/741

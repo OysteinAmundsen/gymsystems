@@ -112,8 +112,9 @@ export class MembersComponent implements OnInit, OnDestroy {
       $event.preventDefault();
       $event.stopPropagation();
     }
-    const fileList: FileList = (<HTMLInputElement>event.target).files;
+    const fileList: FileList = (<HTMLInputElement>$event.target).files;
     if (fileList.length) {
+      // FIXME:
       // this.clubService.importMembers(fileList[0], this.club).subscribe(
       //   data => this.loadMembers(),
       //   error => Logger.error(error)
@@ -126,6 +127,7 @@ export class MembersComponent implements OnInit, OnDestroy {
       $event.preventDefault();
       $event.stopPropagation();
     }
+    // FIXME:
     // this.http.get(`/api/club/{{ club.id }}/export-members`).subscribe(res => {
 
     // });
