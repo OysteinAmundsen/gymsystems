@@ -11,16 +11,12 @@ export class UserDto {
   @IsNotEmpty()
   name: string;
 
-  @ApiModelProperty({ description: 'The Users password' })
+  @ApiModelPropertyOptional({ description: 'When used as input, this is the Users unencrypted password. Output wont yield this in any response.', example: 'IHaveAPassword' })
   password?: string; // Should only be present if this is a user creation
 
   @ApiModelProperty({ description: 'The Users email address', example: 'user@mail.com' })
   @IsEmail()
   email?: string;
-
-  // @ApiModelPropertyOptional({ description: 'When used as input, this is the Users unencrypted password. Output wont yield this in any response.', example: 'IHaveAPassword' })
-  // @IsNotEmpty()
-  // password: string;
 
   @ApiModelProperty({
     description: `An integer categorizing this users authorization level in the system. If this is a new registration,

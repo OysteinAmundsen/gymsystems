@@ -40,6 +40,25 @@
           </app-club-lookup>
         </div>
       </div>
+      <div class="row" *ngIf="!user.id">
+        <!-- New User -->
+        <mat-form-field class="col-xs-6 help-available">
+          <input matInput type="password" autocomplete="new-password" formControlName="password" placeholder="{{'New password' | translate}}">
+          <mat-error>{{ 'A password is required' | translate }}</mat-error>
+          <app-help-block>
+            <p translate>Any password will do. We do not set restrictions. But please make sure it is not too easy.</p>
+            <p translate>We suggest using a password generator for this: <a href="https://xkpasswd.net/s/" target="_blank">https://xkpasswd.net/s/</a></p>
+          </app-help-block>
+        </mat-form-field>
+        <mat-form-field class="col-xs-6 help-available">
+          <input matInput type="password" autocomplete="new-password" formControlName="repeatPassword" [errorStateMatcher]="matcher()"
+                 placeholder="{{'Repeat password' | translate}}">
+          <mat-error>{{ 'Passwords are not equal' | translate }}</mat-error>
+          <app-help-block>
+            <p translate>This needs to be exactly the same text as entered in the password field. Just to make sure you did not make any typos. :-)</p>
+          </app-help-block>
+        </mat-form-field>
+      </div>
       <div class="row">
         <mat-slide-toggle [checked]="userForm.value.activated" [disabled]="user.activated" (toggleChange)="toggleActive()">
           <span translate *ngIf="userForm.value.activated">User is active</span>
@@ -56,8 +75,8 @@
               class="pull-right mat-warn" (click)="delete()" aria-label="Delete">
         <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
       </button>
-      <button mat-button type="button" class="pull-right" (click)="changePassword()">{{ 'Change password' | translate }}</button>
+      <button *ngIf="+user.id === +currentUser.id" mat-button type="button" class="pull-right"
+              (click)="changePassword()">{{ 'Change password' | translate }}</button>
     </mat-card-actions>
   </mat-card>
-
 </form>
