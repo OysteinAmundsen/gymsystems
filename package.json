@@ -1,56 +1,56 @@
 {
-  "name": "gymsystems",
-  "version": "2.0.1",
-  "author": "oystein.amundsen@gmail.com",
-  "scripts": {
-    "snyk": "snyk",
-    "ng": "yarn workspace gymsystems_client ng",
-    "nest": "yarn workspace gymsystems_server nest",
-    "tsc": "yarn workspace gymsystems_server tsc",
-    "typeorm": "yarn workspace gymsystems_server typeorm",
-    "bump": "utils/bump.sh",
-    "build": "yarn build:server && yarn build:client",
-    "lint": "yarn workspace gymsystems_server lint && yarn workspace gymsystems_client lint",
-    "build:server": "yarn workspace gymsystems_server build",
-    "build:client": "yarn workspace gymsystems_client build",
-    "build:ssr": "yarn workspace gymsystems_client build:ssr",
-    "build:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker build --compress",
-    "test": "yarn test:server && yarn test:client",
-    "test:server": "yarn workspace gymsystems_server test",
-    "test:client": "yarn workspace gymsystems_client test --watch=false",
-    "start": "yarn start:db && concurrently --kill-others --exitcrash -p \"[{name}]\" -n \"SERVER,CLIENT\" -c \"bgBlue.bold,bgGreen.bold\" \"yarn start:server\" \"yarn start:client\"",
-    "start:db": "docker-compose -f ./db/docker/docker-compose.yml -p docker up -d",
-    "start:server": "yarn build:server && yarn workspace gymsystems_server start:prod",
-    "start:client": "yarn workspace gymsystems_client start",
-    "start:ssr": "yarn workspace gymsystems_client start:ssr",
-    "start:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker up -d",
-    "stop:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker down",
-    "stop:db": "docker-compose -f ./db/docker/docker-compose.yml rm -s -f",
-    "stress": "artillery run ./utils/artillery.yml",
-    "cloc": "npx cloc ./server/src && npx cloc ./client/src"
-  },
-  "private": true,
-  "repository": {
-    "type": "git"
-  },
-  "workspaces": {
-    "packages": [
-      "client",
-      "server"
-    ]
-  },
-  "devDependencies": {
-    "artillery": "^1.6.0-28",
-    "concurrently": "^4.1.1",
-    "husky": "^3.0.2",
-    "snyk": "^1.208.0"
-  },
-  "snyk": true,
-  "resolutions": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint",
-      "pre-push": "yarn test"
+    "name": "gymsystems",
+    "version": "2.0.1",
+    "author": "oystein.amundsen@gmail.com",
+    "scripts": {
+        "snyk": "snyk",
+        "ng": "yarn workspace gymsystems_client ng",
+        "nest": "yarn workspace gymsystems_server nest",
+        "tsc": "yarn workspace gymsystems_server tsc",
+        "typeorm": "yarn workspace gymsystems_server typeorm",
+        "bump": "utils/bump.sh",
+        "build": "yarn build:server && yarn build:client",
+        "lint": "yarn workspace gymsystems_server lint && yarn workspace gymsystems_client lint",
+        "build:server": "yarn workspace gymsystems_server build",
+        "build:client": "yarn workspace gymsystems_client build",
+        "build:ssr": "yarn workspace gymsystems_client build:ssr",
+        "build:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker build --compress",
+        "test": "yarn test:server && yarn test:client",
+        "test:server": "yarn workspace gymsystems_server test",
+        "test:client": "yarn workspace gymsystems_client test --watch=false",
+        "start": "yarn start:db && concurrently --kill-others --exitcrash -p \"[{name}]\" -n \"SERVER,CLIENT\" -c \"bgBlue.bold,bgGreen.bold\" \"yarn start:server\" \"yarn start:client\"",
+        "start:db": "docker-compose -f ./db/docker/docker-compose.yml -p docker up -d",
+        "start:server": "yarn build:server && yarn workspace gymsystems_server start:prod",
+        "start:client": "yarn workspace gymsystems_client start",
+        "start:ssr": "yarn workspace gymsystems_client start:ssr",
+        "start:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker up -d",
+        "stop:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker down",
+        "stop:db": "docker-compose -f ./db/docker/docker-compose.yml rm -s -f",
+        "stress": "artillery run ./utils/artillery.yml",
+        "cloc": "npx cloc ./server/src && npx cloc ./client/src"
+    },
+    "private": true,
+    "repository": {
+        "type": "git"
+    },
+    "workspaces": {
+        "packages": [
+            "client",
+            "server"
+        ]
+    },
+    "devDependencies": {
+        "artillery": "^1.6.0-28",
+        "concurrently": "^4.1.2",
+        "husky": "^3.0.4",
+        "snyk": "^1.221.1"
+    },
+    "snyk": true,
+    "resolutions": {},
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn lint",
+            "pre-push": "yarn test"
+        }
     }
-  }
 }

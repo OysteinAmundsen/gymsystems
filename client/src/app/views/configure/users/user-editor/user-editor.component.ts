@@ -1,12 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl, NgForm, FormGroupDirective } from '@angular/forms';
 
 import { UserService } from 'app/shared/services/api';
 import { IUser, RoleNames, IClub, Role } from 'app/model';
 import { ErrorHandlerService } from 'app/shared/interceptors/error-handler.service';
 import { GraphService } from 'app/shared/services/graph.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, ErrorStateMatcher } from '@angular/material';
 import { PasswordComponent } from '../password/password.component';
 import { SEOService } from 'app/shared/services/seo.service';
 
@@ -47,7 +47,7 @@ export class UserEditorComponent implements OnInit {
       name: ['', [Validators.required]],
       role: [Role.User, [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      club: [null, []],
+      club: [null, [Validators.required]],
       activated: [true, []]
     });
 
@@ -62,11 +62,30 @@ export class UserEditorComponent implements OnInit {
       } else {
         this.meta.setTitle(`Add user`, `Creating a new user in the system`);
 
+        this.userForm.addControl('password', new FormControl('', [Validators.required]));
+        this.userForm.addControl('repeatPassword', new FormControl('', [Validators.required]));
+
         if (this.currentUser.club) {
           this.userForm.get('club').setValue(this.currentUser.club);
         }
       }
     });
+
+    this.userForm.get('role').valueChanges.subscribe((v: Role) => {
+      if (v === Role.Admin) {
+        this.userForm.get('club').setValidators([]);
+      } else {
+        this.userForm.get('club').setValidators([Validators.required]);
+      }
+    })
+  }
+
+  matcher(): ErrorStateMatcher {
+    return {
+      isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        return control.invalid || (control.parent.errors && control.parent.errors.repeatPassword && control.parent.errors.repeatPassword.invalid);
+      }
+    }
   }
 
   clubDisplay(club: IClub) {
@@ -110,6 +129,8 @@ export class UserEditorComponent implements OnInit {
       If you belive your role should be different, contact a person with a higher or equal role.`);
       return;
     }
+
+    delete formVal.repeatPassword;
     this.graph.saveData('User', formVal, this.userQuery).subscribe(result => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });

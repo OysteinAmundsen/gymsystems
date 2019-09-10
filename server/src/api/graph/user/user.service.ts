@@ -180,8 +180,8 @@ export class UserService {
 
       // Validate club
       if (user.clubId || (user.club && user.club.id)) {
-        const club = await this.clubService.findOneById(user.clubId || user.club.id);
-        if (!club) { throw new BadRequestException('A Club is required'); }
+        user.club = await this.clubService.findOneById(user.clubId || user.club.id);
+        if (!user.club) { throw new BadRequestException('A Club is required'); }
       } else if (typeof user.club === 'string') {
         try {
           user.club = await this.clubService.findOrCreateClub(user.club);
@@ -197,7 +197,8 @@ export class UserService {
     }
 
     // Persist data
-    const result = await this.userRepository.save(plainToClass(User, user));
+    // const saveUser = plainToClass(User, user)
+    const result = await this.userRepository.save(user);
     if (result) {
       if (user.id) {
         this.pubSub.publish('userModified', { user: result });

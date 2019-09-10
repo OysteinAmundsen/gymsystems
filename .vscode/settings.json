@@ -1,10 +1,11 @@
 {
-  "editor.rulers": [180],
+  "editor.rulers": [
+    180
+  ],
   "editor.tabCompletion": "on",
   "editor.tabSize": 2,
   "editor.trimAutoWhitespace": true,
   "editor.formatOnSave": true,
-
   "files.exclude": {
     "**/.DS_Store": true,
     "**/.git": true,
@@ -15,7 +16,6 @@
   },
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-
   "tslint.ignoreDefinitionFiles": true,
   "typescript.tsdk": "./node_modules/typescript/lib",
   "debug.node.autoAttach": "on",
@@ -25,5 +25,13 @@
   "angularKarmaTestExplorer.projectRootPath": "./client",
   "angularKarmaTestExplorer.defaultAngularProjectName": "gymsystems",
   "jestTestExplorer.pathToJest": "./node_modules/.bin/jest",
-  "jestTestExplorer.logpanel": true
+  "jestTestExplorer.logpanel": true,
+  "rest-client.environmentVariables": {
+    "$shared": {
+      "host": "http://localhost:4200"
+    },
+    "prod": {
+      "host": "https://gymsystems.no"
+    }
+  }
 }
