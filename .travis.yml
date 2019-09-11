@@ -25,6 +25,7 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 script:
+  - yarn lint
   - yarn test
   - yarn build --prod
 after_success:

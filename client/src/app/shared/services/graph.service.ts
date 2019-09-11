@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map, debounceTime } from 'rxjs/operators';
-import { Observable, of, Observer } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import * as moment from 'moment';
-import { CommonService } from 'app/shared/services/common.service';
 
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { QueryOptions, MutationOptions, SubscriptionOptions } from 'apollo-angular/types';
+import { QueryOptionsAlone, MutationOptionsAlone, SubscriptionOptionsAlone } from 'apollo-angular/types';
 import { Logger } from './Logger';
 
 @Injectable({ providedIn: 'root' })
@@ -28,13 +27,13 @@ export class GraphService {
     return this.post(query).pipe(map(res => res.data));
   }
 
-  get(query: string, options?: QueryOptions<any>): Observable<any> {
+  get(query: string, options?: QueryOptionsAlone<any>): Observable<any> {
     // return this.http.get<any>(`/api/graph/?query=${CommonService.compressString(query)}`, options);
     return this.apollo.query<any>(Object.assign({ query: gql`${query}` }, options));
     // return this.apollo.watchQuery<any>(Object.assign({ query: gql`${query}` }, options)).valueChanges;
   }
 
-  post(query: string, options?: MutationOptions<any, any>): Observable<any> {
+  post(query: string, options?: MutationOptionsAlone<any, any>): Observable<any> {
     const queryStr = `mutation ${query}`;
     // return this.http.post<any>(`/api/graph`, Object.assign({ query: queryStr }, options));
     return new Observable((observer: Observer<any>) => {
@@ -66,7 +65,7 @@ export class GraphService {
     });
   }
 
-  listen(channel: string, query: string, options?: SubscriptionOptions<any>): Observable<any> {
+  listen(channel: string, query: string, options?: SubscriptionOptionsAlone<any>): Observable<any> {
     const queryStr = `subscription {${channel}${query}}`;
     // return Observable.create((observer: Observer<any>) => {
     return this.apollo.subscribe(Object.assign({ query: gql`${queryStr}` }, options))
