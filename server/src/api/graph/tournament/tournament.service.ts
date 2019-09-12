@@ -68,7 +68,7 @@ export class TournamentService {
     return result;
   }
 
-  async remove(id: number): Promise<number> {
+  async remove(id: number): Promise<boolean> {
     await Promise.all([
       this.mediaService.removeArchive(`tournament/${id}`), // Remove media
       this.scheduleService.removeByTournament(id),         // Remove schedule
@@ -81,7 +81,7 @@ export class TournamentService {
     if (result.raw.affectedRows > 0) {
       this.pubSub.publish('tournamentDeleted', { tournamentId: id });
     }
-    return result.raw.affectedRows;
+    return result.raw.affectedRows > 0;
   }
 
   removeSchedule(id: number): boolean | PromiseLike<boolean> {
