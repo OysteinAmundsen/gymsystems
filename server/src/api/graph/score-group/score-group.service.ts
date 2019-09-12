@@ -67,6 +67,7 @@ export class ScoreGroupService {
   }
 
   async remove(id: number): Promise<boolean> {
+    const judgeResult = await this.judgeInScoreGroupService.removeAllFromScoreGroup(id);
     const result = await this.scoreGroupRepository.delete({ id: id });
     this.invalidateCache(); // Force invalidate cache
     if (result.raw.affectedRows > 0) {
@@ -76,8 +77,11 @@ export class ScoreGroupService {
   }
 
   async removeByDiscipline(id: number): Promise<boolean> {
+    // First remove all judges
     const scoreGroups = await this.findByDisciplineId(id);
-    const judgeResult = await Promise.all(scoreGroups.map(async sg => await this.judgeInScoreGroupService.removeAllFromScoreGroup(sg.id)));
+    const judgeResult = await Promise.all(scoreGroups.map(sg => this.judgeInScoreGroupService.removeAllFromScoreGroup(sg.id)));
+
+    // Then remove the scoregroup
     const result = await this.scoreGroupRepository.delete({ disciplineId: id });
     this.invalidateCache(); // Force invalidate cache
     if (result.raw.affectedRows > 0) {

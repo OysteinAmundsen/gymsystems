@@ -189,7 +189,7 @@ export class MediaService {
   /**
    * Remove the storage space for this tournament
    */
-  removeArchive(archiveId: string): Promise<any> {
+  removeArchive(archiveId: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       rimraf(`./media/${archiveId}`, async (err: Error) => {
         if (err) {

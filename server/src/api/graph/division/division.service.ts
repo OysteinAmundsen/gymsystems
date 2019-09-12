@@ -45,35 +45,6 @@ export class DivisionService {
     delete this.localCahcePromise; // Force empty cache
   }
 
-  async save(division: DivisionDto): Promise<Division> {
-    if (division.id) {
-      const entity = await this.divisionRepository.findOne({ id: division.id });
-      division = Object.assign(entity, division);
-    }
-    const result = await this.divisionRepository.save(plainToClass(Division, division));
-    this.invalidateCache();
-    if (result) {
-      this.pubSub.publish(division.id ? 'divisionModified' : 'divisionCreated', { division: result });
-    }
-    delete result.teams;
-    delete result.tournament;
-    delete result.troops;
-    return result;
-  }
-
-  saveAll(divisions: DivisionDto[]): Promise<Division[]> {
-    return Promise.all(divisions.map(d => this.save(d)));
-  }
-
-  async remove(id: number): Promise<boolean> {
-    const result = await this.divisionRepository.delete({ id: id });
-    this.invalidateCache(); // Force empty cache
-    if (result.raw.affectedRows > 0) {
-      this.pubSub.publish('divisionDeleted', { divisionId: id });
-    }
-    return result.raw.affectedRows > 0;
-  }
-
   findOneById(id: number): Promise<Division> {
     return this.getFromCache(id);
   }
@@ -111,8 +82,42 @@ export class DivisionService {
     return all;
   }
 
-  removeByTournament(tournamentId: number): any {
-    return this.divisionRepository.delete({ tournamentId: tournamentId });
+  async save(division: DivisionDto): Promise<Division> {
+    if (division.id) {
+      const entity = await this.divisionRepository.findOne({ id: division.id });
+      division = Object.assign(entity, division);
+    }
+    const result = await this.divisionRepository.save(plainToClass(Division, division));
+    this.invalidateCache();
+    if (result) {
+      this.pubSub.publish(division.id ? 'divisionModified' : 'divisionCreated', { division: result });
+    }
+    delete result.teams;
+    delete result.tournament;
+    delete result.troops;
+    return result;
+  }
+
+  saveAll(divisions: DivisionDto[]): Promise<Division[]> {
+    return Promise.all(divisions.map(d => this.save(d)));
+  }
+
+  async remove(id: number): Promise<boolean> {
+    const result = await this.divisionRepository.delete({ id: id });
+    this.invalidateCache(); // Force empty cache
+    if (result.raw.affectedRows > 0) {
+      this.pubSub.publish('divisionDeleted', { divisionId: id });
+    }
+    return result.raw.affectedRows > 0;
+  }
+
+  async removeByTournament(tournamentId: number): Promise<boolean> {
+    const results = await this.divisionRepository.delete({ tournamentId: tournamentId });
+    this.invalidateCache(); // Force empty cache
+    if (result.raw.affectedRows > 0) {
+      this.pubSub.publish('divisionDeleted', { divisionId: id });
+    }
+    return results.raw.affectedRows > 0;
   }
 
   /**
@@ -121,8 +126,8 @@ export class DivisionService {
    * This is only useful when creating tournaments.
    */
   async createDefaults(tournamentId: number): Promise<Boolean> {
-    const values = JSON.parse((await this.configService.getOneById('defaultValues')).value);
-    const newDivs = values.division.map((d: Division) => { d.tournamentId = tournamentId; return d; });
+    const config = await this.configService.getOneById('defaultValues');
+    const newDivs = config.value.division.map((d: Division) => { d.tournamentId = tournamentId; return d; });
     const divisions = await this.saveAll(newDivs);
     return divisions && divisions.length > 0 && divisions.every(d => d.id !== null);
   }

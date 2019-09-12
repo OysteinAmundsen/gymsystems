@@ -8,7 +8,6 @@ import { Tournament } from '../tournament/tournament.model';
 import { Discipline } from './discipline.model';
 import { DisciplineDto } from './dto/discipline.dto';
 import { Team } from '../team/team.model';
-import { Config } from '../../common/config';
 import { TeamInDiscipline } from '../schedule/team-in-discipline.model';
 import { ConfigurationService } from '../../rest/administration/configuration.service';
 import { ScoreGroup } from '../score-group/score-group.model';
@@ -46,45 +45,6 @@ export class DisciplineService {
   invalidateCache() {
     delete this.localCache;
     delete this.localCahcePromise;
-  }
-
-  /**
-   *
-   * @param discipline The discipline data to persist
-   */
-  async save(discipline: DisciplineDto): Promise<Discipline> {
-    if (discipline.id) {
-      const entity = await this.disciplineRepository.findOne({ id: discipline.id });
-      discipline = Object.assign(entity, discipline);
-    }
-    const result = await this.disciplineRepository.save(plainToClass(Discipline, discipline));
-    this.invalidateCache(); // Force refresh cache
-    if (result) {
-      this.pubSub.publish(discipline.id ? 'disciplineModified' : 'disciplineCreated', { discipline: result });
-    }
-
-    delete result.scoreGroups;
-    delete result.teams;
-    delete result.tournament;
-    return result;
-  }
-
-  async saveAll(disciplineArr: DisciplineDto[]): Promise<Discipline[]> {
-    return Promise.all(disciplineArr.map(d => this.save(d)));
-  }
-
-  /**
-   *
-   * @param id The id of the discipline to remove
-   */
-  async remove(id: number): Promise<boolean> {
-    const sgResult = await this.scoreGroupService.removeByDiscipline(id);
-    const result = await this.disciplineRepository.delete({ id: id });
-    this.invalidateCache(); // Force refresh cache
-    if (result.raw.affectedRows > 0) {
-      this.pubSub.publish('disciplineDeleted', { disciplineId: id });
-    }
-    return result.raw.affectedRows > 0;
   }
 
   /**
@@ -128,9 +88,57 @@ export class DisciplineService {
     return this.getAllFromCache();
   }
 
-  removeByTournament(id: number): any {
+  /**
+   *
+   * @param discipline The discipline data to persist
+   */
+  async save(discipline: DisciplineDto): Promise<Discipline> {
+    if (discipline.id) {
+      const entity = await this.disciplineRepository.findOne({ id: discipline.id });
+      discipline = Object.assign(entity, discipline);
+    }
+    const result = await this.disciplineRepository.save(plainToClass(Discipline, discipline));
+    this.invalidateCache(); // Force refresh cache
+    if (result) {
+      this.pubSub.publish(discipline.id ? 'disciplineModified' : 'disciplineCreated', { discipline: result });
+    }
+
+    delete result.scoreGroups;
+    delete result.teams;
+    delete result.tournament;
+    return result;
+  }
+
+  async saveAll(disciplineArr: DisciplineDto[]): Promise<Discipline[]> {
+    return Promise.all(disciplineArr.map(d => this.save(d)));
+  }
+
+  /**
+   *
+   * @param id The id of the discipline to remove
+   */
+  async remove(id: number): Promise<boolean> {
+    const sgResult = await this.scoreGroupService.removeByDiscipline(id);
+    const result = await this.disciplineRepository.delete({ id: id });
+    this.invalidateCache(); // Force refresh cache
+    if (result.raw.affectedRows > 0) {
+      this.pubSub.publish('disciplineDeleted', { disciplineId: id });
+    }
+    return result.raw.affectedRows > 0;
+  }
+
+  async removeByTournament(tournamentId: number): Promise<boolean> {
+    // First remove all connected scoregroups
+    const disciplines = await this.disciplineRepository.find({ tournamentId: tournamentId });
+    const scoreGroups = await Promise.all(disciplines.map(d => this.scoreGroupService.removeByDiscipline(d.id)));
+
+    // Then remove the discipline
+    const result = await this.disciplineRepository.delete({ tournamentId: tournamentId });
     this.invalidateCache();
-    return this.disciplineRepository.delete({ tournamentId: id });
+    if (result.raw.affectedRows > 0) {
+      this.pubSub.publish('disciplineDeleted', { tournamentId: tournamentId });
+    }
+    return result.raw.affectedRows > 0;
   }
 
   /**
@@ -139,13 +147,13 @@ export class DisciplineService {
    * This is only useful when creating tournaments.
    */
   async createDefaults(tournamentId: number): Promise<Boolean> {
-    const defaultValues = JSON.parse((await this.configService.getOneById('defaultValues')).value);
-    const newDis = defaultValues.discipline.map((d: Discipline) => { d.tournamentId = tournamentId; return d; });
+    const config = await this.configService.getOneById('defaultValues');
+    const newDis = config.value.discipline.map((d: Discipline) => { d.tournamentId = tournamentId; return d; });
     const disciplines = await this.saveAll(newDis);
 
     // Create default scoregroups
     const scoreGroups = disciplines.reduce((groups: ScoreGroup[], d: Discipline) => {
-      const defaults = JSON.parse(JSON.stringify(defaultValues.scoreGroup)); // Create a clean copy
+      const defaults = JSON.parse(JSON.stringify(config.value.scoreGroup)); // Create a clean copy
       return groups.concat(defaults.map((s: ScoreGroup) => {
         s.disciplineId = d.id;
         return s;

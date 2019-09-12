@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -30,18 +30,25 @@ export class TournamentService {
 
   async save(tournament: TournamentDto): Promise<Tournament> {
     const isNew = !tournament.id;
-    // Make sure we have a proper club
-    if (tournament.club && (tournament.club.id === null || tournament.club.id === 0) && tournament.club.name != null) {
-      const club = await this.clubService.findOrCreateClub(tournament.club);
-      tournament.clubId = club.id;
-      tournament.club = club;
+    // Validate club
+    if (tournament.clubId || (tournament.club && tournament.club.id)) {
+      tournament.club = await this.clubService.findOneById(tournament.clubId || tournament.club.id);
+      if (!tournament.club) { throw new BadRequestException('A Club is required'); }
+    } else if (typeof tournament.club === 'string') {
+      try {
+        tournament.club = await this.clubService.findOrCreateClub(tournament.club);
+      } catch (ex) {
+        throw new BadRequestException(ex.message);
+      }
+    } else {
+      throw new BadRequestException('A Club is required');
     }
 
     if (tournament.id) {
       const entity = await this.tournamentRepository.findOne({ id: tournament.id });
       tournament = Object.assign(entity, tournament);
     }
-    const result = await this.tournamentRepository.save(plainToClass(Tournament, tournament));
+    const result = await this.tournamentRepository.save(tournament);
     if (result) {
       // New tournament. Create defaults
       if (isNew && (await this.createDefaults(result.id))) {
@@ -61,20 +68,20 @@ export class TournamentService {
     return result;
   }
 
-  remove(id: number): Promise<boolean> {
-    return Promise.all([
+  async remove(id: number): Promise<number> {
+    await Promise.all([
       this.mediaService.removeArchive(`tournament/${id}`), // Remove media
       this.scheduleService.removeByTournament(id),         // Remove schedule
       this.divisionService.removeByTournament(id),         // Remove divisions
       this.disciplineService.removeByTournament(id)        // Remove disciplines
-    ]).then(async res => {
-      // Lastly remove the tournament if all above worked.
-      const result = await this.tournamentRepository.delete({ id: id });
-      if (result.raw.affectedRows > 0) {
-        this.pubSub.publish('tournamentDeleted', { tournamentId: id });
-      }
-      return result.raw.affectedRows > 0;
-    })
+    ]);
+
+    // Lastly remove the tournament if all above worked.
+    const result = await this.tournamentRepository.delete({ id: id });
+    if (result.raw.affectedRows > 0) {
+      this.pubSub.publish('tournamentDeleted', { tournamentId: id });
+    }
+    return result.raw.affectedRows;
   }
 
   removeSchedule(id: number): boolean | PromiseLike<boolean> {
@@ -123,7 +130,7 @@ export class TournamentService {
       this.divisionService.createDefaults(tournamentId),
       this.disciplineService.createDefaults(tournamentId)
     ])
-      .then(val => val[0] && val[1])
+      .then(([divisions, disciplines]) => divisions && disciplines)
       .catch(err => false);
   }
 }

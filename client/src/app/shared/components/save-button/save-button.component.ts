@@ -20,12 +20,12 @@ export class SaveButtonComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  constructor(private authState: HttpStateService, private translate: TranslateService) { }
+  constructor(private state: HttpStateService, private translate: TranslateService) { }
 
   ngOnInit() {
     // Make sure language texts exist
     this.translate.get(['Saved', 'Deleted', 'SUCCESS']).subscribe();
-    this.subscriptions.push(this.authState.httpAction.subscribe((action: HttpAction) => {
+    this.subscriptions.push(this.state.httpAction.subscribe((action: HttpAction) => {
       if (this.isListening && (action.method === HttpMethod.Post || action.method === HttpMethod.Put)) {
         this.isSaving = !(action.isComplete);
         if (action.isComplete) {

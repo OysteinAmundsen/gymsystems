@@ -44,9 +44,10 @@ export class JudgeInScoreGroupService {
     return saved.affected > 0;
   }
 
-  removeAllFromScoreGroup(id: number): any {
+  async removeAllFromScoreGroup(id: number): Promise<boolean> {
     this.invalidateCache();
-    return this.judgeInScoreGroupRepository.delete({ scoreGroupId: id });
+    const result = await this.judgeInScoreGroupRepository.delete({ scoreGroupId: id });
+    return result.raw.affectedRows > 0;
   }
 
   private getAllFromCache(): Promise<JudgeInScoreGroup[]> {
