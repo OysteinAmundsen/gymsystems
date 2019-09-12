@@ -112,12 +112,12 @@ export class DivisionService {
   }
 
   async removeByTournament(tournamentId: number): Promise<boolean> {
-    const results = await this.divisionRepository.delete({ tournamentId: tournamentId });
+    const result = await this.divisionRepository.delete({ tournamentId: tournamentId });
     this.invalidateCache(); // Force empty cache
     if (result.raw.affectedRows > 0) {
-      this.pubSub.publish('divisionDeleted', { divisionId: id });
+      this.pubSub.publish('divisionDeleted', { divisionId: tournamentId });
     }
-    return results.raw.affectedRows > 0;
+    return result.raw.affectedRows > 0;
   }
 
   /**
