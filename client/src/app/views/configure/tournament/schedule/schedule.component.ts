@@ -57,6 +57,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     private parent: TournamentEditorComponent,
     private graph: GraphService,
     private scheduleService: ScheduleService,
+    private common: CommonService,
     private translate: TranslateService) { }
 
   /**
@@ -173,7 +174,11 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   deleteAll() {
     const schedules = this.schedule.filter(s => s.id != null);
     if (schedules.length) {
-      this.graph.deleteData('TournamentSchedule', this.tournamentId).subscribe(result => this.schedule = []);
+      this.common.confirm().subscribe(shouldRemove => {
+        if (shouldRemove) {
+          this.graph.deleteData('TournamentSchedule', this.tournamentId).subscribe(result => this.schedule = []);
+        }
+      });
     } else {
       this.loadSchedule();
     }

@@ -16,7 +16,7 @@ describe("DivisionService", () => {
   beforeAll(async () => {
     const configurationServiceStub = {
       getOneById: () => ({
-        value: JSON.stringify({
+        value: {
           division: [
             { name: 'Aspirant', type: DivisionType.Age },
             { name: 'Rekrutt', type: DivisionType.Age },
@@ -26,7 +26,7 @@ describe("DivisionService", () => {
             { name: 'Herrer', type: DivisionType.Gender },
             { name: 'Mix', type: DivisionType.Gender }
           ]
-        })
+        }
       })
     };
 

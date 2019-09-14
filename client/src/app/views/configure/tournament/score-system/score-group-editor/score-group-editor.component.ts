@@ -7,6 +7,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { GraphService } from 'app/shared/services/graph.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-score-group-editor',
@@ -34,6 +35,7 @@ export class ScoreGroupEditorComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private readonly graph: GraphService,
+    private common: CommonService,
     private translate: TranslateService) { }
 
   ngOnInit() {
@@ -100,7 +102,11 @@ export class ScoreGroupEditorComponent implements OnInit {
   delete() {
     const val = this.getScoreGroupFromForm();
     if (!this.standalone) {
-      this.graph.deleteData('ScoreGroup', val.id).subscribe(result => this.scoreChanged.emit(result));
+      this.common.confirm().subscribe(shouldRemove => {
+        if (shouldRemove) {
+          this.graph.deleteData('ScoreGroup', val.id).subscribe(result => this.scoreChanged.emit(result));
+        }
+      });
     } else {
       this.scoreChanged.emit('DELETED');
     }

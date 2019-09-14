@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { IDiscipline } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-discipline-editor',
@@ -17,7 +18,7 @@ export class DisciplineEditorComponent implements OnInit {
   disciplineForm: FormGroup;
   editingScore: boolean;
 
-  constructor(private fb: FormBuilder, private graph: GraphService) { }
+  constructor(private fb: FormBuilder, private graph: GraphService, private common: CommonService) { }
 
   ngOnInit() {
     // Create the form
@@ -41,7 +42,11 @@ export class DisciplineEditorComponent implements OnInit {
 
   delete() {
     if (!this.standalone) {
-      this.graph.deleteData('Discipline', this.disciplineForm.value.id).subscribe(result => this.disciplineChanged.emit(result));
+      this.common.confirm().subscribe(shouldRemove => {
+        if (shouldRemove) {
+          this.graph.deleteData('Discipline', this.disciplineForm.value.id).subscribe(result => this.disciplineChanged.emit(result));
+        }
+      });
     } else {
       this.disciplineChanged.emit('DELETED');
     }

@@ -172,10 +172,12 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   deleteAll() {
+    // FIXME:
     // this.clubService.deleteAllMembers(this.club, this.memberList.slice()).subscribe(res => this.loadMembers());
   }
 
   deleteSelected() {
+    // FIXME:
     // this.clubService.deleteAllMembers(this.club, this.selection).subscribe(res => this.loadMembers());
   }
 

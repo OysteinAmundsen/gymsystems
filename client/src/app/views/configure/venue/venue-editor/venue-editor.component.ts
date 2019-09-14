@@ -9,6 +9,7 @@ import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { GraphService } from '../../../../shared/services/graph.service';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'app/shared/services/api/user/user.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-venue-editor',
@@ -58,6 +59,7 @@ export class VenueEditorComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private translate: TranslateService,
+    private common: CommonService,
     private graph: GraphService,
     private http: HttpClient,
     private user: UserService
@@ -144,7 +146,11 @@ export class VenueEditorComponent implements OnInit {
   }
 
   delete() {
-    this.graph.deleteData('Venue', this.venueForm.value.id).subscribe(res => this.cancel);
+    this.common.confirm().subscribe(shouldRemove => {
+      if (shouldRemove) {
+        this.graph.deleteData('Venue', this.venueForm.value.id).subscribe(res => this.cancel);
+      }
+    });
   }
 
   tabOut(typeahead: MatAutocomplete) {

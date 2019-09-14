@@ -187,6 +187,7 @@ export class TroopsComponent implements OnInit {
   }
 
   deleteAllTeams() {
+    //FIXME:
     // this.clubService.deleteAllTroops(this.club, this.selection).subscribe(res => this.loadTeams());
   }
 }

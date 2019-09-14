@@ -3,11 +3,14 @@ import * as moment from 'moment';
 
 import { ITournament } from 'app/model/ITournament';
 import { ITeamInDiscipline, ParticipationType } from 'app/model';
+import { MatDialog } from '@angular/material';
+import { Observable } from 'rxjs';
+import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
 
 @Injectable({ providedIn: 'root' })
 export class CommonService {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   static makeId(len: number) {
     let text = "";
@@ -58,4 +61,8 @@ export class CommonService {
       .replace(' ', '_');
   }
 
+  confirm(message?: string): Observable<boolean> {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '300px', data: message });
+    return dialogRef.afterClosed();
+  }
 }

@@ -9,6 +9,7 @@ import { GraphService } from 'app/shared/services/graph.service';
 import { MatDialog, MatDialogRef, ErrorStateMatcher } from '@angular/material';
 import { PasswordComponent } from '../password/password.component';
 import { SEOService } from 'app/shared/services/seo.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-user-editor',
@@ -38,6 +39,7 @@ export class UserEditorComponent implements OnInit {
     private userService: UserService,
     private meta: SEOService,
     private errorHandler: ErrorHandlerService,
+    private common: CommonService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -143,11 +145,15 @@ export class UserEditorComponent implements OnInit {
 
   delete() {
     this.errorHandler.clearError();
-    if (this.userForm.value.id !== this.currentUser.id) {
-      this.graph.deleteData('User', this.userForm.value.id).subscribe(result => {
-        this.router.navigate(['../'], { relativeTo: this.route });
-      });
-    }
+    this.common.confirm().subscribe(shouldRemove => {
+      if (shouldRemove) {
+        if (this.userForm.value.id !== this.currentUser.id) {
+          this.graph.deleteData('User', this.userForm.value.id).subscribe(result => {
+            this.router.navigate(['../'], { relativeTo: this.route });
+          });
+        }
+      }
+    });
   }
 
   cancel() {

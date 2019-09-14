@@ -15,7 +15,6 @@ import { DisciplineService } from '../discipline/discipline.service';
 import { DivisionService } from '../division/division.service';
 import { MediaService } from '../media/media.service';
 import { ClubService } from '../club/club.service';
-import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class TournamentService {

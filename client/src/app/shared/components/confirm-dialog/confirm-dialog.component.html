@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>{{ 'Confirm remove' | translate }}</h2>
+
+<mat-dialog-content>
+  {{ 'Are you sure you want to remove? This cannot be undone!' | translate}}
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button class="mat-warn" (click)="close(true)" aria-label="Confirm">{{'Yes, remove!' | translate}}</button>
+  <button mat-raised-button (click)="close(false)" aria-label="Cancel">{{'No, cancel' | translate}}</button>
+</mat-dialog-actions>

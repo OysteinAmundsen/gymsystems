@@ -8,6 +8,7 @@ import { startCase, lowerCase, } from 'lodash';
 import { UserService } from 'app/shared/services/api';
 import { IUser, Role, IClub } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-club-editor',
@@ -38,7 +39,8 @@ export class ClubEditorComponent implements OnInit {
     private graph: GraphService,
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private common: CommonService) { }
 
   ngOnInit() {
     // Setup form
@@ -108,9 +110,13 @@ export class ClubEditorComponent implements OnInit {
   }
 
   delete() {
-    this.graph.deleteData('Club', this.club.id).subscribe(resp => {
-      this.isEdit = false;
-      this.goBack();
+    this.common.confirm().subscribe(shouldRemove => {
+      if (shouldRemove) {
+        this.graph.deleteData('Club', this.club.id).subscribe(resp => {
+          this.isEdit = false;
+          this.goBack();
+        });
+      }
     });
   }
 

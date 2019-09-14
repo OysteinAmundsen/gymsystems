@@ -8,7 +8,7 @@ import { PubSub } from "graphql-subscriptions";
 import { TournamentService } from "./tournament.service";
 import { Tournament } from './tournament.model';
 
-const tournamentDtoStub = <Tournament>{ id: 1, name: 'Test turnering', endDate: new Date() };
+const tournamentDtoStub = <Tournament>{ id: 1, name: 'Test turnering', endDate: new Date(), clubId: 1 };
 
 export class TournamentRepository extends Repository<Tournament> { }
 
@@ -38,6 +38,7 @@ describe("TournamentService", () => {
     };
 
     const clubServiceStub = {
+      findOneById: () => ({}),
       findOrCreateClub: () => ({})
     };
 
@@ -60,11 +61,14 @@ describe("TournamentService", () => {
     expect(service).toBeDefined();
   });
 
+  // FIXME: Failed: [Error: [object Object]]
   describe("save", () => {
     it("updating makes expected calls", async () => {
-      const repositoryStub = testModule.get(TournamentRepository);
+      const repositoryStub = testModule.get('TournamentRepository');
+      const clubService = testModule.get('ClubService');
       const pubSubStub = testModule.get('PubSubInstance');
       const mediaServiceStub = testModule.get('MediaService');
+      spyOn(clubService, "findOneById").and.callFake((id) => ({ id: id, name: 'TestClub' }));
       spyOn(repositoryStub, "findOne").and.callFake(() => tournamentDtoStub);
       spyOn(repositoryStub, "save").and.callFake(() => tournamentDtoStub);
       spyOn(service, "createDefaults");
@@ -80,10 +84,12 @@ describe("TournamentService", () => {
     });
 
     it("inserting makes expected calls", async () => {
-      const repositoryStub = testModule.get(TournamentRepository);
+      const repositoryStub = testModule.get('TournamentRepository');
+      const clubService = testModule.get('ClubService');
       const pubSubStub = testModule.get('PubSubInstance');
       const mediaServiceStub = testModule.get('MediaService');
-      const newTournamentStub = <Tournament>{ name: 'Test turnering' };
+      const newTournamentStub = <Tournament>{ name: 'Test turnering', clubId: 1 };
+      spyOn(clubService, "findOneById").and.callFake((id) => ({ id: id, name: 'TestClub' }));
       spyOn(repositoryStub, "findOne");
       spyOn(repositoryStub, "save").and.callFake(() => tournamentDtoStub);
       spyOn(service, "createDefaults").and.callFake(() => true);

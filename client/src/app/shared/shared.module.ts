@@ -26,6 +26,7 @@ import { ClubLookupComponent } from './components/club-lookup/club-lookup.compon
 import { MediaControlComponent } from './components/media-control/media-control.component';
 import { BuyMeABeerComponent } from './components/buy-me-a-beer/buy-me-a-beer.component';
 import { ReportBugsComponent } from './components/report-bugs/report-bugs.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,6 @@ import { ReportBugsComponent } from './components/report-bugs/report-bugs.compon
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
-    // DragulaModule.forRoot(),
 
     MatDialogModule,
     MatButtonModule,
@@ -49,6 +49,7 @@ import { ReportBugsComponent } from './components/report-bugs/report-bugs.compon
   declarations: [
     DialogComponent,
     ErrorDialogComponent,
+    ConfirmDialogComponent,
     MultirangeComponent,
     SaveButtonComponent,
     HelpBlockComponent,
@@ -72,6 +73,7 @@ import { ReportBugsComponent } from './components/report-bugs/report-bugs.compon
     // Export components
     DialogComponent,
     ErrorDialogComponent,
+    ConfirmDialogComponent,
     MultirangeComponent,
     SaveButtonComponent,
     HelpBlockComponent,
@@ -89,6 +91,7 @@ import { ReportBugsComponent } from './components/report-bugs/report-bugs.compon
   ],
   entryComponents: [
     ErrorDialogComponent,
+    ConfirmDialogComponent
   ]
 })
 export class SharedModule { }

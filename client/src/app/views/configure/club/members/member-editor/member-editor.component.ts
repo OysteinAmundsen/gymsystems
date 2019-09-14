@@ -53,6 +53,7 @@ export class MemberEditorComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private graph: GraphService,
+    private common: CommonService,
     private clubComponent: ClubEditorComponent) { }
 
   ngOnInit() {
@@ -140,9 +141,13 @@ export class MemberEditorComponent implements OnInit {
   }
 
   delete() {
-    const member = this.memberForm.value;
-    this.graph.deleteData('Troop', member.id).subscribe(response => {
-      this.close();
+    this.common.confirm().subscribe(shouldRemove => {
+      if (shouldRemove) {
+        const member = this.memberForm.value;
+        this.graph.deleteData('Troop', member.id).subscribe(response => {
+          this.close();
+        });
+      }
     });
   }
 

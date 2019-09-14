@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IDivision, DivisionType } from 'app/model';
 import { GraphService } from 'app/shared/services/graph.service';
 import { DivisionsComponent } from '../divisions.component';
+import { CommonService } from 'app/shared/services/common.service';
 
 @Component({
   selector: 'app-division-editor',
@@ -21,7 +22,7 @@ export class DivisionEditorComponent implements OnInit {
     { id: DivisionType.Gender, name: 'Gender' }
   ];
 
-  constructor(private fb: FormBuilder, private graph: GraphService) { }
+  constructor(private fb: FormBuilder, private graph: GraphService, private common: CommonService) { }
 
   ngOnInit() {
     this.divisionForm = this.fb.group({
@@ -49,8 +50,12 @@ export class DivisionEditorComponent implements OnInit {
 
   delete() {
     if (!this.standalone) {
-      this.graph.deleteData('Division', this.divisionForm.value.id).subscribe(result => {
-        this.divisionChanged.emit(result);
+      this.common.confirm().subscribe(shouldRemove => {
+        if (shouldRemove) {
+          this.graph.deleteData('Division', this.divisionForm.value.id).subscribe(result => {
+            this.divisionChanged.emit(result);
+          });
+        }
       });
     } else {
       this.divisionChanged.emit('DELETED');

@@ -21,8 +21,8 @@ import { SEOService } from 'app/shared/services/seo.service';
   styleUrls: ['./tournament-editor.component.scss']
 })
 export class TournamentEditorComponent implements OnInit, OnDestroy {
-  @ViewChild('startDateInput', {static: false}) startDateInput: MatDatepickerInput<Date>;
-  @ViewChild('endDateInput', {static: false}) endDateInput: MatDatepickerInput<Date>;
+  @ViewChild('startDateInput', { static: false }) startDateInput: MatDatepickerInput<Date>;
+  @ViewChild('endDateInput', { static: false }) endDateInput: MatDatepickerInput<Date>;
   tournamentQuery = `{
     id,
     name,
@@ -93,6 +93,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
     private graph: GraphService,
     private userService: UserService,
     private translate: TranslateService,
+    private common: CommonService,
     private meta: SEOService
   ) { }
 
@@ -232,9 +233,13 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    this.graph
-      .deleteData('Tournament', this.tournament.id)
-      .subscribe(result => this.router.navigate(['../'], { relativeTo: this.route }));
+    this.common.confirm().subscribe(shouldRemove => {
+      if (shouldRemove) {
+        this.graph
+          .deleteData('Tournament', this.tournament.id)
+          .subscribe(result => this.router.navigate(['../'], { relativeTo: this.route }));
+      }
+    });
   }
 
   cancel() {

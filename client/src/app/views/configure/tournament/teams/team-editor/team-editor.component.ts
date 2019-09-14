@@ -95,6 +95,7 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private graph: GraphService,
     private errorHandler: ErrorHandlerService,
+    private common: CommonService,
     private translate: TranslateService) { }
 
   createDisciplineGroup(d: IDiscipline): FormGroup {
@@ -320,8 +321,12 @@ export class TeamEditorComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    this.graph.deleteData('Team', this.value.id).subscribe(result => {
-      this.close(result);
+    this.common.confirm().subscribe(shouldRemove => {
+      if (shouldRemove) {
+        this.graph.deleteData('Team', this.value.id).subscribe(result => {
+          this.close(result);
+        });
+      }
     });
   }
 

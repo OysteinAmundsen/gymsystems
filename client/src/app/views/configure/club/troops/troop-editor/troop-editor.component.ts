@@ -51,6 +51,7 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private graph: GraphService,
     private userService: UserService,
+    private common: CommonService,
     private clubComponent: ClubEditorComponent) { }
 
   ngOnInit() {
@@ -108,8 +109,12 @@ export class TroopEditorComponent implements OnInit, OnDestroy {
   }
 
   delete() {
-    this.graph.deleteData('Troop', this.troopForm.value.id).subscribe(result => {
-      this.close(result);
+    this.common.confirm().subscribe(shouldRemove => {
+      if (shouldRemove) {
+        this.graph.deleteData('Troop', this.troopForm.value.id).subscribe(result => {
+          this.close(result);
+        });
+      }
     });
   }
 
