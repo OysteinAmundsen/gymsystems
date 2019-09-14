@@ -10,6 +10,7 @@ import { TroopEditorComponent } from "./troop-editor.component";
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
+import { CommonService } from 'app/shared/services/common.service';
 
 describe("views.configure.club:TroopEditorComponent", () => {
   let component: TroopEditorComponent;
@@ -26,6 +27,7 @@ describe("views.configure.club:TroopEditorComponent", () => {
       saveData: () => of({}),
       deleteData: () => of({})
     };
+    const commonServiceStub = { confirm: () => of(true) };
 
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
@@ -39,7 +41,8 @@ describe("views.configure.club:TroopEditorComponent", () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: UserService, useValue: userServiceStub },
         { provide: ClubEditorComponent, useValue: clubEditorComponentStub },
-        { provide: GraphService, useValue: graphServiceStub }
+        { provide: GraphService, useValue: graphServiceStub },
+        { provide: CommonService, useValue: commonServiceStub }
       ]
     });
     fixture = TestBed.createComponent(TroopEditorComponent);

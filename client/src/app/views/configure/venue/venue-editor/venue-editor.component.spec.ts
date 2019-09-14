@@ -1,4 +1,4 @@
-// // FIXME: All tests should run
+// FIXME: All tests should run
 // import { ComponentFixture, TestBed } from "@angular/core/testing";
 // import { NO_ERRORS_SCHEMA } from "@angular/core";
 // import { FormBuilder, ReactiveFormsModule } from "@angular/forms";

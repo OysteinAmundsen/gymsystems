@@ -13,6 +13,7 @@ import { UserService } from 'app/shared/services/api/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClubEditorComponent } from '../../club-editor/club-editor.component';
 import { GraphService } from 'app/shared/services/graph.service';
+import { CommonService } from 'app/shared/services/common.service';
 
 describe("views.configure.club:MemberEditorComponent", () => {
   let component: MemberEditorComponent;
@@ -47,6 +48,7 @@ describe("views.configure.club:MemberEditorComponent", () => {
       deleteData: () => (of({}))
     };
     const userServiceStub = { getMe: () => of({ id: 1, name: 'Test user', role: Role.Club }) };
+    const commonServiceStub = { confirm: () => of(true) };
 
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
@@ -59,10 +61,9 @@ describe("views.configure.club:MemberEditorComponent", () => {
       declarations: [MemberEditorComponent, IfAuthDirective],
       providers: [
         { provide: UserService, useValue: userServiceStub },
-        // { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: ClubEditorComponent, useValue: clubEditorComponentStub },
-        // { provide: MatAutocompleteSelectedEvent, useValue: matAutocompleteSelectedEventStub },
-        { provide: GraphService, useValue: graphServiceStub }
+        { provide: GraphService, useValue: graphServiceStub },
+        { provide: CommonService, useValue: commonServiceStub }
       ]
     });
     fixture = TestBed.createComponent(MemberEditorComponent);

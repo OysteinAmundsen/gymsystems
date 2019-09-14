@@ -11,6 +11,7 @@ import { ClubEditorComponent } from "./club-editor.component";
 import { of } from 'rxjs';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CommonService } from 'app/shared/services/common.service';
 
 describe("views.configure.club:ClubEditorComponent", () => {
   let component: ClubEditorComponent;
@@ -20,11 +21,7 @@ describe("views.configure.club:ClubEditorComponent", () => {
 
   beforeEach(() => {
     const userServiceStub = { getMe: () => (of({ id: 1, name: 'Test user', role: Role.Organizer, club: testClub })) };
-    // const activatedRouteStub = { params: of(testClub) };
-    // const matAutocompleteStub = {
-    //   options: { find: () => ({ select: () => ({}) }) },
-    //   _emitSelectEvent: () => ({})
-    // };
+    const commonServiceStub = { confirm: () => of(true) };
     const graphServiceStub = {
       getData: (str) => of({
         getClubs: [testClub],
@@ -44,9 +41,8 @@ describe("views.configure.club:ClubEditorComponent", () => {
       declarations: [ClubEditorComponent],
       providers: [
         { provide: UserService, useValue: userServiceStub },
-        // { provide: MatAutocompleteSelectedEvent, useValue: matAutocompleteSelectedEventStub },
-        // { provide: MatAutocomplete, useValue: matAutocompleteStub },
-        { provide: GraphService, useValue: graphServiceStub }
+        { provide: GraphService, useValue: graphServiceStub },
+        { provide: CommonService, useValue: commonServiceStub }
       ]
     });
     fixture = TestBed.createComponent(ClubEditorComponent);
