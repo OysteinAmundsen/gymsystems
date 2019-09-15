@@ -1,7 +1,10 @@
 <mat-form-field>
   <input matInput [formControl]="childControl" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead" (blur)="tabOut(clubTypeahead)">
-  <mat-autocomplete #clubTypeahead="matAutocomplete" [displayWith]="clubDisplay">
-    <mat-option *ngFor="let club of clubList; trackBy: trackByFn" [value]="club">
+  <mat-hint *ngIf="childControl.dirty && formControl.invalid">
+    <span class="mat-error" translate>A valid club is required</span>
+  </mat-hint>
+  <mat-autocomplete #clubTypeahead="matAutocomplete" [displayWith]="clubDisplay" (optionSelected)="select($event)">
+    <mat-option *ngFor=" let club of clubList; trackBy: trackByFn" [value]="club">
       {{ club.name }}
     </mat-option>
   </mat-autocomplete>

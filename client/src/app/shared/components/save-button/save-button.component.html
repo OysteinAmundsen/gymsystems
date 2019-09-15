@@ -1,4 +1,4 @@
-<button mat-raised-button class="mat-primary" [type]="buttonType" [disabled]="disabled" [title]="'Save' | translate" (click)="click()" aria-label="Save">
-  <i [class]="'fa fa-fw fa-' + (isSaving ? 'circle-o-notch fa-spin' : 'save')"></i>
+<button mat-raised-button appHttpAction class="mat-primary" [type]="buttonType" [disabled]="disabled" [title]="'Save' | translate" aria-label="Save">
+  <i class="fa fa-fw fa-save"></i>
   <span translate>Save</span>
 </button>

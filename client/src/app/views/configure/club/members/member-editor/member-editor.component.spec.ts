@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClubEditorComponent } from '../../club-editor/club-editor.component';
 import { GraphService } from 'app/shared/services/graph.service';
 import { CommonService } from 'app/shared/services/common.service';
+import { HttpActionDirective } from 'app/shared/directives/http-action.directive';
 
 describe("views.configure.club:MemberEditorComponent", () => {
   let component: MemberEditorComponent;
@@ -58,7 +59,7 @@ describe("views.configure.club:MemberEditorComponent", () => {
         MatAutocompleteModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
       ],
-      declarations: [MemberEditorComponent, IfAuthDirective],
+      declarations: [MemberEditorComponent, IfAuthDirective, HttpActionDirective],
       providers: [
         { provide: UserService, useValue: userServiceStub },
         { provide: ClubEditorComponent, useValue: clubEditorComponentStub },

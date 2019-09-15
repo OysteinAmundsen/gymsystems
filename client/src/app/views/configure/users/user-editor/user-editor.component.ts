@@ -79,7 +79,7 @@ export class UserEditorComponent implements OnInit {
       } else {
         this.userForm.get('club').setValidators([Validators.required]);
       }
-    })
+    });
   }
 
   matcher(): ErrorStateMatcher {

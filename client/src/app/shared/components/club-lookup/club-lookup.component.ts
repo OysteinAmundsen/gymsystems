@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, forwardRef, Input } from '@angular/core';
-import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, OnInit, OnDestroy, forwardRef, Input, Optional, Host, SkipSelf } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, ControlContainer, FormControl, AbstractControl } from '@angular/forms';
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 import { toUpperCaseTransformer } from 'app/shared/directives/to-uppercase/to-uppercase.directive';
 import { GraphService } from 'app/shared/services/graph.service';
 import { IClub } from 'app/model';
-import { MatAutocomplete } from '@angular/material';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,9 +16,10 @@ import { Subscription } from 'rxjs';
   ]
 })
 export class ClubLookupComponent implements OnInit, OnDestroy, ControlValueAccessor {
-  @Input() formControl: FormControl;
-
-
+  get formControl(): AbstractControl {
+    return this.controlContainer.control.get(this.formControlName);
+  }
+  @Input() formControlName: string;
   private subscriptions: Subscription[] = [];
   clubList = [];
   childControl = new FormControl();
@@ -35,7 +36,10 @@ export class ClubLookupComponent implements OnInit, OnDestroy, ControlValueAcces
   propagateValueChange: (value: IClub) => void; // Fired when value changes
 
 
-  constructor(private graph: GraphService) { }
+  constructor(
+    private graph: GraphService,
+    @Optional() @Host() @SkipSelf() private controlContainer: ControlContainer
+  ) { }
 
   ngOnInit() {
     this.subscriptions.push(this.childControl.valueChanges.pipe(
@@ -44,6 +48,7 @@ export class ClubLookupComponent implements OnInit, OnDestroy, ControlValueAcces
         if (typeof v === 'string') {
           v = toUpperCaseTransformer(<string>v);
           this.childControl.patchValue(v, { emitEvent: false });
+          this.formControl.markAsDirty();
         }
         return v;
       }),
@@ -67,6 +72,10 @@ export class ClubLookupComponent implements OnInit, OnDestroy, ControlValueAcces
     return item.name;
   }
 
+  select(option: MatAutocompleteSelectedEvent) {
+    this.writeValue(option.option.value as IClub);
+  }
+
   // --- ControlValueAccessor implementation ---
   writeValue(value: IClub) {
     this._value = value;
@@ -83,8 +92,9 @@ export class ClubLookupComponent implements OnInit, OnDestroy, ControlValueAcces
     return club && club.name ? club.name : club;
   }
 
-  tabOut(typeahead: MatAutocomplete) {
+  tabOut() {
     // Autoset if there is only one entry in the list
+    this.formControl.markAsTouched();
     if (this.clubList.length === 1) {
       this.value = this.clubList[0];
     }

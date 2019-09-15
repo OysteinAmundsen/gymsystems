@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-import { MatDatepickerInput, MatAutocomplete } from '@angular/material';
+import { MatDatepickerInput, MatAutocomplete, MatDatepicker } from '@angular/material';
 
 import * as moment from 'moment';
 
@@ -22,7 +22,9 @@ import { SEOService } from 'app/shared/services/seo.service';
 })
 export class TournamentEditorComponent implements OnInit, OnDestroy {
   @ViewChild('startDateInput', { static: false }) startDateInput: MatDatepickerInput<Date>;
+  @ViewChild('startDate', { static: false }) startDatePicker: MatDatepicker<Date>;
   @ViewChild('endDateInput', { static: false }) endDateInput: MatDatepickerInput<Date>;
+  @ViewChild('endDate', { static: false }) endDatePicker: MatDatepicker<Date>;
   tournamentQuery = `{
     id,
     name,
@@ -56,6 +58,7 @@ export class TournamentEditorComponent implements OnInit, OnDestroy {
   isAdding = false;
 
   venueList = []; // Venue typeahead
+
 
   private get startDate(): moment.Moment {
     return moment(this.tournament.startDate);

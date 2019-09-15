@@ -89,7 +89,7 @@
         <span *ngIf="form.isDirty" translate>Cancel</span>
         <span *ngIf="!form.isDirty" translate>Close</span>
       </button>
-      <button mat-raised-button *ngIf="participant.publishTime == null || currentUser.role >= roles.Organizer" type="button" [title]="'Delete' | translate"
+      <button mat-raised-button appHttpAction *ngIf="participant.publishTime == null || currentUser.role >= roles.Organizer" type="button" [title]="'Delete' | translate"
               class="pull-right mat-warn" (click)="delete()" aria-label="Delete">
         <i class="fa fa-fw fa-trash"></i>
         <span *ngIf="participant.publishTime == null && participant.endTime == null" translate>Delete</span>

@@ -11,6 +11,7 @@ import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 import { CommonService } from 'app/shared/services/common.service';
+import { HttpActionDirective } from 'app/shared/directives/http-action.directive';
 
 describe("views.configure.club:TroopEditorComponent", () => {
   let component: TroopEditorComponent;
@@ -36,7 +37,7 @@ describe("views.configure.club:TroopEditorComponent", () => {
         RouterTestingModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
       ],
-      declarations: [TroopEditorComponent],
+      declarations: [TroopEditorComponent, HttpActionDirective],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: UserService, useValue: userServiceStub },

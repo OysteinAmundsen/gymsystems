@@ -6,7 +6,7 @@ import { IClub, IGymnast, Gender, ITroop, Role } from 'app/model';
 
 import * as moment from 'moment';
 import { ClubEditorComponent } from 'app/views/configure/club/club-editor/club-editor.component';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatSlideToggleChange } from '@angular/material';
 import { GraphService } from 'app/shared/services/graph.service';
 import { CommonService } from 'app/shared/services/common.service';
 
@@ -113,6 +113,14 @@ export class MemberEditorComponent implements OnInit {
   memberReceived(member: IGymnast) {
     const val = Object.keys(this.memberForm.controls).reduce((obj, k) => { obj[k] = member[k]; return obj; }, {});
     this.memberForm.setValue(val);
+  }
+
+  genderChange($event: MatSlideToggleChange) {
+    const genderCtrl = this.memberForm.get('gender');
+    $event.checked
+      ? genderCtrl.setValue(Gender.Male)
+      : genderCtrl.setValue(Gender.Female);
+    genderCtrl.markAsDirty();
   }
 
   save() {

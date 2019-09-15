@@ -28,7 +28,7 @@
   </mat-menu>
 </header>
 
-
+<!-- Tournament info -->
 <div class="table-responsive screen-only">
   <table *ngIf="!isEdit" [title]="'Click to edit' | translate" (click)="edit()">
     <tr>
@@ -55,6 +55,7 @@
   </table>
 </div>
 
+<!-- Tournament editor -->
 <form [formGroup]="tournamentForm" (ngSubmit)="save()" *ngIf="isEdit" class="screen-only">
   <mat-card>
     <mat-card-content>
@@ -69,6 +70,9 @@
           </div>
           <mat-form-field [ngClass]="(user.role >= roles.Admin ? 'col-xs-7' : 'col-xs-12')">
             <input matInput type="text" formControlName="name" autofocus cdkFocusInitial placeholder="{{'Name' | translate}}">
+            <mat-error *ngIf="tournamentForm.get('name').invalid">
+              {{ 'Name is required' | translate }}
+            </mat-error>
             <app-help-block>
               <p translate>Make sure the name for this tournament is descriptive, and unique. I.e. "Norwegian championship 2017".</p>
             </app-help-block>
@@ -79,7 +83,10 @@
           <mat-form-field class="col-xs-4">
             <input matInput formControlName="startDate" autocomplete="off" [matDatepicker]="startDate" placeholder="{{'Start date' | translate}}"
                    [max]="tournamentForm.value.endDate" (focus)="startDate.open()" #startDateInput>
-            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-error *ngIf="tournamentForm.get('startDate').invalid">
+              {{ 'A tournament must have a start date' | translate }}
+            </mat-error>
+            <mat-datepicker-toggle matSuffix [for]="startDate" tabindex="-1"></mat-datepicker-toggle>
             <mat-datepicker #startDate></mat-datepicker>
             <app-help-block>
               <p translate>Pick the date this tournament is to start.</p>
@@ -88,7 +95,10 @@
           <mat-form-field class="col-xs-4">
             <input matInput formControlName="endDate" autocomplete="off" [matDatepicker]="endDate" placeholder="{{'End date' | translate}}"
                    [min]="tournamentForm.value.startDate" (focus)="endDate.open()" #endDateInput>
-            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-error *ngIf="tournamentForm.get('endDate').invalid">
+              {{ 'A tournament must have an end date' | translate }}
+            </mat-error>
+            <mat-datepicker-toggle matSuffix [for]="endDate" tabindex="-1"></mat-datepicker-toggle>
             <mat-datepicker #endDate></mat-datepicker>
             <app-help-block>
               <p translate>The date this tournament is over.</p>
@@ -150,8 +160,8 @@
       <app-save-button buttonType="submit" [disabled]="tournamentForm.invalid || tournamentForm.pristine"></app-save-button>
       <button mat-raised-button type="button" [title]="'Cancel' | translate" (click)="cancel()" aria-label="Cancel"><i class="fa fa-fw fa-ban"></i> <span
               translate>Cancel</span></button>
-      <button mat-raised-button type="button" *ngIf="tournamentForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="delete()"
-              aria-label="Delete">
+      <button mat-raised-button appHttpAction type="button" *ngIf="tournamentForm.value.id" [title]="'Delete' | translate" class="pull-right mat-warn"
+              (click)="delete()" aria-label="Delete">
         <i class="fa fa-fw fa-trash"></i> <span translate>Delete</span>
       </button>
     </mat-card-actions>

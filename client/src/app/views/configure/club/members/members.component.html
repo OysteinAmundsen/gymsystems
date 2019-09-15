@@ -59,14 +59,14 @@
   <span translate>Export Members</span>
 </a>
 <ng-container *ngIf="!selectMode">
-  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete all' | translate" (click)="deleteAll()" *appIfAuth="'Admin'"
+  <button mat-raised-button appHttpAction type="button" class="pull-right mat-warn" [title]="'Delete all' | translate" (click)="deleteAll()" *appIfAuth="'Admin'"
           aria-label="Delete all members">
     <i class="fa fa-fw fa-trash"></i>
     <span translate>Delete all</span>
   </button>
 </ng-container>
 <ng-container *ngIf="selectMode">
-  <button mat-raised-button type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteSelected()"
+  <button mat-raised-button appHttpAction type="button" class="pull-right mat-warn" [title]="'Delete selected' | translate" (click)="deleteSelected()"
           *appIfAuth="'Organizer'" aria-label="Delete selected member">
     <i class="fa fa-fw fa-trash"></i>
     <span translate>Delete selected</span>

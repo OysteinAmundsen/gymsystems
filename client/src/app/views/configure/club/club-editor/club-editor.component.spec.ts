@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CommonService } from 'app/shared/services/common.service';
+import { HttpActionDirective } from 'app/shared/directives/http-action.directive';
 
 describe("views.configure.club:ClubEditorComponent", () => {
   let component: ClubEditorComponent;
@@ -38,7 +39,7 @@ describe("views.configure.club:ClubEditorComponent", () => {
         RouterTestingModule.withRoutes([{ path: 'club/:id', component: ClubEditorComponent }]),
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
       ],
-      declarations: [ClubEditorComponent],
+      declarations: [ClubEditorComponent, HttpActionDirective],
       providers: [
         { provide: UserService, useValue: userServiceStub },
         { provide: GraphService, useValue: graphServiceStub },

@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { MatTableModule } from '@angular/material';
 import { IfAuthDirective } from 'app/shared/directives/auth/if-auth.directive';
 import { Router } from '@angular/router';
+import { HttpActionDirective } from 'app/shared/directives/http-action.directive';
 
 describe("views.configure.club:TroopsComponent", () => {
   let component: TroopsComponent;
@@ -48,7 +49,7 @@ describe("views.configure.club:TroopsComponent", () => {
         RouterTestingModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
       ],
-      declarations: [TroopsComponent, IfAuthDirective],
+      declarations: [TroopsComponent, IfAuthDirective, HttpActionDirective],
       providers: [
         { provide: UserService, useValue: userServiceStub },
         { provide: ConfigurationService, useValue: configurationServiceStub },

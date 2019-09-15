@@ -27,6 +27,7 @@ import { MediaControlComponent } from './components/media-control/media-control.
 import { BuyMeABeerComponent } from './components/buy-me-a-beer/buy-me-a-beer.component';
 import { ReportBugsComponent } from './components/report-bugs/report-bugs.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { HttpActionDirective } from './directives/http-action.directive';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 
     ToCaseDirective,
     IfAuthDirective,
+    HttpActionDirective,
 
     OrderByPipe,
     UtcDatePipe,
@@ -85,6 +87,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 
     ToCaseDirective,
     IfAuthDirective,
+    HttpActionDirective,
 
     OrderByPipe,
     UtcDatePipe,

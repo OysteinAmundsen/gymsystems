@@ -59,7 +59,7 @@
       <span *ngIf="!item.markDeleted"><i class="fa fa-fw fa-ban"></i> {{ 'Strike' | translate }}</span>
       <span *ngIf="item.markDeleted"><i class="fa fa-fw fa-check"></i> {{ 'Unstrike' | translate }}</span>
     </button>
-    <button mat-menu-item type="button" (click)="deleteParticipant(item)" aria-label="Delete participant">
+    <button mat-menu-item appHttpAction type="button" (click)="deleteParticipant(item)" aria-label="Delete participant">
       <span><i class="fa fa-fw fa-trash"></i> {{ 'Delete' | translate }}</span>
     </button>
   </ng-template>
@@ -74,7 +74,7 @@
   <!-- <mat-checkbox [formControl]="shouldCalculateTraining">{{'Include training' | translate }}</mat-checkbox> -->
 </span>
 
-<button mat-raised-button type="button" *ngIf="canDeleteAll()" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="deleteAll()"
+<button mat-raised-button appHttpAction type="button" *ngIf="canDeleteAll()" [title]="'Delete' | translate" class="pull-right mat-warn" (click)="deleteAll()"
         aria-label="Delete entire schedule">
   <i class="fa fa-fw fa-trash"></i><span translate>Delete</span>
 </button>

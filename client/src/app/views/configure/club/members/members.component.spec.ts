@@ -14,6 +14,7 @@ import { MemberStateService } from './member-state.service';
 import { GraphService } from 'app/shared/services/graph.service';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpActionDirective } from 'app/shared/directives/http-action.directive';
 
 describe("views.configure.club:MembersComponent", () => {
   let component: MembersComponent;
@@ -38,7 +39,7 @@ describe("views.configure.club:MembersComponent", () => {
         HttpClientTestingModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateFakeLoader } })
       ],
-      declarations: [MembersComponent, IfAuthDirective],
+      declarations: [MembersComponent, IfAuthDirective, HttpActionDirective],
       providers: [
         { provide: ClubEditorComponent, useValue: clubEditorComponentStub },
         { provide: UserService, useValue: userServiceStub },

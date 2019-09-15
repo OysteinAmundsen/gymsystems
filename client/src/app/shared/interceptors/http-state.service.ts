@@ -32,6 +32,7 @@ export class HttpStateService {
     const { method } = result;
     let { operation } = result;
 
+    // Analyze the request type
     if (req.url.indexOf(graphqlUri) > -1) {
       if (Array.isArray(req.body)) {
         const ops = req.body.map(op => this.getGraphOperation(op.query));
@@ -44,8 +45,12 @@ export class HttpStateService {
       }
     }
 
+    // Body from request if no response is given yet.
     const obj: HttpRequest<any> | HttpResponse<any> = res ? res : req;
-    const action = { url: obj.url, operation: operation, method: method, values: obj.body, isComplete: res != null, failed: res && res.status !== 200 };
+    // A failed request is something which has a status different from 200 OR contains a body with the property 'errors' in it.
+    let failed = res && (res.status !== 200 || (Array.isArray(obj.body) && obj.body.some(b => 'errors' in b)));
+    // Create the analysis feedback object
+    const action = { url: obj.url, operation: operation, method: method, values: obj.body, isComplete: res != null, failed: failed };
     if (operation !== 'N/A') {
       this.httpAction.next(action);
     }
