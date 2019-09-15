@@ -24,6 +24,7 @@
     "start:client": "yarn workspace gymsystems_client start",
     "start:ssr": "yarn workspace gymsystems_client start:ssr",
     "start:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker up -d",
+    "start:dockeri": "docker-compose -f orchestration/docker-compose.yaml -p docker up",
     "stop:docker": "docker-compose -f orchestration/docker-compose.yaml -p docker down",
     "stop:db": "docker-compose -f ./db/docker/docker-compose.yml rm -s -f",
     "stress": "artillery run ./utils/artillery.yml",

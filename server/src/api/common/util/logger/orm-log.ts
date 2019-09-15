@@ -61,7 +61,7 @@ export class OrmLog implements Logger {
    * Log has its own level and message.
    */
   log(level: 'log' | 'info' | 'warn', message: any, queryRunner?: QueryRunner) {
-    throw new Error('Method not implemented.');
+    Log.log.log(level, message, queryRunner);
   }
 
   /**
