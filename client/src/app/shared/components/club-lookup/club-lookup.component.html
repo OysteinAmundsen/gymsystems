@@ -1,5 +1,5 @@
 <mat-form-field>
-  <input matInput [formControl]="childControl" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead" (blur)="tabOut(clubTypeahead)">
+  <input matInput [formControl]="childControl" placeholder="{{'Club' | translate}}" [matAutocomplete]="clubTypeahead" (blur)="tabOut()">
   <mat-hint *ngIf="childControl.dirty && formControl.invalid">
     <span class="mat-error" translate>A valid club is required</span>
   </mat-hint>

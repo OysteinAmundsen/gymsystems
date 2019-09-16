@@ -11,7 +11,7 @@ export class HttpActionDirective {
   constructor(private el: ElementRef, private state: HttpStateService) { }
 
   @HostListener('click') onClick() {
-    if (this.el.nativeElement.getAttribute('disabled') != 'disabled') {
+    if (this.el.nativeElement.getAttribute('disabled') !== 'disabled') {
       // Listen for http completion
       const sub = this.state.httpAction.subscribe((action: HttpAction) => {
         !action.isComplete ? this.actionStart() : this.actionDone();
