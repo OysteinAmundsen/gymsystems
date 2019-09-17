@@ -10,12 +10,10 @@ jobs:
       uses: actions/setup-node@v1
       with: 
         version: 12
-    - name: Install yarn
-      uses: nuxt/actions-yarn@master
-      args: install
     - name: Checkout
       uses: actions/checkout@v1
     - name: Install, build and test
+      uses: nuxt/actions-yarn@master
       run: |
         yarn install
         yarn test
@@ -23,9 +21,7 @@ jobs:
 #   build:
 #     runs-on: ubuntu-latest
 #     steps:
-#     - uses: nuxt/actions-yarn@master
-#       args: install
 #     - uses: actions/checkout@v1
 #     - name: Build
-#       needs: requirements
+#       uses: nuxt/actions-yarn@master
 #       run: sh build.sh
