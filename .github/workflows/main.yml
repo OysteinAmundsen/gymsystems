@@ -1,0 +1,29 @@
+name: CI
+
+on: [push]
+
+jobs:
+  requirements:
+    uses: nuxt/actions-yarn@master
+    args: install
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js v12
+      uses: actions/setup-node@v1
+      with: 
+        version: 12
+    - name: yarn install, build and test
+      needs: requirements
+      run: |
+        yarn install
+        yarn test
+
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v1
+#     - name: Build
+#       needs: requirements
+#       run: sh build.sh
