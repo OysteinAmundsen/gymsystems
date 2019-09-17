@@ -13,8 +13,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
     - name: Install, build and test
-      uses: nuxt/actions-yarn@master
       run: |
+        npm i -g yarn
         yarn install
         yarn test
 
@@ -23,5 +23,6 @@ jobs:
 #     steps:
 #     - uses: actions/checkout@v1
 #     - name: Build
-#       uses: nuxt/actions-yarn@master
-#       run: sh build.sh
+#       run: |
+#         npm i -g yarn
+#         sh build.sh
