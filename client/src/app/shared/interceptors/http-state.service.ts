@@ -48,7 +48,7 @@ export class HttpStateService {
     // Body from request if no response is given yet.
     const obj: HttpRequest<any> | HttpResponse<any> = res ? res : req;
     // A failed request is something which has a status different from 200 OR contains a body with the property 'errors' in it.
-    const failed = res && (res.status !== 200 || (Array.isArray(obj.body) && obj.body.some(b => 'errors' in b)));
+    const failed = res && (res.status !== 200 || (Array.isArray(obj.body) && obj.body.some(b => typeof b === 'string' ? false : 'errors' in b)));
     // Create the analysis feedback object
     const action = { url: obj.url, operation: operation, method: method, values: obj.body, isComplete: res != null, failed: failed };
     if (operation !== 'N/A') {
