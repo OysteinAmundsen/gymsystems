@@ -30,11 +30,23 @@ export class DivisionEditorComponent implements OnInit {
       name: [this.division.name, [Validators.required]],
       tournamentId: [this.division.tournamentId],
       sortOrder: [this.division.sortOrder],
-      min: [this.division.min, [Validators.required]],
-      max: [this.division.max, [Validators.required]],
+      min: [this.division.min],
+      max: [this.division.max],
       scorable: [this.division.scorable],
       type: [this.division.type, [Validators.required]]
     });
+
+    // Min/Max should only be required on Age type divisions
+    this.divisionForm.get('type').valueChanges.subscribe(v => {
+      if (v === DivisionType.Age) {
+        this.divisionForm.get('min').setValidators([Validators.required]);
+        this.divisionForm.get('max').setValidators([Validators.required]);
+      } else {
+        this.divisionForm.get('min').clearValidators();
+        this.divisionForm.get('max').clearValidators();
+      }
+      this.divisionForm.updateValueAndValidity();
+    })
   }
 
 

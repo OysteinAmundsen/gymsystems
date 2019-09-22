@@ -65,8 +65,8 @@ export class AdministrationController {
   @ApiBearerAuth()
   @Post('configuration')
   @UseGuards(RoleGuard(Role.Admin))
-  createConfig(@Body() configuration: Configuration): Promise<Configuration> {
-    return this.configuration.save(configuration);
+  saveConfig(@Body() configuration: Configuration[]): Promise<Configuration[]> {
+    return this.configuration.saveAll(configuration);
   }
 
   @ApiOperation({ title: 'updating a configuration value based on a given key' })

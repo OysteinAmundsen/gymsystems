@@ -1,6 +1,6 @@
 {
   "name": "gymsystems",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": "oystein.amundsen@gmail.com",
   "scripts": {
     "snyk": "snyk",

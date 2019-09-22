@@ -8,7 +8,7 @@ jobs:
     steps:
     - name: Use Node.js v12
       uses: actions/setup-node@v1
-      with: 
+      with:
         version: 12
     - name: Checkout
       uses: actions/checkout@v1
@@ -18,11 +18,16 @@ jobs:
         yarn install
         yarn test
 
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v1
-#     - name: Build
-#       run: |
-#         npm i -g yarn
-#         sh build.sh
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |
+        npm i -g yarn
+        sh utils/build.sh
+    # - name: Publish
+    #   run: sh deploy.sh

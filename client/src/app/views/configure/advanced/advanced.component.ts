@@ -22,10 +22,15 @@ export class AdvancedComponent implements OnInit {
   get defaultValues() {
     if (this.configuration && !this._defaultValues) {
       const values = this.configuration.find(c => c.name === 'defaultValues').value;
-      this._defaultValues = (typeof values === 'string' ? JSON.parse(values) : values);
+      this._defaultValues = JSON.parse(JSON.stringify(typeof values === 'string' ? JSON.parse(values) : values));
     }
     return this._defaultValues;
   }
+
+  getDefault(type) {
+    return this.defaultValues[type];
+  }
+
   get defaultValueKeys() {
     return this.configuration ? Object.keys(this.defaultValues) : null;
   }
@@ -63,7 +68,10 @@ export class AdvancedComponent implements OnInit {
   }
 
   valueChanged(key, $event) {
-    if (!this.isLoading) {
+    const values = this.configuration.find(c => c.name === 'defaultValues').value;
+    const original = (typeof values === 'string' ? JSON.parse(values) : values);
+    if (!this.isLoading && JSON.stringify($event) !== JSON.stringify(original[key])) {
+      // Only save when actually changed
       this.defaultValues[key] = $event;
       this.save();
     }
@@ -73,9 +81,17 @@ export class AdvancedComponent implements OnInit {
     const newConfig = <IConfiguration[]>[
       { name: 'scheduleExecutionTime', value: this.configForm.value.executionTime },
       { name: 'scheduleTrainingTime', value: this.configForm.value.trainingTime },
-      { name: 'defaultValues', value: this.defaultValues }
+      { name: 'defaultValues', value: JSON.stringify(this.defaultValues) }
     ];
-    this.config.save(newConfig).subscribe(res => this.configuration = res);
+    this.config.save(newConfig).subscribe(
+      res => {
+        this._defaultValues = null;
+        this.configuration = res;
+      },
+      err => {
+        // Something went wrong. Reset changes
+        this._defaultValues = null;
+      });
   }
 
   backup() {

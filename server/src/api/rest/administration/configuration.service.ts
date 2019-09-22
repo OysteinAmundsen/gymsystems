@@ -15,6 +15,10 @@ export class ConfigurationService {
     return this.configurationRepository.findOneOrFail({ name: id });
   }
 
+  saveAll(configuration: Configuration[]): Promise<Configuration[]> {
+    return this.configurationRepository.save(configuration);
+  }
+
   save(configuration: Configuration): Promise<Configuration> {
     return this.configurationRepository.save(configuration);
   }

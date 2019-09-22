@@ -48,12 +48,12 @@
   <i class="fa fa-fw fa-plus"></i>
   <span translate>Add Member</span>
 </button>
-<a mat-raised-button class="file-upload btn" *ngIf="selected == null" [title]="'Import' | translate" aria-label="Import members">
+<a mat-raised-button appHttpAction class="file-upload btn" *ngIf="selected == null" [title]="'Import' | translate" aria-label="Import members">
   <input type="file" (change)="importMember($event)" accept=".csv">
   <i class="fa fa-fw fa-upload"></i>
   <span translate>Import Members</span>
 </a>
-<a mat-raised-button (click)="exportMembers($event)" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0"
+<a mat-raised-button appHttpAction (click)="exportMembers($event)" class="file-upload btn" *ngIf="club != null && selected == null && memberList && memberList.length > 0"
    [title]="'Export' | translate" aria-label="Export members">
   <i class="fa fa-fw fa-download"></i>
   <span translate>Export Members</span>

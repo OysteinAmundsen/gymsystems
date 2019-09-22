@@ -11,6 +11,9 @@
   vertical-align: top;
   opacity: 0;
   transition: opacity 0.5s ease-in;
+  &.inline {
+    position: relative;
+  }
   .fa {
     color: darken($helpColor, 50%);
     font-size: 1.2rem;
@@ -19,16 +22,17 @@
       display: block;
     }
   }
+
   .help {
     position: absolute;
-    right: -25%;
+    right: -67%;
     display: none;
     padding: 0 $padding;
     margin: 0 10px;
     z-index: 100;
     margin-left: -38px;
     min-width: 200px;
-    top: 1.5rem;
+    top: 2rem;
     &:hover {
       display: block;
     }
