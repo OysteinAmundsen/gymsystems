@@ -18,7 +18,9 @@
     "i18n": "ngx-translate-extract -i ./src/app -o ./src/i18n/template.json ./src/i18n/no.json ./src/i18n/en.json --clean --sort",
     "snyk": "snyk",
     "doc:gen": "npx compodoc -p src/tsconfig.app.json",
-    "doc:serve": "npx compodoc -s"
+    "doc:serve": "npx compodoc -s",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "engines": {
     "node": ">=10.9.3"
@@ -70,7 +72,7 @@
     "moment": "^2.24.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.3",
-    "snyk": "^1.228.3",
+    "snyk": "^1.231.0",
     "subscriptions-transport-ws": "^0.9.16",
     "zone.js": "^0.10.2"
   },
@@ -104,5 +106,6 @@
     "webpack": "^4.40.2",
     "webpack-cli": "^3.3.9",
     "webpack-node-externals": "^1.7.2"
-  }
+  },
+  "snyk": true
 }
