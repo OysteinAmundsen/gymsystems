@@ -43,7 +43,7 @@
   "devDependencies": {
     "artillery": "^1.6.0-28",
     "concurrently": "^4.1.2",
-    "husky": "^3.0.5",
+    "husky": "^4.0.2",
     "snyk": "^1.226.1"
   },
   "snyk": true,
