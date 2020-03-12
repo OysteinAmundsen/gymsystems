@@ -59,7 +59,7 @@
     "helmet": "^3.21.1",
     "json2csv": "^4.5.3",
     "lodash": "^4.17.15",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "morgan-body": "^2.4.8",
