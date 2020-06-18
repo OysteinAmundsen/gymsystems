@@ -74,7 +74,7 @@
     "rotating-file-stream": "^1.4.3",
     "rxjs": "^6.5.3",
     "sendmail": "^1.6.1",
-    "snyk": "^1.258.2",
+    "snyk": "^1.316.1",
     "swagger-ui-express": "^4.1.1",
     "typeorm": "^0.2.19",
     "v8-compile-cache": "^2.1.0",
