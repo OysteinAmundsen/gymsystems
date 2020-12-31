@@ -34,7 +34,7 @@
     "src"
   ],
   "dependencies": {
-    "@nestjs/common": "^6.7.2",
+    "@nestjs/common": "^7.6.5",
     "@nestjs/core": "^6.7.2",
     "@nestjs/graphql": "^6.5.1",
     "@nestjs/jwt": "^6.1.1",
