@@ -76,7 +76,7 @@
     "sendmail": "^1.6.1",
     "snyk": "^1.316.1",
     "swagger-ui-express": "^4.1.1",
-    "typeorm": "^0.2.19",
+    "typeorm": "^0.2.25",
     "v8-compile-cache": "^2.1.0",
     "winston": "^3.2.1"
   },
