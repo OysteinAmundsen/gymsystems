@@ -55,7 +55,7 @@
     "graphql-subscriptions": "^1.1.0",
     "graphql-tools": "^4.0.5",
     "graphql-type-json": "^0.3.0",
-    "handlebars": "^4.3.0",
+    "handlebars": "^4.7.7",
     "helmet": "^3.21.1",
     "json2csv": "^4.5.3",
     "lodash": "^4.17.15",
