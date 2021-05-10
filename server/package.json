@@ -58,7 +58,7 @@
     "handlebars": "^4.3.0",
     "helmet": "^3.21.1",
     "json2csv": "^4.5.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mkdirp": "^1.0.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
